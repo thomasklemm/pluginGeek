@@ -27,14 +27,10 @@ In the beginning Knight.io will target: Ruby Gems and Rails Plugins; Javascript 
 
 Knight.io is itself an Open Source webapp, its code hosted on Github. I myself am fairly new to programming, and founded Knight.io to serve my own needs. I spend a lot of time looking for the right tool for the job, now it should come to me.
 
-Inspirations:
-	
-	There have been a few sites trying to tame the open source hydra. I thank 
-
 How does Knight.io differ from 'x'?
 	- The Ruby Toolbox: I quite like it. However it takes quite long for projects to get in and even longer for them to get out if they are deprecated. I find myself confronted needing to filter out stuff that As well it seems that their rating mechanism differs from what I need and look forward to find.
 
-Inspiration came from:
+Inspiration:
 	- [The Ruby Toolbox](http://ruby-toolbox.com)
 	- [Toolbox.no.de](toolbox.no.de)
 	- The many sites highlighting selected great jQuery Plugins
