@@ -31,6 +31,9 @@ gem "letter_opener", :group => :development
 # Quiet Assets in development, keep log clean
 gem 'quiet_assets', :group => :development
 
+# Curb
+gem 'curb'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
