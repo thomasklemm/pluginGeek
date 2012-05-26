@@ -11,6 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120526080446) do
+
+  create_table "repos", :force => true do |t|
+    t.string   "owner"
+    t.string   "name"
+    t.string   "watchers"
+    t.string   "forks"
+    t.string   "description"
+    t.string   "url_github"
+    t.string   "url_homepage"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
 end
