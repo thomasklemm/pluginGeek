@@ -1,7 +1,8 @@
 Knight::Application.routes.draw do
-  get "repos/index"
+  
+  get "/repos" => "repos#index", as: :repos
 
-  get "repos/show"
+  get "/:owner/:name(/:leftover)" => "repos#show", as: :repo
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -52,7 +53,7 @@ Knight::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root to: "repos#index"
 
   # See how all your routes lay out with "rake routes"
 
