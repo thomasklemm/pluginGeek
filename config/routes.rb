@@ -1,4 +1,8 @@
 Knight::Application.routes.draw do
+  get "repos/index"
+
+  get "repos/show"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
