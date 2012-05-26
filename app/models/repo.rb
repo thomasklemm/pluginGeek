@@ -29,11 +29,12 @@ class Repo < ActiveRecord::Base
 	end
 
 	def self.update_all_repos_from_github
-		self.find_each(batch_size: 5) do |repo|
+		self.find_each(batch_size: 100) do |repo|
 			repo.regular_update_from_github
 		end
 	end
 
+	# TODO: May only update attributes that can change like description, homepage_url, watchers, forks?
 	def regular_update_from_github
 		if update_from_github
 			puts "Repo '#{full_name}' successfully updated."
@@ -44,6 +45,7 @@ class Repo < ActiveRecord::Base
 		end
 	end
 
+	# CHECK: Should this method be split up?
 	def update_from_github
 
 		github_api_url = GITHUB_REPOS_API_URL + full_name
