@@ -28,6 +28,9 @@ gem "slim-rails"
 # Letter Opener in Development -> Preview emails without actually sending them
 gem "letter_opener", :group => :development
 
+# Quiet Assets in development, keep log clean
+gem 'quiet_assets', :group => :development
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
