@@ -13,9 +13,6 @@ class Repo < ActiveRecord::Base
     self[:homepage_url] or ""
   end
 
-  def full_name_from_owner_and_name(owner, name)
-    "#{owner}/#{name}"
-  end
 
 
   # Github attribute mapping

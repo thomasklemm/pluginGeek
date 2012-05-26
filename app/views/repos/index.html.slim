@@ -1,4 +1,6 @@
 h1 Repos#index
 p Find me in app/views/repos/index.html.slim
 
-= debug @repos
+- @repos.each do |repo|
+  = debug repo
+  = link_to "Show Repo", repo.full_name

@@ -1,8 +1,11 @@
 Knight::Application.routes.draw do
   
-  get "/repos" => "repos#index", as: :repos
+  # get "repos" => "repos#index", as: :repos
 
-  get "/:owner/:name(/:leftover)" => "repos#show", as: :repo
+  # get ":owner/:name(/*leftover)" => "repos#show", as: :repo, :constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
+
+  # get "repos/:full_name" => "repos#create"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
