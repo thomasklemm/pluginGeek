@@ -1,8 +1,10 @@
 class Repo < ActiveRecord::Base
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :owner, :name
-
+  
+  #
   # Attribute defaults
+  #
   def description
     self[:description] or "No description given."
   end
@@ -18,6 +20,7 @@ class Repo < ActiveRecord::Base
       :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"] ]
   GITHUB_REPOS_API_URL = "https://api.github.com/repos/"
 
+  # First time a repo is added
   def first_update_from_github
     if update_from_github
       logger.info "Repo '#{full_name}' successfully updated for the first time with first_update_from_github."
@@ -28,6 +31,7 @@ class Repo < ActiveRecord::Base
     end
   end
 
+  # Job updating all repos from github
   def self.update_all_repos_from_github
     self.find_each(batch_size: 100) do |repo|
       repo.regular_update_from_github
@@ -48,6 +52,7 @@ class Repo < ActiveRecord::Base
   # CHECK: Should this method be split up?
   def update_from_github
 
+    # Github API Request
     github_api_url = GITHUB_REPOS_API_URL + full_name
     http = Curl::Easy.perform(github_api_url)
     github_repo = JSON.parse(http.body_str)
