@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Web server
-# [CHECK] Is this the right order in which to load things?
+# CHECK: Is this the right order in which to load things?
 gem 'thin'
 
 # Rails
