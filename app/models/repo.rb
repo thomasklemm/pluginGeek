@@ -20,10 +20,10 @@ class Repo < ActiveRecord::Base
 
 	def first_update_from_github
 		if update_from_github
-			puts "Repo '#{full_name}' successfully updated for the first time with first_update_from_github."
+			logger.info "Repo '#{full_name}' successfully updated for the first time with first_update_from_github."
 			return true
 		else
-			puts "Repo '#{full_name}' could not be found on Github. Aborting."
+			logger.error "Repo '#{full_name}' could not be found on Github. Aborting."
 			return false
 		end
 	end
@@ -37,10 +37,10 @@ class Repo < ActiveRecord::Base
 	# TODO: May only update attributes that can change like description, homepage_url, watchers, forks?
 	def regular_update_from_github
 		if update_from_github
-			puts "Repo '#{full_name}' successfully updated."
+			logger.info "Repo '#{full_name}' successfully updated."
 			return true
 		else
-			puts "Repo '#{full_name}' could not be found on Github. Aborting."
+			logger.error "Repo '#{full_name}' could not be found on Github. Aborting."
 			return false
 		end
 	end
