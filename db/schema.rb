@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120526080446) do
+ActiveRecord::Schema.define(:version => 20120526081704) do
 
   create_table "repos", :force => true do |t|
     t.string   "owner"
@@ -19,10 +19,13 @@ ActiveRecord::Schema.define(:version => 20120526080446) do
     t.string   "watchers"
     t.string   "forks"
     t.string   "description"
-    t.string   "url_github"
-    t.string   "url_homepage"
+    t.string   "github_url"
+    t.string   "homepage_url"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "full_name"
   end
+
+  add_index "repos", ["full_name"], :name => "index_repos_on_full_name"
 
 end

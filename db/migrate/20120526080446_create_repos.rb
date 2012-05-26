@@ -6,8 +6,8 @@ class CreateRepos < ActiveRecord::Migration
       t.string :watchers
       t.string :forks
       t.string :description
-      t.string :url_github
-      t.string :url_homepage
+      t.string :github_url
+      t.string :homepage_url
 
       t.timestamps
     end
