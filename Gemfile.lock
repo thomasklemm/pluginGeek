@@ -78,6 +78,8 @@ GEM
       activesupport (= 3.2.3)
       bundler (~> 1.0)
       railties (= 3.2.3)
+    rails-footnotes (3.7.8)
+      rails (>= 3.0.0)
     railties (3.2.3)
       actionpack (= 3.2.3)
       activesupport (= 3.2.3)
@@ -132,6 +134,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 3.2.3)
+  rails-footnotes (>= 3.7.5.rc4)
   sass-rails (~> 3.2.3)
   slim-rails
   sqlite3
