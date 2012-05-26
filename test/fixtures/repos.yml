@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  owner: MyString
+  name: MyString
+  watchers: MyString
+  forks: MyString
+  description: MyString
+  url_github: MyString
+  url_homepage: MyString
+
+two:
+  owner: MyString
+  name: MyString
+  watchers: MyString
+  forks: MyString
+  description: MyString
+  url_github: MyString
+  url_homepage: MyString
