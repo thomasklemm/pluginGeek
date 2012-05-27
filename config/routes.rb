@@ -1,5 +1,9 @@
 Knight::Application.routes.draw do
   
+  resources :repos do
+    get ":owner/:name(/*leftover)" => "repos#show", on: :collection
+  end
+
   # get "repos" => "repos#index", as: :repos
 
   # get ":owner/:name(/*leftover)" => "repos#show", as: :repo, :constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }

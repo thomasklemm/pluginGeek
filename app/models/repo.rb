@@ -1,6 +1,14 @@
 class Repo < ActiveRecord::Base
+
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :owner, :name
+
+  # Validations
+  # validates :full_name, uniqueness: true
+
+  # FriendlyId
+  extend FriendlyId
+  friendly_id :full_name
   
   #
   # Attribute defaults

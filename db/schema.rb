@@ -26,6 +26,6 @@ ActiveRecord::Schema.define(:version => 20120526081704) do
     t.string   "full_name"
   end
 
-  add_index "repos", ["full_name"], :name => "index_repos_on_full_name"
+  add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
 
 end
