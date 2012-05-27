@@ -7,4 +7,7 @@ html
     = csrf_meta_tags
 
   body class=controller_name
+    - if flash
+      - flash.each do |name, msg|
+        p #{name.upcase}: #{msg}
     = yield
