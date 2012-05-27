@@ -3,15 +3,17 @@
 p Page to display an input for a github username, and if submitted with name to show all repos of this user to be selected for entry into Knight.io
 
 form action="#{ new_repo_path }" method="GET"
-  label Github Username
-  input type="text" name="github_user"
-  button type="Submit" Select repos
+  label Github Login
+  input type="text" name="github_login"
+  button type="Submit" Show repos
 
 - if @github_user
   = debug @github_user
+- elsif @github_login
+    p "User '#{ @github_login }' could not be found on Github."
 
 - if @github_user_repos
-  form action="#{ new_repo_path }" method="POST"
+  form action="#{ create_many_repos_path }" method="POST"
 
     - @github_user_repos.each_with_index do |repo, i|
       div.repo

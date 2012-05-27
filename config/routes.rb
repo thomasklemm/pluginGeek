@@ -5,7 +5,7 @@ Knight::Application.routes.draw do
     get ":owner/:name(/*leftover)" => "repos#show", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
   end
 
-  post "repos/new" => "repos#create_many"
+  post "repos/create_many" => "repos#create_many", as: :create_many_repos
 
   # TODO: only allow repos resources routes that matter.
 

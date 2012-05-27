@@ -14,6 +14,7 @@ class ReposController < ApplicationController
     @repo.new_record? and return redirect_to action: "create"
   end
 
+  # Create ONE Repo
   def create
     @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
 
@@ -29,11 +30,12 @@ class ReposController < ApplicationController
   end
 
   def new
-    user = params[:github_user]
+    github_login = params[:github_login]
     
-    if user 
-      @github_user = github_user(user)
-      @github_user_repos = github_user_repos(user)
+    if github_login
+      @github_login = github_login
+      @github_user = github_user(github_login)
+      @github_user_repos = github_user_repos(github_login)
     end
 
   end
@@ -56,16 +58,21 @@ protected
     "#{owner}/#{name}"
   end
 
-  def github_user(user = params[:github_user])
-    github_api_url = "https://api.github.com/users/" + user
-    http = Curl::Easy.perform(github_api_url)
-    github_user = JSON.parse(http.body_str)
+  def github_user(login)
+    github_users_api_request(login, :user)
   end
 
-  def github_user_repos(user = params[:github_user])
-    github_api_url = "https://api.github.com/users/" + user + "/repos"
+  def github_user_repos(login)
+    github_users_api_request(login, :user_repos)
+  end
+
+  def github_users_api_request(login, scope)
+    github_api_url = "https://api.github.com/users/" + login
+    github_api_url += "/repos" if scope == :user_repos
     http = Curl::Easy.perform(github_api_url)
-    github_user_repos = JSON.parse(http.body_str)
+    res = JSON.parse(http.body_str)
+    res = false if http.response_code == 404
+    res
   end
 
 end
