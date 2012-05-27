@@ -1,15 +1,11 @@
 Knight::Application.routes.draw do
   
   resources :repos do
-    get ":owner/:name(/*leftover)" => "repos#show", on: :collection
+    get ":owner/:name(/*leftover)" => "repos#show", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
   end
 
-  # get "repos" => "repos#index", as: :repos
-
-  # get ":owner/:name(/*leftover)" => "repos#show", as: :repo, :constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
-
-  # get "repos/:full_name" => "repos#create"
-
+  # For when to implement json response for repos#show
+  # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
