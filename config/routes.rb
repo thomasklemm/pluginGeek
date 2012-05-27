@@ -5,6 +5,8 @@ Knight::Application.routes.draw do
     get ":owner/:name(/*leftover)" => "repos#show", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
   end
 
+  # TODO: only allow repos resources routes that matter.
+
   # For when to implement json response for repos#show
   # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
 

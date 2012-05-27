@@ -63,6 +63,7 @@ class Repo < ActiveRecord::Base
 
     # Github API Request
     github_api_url = GITHUB_REPOS_API_URL + full_name
+    puts github_api_url
     http = Curl::Easy.perform(github_api_url)
     github_repo = JSON.parse(http.body_str)
     
@@ -78,11 +79,7 @@ class Repo < ActiveRecord::Base
 
     GITHUB_ATTRIBUTES.each do |repo_attr, github_attr|
       # Casts String to Array
-      if github_attr.kind_of? String
-        h = github_attr.split
-      else
-        h = github_attr
-      end
+      github_attr.kind_of?(String) ? h = github_attr.split : h = github_attr
 
       # Recursive lookup and assignment
       h.length.times do |index|
