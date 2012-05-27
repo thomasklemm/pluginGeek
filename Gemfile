@@ -37,6 +37,9 @@ gem 'curb'
 # Rails Footnotes
 gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
 
+# Friendly Id
+gem 'friendly_id'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -44,6 +44,7 @@ GEM
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    friendly_id (4.0.6)
     high_voltage (1.1.1)
     hike (1.2.1)
     i18n (0.6.0)
@@ -129,6 +130,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   curb
+  friendly_id
   high_voltage
   letter_opener
   pg
