@@ -1,0 +1,34 @@
+# New.html.slim
+
+p Page to display an input for a github username, and if submitted with name to show all repos of this user to be selected for entry into Knight.io
+
+form action="#{ new_repo_path }" method="GET"
+  label Github Username
+  input type="text" name="github_user"
+  button type="Submit" Select repos
+
+- if @github_user
+  = debug @github_user
+
+- if @github_user_repos
+  form action="#{ new_repo_path }" method="POST"
+
+    - @github_user_repos.each_with_index do |repo, i|
+      div.repo
+        input type="checkbox" name="repos[#{ i }]" value="#{ repo['full_name'] }" Add to Knight.io
+        br
+        span = repo['full_name']
+        span = repo['language']
+        br
+        span = repo['watchers']
+        span = repo['forks']
+        span = repo['open_issues']
+        br
+        span: a href="#{ repo['html_url'] }" target="_blank" Github
+        - if repo['homepage']
+          span: a href="#{ repo['homepage'] }" target="_blank" Homepage
+
+        br
+        br
+
+    button type="submit" Add selected repos to knight.io

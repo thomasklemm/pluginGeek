@@ -4,7 +4,7 @@ class Repo < ActiveRecord::Base
   attr_accessible :full_name, :owner, :name
 
   # Validations
-  # validates :full_name, uniqueness: true
+  validates :full_name, uniqueness: true
 
   # FriendlyId
   extend FriendlyId
@@ -63,7 +63,6 @@ class Repo < ActiveRecord::Base
 
     # Github API Request
     github_api_url = GITHUB_REPOS_API_URL + full_name
-    puts github_api_url
     http = Curl::Easy.perform(github_api_url)
     github_repo = JSON.parse(http.body_str)
     
