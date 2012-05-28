@@ -8,7 +8,7 @@ html
 
   body class=controller_name
     - if flash
-      - flash.each do |name, msg|
-        p #{name.upcase}: #{msg}
+      - flash.each do |key, msg|
+        p #{key.upcase}: #{msg}
         
     = yield
