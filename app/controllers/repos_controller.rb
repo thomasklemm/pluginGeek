@@ -5,14 +5,14 @@ class ReposController < ApplicationController
   end
 
   def show
-    @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
+    @repo = Repo.find_by_full_name(full_name_from_params)
 
     # Always redirect to base
     #   Be sure to return to finish request
     params[:leftover] and return redirect_to @repo
 
     # Redirect to create action if @repo is a new record
-    @repo.new_record? and return redirect_to action: "create"
+    @repo or return redirect_to action: "create"
   end
 
   def create
@@ -20,7 +20,7 @@ class ReposController < ApplicationController
 
     @repo.new_record? or flash[:notice] = "Repo '#{@repo.full_name}' already known."
     
-    if @repo.first_update_from_github
+    if @repo.create_and_update_from_github
       flash[:notice] ||= "Repo '#{@repo.full_name}' successfully added."
       redirect_to @repo
     else
