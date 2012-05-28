@@ -1,0 +1,9 @@
+h1 Users#show
+p Find me in app/views/users/show.html.slim
+
+/ User
+= debug @user
+
+/ Repos
+- @repos.each do |repo|
+  = debug repo

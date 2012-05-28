@@ -1,5 +1,5 @@
 Knight::Application.routes.draw do
-  
+
   resources :repos do
     get ":owner" => "users#show", on: :collection
     get ":owner/new" => "users#new", on: :collection
