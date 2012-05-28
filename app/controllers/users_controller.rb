@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     login = login_from_params
     @user = User.find_or_initialize_by_login(login)
 
-    @user.new_record? and return redirect_to action: "users#create"
+    @user.new_record? and return redirect_to action: "create"
 
     @repos = Repo.find_all_by_owner(login)
 
@@ -27,11 +27,14 @@ class UsersController < ApplicationController
     if @user.new_record?
       @user.create_and_update_from_github
       flash[:notice] = "User #{ @user.login } successfully added."
+      redirect_to action: "new"
+
     else
       flash[:notice] = "User #{ @user.login } already known."
+      redirect_to action: "show"
+      
     end
 
-    redirect_to action: "new"
 
       # github.users.get(login)
       # github.repos.get(owner, name)
