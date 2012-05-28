@@ -1,9 +1,9 @@
 Knight::Application.routes.draw do
   
   resources :repos do
-    get ":owner" => "repos#user_show", on: :collection
-    get ":owner/new" => "repos#user_new", on: :collection
-    get ":owner/create" => "repos#user_create", on: :collection
+    get ":owner" => "users#show", on: :collection
+    get ":owner/new" => "users#new", on: :collection
+    post ":owner/create" => "users#create", on: :collection
     get ":owner/:name/create" => "repos#create", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     get ":owner/:name(/*leftover)" => "repos#show", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
   end
