@@ -1,4 +1,9 @@
 class ReposController < ApplicationController
+
+  #
+  # Repo Actions
+  #
+
   def index
     @repos = Repo.all
   end
@@ -27,6 +32,26 @@ class ReposController < ApplicationController
       redirect_to root_path
     end
   end
+
+  #
+  # User Actions
+  #
+
+  def user_show
+    @repos = Repo.find_by_owner(params[:owner])
+  end
+
+  # List users repos + give ability to add more directly from github
+  def user_new
+    @repos = Repo.find_by_owner(params[:owner])
+  end
+
+  # Process input from user_new
+  def user_create
+
+  end
+
+
 
 protected
 

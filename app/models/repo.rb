@@ -20,7 +20,7 @@ class Repo < ActiveRecord::Base
   def homepage_url
     self[:homepage_url] or ""
   end
-
+  # / Attribute defaults
 
 
   # Github attribute mapping
@@ -30,7 +30,7 @@ class Repo < ActiveRecord::Base
   GITHUB_REPOS_API_URL = "https://api.github.com/repos/"
 
   # First time a repo is added
-  def first_update_from_github
+  def create_and_update_from_github
     if update_from_github
       logger.info "Repo '#{full_name}' successfully updated for the first time with first_update_from_github."
       return true
