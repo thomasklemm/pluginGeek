@@ -22,6 +22,9 @@ class Repo < ActiveRecord::Base
   end
   # / Attribute defaults
 
+  # Tagging
+  acts_as_ordered_taggable_on :categories
+
 
   # Github attribute mapping
   GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name", 

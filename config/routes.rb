@@ -1,5 +1,9 @@
 Knight::Application.routes.draw do
 
+  get "categories/index"
+
+  get "categories/show"
+
   resources :repos do
 
     get ":owner" => "users#show", on: :collection
