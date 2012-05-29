@@ -3,6 +3,9 @@ class Repo < ActiveRecord::Base
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :owner, :name
 
+  # Default scope
+  # default_scope: order('watchers DESC')
+
   # Validations
   validates :full_name, uniqueness: true
 
@@ -24,6 +27,7 @@ class Repo < ActiveRecord::Base
 
   # Tagging
   acts_as_ordered_taggable_on :categories
+
 
 
   # Github attribute mapping
