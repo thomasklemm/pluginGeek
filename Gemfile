@@ -46,6 +46,9 @@ gem 'github_api'
 # jQuery Rails
 gem 'jquery-rails'
 
+# Acts as Taggable On
+gem 'acts-as-taggable-on'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
