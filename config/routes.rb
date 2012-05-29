@@ -9,6 +9,7 @@ Knight::Application.routes.draw do
  
     get ":owner/:name/create" => "repos#create", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     get ":owner/:name(/*leftover)" => "repos#show", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
+    delete ":owner/:name" => "repos#destroy", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
   
   end
 

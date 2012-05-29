@@ -43,6 +43,9 @@ gem 'friendly_id'
 # Github Api Wrapper
 gem 'github_api'
 
+# jQuery Rails
+gem 'jquery-rails'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
