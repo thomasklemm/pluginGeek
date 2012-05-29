@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if @user.new_record?
       @user.create_and_update_from_github
       flash[:notice] = "User #{ @user.login } successfully added."
-      redirect_to action: "new"
+      redirect_to action: "show"
 
     else
       flash[:notice] = "User #{ @user.login } already known."
