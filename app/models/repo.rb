@@ -1,7 +1,7 @@
 class Repo < ActiveRecord::Base
 
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :owner, :name
+  attr_accessible :full_name, :owner, :name, :category_list
 
   # Default scope
   default_scope order: 'watchers desc'
