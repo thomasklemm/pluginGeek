@@ -1,6 +1,13 @@
 class Category < ActiveRecord::Base
+
+  # Mass Assignment Whitelist
   attr_accessible :description
 
+  # Friendly Id
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  # Job to update Category table
   def self.update
     tags = Repo.tag_counts_on(:categories)
     tags.each do |tag|
