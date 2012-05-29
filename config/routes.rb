@@ -1,10 +1,7 @@
 Knight::Application.routes.draw do
 
-  get "categories/index"
 
-  get "categories/show"
-
-  resources :repos do
+  resources :repos, only: [:index, :show] do
 
     get ":owner" => "users#show", on: :collection
     get ":owner/new" => "users#new", on: :collection
@@ -16,6 +13,8 @@ Knight::Application.routes.draw do
     delete ":owner/:name" => "repos#destroy", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
   
   end
+
+  resources :categories, only: [:index, :show]
 
   # TODO: only allow repos resources routes that matter.
 
@@ -71,7 +70,7 @@ Knight::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root to: "repos#index"
+  root to: "categories#index"
 
   # See how all your routes lay out with "rake routes"
 

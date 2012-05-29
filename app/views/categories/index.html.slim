@@ -1,2 +1,6 @@
 h1 Categories#index
 p Find me in app/views/categories/index.html.slim
+
+- @tags.each do |tag| 
+  = debug tag
+  = link_to "Show Repos", tag

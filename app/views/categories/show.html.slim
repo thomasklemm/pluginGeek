@@ -1,2 +1,8 @@
 h1 Categories#show
 p Find me in app/views/categories/show.html.slim
+
+= debug @tag
+
+- @repos.each do |repo|
+  = debug repo
+  = link_to "Show Repo", repo
