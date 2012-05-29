@@ -25,16 +25,16 @@ ActiveRecord::Schema.define(:version => 20120529101425) do
   add_index "categories", ["name"], :name => "index_categories_on_name", :unique => true
 
   create_table "repos", :force => true do |t|
+    t.string   "full_name"
     t.string   "owner"
     t.string   "name"
-    t.string   "watchers"
-    t.string   "forks"
+    t.integer  "watchers"
+    t.integer  "forks"
     t.string   "description"
     t.string   "github_url"
     t.string   "homepage_url"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.string   "full_name"
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
