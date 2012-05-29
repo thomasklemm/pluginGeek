@@ -14,6 +14,7 @@ class Category < ActiveRecord::Base
   # Update Category table job
   def self.update
     tags = Repo.tag_counts_on(:categories)
+
     tags.each do |tag|
       category = self.find_or_initialize_by_name(tag.name)
 
@@ -35,7 +36,8 @@ class Category < ActiveRecord::Base
       category[:repo_count] = tag.count
 
       # Watcher Count
-      category[:watcher_count] = repos.sum { |repo| repo.watchers }
+      category[:watcher_count] = repos.sum(&:watchers)
+      # category[:watcher_count] = repos.sum { |repo| repo.watchers }
 
       # Save category
       category.save
