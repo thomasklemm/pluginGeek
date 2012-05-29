@@ -52,6 +52,9 @@ gem 'acts-as-taggable-on'
 # Awesome Print in console in development
 gem 'awesome_print', :group => :development
 
+# Bourbon Sass
+gem 'bourbon'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
