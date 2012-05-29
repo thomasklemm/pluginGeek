@@ -4,7 +4,7 @@ class Repo < ActiveRecord::Base
   attr_accessible :full_name, :owner, :name
 
   # Default scope
-  # default_scope: order('watchers DESC')
+  default_scope order: 'watchers desc'
 
   # Validations
   validates :full_name, uniqueness: true
