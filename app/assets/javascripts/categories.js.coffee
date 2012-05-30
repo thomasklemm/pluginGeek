@@ -1,3 +1,8 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$ ->
+  options =
+    valueNames: ['name', 'description', 'repo_count', 'watcher_count', 'popular_repos', 'all_repos']
+
+  tag_list = new List('js_tag_list', options)
+
+  $(".reset").click  ->
+    tag_list.filter()

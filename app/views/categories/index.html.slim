@@ -1,10 +1,22 @@
 .container
-  h1 				Knight.io
-  h4.subheader 	We make it easy for developers to discover great ruby gems for their projects
+  .row
+    .twelve.columns
+      h1        Knight.io
+      h4.subheader  We make it easy for developers to discover great ruby gems for their projects
 
 .container#tags_o
-	.row
-		.twelve.columns#tags_i
+  .row
+    .twelve.columns#tags_i
 
+      div id="js_tag_list"
 
-			= render partial: "tag", collection: @tags
+        input.search
+
+        span.sort data-sort="name"            Name
+        span.sort data-sort="repo_count"      Repo Count
+        span.sort data-sort="watcher_count"   Watcher Count
+
+        span.reset Reset
+
+        div class="list tags"
+          = render partial: "tag", collection: @tags
