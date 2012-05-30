@@ -7,7 +7,7 @@ html
     = javascript_include_tag 'application'
     = csrf_meta_tags
 
-  body class=controller_name
+  body class=controller_name style="background: url('#{ asset_path("backgrounds/Background_02.png") }')"
     - if flash
       - flash.each do |key, msg|
         p #{key.upcase}: #{msg}
