@@ -22,7 +22,6 @@
 
   @include border-radius(2px)
 
-
 .sort, .reset
   display: inline-block
   text-align: center
@@ -55,7 +54,31 @@
   color: #fff
 
 .sort:first-of-type
-  margin-left: 226px
+  margin-left: 147px
+
+// Sort Icon
+
+.sort_icon:before
+  font-family: 'Pictos Custom'
+  margin-right: 4px
+  font-size: 22px
+  line-height: 0
+  vertical-align: middle
+  color: #888
+
+.sort_icon.active:before
+  color: #ddd
+
+.sort_icon.repo_count:before
+  content: "r"
+
+.sort_icon.watcher_count:before
+  content: "e"
+
+.sort_icon.name:before
+  content: "n"
+
+// Tags
 
 .tags
   padding-top: 10px
