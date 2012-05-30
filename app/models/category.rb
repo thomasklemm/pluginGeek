@@ -1,7 +1,8 @@
 class Category < ActiveRecord::Base
 
   # Mass Assignment Whitelist
-  attr_accessible :description
+  # FIXME: Name only needs to be accessible in development and test env
+  attr_accessible :description, :name
 
   # Friendly Id
   extend FriendlyId
@@ -20,7 +21,7 @@ class Category < ActiveRecord::Base
 
       # Popular Repos and All Repos (String)
       repos = Repo.tagged_with(tag)
-      
+
       # Popular Repos
       popular_repos = []
       repos[0..3].each { |repo| popular_repos << repo.full_name }

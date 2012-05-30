@@ -1,6 +1,7 @@
 class Repo < ActiveRecord::Base
 
   # Whitelisting attributes for mass assignment
+  # FIXME: category_list only needs to be accessible in development and test env
   attr_accessible :full_name, :owner, :name, :category_list
 
   # Default scope
@@ -12,7 +13,7 @@ class Repo < ActiveRecord::Base
   # FriendlyId
   extend FriendlyId
   friendly_id :full_name
-  
+
   #
   # Attribute defaults
   #
@@ -31,8 +32,8 @@ class Repo < ActiveRecord::Base
 
 
   # Github attribute mapping
-  GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name", 
-      :description => "description", :watchers => "watchers", :forks => "forks", 
+  GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name",
+      :description => "description", :watchers => "watchers", :forks => "forks",
       :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"] ]
   GITHUB_REPOS_API_URL = "https://api.github.com/repos/"
 
@@ -72,7 +73,7 @@ class Repo < ActiveRecord::Base
     github_api_url = GITHUB_REPOS_API_URL + full_name
     http = Curl::Easy.perform(github_api_url)
     github_repo = JSON.parse(http.body_str)
-    
+
     if github_repo["message"]
       # Something has gone wrong
       # Probably: Repo does not exist (any more)
@@ -94,7 +95,7 @@ class Repo < ActiveRecord::Base
         else
           self[repo_attr] = self[repo_attr][h[index]]
         end
-      end       
+      end
     end
 
     # Save
