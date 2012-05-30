@@ -1,8 +1,7 @@
 .tag
-	span.name           = tag.name
+	= link_to tag.name, tag
 	span.watcher_count  = tag.watcher_count
 	span.repo_count     = tag.repo_count
 	span.description    = tag.description
 	span.popular_repos  = tag.popular_repos
 	span.all_repos style="display: none" = tag.all_repos
-	span.link = link_to "Show Repos", tag
