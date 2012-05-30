@@ -1,4 +1,3 @@
-//= require jquery
 //= require jquery_ujs
 //= require list
 //= require list.fuzzySearch
