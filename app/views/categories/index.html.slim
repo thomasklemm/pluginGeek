@@ -1,20 +1,17 @@
-.container
-  .row
-    .twelve.columns
-      h1        Knight.io
-      h4.subheader  We make it easy for developers to discover great ruby gems for their projects
-
 .container#tags_o
   .row
     .twelve.columns#tags_i
 
+      h1 Knight.io
+      h4.subheader  We make it easy for developers to discover great ruby gems for their projects
+
       div id="js_tag_list"
 
-        input.search
+        input.search placeholder="Knight.io Ruby Gem Search"
 
-        span.sort data-sort="name"            Name
+        span.sort.active.initial_sort data-sort="watcher_count"   Watcher Count
         span.sort data-sort="repo_count"      Repo Count
-        span.sort data-sort="watcher_count"   Watcher Count
+        span.sort data-sort="name"            Name
 
         span.reset Reset
 

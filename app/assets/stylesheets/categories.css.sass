@@ -3,10 +3,69 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // Categories Index
+
+#tags_i
+  max-width: 600px
+
+.search
+  display: block
+  border-right: 1px solid #bbb
+  border-bottom: 1px solid #bbb
+
+  padding: 5px 5px 6px
+  background: #fff
+  font-size: 15px
+  margin-bottom: 1em
+  margin-top: 0.5em
+
+  width: 587px
+
+  @include border-radius(2px)
+
+
+.sort, .reset
+  display: inline-block
+  text-align: center
+  padding: 5px 10px 8px
+  text-decoration: none
+  font-weight: bold
+  font-size: 15px
+  line-height: 1
+  font-family: "Helvetica Neue", "Helvetica", Arial, Verdana, sans-serif
+  position: relative
+  cursor: pointer
+  border: none
+  outline: none
+  margin: 0
+  @include border-radius(3px)
+  margin-left: 5px
+  background-color: #e9e9e9
+  color: #333
+
+.sort:hover, .reset:hover
+  background-color: #d9d9d9
+  color: #333
+
+.sort.active
+  background: #00a6fc
+  color: #fff
+
+.sort.active:hover
+  background-color: #0192dd
+  color: #fff
+
+.sort:first-of-type
+  margin-left: 226px
+
+.tags
+  padding-top: 10px
+
+.tag
+  border-top: 1px solid #ccc
+
 .tag
   line-height: 24px
   padding: 10px 0
-  max-width: 600px
 
   .name
     float: left
