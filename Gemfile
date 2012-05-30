@@ -52,10 +52,13 @@ gem 'jquery-rails'
 gem 'acts-as-taggable-on'
 
 # Awesome Print in console in development
-gem 'awesome_print', :group => :development
+# gem 'awesome_print', :group => :development
 
 # Bourbon Sass
 gem 'bourbon'
+
+# Pry
+gem 'pry-rails', :group => :development
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
