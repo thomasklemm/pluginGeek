@@ -1,12 +1,5 @@
 h1 Categories#index
 p Find me in app/views/categories/index.html.slim
 
-- @tags.each do |tag| 
-  .tag
-    span.name           = tag.name
-    span.watcher_count  = tag.watcher_count
-    span.repo_count     = tag.repo_count
-    span.description    = tag.description
-    span.popular_repos  = tag.popular_repos
-    span.all_repos style="display: none" = tag.all_repos
-    span.link = link_to "Show Repos", tag
+= render partial: "tag", collection: @tags
+  
