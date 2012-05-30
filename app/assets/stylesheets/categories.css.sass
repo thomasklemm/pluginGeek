@@ -4,6 +4,9 @@
 
 // Categories Index
 
+body
+  background: image_url("backgrounds/Background_01.png")
+
 #tags_i
   max-width: 600px
 
@@ -12,15 +15,18 @@
   border-right: 1px solid #bbb
   border-bottom: 1px solid #bbb
 
-  padding: 5px 5px 6px
+  padding: 7px 10px 8px
   background: #fff
-  font-size: 15px
+  font-size: 16px
   margin-bottom: 1em
   margin-top: 0.5em
 
-  width: 587px
+  width: 577px
 
   @include border-radius(2px)
+
+.search:focus
+  outline: 4px #00a6fc solid !important
 
 .sort, .reset
   display: inline-block
@@ -84,7 +90,7 @@
   padding-top: 10px
 
 .tag
-  border-top: 1px solid #ccc
+  border-top: 1px solid #888
 
 .tag
   line-height: 24px
@@ -94,11 +100,12 @@
     float: left
     font-size: 18px
     margin-right: 0.8em
+    font-weight: bold
 
   .repo_count, .watcher_count
     float: left
     margin-left: 0.8em
-    color: #999
+    color: #aaa
 
   .repo_count:before, .watcher_count:before
     font-family: 'Pictos Custom'
@@ -116,9 +123,17 @@
 
   .popular_repos
     display: block
-    color: #888
+    color: #b5b5b5
 
   .all_repos
     display: none
 
+
+
+.ruby_icon
+  font-family: 'Pictos Custom'
+  margin-right: 4px
+  font-size: 22px
+  line-height: 0
+  vertical-align: middle
 

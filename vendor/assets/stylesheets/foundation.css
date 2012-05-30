@@ -72,7 +72,7 @@
 	sub {vertical-align: sub;}
 	sup {vertical-align: super;}
 
-	body { background: #fff; font-family: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif; font-size: 1.6em; line-height: 1.3125; line-height: 1.5; color: #555; position: relative; -webkit-font-smoothing: subpixel-antialiased; }
+	body { background: #fff; font-family: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif; font-size: 1.6em; line-height: 1.3125; line-height: 1.5; color: #eee; position: relative; -webkit-font-smoothing: subpixel-antialiased; }
 
 
 
