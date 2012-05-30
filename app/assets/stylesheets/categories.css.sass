@@ -18,13 +18,26 @@
 
   .repo_count, .watcher_count
     float: left
-    margin-left: 0.4em
+    margin-left: 0.8em
+    color: #999
+
+  .repo_count:before, .watcher_count:before
+    font-family: 'Pictos Custom'
+    content: "r"
+    margin-right: 4px
+    font-size: 22px
+    line-height: 0
+    vertical-align: middle
+
+  .watcher_count:before
+    content: "e"
 
   .description
     display: block
 
   .popular_repos
     display: block
+    color: #888
 
   .all_repos
     display: none
