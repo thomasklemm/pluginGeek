@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# Ruby Version on Heroku
+ruby "1.9.3"
 
 # Web server
 # CHECK: Is this the right order in which to load things?
