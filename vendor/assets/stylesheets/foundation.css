@@ -1,4 +1,3 @@
-/* Foundation v2.2.1 http://foundation.zurb.com */
 /* Artfully Masterminded by ZURB */
 
 /* --------------------------------------------------
@@ -210,7 +209,7 @@
 
 	.container { padding: 0 20px; }
 
-	.row { width: 100%; min-width: 727px; max-width: 980px; wmargin: 0 auto; }
+	.row { width: 100%; min-width: 500px; max-width: 800px; margin: 0 auto; }
 	/* To fix the grid into a certain size, set max-width to width */
 	.row .row { min-width: 0; }
 

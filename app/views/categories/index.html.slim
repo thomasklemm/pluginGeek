@@ -1,24 +1,26 @@
 .container#tags_o
   .row
-    .eight.columns.centered#tags_i
+    .twelve.columns.centered#tags_i
 
       div
-        h1 style="color: #888; margin-bottom: 5px" Knight.io
-        h4 style="color: #888; font-weight: normal; margin-bottom: 19px" We make it easy for developers <br /> to discover </span><span class="ruby_icon">r</span> <span style="color: #eee">great ruby gems </span><span class="ruby_icon">r</span> for their projects
+        h1 style="color: #888" Knight.io
+        h4 style="color: #888; font-weight: normal" We make it easy for developers <br /> to discover </span><span class="ruby_icon">r</span> <span style="color: #eee">great ruby gems </span><span class="ruby_icon">r</span> for their projects
+
+        .space05 style="border-bottom: 2px solid #555"
+        .space1
 
       div id="js_tag_list"
 
         input.search placeholder="Knight.io Ruby Gem Search"
 
         div.text-right
-          span.sort.active.initial_sort.sort_icon.watcher_count data-sort="watcher_count"   Watcher Count
-          span.sort.sort_icon.repo_count data-sort="repo_count"      Repo Count
-          span.sort.sort_icon.name data-sort="name"            Name
+          span.sort.sort_icon.initial_sort.active data-sort="watcher_count" data-icon="e" Watcher Count
+          span.sort.sort_icon.repo_count data-sort="repo_count" data-icon="r" Repo Count
+          span.sort.sort_icon.name data-sort="name" data-icon="n" Name
 
           span.reset Reset
 
-        / UGLY
-        div style="height: 1px"
+        .space15
 
         div class="list tags"
           = render partial: "tag", collection: @tags

@@ -1,17 +1,16 @@
 .tag
-  / Name
-  span.name = link_to tag.name, tag
 
-  / Stats
-  span.repo_count     = tag.repo_count
-  span.watcher_count  = tag.watcher_count
+  div.clearfix
+    / Name
+    span.name                         = link_to tag.name, tag
 
-  / REVIEW: Ugly
-  br
+    / Stats
+    span.repo_count data-icon="r"     = tag.repo_count
+    span.watcher_count data-icon="e"  = tag.watcher_count
 
   / Description
-  span.description    = tag.description
+  div.description                     = tag.description
 
   / Popular Repos
-  span.popular_repos  = tag.popular_repos
+  div.popular_repos                   = tag.popular_repos
   span.all_repos style="display: none" = tag.all_repos

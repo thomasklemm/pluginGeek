@@ -54,7 +54,7 @@ end
 # Categories
 category_list = [
   ['web application framework', 'Build web applications with style.'],
-  ['user management: authentication', 'User Authentication Plugins, that let you manage your users and handle signing in via Oauth Services (Twitter, Facebook, Github & more). There\'s a good railscasts that shows how an authentication solution can work.'],
+  ['user management: authentication', 'User Authentication Plugins that let you manage your users and handle signing in via Oauth Services (Twitter, Facebook, Github & more). There\'s a good railscasts that shows how an authentication solution can work.'],
   ['user management: authorization', 'Manage User Rights, User Roles & Abilities.'],
   ['design framework', 'Good foundation for your website styling.'],
   ['development server', 'Local Development Server with automatic reload capabilites. Speeds up your development.'],
