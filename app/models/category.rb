@@ -11,6 +11,8 @@ class Category < ActiveRecord::Base
   # Default scope
   default_scope order: 'watcher_count desc'
 
+  # Validation
+  validates :name, uniqueness: true
 
   # Update Category table job
   def self.update
