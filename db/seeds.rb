@@ -69,6 +69,7 @@ Repo.update_all_repos_from_github
 category_list.each do |category|
   category = Category.find_or_initialize_by_name(name: category[0])
   category[:description] = category[1]
+  category.save
 end
 
 # Update Category Attributes
