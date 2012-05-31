@@ -7,12 +7,12 @@ $ ->
   tag_list = new List('js_tag_list', options)
 
   $(".reset").click  ->
-    $(this).siblings(".search").val("")
+    $(this).parent().siblings(".search").val("")
     tag_list.search()
     tag_list.sort('watcher_count', {asc: false})
     $(this).siblings(".sort").removeClass("active")
     $(this).siblings(".initial_sort").addClass("active")
-    $(this).siblings(".search").focus()
+    $(this).parent().siblings(".search").focus()
 
   $(".sort").click ->
     $(this).addClass("active")

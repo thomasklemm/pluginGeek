@@ -793,3 +793,21 @@
 	form.nice div.form-field.error .small.oversize + small, form.nice .small.oversize + small.error { width: 136px; }
 	form.nice div.form-field.error .medium.oversize + small, form.nice .medium.oversize + small.error { width: 256px; }
 	form.nice div.form-field.error .large.oversize + small, form.nice .large.oversize + small.error { width: 436px; }
+
+/* Fading Border; Source: http://dribbble.com/shots/542527-Pure-CSS-Gradient-Faded-Border */
+.border-container {
+  width: 28%; /* border will be on the left on this container */
+  float: right;
+  overflow: hidden; /* only needed if floating container */
+  min-height: 600px; /* static height if you want your container to be taller than its content */
+  -moz-box-shadow: inset 15px 0 5px -16px rgba(0,0,0,.1), -1px 0 0 #FFF;
+  -webkit-box-shadow: inset 15px 0 5px -16px rgba(0,0,0,.1), -1px 0 0 #FFF;
+  box-shadow: inset 15px 0 5px -16px rgba(0,0,0,.1), -1px 0 0 #FFF;
+  border-width: 0 0 0 1px;
+  -webkit-border-image:
+    -webkit-gradient(linear, 0 100%, 0 0, from(rgba(0,0,0,.09)), to(rgba(0,0,0,0))) 1 100%;
+  -webkit-border-image:
+    -webkit-linear-gradient(top, rgba(0,0,0,.09), rgba(0,0,0,0)) 1 100%;
+  -moz-border-image:
+    -moz-linear-gradient(top, rgba(0,0,0,.09), rgba(0,0,0,0)) 1 100%;
+}

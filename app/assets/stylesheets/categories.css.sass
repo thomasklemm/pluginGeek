@@ -5,6 +5,7 @@
 // Categories Index
 
 .search
+  @include box-sizing(border-box)
   display: block
   border-right: 1px solid #bbb
   border-bottom: 1px solid #bbb
@@ -15,7 +16,12 @@
   margin-bottom: 1em
   margin-top: 0.5em
 
-  width: 96.8%
+  width: 100%
+  padding-left: 0 !important
+  padding-right: 0 !important
+  text-align: center
+
+
 
   @include border-radius(2px)
 
@@ -53,8 +59,8 @@
   background-color: #0192dd
   color: #fff
 
-.sort:first-of-type
-  margin-left: 186px
+.sort:last-of-type
+
 
 .reset
   background-color: #555
