@@ -6,6 +6,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+#   Copyable Item: ['', ''],
 
 
 # Repos
@@ -34,8 +36,12 @@ repo_list = [
   ['nathanl/authority', 'user management: authorization'],
   ['james2m/canard', 'user management: authorization'],
   ['mcrowe/roleable', 'user management: authorization'],
-  ['', ''],
-  ['', '']
+  ['37signals/mail_view', 'email: preview emails'],
+  ['sj26/mailcatcher', 'email: preview emails']
+  ['ryanb/letter_opener', 'email: preview emails'],
+  ['jeriko/app_drone', 'rails: project generators and templates'],
+  ['RailsApps/rails_apps_composer', 'rails: project generators and templates'],
+  ['RailsApps/rails3-application-templates', 'rails: project generators and templates']
 ]
 
 repo_list.each do |repo|
@@ -45,13 +51,14 @@ end
 # Categories
 category_list = [
   ['web application framework', 'Build web applications with style.'],
-  ['user management', 'Authentication and Authorization plugins especially for your Rails apps.'],
+  ['user management: authentication', 'User Authentication Plugins, that let you manage your users and handle signing in via Oauth Services (Twitter, Facebook, Github & more). There\'s a good railscasts that shows how an authentication solution can work.'],
+  ['user management: authorization', 'Manage User Rights, User Roles & Abilities.'],
   ['design framework', 'Good foundation for your website styling.'],
-  ['rails authorization', 'User Rights Management for your Rails apps.'],
   ['development server', 'Local Development Server with automatic reload capabilites. Speeds up your development.'],
-  ['rails tagging', 'Tagging functionality for your Rails apps.'],
+  ['tagging', 'Tagging functionality for your ActiveRecord Models.'],
   ['background jobs', 'Message queuing helps you allocating workload to seperate worker processes in the background. Used as synonyms: Background processing, message queues.'],
-  ['active_record tagging', 'Tagging functionality for the ActiveRecord ORM (Rails Standard).']
+  ['email: preview emails', 'Preview emails in development, e.g. in the browser, instead of sending them.'],
+  ['rails: project generators and templates', 'Get projects started. Helps getting up and running quickly, automating configuration.']
 ]
 
 category_list.each do |category|
