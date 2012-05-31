@@ -37,7 +37,7 @@ repo_list = [
   ['james2m/canard', 'user management: authorization'],
   ['mcrowe/roleable', 'user management: authorization'],
   ['37signals/mail_view', 'email: preview emails'],
-  ['sj26/mailcatcher', 'email: preview emails']
+  ['sj26/mailcatcher', 'email: preview emails'],
   ['ryanb/letter_opener', 'email: preview emails'],
   ['jeriko/app_drone', 'rails: project generators and templates'],
   ['RailsApps/rails_apps_composer', 'rails: project generators and templates'],
