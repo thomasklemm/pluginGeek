@@ -61,10 +61,15 @@ category_list = [
   ['rails: project generators and templates', 'Get projects started. Helps getting up and running quickly, automating configuration.']
 ]
 
+# Run Jobs
+# Update Repos
+Repo.update_all_repos_from_github
+
+# Insert Category Descriptions
 category_list.each do |category|
-  Category.create(name: category[0], description: category[1])
+  category = Category.find_or_initialize_by_name(name: category[0])
+  category[:description] = category[1]
 end
 
-# Run Jobs
-Repo.update_all_repos_from_github
+# Update Category Attributes
 Category.update
