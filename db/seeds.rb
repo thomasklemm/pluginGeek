@@ -14,13 +14,28 @@ repo_list = [
   ['sinatra/sinatra', 'web application framework'],
   ['zurb/foundation', 'design framework'],
   ['twitter/bootstrap', 'design framework'],
-  ['NoamB/sorcery', 'rails authentication, rails authorization'],
-  ['plataformatec/devise', 'rails authentication, rails authorization'],
+  ['37signals/pow', 'development server'],
   ['rodreegez/powder', 'development server'],
-  ['mbleigh/acts-as-taggable-on', 'rails tagging, active_record tagging'],
-  ['bradphelan/rocket_tag', 'rails tagging, active_record tagging'],
+  ['mbleigh/acts-as-taggable-on', 'tagging'],
+  ['bradphelan/rocket_tag', 'tagging'],
+  ['chrome/markable', 'tagging'],
   ['mperham/sidekiq', 'background jobs'],
-  ['mperham/girl_friday', 'background jobs']
+  ['mperham/girl_friday', 'background jobs'],
+  ['defunkt/resque', 'background jobs'],
+  ['collectiveidea/delayed_job', 'background jobs'],
+  ['ryandotsmith/queue_classic', 'background jobs'],
+  ['NoamB/sorcery', 'user management: authentication'],
+  ['plataformatec/devise', 'user management: authentication'],
+  ['thoughtbot/clearance', 'user management: authentication'],
+  ['intridea/omniauth', 'user management: authentication'],
+  ['ryanb/cancan', 'user management: authorization'],
+  ['stffn/declarative_authorization', 'user management: authorization'],
+  ['kristianmandrup/cantango', 'user management: authorization'],
+  ['nathanl/authority', 'user management: authorization'],
+  ['james2m/canard', 'user management: authorization'],
+  ['mcrowe/roleable', 'user management: authorization'],
+  ['', ''],
+  ['', '']
 ]
 
 repo_list.each do |repo|
@@ -30,7 +45,7 @@ end
 # Categories
 category_list = [
   ['web application framework', 'Build web applications with style.'],
-  ['rails authentication', 'User Management for your Rails apps.'],
+  ['user management', 'Authentication and Authorization plugins especially for your Rails apps.'],
   ['design framework', 'Good foundation for your website styling.'],
   ['rails authorization', 'User Rights Management for your Rails apps.'],
   ['development server', 'Local Development Server with automatic reload capabilites. Speeds up your development.'],
