@@ -1,8 +1,9 @@
 class Category < ActiveRecord::Base
 
   # Mass Assignment Whitelist
-  # FIXME: Name only needs to be accessible in development and test env
-  attr_accessible :description, :name
+  attr_accessible :description
+  # Name only needs to be accessible in development and test environment
+  attr_accessible :name if Rails.env.development? || Rails.env.test?
 
   # Friendly Id
   extend FriendlyId
