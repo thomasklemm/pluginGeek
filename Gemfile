@@ -33,9 +33,6 @@ gem "letter_opener", :group => :development
 # Quiet Assets in development, keep log clean
 gem 'quiet_assets', :group => :development
 
-# Curb - HTTP Client Lib
-gem 'curb'
-
 # Rails Footnotes
 gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
 

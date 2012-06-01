@@ -4,7 +4,7 @@ class Updater
   GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name",
       :description => "description", :watchers => "watchers", :forks => "forks",
       :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"] ]
-  GITHUB_API_BASE_URL = "https://api.github.com/repos/"
+  GITHUB_API_BASE_URL = "https://api.github.com/"
 
 
   ###
