@@ -17,7 +17,12 @@ class Updater
     conn = Excon.new(GITHUB_API_BASE_URL)
     # REVIEW: Rails API Doc suggests not using find_each for less than 1000 records
     Repo.find_each(batch_size: 200) do |repo|
-      update_repo(repo, conn)
+      if update_repo(repo, conn)
+        # success
+      else
+        # error
+        # repo.update_attribute(:manual_work_required, true)
+      end
     end
     puts "'Updater.update_repos_from_github' successfully finished."
   end
