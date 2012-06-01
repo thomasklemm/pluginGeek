@@ -35,3 +35,27 @@
 
   .all_repos
     display: none
+
+
+// Category Show
+
+.tag_header
+  background: #eee
+  color: #333
+  padding: 6px 10px
+
+  .name
+    font-weight: bold
+    font-size: 22px
+
+  .repo_count, .watcher_count
+    margin-left: 5px
+
+  .repo_count:before, .watcher_count:before
+    font-family: 'Pictos Custom'
+    content: attr(data-icon)
+    margin-right: 4px
+    font-size: 22px
+    line-height: 0
+    vertical-align: middle
+

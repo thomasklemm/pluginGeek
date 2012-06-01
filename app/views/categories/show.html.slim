@@ -1,8 +1,32 @@
-h1 Categories#show
-p Find me in app/views/categories/show.html.slim
+.tag_header
+  div.clearfix
+    span.name = @tag.name
+    span.right style="line-height: 33px"
+      span.repo_count data-icon="r" = @tag.repo_count
+      span.watcher_count data-icon="e" = @tag.watcher_count
 
-= debug @tag
 
-- @repos.each do |repo|
-  = debug repo
-  = link_to "Show Repo", repo
+  div.description
+    span = @tag.description
+    span.right: a.edit href="#" Edit
+
+.space1
+
+div id="js_repo_list"
+
+  / input.search placeholder="Knight.io Ruby Gem Search"
+
+  div.text-right
+    span.sort.sort_icon.initial_sort.active data-sort="watchers" data-icon="e" Watcher Count
+    span.sort.sort_icon.name data-sort="full_name" data-icon="n" Name
+
+    span.reset Reset
+
+  .space1
+
+  div class="lit repos"
+    = render partial: "shared/repo", collection: @repos
+
+.space05
+
+a &larr; Back to 'All Categories'

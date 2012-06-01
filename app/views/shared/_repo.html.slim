@@ -1,0 +1,10 @@
+.repo
+  div.clearfix
+    / Name
+    span.full_name                    = link_to repo.full_name, repo
+
+    / Stats
+    span.watchers data-icon="e"       = repo.watchers
+
+  / Description
+  div.description                     = repo.description

@@ -1,28 +1,15 @@
-.container#tags_o
-  .row
-    .twelve.columns.centered#tags_i
+div id="js_tag_list"
 
-      div
+  input.search placeholder="Knight.io Ruby Gem Search"
 
-        span style="float: left; margin: 2em 1em" = image_tag "logos/knight01.png"
-        h1 style="color: #888; margin-top: 0.25em" Knight.io
-        h4 style="color: #888; font-weight: normal" We make it easy for developers <br /> to discover </span><span class="ruby_icon">r</span> <span style="color: #eee">great ruby gems </span><span class="ruby_icon">r</span> for their projects
+  div.text-right
+    span.sort.sort_icon.initial_sort.active data-sort="watcher_count" data-icon="e" Watcher Count
+    span.sort.sort_icon.repo_count data-sort="repo_count" data-icon="r" Repo Count
+    span.sort.sort_icon.name data-sort="name" data-icon="n" Name
 
-        .space05 style="border-bottom: 2px solid #555"
-        .space1
+    span.reset Reset
 
-      div id="js_tag_list"
+  .space15
 
-        input.search placeholder="Knight.io Ruby Gem Search"
-
-        div.text-right
-          span.sort.sort_icon.initial_sort.active data-sort="watcher_count" data-icon="e" Watcher Count
-          span.sort.sort_icon.repo_count data-sort="repo_count" data-icon="r" Repo Count
-          span.sort.sort_icon.name data-sort="name" data-icon="n" Name
-
-          span.reset Reset
-
-        .space15
-
-        div class="list tags"
-          = render partial: "tag", collection: @tags
+  div class="list tags"
+    = render partial: "tag", collection: @tags
