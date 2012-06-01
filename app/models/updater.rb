@@ -1,95 +1,92 @@
 class Updater
 
+  # Github Attribute Mapping
+  GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name",
+      :description => "description", :watchers => "watchers", :forks => "forks",
+      :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"] ]
+  GITHUB_API_BASE_URL = "https://api.github.com/repos/"
+
+
   ###
   #   Repos
   ###
 
-  def update_repos_from_github
-
+  # Update repos
+  #   by running 'Updater.update_repos_from_github'
+  def self.update_repos_from_github
+    conn = Excon.new(GITHUB_API_BASE_URL)
+    # REVIEW: Rails API Doc suggests not using find_each for less than 1000 records
+    Repo.find_each(batch_size: 200) do |repo|
+      update_repo(repo, conn)
+    end
+    puts "'Updater.update_repos_from_github' successfully finished."
   end
 
-
-  # Github attribute mapping
-  GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name",
-      :description => "description", :watchers => "watchers", :forks => "forks",
-      :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"] ]
-  GITHUB_REPOS_API_URL = "https://api.github.com/repos/"
-
-  # First time a repo is added
-  def create_and_update_from_github
-    if update_from_github
-      logger.info "Repo '#{full_name}' successfully updated for the first time with first_update_from_github."
-      return true
+  # Initialize (or manually update) repo
+  #   by calling 'Updater.initialize_repo_from_github'
+  def self.initialize_repo_from_github(repo_full_name)
+    repo = Repo.find_by_full_name(repo_full_name)
+    if update_repo(repo)
+      # success
+      true
     else
-      logger.error "Repo '#{full_name}' could not be found on Github. Aborting."
-      return false
+      # error
+      false
     end
   end
 
-  # Job updating all repos from github
-  def self.update_all_repos_from_github
-    self.find_each(batch_size: 100) do |repo|
-      repo.regular_update_from_github
-    end
-  end
-
-  # TODO: May only update attributes that can change like description, homepage_url, watchers, forks?
-  def regular_update_from_github
-    if update_from_github
-      logger.info "Repo '#{full_name}' successfully updated."
-      return true
-    else
-      logger.error "Repo '#{full_name}' could not be found on Github. Aborting."
-      return false
-    end
-  end
-
-  # CHECK: Should this method be split up?
-  def update_from_github
-
-    # Github API Request
-    github_api_url = GITHUB_REPOS_API_URL + full_name
-    http = Curl::Easy.perform(github_api_url)
-    github_repo = JSON.parse(http.body_str)
-
-    if github_repo["message"]
-      # Something has gone wrong
-      # Probably: Repo does not exist (any more)
-      # => a) incorrect information
-      # => b) outdated information
-      return false
-      # TODO: Better error handling
-      # TODO: Handle renaming and owner transfership of repos
-    end
-
-    GITHUB_ATTRIBUTES.each do |repo_attr, github_attr|
-      # Casts String to Array
-      github_attr.kind_of?(String) ? h = github_attr.split : h = github_attr
-
-      # Recursive lookup and assignment
-      h.length.times do |index|
-        if index.zero?
-          self[repo_attr] = github_repo[h[index]]
-        else
-          self[repo_attr] = self[repo_attr][h[index]]
-        end
-      end
-    end
-
-    # Save
-    self.save
-  end
 
   ###
   #   Categories
   ###
 
+  # Update Categories
+  #   by running 'Updater.update_categories_from_repos'
   def update_categories_from_repos
     tags = Repo.tag_counts_on(:categories)
     tags.each { |tag| update_category_attributes(tag) }
   end
 
-private
+
+protected
+
+  # Why has this to be a class method of Updater class (Won't work otherwise)?
+  def self.update_repo(repo, conn = Excon.new(GITHUB_API_BASE_URL))
+    # Request
+    path = '/repos/' + repo.full_name
+    res = conn.get(path: path)
+
+    # Error Handling
+    #   e.g. mark with flag for manual handling
+    #   be sure to return in case of repo renamed or non-existent etc on github
+    res.status != 200 and return puts 'Updating #{repo.full_name} failed.'
+
+    # Success Handling
+    github_repo = JSON.parse(res.body)
+
+    # Update every attribute individually
+    repo = recursive_update_of_repo_attributes(repo, github_repo)
+
+    # Save Repo
+    repo.save
+  end
+
+  # Same question: Why has this to be a class method of Updater class (Won't work otherwise)?
+  def self.recursive_update_of_repo_attributes(repo, github_repo)
+    # Mapped attributes
+    GITHUB_ATTRIBUTES.each do |repo_attr, github_attr|
+      # Cast String to Array
+      github_attr.kind_of?(String) ? h = github_attr.split : h = github_attr
+
+      # Recursive lookup and assignment
+      h.length.times do |index|
+        index.zero? ? repo[repo_attr] = github_repo[h[index]] : repo[repo_attr] = repo[repo_attr][h[index]]
+      end
+    end
+
+    # Return repo
+    return repo
+  end
 
   def update_category_attributes(tag)
     # Find or initialize category
@@ -113,7 +110,7 @@ private
     category.save
   end
 
-
   # TODO: Read up about method scoping (public / private / protected). What should be used here?
+  # TODO: Does passing the whole repo object around make sense?
 
 end

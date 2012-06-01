@@ -33,7 +33,7 @@ gem "letter_opener", :group => :development
 # Quiet Assets in development, keep log clean
 gem 'quiet_assets', :group => :development
 
-# Curb
+# Curb - HTTP Client Lib
 gem 'curb'
 
 # Rails Footnotes
@@ -50,6 +50,9 @@ gem 'jquery-rails'
 
 # Acts as Taggable On
 gem 'acts-as-taggable-on'
+
+# Excon - HTTP Client Lib
+gem 'excon'
 
 # Awesome Print in console in development
 # gem 'awesome_print', :group => :development
