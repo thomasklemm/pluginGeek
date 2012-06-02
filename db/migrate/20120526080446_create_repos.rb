@@ -9,7 +9,7 @@ class CreateRepos < ActiveRecord::Migration
       t.string  :description
       t.string  :github_url
       t.string  :homepage_url
-      t.integer :knight_grade
+      t.integer :knight_score
 
       t.datetime :github_updated_at
       t.timestamps

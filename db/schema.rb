@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20120529101425) do
     t.string   "description"
     t.string   "github_url"
     t.string   "homepage_url"
-    t.integer  "knight_grade"
+    t.integer  "knight_score"
     t.datetime "github_updated_at"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false

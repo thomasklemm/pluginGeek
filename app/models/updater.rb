@@ -3,7 +3,7 @@ class Updater
   # Github Attribute Mapping
   GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name",
       :description => "description", :watchers => "watchers", :forks => "forks",
-      :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"] ]
+      :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"], :github_updated_at => "updated_at" ]
   GITHUB_API_BASE_URL = "https://api.github.com/"
 
 
@@ -72,6 +72,7 @@ protected
     # Update every attribute individually
     repo = recursive_update_of_repo_attributes(repo, github_repo)
 
+    repo[:knight_score] = knight_score(github_repo)
     # Save Repo
     repo.save
   end
@@ -91,6 +92,25 @@ protected
 
     # Return repo
     return repo
+  end
+
+  def self.knight_score(github_repo)
+    github_repo['watchers'] * activity_score(github_repo['pushed_at']) * activity_score(github_repo['updated_at'])
+  end
+
+  def self.activity_score(time)
+    diff = Time.now - time.to_datetime
+    score = case diff
+            when 0..2.months                    then (2.0 - ( diff /  2.months * 0.4 ))
+            when 2.months+1.second..6.months    then (1.6 - ( diff /  6.months * 0.4 ))
+            when 6.months+1.second..12.months   then (1.2 - ( diff / 12.months * 0.3 ))
+            when 12.months+1.second..18.months  then (0.9 - ( diff / 18.months * 0.2 ))
+            when 18.months+1.second..24.months  then (0.7 - ( diff / 24.months * 0.2 ))
+            when 24.months+1.second..36.months  then (0.5 - ( diff / 36.months * 0.2 ))
+            else  0.3
+            end
+
+    score = 1 + (score - 1) / 2
   end
 
   def self.update_category_attributes(tag)
