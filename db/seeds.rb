@@ -46,9 +46,6 @@ repo_list = [
 
 repo_list.each do |repo|
   r = Repo.create!(full_name: repo[0], category_list: repo[1])
-  r.reload
-  puts r.inspect
-  puts r.category_list.inspect
 end
 
 # Categories
@@ -66,16 +63,16 @@ category_list = [
 
 # Run Jobs
 # Update Repos
-puts "Running 'Repo.update_all_repos_from_github'"
-Repo.update_all_repos_from_github
+puts "Running 'Updater.update_repos_from_github'"
+Updater.update_repos_from_github
 
 # Insert Category Descriptions
 category_list.each do |category|
   c = Category.create!(name: category[0], description: category[1])
-  c.reload
-  puts c.inspect
 end
 
 # Update Category Attributes
-puts "Running 'Category.update'"
-Category.update
+puts "Running 'Updater.update_categories_from_repos'"
+Updater.update_categories_from_repos
+
+puts 'Seed data successfully inserted.'

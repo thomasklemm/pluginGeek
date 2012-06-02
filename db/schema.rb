@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(:version => 20120529101425) do
     t.string   "description"
     t.string   "github_url"
     t.string   "homepage_url"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "knight_grade"
+    t.datetime "github_updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true

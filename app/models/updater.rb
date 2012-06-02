@@ -47,7 +47,7 @@ class Updater
 
   # Update Categories
   #   by running 'Updater.update_categories_from_repos'
-  def update_categories_from_repos
+  def self.update_categories_from_repos
     tags = Repo.tag_counts_on(:categories)
     tags.each { |tag| update_category_attributes(tag) }
   end
@@ -93,17 +93,29 @@ protected
     return repo
   end
 
-  def update_category_attributes(tag)
+  def self.update_category_attributes(tag)
     # Find or initialize category
-    category = self.find_or_initialize_by_name(tag.name)
+    category = Category.find_or_initialize_by_name(tag.name)
 
     # Popular Repos and All Repos (String)
     repos = Repo.tagged_with(tag)
 
     # Popular Repos
-    category[:popular_repos] = repos[0..2].inject { |string, repo| string + ", " + repo.full_name }
+    category[:popular_repos] = repos[0..2].inject("") do |result, repo|
+      result = result.split(", ")
+      result << repo[:full_name]
+      result.join(", ")
+    end
     # All Repos (excluding the ones already listed in popular_repos)
-    category[:all_repos] = repos[3..repos.length].inject { |string, repo| string + ", " + repo.full_name }
+    if repos[3..repos.length].blank?
+      category[:all_repos] = ""
+    else
+      category[:all_repos] = repos[3..repos.length].inject("") do |result, repo|
+        result = result.split(", ")
+        result << repo[:full_name]
+        result.join(", ")
+      end
+    end
 
     # Repo Count
     category[:repo_count] = tag.count
