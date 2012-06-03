@@ -12,7 +12,10 @@ class CategoriesController < ApplicationController
     @repos = Repo.tagged_with(@tag.name)
   end
 
-  def create
+  def update
+    @tag = Category.find_by_slug(params[:id])
+    @tag.update_attributes(params[:category])
+    redirect_to action: 'show'
   end
 
 end

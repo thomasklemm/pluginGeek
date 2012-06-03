@@ -71,6 +71,11 @@ protected
     # Update every attribute individually
     repo = recursive_update_of_repo_attributes(repo, github_repo)
 
+    # Remove Homepage if it is the same as github_url
+    #   (does not work if https:// is substituted with http://)
+    repo[:homepage_url] = nil if repo[:homepage_url] == repo[:github_url]
+
+    # Calculate Knight Score
     repo[:knight_score] = knight_score(github_repo)
     # Save Repo
     repo.save

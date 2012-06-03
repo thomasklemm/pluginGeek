@@ -6,7 +6,7 @@ class Repo < ActiveRecord::Base
   attr_accessible :category_list if Rails.env.development? || Rails.env.test?
 
   # Default scope
-  default_scope order: 'watchers desc'
+  default_scope order: 'knight_score desc'
 
   # Validations
   validates :full_name, uniqueness: true

@@ -7,8 +7,15 @@
 
 
   div.description
-    span = @tag.description
+    span#js_tag_description = @tag.description
     span.right: a.edit href="#" Edit
+
+    / Edit description textarea
+    = form_for @tag do |f|
+      = f.text_area :description
+      = f.submit
+
+
 
 .space1
 

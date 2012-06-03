@@ -7,14 +7,14 @@ Knight::Application.routes.draw do
     get ":owner/new" => "users#new", on: :collection
     get ":owner/create" => "users#create", on: :collection
     post ":owner/create" => "users#create", on: :collection
- 
+
     get ":owner/:name/create" => "repos#create", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     get ":owner/:name(/*leftover)" => "repos#show", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     delete ":owner/:name" => "repos#destroy", on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-  
+
   end
 
-  resources :categories, only: [:index, :show]
+  resources :categories, only: [:index, :show, :update]
 
   # TODO: only allow repos resources routes that matter.
 
