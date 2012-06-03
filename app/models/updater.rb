@@ -55,7 +55,6 @@ class Updater
 
 protected
 
-  # Why has this to be a class method of Updater class (Won't work otherwise)?
   def self.update_repo(repo, conn = Excon.new(GITHUB_API_BASE_URL))
     # Request
     path = '/repos/' + repo.full_name
@@ -77,16 +76,15 @@ protected
     repo.save
   end
 
-  # Same question: Why has this to be a class method of Updater class (Won't work otherwise)?
   def self.recursive_update_of_repo_attributes(repo, github_repo)
     # Mapped attributes
     GITHUB_ATTRIBUTES.each do |repo_attr, github_attr|
       # Cast String to Array
-      github_attr.kind_of?(String) ? h = github_attr.split : h = github_attr
+      h = github_attr.kind_of?(String) ? github_attr.split : github_attr
 
       # Recursive lookup and assignment
-      h.length.times do |index|
-        index.zero? ? repo[repo_attr] = github_repo[h[index]] : repo[repo_attr] = repo[repo_attr][h[index]]
+      h.size.times do |index|
+        repo[repo_attr] = index.zero? ? github_repo[h[index]] : repo[repo_attr][h[index]]
       end
     end
 

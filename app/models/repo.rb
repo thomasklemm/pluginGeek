@@ -1,7 +1,7 @@
 class Repo < ActiveRecord::Base
 
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :owner, :name, :category_list
+  attr_accessible :full_name, :owner, :name
   # category_list only needs to be accessible in development (and maybe test) environment
   attr_accessible :category_list if Rails.env.development? || Rails.env.test?
 

@@ -1,8 +1,9 @@
 class CategoriesController < ApplicationController
+
+  # Make sure categories are up to date
+  #   by running Updater.update_catgories_from_repos every now and then
+
   def index
-    # REVIEW: The update call should be more efficiently done,
-    #   e.g. once every minute in the background only on objects that changed
-    # Category.update
     @tags = Category.all
   end
 
@@ -10,4 +11,8 @@ class CategoriesController < ApplicationController
     @tag = Category.find_by_slug(params[:id])
     @repos = Repo.tagged_with(@tag.name)
   end
+
+  def create
+  end
+
 end
