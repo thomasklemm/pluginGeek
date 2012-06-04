@@ -7,7 +7,7 @@ ruby "1.9.3"
 gem 'thin'
 
 # Rails
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.5'
 
 # Postgres DB on Heroku
 gem 'sqlite3', group: [:development, :test]
