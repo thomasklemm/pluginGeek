@@ -20,13 +20,10 @@ class ReposController < ApplicationController
 
     # Set different flash message if repo is already known
     @repo.new_record? or flash[:notice] = "Repo '#{@repo.full_name}' already known."
-    binding.pry
 
-    Updater.initialize_repo_from_github(@repo.full_name)
-
-
-
-    if true
+    if @repo.initialize_repo_from_github
+      # Reload for correct redirection path
+      @repo = Repo.find_by_full_name(@repo.full_name)
       flash[:notice] ||= "Repo '#{@repo.full_name}' successfully added."
       redirect_to @repo
     else

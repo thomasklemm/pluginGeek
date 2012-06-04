@@ -30,7 +30,7 @@ class Updater
   # Initialize (or manually update) repo
   #   by calling 'Updater.initialize_repo_from_github'
   def self.initialize_repo_from_github(repo_full_name)
-    repo = Repo.find_by_full_name(repo_full_name)
+    repo = Repo.find_or_initialize_by_full_name(repo_full_name)
     if update_repo(repo)
       # success
       true
