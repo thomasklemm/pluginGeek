@@ -9,22 +9,23 @@ class ReposController < ApplicationController
 
     # Always redirect to base
     #   Be sure to return to finish request
-    params[:leftover] and return redirect_to @repo
+    return redirect_to @repo if params[:leftover]
 
-    # Redirect to create action if @repo is a new record
-    @repo or return redirect_to action: "create"
+    # Redirect to create action if @repo has not been found
+    @repo or return redirect_to action: 'create'
   end
 
   def create
     @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
 
+    # Set different flash message if repo is already known
     @repo.new_record? or flash[:notice] = "Repo '#{@repo.full_name}' already known."
-    
-    if @repo.create_and_update_from_github
+
+    if Updater.initialize_repo_from_github(@repo.full_name)
       flash[:notice] ||= "Repo '#{@repo.full_name}' successfully added."
       redirect_to @repo
     else
-      flash[:alert] = "Repo '#{@repo.full_name}' could NOT be added."
+      flash[:alert] = "Repo '#{@repo.full_name}' could not be added."
       redirect_to root_path
     end
   end
