@@ -1,10 +1,10 @@
 class Updater
 
   # Github Attribute Mapping
-  GITHUB_ATTRIBUTES = Hash[:full_name => "full_name", :name => "name",
-      :description => "description", :watchers => "watchers", :forks => "forks",
-      :github_url => "html_url", :homepage_url => "homepage", :owner => ["owner", "login"], :github_updated_at => "updated_at" ]
-  GITHUB_API_BASE_URL = "https://api.github.com/"
+  GITHUB_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
+      description: 'description', watchers: 'watchers', forks: 'forks',
+      github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'updated_at' ]
+  GITHUB_API_BASE_URL = 'https://api.github.com/'
 
 
   ###
@@ -149,8 +149,5 @@ protected
     # Save category
     category.save
   end
-
-  # TODO: Read up about method scoping (public / private / protected). What should be used here?
-  # TODO: Does passing the whole repo object around make sense?
 
 end
