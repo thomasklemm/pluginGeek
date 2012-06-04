@@ -48,6 +48,12 @@ class Updater
   # Update Categories
   #   by running 'Updater.update_categories_from_repos'
   def self.update_categories_from_repos
+    # Reset tag counts (if tag is completely removed categories would not be updated)
+    Category.all.each do |category|
+      category[:repo_count] = 0
+      category.save
+    end
+
     tags = Repo.tag_counts_on(:categories)
     tags.each { |tag| update_category_attributes(tag) }
   end

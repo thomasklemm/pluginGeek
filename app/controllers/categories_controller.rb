@@ -1,21 +1,30 @@
 class CategoriesController < ApplicationController
 
-  # Make sure categories are up to date
-  #   by running Updater.update_catgories_from_repos every now and then
-
+  # GET root
+  # GET /categories
   def index
     @tags = Category.all
   end
 
+  # GET /categories/:id
   def show
     @tag = Category.find_by_slug(params[:id])
+
     @repos = Repo.tagged_with(@tag.name)
   end
 
+  # PUT /categories/:id
   def update
     @tag = Category.find_by_slug(params[:id])
-    @tag.update_attributes(params[:category])
-    redirect_to action: 'show'
+
+    if @tag.update_attributes(params[:category])
+      flash[:notice] = 'Tag description updated.'
+      redirect_to action: 'show'
+    else
+      flash[:alert] = 'Tag description could not be updated.'
+      redirect_to action: 'show'
+    end
+
   end
 
 end

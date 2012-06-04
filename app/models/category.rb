@@ -10,7 +10,8 @@ class Category < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   # Default scope
-  default_scope order: 'watcher_count desc'
+  # Do not use default scoping
+  # FIXME: Make a named scopt here for order: 'watcher_cont desc' and conditions: 'repo_count > 0'
 
   # Validation
   validates :name, uniqueness: true

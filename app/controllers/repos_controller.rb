@@ -1,9 +1,11 @@
 class ReposController < ApplicationController
 
+  # GET /repos
   def index
     @repos = Repo.all
   end
 
+  # GET /repos/:owner/:name(/*leftover)
   def show
     @repo = Repo.find_by_full_name(full_name_from_params)
 
@@ -15,6 +17,8 @@ class ReposController < ApplicationController
     @repo or return redirect_to action: 'create'
   end
 
+  # GET /repos/:owner/:name/create
+  #   (POST /repos/:owner/:name could not be redirected to from 'repos#new')
   def create
     @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
 
@@ -29,6 +33,23 @@ class ReposController < ApplicationController
     else
       flash[:alert] = "Repo '#{@repo.full_name}' could not be added."
       redirect_to root_path
+    end
+  end
+
+  # PUT /repos/:owner/:name
+  def update
+    @repo = Repo.find_by_full_name(full_name_from_params)
+
+    if @repo.update_attributes(params[:repo])
+
+      # Update categories based on repo tags
+      Updater.update_categories_from_repos
+
+      flash[:notice] = 'Tags successfully saved.'
+      redirect_to action: 'show'
+    else
+      flash[:alert] = 'Tags could not be saved.'
+      redirect_to action: 'show'
     end
   end
 
