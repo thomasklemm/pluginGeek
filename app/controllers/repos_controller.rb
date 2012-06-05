@@ -2,7 +2,7 @@ class ReposController < ApplicationController
 
   # GET /repos
   def index
-    @repos = Repo.all
+    @repos = Repo.sort_by_knight_score
   end
 
   # GET /repos/:owner/:name(/*leftover)

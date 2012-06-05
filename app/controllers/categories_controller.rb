@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   # GET root
   # GET /categories
   def index
-    @tags = Category.all
+    @tags = Category.visible.sort_by_watcher_count
   end
 
   # GET /categories/:id

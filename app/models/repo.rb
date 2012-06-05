@@ -5,8 +5,9 @@ class Repo < ActiveRecord::Base
   # category_list only needs to be accessible in development (and maybe test) environment
   attr_accessible :category_list if Rails.env.development? || Rails.env.test?
 
-  # Default scope
-  default_scope order: 'knight_score desc'
+  # Scopes
+  scope :sort_by_knight_score, order('knight_score desc')
+
 
   # Validations
   validates :full_name, uniqueness: true

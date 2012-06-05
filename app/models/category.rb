@@ -9,9 +9,11 @@ class Category < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  # Default scope
-  # Do not use default scoping
-  # FIXME: Make a named scopt here for order: 'watcher_cont desc' and conditions: 'repo_count > 0'
+  # Scopes
+  #   For default sorting and hiding of empty categories
+  scope :sort_by_watcher_count, order('watcher_count desc')
+  scope :sort_by_knight_score, order('knight_score desc')
+  scope :visible, where('repo_count > 0')
 
   # Validation
   validates :name, uniqueness: true
