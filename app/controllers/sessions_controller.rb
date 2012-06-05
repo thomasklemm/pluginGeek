@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
   # delete /sessions
   def destroy
     logout
-    redirect_back_or_to root_url, notice: 'Logged out!'
+    redirect_to root_url, notice: 'Logged out!'
   end
 end

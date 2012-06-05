@@ -71,6 +71,7 @@ Rails.application.config.sorcery.configure do |config|
   # Default: `[]`
   #
   # config.external_providers =
+  config.external_providers = [:github]
 
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
@@ -112,6 +113,10 @@ Rails.application.config.sorcery.configure do |config|
   # config.liveid.callback_url = "http://mydomain.com:3000/oauth/callback?provider=liveid"
   # config.liveid.user_info_mapping = {:username => "name"}
 
+  config.github.key = ENV['GITHUB_API_KEY']
+  config.github.secret = ENV['GITHUB_API_SECRET']
+  config.github.callback_url = "http://knight.dev/oauth/callback?provider=github"
+  config.github.user_info_mapping = {:email => "name"}
 
   # --- user config ---
   config.user_config do |user|
