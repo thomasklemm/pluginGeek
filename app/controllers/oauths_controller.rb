@@ -6,6 +6,7 @@ class OauthsController < ApplicationController
   #   and after authorizing there back to the callback url.
   def oauth
     login_at(params[:provider])
+    binding.remote_pry
   end
 
   def callback
