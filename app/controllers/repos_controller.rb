@@ -59,6 +59,9 @@ class ReposController < ApplicationController
     @repo = Repo.find_by_full_name(full_name_from_params)
 
     if @repo.destroy
+      # Update categories based on repo tags
+      Updater.update_categories_from_repos
+
       flash[:notice] = "Repo '#{ @repo.full_name }' successfully deleted."
       redirect_to :root
     else

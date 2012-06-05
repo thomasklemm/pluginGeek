@@ -3,13 +3,16 @@ Knight::Application.routes.draw do
 
   resources :repos, only: [:index, :show] do
 
+    # Owner Routes
     get ':owner' => 'users#show', on: :collection
     get ':owner/new' => 'users#new', on: :collection
     get ':owner/create' => 'users#create', on: :collection
     post ':owner/create' => 'users#create', on: :collection
 
+    # Repo Routes
     get ':owner/:name/create' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     get ':owner/:name(/*leftover)' => 'repos#show', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
+    put ':owner/:name' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     delete ':owner/:name' => 'repos#destroy', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
 
   end
