@@ -61,12 +61,4 @@ ActiveRecord::Schema.define(:version => 20120529101425) do
     t.string "name"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "login"
-    t.string   "name"
-    t.string   "html_url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
 end

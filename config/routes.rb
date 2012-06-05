@@ -5,10 +5,10 @@ Knight::Application.routes.draw do
   resources :repos, only: [:index, :show] do
 
     # Owner Routes
-    get ':owner' => 'users#show', on: :collection
-    get ':owner/new' => 'users#new', on: :collection
-    get ':owner/create' => 'users#create', on: :collection
-    post ':owner/create' => 'users#create', on: :collection
+    # get ':owner' => 'users#show', on: :collection
+    # get ':owner/new' => 'users#new', on: :collection
+    # get ':owner/create' => 'users#create', on: :collection
+    # post ':owner/create' => 'users#create', on: :collection
 
     # Repo Routes
     get ':owner/:name/create' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
