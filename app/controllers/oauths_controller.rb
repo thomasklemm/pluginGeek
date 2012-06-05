@@ -12,7 +12,6 @@ class OauthsController < ApplicationController
     provider = params[:provider]
 
     if @user = login_from(provider)
-      binding.remote_pry
       redirect_back_or_to root_path, notice: "Logged in from #{ provider.titleize }!"
     else
 

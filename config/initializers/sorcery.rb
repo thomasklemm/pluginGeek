@@ -116,7 +116,7 @@ Rails.application.config.sorcery.configure do |config|
   config.github.key = ENV['GITHUB_API_KEY']
   config.github.secret = ENV['GITHUB_API_SECRET']
   config.github.callback_url = "http://knight.dev/oauth/callback?provider=github"
-  config.github.user_info_mapping = {:email => "name"}
+  config.github.user_info_mapping = {:username => "login"}
 
   # --- user config ---
   config.user_config do |user|
@@ -125,7 +125,7 @@ Rails.application.config.sorcery.configure do |config|
     # Default: `[:username]`
     #
     # user.username_attribute_names =
-    user.username_attribute_names = [:email]
+    user.username_attribute_names = [:username]
 
 
     # change *virtual* password attribute, the one which is used until an encrypted one is generated.
