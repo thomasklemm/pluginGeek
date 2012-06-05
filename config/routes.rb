@@ -1,6 +1,10 @@
 Knight::Application.routes.draw do
 
 
+  get "sessions/new"
+
+  get "users/new"
+
   # Show routes generates friendly_id route
   resources :repos, only: [:index, :show] do
 
