@@ -1,5 +1,10 @@
 
 class SessionsController < ApplicationController
+  # get /login
+  def new
+  end
+
+  # post /sessions
   def create
     user = login(params[:email], params[:password], params[:remember_me])
     if user
@@ -10,8 +15,9 @@ class SessionsController < ApplicationController
     end
   end
 
+  # delete /sessions
   def destroy
     logout
-    redirect_to root_url, notice: 'Logged out!'
+    redirect_back_or_to root_url, notice: 'Logged out!'
   end
 end

@@ -1,2 +1,17 @@
-h1 Sessions#new
-p Find me in app/views/sessions/new.html.slim
+/ Login Form
+= form_tag login_path do
+
+  .field
+    = label_tag       :email
+    = text_field_tag  :email, params[:email]
+
+  .field
+    = label_tag           :password
+    = password_field_tag  :password
+
+  .field
+    = check_box_tag   :remember_me, 1, params[:remember_me]
+    = label_tag       :remember_me
+
+  .actions
+    = submit_tag 'Log in'

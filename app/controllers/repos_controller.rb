@@ -1,5 +1,7 @@
 class ReposController < ApplicationController
 
+  before_filter :require_login, only: [:update, :destroy]
+
   # GET /repos
   def index
     @repos = Repo.sort_by_knight_score

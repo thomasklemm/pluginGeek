@@ -1,9 +1,12 @@
 Knight::Application.routes.draw do
 
+  get 'logout' => 'sessions#destroy', as: 'logout'
+  get 'login' => 'sessions#new', as: 'login'
+  post 'login' => 'sessions#create'
+  get 'signup' => 'users#new', as: 'signup'
 
-  get "sessions/new"
-
-  get "users/new"
+  resources :users
+  resources :sessions
 
   # Show routes generates friendly_id route
   resources :repos, only: [:index, :show] do
