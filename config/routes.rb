@@ -1,6 +1,7 @@
 Knight::Application.routes.draw do
 
 
+  # Show routes generates friendly_id route
   resources :repos, only: [:index, :show] do
 
     # Owner Routes
@@ -12,7 +13,7 @@ Knight::Application.routes.draw do
     # Repo Routes
     get ':owner/:name/create' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     get ':owner/:name(/*leftover)' => 'repos#show', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    put ':owner/:name' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
+    put ':owner/:name' => 'repos#update', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     delete ':owner/:name' => 'repos#destroy', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
 
   end
