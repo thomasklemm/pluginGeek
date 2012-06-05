@@ -1,2 +1,30 @@
-h1 Users#new
-p Find me in app/views/users/new.html.slim
+/ User Signup Form
+= form_for @user do |f|
+
+  / Error Messages
+  - if @user.errors.any?
+
+    .error_messages
+      h5 Form is invalid
+      ul
+        - @user.errors.full_messages.each do |message|
+          li = message
+
+  / Email
+  .field
+    = f.label       :email
+    = f.text_field  :email
+
+  / Password
+  .field
+    = f.label           :password
+    = f.password_field  :password
+
+  / Password Confirmation
+  .field
+    = f.label           :password_confirmation
+    = f.password_field  :password_confirmation
+
+  / Submit
+  .actions
+    = f.submit
