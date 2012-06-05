@@ -30,6 +30,8 @@ html
               = link_to 'Login', login_path
               span or
               = link_to 'Sign up', signup_path
+              span or
+              = link_to 'Login with Github', auth_at_provider_path(provider: :github)
 
           .space05 style="border-bottom: 2px solid #555"
           .space1

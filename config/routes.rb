@@ -1,9 +1,12 @@
 Knight::Application.routes.draw do
 
-  get 'logout' => 'sessions#destroy', as: 'logout'
-  get 'login' => 'sessions#new', as: 'login'
-  post 'login' => 'sessions#create'
-  get 'signup' => 'users#new', as: 'signup'
+  get 'logout'  => 'sessions#destroy', as: 'logout'
+  get 'login'   => 'sessions#new', as: 'login'
+  post 'login'  => 'sessions#create'
+  get 'signup'  => 'users#new', as: 'signup'
+
+  match 'oauth/callback'  => 'oauths#callback'
+  match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
   resources :users
   resources :sessions
