@@ -113,10 +113,13 @@ Rails.application.config.sorcery.configure do |config|
   # config.liveid.callback_url = "http://mydomain.com:3000/oauth/callback?provider=liveid"
   # config.liveid.user_info_mapping = {:username => "name"}
 
+  # Github Oauth Config
+  #   Different accounts for development and production environments
   config.github.key = ENV['GITHUB_API_KEY']
   config.github.secret = ENV['GITHUB_API_SECRET']
-  config.github.callback_url = "http://knight.dev/oauth/callback?provider=github"
-  config.github.user_info_mapping = {:username => "login"}
+  config.github.callback_url = Rails.env.production? ? 'http://knight.dev/oauth/callback?provider=github' : 'http://knight.dev/oauth/callback?provider=github'
+  config.github.user_info_mapping = {login: 'login', email: 'email', name: 'name', github_url: 'html_url', avatar_url: 'avatar_url', company: 'company', location: 'location', followers: 'followers' }
+
 
   # --- user config ---
   config.user_config do |user|

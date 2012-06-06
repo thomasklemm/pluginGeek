@@ -70,8 +70,14 @@ ActiveRecord::Schema.define(:version => 20120605102414) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username",                     :null => false
+    t.string   "login",                        :null => false
     t.string   "email"
+    t.string   "name"
+    t.string   "avatar_url"
+    t.string   "github_url"
+    t.string   "location"
+    t.string   "company"
+    t.integer  "followers"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.string   "remember_me_token"
