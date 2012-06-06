@@ -13,3 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Pow Environment Configuration Variables
+.powrc
+/.powrc

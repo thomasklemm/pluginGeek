@@ -1,25 +1,38 @@
 Knight::Application.routes.draw do
 
+  # Oauth
+  get 'logout' => 'sessions#destroy', as: :logout
+  get 'login' => 'sessions#redirect_to_oauth', as: :login
 
+  match 'oauth/callback'  => 'oauths#callback'
+  match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
+
+  # Categories
+  resources :categories, only: [:index, :show, :update]
+
+  # Repos and Owners
+  #
+  # Note: Routes for generating url differ from routes reading url, some duplication here
+  #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
+  #          while matching incoming requests is being done through seperate routes (as friendly_id contains slashes)
+  #
+  # Repos and Owners
   resources :repos, only: [:index, :show] do
 
     # Owner Routes
-    get ':owner' => 'users#show', on: :collection
-    get ':owner/new' => 'users#new', on: :collection
-    get ':owner/create' => 'users#create', on: :collection
-    post ':owner/create' => 'users#create', on: :collection
+    # get ':owner' => 'users#show', on: :collection
+    # get ':owner/new' => 'users#new', on: :collection
+    # get ':owner/create' => 'users#create', on: :collection
+    # post ':owner/create' => 'users#create', on: :collection
 
     # Repo Routes
     get ':owner/:name/create' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     get ':owner/:name(/*leftover)' => 'repos#show', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    put ':owner/:name' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
+    put ':owner/:name' => 'repos#update', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
     delete ':owner/:name' => 'repos#destroy', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
 
   end
 
-  resources :categories, only: [:index, :show, :update]
-
-  # TODO: only allow repos resources routes that matter.
 
   # For when to implement json response for repos#show
   # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }

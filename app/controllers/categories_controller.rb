@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+  before_filter :require_login, only: :update
+
   # GET root
   # GET /categories
   def index

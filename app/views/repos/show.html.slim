@@ -3,4 +3,10 @@ p Find me in app/views/repos/show.html.slim
 
 = debug @repo
 
+= @repo.category_list.join(", ")
+
+= form_for @repo do |f|
+  = f.text_area :category_list, size: '50x5'
+  = f.submit
+
 = link_to 'Delete repo', @repo, confirm: 'Are you sure?', method: :delete

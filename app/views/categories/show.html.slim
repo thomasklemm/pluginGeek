@@ -8,7 +8,11 @@
 
   div.description
     span#js_tag_description = @tag.description
-    span.right: a.edit href="#" Edit
+    span.right
+      - if current_user
+        a.edit href="#" Edit tag description
+      - else
+        = link_to 'Login to edit description', login_path
 
     / Edit description textarea
     = form_for @tag do |f|
