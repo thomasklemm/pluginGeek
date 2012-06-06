@@ -24,7 +24,7 @@ html
 
           span style='float: right'
             - if current_user
-              span Logged in as #{ current_user.email }.
+              span Logged in as <strong>#{ current_user.username }</strong>.&nbsp;
               span = link_to 'Logout', logout_path
             - else
               = link_to 'Login', login_path

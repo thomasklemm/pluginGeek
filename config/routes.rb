@@ -1,17 +1,22 @@
 Knight::Application.routes.draw do
 
-  get 'logout'  => 'sessions#destroy', as: 'logout'
-  get 'login'   => 'sessions#new', as: 'login'
-  post 'login'  => 'sessions#create'
-  get 'signup'  => 'users#new', as: 'signup'
+  # Oauth
+  get 'logout' => 'sessions#destroy', as: :logout
+  get 'login' => 'sessions#redirect_to_oauth', as: :login
 
   match 'oauth/callback'  => 'oauths#callback'
   match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
-  resources :users
-  resources :sessions
+  # Categories
+  resources :categories, only: [:index, :show, :update]
 
-  # Show routes generates friendly_id route
+  # Repos and Owners
+  #
+  # Note: Routes for generating url differ from routes reading url, some duplication here
+  #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
+  #          while matching incoming requests is being done through seperate routes (as friendly_id contains slashes)
+  #
+  # Repos and Owners
   resources :repos, only: [:index, :show] do
 
     # Owner Routes
@@ -28,9 +33,6 @@ Knight::Application.routes.draw do
 
   end
 
-  resources :categories, only: [:index, :show, :update]
-
-  # TODO: only allow repos resources routes that matter.
 
   # For when to implement json response for repos#show
   # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
