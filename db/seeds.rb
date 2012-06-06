@@ -45,7 +45,9 @@ repo_list = [
 ]
 
 repo_list.each do |repo|
-  r = Repo.create(full_name: repo[0], category_list: repo[1])
+  r = Repo.new(full_name: repo[0])
+  r.category_list = repo[1]
+  r.save
 end
 
 # Categories
@@ -68,11 +70,13 @@ Updater.update_repos_from_github
 
 # Insert Category Descriptions
 category_list.each do |category|
-  c = Category.create(name: category[0], description: category[1])
+  c = Category.new(name: category[0])
+  c.description = category[1]
+  c.save
 end
 
 # Update Category Attributes
 puts "Running 'Updater.update_categories_from_repos'"
 Updater.update_categories_from_repos
 
-puts 'Seed data successfully inserted.'
+puts 'Seed data successfully inserted. Go ahead!'
