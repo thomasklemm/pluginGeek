@@ -61,6 +61,9 @@ gem 'bourbon'
 gem 'pry-rails', :group => :development
 gem 'pry-remote', :group => :development
 
+# Sorcery
+gem 'sorcery', '~> 0.7.12'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

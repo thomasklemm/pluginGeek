@@ -1,20 +1,18 @@
 class User < ActiveRecord::Base
-  # Whitelist attributes for mass-assignment
-  attr_accessible :login
 
-  def create_and_update_from_github
-    update_from_github
+  # Authenticates with sorcery!
+  authenticates_with_sorcery! do |config|
+    config.authetications_class = Authentication
   end
 
-  def update_from_github
-    github = Github.new
-    github_user = github.users.get(login)
+  # Mass-assignment protection
+  #   REVIEW: does :username have to be whitelisted, try!
+  attr_accessible :username, :authentications_attributes
 
-    %w(login name html_url).each do |attr|
-      self[attr] = github_user[attr]
-    end
+  # Validations
+  validates_uniqueness_of :username
 
-    self.save
-  end
-
+  # Authentications
+  has_many :authentications, dependent: :destroy
+  accepts_nested_attributes_for :authentications
 end
