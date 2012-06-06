@@ -48,6 +48,9 @@ repo_list.each do |repo|
   r = Repo.new(full_name: repo[0])
   r.category_list = repo[1]
   r.save
+  r.reload
+  puts r.inspect
+  puts r.category_list
 end
 
 # Categories
@@ -72,6 +75,8 @@ Updater.update_repos_from_github
 category_list.each do |category|
   c = Category.new(name: category[0], description: category[1])
   c.save
+  c.reload
+  puts c.inspect
 end
 
 # Update Category Attributes
