@@ -45,7 +45,7 @@ repo_list = [
 ]
 
 repo_list.each do |repo|
-  r = Repo.create!(full_name: repo[0], category_list: repo[1])
+  r = Repo.create(full_name: repo[0], category_list: repo[1])
 end
 
 # Categories
@@ -68,7 +68,7 @@ Updater.update_repos_from_github
 
 # Insert Category Descriptions
 category_list.each do |category|
-  c = Category.create!(name: category[0], description: category[1])
+  c = Category.create(name: category[0], description: category[1])
 end
 
 # Update Category Attributes
