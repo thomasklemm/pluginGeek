@@ -1,7 +1,7 @@
 # Knight.io - State your purpose
 
 Knight.io is the place for you developer to find the right 'x' for your purpose:
-	
+
 	'x':
 	- Rubygem
 	- Rails Plugin
@@ -9,7 +9,7 @@ Knight.io is the place for you developer to find the right 'x' for your purpose:
 	- jQuery Plugin
 	- Github Repository
 
-Knight.io's mission is to **organize all the great work hosted on Github and make it findable and accessible to the developer community.** 
+Knight.io's mission is to **organize all the great work hosted on Github and make it findable and accessible to the developer community.**
 
 Have you ever
 	- searched for a way to do 'x'
@@ -34,10 +34,22 @@ Inspiration:
 	- [The Ruby Toolbox](http://ruby-toolbox.com)
 	- [Toolbox.no.de](toolbox.no.de)
 	- The many sites highlighting selected great jQuery Plugins
-	- anyone who has tried to make the mannifold possibilities accessible to me. Thanks! 
+	- anyone who has tried to make the mannifold possibilities accessible to me. Thanks!
 
 What should Knight.io look like? Any thoughts? Any ideas? Even feeling an urge to step in? - Do it. Open an issue, tweet it, share it. Thanks.
 
 The future of Knight.io lays in your hands. Use it, and use it wisely.
 
 Knight.io - State your purpose
+
+---
+### Changelog
+
+v0.2.0
+- Add sole user authentication via Github for update and destroy methods
+
+v0.1.1
+- Updating jobs will be handled in the background by new updater model containing cronjobs
+
+v0.1.0
+- Base structure of repos and categories, including URL design
