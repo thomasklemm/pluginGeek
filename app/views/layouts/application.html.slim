@@ -1,26 +1,25 @@
 doctype 5
-html
+html lang="en"
+
+  / head
   head
-    title knight
-    = stylesheet_link_tag    'application'
-    link href="//get.pictos.cc/fonts/1689/2" rel="stylesheet" type="text/css"
-    / REVIEW javascript_tag
-    script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"
-    = javascript_include_tag 'application'
-    = csrf_meta_tags
+    = render 'head'
 
-  body class=controller_name style="background: url('#{ asset_path("backgrounds/Background_02.png") }')"
-    - if flash
-      - flash.each do |key, msg|
-        p #{key.upcase}: #{msg}
+  / body
+  body class=controller_name
+    = render 'body'
 
+
+
+
+/
     .container#body_o
       .row
         .twelve.columns.centered#body_i
 
           span style="float: left; margin: 2em 1em" = link_to (image_tag "logos/knight01.png"), root_path
           h1 style="color: #888; margin-top: 0.25em" Knight.io
-          h4 style="color: #888; font-weight: normal" We make it easy for developers <br /> to discover </span><span class="ruby_icon">r</span> <span style="color: #eee">great ruby gems </span><span class="ruby_icon">r</span> for their projects
+          h4 style="color: #888; font-weight: normal" We make it easy for developers <br /> to discover </span><span class="ruby_icon">r</span> <span style="color: #eee">great rubygems </span><span class="ruby_icon">r</span> for their projects
 
           span style='float: right'
             - if current_user
@@ -29,12 +28,8 @@ html
             - else
               = link_to 'Login with Github', auth_at_provider_path(provider: :github)
 
-          .space05 style="border-bottom: 2px solid #555"
-          .space1
-
 
           = yield
 
 
-    - if Rails.env == "development"
-      script document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    -

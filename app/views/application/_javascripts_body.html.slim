@@ -1,0 +1,16 @@
+/ javascripts_body.html.slim
+
+/ jquery
+= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
+
+/ knight
+= javascript_include_tag 'application_body'
+
+/ google analytics
+javascript:
+  var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0]; g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js'; s.parentNode.insertBefore(g,s)}(document,'script'));
+
+/ livereload (in development)
+- if Rails.env.development?
+    javascript:
+      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
