@@ -1,47 +1,18 @@
+// application.css.sass
+
 // Bourbon SASS Mixins
 @import 'bourbon'
 
 // Foundation Design Framework
+//  placed in vendor/assets/stylesheets/foundation.css
 @import 'foundation'
 
-// Knight
-// Categories Index
-@import '_tag'
-@import '_tag_find'
 
-// Category Show
-@import '_repo'
+// Categories
+@import 'categories/categories'
 
+// Repos
+@import 'repos/repos'
 
-
-
-
-// FIXME: Find appropriate location
-.ruby_icon
-  // Used in subheader surrounding 'great ruby gems'
-  font-family: 'Pictos Custom'
-  margin-right: 4px
-  font-size: 22px
-  line-height: 0
-  vertical-align: middle
-
-// Spacers
-// FIXME: What's the best way to accomplish how I user these spacers right now?
-.space05
-  height: 0.5em
-
-.space1, .space10
-  height: 1em
-
-.space15
-  height: 1.5em
-
-.space2, .space20
-  height: 2em
-
-.space25
-  height: 2.5em
-
-.space3, .space30
-  height: 3em
-
+// Users
+@import 'users/users'
