@@ -46,6 +46,7 @@ repo_list = [
 
 repo_list.each do |repo|
   r = Repo.new(full_name: repo[0])
+  # category_list is mass-assignment protected
   r.category_list = repo[1]
   r.save
   r.reload
@@ -56,7 +57,7 @@ end
 # Categories
 category_list = [
   ['web application framework', 'Build web applications with style.'],
-  ['(user management) authentication', 'User Authentication Plugins that let you manage your users and handle signing in via Oauth Services (Twitter, Facebook, Github & more). There\'s a good railscasts that shows how an authentication solution can work.'],
+  ['(user management) authentication', 'User Authentication Plugins that let you manage your users and handle signing in via Oauth Services (Twitter, Facebook, Github & more). There is a good railscasts that shows how an authentication solution can work.'],
   ['(user management) authorization', 'Manage User Rights, User Roles & Abilities.'],
   ['design framework', 'Good foundation for your website styling.'],
   ['(development) development server', 'Local Development Server with automatic reload capabilites. Speeds up your development.'],
@@ -73,7 +74,9 @@ Updater.update_repos_from_github
 
 # Insert Category Descriptions
 category_list.each do |category|
-  c = Category.new(name: category[0], description: category[1])
+  c = Category.new(description: category[1])
+  # name is a mass-assignment protected attribute
+  c.name = category[0]
   c.save
   c.reload
   puts c.inspect
