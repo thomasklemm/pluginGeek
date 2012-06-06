@@ -70,8 +70,7 @@ Updater.update_repos_from_github
 
 # Insert Category Descriptions
 category_list.each do |category|
-  c = Category.new(name: category[0])
-  c.description = category[1]
+  c = Category.new(name: category[0], description: category[1])
   c.save
 end
 
