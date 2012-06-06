@@ -117,9 +117,8 @@ Rails.application.config.sorcery.configure do |config|
   #   Different accounts for development and production environments
   config.github.key = ENV['GITHUB_API_KEY']
   config.github.secret = ENV['GITHUB_API_SECRET']
-  config.github.callback_url = Rails.env.production? ? 'http://knight.dev/oauth/callback?provider=github' : 'http://knight.dev/oauth/callback?provider=github'
+  config.github.callback_url = ENV['GITHUB_API_CALLBACK']
   config.github.user_info_mapping = {login: 'login', email: 'email', name: 'name', github_url: 'html_url', avatar_url: 'avatar_url', company: 'company', location: 'location', followers: 'followers' }
-
 
   # --- user config ---
   config.user_config do |user|
