@@ -2,11 +2,15 @@ module CategoriesHelper
 
   # category name and group helper
   #   wrap category name and category group in respective tags
-  def category_name_helper(name)
-    if index = name.index(')')
-      name.insert(index + 1, '</span>').insert(0, '<span class="group">')
+  def category_name_helper(name_and_group)
+    match = /(?<name>.*)\((?<group>.*)\)/.match(name_and_group)
+
+    if match
+      name = match[:name].strip
+      group = match[:group].strip
+      "<span class='name'>#{ name }</span>&nbsp;<span class='group'>(#{ group })</span>"
     else
-      name
+      "<span class='name'>#{ name_and_group }</span>"
     end
   end
 
