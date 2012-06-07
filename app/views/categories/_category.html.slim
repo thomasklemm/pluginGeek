@@ -1,0 +1,11 @@
+/ category.html.slim
+
+.category
+
+  span.name                         = link_to category_name_helper(category.name).html_safe, category
+  span.repo_count data-icon='r'     = category.repo_count
+  span.watcher_count data-icon='h'  = category.watcher_count
+  / truncate helper counts html link characters when calculating length
+  span.description                  =raw truncate(category.description, length: 230, separator: ' ', omission: (link_to " ... more", category))
+  span.popular_repos                = category_popular_repos_helper(category.popular_repos).html_safe
+  span.all_repos                    = category.all_repos

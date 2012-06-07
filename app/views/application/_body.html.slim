@@ -1,0 +1,35 @@
+/ body.html.slim
+
+/ topbar
+.container#topbar_o
+  .row
+    .twelve.columns#topbar_i
+
+        = render 'topbar'
+
+/ main and sidebar
+.container#main_o
+  .row
+
+    / sidebar
+    .four.columns#sidebar_i
+      .well style='margin-top: 5px'
+
+        markdown:
+          **Github** is the home of many outstanding ruby gems. **Knight.io** assists developers in finding and discovering these treasures. **Contribute** your knowledge!
+
+        = content_for :sidebar
+
+    / main
+    .eight.columns#main_i
+
+      / flash messages
+      = render 'flash_messages'
+
+      / main body
+      = yield
+
+/ footer
+
+/ javascripts in body
+= render 'javascripts_body'

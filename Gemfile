@@ -64,6 +64,9 @@ gem 'pry-remote', :group => :development
 # Sorcery
 gem 'sorcery', '~> 0.7.12'
 
+# Redcarpet Markdown Parser (used by Github)
+gem 'redcarpet'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

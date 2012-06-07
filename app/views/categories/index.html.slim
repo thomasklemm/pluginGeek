@@ -1,15 +1,16 @@
-div id="js_tag_list"
+/ categories/index.html.slim
 
-  input.search placeholder="Knight.io Ruby Gem Search"
+h1 Search our categories
 
-  div.text-right
-    span.sort.sort_icon.initial_sort.active data-sort="watcher_count" data-icon="e" Watcher Count
-    span.sort.sort_icon.repo_count data-sort="repo_count" data-icon="r" Repo Count
-    span.sort.sort_icon.name data-sort="name" data-icon="n" Name
+/ Search
+input
 
-    span.reset Reset
+/ Sort
+span Sort by
+a knight score
+a name
+a group
+a watcher count
+a repo count
 
-  .space15
-
-  div class="list tags"
-    = render partial: "tag", collection: @tags
+= render partial: 'category', collection: @categories, spacer_template: 'spacer'

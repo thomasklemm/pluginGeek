@@ -5,25 +5,25 @@ class CategoriesController < ApplicationController
   # GET root
   # GET /categories
   def index
-    @tags = Category.visible.sort_by_watcher_count
+    @categories = Category.visible.sort_by_watcher_count
   end
 
   # GET /categories/:id
   def show
-    @tag = Category.find_by_slug(params[:id])
+    @category = Category.find_by_slug(params[:id])
 
-    @repos = Repo.tagged_with(@tag.name)
+    @repos = Repo.tagged_with(@category.name)
   end
 
   # PUT /categories/:id
   def update
-    @tag = Category.find_by_slug(params[:id])
+    @category = Category.find_by_slug(params[:id])
 
-    if @tag.update_attributes(params[:category])
-      flash[:notice] = 'Tag description updated.'
+    if @category.update_attributes(params[:category])
+      flash[:notice] = 'Category description updated.'
       redirect_to action: 'show'
     else
-      flash[:alert] = 'Tag description could not be updated.'
+      flash[:alert] = 'Category description could not be updated.'
       redirect_to action: 'show'
     end
 

@@ -57,6 +57,49 @@ class Updater
     tags.each { |tag| update_category_attributes(tag) }
   end
 
+  ###
+  #   Seeds
+  ###
+
+  # transcribe seed format to a new one
+  def self.transcribe_seeds
+    puts "The following messages should appear once for each affected model (currently two)."
+    models = [ActsAsTaggableOn::Tag, Category]
+    models.each do |model|
+      model.all.each do |tag|
+        match = /\((?<group>.*)\)(?<tag>.*)/.match(tag.name)
+        if match
+          group = match[:group].strip
+          t = match[:tag].strip
+
+          old_name = tag.name
+
+          tag.name = "#{ t } (#{ group })"
+
+          if tag.save
+            puts "Category '#{ old_name}' renamed to '#{ tag.name }'."
+          else
+            puts "ERROR while renaming '#{ old_name}' to '#{ tag.name }'."
+          end
+        end
+      end
+    end
+  end
+
+  # Rename a category
+  def self.rename_category(old_name, new_name)
+    puts "The following message should appear once for each affected model (currently two)."
+    models = [ActsAsTaggableOn::Tag, Category]
+    models.each do |model|
+      tag = model.find_by_name(old_name)
+      tag.name = new_name
+      if tag.save
+        puts "Renamed category '#{ old_name }' to '#{ new_name }'."
+      else
+        puts "ERROR while renaming category '#{ old_name }' to '#{ new_name }'."
+      end
+    end
+  end
 
 protected
 

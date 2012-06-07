@@ -1,0 +1,29 @@
+/ head.html.slim
+
+meta charset='utf-8'
+
+/ dns prefetch
+/   (via http://html5boilerplate.com/docs/DNS-Prefetching/)
+link rel="dns-prefetch" href="//get.pictos.cc"
+link rel="dns-prefetch" href="http://pictos.s3.amazonaws.com/"
+link rel="dns-prefetch" href="//pictos.s3.amazonaws.com/"
+link rel="dns-prefetch" href="//ajax.googleapis.com"
+link rel="dns-prefetch" href="//www.google-analytics.com"
+link rel="dns-prefetch" href="//google-analytics.com"
+
+/ title and description
+title = title_helper
+meta name='description' content=''
+meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'
+meta name='viewport' content='width=device-width'
+
+/ stylesheets
+= stylesheet_link_tag '//get.pictos.cc/fonts/1689/2'
+= stylesheet_link_tag 'application'
+
+/ javascripts in head
+/   (jquery is placed in body)
+= javascript_include_tag 'application_head'
+
+/ csrf meta tags
+= csrf_meta_tags
