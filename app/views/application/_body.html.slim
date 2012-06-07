@@ -1,14 +1,30 @@
 / body.html.slim
 
+/ topbar
+.container#topbar_o
+  .row
+    .twelve.columns#topbar_i
 
-/ flash messages
-- if flash
-  - flash.each do |type, message|
-    div class=flash_class(type)
-      span = message
-      a href='' class='close' &times;
+        = render 'topbar'
 
+/ main and sidebar
+.container#main_o
+  .row
+    / main
+    .nine.columns#main_i
 
+      / flash messages
+      = render 'flash_messages'
+
+      / main body
+      / = yield
+
+    / sidebar
+    .three.columns#sidebar_i
+
+      = content_for :sidebar
+
+/ footer
 
 / javascripts in body
 = render 'javascripts_body'

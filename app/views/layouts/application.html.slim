@@ -8,28 +8,3 @@ html lang="en"
   / body
   body class=controller_name
     = render 'body'
-
-
-
-
-/
-    .container#body_o
-      .row
-        .twelve.columns.centered#body_i
-
-          span style="float: left; margin: 2em 1em" = link_to (image_tag "logos/knight01.png"), root_path
-          h1 style="color: #888; margin-top: 0.25em" Knight.io
-          h4 style="color: #888; font-weight: normal" We make it easy for developers <br /> to discover </span><span class="ruby_icon">r</span> <span style="color: #eee">great rubygems </span><span class="ruby_icon">r</span> for their projects
-
-          span style='float: right'
-            - if current_user
-              span Logged in as <strong>#{ current_user.login }</strong>.&nbsp;
-              span = link_to 'Logout', logout_path
-            - else
-              = link_to 'Login with Github', auth_at_provider_path(provider: :github)
-
-
-          = yield
-
-
-    -

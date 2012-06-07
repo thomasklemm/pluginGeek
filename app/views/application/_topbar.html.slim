@@ -1,0 +1,24 @@
+/ topbar.html.slim
+
+span.left#knight
+  span.name: strong Knight
+  span .io
+
+span.right#login
+  / Developer logged in
+  - if current_user
+    span.avatar style="background-image: url('#{ current_user.avatar_url }')"
+    / img.avatar src=current_user.avatar_url style='height: 36px; width: 36px'
+    span Hello,
+    span &nbsp;
+    span.name: strong = current_user.name || current_user.login
+    span !&nbsp;&nbsp;
+
+    = link_to 'Logout', logout_path
+
+  / Not logged in
+  - else
+    = link_to 'Login with Github', auth_at_provider_path(provider: :github)
+
+
+

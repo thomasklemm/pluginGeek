@@ -1,0 +1,40 @@
+// topbar.sass
+
+@import 'joint/joints'
+
+#topbar_o
+  background: $topbar_background_color
+  height: 44px
+  line-height: 44px /* center text vertically */
+
+#topbar_i
+
+  #knight
+    .name
+
+  #login
+    .avatar
+      float: left
+      height: 36px
+      width: 36px
+      margin: 4px 8px
+
+      background-size: 36px 36px
+      background-repeat: no-repeat
+
+      @include border-radius(5px)
+      @include box-shadow(#000 0 0 3px)
+
+
+    .name
+
+
+// Styles for rounded corners on images
+//  as seen here: www.bram.us/sandbox/roundedcorners/
+.rounded_image
+  float: left
+  @include border-radius(10px)
+  @include box-shadow(#000 0 1px 3px)
+
+.rounded_image img
+  opacity: 0
