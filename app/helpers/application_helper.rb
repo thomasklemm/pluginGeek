@@ -9,10 +9,11 @@ module ApplicationHelper
     title
   end
 
-  def flash_class(type)
-    'alert-box'
-    'alert-box success' if type == 'notice'
-    'alert-box error' if type == 'alert'
+  def flash_message_container(type)
+    klass = 'alert-box'
+    klass = 'alert-box success' if type == :notice
+    klass = 'alert-box error' if type == :alert
+    klass
   end
 
 end
