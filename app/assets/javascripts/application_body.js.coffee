@@ -7,6 +7,14 @@
 //= require repos
 //= require users
 
+# Alert Boxes
+$ ->
+  $(".alert-box").delegate "a.close", "click", ->
+    event.preventDefault()
+    $(this).closest(".alert-box").fadeOut ->
+      $(this).remove()
+
+
 
 # Javascript for rounded corners on images
 #   as seen here: www.bram.us/sandbox/roundedcorners/
