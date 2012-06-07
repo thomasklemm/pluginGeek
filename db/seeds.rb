@@ -69,7 +69,7 @@ category_list = [
 
 # Run Jobs
 # Update Repos
-puts "Running 'Updater.update_repos_from_github'"
+puts "Running 'Updater.update_repos_from_github'."
 Updater.update_repos_from_github
 
 # Insert Category Descriptions
@@ -83,7 +83,10 @@ category_list.each do |category|
 end
 
 # Update Category Attributes
-puts "Running 'Updater.update_categories_from_repos'"
+puts "Running 'Updater.update_categories_from_repos'."
 Updater.update_categories_from_repos
+
+puts "Running 'Updater.transcribe_seeds'."
+Updater.transcribe_seeds
 
 puts 'Seed data successfully inserted. Go ahead!'
