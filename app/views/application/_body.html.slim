@@ -10,19 +10,24 @@
 / main and sidebar
 .container#main_o
   .row
+
+    / sidebar
+    .four.columns#sidebar_i
+      .well style='margin-top: 5px'
+
+        markdown:
+          **Github** is the home of many outstanding ruby gems. **Knight.io** assists developers in finding and discovering these treasures. **Contribute** your knowledge!
+
+        = content_for :sidebar
+
     / main
-    .nine.columns#main_i
+    .eight.columns#main_i
 
       / flash messages
       = render 'flash_messages'
 
       / main body
-      / = yield
-
-    / sidebar
-    .three.columns#sidebar_i
-
-      = content_for :sidebar
+      = yield
 
 / footer
 

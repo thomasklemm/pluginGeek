@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def title_helper
     # Repo
-    title = 'Knight.io - Discover Rubygems'
+    title = "Knight.io - Github's finest Ruby Gems"
     @repo and title = "#{ @repo.full_name} - Knight.io"
     @tag and title = "#{ @tag.name } - Knight.io"
 

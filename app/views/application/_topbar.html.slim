@@ -4,6 +4,10 @@ span.left#knight
   span.name: strong Knight
   span .io
 
+  span#nav
+    = link_to 'Categories', root_path
+    = link_to 'Repos', repos_path
+
 span.right#login
   / Developer logged in
   - if current_user
