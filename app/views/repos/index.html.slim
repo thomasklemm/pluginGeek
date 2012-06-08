@@ -1,6 +1,21 @@
 h1 Repos#index
 p Find me in app/views/repos/index.html.slim
 
-- @repos.each do |repo|
-  = debug repo
-  = link_to "Show Repo", repo
+#js_repos_list
+
+  / Repos Find
+  .repos_search_and_sort
+
+    / Search
+    input.search
+
+    span Sort by
+    a.sort.sorted data-sort='knight_score' Knight Score
+    a.sort        data-sort='watchers' Watchers
+    a.sort        data-sort='updated_at' Last commit
+
+  span &nbsp;
+
+  / Repos List
+  .list
+    = render partial: 'shared/repo', collection: @repos

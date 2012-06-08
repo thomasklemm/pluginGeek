@@ -14,3 +14,11 @@ $ ->
     $(this).closest(".alert-box").fadeOut ->
       $(this).remove()
 
+
+# Current Sort Highlighting
+$ ->
+  $('.sort').click ->
+    $(this).addClass('sorted')
+    $(this).siblings('.sort').removeClass('sorted')
+
+

@@ -4,6 +4,17 @@
   span.name = @category.name
   span.description = @category.description
 
-= render 'spacer'
+#js_repos_list
 
-= render partial: 'shared/repo', collection: @repos, spacer_template: 'spacer'
+  / Sort
+  .repos_sort
+    span Sort by
+    a.sort.sorted data-sort='knight_score' Knight Score
+    a.sort        data-sort='watchers' Watchers
+    a.sort        data-sort='updated_at' Last commit
+
+  = render 'spacer'
+
+  / Repos List
+  .list
+    = render partial: 'shared/repo', collection: @repos

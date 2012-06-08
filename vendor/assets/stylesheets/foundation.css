@@ -199,9 +199,9 @@
 
 	-------------------------------------------------- */
 
-	.container { padding: 0 20px; }
+	.container { padding: 0 16px; }
 
-	.row { width: 100%; min-width: 600px; max-width: 1050px; margin: 0 auto; }
+	.row { width: 100%; min-width: 540px; max-width: 1050px; margin: 0 auto; }
 	/* To fix the grid into a certain size, set max-width to width */
 	.row .row { min-width: 0; }
 

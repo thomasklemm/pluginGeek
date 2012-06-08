@@ -1,5 +1,22 @@
 / javascripts_body.html.slim
 
+/ List.js in head
+/ Categories List
+javascript:
+  var categories_list_options = {
+    valueNames: ['name', 'repo_count', 'watcher_count', 'description', 'popular_repos', 'all_repos', 'knight_score']
+  };
+
+  var categoriesList = new List('js_categories_list', categories_list_options);
+
+/ Repos List
+javascript:
+  var repos_list_options = {
+    valueNames: ['owner', 'name', 'watchers', 'description', 'knight_score', 'updated_at']
+  };
+
+  var reposList = new List('js_repos_list', repos_list_options);
+
 / jquery
 = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
 
@@ -14,24 +31,3 @@ javascript:
 - if Rails.env.development?
     javascript:
       document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
-
-/ List.js Initalization
-- if params[:controller] == 'categories' && params[:action] == 'index'
-
-  / Categories List
-  javascript:
-    var categories_list_options = {
-      valueNames: ['name', 'repo_count', 'watcher_count', 'description', 'popular_repos', 'all_repos', 'knight_score']
-    };
-
-    var categoriesList = new List('js_categories_list', categories_list_options);
-
-- else
-
-  / Repos List
-  javascript:
-    var repos_list_options = {
-      valueNames: ['owner', 'name', 'watchers', 'description', 'knight_score', 'updated_at']
-    };
-
-    var reposList = new List('js_repos_list', repos_list_options);
