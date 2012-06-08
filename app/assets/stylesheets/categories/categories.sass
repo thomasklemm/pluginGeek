@@ -9,14 +9,12 @@
       font-weight: bold
     .group
       font-weight: normal
+
   .repo_count
     margin-left: 10px
-  .repo_count:before /* icon */
-    margin-right: 3px
   .watcher_count
     margin-left: 8px
-  .watcher_count:before /* icon */
-    margin-right: 3px
+
   .description
     display: block
   .popular_repos
@@ -27,9 +25,19 @@
   .all_repos
     display: none
 
+// Category header in show view
+.category_header
+  .name
+    display: block
+    font-weight: bold
+    font-size: 24px
 
-[data-icon]:before
-  font-family: 'Pictos Custom'
-  content: attr(data-icon)
-  -webkit-font-smoothing: antialiased
-  vertical-align: middle
+  .description
+
+// temp
+.categories_header
+  .name
+    font-weight: bold
+    font-size: 24px
+  .slogan
+    font-weight: bold

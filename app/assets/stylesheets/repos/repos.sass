@@ -1,2 +1,28 @@
 // repos.sass
 @import 'joint/joints'
+
+.repo
+
+  .owner
+  .name
+    font-weight: bold
+  .watchers
+    margin-left: 10px
+  .forks
+    margin-left: 8px
+  .description
+    display: block
+  .github_url
+  .homepage_url
+    margin-left: 8px
+  .activity
+    font-size: 13px
+    margin-left: 10px
+    // Activity colors
+    &.first   // < 2m
+      color: #393
+    &.second  // < 6m
+    &.third   // < 12m
+    &.fourth  // < 18m
+    &.fifth   // < 24m
+    &.sixth   // > 24m

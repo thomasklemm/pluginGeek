@@ -1,10 +1,14 @@
+/ shared/repo.html.slim
+
 .repo
-  div.clearfix
-    / Name
-    span.full_name                    = link_to repo.full_name, repo
 
-    / Stats
-    span.watchers data-icon="e"       = repo.watchers
+  = link_to "<span class='owner'>#{ repo.owner }</span> / <span class='name'>#{ repo.name }</span>".html_safe, repo
+  span.watchers data-icon='h' = repo.watchers
+  span.forks data-icon='T' = repo.forks
 
-  / Description
-  div.description                     = repo.description
+  span.description = repo.description
+
+  span.github_url = link_to 'Github', repo.github_url
+  span.homepage_url = link_to 'Homepage', repo.homepage_url
+
+  span.activity data-icon='t' class=activity_color(repo.github_updated_at) = distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago'

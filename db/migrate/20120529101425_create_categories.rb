@@ -8,7 +8,8 @@ class CreateCategories < ActiveRecord::Migration
       t.string :all_repos
       t.integer :repo_count
       t.integer :watcher_count
-      
+      t.integer :knight_score
+
       t.timestamps
     end
     add_index :categories, :slug, unique: true
