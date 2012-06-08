@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120605102414) do
     t.string   "all_repos"
     t.integer  "repo_count"
     t.integer  "watcher_count"
+    t.integer  "knight_score"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
