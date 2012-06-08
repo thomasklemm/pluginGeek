@@ -5,14 +5,14 @@ class CategoriesController < ApplicationController
   # GET root
   # GET /categories
   def index
-    @categories = Category.visible.sort_by_watcher_count
+    @categories = Category.visible.sort_by_knight_score
   end
 
   # GET /categories/:id
   def show
     @category = Category.find_by_slug(params[:id])
 
-    @repos = Repo.tagged_with(@category.name)
+    @repos = Repo.tagged_with(@category.name).sort_by_knight_score
   end
 
   # PUT /categories/:id

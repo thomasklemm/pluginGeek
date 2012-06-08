@@ -3,7 +3,7 @@ class Updater
   # Github Attribute Mapping
   GITHUB_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
       description: 'description', watchers: 'watchers', forks: 'forks',
-      github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'updated_at' ]
+      github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'pushed_at' ]
   GITHUB_API_BASE_URL = 'https://api.github.com/'
 
 
@@ -146,8 +146,9 @@ protected
     return repo
   end
 
+  # returns knight score as integer
   def self.knight_score(github_repo)
-    github_repo['watchers'] * activity_score(github_repo['pushed_at']) * activity_score(github_repo['updated_at'])
+    (github_repo['watchers'] * activity_score(github_repo['pushed_at'])).ceil
   end
 
   def self.activity_score(time)
@@ -161,8 +162,7 @@ protected
             when 24.months+1.second..36.months  then (0.5 - ( diff / 36.months * 0.2 ))
             else  0.3
             end
-
-    score = 1 + (score - 1) / 2
+    score
   end
 
   def self.update_category_attributes(tag)
@@ -170,7 +170,7 @@ protected
     category = Category.find_or_initialize_by_name(tag.name)
 
     # Popular Repos and All Repos (String)
-    repos = Repo.tagged_with(tag)
+    repos = Repo.tagged_with(tag).sort_by_knight_score
 
     # Popular Repos
     category[:popular_repos] = repos[0..2].inject("") do |result, repo|
@@ -192,8 +192,10 @@ protected
     # Repo Count
     category[:repo_count] = tag.count
     # Watcher Count
-    # Alternative: category[:watcher_count] = repos.sum { |repo| repo.watchers }
+    #   Alternative: category[:watcher_count] = repos.sum { |repo| repo.watchers }
     category[:watcher_count] = repos.sum(&:watchers)
+    # Knight Score
+    category[:knight_score] = repos.sum(&:knight_score)
 
     # Save category
     category.save
