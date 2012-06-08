@@ -1,1 +1,1 @@
-ActsAsTaggableOn.force_lowercase = true
+# ActsAsTaggableOn.force_lowercase = false
