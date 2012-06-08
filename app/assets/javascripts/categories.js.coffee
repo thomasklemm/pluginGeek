@@ -1,3 +1,11 @@
+# categories.js.coffee
+
+$ ->
+  $('.sort').click ->
+    $(this).addClass('sorted')
+    $(this).siblings('.sort').removeClass('sorted')
+
+###
 $ ->
   $(".search").focus()
 
@@ -26,3 +34,4 @@ $ ->
 
   $(".tag_header .edit").click (event) ->
     event.preventDefault()
+###

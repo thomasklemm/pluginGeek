@@ -12,6 +12,7 @@
 
   #knight
     .name
+      color: #eee
 
     #nav
       a
@@ -19,6 +20,7 @@
 
   #login
     .avatar
+      // Styles for rounded corners on background-images as seen here: www.bram.us/sandbox/roundedcorners/
       float: left
       height: 36px
       width: 36px
@@ -30,16 +32,4 @@
       @include border-radius(5px)
       @include box-shadow(#000 0 0 3px)
 
-
     .name
-
-
-// Styles for rounded corners on images
-//  as seen here: www.bram.us/sandbox/roundedcorners/
-.rounded_image
-  float: left
-  @include border-radius(10px)
-  @include box-shadow(#000 0 1px 3px)
-
-.rounded_image img
-  opacity: 0

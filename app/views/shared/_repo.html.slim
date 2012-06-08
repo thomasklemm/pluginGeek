@@ -12,3 +12,6 @@
   span.homepage_url = link_to 'Homepage', repo.homepage_url
 
   span.activity data-icon='t' class=activity_color(repo.github_updated_at) = distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago'
+
+  span.knight_score style='display: none' = repo.knight_score
+  span.updated_at style='display: none' = time_ago_from_now(repo.github_updated_at)

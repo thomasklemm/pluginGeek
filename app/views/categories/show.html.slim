@@ -3,6 +3,7 @@
 .category_header
   span.name = @category.name
   span.description = @category.description
-  div ---
+
+= render 'spacer'
 
 = render partial: 'shared/repo', collection: @repos, spacer_template: 'spacer'

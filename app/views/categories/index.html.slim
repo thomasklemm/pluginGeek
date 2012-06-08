@@ -1,24 +1,30 @@
 / categories/index.html.slim
 
+/ Categories Header
 .categories_header
   span.name Knight.io
   span.slogan  - Github's finest Ruby Gems
   span style="display: none" '
   div Browse our categories
-  div ---
 
-/
-  h1 Search our categories
+= render 'spacer'
 
-  / Search
-  input
+/ Categories List
+#js_categories_list
+  / Categories Find
+  .categories_search_and_sort
 
-  / Sort
-  span Sort by
-  a knight score
-  a name
-  a group
-  a watcher count
-  a repo count
+    / Search
+    input.search
 
-= render partial: 'category', collection: @categories, spacer_template: 'spacer'
+    / Sort
+    span Sort by
+    a.sort.sorted data-sort='knight_score' Knight Score
+    a.sort        data-sort='repo_count' Repos
+    a.sort        data-sort='watcher_count' Watchers
+
+  = render 'spacer'
+
+  / Categories List
+  .list
+    = render partial: 'category', collection: @categories

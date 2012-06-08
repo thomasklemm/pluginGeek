@@ -1,7 +1,7 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+# repos.js.coffee
 
+
+###
 $ ->
   $(".reset").click  ->
     $(this).parent().siblings(".search").val("")
@@ -19,3 +19,4 @@ $ ->
   repo_options = ['full_name', 'watchers', 'description']
 
   repo_list = new List('js_repo_list', repo_options)
+###

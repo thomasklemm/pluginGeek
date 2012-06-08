@@ -13,4 +13,10 @@ module ReposHelper
     klass
   end
 
+  # return time ago in hours
+  def time_ago_from_now(time)
+    diff = Time.now - time
+    (diff / 3600).floor
+  end
+
 end

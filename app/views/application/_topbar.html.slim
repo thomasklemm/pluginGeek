@@ -1,8 +1,7 @@
 / topbar.html.slim
 
 span.left#knight
-  span.name: strong Knight
-  span .io
+  = link_to "<span class='name'><b>Knight</b>.io</span>".html_safe, root_path
 
   span#nav
     = link_to 'Categories', root_path
