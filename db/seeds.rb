@@ -39,8 +39,6 @@ seeds.each do |seed|
   category = Category.find_or_initialize_by_name(seed[:name])
   category.description = seed[:description]
   category.save
-  category.reload
-  puts category.inspect
 end
 
 puts "Running 'Updater.update_repos_from_github'."
