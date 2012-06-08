@@ -3,90 +3,48 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
-#
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
-#   Copyable Item: ['', ''],
+# Empty Items List: {name: '', group: '', repos: %w(), description: ''}
+#
+# Be sure to respect mass assignment protection!
 
-
-# Repos
-repo_list = [
-  ['rails/rails', 'web application framework'],
-  ['sinatra/sinatra', 'web application framework'],
-  ['zurb/foundation', 'design framework'],
-  ['twitter/bootstrap', 'design framework'],
-  ['37signals/pow', '(development) development server'],
-  ['rodreegez/powder', '(development) development server'],
-  ['mbleigh/acts-as-taggable-on', '(active record) tagging'],
-  ['bradphelan/rocket_tag', '(active record) tagging'],
-  ['chrome/markable', '(active record) tagging'],
-  ['mperham/sidekiq', 'background jobs'],
-  ['mperham/girl_friday', 'background jobs'],
-  ['defunkt/resque', 'background jobs'],
-  ['collectiveidea/delayed_job', 'background jobs'],
-  ['ryandotsmith/queue_classic', 'background jobs'],
-  ['NoamB/sorcery', '(user management) authentication'],
-  ['plataformatec/devise', '(user management) authentication'],
-  ['thoughtbot/clearance', '(user management) authentication'],
-  ['intridea/omniauth', '(user management) authentication'],
-  ['ryanb/cancan', '(user management) authorization'],
-  ['stffn/declarative_authorization', '(user management) authorization'],
-  ['kristianmandrup/cantango', '(user management) authorization'],
-  ['nathanl/authority', '(user management) authorization'],
-  ['james2m/canard', '(user management) authorization'],
-  ['mcrowe/roleable', '(user management) authorization'],
-  ['37signals/mail_view', '(email) preview emails'],
-  ['sj26/mailcatcher', '(email) preview emails'],
-  ['ryanb/letter_opener', '(email) preview emails'],
-  ['jeriko/app_drone', 'rails project generators and templates'],
-  ['RailsApps/rails_apps_composer', 'rails project generators and templates'],
-  ['RailsApps/rails3-application-templates', 'rails project generators and templates']
+# Build seeds
+seeds = [
+  {name: 'Web Application Framework', group: '', repos: %w(rails/rails sinatra/sinatra), description: 'Build web applications easily with style.'},
+  {name: 'Design Framework', group: '', repos: %w(twitter/bootstrap zurb/foundation), description: 'Build great looking websites with ease.'},
+  {name: 'Development Server', group: 'Development', repos: %w(37signals/pow rodreegez/powder), description: 'Automatically run your apps on your local machine, and access them with special domains in your browser.'},
+  {name: 'Tagging', group: 'ActiveRecord', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag), description: 'Tagging and marking for your ActiveRecord models.'},
+  {name: 'Background Jobs', group: '', repos: %w(mperham/sidekiq mperham/girl_friday defunkt/resque collectiveidea/delayed_job ryandotsmith/queue_classic), description: 'Process worker tasks in the background.'},
+  {name: 'Authentication', group: 'User Management', repos: %w(plataformatec/devise NoamB/sorcery thoughtbot/clearance intridea/omniauth), description: 'Authenticate your users.'},
+  {name: 'Authorization', group: 'User Management', repos: %w(ryanb/cancan stffn/declarative_authorization kristianmandrup/cantango nathanl/authority james2m/canard mcrowe/roleable), description: 'Manage user roles and abilities. There are various concepts when it come to Authorization.'},
+  {name: 'Email Preview', group: 'ActionMailer', repos: %w(37signals/mail_view ryanb/letter_opener sj26/mailcatcher), description: 'Preview emails in the browser instead of sending them. Useful in development and for testing the design of emails and newsletters.'},
+  {name: 'Project Generators / Templates', group: 'Rails', repos: %w(jeriko/app_drone RailsApps/rails_apps_composer RailsApps/rails3-application-templates), description: 'Get your project off the ground with ease.'}
 ]
 
-repo_list.each do |repo|
-  r = Repo.new(full_name: repo[0])
-  # category_list is mass-assignment protected
-  r.category_list = repo[1]
-  r.save
-  r.reload
-  puts r.inspect
-  puts r.category_list
+# Enter or update seeds
+seeds.each do |seed|
+  # Enter repos
+  seed[:repos].each do |full_name|
+    repo = Repo.find_or_initialize_by_full_name(full_name)
+    categories = []
+    categories << repo.category_list
+    categories << seed[:name]
+    repo.category_list = categories.join(', ')
+    repo.save
+  end
+
+  # Enter category description
+  category = Category.find_or_initialize_by_name(seed[:name])
+  category.description = seed[:description]
+  category.save
 end
 
-# Categories
-category_list = [
-  ['web application framework', 'Build web applications with style.'],
-  ['(user management) authentication', 'User Authentication Plugins that let you manage your users and handle signing in via Oauth Services (Twitter, Facebook, Github & more). There is a good railscasts that shows how an authentication solution can work.'],
-  ['(user management) authorization', 'Manage User Rights, User Roles & Abilities.'],
-  ['design framework', 'Good foundation for your website styling.'],
-  ['(development) development server', 'Local Development Server with automatic reload capabilites. Speeds up your development.'],
-  ['(active record) tagging', 'Tagging functionality for your ActiveRecord Models.'],
-  ['background jobs', 'Message queuing helps you allocating workload to seperate worker processes in the background. Used as synonyms: Background processing, message queues.'],
-  ['(email) preview emails', 'Preview emails in development, e.g. in the browser, instead of sending them.'],
-  ['rails project generators and templates', 'Get projects started. Helps getting up and running quickly, automating configuration.']
-]
-
-# Run Jobs
-# Update Repos
 puts "Running 'Updater.update_repos_from_github'."
 Updater.update_repos_from_github
 
-# Insert Category Descriptions
-category_list.each do |category|
-  c = Category.new(description: category[1])
-  # name is a mass-assignment protected attribute
-  c.name = category[0]
-  c.save
-  c.reload
-  puts c.inspect
-end
-
-# Update Category Attributes
 puts "Running 'Updater.update_categories_from_repos'."
 Updater.update_categories_from_repos
 
-puts "Running 'Updater.transcribe_seeds'."
-Updater.transcribe_seeds
-
-puts 'Seed data successfully inserted. Go ahead!'
+puts 'Finished writing or updating seeds successfully.'

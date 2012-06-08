@@ -22,6 +22,7 @@ class Updater
       else
         # error
         # repo.update_attribute(:manual_work_required, true)
+        puts "ERROR while updating '#{ repo.full_name }'."
       end
     end
     puts "'Updater.update_repos_from_github' successfully finished."
@@ -111,7 +112,7 @@ protected
     # Error Handling
     #   e.g. mark with flag for manual handling
     #   be sure to return in case of repo renamed or non-existent etc on github
-    res.status != 200 and return puts 'Updating #{repo.full_name} failed.'
+    res.status != 200 and return false
 
     # Success Handling
     github_repo = JSON.parse(res.body)
