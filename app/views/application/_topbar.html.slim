@@ -1,7 +1,9 @@
 / topbar.html.slim
 
 span.left#knight
-  = link_to "<span class='name'><b>Knight</b>.io</span>".html_safe, root_path
+  /= link_to "<span class='name'><b>Knight</b>.io</span>".html_safe, root_path
+  = link_to image_tag('name/knightio_fff.png', width: 110, style: 'float: left; margin-top: 6px'), root_path
+
 
   span#nav
     = link_to 'Categories', root_path

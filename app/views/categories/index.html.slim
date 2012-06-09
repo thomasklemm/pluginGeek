@@ -2,10 +2,9 @@
 
 / Categories Header
 .categories_header
-  span.name Knight.io
-  span.slogan  - Github's finest Ruby Gems
-  span style="display: none" '
-  p Browse our categories
+  = image_tag('name/knightio_logo_and_name.png', class: 'logo_and_name')
+
+  h4.headline Browse our <span class='number'>#{ @categories.size }</span> categories
 
 / Categories List
 #js_categories_list
