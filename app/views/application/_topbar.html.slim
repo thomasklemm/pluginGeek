@@ -23,6 +23,12 @@ span.right#login
 
   / Not logged in
   - else
+    span.avatar style="background-image: url('https://secure.gravatar.com/avatar/43a958f2861c1a8268fb74390cdd749b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png'); background-size: 32px 32px; width: 32px; height: 32px"
+    / img.avatar src=current_user.avatar_url style='height: 36px; width: 36px'
+    span Hello there,
+    span &nbsp;
+    span.name: strong = %w(Githubber Developer Ruby&nbsp;Pro Rails&nbsp;Wizard JS&nbsp;Guru Human Web&nbsp;Designer Designer Web&nbsp;Engineer Open&nbsp;Source&nbsp;Lover Knight Sir).shuffle.first.html_safe
+    span !&nbsp;&nbsp;
     = link_to 'Login with Github', auth_at_provider_path(provider: :github)
 
 
