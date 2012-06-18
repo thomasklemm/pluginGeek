@@ -19,19 +19,29 @@ Knight::Application.routes.draw do
   # Repos and Owners
   resources :repos, only: [:index, :show] do
 
-    # Owner Routes
-    # get ':owner' => 'users#show', on: :collection
-    # get ':owner/new' => 'users#new', on: :collection
-    # get ':owner/create' => 'users#create', on: :collection
-    # post ':owner/create' => 'users#create', on: :collection
+    collection do
+      # Owner Routes
+      # get ':owner' => 'users#show'
+      # get ':owner/new' => 'users#new'
+      # get ':owner/create' => 'users#create'
+      # post ':owner/create' => 'users#create'
 
-    # Repo Routes
-    get ':owner/:name/create' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    get ':owner/:name(/*leftover)' => 'repos#show', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    put ':owner/:name' => 'repos#update', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    delete ':owner/:name' => 'repos#destroy', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
+      # Repo Routes
+      constraints name: /[^\/]+(?=\.html\z)|[^\/]+/ do
+        get ':owner/:name/create' => 'repos#create'
+        get ':owner/:name(/*leftover)' => 'repos#show'
+        put ':owner/:name' => 'repos#update'
+        delete ':owner/:name' => 'repos#destroy'
+      end
 
+    end
   end
+
+  constraints subdomain: /ruby|js|design/ do
+    match '/' => 'categories#index'
+  end
+  match '/' => 'categories#choose_language'
+  root to: 'categories#choose_language'
 
 
   # For when to implement json response for repos#show
@@ -85,12 +95,6 @@ Knight::Application.routes.draw do
   #   end
 
   # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root to: "categories#index"
 
   # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end

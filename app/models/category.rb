@@ -1,19 +1,23 @@
 class Category < ActiveRecord::Base
 
-  # Mass Assignment Whitelist
-  attr_accessible :description
-
   # Friendly Id
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name_and_language, use: :slugged
+  def name_and_language
+    "#{name} - test"
+  end
+
+  # Tagging
+  acts_as_taggable_on :tags, :languages
 
   # Scopes
   #   For default sorting and hiding of empty categories
-  scope :sort_by_watcher_count, order('watcher_count desc')
-  scope :sort_by_knight_score, order('knight_score desc')
-  scope :visible, where('repo_count > 0')
+  #   scope :order_wc, order('watcher_count desc')
+  scope :order_ks, order('knight_score desc')
+  scope :has_repos, where('repo_count > 0')
+  scope :language, lambda { |language| tagged_with(language, on: :languages) }
 
-  # Validation
-  validates :name, uniqueness: true
+  # Mass Assignment Whitelist
+  attr_accessible :description
 
 end
