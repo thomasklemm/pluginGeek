@@ -4,7 +4,7 @@ class Repo < ActiveRecord::Base
   attr_accessible :full_name, :owner, :name
 
   # Scopes
-  scope :sort_by_knight_score, order('knight_score desc')
+  scope :order_ks, order('knight_score desc')
 
 
   # Validations
