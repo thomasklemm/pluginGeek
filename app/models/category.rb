@@ -2,10 +2,13 @@ class Category < ActiveRecord::Base
 
   # Friendly Id
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :history]
+  friendly_id :name_and_main_language, use: :slugged
+  def name_and_main_language
+    "#{ name } - #{ language_list.split(', ')[0] }"
+  end
 
   # Tagging
-  acts_as_taggable_on :tags, :languages
+  acts_as_ordered_taggable_on :tags, :languages
 
   # Scopes
   #   For default sorting and hiding of empty categories
@@ -23,5 +26,10 @@ class Category < ActiveRecord::Base
 
   # Mass Assignment Whitelist
   attr_accessible :description
+
+
+  def name_with_lang(name, lang)
+    "#{ name } (#{ lang })"
+  end
 
 end
