@@ -3,7 +3,6 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories do |t|
       t.string :name
       t.string :slug
-      t.string :main_language
       t.string :description
       t.string :popular_repos
       t.string :all_repos

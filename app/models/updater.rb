@@ -175,10 +175,10 @@ protected
 
   def self.update_category_attributes(tag)
     # Find or initialize category
-    category = Category.find_or_initialize_by_name(tag.name)
+    category = Category.find_or_initialize_by_name(tag[:name])
 
     # Popular Repos and All Repos (String)
-    repos = Repo.tagged_with(tag, on: :categories).order_knight_score
+    repos = Repo.tagged_with(tag[:name], on: :categories).order_knight_score
 
     # Popular Repos
     category[:popular_repos] = repos[0..2].inject('') do |result, repo|

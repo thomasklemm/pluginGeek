@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(:version => 20120618095044) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.string   "main_language"
     t.string   "description"
     t.string   "popular_repos"
     t.string   "all_repos"

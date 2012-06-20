@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   #   using history module (redirecting to new slug if slug changed)
   #   First language is considered to be main language
   extend FriendlyId
-  friendly_id :name_and_language_list, use: [:slugged, :history]
+  friendly_id :name, use: [:slugged, :history]
 
   # Tagging
   acts_as_ordered_taggable_on :tags, :languages
@@ -28,11 +28,5 @@ class Category < ActiveRecord::Base
 
   # Mass Assignment Whitelist
   attr_accessible :description
-
-protected
-
-  def name_and_langugage_list
-    "#{ name } (#{ language_list })"
-  end
 
 end
