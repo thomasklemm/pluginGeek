@@ -35,7 +35,11 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
 
+    # Squish description if present
+    params[:category][:description] &&= params[:category][:description].squish
+
     if @category.update_attributes(params[:category])
+      # REVIEW: maybe squish description?
       flash[:notice] = 'Category description updated.'
       redirect_to action: 'show'
     else

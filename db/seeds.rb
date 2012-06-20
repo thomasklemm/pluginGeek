@@ -15,7 +15,7 @@ seeds = [
   {name: 'Web Application Framework', lang: 'Ruby', repos: %w(rails/rails sinatra/sinatra), description: 'Build web applications easily with style.'},
   {name: 'Design Framework', lang: 'Design', repos: %w(twitter/bootstrap zurb/foundation h5bp/html5-boilerplate), description: 'Build great looking websites with ease.'},
   {name: 'Development Server', lang: 'Ruby', repos: %w(37signals/pow rodreegez/powder), description: 'Automatically run your apps on your local machine, and access them with special domains in your browser.'},
-  {name: 'Tagging / Marking / Liking', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag schneems/Likeable chrome/markable), description: 'Tagging and marking for your ActiveRecord models.'},
+  {name: 'Object Tagging / Marking / Liking', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag schneems/Likeable chrome/markable), description: 'Tagging and marking for your ActiveRecord models.'},
   {name: 'Background Jobs', lang: 'Ruby', repos: %w(mperham/sidekiq mperham/girl_friday defunkt/resque collectiveidea/delayed_job ryandotsmith/queue_classic), description: 'Process worker tasks in the background.'},
   {name: 'Authentication', lang: 'Ruby', repos: %w(plataformatec/devise NoamB/sorcery thoughtbot/clearance intridea/omniauth), description: 'Authenticate your users.'},
   {name: 'Authorization', lang: 'Ruby', repos: %w(ryanb/cancan stffn/declarative_authorization kristianmandrup/cantango nathanl/authority james2m/canard mcrowe/roleable), description: 'Manage user roles and abilities. There are various concepts when it come to Authorization.'},
@@ -43,7 +43,7 @@ seeds.each do |seed|
   seed[:repos].each do |full_name|
     repo = Repo.find_or_initialize_by_full_name(full_name)
 
-    # Preserve the current categories
+    # Assign multiple categories to a repo while seeding
     categories = []
     categories << repo.category_list
     categories << "#{ seed[:name] } (#{ seed[:lang] })"
@@ -52,10 +52,10 @@ seeds.each do |seed|
     repo.save
   end
 
-  # Enter category description
-  category = Category.find_or_initialize_by_name_and_main_language(name, langs[0])
-  category.description = seed[:description]
-  category.language_list = seed[:lang]
+  # Create or update categories
+  category = Category.find_or_initialize_by_name("#{ seed[:name] } (#{ seed[:lang] })")
+  category.description    ||= seed[:description]
+  category.language_list  = seed[:lang]
   category.save
 end
 
