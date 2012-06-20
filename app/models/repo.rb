@@ -1,11 +1,8 @@
 class Repo < ActiveRecord::Base
 
-  # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :owner, :name
-
   # Scopes
-  scope :order_ks, order('knight_score desc')
-
+  #   Order
+  scope :order_knight_score, order('knight_score desc')
 
   # Validations
   validates :full_name, uniqueness: true
@@ -16,6 +13,9 @@ class Repo < ActiveRecord::Base
 
   # Tagging
   acts_as_ordered_taggable_on :categories
+
+  # Whitelisting attributes for mass assignment
+  attr_accessible :full_name
 
   # Attribute defaults
   def description

@@ -38,28 +38,25 @@ seeds = [
 
 # Enter or update seeds
 seeds.each do |seed|
-  name = seed[:name]
-  langs = seed[:lang].split(', ')
-  # Enter repos
+
+  # Create or update repos
   seed[:repos].each do |full_name|
     repo = Repo.find_or_initialize_by_full_name(full_name)
-    # Reuse the current tags
+
+    # Preserve the current categories
     categories = []
     categories << repo.category_list
-    langs.each do |lang|
-      categories << name_with_lang(name, lang)
-    end
+    categories << "#{ seed[:name] } (#{ seed[:lang] })"
     repo.category_list = categories.join(', ')
+
     repo.save
   end
 
   # Enter category description
-  langs.each do |lang|
-    category = Category.find_or_initialize_by_name(name_with_lang(name, lang))
-    category.description = seed[:description]
-    category.language_list = langs.join(', ')
-    category.save
-  end
+  category = Category.find_or_initialize_by_name_and_main_language(name, langs[0])
+  category.description = seed[:description]
+  category.language_list = seed[:lang]
+  category.save
 end
 
 puts "Running 'Updater.update_repos_from_github'."

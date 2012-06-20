@@ -11,14 +11,10 @@ Knight::Application.routes.draw do
   resources :categories, only: [:index, :show, :update]
 
   # Repos and Owners
-  #
-  # Note: Routes for generating url differ from routes reading url, some duplication here
+  #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
-  #          while matching incoming requests is being done through seperate routes (as friendly_id contains slashes)
-  #
-  # Repos and Owners
+  #            while matching incoming requests is being done through seperate routes (as friendly_id contains slashes)
   resources :repos, only: [:index, :show] do
-
     collection do
       # Owner Routes
       # get ':owner' => 'users#show'
@@ -37,12 +33,8 @@ Knight::Application.routes.draw do
     end
   end
 
-  constraints subdomain: /ruby|js|design/ do
-    match '/' => 'categories#index'
-  end
-  match '/' => 'categories#choose_language'
-  root to: 'categories#choose_language'
-
+  # Root
+  root to: 'categories#index'
 
   # For when to implement json response for repos#show
   # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }

@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120618095044) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.string   "slug"
+    t.string   "main_language"
     t.string   "description"
     t.string   "popular_repos"
     t.string   "all_repos"
@@ -34,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20120618095044) do
     t.datetime "updated_at",    :null => false
   end
 
-  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
+  add_index "categories", ["slug"], :name => "index_categories_on_slug"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
