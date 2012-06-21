@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
 
-  before_filter :require_login, only: :update
+  before_filter :require_login, only: [:edit, :update]
 
   # GET /categories
   def index
@@ -31,6 +31,13 @@ class CategoriesController < ApplicationController
     @repos = Repo.tagged_with(@category.name, on: :categories).order_knight_score
   end
 
+  # GET /categories/:id/edit
+  def edit
+    @category = Category.find(params[:id])
+    @repos = Repo.tagged_with(@category.name, on: :categories).order_knight_score
+    render action: :show
+  end
+
   # PUT /categories/:id
   def update
     @category = Category.find(params[:id])
@@ -40,10 +47,10 @@ class CategoriesController < ApplicationController
 
     if @category.update_attributes(params[:category])
       # REVIEW: maybe squish description?
-      flash[:notice] = 'Category description updated.'
+      flash[:notice] = 'Category description updated. Thanks a lot!'
       redirect_to action: 'show'
     else
-      flash[:alert] = 'Category description could not be updated.'
+      flash[:alert] = "Category description could not be updated. Please let me know if you think this error should not have happened."
       redirect_to action: 'show'
     end
   end

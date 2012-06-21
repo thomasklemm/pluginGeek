@@ -2,6 +2,10 @@
 
 h3 Login
 
-p Login at Knight.io is handled via Github. To contribute and edit or add stuff you therefore need to have a Github account. We ask for no information from github except the ones that are publicly available.
+markdown:
+  **Want to contribute to Knight.io? Awesome!**
+  <br> Please login via Github first. (We will only be able to access your public info, nothing more!)
 
-= link_to 'Login with Github', auth_at_provider_path(provider: :github)
+= link_to auth_at_provider_path(provider: :github), class: 'login_with_github' do
+  = image_tag 'github/Octocat.png', class: 'octocat'
+  span.login Login with Github

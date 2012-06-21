@@ -13,7 +13,7 @@
 # Build seeds
 seeds = [
   {name: 'Web Application Framework', lang: 'Ruby', repos: %w(rails/rails sinatra/sinatra), description: 'Build web applications easily with style.'},
-  {name: 'Design Framework', lang: 'Design', repos: %w(twitter/bootstrap zurb/foundation h5bp/html5-boilerplate necolas/normalize.css), description: 'Build great looking websites with ease.'},
+  {name: 'Design Framework', lang: 'Design', repos: %w(twitter/bootstrap zurb/foundation h5bp/html5-boilerplate necolas/normalize.css), description: 'Build well designed websites with ease. Design Frameworks like Twitter Bootstrap and Zurb Foundation include a grid system, pre-styled buttons and form, and many design elements that you can use out of the box to quickly get a great looking website up and running. Of course you can always customize them to the fullest extent.'},
   {name: 'Development Server', lang: 'Ruby', repos: %w(37signals/pow rodreegez/powder), description: 'Automatically run your apps on your local machine, and access them with special domains in your browser.'},
   {name: 'Object Tagging / Marking / Liking', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag schneems/Likeable chrome/markable), description: 'Tagging and marking for your ActiveRecord models.'},
   {name: 'Background Jobs', lang: 'Ruby', repos: %w(mperham/sidekiq mperham/girl_friday defunkt/resque collectiveidea/delayed_job ryandotsmith/queue_classic), description: 'Process worker tasks in the background.'},

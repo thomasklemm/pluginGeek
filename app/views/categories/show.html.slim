@@ -5,9 +5,15 @@
   / Name and Lang
   span.name_and_lang == category_name_helper(@category.name)
   / Description
-  span.description
-    = @category.description
-    = link_to 'Edit', edit_category_path(@category), class: 'edit_description'
+  - if params[:action] == 'edit'
+    = form_for @category do |f|
+      = f.text_area :description
+      = f.submit
+
+  - else
+    span.description
+      = @category.description
+      = link_to 'Edit', edit_category_path(@category), class: 'edit_description'
 
   .spacer
 

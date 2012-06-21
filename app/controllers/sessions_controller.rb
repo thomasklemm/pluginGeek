@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
   def login
   end
 
-  def redirect_to_oauth
-    redirect_to auth_at_provider_path(provider: :github)
-  end
+  # def redirect_to_oauth
+  #  redirect_to auth_at_provider_path(provider: :github)
+  # end
 
   # get '/logout'
   def destroy
