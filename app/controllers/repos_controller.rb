@@ -4,7 +4,7 @@ class ReposController < ApplicationController
 
   # GET /repos
   def index
-    @repos = Repo.sort_by_knight_score
+    @repos = Repo.order_knight_score
   end
 
   # GET /repos/:owner/:name(/*leftover)
@@ -47,6 +47,8 @@ class ReposController < ApplicationController
       # Update categories based on repo tags
       Updater.update_categories_from_repos
 
+      # TODO: expire caches here
+
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'
     else
@@ -63,6 +65,8 @@ class ReposController < ApplicationController
     if @repo.destroy
       # Update categories based on repo tags
       Updater.update_categories_from_repos
+
+      # TODO: expire caches here
 
       flash[:notice] = "Repo '#{ @repo.full_name }' successfully deleted."
       redirect_to :root

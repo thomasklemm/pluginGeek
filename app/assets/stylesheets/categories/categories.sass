@@ -1,60 +1,61 @@
 // categories.sass
 @import 'joint/joints'
 
-// categories header
-.categories_header
-  .logo_and_name
-    padding: 20px 0 10px
-    height: 140px
 
-  .headline
-    margin-bottom: 12px
-    color: #555
-
-    .number
-      color: #000
+// Categories Find
+.categories_find
 
 
-//
-.categories_search_and_sort
-
-
-// category (in list)
+// Category in List (Categories Index View)
 .category
+  line-height: 24px
+  padding: 16px 0
 
   .name
     font-weight: bold
-  .group
+    font-size: 16px
+  .lang
     font-weight: normal
+    margin-left: 7px
 
-  .repo_count
-    margin-left: 10px
   .watcher_count
+    margin-left: 10px
+  .repo_count
     margin-left: 8px
 
   .description
     display: block
+
   .popular_repos
-    .owner
-      font-weight: normal
-    .name
-      font-weight: bold
-  .all_repos
+    .repo_owner
+      color: #7e7e7e
+    .repo_name
+
+  .all_repos, .knight_score
     display: none
 
-// Category header in show view
+  // Font Sizes
+  .lang, .watcher_count, .repo_count, .popular_repos
+    font-size: 14px
+  //    Icons
+  .watcher_count:before, .repo_count:before
+    font-size: 16px
+
+
+// Category Header (Category Show View)
 .category_header
-  .name
-    display: block
-    font-weight: bold
+  .name_and_lang
     font-size: 24px
+    .name
+      font-weight: bold
+    .lang
+      margin-left: 10px
+      color: #888
+      font-size: 20px
 
   .description
-
-// temp
-.categories_header
-  .name
-    font-weight: bold
-    font-size: 24px
-  .slogan
-    font-weight: bold
+    font-size: 16px
+    display: block
+    padding-bottom: 3px
+  .edit_description
+    margin-left: 4px

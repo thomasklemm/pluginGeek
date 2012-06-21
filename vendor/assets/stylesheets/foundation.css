@@ -65,7 +65,7 @@
     font-family: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 1.5em;
     line-height: 1.6;
-    color: #555;
+    color: #444;
     position: relative;
     -webkit-font-smoothing: subpixel-antialiased;
   }
@@ -199,9 +199,9 @@
 
 	-------------------------------------------------- */
 
-	.container { padding: 0 16px; }
+	.container { padding: 0 10px; }
 
-	.row { width: 100%; min-width: 540px; max-width: 1050px; margin: 0 auto; }
+	.row { width: 100%; min-width: 750px; max-width: 980px; margin: 0 auto; }
 	/* To fix the grid into a certain size, set max-width to width */
 	.row .row { min-width: 0; }
 

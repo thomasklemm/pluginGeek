@@ -1,19 +1,28 @@
 / shared/repo.html.slim
 
+/ Repo
 .repo
 
-  = link_to "<span class='owner'>#{ repo.owner }</span> / <span class='name'>#{ repo.name }</span>".html_safe, repo
+  / Owner and Name
+  span.owner_and_name = link_to repo do
+    span.owner = repo.owner
+    span &nbsp;/&nbsp;
+    span.name  = repo.name
+
+  / Stats
   span.watchers data-icon='h' = repo.watchers
-  span.forks data-icon='T' = repo.forks
+  span.forks data-icon='T'    = repo.forks
 
-  span.description = repo.description
+  / Description
+  span.description  = repo.description
 
-  span.github_url = link_to 'Github', repo.github_url
+  / Links
+  span.github_url   = link_to 'Github',   repo.github_url
   span.homepage_url = link_to 'Homepage', repo.homepage_url
 
+  / Activity
   span.activity data-icon='t' class=activity_color(repo.github_updated_at) = distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago'
 
-  span.knight_score style='display: none' = repo.knight_score
-  span.updated_at style='display: none' = time_ago_from_now(repo.github_updated_at)
-
-  = render 'spacer'
+  / Stats 2
+  span.knight_score = repo.knight_score
+  span.updated_at   = time_ago_from_now(repo.github_updated_at)

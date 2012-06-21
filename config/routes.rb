@@ -2,37 +2,40 @@ Knight::Application.routes.draw do
 
   # Oauth
   get 'logout' => 'sessions#destroy', as: :logout
-  get 'login' => 'sessions#redirect_to_oauth', as: :login
+  get 'login' => 'sessions#login', as: :login
 
   match 'oauth/callback'  => 'oauths#callback'
   match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
   # Categories
-  resources :categories, only: [:index, :show, :update]
+  resources :categories, only: [:index, :show, :edit, :update]
 
   # Repos and Owners
-  #
-  # Note: Routes for generating url differ from routes reading url, some duplication here
+  #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
-  #          while matching incoming requests is being done through seperate routes (as friendly_id contains slashes)
-  #
-  # Repos and Owners
-  resources :repos, only: [:index, :show] do
+  #            while matching incoming requests is being done through seperate routes (as friendly_id contains slashes)
+  resources :repos, only: [:index, :show, :edit] do
+    collection do
+      # Owner Routes
+      # get ':owner' => 'users#show'
+      # get ':owner/new' => 'users#new'
+      # get ':owner/create' => 'users#create'
+      # post ':owner/create' => 'users#create'
 
-    # Owner Routes
-    # get ':owner' => 'users#show', on: :collection
-    # get ':owner/new' => 'users#new', on: :collection
-    # get ':owner/create' => 'users#create', on: :collection
-    # post ':owner/create' => 'users#create', on: :collection
+      # Repo Routes
+      constraints name: /[^\/]+(?=\.html\z)|[^\/]+/ do
+        get ':owner/:name/edit' => 'repos#edit'
+        get ':owner/:name/create' => 'repos#create'
+        get ':owner/:name(/*leftover)' => 'repos#show'
+        put ':owner/:name' => 'repos#update'
+        delete ':owner/:name' => 'repos#destroy'
+      end
 
-    # Repo Routes
-    get ':owner/:name/create' => 'repos#create', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    get ':owner/:name(/*leftover)' => 'repos#show', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    put ':owner/:name' => 'repos#update', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-    delete ':owner/:name' => 'repos#destroy', on: :collection, :constraints => { :name => /[^\/]+(?=\.html\z)|[^\/]+/ }
-
+    end
   end
 
+  # Root
+  root to: 'categories#index'
 
   # For when to implement json response for repos#show
   # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
@@ -85,12 +88,6 @@ Knight::Application.routes.draw do
   #   end
 
   # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root to: "categories#index"
 
   # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end

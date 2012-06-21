@@ -1,18 +1,17 @@
 / categories/index.html.slim
 
-/ Categories Header
-.categories_header
-  = image_tag('name/knightio_logo_and_name.png', class: 'logo_and_name')
-
-  h4.headline Browse our <span class='number'>#{ @categories.size }</span> categories
-
 / Categories List
 #js_categories_list
-  / Categories Find
-  .categories_search_and_sort
 
+  = image_tag 'logos/Knight01_header.png', height: '177', width: '450', class: 'knight_logo'
+
+  span &nbsp;
+  h4 style='margin-bottom: 14px' State your Purpose &mdash; Choose your #{ request.subdomain } Category
+
+  / Categories Find
+  .categories_find
     / Search
-    input.search
+    input.search autofocus='autofocus' autocomplete='off'
 
     / Sort
     span Sort by
@@ -20,8 +19,6 @@
     a.sort        data-sort='repo_count' Repos
     a.sort        data-sort='watcher_count' Watchers
 
-  / temp
-  span &nbsp;
 
   / Categories List
   .list

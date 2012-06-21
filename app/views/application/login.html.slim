@@ -1,0 +1,11 @@
+/ login.html.slim
+
+h3 Login
+
+markdown:
+  **Want to contribute to Knight.io? Awesome!**
+  <br> Please login via Github first. (We will only be able to access your public info, nothing more!)
+
+= link_to auth_at_provider_path(provider: :github), class: 'login_with_github' do
+  = image_tag 'github/Octocat.png', class: 'octocat'
+  span.login Login with Github

@@ -4,32 +4,58 @@
 
 #topbar_o
   background: $topbar_background_color
-  height: 44px
-  line-height: 44px /* center text vertically */
+  line-height: 49px /* center text vertically */
   color: #eee
 
 #topbar_i
 
   #knight
-    .name
-      color: #eee
+    height: 40px
+    .knight_topbar_logo
+      width: 110px
+      padding: 8px 5px 8px 0
 
-    #nav
-      a
-        margin-left: 20px
+  #nav
+    a
+      margin: 0 4px
 
   #login
+    // Avatar when developer is logged in
     .avatar
       // Styles for rounded corners on background-images as seen here: www.bram.us/sandbox/roundedcorners/
       float: left
       height: 36px
       width: 36px
-      margin: 4px 8px
+      margin: 6px 6px 0 0
 
       background-size: 36px 36px
       background-repeat: no-repeat
 
-      @include border-radius(5px)
+      @include border-radius(8px)
       @include box-shadow(#000 0 0 3px)
 
+    // Avatar with generic greeting message
+    .github_avatar
+      background-color: #eee
+      background-image: image-url('github/Octocat.png')
+      float: right
+      height: 36px
+      width: 36px
+      margin: 6px 6px 0 0
+
+      background-size: 36px 36px
+      background-repeat: no-repeat
+
+      @include border-radius(8px)
+      @include box-shadow(#000 0 0 3px)
+
+    // Both
+    .happyday
     .name
+      font-weight: bold
+    .logout
+
+    .login
+      float: right
+
+

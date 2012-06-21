@@ -1,7 +1,7 @@
 class Updater
 
   # Github Attribute Mapping
-  GITHUB_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
+  GITHUB_REPO_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
       description: 'description', watchers: 'watchers', forks: 'forks',
       github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'pushed_at' ]
   GITHUB_API_BASE_URL = 'https://api.github.com/'
@@ -21,7 +21,9 @@ class Updater
         # success
       else
         # error
-        # repo.update_attribute(:manual_work_required, true)
+        # TODO: Mark repo for manual cleanup
+        #   i.e. by using flag-shi-tzu (preferred)
+        #   i.e. repo.update_attribute(:manual_work_required, true)
         puts "ERROR while updating '#{ repo.full_name }'."
       end
     end
@@ -62,45 +64,47 @@ class Updater
   #   Seeds
   ###
 
-  # transcribe seed format to a new one
-  def self.transcribe_seeds
-    puts "The following messages should appear once for each affected model (currently two)."
-    models = [ActsAsTaggableOn::Tag, Category]
-    models.each do |model|
-      model.all.each do |tag|
-        match = /\((?<group>.*)\)(?<tag>.*)/.match(tag.name)
-        if match
-          group = match[:group].strip
-          t = match[:tag].strip
-
-          old_name = tag.name
-
-          tag.name = "#{ t } (#{ group })"
-
-          if tag.save
-            puts "Category '#{ old_name}' renamed to '#{ tag.name }'."
-          else
-            puts "ERROR while renaming '#{ old_name}' to '#{ tag.name }'."
-          end
-        end
-      end
-    end
-  end
-
   # Rename a category
+  #   Run 'Updater.rename_category(old_name, new_name)'
   def self.rename_category(old_name, new_name)
-    puts "The following message should appear once for each affected model (currently two)."
+    puts "The following message should appear once for each affected model (2 right now)."
     models = [ActsAsTaggableOn::Tag, Category]
     models.each do |model|
       tag = model.find_by_name(old_name)
       tag.name = new_name
       if tag.save
-        puts "Renamed category '#{ old_name }' to '#{ new_name }'."
+        puts "Renamed category '#{ old_name }' to '#{ new_name } in model #{ model.to_s }'."
       else
-        puts "ERROR while renaming category '#{ old_name }' to '#{ new_name }'."
+        puts "ERROR while renaming category '#{ old_name }' to '#{ new_name }' in model #{ model.to_s }."
       end
     end
   end
+
+
+  # transcribe seed format to a new one
+  # def self.transcribe_seeds
+  #   puts "The following messages should appear once for each affected model (currently two)."
+  #   models = [ActsAsTaggableOn::Tag, Category]
+  #   models.each do |model|
+  #     model.all.each do |tag|
+  #       match = /\((?<group>.*)\)(?<tag>.*)/.match(tag.name)
+  #       if match
+  #         group = match[:group].strip
+  #         t = match[:tag].strip
+
+  #         old_name = tag.name
+
+  #         tag.name = "#{ t } (#{ group })"
+
+  #         if tag.save
+  #           puts "Category '#{ old_name}' renamed to '#{ tag.name }'."
+  #         else
+  #           puts "ERROR while renaming '#{ old_name}' to '#{ tag.name }'."
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
 protected
 
@@ -132,7 +136,7 @@ protected
 
   def self.recursive_update_of_repo_attributes(repo, github_repo)
     # Mapped attributes
-    GITHUB_ATTRIBUTES.each do |repo_attr, github_attr|
+    GITHUB_REPO_ATTRIBUTES.each do |repo_attr, github_attr|
       # Cast String to Array
       h = github_attr.kind_of?(String) ? github_attr.split : github_attr
 
@@ -146,11 +150,15 @@ protected
     return repo
   end
 
-  # returns knight score as integer
+  # Knight Score
+  #   calculate knight score
+  #   returns knight score as an integer
   def self.knight_score(github_repo)
     (github_repo['watchers'] * activity_score(github_repo['pushed_at'])).ceil
   end
 
+  # Acitvity Score
+  #   used as a multiplier when calculating a repo's knight score
   def self.activity_score(time)
     diff = Time.now - time.to_datetime
     score = case diff
@@ -167,16 +175,16 @@ protected
 
   def self.update_category_attributes(tag)
     # Find or initialize category
-    category = Category.find_or_initialize_by_name(tag.name)
+    category = Category.find_or_initialize_by_name(tag[:name])
 
     # Popular Repos and All Repos (String)
-    repos = Repo.tagged_with(tag).sort_by_knight_score
+    repos = Repo.tagged_with(tag[:name], on: :categories).order_knight_score
 
     # Popular Repos
-    category[:popular_repos] = repos[0..2].inject("") do |result, repo|
-      result = result.split(", ")
+    category[:popular_repos] = repos[0..2].inject('') do |result, repo|
+      result = result.split(', ')
       result << repo[:full_name]
-      result.join(", ")
+      result.join(', ')
     end
     # All Repos (excluding the ones already listed in popular_repos)
     if repos[3..repos.length].blank?
@@ -192,8 +200,9 @@ protected
     # Repo Count
     category[:repo_count] = tag.count
     # Watcher Count
-    #   Alternative: category[:watcher_count] = repos.sum { |repo| repo.watchers }
     category[:watcher_count] = repos.sum(&:watchers)
+    #   Alternative: category[:watcher_count] = repos.sum { |repo| repo.watchers }
+
     # Knight Score
     category[:knight_score] = repos.sum(&:knight_score)
 
