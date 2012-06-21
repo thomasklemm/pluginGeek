@@ -1,13 +1,12 @@
 / categories/index.html.slim
 
-/ Categories Header
-.categories_header
-  = image_tag('name/knightio_logo_and_name.png', class: 'logo_and_name')
-
-  h4.headline Browse our <span class='number'>#{ @categories.size }</span> categories
-
 / Categories List
 #js_categories_list
+
+  span &nbsp;
+  h4 Browse #{ request.subdomain } categories
+  span &nbsp;
+
   / Categories Find
   .categories_search_and_sort
 
