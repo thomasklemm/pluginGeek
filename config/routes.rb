@@ -8,13 +8,13 @@ Knight::Application.routes.draw do
   match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
   # Categories
-  resources :categories, only: [:index, :show, :update]
+  resources :categories, only: [:index, :show, :edit, :update]
 
   # Repos and Owners
   #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
   #            while matching incoming requests is being done through seperate routes (as friendly_id contains slashes)
-  resources :repos, only: [:index, :show] do
+  resources :repos, only: [:index, :show, :edit] do
     collection do
       # Owner Routes
       # get ':owner' => 'users#show'
@@ -24,6 +24,7 @@ Knight::Application.routes.draw do
 
       # Repo Routes
       constraints name: /[^\/]+(?=\.html\z)|[^\/]+/ do
+        get ':owner/:name/edit' => 'repos#edit'
         get ':owner/:name/create' => 'repos#create'
         get ':owner/:name(/*leftover)' => 'repos#show'
         put ':owner/:name' => 'repos#update'
