@@ -33,7 +33,7 @@
   / name
   span.name = %w(Githubber Developer Ruby&nbsp;Pro Rails&nbsp;Wizard JS&nbsp;Guru Human Web&nbsp;Designer Designer Web&nbsp;Engineer Knight Sir).shuffle.first.html_safe
   span !&nbsp;&nbsp;
-  = link_to auth_at_provider_path(provider: :github) do
+  = link_to login_path do
     span.login Login
     / Github Octocat
     span.github_avatar

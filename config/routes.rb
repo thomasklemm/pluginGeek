@@ -2,7 +2,7 @@ Knight::Application.routes.draw do
 
   # Oauth
   get 'logout' => 'sessions#destroy', as: :logout
-  get 'login' => 'sessions#redirect_to_oauth', as: :login
+  get 'login' => 'sessions#login', as: :login
 
   match 'oauth/callback'  => 'oauths#callback'
   match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
