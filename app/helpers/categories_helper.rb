@@ -12,7 +12,7 @@ module CategoriesHelper
       if request.subdomain.present?
         "<span class='name'>#{ name }</span><span class='lang'></span>"
       else
-        "<span class='name'>#{ name }</span>&nbsp;<span class='lang'>(#{ lang })</span>"
+        "<span class='name'>#{ name }</span><span class='lang'>(#{ lang })</span>"
       end
     else
       "<span class='name'>#{ name_and_lang }</span><span class='lang'></span>"
