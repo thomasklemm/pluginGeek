@@ -1,35 +1,19 @@
 / topbar.html.slim
 
 span.left#knight
-  /= link_to "<span class='name'><b>Knight</b>.io</span>".html_safe, root_path
-  = link_to image_tag('name/knightio_fff.png', width: 110, style: 'float: left; margin-top: 6px'), root_path
+  = link_to image_tag('name/knight_fff.png', class: 'knight_topbar_logo'), root_url(subdomain: false)
 
+span.left#nav
+    = link_to 'Ruby', root_url(subdomain: 'ruby')
+    = link_to 'JS', root_url(subdomain: 'js')
+    = link_to 'Web Design', root_url(subdomain: 'design')
+    span &nbsp;||&nbsp;
 
-  span#nav
     = link_to 'Categories', root_path
     = link_to 'Repos', repos_path
 
 span.right#login
-  / Developer logged in
-  - if current_user
-    span.avatar style="background-image: url('#{ current_user.avatar_url }')"
-    / img.avatar src=current_user.avatar_url style='height: 36px; width: 36px'
-    span Hello,
-    span &nbsp;
-    span.name: strong = current_user.name || current_user.login
-    span !&nbsp;&nbsp;
-
-    = link_to 'Logout', logout_path
-
-  / Not logged in
-  - else
-    span.avatar style="background-image: url('https://secure.gravatar.com/avatar/43a958f2861c1a8268fb74390cdd749b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png'); background-size: 32px 32px; width: 32px; height: 32px"
-    / img.avatar src=current_user.avatar_url style='height: 36px; width: 36px'
-    span Hello,
-    span &nbsp;
-    span.name: strong = %w(Githubber Developer Ruby&nbsp;Pro Rails&nbsp;Wizard JS&nbsp;Guru Human Web&nbsp;Designer Designer Web&nbsp;Engineer Knight Sir).shuffle.first.html_safe
-    span !&nbsp;&nbsp;
-    = link_to 'Login with Github', auth_at_provider_path(provider: :github)
+  = render 'topbar_login'
 
 
 

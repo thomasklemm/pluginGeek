@@ -1,0 +1,39 @@
+/ topbar_login.html.slim
+
+/ Developer logged in
+- if current_user
+  / avatar
+  span.avatar style="background-image: url('#{ current_user.avatar_url }')"
+
+  / happy day
+  span.happyday
+    coffee:
+      dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
+      now = new Date()
+      document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
+  / name or login
+  span.name = current_user.name || current_user.login
+  span !&nbsp;
+  / link_to logout
+  = link_to 'Logout', logout_path, class: 'logout'
+
+
+
+/ Generic greeting message
+- else
+
+  / happy day
+  span.happyday
+    /! Heavily influenced and inspired by 37signals. Thanks guys for your great work!
+    coffee:
+      dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
+      now = new Date()
+      document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
+
+  / name
+  span.name = %w(Githubber Developer Ruby&nbsp;Pro Rails&nbsp;Wizard JS&nbsp;Guru Human Web&nbsp;Designer Designer Web&nbsp;Engineer Knight Sir).shuffle.first.html_safe
+  span !&nbsp;&nbsp;
+  = link_to auth_at_provider_path(provider: :github) do
+    span.login Login
+    / Github Octocat
+    span.github_avatar
