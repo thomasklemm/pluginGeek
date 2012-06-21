@@ -5,7 +5,7 @@ class CreateCategories < ActiveRecord::Migration
       t.string :slug
       t.text :description
       t.string :popular_repos
-      t.string :all_repos
+      t.text :all_repos
       t.integer :repo_count
       t.integer :watcher_count
       t.integer :knight_score
