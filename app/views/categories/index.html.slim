@@ -4,12 +4,11 @@
 #js_categories_list
 
   span &nbsp;
-  h4 Browse #{ request.subdomain } categories
+  h4 Find your #{ request.subdomain } category
   span &nbsp;
 
   / Categories Find
-  .categories_search_and_sort
-
+  .categories_find
     / Search
     input.search autofocus='autofocus' autocomplete='off'
 
@@ -19,8 +18,6 @@
     a.sort        data-sort='repo_count' Repos
     a.sort        data-sort='watcher_count' Watchers
 
-  / temp
-  span &nbsp;
 
   / Categories List
   .list

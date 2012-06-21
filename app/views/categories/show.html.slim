@@ -1,18 +1,28 @@
 / categories/show.html.slim
 
+/ Category Header
 .category_header
-  span.name = @category.name
-  span.description = @category.description
+  / Name and Lang
+  span.name_and_lang == category_name_helper(@category.name)
+  / Description
+  span.description
+    = @category.description
+    = link_to 'Edit', edit_category_path(@category), class: 'edit_description'
 
+  .spacer
+
+/ Repos List
 #js_repos_list
 
   / Sort
-  .repos_sort
+  .repos_sort style="color: #888"
     span Sort by
     a.sort.sorted data-sort='knight_score' Knight Score
     a.sort        data-sort='watchers' Watchers
     a.sort        data-sort='updated_at' Last commit
 
-  / Repos List
+  .spacer
+
+  / List
   .list
     = render partial: 'shared/repo', collection: @repos

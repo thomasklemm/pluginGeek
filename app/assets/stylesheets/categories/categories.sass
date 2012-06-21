@@ -2,11 +2,11 @@
 @import 'joint/joints'
 
 
-//
-.categories_search_and_sort
+// Categories Find
+.categories_find
 
 
-// category (in list)
+// Category in List (Categories Index View)
 .category
   line-height: 24px
   padding: 16px 0
@@ -42,12 +42,20 @@
     font-size: 16px
 
 
-
-// Category header in show view
+// Category Header (Category Show View)
 .category_header
-  .name
-    display: block
-    font-weight: bold
+  .name_and_lang
     font-size: 24px
+    .name
+      font-weight: bold
+    .lang
+      margin-left: 10px
+      color: #888
+      font-size: 20px
 
   .description
+    font-size: 16px
+    display: block
+    padding-bottom: 3px
+  .edit_description
+    margin-left: 4px
