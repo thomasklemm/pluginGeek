@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
 
   # Scopes
   #   Tagged with language or all depending on presence of language
-  scope :tagged_with_language, lambda { |language| tagged_with(language, on: :languages) if language.present? }
+  scope :tagged_with_language, lambda { |language| tagged_with(language, on: :languages) if language.present? && language != 'www' }
 
   #   Visibility only of categories that have repos associated with them
   scope :has_repos, where('repo_count > 0')

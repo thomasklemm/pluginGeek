@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
     #   we should remove it;
     #   only valid or empty subdomains should make it past this method
     if request.subdomain.present?
-      request.subdomain.match(/\b(ruby|js|design)\b/) or return redirect_to root_url(subdomain: false)
+      request.subdomain.match(/\b(ruby|js|design|www|scala)\b/) or return redirect_to root_url(subdomain: false)
     end
 
     # Find categories (all or limited to language specified in subdomain)
