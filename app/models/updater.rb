@@ -128,6 +128,10 @@ protected
     #   (does not work if https:// is substituted with http://)
     repo[:homepage_url] = nil if repo[:homepage_url] == repo[:github_url]
 
+    # Limit description length
+    #   REVIEW: Better way to handle this? Postgres will throw errors is length exceeds 255 characters
+    repo[:description] = repo[:description].truncate(220) if repo[:description]
+
     # Calculate Knight Score
     repo[:knight_score] = knight_score(github_repo)
     # Save Repo
