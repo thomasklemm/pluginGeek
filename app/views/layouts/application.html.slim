@@ -1,10 +1,12 @@
+/ layout: application.html.slim
+
 doctype 5
-html lang="en"
+html lang='en'
 
   / head
   head
-    = render 'head'
+    = render 'layouts/head'
 
   / body
   body class=controller_name
-    = render 'body'
+    = render 'layouts/body'

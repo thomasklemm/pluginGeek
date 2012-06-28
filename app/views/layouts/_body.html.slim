@@ -1,0 +1,33 @@
+/ body.html.slim
+
+/ topbar
+#topbar.row
+  .twelve.columns
+
+    = render 'topbar'
+
+/ explore bar
+#explore_bar.row
+  .twelve.columns
+
+    = render 'explore_bar'
+
+/ main and sidebar
+#main.row
+  .twelve.columns
+
+    / flash messages
+    = render 'flash_messages'
+
+    / main body
+    = yield
+
+/ footer
+#footer.row
+  .twelve.columns
+
+    / = render 'footer'
+
+
+/ javascripts in body
+= render 'javascripts_body'
