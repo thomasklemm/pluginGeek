@@ -3,52 +3,47 @@
 
 // Repo
 .repo
-  line-height: 24px
-  padding: 12px 0
+    padding-top: 2rem
+    clear: both
+    // Owner and Name, i.e. bootstrap by twitter
+    .owner_and_name
+        .name
+            font-weight: bold
+        .owner
 
-  // Owner and Name
-  .owner_and_name
-    .owner
-      font-size: 16px
-    .name
-      font-size: 18px
-      font-weight: bold
+    // Stats
+    .watchers
+        margin-left: 1rem
+        // Icon
+        &:before
 
-  // Stats
-  .watchers
-    margin-left: 10px
-  .forks
-    margin-left: 8px
+    // Activity
+    .activity
+        float: right
+        width: 120px
+        display: inline-block
+        text-align: right
+        // Activity colors
+        //   one == < 4.months
+        //   two == 4.months - 12.months
+        //   three == 12.months - 24.months
+        //   four == > 24.months
+        &.one
+            color: #090
+        &.two
+        &.three
+        &.four
 
-  // Description
-  .description
-    display: block
+        // Icon
+        &:before
 
-  // Links
-  .github_url
-  .homepage_url
-    margin-left: 8px
+    // Description
+    .description
 
-  // Activity
-  .activity
-    margin-left: 10px
-    // Activity colors
-    //   TODO: define activity colors
-    &.first   // < 2m
-      color: #393
-    &.second  // < 6m
-    &.third   // < 12m
-    &.fourth  // < 18m
-    &.fifth   // < 24m
-    &.sixth   // > 24m
+    // Link to show action
+    .show
+        float: right
 
-  // Font Sizes
-  .watchers, .forks, .activity
-    font-size: 14px
-  //    Icons
-  .watchers:before, .forks:before
-    font-size: 16px
-
-  // Stats 2
-  .knight_score, .updated_at
-    display: none
+    // Hidden Stats
+    .knight_score, .updated_at
+        display: none

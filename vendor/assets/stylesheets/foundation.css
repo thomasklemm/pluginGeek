@@ -2,18 +2,17 @@
 /* Artfully Masterminded by ZURB */
 
 /* Global Reset & Standards */
-* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
 
 html { font-size: 62.5%; }
 body { 
   background: white; 
   font-family: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-  font-size: 14; 
-  font-size: 1.4 rem; 
-  line-height: 1; 
+  font-size: 15; 
+  font-size: 1.5 rem; 
+  line-height: 1.4; 
   color: #222222; 
   position: relative; 
-  -webkit-font-smoothing: antialiased; 
 }
 
 /* Links */
@@ -35,14 +34,14 @@ p a, p a:visited { line-height: inherit; }
 /* Typography ------------------------------- */
 
 /* Base Type Styles Using Modular Scale ---------------------- */
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, p, blockquote, th, td { margin: 0; padding: 0; font-size: 14px; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, p, blockquote, th, td { margin: 0; padding: 0; font-size: 15px; }
 
-p { font-size: 14px; line-height: 1.6; margin-bottom: 17px; }
+p { font-size: 15px; line-height: 1.6; margin-bottom: 17px; }
 p.lead { font-size: 17.5px; line-height: 1.6; margin-bottom: 17px; }
 p img.left, p img { margin: 17px; margin-left: 0; }
 p img.right { margin: 17px; margin-right: 0; }
 
-aside p { font-size: 13px; line-height: 1.35; font-style: italic; }
+aside p { font-size: 14px; line-height: 1.35; font-style: italic; }
 
 h1, h2, h3, h4, h5, h6 { text-rendering: optimizeLegibility; line-height: 1.1; margin-bottom: 14px; margin-top: 14px; }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { font-size: 60%; color: #888; line-height: 0; }

@@ -4,7 +4,8 @@
 / Categories List
 javascript:
   var categories_list_options = {
-    valueNames: ['name', 'repo_count', 'watcher_count', 'description', 'popular_repos', 'all_repos', 'knight_score']
+    valueNames: ['name', 'repo_count', 'watcher_count', 'description', 'popular_repos', 'all_repos', 'knight_score'],
+    page: 20  
   };
 
   var categoriesList = new List('js_categories_list', categories_list_options);
@@ -12,7 +13,8 @@ javascript:
 / Repos List
 javascript:
   var repos_list_options = {
-    valueNames: ['owner', 'name', 'watchers', 'description', 'knight_score', 'updated_at']
+    valueNames: ['owner', 'name', 'watchers', 'description', 'knight_score', 'updated_at'],
+    page: 20
   };
 
   var reposList = new List('js_repos_list', repos_list_options);
