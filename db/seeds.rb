@@ -25,7 +25,7 @@ seeds = [
   {name: 'ActiveRecord: Normalizing & Stripping Attributes', lang: 'Ruby', repos: %w(holli/auto_strip_attributes rmm5t/strip_attributes mdeering/attribute_normalizer), description: "Also take a look at Ruby's 'strip' method and Rails' built-in 'squish' method ('Returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each.' - Rails API Docs. Also take a look at the Parsers: HTML Sanitization section."},
   {name: 'ActiveRecord: Enumerations & State-Machines', lang: 'Ruby', repos: %w(svenfuchs/simple_states pluginaweek/state_machine twinslash/enumerize yonbergman/enumify beerlington/classy_enum electronick/enum_column cassiomarques/enumerate_it lwe/simple_enum novelys/static_list), description: ''},
   {name: 'ActiveRecord: Default Values for Attributes', lang: 'Ruby', repos: %w(), description: "There are various ways to set defaults for the objects created by a model. Next to the gems listed here they can be set in the database / database adapter using a Rails migration (as described here: [Rails Guides on Migrations](http://guides.rubyonrails.org/migrations.html). The community-driven [Rails Styleguide](https://github.com/bbatsov/rails-style-guide#migrations) recommends setting defaults in the model rather than a table."},
-  {name: 'ActiveRecord: Data Migration', lang: 'Ruby', repos: %w(soundcloud/large-hadron-migrator), description: ""},
+  {name: 'ActiveRecord: Data Migrations', lang: 'Ruby', repos: %w(soundcloud/large-hadron-migrator), description: ""},
   {name: 'ActiveRecord: Tagging, Marking, Liking & Rating', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag chrome/markable schneems/likeable leehambley/opinions peteonrails/vote_fu medihack/make_voteable twitter/activerecord-reputation-system vshvedov/vote_fu_rails_3 raw1z/amistad edgarjs/ajaxful-rating glynx/rateable ygor/acts_as_rateable sujitsagar/acts_as_rateable asceth/acts_as_rateable anton-zaytsev/acts_as_rateable), description: 'Tagging and marking for your ActiveRecord models.'},
   {name: 'ActiveRecord: Annotate Models', lang: 'Ruby', repos: %w(ctran/annotate_models), description: ""},
   {name: 'Admin Interfaces', lang: 'Ruby', repos: %w(sferik/rails_admin gregbell/active_admin fesplugas/typus bigbinary/admin_data ianmurrays/active_invoices fhwang/admin_assistant elia/activeadmin-mongoid renderedtext/admin_view tomas/bowtie kryzhovnik/rails_admin_tag_list dce/rails_admin_interfaces activescaffold/active_scaffold puffer/puffer acesuares/inline_forms codez/dry_crud joost/admin_interface), description: "Add an admin interface to your Rails app."},
@@ -60,13 +60,13 @@ seeds = [
   # D
   # Deployment
   {name: 'Deployment', lang: 'Ruby', repos: %w(opscode/rails-quick-start), description: ''},
-  {name: 'Deployment: Webservers', lang: 'Ruby', repos: %w(postrank-labs/goliath puma/puma macournoyer/thin rack/rack), description: ""},
+  {name: 'Deployment: Webservers', lang: 'Ruby', repos: %w(macournoyer/thin rack/rack defunkt/unicorn puma/puma celluloid/reel postrank-labs/goliath zedshaw/mongrel2 ged/ruby-mongrel2 FooBarWidget/passenger), description: "Give Unicorn a try. There are also Rainbows! / Zbatery and others, each for specific kinds of apps."},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   # Development
   {name: 'Development: Editors', lang: 'Ruby/JS/Design', repos: %w(redcar/redcar adobe/brackets), description: ""},
   {name: 'Development: Development Webserver', lang: 'Ruby', repos: %w(37signals/pow rodreegez/powder), description: 'Automatically run your apps on your local machine, and access them with special domains in your browser.'},
-  {name: 'Development: Development Machine Setup', lang: 'Ruby', repos: %w(atmos/smeagol thoughtbot/laptop oscardelben/RailsOneClick tokaido/tokaidoapp), description: 'Set up your laptop for Ruby or Rails development.'},
-  {name: 'Development: Manage Ruby Versions', lang: 'Ruby', repos: %w(wayneeseguin/rvm sstephenson/rbenv), description: 'Install the latest ruby builds on your laptop. You can also use different ruby versions on different projects.'},
+  {name: 'Development: Development Machine Setup', lang: 'Ruby', repos: %w(atmos/smeagol thoughtbot/laptop oscardelben/RailsOneClick tokaido/tokaidoapp), description: 'Set up your laptop for Ruby or Rails development. http://www.rubypluspl.us/2012/06/ubuntu-1204-ruby-on-rails-development.html - Setting up ubuntu for RoR development.'},
+  {name: 'Development: Manage Ruby Versions', lang: 'Ruby', repos: %w(wayneeseguin/rvm sstephenson/rbenv remear/jewelrybox ), description: 'Install the latest ruby builds on your laptop. You can also use different ruby versions on different projects.'},
   {name: 'Development: Routing', lang: 'Ruby', repos: %w(bjeanes/ghost 37signals/pow), description: ""},
 
   # E
@@ -77,8 +77,8 @@ seeds = [
 
   # F
   # Frameworks
-  {name: 'Frameworks: Static Site Frameworks', lang: 'Ruby', repos: %w(mojombo/jekyll imathis/octopress middleman/middleman winton/stasis thoughtbot/high_voltage ddfreyne/nanoc blahed/frank sstephenson/brochure benschwarz/bonsai botanicus/ace ebello/Jekyll-S3 jamiew/heroku-static-site lukesutton/pekky plusjade/jekyll-bootstrap versapay/jekyll-s3 bmcmurray/hekyll petebrowne/machined cdn64/deplot dmathieu/glynn jlong/serve sinefunc/proton gma/nesta), description: ""},
-  {name: 'Frameworks: Web App Frameworks', lang: 'Ruby', repos: %w(rails/rails sinatra/sinatra padrino/padrino-framework Ramaze/ramaze), description: 'Build web applications easily with style.'},
+  {name: 'Frameworks: Static Site Frameworks', lang: 'Ruby', repos: %w(mojombo/jekyll imathis/octopress middleman/middleman winton/stasis thoughtbot/high_voltage ddfreyne/nanoc blahed/frank sstephenson/brochure benschwarz/bonsai botanicus/ace ebello/Jekyll-S3 jamiew/heroku-static-site lukesutton/pekky plusjade/jekyll-bootstrap versapay/jekyll-s3 bmcmurray/hekyll petebrowne/machined cdn64/deplot dmathieu/glynn jlong/serve sinefunc/proton gma/nesta prose/prose prose/bootstrap migrs/rack-server-pages), description: "http://developmentseed.org/blog/2011/09/09/jekyll-github-pages/ - Using Jekyll and Github Pages for a Website"},
+  {name: 'Frameworks: Web App Frameworks', lang: 'Ruby', repos: %w(rails/rails sinatra/sinatra padrino/padrino-framework Ramaze/ramaze lifo/cramp camping/camping), description: 'Build web applications easily with style.'},
 
   # Forms
   {name: 'Forms: Form Builders', lang: 'Ruby', repos: %w(justinfrench/formtastic plataformatec/simple_form ryanb/nested_form nathanvda/cocoon stouset/twitter_bootstrap_form_for JangoSteve/remotipart plataformatec/mail_form mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms tizoc/bureaucrat springbok/smerf joshsusser/informal potenza/bootstrap_form ksylvest/formula jeremyevans/forme), description: "Generate markup for your forms easily. Please get familiar with the form building tools shipped with Rails first before contemplating to use any of the listed gems."},
@@ -102,10 +102,48 @@ seeds = [
   # H
   {name: 'Hash Extensions', lang: 'Ruby', repos: %w(intridea/hashie svenfuchs/hashr ahoward/map delano/gibbler ismasan/hash_mapper rubyworks/hashery), description: ""},
   {name: 'HTTP: Consoles', lang: 'Ruby', repos: %w(htty/htty), description: ""},
-  {name: 'HTTP: Clients', lang: 'Ruby', repos: %w(typhoeus/typhoeus deepfryed/http-parser-lite), description: "Consume APIs and web services."},
+  {name: 'HTTP: Clients', lang: 'Ruby', repos: %w(typhoeus/typhoeus deepfryed/http-parser-lite c42/wrest), description: "Consume APIs and web services."},
 
 
   # I
+
+
+  {name: 'Launch Pages', lang: 'Ruby', repos: %w(carmivore/comingsoon), description: "Landing Pages & Email Signup pages."},
+  {name: 'Tagging', lang: 'JS', repos: %w(ivaynberg/select2), description: ""},
+  {name: 'Selects', lang: 'JS', repos: %w(ivaynberg/select2 harvesthq/chosen), description: ""},
+  {name: 'Async Image Loaders', lang: 'JS', repos: %w(sebarmeli/JAIL), description: ""},
+  {name: 'Syntax Highlighting', lang: 'JS', repos: %w(ccampbell/rainbow), description: ""},
+  {name: 'Mobile: Phonegap', lang: 'JS/Design', repos: %w(davebalmer/jo), description: ""},
+  {name: 'Optimizing: Performance Monitoring', lang: 'Ruby', repos: %w(newrelic/rpm), description: ""},
+  {name: 'Database: Migrations', lang: 'Ruby', repos: %w(thuss/standalone-migrations), description: "Use the power of Rails Migrations for Non-Rails (and even Non-Ruby) Projects."},
+  {name: 'Asset Pipeline', lang: 'Ruby', repos: %w(evrone/quiet_assets), description: "Mute asset pipeline log messages and more."},
+  {name: 'Placeholders', lang: 'JS/Design', repos: %w(imsky/holder), description: ""},
+  {name: 'CI', lang: 'JS', repos: %w(ryankee/concrete), description: ""},
+  {name: 'Chat Servers', lang: 'Ruby/JS', repos: %w(negativecode/vines gravityonmars/Balloons.IO), description: ""},
+  {name: 'Email: Backup', lang: 'Ruby', repos: %w(rgrove/larch), description: ""},
+  {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server), description: ""},
+  {name: 'API Builders & Servers', lang: 'JS', repos: %w(kilianc/node-apiserver), description: ""},
+  {name: 'Development: Webservers', lang: 'Ruby', repos: %w(37signals/pow pyromaniac/hoof rtomayko/shotgun puma/puma-express jc00ke/guard-puma), description: ""},
+  {name: 'Websockets', lang: 'Ruby', repos: %w(igrigorik/em-websocket gimite/web-socket-ruby), description: ""},
+  {name: 'jQuery on Server', lang: 'JS', repos: %w(MatthewMueller/cheerio), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+
 
   # J
 
@@ -119,7 +157,7 @@ seeds = [
 
   # M
   {name: 'Mongoid: Plugins', lang: 'Ruby', repos: %w(aq1018/mongoid-history hakanensari/mongoid-slug), description: ''},
-  {name: 'Metrics: Event Tracking', lang: 'Ruby', repos: %w(paulasmuth/fnordmetric), description: ""},
+  {name: 'Metrics: Event Logging & Aggregation / Exception Tracking & Stats Servers', lang: 'Ruby', repos: %w(paulasmuth/fnordmetric dcramer/sentry noahhl/batsd Fudge/gltail), description: ""},
   {name: 'Mobile: Android Development', lang: 'Ruby', repos: %w(ruboto/ruboto), description: ""},
 
   # N
@@ -152,7 +190,7 @@ seeds = [
   {name: 'Parsers: Natural Language Dates', lang: 'Ruby', repos: %w(mojombo/chronic hpoydar/chronic_duration), description: ""},
   {name: 'Presentations', lang: 'Ruby/JS', repos: %w(bmcmurray/hekyll ), description: ""},
   {name: 'Process Management', lang: 'Ruby', repos: %w(ddollar/foreman), description: ""},
-  {name: 'Prototyping', lang: 'Ruby', repos: %w(jlong/serve), description: ""},
+  {name: 'Prototyping', lang: 'Ruby', repos: %w(jlong/serve mhs/scout-app), description: ""},
 
   # Q
 
@@ -181,7 +219,7 @@ seeds = [
   {name: 'Templating: PDF Generators', lang: 'Ruby', repos: %w(mbleigh/princely fnando/kitabu), description: ''},
   {name: 'Templating: JSON', lang: 'Ruby', repos: %w(nesquena/rabl fabrik42/acts_as_api), description: ''},
   {name: 'Templating: XML', lang: 'Ruby', repos: %w(nesquena/rabl fabrik42/acts_as_api), description: ''},
-  {name: 'Testing: Build Systems & Continuous Integration', lang: 'Ruby', repos: %w(travis-ci/travis-ci defunkt/cijoe ), description: ""},
+  {name: 'Testing: Build Systems & Continuous Integration', lang: 'Ruby', repos: %w(travis-ci/travis-ci defunkt/cijoe github/janky jenkinsci/jenkins.rb c42/goldberg), description: ""},
 
   # U
   {name: 'User Management: Authentication', lang: 'Ruby', repos: %w(plataformatec/devise NoamB/sorcery thoughtbot/clearance intridea/omniauth), description: 'Authenticate your users.'},
