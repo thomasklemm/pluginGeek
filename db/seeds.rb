@@ -22,12 +22,12 @@ seeds = [
   {name: 'ActiveRecord: Lists & Sortable Columns', lang: 'Ruby', repos: %w(swanandp/acts_as_list the-teacher/the_sortable_tree dadooda/handles_sortable_columns 12spokes/acts_as_restful_list codegram/resort mixonic/ranked-model shuber/sortable bogdan/datagrid thoughtbot/sortable_table), description: 'Also take a look at ActiveRecord: Nesting'},
   {name: 'ActiveRecord: Nesting', lang: 'Ruby', repos: %w(collectiveidea/awesome_nested_set mceachen/closure_tree amerine/acts_as_tree ryanb/nested_form stefankroes/ancestry elight/acts_as_commentable_with_threading the-teacher/the_sortable_tree clyfe/acts_as_nested_interval amatsuda/nested_scaffold thinkwell/mongoid_nested_set svenfuchs/simple_nested_set), description: ''},
   {name: 'ActiveRecord: Searching & Scoping', lang: 'Ruby', repos: %w(ernie/ransack ernie/squeel rails/arel ernie/meta_search binarylogic/searchlogic ernie/ransack wvanbergen/scoped_search novagile/scoped-search pioz/ximate sunspot/sunspot freelancing-god/thinking-sphinx karmi/tire mwmitchell/rsolr ryanb/xapit texticle/texticle jkraemer/acts_as_ferret  Casecommons/pg_search huacnlee/redis-search wvanbergen/scoped_search garaio/xapian_db dougal/acts_as_indexed grantr/rubberband ernie/meta_where), description: "There sure must be a good RailsCast on Searching. Seems as if there are at least two fundamentally different ways to search ActiveRecord objects and database tables: 1) external search server, 2) no external search server, but ActiveRecord Scopes. What is the best way?"},
-  {name: 'ActiveRecord: Normalizing & Stripping Attributes', lang: 'Ruby', repos: %w(holli/auto_strip_attributes rmm5t/strip_attributes mdeering/attribute_normalizer), description: "Also take a look at Ruby's 'strip' method and Rails' built-in 'squish' method ('Returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each.' - Rails API Docs. Also take a look at the Parsers: HTML Sanitization section."},
+  {name: 'ActiveRecord: Normalize Attributes', lang: 'Ruby', repos: %w(holli/auto_strip_attributes rmm5t/strip_attributes mdeering/attribute_normalizer), description: "Also take a look at Ruby's 'strip' method and Rails' built-in 'squish' method ('Returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each.' - Rails API Docs. Also take a look at the Parsers: HTML Sanitization section. Value Cleanup / Attribute Stripping / Attribute Normalizing"},
   {name: 'ActiveRecord: Enumerations & State-Machines', lang: 'Ruby', repos: %w(svenfuchs/simple_states pluginaweek/state_machine twinslash/enumerize yonbergman/enumify beerlington/classy_enum electronick/enum_column cassiomarques/enumerate_it lwe/simple_enum novelys/static_list), description: ''},
   {name: 'ActiveRecord: Default Values for Attributes', lang: 'Ruby', repos: %w(), description: "There are various ways to set defaults for the objects created by a model. Next to the gems listed here they can be set in the database / database adapter using a Rails migration (as described here: [Rails Guides on Migrations](http://guides.rubyonrails.org/migrations.html). The community-driven [Rails Styleguide](https://github.com/bbatsov/rails-style-guide#migrations) recommends setting defaults in the model rather than a table."},
-  {name: 'ActiveRecord: Data Migrations', lang: 'Ruby', repos: %w(soundcloud/large-hadron-migrator), description: ""},
+  {name: 'ActiveRecord: Data Migrations', lang: 'Ruby', repos: %w(soundcloud/large-hadron-migrator portablemind/data_migrator), description: ""},
   {name: 'ActiveRecord: Tagging, Marking, Liking & Rating', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag chrome/markable schneems/likeable leehambley/opinions peteonrails/vote_fu medihack/make_voteable twitter/activerecord-reputation-system vshvedov/vote_fu_rails_3 raw1z/amistad edgarjs/ajaxful-rating glynx/rateable ygor/acts_as_rateable sujitsagar/acts_as_rateable asceth/acts_as_rateable anton-zaytsev/acts_as_rateable), description: 'Tagging and marking for your ActiveRecord models.'},
-  {name: 'ActiveRecord: Annotate Models', lang: 'Ruby', repos: %w(ctran/annotate_models), description: ""},
+  {name: 'ActiveRecord: Annotate Models', lang: 'Ruby', repos: %w(ctran/annotate_models), description: "Print table schemas."},
   {name: 'Admin Interfaces', lang: 'Ruby', repos: %w(sferik/rails_admin gregbell/active_admin fesplugas/typus bigbinary/admin_data ianmurrays/active_invoices fhwang/admin_assistant elia/activeadmin-mongoid renderedtext/admin_view tomas/bowtie kryzhovnik/rails_admin_tag_list dce/rails_admin_interfaces activescaffold/active_scaffold puffer/puffer acesuares/inline_forms codez/dry_crud joost/admin_interface), description: "Add an admin interface to your Rails app."},
   # API
   {name: 'API: API Builders', lang: 'Ruby', repos: %w(fabrik42/acts_as_api atomicobject/to_api), description: "Build an API for your application."},
@@ -54,7 +54,7 @@ seeds = [
   {name: 'Console: Frameworks for Console-Based Apps', lang: 'Ruby', repos: %w(koraktor/rubikon), description: ""},
   {name: 'Console: Managing Dotfiles', lang: 'Ruby', repos: %w(mattdbridges/dotify), description: ""},
   {name: 'Console: Alternative Command Line Shells', lang: 'Ruby/JS', repos: %w(fish-shell/fish-shell), description: ""},
-  {name: 'Console: IRB Replacements', lang: 'Ruby', repos: %w(pry/pry cldwalker/hirb rweng/pry-rails nixme/pry-nav Mon-Ouie/pry-remote nixme/pry-debugger), description: ""},
+  {name: 'Console: IRB Replacements', lang: 'Ruby', repos: %w(pry/pry cldwalker/hirb codegram/rack-webconsole blackwinter/brice ileitch/hijack), description: ""},
   {name: 'Console: Terminal Automation', lang: 'Ruby', repos: %w(), description: ""},
 
   # D
@@ -108,12 +108,7 @@ seeds = [
   # I
 
 
-  {name: 'Launch Pages', lang: 'Ruby', repos: %w(carmivore/comingsoon), description: "Landing Pages & Email Signup pages."},
-  {name: 'Tagging', lang: 'JS', repos: %w(ivaynberg/select2), description: ""},
-  {name: 'Selects', lang: 'JS', repos: %w(ivaynberg/select2 harvesthq/chosen), description: ""},
-  {name: 'Async Image Loaders', lang: 'JS', repos: %w(sebarmeli/JAIL), description: ""},
-  {name: 'Syntax Highlighting', lang: 'JS', repos: %w(ccampbell/rainbow), description: ""},
-  {name: 'Mobile: Phonegap', lang: 'JS/Design', repos: %w(davebalmer/jo), description: ""},
+
   {name: 'Optimizing: Performance Monitoring', lang: 'Ruby', repos: %w(newrelic/rpm), description: ""},
   {name: 'Database: Migrations', lang: 'Ruby', repos: %w(thuss/standalone-migrations), description: "Use the power of Rails Migrations for Non-Rails (and even Non-Ruby) Projects."},
   {name: 'Asset Pipeline', lang: 'Ruby', repos: %w(evrone/quiet_assets), description: "Mute asset pipeline log messages and more."},
@@ -124,8 +119,39 @@ seeds = [
   {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server), description: ""},
   {name: 'API Builders & Servers', lang: 'JS', repos: %w(kilianc/node-apiserver), description: ""},
   {name: 'Development: Webservers', lang: 'Ruby', repos: %w(37signals/pow pyromaniac/hoof rtomayko/shotgun puma/puma-express jc00ke/guard-puma), description: ""},
-  {name: 'Websockets', lang: 'Ruby', repos: %w(igrigorik/em-websocket gimite/web-socket-ruby), description: ""},
+  {name: 'Websockets', lang: 'Ruby', repos: %w(igrigorik/em-websocket gimite/web-socket-ruby celluloid/celluloid-io), description: ""},
   {name: 'jQuery on Server', lang: 'JS', repos: %w(MatthewMueller/cheerio), description: ""},
+  {name: 'Parsers: URL & URI', lang: 'Ruby', repos: %w(sporkmonger/addressable pauldix/domainatrix), description: ""},
+  {name: 'Documentation: Templates', lang: 'Ruby', repos: %w(mislav/hanna), description: ""},
+  {name: 'Deployment: Backups', lang: 'Ruby', repos: %w(meskyanichi/backup), description: ""},
+  {name: 'Database: Backups', lang: 'Ruby', repos: %w(meskyanichi/backup), description: ""},
+  {name: 'Charts & Graphs', lang: 'Ruby', repos: %w(topfunky/gruff), description: ""},
+  {name: 'Documentation', lang: 'Design', repos: %w(kneath/kss), description: ""},
+  {name: 'Typography: Showcases', lang: 'Design', repos: %w(ubuwaits/beautiful-web-type), description: ""},
+  {name: 'Email', lang: 'Ruby', repos: %w(mikel/mail), description: ""},
+  {name: 'Frameworks: Scripting & Command Line Applications', lang: 'Ruby', repos: %w(wycats/thor jimweirich/rake blambeau/quickl mdub/clamp), description: "Build tools."},
+  {name: 'Feeds: Fetch & Parse', lang: 'Ruby', repos: %w(pauldix/feedzirra pauldix/sax-machine), description: ""},
+  {name: 'ActiveRecord: Scaffolds', lang: 'Ruby', repos: %w(activescaffold/active_scaffold), description: ""},
+  {name: 'Documentation: Generators', lang: 'Ruby', repos: %w(lsegal/yard), description: ""},
+  {name: 'Database: Cleaning', lang: 'Ruby', repos: %w(bmabey/database_cleaner), description: ""},
+  {name: 'Optimizing: Code Conciseness', lang: 'Ruby', repos: %w(voxdolo/decent_exposure plataformatec/responders), description: ""},
+  {name: 'Grids', lang: 'Design', repos: %w(ericam/susy), description: ""},
+  {name: 'ORMs: NoSQL', lang: 'Ruby', repos: %w(twitter/cassandra seancribbs/ripple Imikimi-LLC/monotable), description: ""},
+  {name: 'Optimize: Merge & Minify', lang: 'Design', repos: %w(cjohansen/juicer), description: ""},
+  {name: 'Views: Navigation Helpers', lang: 'Ruby', repos: %w(andi/simple-navigation bkuhlmann/navigator), description: ""},
+  {name: 'Database: Management Tools', lang: 'Ruby', repos: %w(tumblr/jetpants), description: ""},
+  {name: 'Optimize: SEO', lang: 'Ruby', repos: %w(kpumuk/meta-tags), description: ""},
+  {name: 'Mongoid: Search', lang: 'Ruby', repos: %w(aaw/mongoid_fulltext mauriciozaffari/mongoid_search), description: ""},
+  {name: 'ActiveRecord: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
+  {name: 'Database: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
+  {name: 'PDF: PDF & Ebook Writers', lang: 'Ruby', repos: %w(blueheadpublishing/bookshop prawnpdf/prawn igor-alexandrov/wisepdf pdfkit/pdfkit antialize/wkhtmltopdf mileszs/wicked_pdf fnando/kitabu shairontoledo/rghost walle/gimli TechnoGate/transmuter plessl/wkpdf  tcocca/active_pdftk expectedbehavior/doc_raptor_gem), description: ""},
+  {name: 'Parsers: PDF', lang: 'Ruby', repos: %w(yob/pdf-reader jonmagic/grim CrossRef/pdfextract tcocca/active_pdftk), description: ""},
+  {name: 'PDF: Parsers', lang: 'Ruby', repos: %w(yob/pdf-reader jonmagic/grim CrossRef/pdfextract tcocca/active_pdftk), description: ""},
+  {name: 'ActiveRecord: Pagination & Sorting', lang: 'Ruby', repos: %w(mislav/will_paginate amatsuda/kaminari mynameisrufus/sorted ronalchn/ajax_pagination provideal/tabulatr hiteshrawal/sortable godfat/pagify Fingertips/peiji-san leikind/wice_grid bkuhlmann/sorter), description: ""},
+  {name: 'ActiveRecord: Friendly Ids', lang: 'Ruby', repos: %w(norman/friendly_id bkuhlmann/tokener bumi/find_by_param), description: ""},
+  {name: 'Mongoid: Pagination & Sorting', lang: 'Ruby', repos: %w(lucasas/will_paginate_mongoid), description: ""},
+  {name: 'Pagination', lang: 'Design', repos: %w(brajeshwar/paginate), description: ""},
+  {name: 'Mobile: UI', lang: 'Design', repos: %w(triceam/app-UI), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
@@ -143,7 +169,10 @@ seeds = [
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
-
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: '', lang: 'Ruby', repos: %w(), description: ""},
 
   # J
 
@@ -251,9 +280,15 @@ seeds = [
   {name: 'Interface Toolkits', lang: 'JS/Design/Ruby', repos: %w(visionmedia/uikit necolas/suit), description: ""},
   {name: 'Tables & Editable Tables', lang: 'JS', repos: %w(warpech/jquery-handsontable JangoSteve/jquery-dynatable), description: ""},
   {name: 'Tabs', lang: 'JS', repos: %w(JangoSteve/jQuery-EasyTabs), description: ""},
+  {name: 'Tagging', lang: 'JS', repos: %w(ivaynberg/select2), description: ""},
+  {name: 'Selects', lang: 'JS', repos: %w(ivaynberg/select2 harvesthq/chosen), description: ""},
+  {name: 'Async Image Loaders', lang: 'JS', repos: %w(sebarmeli/JAIL), description: ""},
+  {name: 'Syntax Highlighting', lang: 'JS', repos: %w(ccampbell/rainbow), description: ""},
+  {name: 'Mobile: Phonegap', lang: 'JS', repos: %w(phonegap/phonegap Toura/mulberry apache/incubator-cordova-android apache/incubator-cordova-ios apache/incubator-cordova-mac), description: ""},
 
   # Design
   {name: 'Buttons', lang: 'Design', repos: %w(michenriksen/css3buttons thetron/css3buttons_rails_helpers necolas/css3-github-buttons ubuwaits/css3-buttons), description: ""},
+  {name: 'Launch & Landing Pages', lang: 'Design', repos: %w(carmivore/comingsoon), description: "Landing Pages & Email Signup pages."},
   {name: 'Styling: Styleguides', lang: 'Design/Ruby/JS', repos: %w(necolas/idiomatic-css csswizardry/CSS-Guidelines), description: 'Write consistent and maintainable view files. Book recommendation: The Rails View, Pragmatic Programmers.'},
 
 
@@ -275,6 +310,30 @@ seeds = [
 
 plugins = [
   {parent: 'twitter/bootstrap', children: %w(seyhunak/twitter-bootstrap-rails thomas-mcdonald/bootstrap-sass)}
+  {parent: 'kneath/kss', children: %w(dewski/kss-rails)},
+  {parent: 'pry/pry', children: %w(rweng/pry-rails nixme/pry-nav Mon-Ouie/pry-remote nixme/pry-debugger)},
+  {parent: 'prawnpdf/prawn', children: %w(forrest/prawnto bkuhlmann/prawn_plus sbfaulkner/sinatra-prawn rtsinani/gambas)},
+  {parent: 'mileszs/wicked_pdf', children: %w(michaelklem/heroku-pdf-3)},
+  {parent: 'mislav/will_paginate', children: %w(nickpad/will_paginate-bootstrap yrgoldteeth/bootstrap-will_paginate travisjeffery/will_paginate_twitter_bootstrap)},
+  {parent: 'amatsuda/kaminari', children: %w(Djo/reverse_kaminari)},
+  {parent: 'phonegap/phonegap', children: %w(davebalmer/jo phonegap/phonegap-plugins davejohnson/phonegap-plugin-facebook-connect phonegap/phonegap-start wikimedia/WikipediaMobile Toura/mulberry triceam/app-UI)},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
+  {parent: '', children: %w()},
 ]
 
 
