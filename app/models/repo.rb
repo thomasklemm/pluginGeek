@@ -13,9 +13,10 @@ class Repo < ActiveRecord::Base
 
   # Tagging
   acts_as_ordered_taggable_on :categories
+  acts_as_taggable_on :parents
 
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name
+  attr_accessible :full_name, :category_list
 
   # Attribute defaults
   def description
