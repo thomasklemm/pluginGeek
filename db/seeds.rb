@@ -28,12 +28,15 @@ seeds = [
   {name: 'ActiveRecord: Data Migrations', lang: 'Ruby', repos: %w(soundcloud/large-hadron-migrator portablemind/data_migrator), description: ""},
   {name: 'ActiveRecord: Tagging, Marking, Liking & Rating', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag chrome/markable schneems/likeable leehambley/opinions peteonrails/vote_fu medihack/make_voteable twitter/activerecord-reputation-system vshvedov/vote_fu_rails_3 raw1z/amistad edgarjs/ajaxful-rating glynx/rateable ygor/acts_as_rateable sujitsagar/acts_as_rateable asceth/acts_as_rateable anton-zaytsev/acts_as_rateable), description: 'Tagging and marking for your ActiveRecord models.'},
   {name: 'ActiveRecord: Annotate Models', lang: 'Ruby', repos: %w(ctran/annotate_models), description: "Print table schemas."},
+  {name: 'ActiveRecord: Misc', lang: 'Ruby', repos: %w(activescaffold/active_scaffold codez/dry_crud metaskills/store_configurable robertwahler/dynabix), description: ""},
+  {name: 'ActiveRecord: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
+  {name: 'ActiveRecord: Pagination & Sorting', lang: 'Ruby', repos: %w(mislav/will_paginate amatsuda/kaminari mynameisrufus/sorted ronalchn/ajax_pagination provideal/tabulatr hiteshrawal/sortable godfat/pagify Fingertips/peiji-san leikind/wice_grid bkuhlmann/sorter), description: ""},
+  {name: 'ActiveRecord: Friendly Ids', lang: 'Ruby', repos: %w(norman/friendly_id bkuhlmann/tokener bumi/find_by_param), description: ""},
   {name: 'Admin Interfaces', lang: 'Ruby', repos: %w(sferik/rails_admin gregbell/active_admin fesplugas/typus bigbinary/admin_data ianmurrays/active_invoices fhwang/admin_assistant elia/activeadmin-mongoid renderedtext/admin_view tomas/bowtie kryzhovnik/rails_admin_tag_list dce/rails_admin_interfaces activescaffold/active_scaffold puffer/puffer acesuares/inline_forms codez/dry_crud joost/admin_interface), description: "Add an admin interface to your Rails app."},
   # API
-  {name: 'API: API Builders', lang: 'Ruby', repos: %w(fabrik42/acts_as_api atomicobject/to_api), description: "Build an API for your application."},
+  {name: 'API: API Builders', lang: 'Ruby', repos: %w(intridea/grape filtersquad/rocket_pants LTe/grape-rabl spastorino/rails-api bploetz/versionist filtersquad/api_smith mloughran/api_cache evome/biceps vigetlabs/serialize_with_options fnando/rack-api fabrik42/acts_as_api atomicobject/to_api), description: "Build an API for your application."},
   {name: 'API: XML Parsers & Builders', lang: 'Ruby', repos: %w(ohler55/ox sferik/multi_xml Empact/roxml jnunemaker/happymapper pauldix/sax-machine rubiii/gyoku mdub/representative michael-harrison/xml_active craigambrose/sax_stream soulcutter/saxerator sparklemotion/nokogiri), description: "SAX Parser = Simple API for XML Parser, event oriented parsing"},
   {name: 'API: XML Templating', lang: 'Ruby', repos: %w(nesquena/rabl jlong/radius), description: ""},
-
   # Apps
   {name: 'Apps: Content Management Systems (CMS)', lang: 'Ruby', repos: %w(radiant/radiant locomotivecms/engine resolve/refinerycms comfy/comfortable-mexican-sofa gma/nesta zena/zena quickleft/regulate puffer/puffer_pages browsermedia/browsercms DigitPaint/skyline hulihanapplications/Opal cantierecreativo/railsyardcms magiclabs/alchemy_cms gnuine/ubiquo spoiledmilk/casein3 zen-cms/zen-core fabiokr/manageable_content svenfuchs/adva-cms2), description: "Also have a look at our Frameworks: Static Site Generators section if you are intending to build a mostly view oriented website."},
   {name: 'Apps: Blogging Engines', lang: 'Ruby', repos: %w(imathis/octopress NateW/obtvse xaviershay/enki cloudhead/toto ruhoh/ruhoh.rb zbruhnke/bloggy galeki/chito middleman/middleman-blog browsermedia/bcms_blog KatanaCode/blogit hulihanapplications/Opal samsoffes/samsoff.es kiddsoftware/rails_blog_engine cloudhead/dorothy jipiboily/monologue judofyr/timeless fdv/typo hmans/schnitzelpress gma/nesta), description: ""},
@@ -41,13 +44,15 @@ seeds = [
   {name: 'Apps: Forums & Social Network Building Blocks', lang: 'Ruby', repos: %w(radar/forem courtenay/altered_beast bborn/communityengine twitter/activerecord-reputation-system raw1z/amistad), description: ""},
   {name: 'Apps: Project Management & Organization', lang: 'Ruby', repos: %w(redmine/redmine chiliproject/chiliproject gitlabhq/gitlabhq malclocke/fulcrum ari/jobsworth jamesu/railscollab Bettermeans/bettermeans camelpunch/simply_agile kiskolabs/splendidbacon), description: ""},
   {name: 'Apps: Miscellaneous', lang: 'Ruby', repos: %w(janlelis/pws jamis/bucketwise mischa78/boxroom ugol/pomodoro visionmedia/pomo rapind/grokphoto), description: "Password Manager, Personal Finance Manager etc."},
-
+  {name: 'Asset Pipeline', lang: 'Ruby', repos: %w(evrone/quiet_assets), description: "Mute asset pipeline log messages and more."},
 
   # B
   {name: 'Background Jobs', lang: 'Ruby', repos: %w(mperham/sidekiq mperham/girl_friday defunkt/resque collectiveidea/delayed_job ryandotsmith/queue_classic bkeepers/qu ruby-amqp/amqp), description: 'Process worker tasks in the background.'},
   {name: 'Background Jobs: Scheduling Jobs & Recurring Events', lang: 'Ruby', repos: %w(bvandenbos/resque-scheduler tomykaira/clockwork javan/whenever jmettraux/rufus-scheduler zencoder/recurrent seejohnrun/ice_cube), description: ""},
 
   # C
+  {name: 'Chat Servers', lang: 'Ruby/JS', repos: %w(negativecode/vines gravityonmars/Balloons.IO), description: ""},
+  {name: 'Charts & Graphs', lang: 'Ruby', repos: %w(topfunky/gruff), description: ""},
   # Coffeescript
   {name: 'Coffeescript: Guides / Styleguides', lang: 'JS', repos: %w(polarmobile/coffeescript-style-guide), description: ''},
   {name: 'Configuration: Configuration Objects', lang: 'Ruby', repos: %w(mbklein/confstruct GutenYe/optimism), description: ""},
@@ -58,30 +63,45 @@ seeds = [
   {name: 'Console: Terminal Automation', lang: 'Ruby', repos: %w(), description: ""},
 
   # D
+  {name: 'Database: Structure & Data Migrations', lang: 'Ruby', repos: %w(thuss/standalone-migrations), description: "Use the power of Rails Migrations for Non-Rails (and even Non-Ruby) Projects."},
+  {name: 'Database: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
+  {name: 'Database: Cleaning', lang: 'Ruby', repos: %w(bmabey/database_cleaner), description: ""},
+  {name: 'Database: Management Tools', lang: 'Ruby', repos: %w(tumblr/jetpants), description: ""},
+  {name: 'Database: Backups', lang: 'Ruby', repos: %w(meskyanichi/backup yob/db2fog), description: ""},
   # Deployment
   {name: 'Deployment', lang: 'Ruby', repos: %w(opscode/rails-quick-start), description: ''},
   {name: 'Deployment: Webservers', lang: 'Ruby', repos: %w(macournoyer/thin rack/rack defunkt/unicorn puma/puma celluloid/reel postrank-labs/goliath zedshaw/mongrel2 ged/ruby-mongrel2 FooBarWidget/passenger), description: "Give Unicorn a try. There are also Rainbows! / Zbatery and others, each for specific kinds of apps."},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: 'Deployment: Backups', lang: 'Ruby', repos: %w(meskyanichi/backup), description: ""},
   # Development
   {name: 'Development: Editors', lang: 'Ruby/JS/Design', repos: %w(redcar/redcar adobe/brackets), description: ""},
   {name: 'Development: Development Webserver', lang: 'Ruby', repos: %w(37signals/pow rodreegez/powder), description: 'Automatically run your apps on your local machine, and access them with special domains in your browser.'},
   {name: 'Development: Development Machine Setup', lang: 'Ruby', repos: %w(atmos/smeagol thoughtbot/laptop oscardelben/RailsOneClick tokaido/tokaidoapp), description: 'Set up your laptop for Ruby or Rails development. http://www.rubypluspl.us/2012/06/ubuntu-1204-ruby-on-rails-development.html - Setting up ubuntu for RoR development.'},
   {name: 'Development: Manage Ruby Versions', lang: 'Ruby', repos: %w(wayneeseguin/rvm sstephenson/rbenv remear/jewelrybox ), description: 'Install the latest ruby builds on your laptop. You can also use different ruby versions on different projects.'},
   {name: 'Development: Routing', lang: 'Ruby', repos: %w(bjeanes/ghost 37signals/pow), description: ""},
+  {name: 'Development: Webservers', lang: 'Ruby', repos: %w(37signals/pow pyromaniac/hoof rtomayko/shotgun puma/puma-express jc00ke/guard-puma), description: ""},
+  # Documentation
+  {name: 'Documentation: Templates', lang: 'Ruby', repos: %w(mislav/hanna), description: ""},
+  {name: 'Documentation: Generators', lang: 'Ruby', repos: %w(lsegal/yard), description: ""},
 
   # E
   # E-Commerce
   {name: 'E-Commerce: Online Shops', lang: 'Ruby', repos: %w(spree/spree drhenner/ror_ecommerce Shopify/shopify_app Shopify/shopify_api), description: "Online store related gems."},
   {name: 'E-Commerce: Fulfillment & Shipping', lang: 'Ruby', repos: %w(Shopify/active_shipping spree/spree_active_shipping Shopify/active_fulfillment), description: "Online store related gems."},
   {name: 'E-Commerce: Payments & API Clients for Payment Processing Services', lang: 'Ruby', repos: %w(Shopify/active_merchant chargify/chargify_api_ares tylerhunt/remit rlivsey/rspreedly spreedly/spreedly-gem expectedbehavior/cheddargetter_client_ruby recurly/recurly-client-ruby fnando/paypal-recurring pengwynn/chargify nov/paypal-express braintree/braintree_ruby tc/paypal_adaptive stripe/stripe-ruby), description: "Get paid for your work. Includes Services that offer recurring subscription billing as well as one-time payments. Can handle credit card payments as well as paypal and other forms."},
+  # Email
+  {name: 'Email: Backup', lang: 'Ruby', repos: %w(rgrove/larch), description: ""},
+  {name: 'Email', lang: 'Ruby', repos: %w(mikel/mail), description: ""},
 
   # F
+  {name: 'Feeds: Fetch & Parse', lang: 'Ruby', repos: %w(pauldix/feedzirra pauldix/sax-machine), description: ""},
+
+
   # Frameworks
   {name: 'Frameworks: Static Site Frameworks', lang: 'Ruby', repos: %w(mojombo/jekyll imathis/octopress middleman/middleman winton/stasis thoughtbot/high_voltage ddfreyne/nanoc blahed/frank sstephenson/brochure benschwarz/bonsai botanicus/ace ebello/Jekyll-S3 jamiew/heroku-static-site lukesutton/pekky plusjade/jekyll-bootstrap versapay/jekyll-s3 bmcmurray/hekyll petebrowne/machined cdn64/deplot dmathieu/glynn jlong/serve sinefunc/proton gma/nesta prose/prose prose/bootstrap migrs/rack-server-pages), description: "http://developmentseed.org/blog/2011/09/09/jekyll-github-pages/ - Using Jekyll and Github Pages for a Website"},
   {name: 'Frameworks: Web App Frameworks', lang: 'Ruby', repos: %w(rails/rails sinatra/sinatra padrino/padrino-framework Ramaze/ramaze lifo/cramp camping/camping), description: 'Build web applications easily with style.'},
-
+  {name: 'Frameworks: Scripting & Command Line Applications', lang: 'Ruby', repos: %w(wycats/thor jimweirich/rake blambeau/quickl mdub/clamp), description: "Build tools."},
   # Forms
-  {name: 'Forms: Form Builders', lang: 'Ruby', repos: %w(justinfrench/formtastic plataformatec/simple_form ryanb/nested_form nathanvda/cocoon stouset/twitter_bootstrap_form_for JangoSteve/remotipart plataformatec/mail_form mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms tizoc/bureaucrat springbok/smerf joshsusser/informal potenza/bootstrap_form ksylvest/formula jeremyevans/forme), description: "Generate markup for your forms easily. Please get familiar with the form building tools shipped with Rails first before contemplating to use any of the listed gems."},
+  {name: 'Forms: Form Builders', lang: 'Ruby', repos: %w(justinfrench/formtastic plataformatec/simple_form ryanb/nested_form nathanvda/cocoon stouset/twitter_bootstrap_form_for JangoSteve/remotipart plataformatec/mail_form mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms tizoc/bureaucrat springbok/smerf joshsusser/informal potenza/bootstrap_form ksylvest/formula jeremyevans/forme Manfred/Shaper), description: "Generate markup for your forms easily. Please get familiar with the form building tools shipped with Rails first before contemplating to use any of the listed gems."},
   {name: 'Forms: File Uploading & Processing', lang: 'Ruby', repos: %w(JangoSteve/remotipart markevans/dragonfly mwilliams/d2s3 apeacox/simple_form_fancy_uploads jnicklas/carrierwave thoughtbot/paperclip dwilkie/carrierwave_direct mischa78/boxroom newbamboo/rack-raw-upload websymphony/Rails3-Paperclip-Uploadify camelpunch/ungulate jstorimer/delayed_paperclip igor-alexandrov/paperclip-aws dripster82/paperclipdropbox nhocki/paperclip-s3 kellym/mongoid_paperclip_queue ksylvest/attached technoweenie/attachment_fu), description: "Upload files, process them, and/or store them directly on a cloud storage service such as Amazon's S3."},
   {name: 'Forms: Client-Side Validation', lang: 'Ruby', repos: %w(bcardarella/client_side_validations amatsuda/html5_validators dockyard/client_side_validations-simple_form), description: "Automatically validate forms on the client side using Javascript or the latest HTML5 Validation Standards. Rules can be automatically extracted from the validations set in your model."},
   {name: 'Forms: Multi-Step Forms / Wizard Forms', lang: 'Ruby', repos: %w(schneems/wicked intridea/rails_wizard antonversal/stepper jeffp/wizardly RailsApps/rails_apps_composer), description: "Also consider the corresponding JS Plugins."},
@@ -102,63 +122,17 @@ seeds = [
   # H
   {name: 'Hash Extensions', lang: 'Ruby', repos: %w(intridea/hashie svenfuchs/hashr ahoward/map delano/gibbler ismasan/hash_mapper rubyworks/hashery), description: ""},
   {name: 'HTTP: Consoles', lang: 'Ruby', repos: %w(htty/htty), description: ""},
-  {name: 'HTTP: Clients', lang: 'Ruby', repos: %w(typhoeus/typhoeus deepfryed/http-parser-lite c42/wrest), description: "Consume APIs and web services."},
+  {name: 'HTTP: Clients', lang: 'Ruby', repos: %w(typhoeus/typhoeus deepfryed/http-parser-lite c42/wrest Manfred/SHL), description: "Consume APIs and web services."},
 
 
   # I
-
-
-
-  {name: 'Optimizing: Performance Monitoring', lang: 'Ruby', repos: %w(newrelic/rpm), description: ""},
-  {name: 'Database: Migrations', lang: 'Ruby', repos: %w(thuss/standalone-migrations), description: "Use the power of Rails Migrations for Non-Rails (and even Non-Ruby) Projects."},
-  {name: 'Asset Pipeline', lang: 'Ruby', repos: %w(evrone/quiet_assets), description: "Mute asset pipeline log messages and more."},
-  {name: 'Placeholders', lang: 'JS/Design', repos: %w(imsky/holder), description: ""},
-  {name: 'CI', lang: 'JS', repos: %w(ryankee/concrete), description: ""},
-  {name: 'Chat Servers', lang: 'Ruby/JS', repos: %w(negativecode/vines gravityonmars/Balloons.IO), description: ""},
-  {name: 'Email: Backup', lang: 'Ruby', repos: %w(rgrove/larch), description: ""},
-  {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server), description: ""},
-  {name: 'API Builders & Servers', lang: 'JS', repos: %w(kilianc/node-apiserver), description: ""},
-  {name: 'Development: Webservers', lang: 'Ruby', repos: %w(37signals/pow pyromaniac/hoof rtomayko/shotgun puma/puma-express jc00ke/guard-puma), description: ""},
-  {name: 'Websockets', lang: 'Ruby', repos: %w(igrigorik/em-websocket gimite/web-socket-ruby celluloid/celluloid-io), description: ""},
-  {name: 'jQuery on Server', lang: 'JS', repos: %w(MatthewMueller/cheerio), description: ""},
-  {name: 'Parsers: URL & URI', lang: 'Ruby', repos: %w(sporkmonger/addressable pauldix/domainatrix), description: ""},
-  {name: 'Documentation: Templates', lang: 'Ruby', repos: %w(mislav/hanna), description: ""},
-  {name: 'Deployment: Backups', lang: 'Ruby', repos: %w(meskyanichi/backup), description: ""},
-  {name: 'Database: Backups', lang: 'Ruby', repos: %w(meskyanichi/backup), description: ""},
-  {name: 'Charts & Graphs', lang: 'Ruby', repos: %w(topfunky/gruff), description: ""},
-  {name: 'Documentation', lang: 'Design', repos: %w(kneath/kss), description: ""},
-  {name: 'Typography: Showcases', lang: 'Design', repos: %w(ubuwaits/beautiful-web-type), description: ""},
-  {name: 'Email', lang: 'Ruby', repos: %w(mikel/mail), description: ""},
-  {name: 'Frameworks: Scripting & Command Line Applications', lang: 'Ruby', repos: %w(wycats/thor jimweirich/rake blambeau/quickl mdub/clamp), description: "Build tools."},
-  {name: 'Feeds: Fetch & Parse', lang: 'Ruby', repos: %w(pauldix/feedzirra pauldix/sax-machine), description: ""},
-  {name: 'ActiveRecord: Scaffolds', lang: 'Ruby', repos: %w(activescaffold/active_scaffold), description: ""},
-  {name: 'Documentation: Generators', lang: 'Ruby', repos: %w(lsegal/yard), description: ""},
-  {name: 'Database: Cleaning', lang: 'Ruby', repos: %w(bmabey/database_cleaner), description: ""},
-  {name: 'Optimizing: Code Conciseness', lang: 'Ruby', repos: %w(voxdolo/decent_exposure plataformatec/responders), description: ""},
-  {name: 'Grids', lang: 'Design', repos: %w(ericam/susy), description: ""},
-  {name: 'ORMs: NoSQL', lang: 'Ruby', repos: %w(twitter/cassandra seancribbs/ripple Imikimi-LLC/monotable), description: ""},
-  {name: 'Optimize: Merge & Minify', lang: 'Design', repos: %w(cjohansen/juicer), description: ""},
-  {name: 'Views: Navigation Helpers', lang: 'Ruby', repos: %w(andi/simple-navigation bkuhlmann/navigator), description: ""},
-  {name: 'Database: Management Tools', lang: 'Ruby', repos: %w(tumblr/jetpants), description: ""},
-  {name: 'Optimize: SEO', lang: 'Ruby', repos: %w(kpumuk/meta-tags), description: ""},
-  {name: 'Mongoid: Search', lang: 'Ruby', repos: %w(aaw/mongoid_fulltext mauriciozaffari/mongoid_search), description: ""},
-  {name: 'ActiveRecord: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
-  {name: 'Database: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
-  {name: 'PDF: PDF & Ebook Writers', lang: 'Ruby', repos: %w(blueheadpublishing/bookshop prawnpdf/prawn igor-alexandrov/wisepdf pdfkit/pdfkit antialize/wkhtmltopdf mileszs/wicked_pdf fnando/kitabu shairontoledo/rghost walle/gimli TechnoGate/transmuter plessl/wkpdf  tcocca/active_pdftk expectedbehavior/doc_raptor_gem), description: ""},
-  {name: 'Parsers: PDF', lang: 'Ruby', repos: %w(yob/pdf-reader jonmagic/grim CrossRef/pdfextract tcocca/active_pdftk), description: ""},
-  {name: 'PDF: Parsers', lang: 'Ruby', repos: %w(yob/pdf-reader jonmagic/grim CrossRef/pdfextract tcocca/active_pdftk), description: ""},
-  {name: 'ActiveRecord: Pagination & Sorting', lang: 'Ruby', repos: %w(mislav/will_paginate amatsuda/kaminari mynameisrufus/sorted ronalchn/ajax_pagination provideal/tabulatr hiteshrawal/sortable godfat/pagify Fingertips/peiji-san leikind/wice_grid bkuhlmann/sorter), description: ""},
-  {name: 'ActiveRecord: Friendly Ids', lang: 'Ruby', repos: %w(norman/friendly_id bkuhlmann/tokener bumi/find_by_param), description: ""},
-  {name: 'Mongoid: Pagination & Sorting', lang: 'Ruby', repos: %w(lucasas/will_paginate_mongoid), description: ""},
-  {name: 'Pagination', lang: 'Design', repos: %w(brajeshwar/paginate), description: ""},
-  {name: 'Mobile: UI', lang: 'Design', repos: %w(triceam/app-UI), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: 'Mobile: Backend', lang: 'JS', repos: %w(adelevie/parse-ruby-client), description: ""},
+  {name: 'Mobile: Text Editor Helpers', lang: 'JS/Ruby/Design', repos: %w(rubymotion/BubbleWrap rubymotion/teacup diemer/RubyMotionSublimeCompletions), description: ""},
+  {name: 'ActiveModel: Validations', lang: 'Ruby', repos: %w(Fingertips/validation-sets alexdunae/validates_email_format_of Fingertips/validates_email-san hallelujah/valid_email perfectline/validates_email pluginaweek/validates_as_email_address spectator/validates_email balexand/email_validator mpalmer/email-address-validator codyrobbins/active-model-email-validator), description: ""},
+  {name: 'Development: File System Watchers', lang: 'Ruby/JS/Design', repos: %w(guard/guard alloy/kicker), description: "Watch the file system and trigger actions (i.e. automatic compilation or browser reload) on file changes."},
+  {name: 'Development: Notifications', lang: 'Ruby', repos: %w(fnando/notifier), description: ""},
+  {name: 'Git: Analysis', lang: 'Ruby', repos: %w(koraktor/metior), description: "Git and Github Analysis."},
+  {name: 'API: Examples', lang: 'Ruby', repos: %w(500px/api-documentation), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
@@ -185,38 +159,50 @@ seeds = [
   {name: 'Learning Ruby - Advanced', lang: 'Ruby', repos: %w(raganwald/homoiconic), description: ""},
 
   # M
-  {name: 'Mongoid: Plugins', lang: 'Ruby', repos: %w(aq1018/mongoid-history hakanensari/mongoid-slug), description: ''},
   {name: 'Metrics: Event Logging & Aggregation / Exception Tracking & Stats Servers', lang: 'Ruby', repos: %w(paulasmuth/fnordmetric dcramer/sentry noahhl/batsd Fudge/gltail), description: ""},
   {name: 'Mobile: Android Development', lang: 'Ruby', repos: %w(ruboto/ruboto), description: ""},
+  {name: 'Mongoid: Plugins', lang: 'Ruby', repos: %w(aq1018/mongoid-history hakanensari/mongoid-slug lucasas/will_paginate_mongoid), description: ''},
+  {name: 'Mongoid: Search', lang: 'Ruby', repos: %w(aaw/mongoid_fulltext mauriciozaffari/mongoid_search), description: ""},
 
   # N
   {name: 'Node: Guides / Styleguides', lang: 'JS', repos: %w(felixge/nodeguide.com), description: ''},
 
   # O
+  {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server), description: ""},
   {name: 'Office Radio', lang: 'Ruby', repos: %w(play/play), description: "Music makes the heart shine."},
-  # Optimizing
-  {name: 'Optimizing: Split Testing / A/B Testing', lang: 'Ruby', repos: %w(xing/absurdity andrew/split assaf/vanity jhubert/rails-split-tester hayesgm/mountain_goat), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
-  {name: 'Optimizing: Split Testing / A/B Testing', lang: 'JS', repos: %w(jamesyu/cohorts grippy/node-multivariate thumbtack/abba jgallen23/dice-roll), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
-  {name: 'Optimizing: Stylesheets', lang: 'Ruby', repos: %w(aanand/deadweight), description: ""},
-  {name: 'Optimizing: Code Quality Metrics', lang: 'Ruby', repos: %w(railsbp/rails_best_practices), description: ""},
-  {name: 'Optimizing: Database Queries & Structure', lang: 'Ruby', repos: %w(flyerhzm/bullet nesquena/query_reviewer eladmeidar/rails_indexes), description: ""},
-  {name: 'Optimizing: Log Analysis & Aggregation', lang: 'Ruby', repos: %w(wvanbergen/request-log-analyzer), description: ""},
-  {name: 'Optimizing: Caching', lang: 'Ruby', repos: %w(Arjeno/catche), description: ""},
-
-  {name: 'Other Languages / Frameworks: Guides / Styleguides', lang: 'Ruby/JS', repos: %w(oreilly/couchdb-guide), description: ''},
+  # Optimize
+  {name: 'Optimize: Split Testing / A/B Testing', lang: 'Ruby', repos: %w(xing/absurdity andrew/split assaf/vanity jhubert/rails-split-tester hayesgm/mountain_goat), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
+  {name: 'Optimize: Split Testing / A/B Testing', lang: 'JS', repos: %w(jamesyu/cohorts grippy/node-multivariate thumbtack/abba jgallen23/dice-roll), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
+  {name: 'Optimize: Stylesheets', lang: 'Ruby', repos: %w(aanand/deadweight), description: ""},
+  {name: 'Optimize: Code Quality Metrics', lang: 'Ruby', repos: %w(railsbp/rails_best_practices), description: ""},
+  {name: 'Optimize: Database Queries & Structure', lang: 'Ruby', repos: %w(flyerhzm/bullet nesquena/query_reviewer eladmeidar/rails_indexes), description: ""},
+  {name: 'Optimize: Log Analysis & Aggregation', lang: 'Ruby', repos: %w(wvanbergen/request-log-analyzer), description: ""},
+  {name: 'Optimize: Caching', lang: 'Ruby', repos: %w(Arjeno/catche), description: ""},
+  {name: 'Optimize: Code Conciseness', lang: 'Ruby', repos: %w(voxdolo/decent_exposure plataformatec/responders), description: ""},
+  {name: 'Optimize: Performance Monitoring', lang: 'Ruby', repos: %w(newrelic/rpm), description: ""},
+  {name: 'Optimize: SEO', lang: 'Ruby', repos: %w(kpumuk/meta-tags), description: ""},
+  # ORMs
   {name: 'ORMs: Key-Value Stores', lang: 'Ruby', repos: %w(technoweenie/horcrux jnunemaker/toystore), description: ""},
   {name: 'ORMs: MongoDB', lang: 'Ruby', repos: %w(mongoid/mongoid jnunemaker/mongomapper), description: ""},
   {name: 'ORMs: MySQL', lang: 'Ruby', repos: %w(jeremyevans/sequel datamapper/dm-core), description: "ActiveRecord"},
+  {name: 'ORMs: NoSQL', lang: 'Ruby', repos: %w(twitter/cassandra seancribbs/ripple Imikimi-LLC/monotable), description: ""},
+
 
 
   # P
-  {name: 'Parsers: CSV', lang: 'Ruby', repos: %w(seamusabshere/data_miner), description: ''},
+  # Parsers
+  {name: 'Parsers: CSV', lang: 'Ruby', repos: %w(seamusabshere/data_miner pillowfactory/csv-mapper internuity/map-fields seamusabshere/remote_table), description: ''},
   {name: 'Parsers: HTML & Sanitizers', lang: 'Ruby', repos: %w(sparklemotion/nokogiri flavorjones/loofah), description: ''},
-  {name: 'Parsers: JSON', lang: 'Ruby', repos: %w(ohler55/oj intridea/multi_json flori/json brianmario/yajl-ruby jnunemaker/crack kr/okjson), description: ''},
+  {name: 'Parsers: JSON', lang: 'Ruby', repos: %w(ohler55/oj intridea/multi_json flori/json brianmario/yajl-ruby jnunemaker/crack kr/okjson dgraham/json-stream), description: ''},
   {name: 'Parsers: Markdown', lang: 'Ruby', repos: %w(tanoku/redcarpet tanoku/sundown rtomayko/rdiscount github/github-flavored-markdown vigetlabs/acts_as_markup gettalong/kramdown postmodern/multi_markdown jgarber/redcloth), description: ""},
-  {name: 'Parsers: XLS', lang: 'Ruby', repos: %w(seamusabshere/data_miner), description: ''},
+  {name: 'Parsers: PDF', lang: 'Ruby', repos: %w(yob/pdf-reader jonmagic/grim CrossRef/pdfextract tcocca/active_pdftk), description: ""},
+  {name: 'Parsers: URL & URI', lang: 'Ruby', repos: %w(sporkmonger/addressable pauldix/domainatrix), description: ""},
+  {name: 'Parsers: XLS', lang: 'Ruby', repos: %w(seamusabshere/data_miner seamusabshere/remote_table), description: ''},
   {name: 'Parsers: XML', lang: 'Ruby', repos: %w(jnunemaker/crack rubiii/nori sparklemotion/nokogiri flavorjones/loofah jnunemaker/happymapper seamusabshere/data_miner), description: ''},
   {name: 'Parsers: Natural Language Dates', lang: 'Ruby', repos: %w(mojombo/chronic hpoydar/chronic_duration), description: ""},
+  # PDF
+  {name: 'PDF: PDF & Ebook Writers', lang: 'Ruby', repos: %w(blueheadpublishing/bookshop prawnpdf/prawn igor-alexandrov/wisepdf pdfkit/pdfkit antialize/wkhtmltopdf mileszs/wicked_pdf fnando/kitabu shairontoledo/rghost walle/gimli TechnoGate/transmuter plessl/wkpdf  tcocca/active_pdftk expectedbehavior/doc_raptor_gem mbleigh/princely fnando/kitabu), description: ""},
+  {name: 'PDF: Parsers', lang: 'Ruby', repos: %w(yob/pdf-reader jonmagic/grim CrossRef/pdfextract tcocca/active_pdftk), description: ""},
   {name: 'Presentations', lang: 'Ruby/JS', repos: %w(bmcmurray/hekyll ), description: ""},
   {name: 'Process Management', lang: 'Ruby', repos: %w(ddollar/foreman), description: ""},
   {name: 'Prototyping', lang: 'Ruby', repos: %w(jlong/serve mhs/scout-app), description: ""},
@@ -245,7 +231,6 @@ seeds = [
 
 
   # T
-  {name: 'Templating: PDF Generators', lang: 'Ruby', repos: %w(mbleigh/princely fnando/kitabu), description: ''},
   {name: 'Templating: JSON', lang: 'Ruby', repos: %w(nesquena/rabl fabrik42/acts_as_api), description: ''},
   {name: 'Templating: XML', lang: 'Ruby', repos: %w(nesquena/rabl fabrik42/acts_as_api), description: ''},
   {name: 'Testing: Build Systems & Continuous Integration', lang: 'Ruby', repos: %w(travis-ci/travis-ci defunkt/cijoe github/janky jenkinsci/jenkins.rb c42/goldberg), description: ""},
@@ -259,9 +244,11 @@ seeds = [
   {name: 'Views: Calendar Helpers', lang: 'Ruby', repos: %w(topfunky/calendar_helper), description: ""},
   {name: 'Views: Table Builders', lang: 'Ruby', repos: %w(provideal/tabulatr watu/table_builder jgdavey/tabletastic tokumine/fusion_tables pluginaweek/table_helper lunich/table_for), description: "Render table with searching and sorting helpers."},
   {name: 'Views: Tabs', lang: 'Ruby', repos: %w(weppos/tabs_on_rails), description: ""},
-  {name: 'Views: Templating Engines & Languages', lang: 'Ruby', repos: %w(haml/haml stonean/slim Shopify/liquid rtomayko/tilt defunkt/mustache markaby/markaby blambeau/wlang), description: "Tired of <html>? Try slim and companions."},
+  {name: 'Views: Templating Engines & Languages', lang: 'Ruby', repos: %w(haml/haml stonean/slim Shopify/liquid rtomayko/tilt defunkt/mustache markaby/markaby blambeau/wlang agoragames/stache jamesarosen/handlebars-rails joliss/markdown-rails), description: "Tired of <html>? Try slim and companions."},
+  {name: 'Views: Navigation Helpers', lang: 'Ruby', repos: %w(andi/simple-navigation bkuhlmann/navigator), description: ""},
 
   # W
+  {name: 'Websockets', lang: 'Ruby', repos: %w(igrigorik/em-websocket gimite/web-socket-ruby celluloid/celluloid-io stripe/einhorn), description: ""},
   {name: 'WYSIWYG Editors', lang: 'Ruby', repos: %w(jejacks0n/mercury kete/tiny_mce bastiaanterhorst/rich), description: ""},
 
   # X
@@ -285,11 +272,24 @@ seeds = [
   {name: 'Async Image Loaders', lang: 'JS', repos: %w(sebarmeli/JAIL), description: ""},
   {name: 'Syntax Highlighting', lang: 'JS', repos: %w(ccampbell/rainbow), description: ""},
   {name: 'Mobile: Phonegap', lang: 'JS', repos: %w(phonegap/phonegap Toura/mulberry apache/incubator-cordova-android apache/incubator-cordova-ios apache/incubator-cordova-mac), description: ""},
+  {name: 'Styleguides: Misc', lang: 'JS/Ruby', repos: %w(oreilly/couchdb-guide), description: ''},
+  {name: 'jQuery on Server', lang: 'JS', repos: %w(MatthewMueller/cheerio), description: ""},
+  {name: 'API Builders & Servers', lang: 'JS', repos: %w(kilianc/node-apiserver), description: ""},
+  {name: 'CI', lang: 'JS', repos: %w(ryankee/concrete), description: ""},
+
 
   # Design
   {name: 'Buttons', lang: 'Design', repos: %w(michenriksen/css3buttons thetron/css3buttons_rails_helpers necolas/css3-github-buttons ubuwaits/css3-buttons), description: ""},
   {name: 'Launch & Landing Pages', lang: 'Design', repos: %w(carmivore/comingsoon), description: "Landing Pages & Email Signup pages."},
   {name: 'Styling: Styleguides', lang: 'Design/Ruby/JS', repos: %w(necolas/idiomatic-css csswizardry/CSS-Guidelines), description: 'Write consistent and maintainable view files. Book recommendation: The Rails View, Pragmatic Programmers.'},
+  {name: 'Documentation', lang: 'Design', repos: %w(kneath/kss), description: ""},
+  {name: 'Placeholders', lang: 'Design/JS', repos: %w(imsky/holder), description: ""},
+  {name: 'Typography: Showcases', lang: 'Design', repos: %w(ubuwaits/beautiful-web-type), description: ""},
+  {name: 'Optimize: Merge & Minify', lang: 'Design', repos: %w(cjohansen/juicer), description: ""},
+  {name: 'Pagination', lang: 'Design', repos: %w(brajeshwar/paginate), description: ""},
+  {name: 'Mobile: UI', lang: 'Design', repos: %w(triceam/app-UI), description: ""},
+  {name: 'Grids', lang: 'Design', repos: %w(ericam/susy), description: ""},
+
 
 
   {name: 'Rails: Project Generators & Templates', lang: 'Ruby', repos: %w(), description: 'Get your project off the ground with ease.'},
@@ -317,9 +317,9 @@ plugins = [
   {parent: 'mislav/will_paginate', children: %w(nickpad/will_paginate-bootstrap yrgoldteeth/bootstrap-will_paginate travisjeffery/will_paginate_twitter_bootstrap)},
   {parent: 'amatsuda/kaminari', children: %w(Djo/reverse_kaminari)},
   {parent: 'phonegap/phonegap', children: %w(davebalmer/jo phonegap/phonegap-plugins davejohnson/phonegap-plugin-facebook-connect phonegap/phonegap-start wikimedia/WikipediaMobile Toura/mulberry triceam/app-UI)},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
+  {parent: 'FooBarWidget/passenger', children: %w(Fingertips/passengerpane)},
+  {parent: 'thoughtbot/paperclip', children: %w(bkuhlmann/paperclip_plus)},
+  {parent: '', children: %w(padrino/padrino-recipes)},
   {parent: '', children: %w()},
   {parent: '', children: %w()},
   {parent: '', children: %w()},
