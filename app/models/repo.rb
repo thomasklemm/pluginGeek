@@ -20,7 +20,7 @@ class Repo < ActiveRecord::Base
 
   # Attribute defaults
   def description
-    self[:description] or "No description given."
+    self[:description] or "No description. Please add one on Github."
   end
 
   def homepage_url

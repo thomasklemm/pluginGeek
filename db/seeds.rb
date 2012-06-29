@@ -208,7 +208,7 @@ seeds = [
   {name: 'Statistics', lang: 'Ruby', repos: %w(thirtysixthspan/descriptive_statistics), description: ''},
   # Styling
   {name: 'Styling: CSS Preprocessors', lang: 'Ruby/Design', repos: %w(nex3/sass chriseppstein/compass cowboyd/less.rb cloudhead/less.js), description: "Still writing plain CSS? Consider using SASS, Less, Stylus or any other preprocessor. They generally give you advanced features like variables, mixins, color functions and more. For some of them there are great mixin libraries available."},
-  {name: 'Styling: Design Frameworks', lang: 'Design/Ruby', repos: %w(twitter/bootstrap zurb/foundation h5bp/html5-boilerplate necolas/normalize.css joshuaclayton/blueprint-css seyhunak/twitter-bootstrap-rails thomas-mcdonald/bootstrap-sass), description: "Build great looking websites with ease."},
+  {name: 'Styling: Design Frameworks', lang: 'Design/Ruby', repos: %w(twitter/bootstrap zurb/foundation h5bp/html5-boilerplate necolas/normalize.css joshuaclayton/blueprint-css), description: "Build great looking websites with ease."},
   {name: 'Styling: Sass: Mixin Libraries', lang: 'Ruby/Design', repos: %w(thoughtbot/bourbon), description: ""},
   {name: 'Styling: Sprite Generators', lang: 'Ruby/Design', repos: %w(jakesgordon/sprite-factory), description: ""},
   {name: 'Speach: Making Ruby Speak', lang: 'Ruby', repos: %w(ruby-talks/talks), description: ""},
@@ -266,9 +266,17 @@ seeds = [
   {name: 'Collaboration / Project Management',lang: 'Ruby/JS', repos: %w(teambox/teambox), description: 'Team collaboration.'},
   {name: 'Rails App Tutorials', lang: 'Ruby', repos: %w(RailsApps/rails3-bootstrap-devise-cancan sferik/sign-in-with-twitter RailsApps/rails-prelaunch-signup RailsApps/rails3-mongoid-omniauth RailsApps/rails3-mongoid-devise RailsApps/rails3-bootstrap-devise-cancan RailsApps/rails3-devise-rspec-cucumber RailsApps/rails3-subdomains), description: 'Example apps and tutorials.'},
   {name: 'Textmate and Sublime Text Snippets', lang: 'Ruby/JS/Design', repos: %w(devtellect/sublime-twitter-bootstrap-snippets), description: 'Code Editor snippets. Mostly Textmate and Sublime Text. You can generally use Textmate Plugins in Sublime Text 2.'},
-  {name: 'Twitter Bootstrap for Rails', lang: 'Ruby/Design', repos: %w(mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms seyhunak/twitter-bootstrap-rails metaskills/less-rails-bootstrap anjlab/bootstrap-rails yabawock/bootstrap-sass-rails xdite/bootstrap-helper yrgoldteeth/bootstrap-will_paginate decioferreira/bootstrap-generators pusewicz/twitter-bootstrap-markup-rails thomaspark/bootswatch anjlab/bootstrap-rails markdotto/bootstrap-university), description: 'Helpers for using Twitter Bootstrap with Rails.'},
+  {name: 'Twitter Bootstrap for Rails', lang: 'Ruby/Design', repos: %w(mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms  metaskills/less-rails-bootstrap anjlab/bootstrap-rails yabawock/bootstrap-sass-rails xdite/bootstrap-helper yrgoldteeth/bootstrap-will_paginate decioferreira/bootstrap-generators pusewicz/twitter-bootstrap-markup-rails thomaspark/bootswatch anjlab/bootstrap-rails markdotto/bootstrap-university), description: 'Helpers for using Twitter Bootstrap with Rails.'},
   {name: 'Web Design Elements', lang: 'Design', repos: %w(todc/css3-google-buttons necolas/normalize.css necolas/css3-github-buttons michenriksen/css3buttons), description: 'Buttons, Form Styles, Cross-Browser Styles etc.'},
 ]
+
+# Plugins
+# {parent: '', children: %w()},
+
+plugins = [
+  {parent: 'twitter/bootstrap', children: %w(seyhunak/twitter-bootstrap-rails thomas-mcdonald/bootstrap-sass)}
+]
+
 
 puts "Writing Seeds..."
 
@@ -293,6 +301,19 @@ seeds.each do |seed|
   category.description ||= seed[:description]
   category.language_list = seed[:lang].split('/').join(', ')
   category.save
+end
+
+puts 'Writing Plugins...'
+
+# Write Plugins
+plugins.each do |plugin|
+  plugin[:children].each do |child_full_name|
+    repo = Repo.find_or_initialize_by_full_name(child_full_name)
+    parents = repo.parent_list.split(', ')
+    parents << plugin[:parent]
+    repo.parent_list = parents.join(', ')
+    repo.save
+  end
 end
 
 puts "Running 'Updater.update_repos_from_github'."
