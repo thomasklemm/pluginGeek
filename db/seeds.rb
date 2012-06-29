@@ -20,7 +20,7 @@ seeds = [
   {name: 'ActiveRecord: Soft Deleting / Paranoid Objects', lang: 'Ruby', repos: %w(radar/paranoia goncalossilva/rails3_acts_as_paranoid JackDanger/permanent_records teambox/immortal expectedbehavior/acts_as_archival nay/never_wastes socialcast/delete_paranoid), description: 'Instead of deleting objects from your database, keep them but mark them as deleted. Also take a look at the ActiveRecord: Versioning / History section.'},
   {name: 'ActiveRecord: Versioning, Auditing & History Tracking', lang: 'Ruby', repos: %w(collectiveidea/audited harleyttd/auditable airblade/paper_trail technoweenie/acts_as_versioned jmckible/version_fu bdurand/acts_as_revisionable Tapjoy/acts_as_approvable Sigiz/record_history seejohnrun/track_history nearinfinity/auditor laserlemon/vestal_versions), description: "Track changes to your model's data. Also take a look at ActiveRecord's built-in 'dirty object' functionality."},
   {name: 'ActiveRecord: Lists & Sortable Columns', lang: 'Ruby', repos: %w(swanandp/acts_as_list the-teacher/the_sortable_tree dadooda/handles_sortable_columns 12spokes/acts_as_restful_list codegram/resort mixonic/ranked-model shuber/sortable bogdan/datagrid thoughtbot/sortable_table), description: 'Also take a look at ActiveRecord: Nesting'},
-  {name: 'ActiveRecord: Nesting', lang: 'Ruby', repos: %w(collectiveidea/awesome_nested_set mceachen/closure_tree amerine/acts_as_tree ryanb/nested_form stefankroes/ancestry elight/acts_as_commentable_with_threading the-teacher/the_sortable_tree clyfe/acts_as_nested_interval amatsuda/nested_scaffold thinkwell/mongoid_nested_set svenfuchs/simple_nested_set), description: ''},
+  {name: 'ActiveRecord: Nesting', lang: 'Ruby', repos: %w(collectiveidea/awesome_nested_set mceachen/closure_tree amerine/acts_as_tree ryanb/nested_form stefankroes/ancestry elight/acts_as_commentable_with_threading the-teacher/the_sortable_tree clyfe/acts_as_nested_interval amatsuda/nested_scaffold thinkwell/mongoid_nested_set svenfuchs/simple_nested_set bkuhlmann/lineage), description: ''},
   {name: 'ActiveRecord: Searching & Scoping', lang: 'Ruby', repos: %w(ernie/ransack ernie/squeel rails/arel ernie/meta_search binarylogic/searchlogic ernie/ransack wvanbergen/scoped_search novagile/scoped-search pioz/ximate sunspot/sunspot freelancing-god/thinking-sphinx karmi/tire mwmitchell/rsolr ryanb/xapit texticle/texticle jkraemer/acts_as_ferret  Casecommons/pg_search huacnlee/redis-search wvanbergen/scoped_search garaio/xapian_db dougal/acts_as_indexed grantr/rubberband ernie/meta_where), description: "There sure must be a good RailsCast on Searching. Seems as if there are at least two fundamentally different ways to search ActiveRecord objects and database tables: 1) external search server, 2) no external search server, but ActiveRecord Scopes. What is the best way?"},
   {name: 'ActiveRecord: Normalize Attributes', lang: 'Ruby', repos: %w(holli/auto_strip_attributes rmm5t/strip_attributes mdeering/attribute_normalizer), description: "Also take a look at Ruby's 'strip' method and Rails' built-in 'squish' method ('Returns the string, first removing all whitespace on both ends of the string, and then changing remaining consecutive whitespace groups into one space each.' - Rails API Docs. Also take a look at the Parsers: HTML Sanitization section. Value Cleanup / Attribute Stripping / Attribute Normalizing"},
   {name: 'ActiveRecord: Enumerations & State-Machines', lang: 'Ruby', repos: %w(svenfuchs/simple_states pluginaweek/state_machine twinslash/enumerize yonbergman/enumify beerlington/classy_enum electronick/enum_column cassiomarques/enumerate_it lwe/simple_enum novelys/static_list), description: ''},
@@ -85,7 +85,7 @@ seeds = [
 
   # E
   # E-Commerce
-  {name: 'E-Commerce: Online Shops', lang: 'Ruby', repos: %w(spree/spree drhenner/ror_ecommerce Shopify/shopify_app Shopify/shopify_api), description: "Online store related gems."},
+  {name: 'E-Commerce: Onlineshops', lang: 'Ruby', repos: %w(spree/spree drhenner/ror_ecommerce Shopify/shopify_app Shopify/shopify_api), description: "Online store related gems."},
   {name: 'E-Commerce: Fulfillment & Shipping', lang: 'Ruby', repos: %w(Shopify/active_shipping spree/spree_active_shipping Shopify/active_fulfillment), description: "Online store related gems."},
   {name: 'E-Commerce: Payments & API Clients for Payment Processing Services', lang: 'Ruby', repos: %w(Shopify/active_merchant chargify/chargify_api_ares tylerhunt/remit rlivsey/rspreedly spreedly/spreedly-gem expectedbehavior/cheddargetter_client_ruby recurly/recurly-client-ruby fnando/paypal-recurring pengwynn/chargify nov/paypal-express braintree/braintree_ruby tc/paypal_adaptive stripe/stripe-ruby), description: "Get paid for your work. Includes Services that offer recurring subscription billing as well as one-time payments. Can handle credit card payments as well as paypal and other forms."},
   # Email
@@ -102,7 +102,7 @@ seeds = [
   {name: 'Frameworks: Scripting & Command Line Applications', lang: 'Ruby', repos: %w(wycats/thor jimweirich/rake blambeau/quickl mdub/clamp), description: "Build tools."},
   # Forms
   {name: 'Forms: Form Builders', lang: 'Ruby', repos: %w(justinfrench/formtastic plataformatec/simple_form ryanb/nested_form nathanvda/cocoon stouset/twitter_bootstrap_form_for JangoSteve/remotipart plataformatec/mail_form mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms tizoc/bureaucrat springbok/smerf joshsusser/informal potenza/bootstrap_form ksylvest/formula jeremyevans/forme Manfred/Shaper), description: "Generate markup for your forms easily. Please get familiar with the form building tools shipped with Rails first before contemplating to use any of the listed gems."},
-  {name: 'Forms: File Uploading & Processing', lang: 'Ruby', repos: %w(JangoSteve/remotipart markevans/dragonfly mwilliams/d2s3 apeacox/simple_form_fancy_uploads jnicklas/carrierwave thoughtbot/paperclip dwilkie/carrierwave_direct mischa78/boxroom newbamboo/rack-raw-upload websymphony/Rails3-Paperclip-Uploadify camelpunch/ungulate jstorimer/delayed_paperclip igor-alexandrov/paperclip-aws dripster82/paperclipdropbox nhocki/paperclip-s3 kellym/mongoid_paperclip_queue ksylvest/attached technoweenie/attachment_fu), description: "Upload files, process them, and/or store them directly on a cloud storage service such as Amazon's S3."},
+  {name: 'Forms: File Uploading & Processing', lang: 'Ruby', repos: %w(JangoSteve/remotipart markevans/dragonfly mwilliams/d2s3 apeacox/simple_form_fancy_uploads jnicklas/carrierwave thoughtbot/paperclip mischa78/boxroom newbamboo/rack-raw-upload camelpunch/ungulate ksylvest/attached technoweenie/attachment_fu), description: "Upload files, process them, and/or store them directly on a cloud storage service such as Amazon's S3."},
   {name: 'Forms: Client-Side Validation', lang: 'Ruby', repos: %w(bcardarella/client_side_validations amatsuda/html5_validators dockyard/client_side_validations-simple_form), description: "Automatically validate forms on the client side using Javascript or the latest HTML5 Validation Standards. Rules can be automatically extracted from the validations set in your model."},
   {name: 'Forms: Multi-Step Forms / Wizard Forms', lang: 'Ruby', repos: %w(schneems/wicked intridea/rails_wizard antonversal/stepper jeffp/wizardly RailsApps/rails_apps_composer), description: "Also consider the corresponding JS Plugins."},
   {name: 'Forms: Datepickers', lang: 'Ruby', repos: %w(kristianmandrup/ui_datepicker-rails3 albertopq/jquery_datepicker trentrichardson/jQuery-Timepicker-Addon), description: ""},
@@ -133,12 +133,26 @@ seeds = [
   {name: 'Development: Notifications', lang: 'Ruby', repos: %w(fnando/notifier), description: ""},
   {name: 'Git: Analysis', lang: 'Ruby', repos: %w(koraktor/metior), description: "Git and Github Analysis."},
   {name: 'API: Examples', lang: 'Ruby', repos: %w(500px/api-documentation), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
-  {name: '', lang: 'Ruby', repos: %w(), description: ""},
+  {name: 'Mobile: RubyMotion', lang: 'Ruby', repos: %w(clayallsopp/formotion), description: ""},
+  {name: 'Sinatra: Bootstrapped Projects', lang: 'Ruby', repos: %w(dbrock/blossom JangoSteve/heroku-sinatra-app), description: "Quickstart your Sinatra Project."},
+  {name: 'Emails: Spam Protection', lang: 'Ruby', repos: %w(sumbach/postfixer), description: ""},
+  {name: 'Data Fabibricators & Fake Data', lang: 'Ruby', repos: %w(stympy/faker goncalossilva/dummy goncalossilva/dummy_data), description: ""},
+  {name: 'ActiveRecord: Direct Value Access', lang: 'Ruby', repos: %w(ernie/valium), description: "Access Values directly without instanciating ActiveRecord objects."},
+  {name: 'Single Page Browser Apps', lang: 'JS/Ruby', repos: %w(Shopify/batman), description: ""},
+  {name: 'User Management: Authenctication: Oauth', lang: 'Ruby', repos: %w(intridea/omniauth intridea/oauth2 moomerman/twitter_oauth arsduo/koala), description: ""},
+  {name: 'Geolocation', lang: 'Ruby', repos: %w(collectiveidea/graticule anthonator/skittles), description: ""},
+  {name: 'Page Guides & Feature Tours', lang: 'JS', repos: %w(tracelytics/pageguide jeff-optimizely/Guiders-JS zurb/joyride), description: "How should user use your website? Point them around or create interactive feature tours."},
+  {name: 'Markdown: Parsers', lang: 'JS', repos: %w(chjj/marked evilstreak/markdown-js benmills/robotskirt), description: ""},
+  {name: 'Markdown: On-Page Editors', lang: 'JS', repos: %w(OscarGodson/EpicEditor joemccann/dillinger fivesixty/notepages jgauffin/griffin.editor), description: ""},
+  {name: 'Markdown: Preview', lang: 'JS', repos: %w(zachwill/markdrop), description: ""},
+  {name: 'On-Page Rich-Text Editors', lang: 'JS', repos: %w(xing/wysihtml5), description: "On-page WYSIWYG Editors."},
+  {name: 'Slideshows', lang: 'JS', repos: %w(gnab/remark), description: ""},
+  {name: 'Text Editors: Plugins & Bundles', lang: 'Ruby/JS/Design', repos: %w(textmate/markdown.tmbundle ttscoff/MarkdownEditing), description: "Bundles mainly enhancing TextMate and SublimeText2."},
+  {name: 'Rating & Voting', lang: 'JS', repos: %w(ripter/jquery.rating wbotelhos/raty), description: ""},
+  {name: 'Optimize: API Caching & Throttling', lang: 'Ruby', repos: %w(vigetlabs/cachebar mloughran/api_cache dambalah/api-throttling), description: ""},
+  {name: 'Web Scraping', lang: 'Ruby', repos: %w(sathish316/scrapify), description: ""},
+  {name: 'ActiveRecord: Comments', lang: 'Ruby', repos: %w(elight/acts_as_commentable_with_threading phusion/juvia Draiken/opinio), description: ""},
+  {name: 'Mobile: Push Messages', lang: 'Ruby', repos: %w(groupon/urbanairship), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
   {name: '', lang: 'Ruby', repos: %w(), description: ""},
@@ -161,15 +175,15 @@ seeds = [
   # M
   {name: 'Metrics: Event Logging & Aggregation / Exception Tracking & Stats Servers', lang: 'Ruby', repos: %w(paulasmuth/fnordmetric dcramer/sentry noahhl/batsd Fudge/gltail), description: ""},
   {name: 'Mobile: Android Development', lang: 'Ruby', repos: %w(ruboto/ruboto), description: ""},
-  {name: 'Mongoid: Plugins', lang: 'Ruby', repos: %w(aq1018/mongoid-history hakanensari/mongoid-slug lucasas/will_paginate_mongoid), description: ''},
+  {name: 'Mongoid: Plugins', lang: 'Ruby', repos: %w(aq1018/mongoid-history hakanensari/mongoid-slug lucasas/will_paginate_mongoid proton/mongoid_rateable), description: ''},
   {name: 'Mongoid: Search', lang: 'Ruby', repos: %w(aaw/mongoid_fulltext mauriciozaffari/mongoid_search), description: ""},
+  {name: 'Music: Office Radio', lang: 'Ruby', repos: %w(play/play), description: "Music makes the heart shine."},
 
   # N
   {name: 'Node: Guides / Styleguides', lang: 'JS', repos: %w(felixge/nodeguide.com), description: ''},
 
   # O
-  {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server), description: ""},
-  {name: 'Office Radio', lang: 'Ruby', repos: %w(play/play), description: "Music makes the heart shine."},
+  {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server dbloete/masq), description: ""},
   # Optimize
   {name: 'Optimize: Split Testing / A/B Testing', lang: 'Ruby', repos: %w(xing/absurdity andrew/split assaf/vanity jhubert/rails-split-tester hayesgm/mountain_goat), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
   {name: 'Optimize: Split Testing / A/B Testing', lang: 'JS', repos: %w(jamesyu/cohorts grippy/node-multivariate thumbtack/abba jgallen23/dice-roll), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
@@ -177,12 +191,12 @@ seeds = [
   {name: 'Optimize: Code Quality Metrics', lang: 'Ruby', repos: %w(railsbp/rails_best_practices), description: ""},
   {name: 'Optimize: Database Queries & Structure', lang: 'Ruby', repos: %w(flyerhzm/bullet nesquena/query_reviewer eladmeidar/rails_indexes), description: ""},
   {name: 'Optimize: Log Analysis & Aggregation', lang: 'Ruby', repos: %w(wvanbergen/request-log-analyzer), description: ""},
-  {name: 'Optimize: Caching', lang: 'Ruby', repos: %w(Arjeno/catche), description: ""},
+  {name: 'Optimize: Caching', lang: 'Ruby', repos: %w(Arjeno/catche), description: "http://tomayko.com/writings/things-caches-do - HTTP Caching - Basic Article"},
   {name: 'Optimize: Code Conciseness', lang: 'Ruby', repos: %w(voxdolo/decent_exposure plataformatec/responders), description: ""},
-  {name: 'Optimize: Performance Monitoring', lang: 'Ruby', repos: %w(newrelic/rpm), description: ""},
+  {name: 'Optimize: Performance Monitoring', lang: 'Ruby', repos: %w(newrelic/rpm), description: "http://railslab.newrelic.com/scaling-rails - Optimizing: Scaling Rails"},
   {name: 'Optimize: SEO', lang: 'Ruby', repos: %w(kpumuk/meta-tags), description: ""},
   # ORMs
-  {name: 'ORMs: Key-Value Stores', lang: 'Ruby', repos: %w(technoweenie/horcrux jnunemaker/toystore), description: ""},
+  {name: 'ORMs: Key-Value Stores', lang: 'Ruby', repos: %w(technoweenie/horcrux jnunemaker/toystore soveran/ohm), description: ""},
   {name: 'ORMs: MongoDB', lang: 'Ruby', repos: %w(mongoid/mongoid jnunemaker/mongomapper), description: ""},
   {name: 'ORMs: MySQL', lang: 'Ruby', repos: %w(jeremyevans/sequel datamapper/dm-core), description: "ActiveRecord"},
   {name: 'ORMs: NoSQL', lang: 'Ruby', repos: %w(twitter/cassandra seancribbs/ripple Imikimi-LLC/monotable), description: ""},
@@ -237,7 +251,7 @@ seeds = [
 
   # U
   {name: 'User Management: Authentication', lang: 'Ruby', repos: %w(plataformatec/devise NoamB/sorcery thoughtbot/clearance intridea/omniauth), description: 'Authenticate your users.'},
-  {name: 'User Management: Authorization', lang: 'Ruby', repos: %w(ryanb/cancan stffn/declarative_authorization kristianmandrup/cantango EppO/rolify platform45/easy_roles nathanl/authority james2m/canard mcrowe/roleable the-teacher/the_role), description: 'Manage user roles and abilities. There are various concepts when it come to Authorization.'},
+  {name: 'User Management: Authorization', lang: 'Ruby', repos: %w(ryanb/cancan stffn/declarative_authorization kristianmandrup/cantango EppO/rolify platform45/easy_roles nathanl/authority james2m/canard mcrowe/roleable the-teacher/the_role Fingertips/authorization-san), description: 'Manage user roles and abilities. There are various concepts when it come to Authorization.'},
   {name: 'UUID Generators', lang: 'Ruby', repos: %w(assaf/uuid ryanking/simple_uuid jashmenn/activeuuid sporkmonger/uuidtools norbert/has_uuid), description: ""},
 
   # V
@@ -280,7 +294,7 @@ seeds = [
 
   # Design
   {name: 'Buttons', lang: 'Design', repos: %w(michenriksen/css3buttons thetron/css3buttons_rails_helpers necolas/css3-github-buttons ubuwaits/css3-buttons), description: ""},
-  {name: 'Launch & Landing Pages', lang: 'Design', repos: %w(carmivore/comingsoon), description: "Landing Pages & Email Signup pages."},
+  {name: 'Launch & Landing Pages', lang: 'Design', repos: %w(carmivore/comingsoon webandy/notify-me), description: "Landing Pages & Email Signup pages."},
   {name: 'Styling: Styleguides', lang: 'Design/Ruby/JS', repos: %w(necolas/idiomatic-css csswizardry/CSS-Guidelines), description: 'Write consistent and maintainable view files. Book recommendation: The Rails View, Pragmatic Programmers.'},
   {name: 'Documentation', lang: 'Design', repos: %w(kneath/kss), description: ""},
   {name: 'Placeholders', lang: 'Design/JS', repos: %w(imsky/holder), description: ""},
@@ -292,7 +306,7 @@ seeds = [
 
 
 
-  {name: 'Rails: Project Generators & Templates', lang: 'Ruby', repos: %w(), description: 'Get your project off the ground with ease.'},
+  {name: 'Rails: Project Generators & Templates', lang: 'Ruby', repos: %w(bkuhlmann/rails_setup_template), description: 'Get your project off the ground with ease.'},
   {name: 'Icon Fonts', lang: 'Design', repos: %w(FortAwesome/Font-Awesome pfefferle/openwebicons zurb/foundation-icons), description: 'Icon fonts are the new way to get icons on a website. Advantages over image files: Scalable to every size because they are vectorised; Most CSS3 Properties are available: Shadows, Borders etc. Color can be changed freely.'},
   {name: 'Ruby: Guides / Styleguides', lang: 'Ruby', repos: %w(bbatsov/rails-style-guide bbatsov/ruby-style-guide copycopter/style-guide davetron5000/ruby-style), description: 'Write maintainable ruby code.'},
   {name: 'Twitter API Clients', lang: 'Ruby', repos: %w(intridea/tweetstream jnunemaker/twitter sferik/t jugyo/earthquake marcel/twurl twitter/twitter-text-rb voloko/twitter-stream seejohnrun/console_tweet), description: 'API Wrappers for Twitter.'},
@@ -318,11 +332,11 @@ plugins = [
   {parent: 'amatsuda/kaminari', children: %w(Djo/reverse_kaminari)},
   {parent: 'phonegap/phonegap', children: %w(davebalmer/jo phonegap/phonegap-plugins davejohnson/phonegap-plugin-facebook-connect phonegap/phonegap-start wikimedia/WikipediaMobile Toura/mulberry triceam/app-UI)},
   {parent: 'FooBarWidget/passenger', children: %w(Fingertips/passengerpane)},
-  {parent: 'thoughtbot/paperclip', children: %w(bkuhlmann/paperclip_plus)},
-  {parent: '', children: %w(padrino/padrino-recipes)},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
+  {parent: 'thoughtbot/paperclip', children: %w(websymphony/Rails3-Paperclip-Uploadify jstorimer/delayed_paperclip igor-alexandrov/paperclip-aws dripster82/paperclipdropbox nhocki/paperclip-s3 kellym/mongoid_paperclip_queue bkuhlmann/paperclip_plus)},
+  {parent: 'padrino/padrino-framework', children: %w(padrino/padrino-recipes)},
+  {parent: 'jnicklas/carrierwave', children: %w(dwilkie/carrierwave_direct)},
+  {parent: 'Shopify/batman', children: %w(Shopify/batman-rails)},
+  {parent: 'intridea/hashie', children: %w(doublewide/hashie-model)},
   {parent: '', children: %w()},
   {parent: '', children: %w()},
   {parent: '', children: %w()},
