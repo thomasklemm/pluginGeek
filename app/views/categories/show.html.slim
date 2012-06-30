@@ -2,8 +2,11 @@
 
 / Category Header
 .category_header
-  / Name and Lang
-  span.name_and_lang == category_name_helper(@category.name)
+  
+  / Group and Name
+  /   returns category_group and category_name
+  h3 == category_name_helper(@category.name)
+  
   / Description
   - if params[:action] == 'edit'
     = form_for @category do |f|
@@ -11,23 +14,20 @@
       = f.submit
 
   - else
-    span.description
+    p.description
       = @category.description
-      = link_to 'Edit', edit_category_path(@category), class: 'edit_description'
-
-  .spacer
+      = link_to edit_category_path(@category), class: 'edit_description right' do
+        span data-icon='T' Edit
 
 / Repos List
 #js_repos_list
 
   / Sort
-  .repos_sort style='color: #888;'
-    span Sort by
-    a.sort.sorted data-sort='knight_score' Knight Score
-    a.sort        data-sort='watchers' Watchers
-    a.sort        data-sort='updated_at' Last commit
-
-  .spacer
+  dl class='sub-nav right'
+    dt Sort:
+    dd.sort.active  data-sort='knight_score'  Knight Score
+    dd.sort         data-sort='updated_at'    Activity
+    dd.sort         data-sort='name'          Name
 
   / List
   .list
