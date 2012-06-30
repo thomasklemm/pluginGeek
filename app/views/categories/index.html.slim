@@ -1,19 +1,22 @@
 / categories/index.html.slim
 
+h3 State your Purpose, Knight!
+
+p.subheader Discover #{ Repo.count } repos in #{ Category.count } categories
+
 / Categories List
 #js_categories_list
 
   / Categories Find
   .categories_find
     / Search
-    input.search autofocus='autofocus' autocomplete='off'
+    input.search type='text' autofocus='autofocus' autocomplete='off'
 
     / Sort
     dl class='sub-nav'
       dt Sort:
-      dd.active data-sort='knight_score': a href='' Knight Score
-      dd        data-sort='name'        : a href='' Name
-
+      dd.sort.active  data-sort='knight_score'  Knight Score
+      dd.sort         data-sort='category_name' Name
 
   / Categories List
   .list
