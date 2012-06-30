@@ -20,3 +20,4 @@ $ ->
 
   repo_list = new List('js_repo_list', repo_options)
 ###
+

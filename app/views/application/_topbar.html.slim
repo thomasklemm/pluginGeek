@@ -3,15 +3,6 @@
 span.left#knight
   = link_to image_tag('name/knight_fff.png', class: 'knight_topbar_logo'), root_url(subdomain: false)
 
-span.left#nav
-    = link_to 'Ruby', root_url(subdomain: 'ruby')
-    = link_to 'JS', root_url(subdomain: 'js')
-    = link_to 'Web Design', root_url(subdomain: 'design')
-    span &nbsp;&nbsp;&nbsp;
-
-    = link_to 'Categories', root_path
-    = link_to 'Repos', repos_path
-
 span.right#login
   = render 'topbar_login'
 

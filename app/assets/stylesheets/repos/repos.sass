@@ -1,54 +1,43 @@
 // repos.sass
-@import 'joint/joints'
 
 // Repo
 .repo
-  line-height: 24px
-  padding: 12px 0
-
-  // Owner and Name
-  .owner_and_name
-    .owner
-      font-size: 16px
+    clear: both
+    padding-bottom: 2rem
+    line-height: 1.6
+    // Owner and Name, i.e. bootstrap by twitter
     .name
-      font-size: 18px
-      font-weight: bold
+        font-weight: bold
+    .owner
 
-  // Stats
-  .watchers
-    margin-left: 10px
-  .forks
-    margin-left: 8px
+    .watchers
+        margin-left: 1.2rem
+        // Icon
+        &:before
 
-  // Description
-  .description
-    display: block
+    // Activity
+    .activity
+        margin-left: 1.2rem
+        // Activity colors
+        //   one == < 4.months
+        //   two == 4.months - 12.months
+        //   three == 12.months - 24.months
+        //   four == > 24.months
+        &.one
+            color: #090
+        &.two
+        &.three
+        &.four
 
-  // Links
-  .github_url
-  .homepage_url
-    margin-left: 8px
+        // Icon
+        &:before
 
-  // Activity
-  .activity
-    margin-left: 10px
-    // Activity colors
-    //   TODO: define activity colors
-    &.first   // < 2m
-      color: #393
-    &.second  // < 6m
-    &.third   // < 12m
-    &.fourth  // < 18m
-    &.fifth   // < 24m
-    &.sixth   // > 24m
+    // Description
+    .description
 
-  // Font Sizes
-  .watchers, .forks, .activity
-    font-size: 14px
-  //    Icons
-  .watchers:before, .forks:before
-    font-size: 16px
+    // Hidden Stats
+    .knight_score, .updated_at
+        display: none
 
-  // Stats 2
-  .knight_score, .updated_at
-    display: none
+    // Child Margins and Paddings
+    &.child

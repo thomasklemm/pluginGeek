@@ -1,6 +1,4 @@
 // categories.sass
-@import 'joint/joints'
-
 
 // Categories Find
 .categories_find
@@ -8,54 +6,39 @@
 
 // Category in List (Categories Index View)
 .category
-  line-height: 24px
-  padding: 16px 0
+  padding-bottom: 2rem
+  line-height: 1.6
 
-  .name
+  .category_group
+  .category_name
     font-weight: bold
-    font-size: 16px
-  .lang
-    font-weight: normal
-    margin-left: 7px
 
   .watcher_count
-    margin-left: 10px
-  .repo_count
-    margin-left: 8px
+    margin-left: 1rem
+
+    // Icon
+    &:before
 
   .description
     display: block
 
+  .repo_count, .popular_repos
+    color: #5e5e5e
+
   .popular_repos
-    .repo_owner
-      color: #7e7e7e
     .repo_name
+    .repo_owner  
+
+  // Category link
+  .link  
 
   .all_repos, .knight_score
     display: none
 
-  // Font Sizes
-  .lang, .watcher_count, .repo_count, .popular_repos
-    font-size: 14px
-  //    Icons
-  .watcher_count:before, .repo_count:before
-    font-size: 16px
-
 
 // Category Header (Category Show View)
 .category_header
-  .name_and_lang
-    font-size: 24px
-    .name
-      font-weight: bold
-    .lang
-      margin-left: 10px
-      color: #888
-      font-size: 20px
-
+  .category_group
+  .category_name
   .description
-    font-size: 16px
-    display: block
-    padding-bottom: 3px
   .edit_description
-    margin-left: 4px

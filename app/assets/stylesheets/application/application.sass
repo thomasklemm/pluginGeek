@@ -1,7 +1,6 @@
 // application.sass
 
 @import 'topbar'
-@import 'explore_bar'
 
 // Pictos Icons
 [data-icon]:before
@@ -10,39 +9,21 @@
   -webkit-font-smoothing: antialiased
   vertical-align: middle
   margin-right: 3px
+  line-height: 0
 
-.search
-  border: 1px solid #999
-  color: #545C5F
-  font-family: $helvetica
-  font-size: 16px
-  letter-spacing: 0.5px
-  margin: 0
-  padding: 8px 8px 7px
-  width: 38%
-  max-width: 300px
-  margin-right: 8px
+//
+  .search
+    border: 1px solid #999
+    color: #545C5F
+    font-family: $helvetica
+    font-size: 16px
+    letter-spacing: 0.5px
+    padding: 8px 8px 7px
+    width: 100%
 
-
-.sort
-  cursor: pointer
-  margin-left: 5px
-
-  &.sorted
-    font-weight: bold
-
-// Spacer
-.spacer
-  margin: 0
-  padding: 0
-  border: 0
-  height: 0
-  width: 10px
-  border-bottom: 1px solid #ccc
-  margin: 6px 0 5px
 
 // Main
-#main_i
+#main
   padding-top: 6px
 
 
@@ -62,3 +43,11 @@
   width: 450px
   height: 177px
   margin: 10px 0 6px
+
+.js_show_all_matching_items
+  cursor: pointer
+
+// Navbars
+.navbar_langs
+  margin-top: 1.2rem
+.navbar_paths

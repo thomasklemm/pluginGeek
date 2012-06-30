@@ -1,0 +1,13 @@
+/ navbar.html.slim
+
+/ navbar
+dl.navbar_langs class='vertical tabs'
+	dt Flavor
+	dd class=active_subdomain(:ruby) 	= link_to 'Ruby', root_url(subdomain: :ruby)
+	dd class=active_subdomain(:js) 		= link_to 'Javascript', root_url(subdomain: :js)
+	dd class=active_subdomain(:design) 	= link_to 'Web Design', root_url(subdomain: :design)
+
+dl.navbar_paths class='vertical tabs'
+	dt Scope
+	dd class=active_path(:categories)	= link_to 'Categories', categories_path
+	dd class=active_path(:repos)		= link_to 'Repos', repos_path

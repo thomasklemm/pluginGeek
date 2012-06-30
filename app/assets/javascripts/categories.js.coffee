@@ -16,3 +16,9 @@ $ ->
   $(".tag_header .edit").click (event) ->
     event.preventDefault()
 ###
+
+$ ->
+
+  $('.sort').click ->
+      $(this).addClass('active')
+      $(this).siblings('dd').removeClass('active')

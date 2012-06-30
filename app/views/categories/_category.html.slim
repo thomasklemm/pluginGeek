@@ -4,22 +4,23 @@
 .category
 
   / Name
-  = link_to category_url(category, subdomain: false)do
+  = link_to category_url(category, subdomain: false) do
     == category_name_helper(category.name)
 
-  / Stats
-  span.watcher_count data-icon='h'  = category.watcher_count
-  span.repo_count data-icon='r'     = category.repo_count
+  / Watchers
+  span.watcher_count data-icon='h' = category.watcher_count
 
   / Description
-  /     truncate helper counts html link
-  /     characters when calculating length
-  / TODO: truncate on client side
-  span.description                  =raw truncate(category.description, length: 230, separator: ' ', omission: (link_to " ... more", category))
+  /     Note: truncate helper counts html link characters when calculating length
+  - category_link = capture do 
+    = link_to ' ... &raquo;'.html_safe, category_url(category, subdomain: false)
+  span.description =raw truncate(category.description, length: 230, separator: ' ', omission: '2yXCBT').gsub('2yXCBT', category_link)
 
   / Popular Repos
+  span.repo_count #{ category.repo_count } Repos: 
   span.popular_repos == category_popular_repos_helper(category.popular_repos)
-  span.all_repos = category.all_repos
+  span.link = category_link
 
-  / Stats 2
+  / Stats
+  span.all_repos = category.all_repos
   span.knight_score = category.knight_score

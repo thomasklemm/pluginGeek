@@ -9,11 +9,11 @@ p Listing <b>#{ @repos.size }</b> repos and counting...
   .repos_search_and_sort
 
     / Search
-    input.search
+    input.search autofocus=true
 
     span Sort by
     a.sort.sorted data-sort='knight_score' Knight Score
-    a.sort        data-sort='watchers' Watchers
+    a.sort        data-sort='name' Name
     a.sort        data-sort='updated_at' Last commit
 
   span &nbsp;
@@ -21,3 +21,5 @@ p Listing <b>#{ @repos.size }</b> repos and counting...
   / Repos List
   .list
     = render partial: 'shared/repo', collection: @repos
+
+  a.js_show_all_matching_items style='display: none' Show all matching repos
