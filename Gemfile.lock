@@ -49,6 +49,8 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     daemons (1.1.8)
     erubis (2.7.0)
     eventmachine (0.12.10)
@@ -180,7 +182,8 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   bourbon
-  coffee-rails (~> 3.2.1)
+  coffee-rails
+  compass-rails
   excon
   friendly_id
   github_api
@@ -194,10 +197,10 @@ DEPENDENCIES
   rails (= 3.2.5)
   rails-footnotes (>= 3.7.5.rc4)
   redcarpet
-  sass-rails (~> 3.2.3)
+  sass-rails
   slim-rails
   sorcery (~> 0.7.12)
   sqlite3
   thin
-  uglifier (>= 1.0.3)
+  uglifier
   zurb-foundation (>= 3.0.0)
