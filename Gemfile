@@ -16,9 +16,8 @@ gem 'pg', group: :production
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem "sass", "~> 3.2.0.alpha.261"
+  gem "sass", "= 3.2.0.alpha.244"
   gem 'sass-rails'
-  gem 'compass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
 end
