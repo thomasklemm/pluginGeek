@@ -134,7 +134,7 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     redcarpet (2.1.1)
-    sass (3.1.20)
+    sass (3.2.0.alpha.261)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -193,6 +193,7 @@ DEPENDENCIES
   rails (= 3.2.5)
   rails-footnotes (>= 3.7.5.rc4)
   redcarpet
+  sass (~> 3.2.0.alpha.261)
   sass-rails
   slim-rails
   sorcery (~> 0.7.12)
