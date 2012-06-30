@@ -22,8 +22,6 @@ group :assets do
   gem 'zurb-foundation', '>= 3.0.0'
   gem 'coffee-rails'
   gem 'uglifier'
-  # Bourbon Sass Mixins
-  gem 'bourbon'
 end
 
 # High Voltage -> Static Pages
@@ -68,6 +66,9 @@ gem 'sorcery', '~> 0.7.12'
 
 # Redcarpet Markdown Parser (used by Github)
 gem 'redcarpet'
+
+# Bourbon Sass Mixins
+gem 'bourbon', '= 2.1.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
