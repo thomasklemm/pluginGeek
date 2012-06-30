@@ -7,20 +7,29 @@
     = render 'topbar'
 
 / explore bar
-#explore_bar.row
-  .twelve.columns
+/#explore_bar.row
+/  .twelve.columns
 
-    = render 'explore_bar'
+/    = render 'explore_bar'
 
 / main and sidebar
 #main.row
-  .eight.columns.centered
+  
+  / Sidebar Navigation
+  #navbar.two.columns
+    = render 'navbar'
+
+  / Content
+  #content.eight.columns
 
     / flash messages
     = render 'flash_messages'
 
     / main body
     = yield
+
+  / Right Sidebar
+  #sidebar.two.columns
 
 / footer
 #footer.row

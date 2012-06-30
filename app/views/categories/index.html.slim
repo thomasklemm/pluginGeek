@@ -3,21 +3,16 @@
 / Categories List
 #js_categories_list
 
-  = image_tag 'logos/Knight01_header.png', height: '177', width: '450', class: 'knight_logo'
-
-  span &nbsp;
-  h4 style='margin-bottom: 14px' State your Purpose &mdash; Choose your #{ request.subdomain } Category
-
   / Categories Find
   .categories_find
     / Search
     input.search autofocus='autofocus' autocomplete='off'
 
     / Sort
-    span Sort by
-    a.sort.sorted data-sort='knight_score' Knight Score
-    a.sort        data-sort='repo_count' Repos
-    a.sort        data-sort='watcher_count' Watchers
+    dl class='sub-nav'
+      dt Sort:
+      dd.active data-sort='knight_score': a href='' Knight Score
+      dd        data-sort='name'        : a href='' Name
 
 
   / Categories List
