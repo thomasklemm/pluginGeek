@@ -16,10 +16,14 @@ gem 'pg', group: :production
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem "sass", "= 3.2.0.alpha.244"
   gem 'sass-rails'
+  gem 'compass-rails'
+  # Zurb Foundation requires Compass and Sass
+  gem 'zurb-foundation', '>= 3.0.0'
   gem 'coffee-rails'
   gem 'uglifier'
+  # Bourbon Sass Mixins
+  gem 'bourbon'
 end
 
 # High Voltage -> Static Pages
@@ -54,9 +58,6 @@ gem 'excon'
 
 # Awesome Print in console in development
 # gem 'awesome_print', :group => :development
-
-# Bourbon Sass
-gem 'bourbon'
 
 # Pry
 gem 'pry-rails', :group => :development
