@@ -2,27 +2,22 @@
 
 // Repo
 .repo
-    padding-top: 2rem
     clear: both
+    padding-bottom: 2rem
+    line-height: 1.6
     // Owner and Name, i.e. bootstrap by twitter
-    .owner_and_name
-        .name
-            font-weight: bold
-        .owner
-            color: #888
+    .name
+        font-weight: bold
+    .owner
 
-    // Stats
     .watchers
-        margin-left: 1rem
+        margin-left: 1.2rem
         // Icon
         &:before
 
     // Activity
     .activity
-        float: right
-        width: 120px
-        display: inline-block
-        text-align: right
+        margin-left: 1.2rem
         // Activity colors
         //   one == < 4.months
         //   two == 4.months - 12.months
@@ -40,14 +35,9 @@
     // Description
     .description
 
-    // Link to show action
-    .show
-        float: right
-
     // Hidden Stats
     .knight_score, .updated_at
         display: none
 
+    // Child Margins and Paddings
     &.child
-        margin-left: 4rem
-        padding-top: 1rem
