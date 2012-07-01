@@ -2,10 +2,6 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby "1.9.3"
 
-# Web server
-# CHECK: Is this the right order in which to load things?
-gem 'thin'
-
 # Rails
 gem 'rails', '3.2.5'
 
@@ -77,7 +73,7 @@ gem 'bourbon', '= 2.1.0'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
