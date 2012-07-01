@@ -13,7 +13,7 @@ p.subheader Discover #{ Repo.count } repos in #{ Category.count } categories
     input.search type='text' autofocus='autofocus' autocomplete='off'
 
     / Sort
-    dl class='sub-nav'
+    dl.sort_list class='sub-nav right'
       dt Sort:
       dd.sort.active  data-sort='knight_score'  Knight Score
       dd.sort         data-sort='category_name' Name
