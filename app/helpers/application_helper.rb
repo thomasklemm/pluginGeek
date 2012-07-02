@@ -26,15 +26,8 @@ module ApplicationHelper
   end
 
   # Determines which path is active and marks it with class active
-  def active_path(path)
-    p = request.path
-
-    if p.start_with?('/categories') || p == '/'
-      'active' if path == :categories
-    elsif p.start_with?('/repos')
-      'active' if path == :repos
-    end
-
+  def active_path(active_path)
+    'active' if /#{active_path}/i.match(request.path)
   end
 
 end

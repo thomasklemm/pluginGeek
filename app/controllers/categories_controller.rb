@@ -4,13 +4,8 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    # if the request has a subdomain that is unknown
-    #   we should remove it;
-    #   only valid or empty subdomains should make it past this method
-    request.subdomain.match(/\b(ruby|js|design)\b/) or return redirect_to root_url(subdomain: :ruby)
-
-    # Find categories (all or limited to language specified in subdomain)
-    @categories = Category.tagged_with_language(request.subdomain).has_repos.order_knight_score
+    # Find categories (all or limited to language)
+    @categories = Category.tagged_with_language(params[:language]).has_repos.order_knight_score
   end
 
   # GET /categories/:id
