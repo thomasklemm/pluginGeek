@@ -9,6 +9,7 @@ Knight::Application.routes.draw do
 
   # Categories
   resources :categories, only: [:index, :show, :edit, :update]
+  get ':language' => 'categories#index', as: :language, constraints: { language: /ruby|js|design/i }
 
   # Repos and Owners
   #   Note: Routes for generating url differ from routes reading url, some duplication here
