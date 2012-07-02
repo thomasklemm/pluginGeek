@@ -1,5 +1,35 @@
-h1 Repos#show
-p Find me in app/views/repos/show.html.slim
+/ repos/show.html.slim
+
+/ Repo Header
+.repo_header
+  
+  / Name and Owner
+  h3.name_and_owner = link_to @repo.github_url do
+    span.name #{ @repo.name }
+    small.owner  by #{ @repo.owner }
+  
+
+  / Description
+  .description = @repo.description
+
+  / Url
+  - url = @repo.homepage_url.present? ? @repo.homepage_url : @repo.github_url
+  span.homepage_url = link_to url, url
+
+  / Watchers
+  span.watchers data-icon='h' = @repo.watchers
+
+  / Activity
+  span.activity data-icon='t' class=activity_color(@repo.github_updated_at) = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+
+  .category_list 
+    ' Categories:
+    - @repo.categories.each do |category|
+      ul.link-list
+        li: a href='#' Test
+        li: a href='#' Test
+        li: a href='#' Test
+
 
 = debug @repo
 

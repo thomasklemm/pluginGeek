@@ -1,43 +1,79 @@
 // repos.sass
 
+@import 'foundation'
+
 // Repo
 .repo
-    clear: both
-    padding-bottom: 2rem
-    line-height: 1.6
-    // Owner and Name, i.e. bootstrap by twitter
+  clear: both
+  padding-bottom: 2rem
+  line-height: 1.6
+
+  // Owner and Name, i.e. bootstrap by twitter
+  .name
+    font-weight: bold
+  .owner
+
+  .watchers
+    margin-left: 1.2rem
+    // Icon
+    &:before
+
+  // Description
+  .description
+
+  // Activity
+  .activity
+    margin-left: 1.2rem
+
+  // Hidden Stats
+  .knight_score, .updated_at
+    display: none
+
+  // Child Margins and Paddings
+  &.child
+
+// Repo Header (Repo Show View)
+.repo_header
+  padding-bottom: 2rem
+  line-height: 1.6
+  
+  .name_and_owner 
     .name
-        font-weight: bold
     .owner
 
-    .watchers
-        margin-left: 1.2rem
-        // Icon
-        &:before
+  .description
+    clear: both
 
-    // Activity
-    .activity
-        margin-left: 1.2rem
-        // Activity colors
-        //   one == < 4.months
-        //   two == 4.months - 12.months
-        //   three == 12.months - 24.months
-        //   four == > 24.months
-        &.one
-            color: #090
-        &.two
-        &.three
-        &.four
+  .watchers, .activity
+    margin-left: 1.2rem
 
-        // Icon
-        &:before
+  ul.category_list
+    margin: 0 0 1rem -10px
+    padding: 0
+    list-style: none 
+    overflow: hidden
 
-    // Description
-    .description
+    li
+      list-style: none 
+      float: left 
+      margin-left: 22px 
+      display: block
 
-    // Hidden Stats
-    .knight_score, .updated_at
-        display: none
+    a
+      display: block
 
-    // Child Margins and Paddings
-    &.child
+// Activity
+.activity
+  // Activity colors
+  //   one == < 4.months
+  //   two == 4.months - 12.months
+  //   three == 12.months - 24.months
+  //   four == > 24.months
+  &.one
+    color: #090
+  &.two
+  &.three
+  &.four
+
+  // Icon
+  &:before

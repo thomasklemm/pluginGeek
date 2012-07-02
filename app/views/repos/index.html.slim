@@ -1,25 +1,29 @@
-h1 Repos#index
-span Find me in app/views/repos/index.html.slim
+/ repos/index.html.slim
 
-p Listing <b>#{ @repos.size }</b> repos and counting...
+h3 Explore Our Knightly Projects
 
+p.subheader 
+  ' Listing 
+  b #{ Repo.count } 
+  ' Repos. Discover Yours.
+
+/ Repos List
 #js_repos_list
 
   / Repos Find
-  .repos_search_and_sort
-
+  .repos_find
     / Search
-    input.search autofocus=true
-
-    span Sort by
-    a.sort.sorted data-sort='knight_score' Knight Score
-    a.sort        data-sort='name' Name
-    a.sort        data-sort='updated_at' Last commit
-
-  span &nbsp;
+    input.search type='text' autofocus='autofocus' autocomplete='off'
+    
+    / Sort
+    dl.sort_list class='sub-nav right'
+      dt Sort:
+      dd.sort.active  data-sort='knight_score'  Knight Score
+      dd.sort         data-sort='updated_at'    Activity
+      dd.sort         data-sort='name'          Name
 
   / Repos List
   .list
     = render partial: 'shared/repo', collection: @repos
 
-  a.js_show_all_matching_items style='display: none' Show all matching repos
+  button.js_show_all_matching_items class='button radius' More repos
