@@ -15,9 +15,9 @@
 
   - else
     p.description
-      = @category.description
+      span = @category.description.present? ? @category.description : "&nbsp;".html_safe
       = link_to edit_category_path(@category), class: 'edit_description right' do
-        span data-icon='T' Edit
+        span data-icon='T' = @category.description.present? ? "Edit" : "Add a description"
 
 / Repos List
 #js_repos_list

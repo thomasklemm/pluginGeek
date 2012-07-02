@@ -29,4 +29,8 @@ class Category < ActiveRecord::Base
   # Mass Assignment Whitelist
   attr_accessible :description
 
+  # Attribute Defaults
+  def description
+   self[:description].present? ? self[:description] : ""
+  end
 end

@@ -1,11 +1,16 @@
 source 'https://rubygems.org'
+
 # Ruby Version on Heroku
-ruby "1.9.3"
+ruby '1.9.3'
+
+# Unicorn (App Server)
+gem 'unicorn'
 
 # Rails
 gem 'rails', '3.2.5'
 
-# Postgres DB on Heroku
+# Database Connectors
+#  TODO: Switch to PG locally too
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
 
@@ -13,67 +18,56 @@ gem 'pg', group: :production
 # in production environments by default.
 group :assets do
   gem 'sass-rails'
-  gem 'compass-rails'
-  # Zurb Foundation requires Compass and Sass
-  gem 'zurb-foundation', '>= 3.0.0'
+  gem 'compass-rails' # some syntax in the foundation stylesheets seems to be only compatible with compass
+  gem 'zurb-foundation', '~> 3.0.0' # specifying nescessary versions for sass and compass
   gem 'coffee-rails'
   gem 'uglifier'
+  # Bourbon (SASS Mixins)
+  gem 'bourbon', '~> 2.1.0'
+  # jQuery Rails (jQuery Adapter for Rails)
+  gem 'jquery-rails'
 end
 
-# High Voltage -> Static Pages
-gem "high_voltage"
+# High Voltage (Static Pages)
+gem 'high_voltage'
 
-# Slim Views -> Templating shortened
-gem "slim-rails"
+# Slim (Templating)
+gem 'slim-rails'
 
-# Letter Opener in Development -> Preview emails without actually sending them
-gem "letter_opener", :group => :development
+# Letter Opener (Preview ActionMailer Emails in Development)
+gem 'letter_opener', group: :development
 
-# Quiet Assets in development, keep log clean
-gem 'quiet_assets', :group => :development
+# Quiet Assets (Mute Asset Log Messages in Development)
+gem 'quiet_assets', group: :development
 
-# Rails Footnotes
-gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
+# Rails Footnotes (Debug Footnotes on every Page in Development)
+gem 'rails-footnotes', '>= 3.7.5.rc4', group: :development
 
-# Friendly Id
+# Friendly Id (Human-Readable IDs for ActiveRecord Models)
 gem 'friendly_id'
 
-# Github Api Wrapper
-gem 'github_api'
-
-# jQuery Rails
-gem 'jquery-rails'
-
-# Acts as Taggable On
+# Acts as Taggable On (Tagging for ActiveRecord Models)
 gem 'acts-as-taggable-on'
 
-# Excon - HTTP Client Lib
+# Excon (HTTP Client)
 gem 'excon'
 
-# Awesome Print in console in development
-# gem 'awesome_print', :group => :development
-
-# Pry
+# Pry (IRB Replacement)
 gem 'pry-rails', :group => :development
 gem 'pry-remote', :group => :development
 
-# Sorcery
+# Sorcery (User Authentication)
 gem 'sorcery', '~> 0.7.12'
 
-# Redcarpet Markdown Parser (used by Github)
+# Redcarpet (Markdown Parser)
 gem 'redcarpet'
 
-# Bourbon Sass Mixins
-gem 'bourbon', '= 2.1.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
-# Use unicorn as the app server
-gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'

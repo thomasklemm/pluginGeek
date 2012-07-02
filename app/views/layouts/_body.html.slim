@@ -15,13 +15,9 @@
 
 / main and sidebar
 #main.row
-  
-  / Sidebar Navigation
-  #navbar.two.columns
-    = render 'navbar'
 
   / Content
-  #content.eight.columns
+  #content.nine.columns
 
     / flash messages
     = render 'flash_messages'
@@ -29,8 +25,12 @@
     / main body
     = yield
 
+    / Sidebar Navigation
+  #navbar.three.columns
+    = render 'navbar'
+
   / Right Sidebar
-  #sidebar.two.columns
+  / #sidebar.two.columns
 
 / footer
 #footer.row

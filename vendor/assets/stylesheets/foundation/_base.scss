@@ -1,8 +1,13 @@
-@import "compass/css3/border-radius";
-@import "compass/css3/text-shadow";
-@import "compass/css3/transition";
+// Imports
+
+// Compass Mixins
+@import "compass-mixins/border-radius";
+@import "compass-mixins/text-shadow";
+@import "compass-mixins/transition";
+
+// Foundation Mixins and Settings
 @import "foundation/modular-scale";
 @import "foundation/settings";
-@import "foundation/mixins";
 @import "foundation/semantic-grid";
+@import "foundation/mixins";
 

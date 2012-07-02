@@ -2,7 +2,12 @@
 
 h3 State your Purpose, Knight!
 
-p.subheader Discover #{ Repo.count } repos in #{ Category.count } categories
+p.subheader 
+  | Discover 
+  b #{ Repo.count } 
+  | repos in 
+  b #{ Category.count } 
+  | categories
 
 / Categories List
 #js_categories_list
