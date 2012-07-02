@@ -80,6 +80,7 @@ GEM
     mime-types (1.19)
     multi_json (1.3.6)
     multipart-post (1.1.5)
+    newrelic_rpm (3.4.0.1)
     oauth (0.4.6)
     oauth2 (0.5.2)
       faraday (~> 0.7)
@@ -181,6 +182,7 @@ DEPENDENCIES
   high_voltage
   jquery-rails
   letter_opener
+  newrelic_rpm
   pg
   pry-rails
   pry-remote

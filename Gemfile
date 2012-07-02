@@ -53,8 +53,8 @@ gem 'acts-as-taggable-on'
 gem 'excon'
 
 # Pry (IRB Replacement)
-gem 'pry-rails', :group => :development
-gem 'pry-remote', :group => :development
+gem 'pry-rails', group: :development
+gem 'pry-remote', group: :development
 
 # Sorcery (User Authentication)
 gem 'sorcery', '~> 0.7.12'
@@ -62,6 +62,8 @@ gem 'sorcery', '~> 0.7.12'
 # Redcarpet (Markdown Parser)
 gem 'redcarpet'
 
+# New Relic (Server Monitoring)
+gem 'newrelic_rpm', group: :production
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
