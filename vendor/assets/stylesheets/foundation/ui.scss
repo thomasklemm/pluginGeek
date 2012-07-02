@@ -228,14 +228,14 @@
     dt, dd { float: left; display: inline; margin-left: 9px; margin-bottom: 4px; }
     dt { color: #999; font-weight: normal; }
     dd a { text-decoration: none; @include border-radius(1000px); }
-    dd.active a { font-weight: bold; background: $mainColor; color: #fff; padding: 3px 9px; cursor: default; }
+    dd.active a { font-weight: bold; background: $mainColor; color: #fff; padding: 4px 10px 5px; cursor: default; }
 
     /* Addition by Thomas to make sub-nav work with list.js */
     dd { color: $mainColor; text-decoration: none; line-height: inherit; }
     dd:hover { color: darken($mainColor, 12%); }
 
     dd { text-decoration: none; @include border-radius(1000px); cursor: pointer; }
-    dd.active  { font-weight: bold; background: $mainColor; color: #fff; padding: 3px 9px; cursor: pointer; position: relative; top: -3px;}
+    dd.active  { font-weight: bold; background: $mainColor; color: #fff; padding: 4px 10px 5px; cursor: pointer; position: relative; top: -5px;}
 
   }
 

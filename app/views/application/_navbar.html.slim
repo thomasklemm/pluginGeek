@@ -6,8 +6,3 @@ dl.navbar_langs class='vertical tabs'
 	dd class=active_path(:ruby)   = link_to 'Ruby', language_path(language: :ruby)
 	dd class=active_path(:js) 	  = link_to 'Javascript', language_path(language: :js)
 	dd class=active_path(:design) = link_to 'Web Design', language_path(language: :design)
-
-dl.navbar_paths class='vertical tabs'
-	dt Scope
-	dd class=active_path(:categories)	= link_to 'Categories', categories_path
-	dd class=active_path(:repos)		= link_to 'Repos', repos_path
