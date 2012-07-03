@@ -35,6 +35,9 @@ Knight::Application.routes.draw do
     end
   end
 
+  # Blitz.io Authentication
+  get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
+
   # Root
   root to: 'categories#index'
 
