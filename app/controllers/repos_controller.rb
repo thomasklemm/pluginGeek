@@ -1,6 +1,6 @@
 class ReposController < ApplicationController
 
-  before_filter :require_login, only: [:update, :destroy]
+  before_filter :require_login, only: [:edit, :update, :destroy]
 
   # GET /repos
   def index
@@ -17,6 +17,9 @@ class ReposController < ApplicationController
 
     # Redirect to create action if @repo has not been found
     @repo or return redirect_to action: 'create'
+
+    # Find alternative repos
+    @alternatives = @repo.find_related_categories
   end
 
   # GET /repos/:owner/:name/create
@@ -36,6 +39,12 @@ class ReposController < ApplicationController
       flash[:alert] = "Repo '#{@repo.full_name}' could not be added."
       redirect_to root_path
     end
+  end
+
+  # GET /repos/:owner/:name/edit
+  def edit
+    @repo = Repo.find_by_full_name(full_name_from_params)
+    render action: :show
   end
 
   # PUT /repos/:owner/:name

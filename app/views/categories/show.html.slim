@@ -11,13 +11,13 @@
   - if params[:action] == 'edit'
     = form_for @category do |f|
       = f.text_area :description, style: 'height: 20rem'
-      = f.submit 'Update Description', class: 'round success button'
+      = f.submit 'Update Description', class: 'round button'
 
   - else
     p.description
       span = @category.description.present? ? @category.description : "&nbsp;".html_safe
       = link_to edit_category_path(@category), class: 'edit_description right' do
-        span data-icon='T' = @category.description.present? ? "Edit" : "Add a description"
+        span data-icon='T' = @category.description.present? ? "Edit" : "<b>Add a description</b>".html_safe
 
 / Repos List
 #js_repos_list

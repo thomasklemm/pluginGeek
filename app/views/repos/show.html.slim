@@ -7,7 +7,6 @@
   h3.name_and_owner = link_to @repo.github_url do
     span.name #{ @repo.name }
     small.owner  by #{ @repo.owner }
-  
 
   / Description
   .description = @repo.description
@@ -22,21 +21,42 @@
   / Activity
   span.activity data-icon='t' class=activity_color(@repo.github_updated_at) = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
 
-  .category_list 
-    ' Categories:
-    - @repo.categories.each do |category|
-      ul.link-list
-        li: a href='#' Test
-        li: a href='#' Test
-        li: a href='#' Test
+  / Categories & Edit Categories
+  - if params[:action] == 'edit'
+    .category_list_edit
+      = form_for @repo do |f|
+        = f.label :category_list, "Categories <em>Comma Seperated in Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
+        = f.text_area :category_list, style: 'height: 7rem'
+        = f.submit 'Update Repo', class: 'round button'
 
+    .destroy = link_to 'Delete repo', @repo, confirm: "Are you sure you want to delete #{ @repo.full_name }?", method: :delete, class: 'tiny round alert button'
+  - else
+    / Category List
+    .category_list
+      b style='font-size: 1.6rem' Categories
+      span.right = link_to edit_repo_path(@repo) do 
+        span data-icon='T' = @repo.category_list.present? ? 'Edit' : '<b>Add a category<b>'.html_safe
+      ul class='disc' 
+        - @repo.categories.each do |category|
+          - category = Category.find_by_name(category.name)
+          li 
+            = link_to category.name, category
+            '  (#{ category.repo_count } Repos)
 
-= debug @repo
+/ Alternative Repos List
+#js_repos_list
 
-= @repo.category_list.join(", ")
+  b style='font-size: 1.6rem' Alternatives & Similar Repos
+  span  Sorted by Similarity
+  / Sort
+  dl.sort_list class='right'
+    dt Sort:
+    / REVIEW: Add a similarity option thats selected as standard
+    dd.sort  data-sort='knight_score'  Knight Score
+    dd.sort         data-sort='updated_at'    Activity
+    dd.sort         data-sort='name'          Name
 
-= form_for @repo do |f|
-  = f.text_area :category_list, size: '50x5'
-  = f.submit
+  / List
+  .list
+    = render partial: 'shared/repo', collection: @alternatives
 
-= link_to 'Delete repo', @repo, confirm: 'Are you sure?', method: :delete

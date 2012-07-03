@@ -40,10 +40,10 @@ class CategoriesController < ApplicationController
 
     if @category.update_attributes(params[:category])
       # REVIEW: maybe squish description?
-      flash[:notice] = 'Category description updated. Thanks a lot!'
+      flash[:notice] = 'Category updated. Thanks a lot!'
       redirect_to action: 'show'
     else
-      flash[:alert] = "Category description could not be updated. Please let me know if you think this error should not have happened."
+      flash[:alert] = "Category update failed. Please let me know if you assume this is a bug."
       redirect_to action: 'show'
     end
   end
