@@ -124,14 +124,14 @@
 
   /* Alerts ---------------------- */
 
-  div.alert-box { display: block; padding: 6px 7px 7px; font-weight: bold; font-size: ms(0); color: $white; background-color: $mainColor; border: 1px solid rgba(#000,.1); margin-bottom: 12px; @include border-radius(3px); text-shadow: 0 -1px rgba(#000,.3); position: relative;
+  div.alert-box { display: block; padding: 8px 9px 9px; font-weight: bold; font-size: ms(0); color: $white; background-color: $mainColor; border: 1px solid rgba(#000,.1); margin-bottom: 12px; @include border-radius(3px); text-shadow: 0 -1px rgba(#000,.3); position: relative;
 
     &.success { background-color: $successColor; color: #fff; text-shadow: 0 -1px rgba(#000,.3); }
     &.alert { background-color: $alertColor; color: #fff; text-shadow: 0 -1px rgba(#000,.3); }
     &.secondary { background-color: $secondaryColor; color: darken($secondaryColor, 60%); text-shadow: 0 1px rgba(#fff,.3); }
 
-    a.close { color: #333; position: absolute; right: 4px; top: -1px; font-size: ms(1); opacity: 0.2; padding: 4px; }
-    a.close:hover, a.close:focus { opacity: 0.4; }
+    a.close { color: #333; position: absolute; right: 4px; top: -2px; font-size: ms(2); opacity: 0.3; padding: 4px; }
+    a.close:hover, a.close:focus { opacity: 0.5; }
 
   }
 

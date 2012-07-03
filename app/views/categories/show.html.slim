@@ -10,8 +10,8 @@
   / Description
   - if params[:action] == 'edit'
     = form_for @category do |f|
-      = f.text_area :description
-      = f.submit class: 'round success button'
+      = f.text_area :description, style: 'height: 20rem'
+      = f.submit 'Update Description', class: 'round success button'
 
   - else
     p.description
