@@ -1,28 +1,32 @@
 # application_bottom.js.coffee
 
-# jQuery from CDN required in before that
+# jQuery and jQuery UJS
+#   insert jQuery-Tag before that (served via CDN)
 //= require jquery_ujs
 
+# Foundation
+//= require foundation/jquery.reveal
+//= require foundation/jquery.customforms
+//= require foundation/jquery.placeholder.min
+//= require foundation/jquery.tooltips
+//= require foundation/foundation
+
+# Knight
 //= require categories
 //= require repos
 //= require users
 
 $ ->
-  # Alert Boxes
-  $(".alert-box").delegate "a.close", "click", ->
-    event.preventDefault()
-    $(this).closest(".alert-box").fadeOut ->
-      $(this).remove()
-
-
-  # Current Sort Highlighting
+  # Sort Buttons -> Mark sorted one as active
   $('.sort').click ->
-    $(this).addClass('sorted')
-    $(this).siblings('.sort').removeClass('sorted')
+      $(this).addClass('active')
+      $(this).siblings('dd').removeClass('active')
 
-
-  # Show all matching items in List.js
-  list = categoriesList
+  ###
+  # Show all / all matching items in List.js
+  ###
+  list = categoriesList if categoriesList.listContainer?
+  list = reposList if reposList.listContainer?
   p = list.page
   button = $('.js_show_all_matching_items')
 

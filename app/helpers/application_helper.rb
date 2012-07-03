@@ -11,18 +11,11 @@ module ApplicationHelper
 
   def flash_message_container(type)
     klass = 'alert-box'
-    klass = 'alert-box success' if type == :notice
-    klass = 'alert-box error' if type == :alert
+    klass = 'alert-box'         if type == :notice
+    klass = 'alert-box success' if type == :success
+    klass = 'alert-box'         if type == :alert
+    klass = 'alert-box alert'   if type == :error
     klass
-  end
-
-  # Determine which navitem is currently active and marking it with class active
-  def active_subdomain(s)
-    active = 'active' if s.to_s == request.subdomain
-    if params[:id]
-      active = 'active' if params[:id].include?(s.to_s)
-    end
-    active
   end
 
   # Determines which path is active and marks it with class active

@@ -7,7 +7,7 @@ preload_app true
 
 # Amout of unicorn workers to spin up
 #  take a look at your memory usage via New Relic
-worker_processes 3
+worker_processes 4
 
 # Restarts workers that hang for 30 seconds
 timeout 30
