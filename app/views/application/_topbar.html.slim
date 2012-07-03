@@ -1,13 +1,13 @@
 / topbar.html.slim
 
+/ knight logo
 span.left#knight
   = link_to image_tag('logos/knight_w.png', class: 'knight_topbar_logo'), root_path
 
-span.left#navigation
-  dl.topbar_nav
-    dd class=active_path(:categories) = link_to 'Categories', categories_path
-    dd class=active_path(:repos) = link_to 'Repos', repos_path
+/ slogan
+span.left Discover amazing <b>Github</b> Projects
 
+/ login
 span.right#login
   = render 'topbar_login'
 

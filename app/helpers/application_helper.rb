@@ -1,5 +1,6 @@
 module ApplicationHelper
 
+  # HTML Title
   def title_helper
     # Repo
     title = "Knight.io - Github's finest Ruby Gems"
@@ -9,6 +10,7 @@ module ApplicationHelper
     title
   end
 
+  # Flash Messages Container Classes
   def flash_message_container(type)
     klass = 'alert-box'
     klass = 'alert-box'         if type == :notice
@@ -18,11 +20,19 @@ module ApplicationHelper
     klass
   end
 
-  # Determines which path is active and marks it with class active
-  def active_path(active_path)
-    request_path = request.path
-    request_path = :categories if request.path == '/'
-    'active' if /#{ active_path.to_s }/i.match(request_path)
+  ###
+  #   Navigation
+  ###
+
+  # Active Language
+  def active_language(language)
+    'active' if params[:language] == language.to_s
+  end
+
+  # Active Scope
+  def active_scope(scope)
+    params[:scope] = 'categories' if params[:scope].blank?
+    'active' if params[:scope] == scope.to_s
   end
 
 end

@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
 
+  before_filter :set_language
   before_filter :require_login, only: [:edit, :update]
 
   # GET /categories

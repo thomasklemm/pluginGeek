@@ -11,8 +11,8 @@
     height: 52px
     .knight_topbar_logo
       width: 122px
-      padding: 11px 5px 0 0
-
+      padding: 0
+      margin: 10px 1rem 0 0
   #login
     // Avatar when developer is logged in
     .avatar
@@ -51,31 +51,3 @@
 
     .login
       float: right
-
-
-// Topbar Navigation
-dl.topbar_nav
-  display: block
-  width: auto
-  overflow: hidden
-  margin: 0
-  padding: 0
-
-  dt, dd
-    float: left
-    display: inline
-    margin-left: 9px
-  dt
-    color: #999
-    font-weight: normal
-  dd
-    a
-      text-decoration: none
-      @include border-radius(1000px)
-      font-weight: bold
-
-    &.active a
-      font-weight: bold
-      background: #2ba6cb
-      color: #fff
-      padding: 5px 12px 6px

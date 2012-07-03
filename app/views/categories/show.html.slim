@@ -11,7 +11,7 @@
   - if params[:action] == 'edit'
     = form_for @category do |f|
       = f.text_area :description
-      = f.submit
+      = f.submit class: 'round success button'
 
   - else
     p.description
@@ -23,7 +23,7 @@
 #js_repos_list
 
   / Sort
-  dl class='sub-nav right'
+  dl.sort_list class='right'
     dt Sort:
     dd.sort.active  data-sort='knight_score'  Knight Score
     dd.sort         data-sort='updated_at'    Activity

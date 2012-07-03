@@ -1,5 +1,6 @@
 // application.sass
 
+@import 'foundation/settings'
 @import 'topbar'
 
 // Pictos Icons
@@ -36,5 +37,76 @@
 .navbar_paths
 
 // Sort Lists
-.sort_list
-  margin-bottom: 0 !important
+dl.sort_list
+  display: block
+  width: auto
+  overflow: hidden
+  margin: -4px 0 0 -9px
+  padding-top: 4px
+
+  dt, dd 
+    float: left
+    display: inline
+    margin-left: 9px
+    padding: 4px 0 5px
+
+  dt 
+    color: #999
+    font-weight: normal
+  dd
+    text-decoration: none
+    @include border-radius(1000px)
+    cursor: pointer
+    
+    // Make it look like a link
+    color: $mainColor
+    &:hover
+      color: darken($mainColor, 15%)
+
+  dd.active
+    font-weight: bold
+    background: $mainColor
+    color: #fff
+    padding: 4px 10px 5px
+
+// Languages List & Scopes List
+dl.languages_list, dl.scopes_list
+  display: block
+  width: auto
+  clear: both
+
+  dt, dd
+    float: left
+    display: inline
+    margin-left: 9px
+    margin-top: 1.2rem
+    clear: both
+  dt
+    color: #999
+    font-weight: normal
+  dd
+    a
+      text-decoration: none
+      @include border-radius(1000px)
+      font-weight: bold
+      padding-left: 12px
+
+    &.active a
+      font-weight: bold
+      background: #2ba6cb
+      color: #fff
+      padding: 5px 12px 6px
+      margin-top: 1.4rem !important
+
+  dd:last-child
+    margin-bottom: 1rem !important
+
+@media screen and (max-width: 800px)
+  dl.languages_list, dl.scopes_list_sidebar
+    dt, dd
+      clear: none
+    dd:last-child
+      margin-bottom: 0.5rem !important
+  dl.languages_list
+    dd:last-child
+      margin-bottom: 0 !important

@@ -9,4 +9,15 @@ class ApplicationController < ActionController::Base
   def blitz
   	render text: '42'
   end
+
+protected
+  
+  # Set language and scope
+  def set_language
+    params[:language] = 'ruby' if params[:language].blank?
+    params[:scope] = 'categories' if params[:scope].blank?
+    params[:scope] = '' if params[:scope] == 'categories'
+    params[:scope] = 'repos' if request.path.start_with?('/repos')
+  end
+
 end

@@ -1,5 +1,6 @@
 class ReposController < ApplicationController
 
+  before_filter :set_language
   before_filter :require_login, only: [:update, :destroy]
 
   # GET /repos
