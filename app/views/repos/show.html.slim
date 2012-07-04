@@ -29,7 +29,6 @@
         = f.text_area :category_list, style: 'height: 7rem'
         = f.submit 'Update Repo', class: 'round button'
 
-    .destroy = link_to 'Delete repo', @repo, confirm: "Are you sure you want to delete #{ @repo.full_name }?", method: :delete, class: 'tiny round alert button'
   - else
     / Category List
     .category_list

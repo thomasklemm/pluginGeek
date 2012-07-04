@@ -31,7 +31,6 @@ Knight::Application.routes.draw do
         get ':owner/:name/create' => 'repos#create'
         get ':owner/:name(/*leftover)' => 'repos#show'
         put ':owner/:name' => 'repos#update'
-        delete ':owner/:name' => 'repos#destroy'
       end
 
     end

@@ -66,25 +66,6 @@ class ReposController < ApplicationController
     end
   end
 
-  # REVIEW: maybe just hide the object or something,
-  #   maybe auto-delete / freeze it if not tag has been added in a certain period of time
-  def destroy
-    @repo = Repo.find_by_full_name(full_name_from_params)
-
-    if @repo.destroy
-      # Update categories based on repo tags
-      Updater.update_categories_from_repos
-
-      # TODO: expire caches here
-
-      flash[:notice] = "Repo '#{ @repo.full_name }' successfully deleted."
-      redirect_to :root
-    else
-      flash[:alert] = "Repo '#{ @repo.full_name }' could not be deleted."
-      redirect_to @repo
-    end
-  end
-
 protected
 
   def full_name_from_params(owner = params[:owner], name = params[:name])
