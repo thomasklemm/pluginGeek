@@ -1,6 +1,7 @@
 / javascripts_body.html.slim
 
 / List.js in head
+/   Lists initalized here so I can access them in their respective variables
 / Categories List
 javascript:
   var categories_list_options = {
@@ -18,12 +19,6 @@ javascript:
   };
 
   var reposList = new List('js_repos_list', repos_list_options);
-
-/ jquery
-= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
-
-/ knight
-= javascript_include_tag 'application_body'
 
 / google analytics
 javascript:
