@@ -71,6 +71,8 @@ ul class='tabs-content contained'
   / Alternatives Tab Content
   li#alternatives_oTab 
 
+    / Display similar repos if there are some
+    - raise @alternatives.present?.inspect
     / Alternative Repos List
     #js_repos_list
       / Sort
