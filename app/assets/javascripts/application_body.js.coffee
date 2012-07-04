@@ -11,6 +11,10 @@
 //= require foundation/jquery.tooltips
 //= require foundation/foundation
 
+# Vendors
+#    Repo.js by Darcy Clarke
+//= require repo 
+
 # Knight
 //= require categories
 //= require repos
