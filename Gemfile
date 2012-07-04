@@ -65,6 +65,9 @@ gem 'redcarpet'
 # New Relic (Server Monitoring)
 gem 'newrelic_rpm', group: :production
 
+# Github API
+gem 'github_api'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
