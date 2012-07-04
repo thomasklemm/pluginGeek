@@ -1,5 +1,17 @@
 / repos/show.html.slim
 
+/ Request Readme from Github
+javascript:
+  $.ajax({
+    url: "https://api.github.com/repos/#{ @repo.owner }/#{ @repo.name }/readme",
+    headers: {
+      'Accept': 'application/vnd.github.html'
+    },
+    success: function(data) {
+      $('#readme_oTab').html(data)
+    }
+  })
+
 / Repo Header
 .repo_header
   
@@ -11,7 +23,8 @@
   / Github Watch Button including Watcher Count
   iframe.watch_button src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
-  span class='label round' style='bottom: 5px;' Sizzling Hot
+  / Label
+  /  Try adding a label here
 
   / Description
   .description = @repo.description
@@ -37,9 +50,9 @@
   - else
     / Category List
     .category_list
-      b style='font-size: 1.6rem' Categories
-      span.right = link_to edit_repo_path(@repo) do 
-        span data-icon='T' = @repo.category_list.present? ? 'Edit' : '<b>Add a category<b>'.html_safe
+      ' Categories
+      span.right= link_to edit_repo_path(@repo) do 
+        span data-icon='T' = @repo.category_list.present? ? 'Edit categories' : '<b>Add a category<b>'.html_safe
       ul class='disc' 
         - @repo.categories.each do |category|
           - category = Category.find_by_name(category.name)
@@ -47,26 +60,28 @@
             = link_to category.name, category
             '  (#{ category.repo_count } Repos)
 
-/ Repo
-b style='font-size: 1.6rem' Repo
-#github_repo
-javascript:
-  $('#github_repo').repo({ user: "#{ @repo.owner }", name: "#{ @repo.name }" })
+/ Readme and Alternatives Tab
+dl class='tabs contained'
+  dd.active = link_to 'Readme', '#readme_o', id: 'readme_tab'
+  dd        = link_to 'Alternatives', '#alternatives_o', id: 'alternatives_tab'
 
-/ Alternative Repos List
-#js_repos_list
+ul class='tabs-content contained'
+  / Readme Tab Content
+  li#readme_oTab.active: em Loading Readme for #{ @repo.full_name } ...
+  / Alternatives Tab Content
+  li#alternatives_oTab 
 
-  b style='font-size: 1.6rem' Alternatives & Similar Repos
-  span  Sorted by Similarity
-  / Sort
-  dl.sort_list class='right'
-    dt Sort:
-    / REVIEW: Add a similarity option thats selected as standard
-    dd.sort  data-sort='knight_score'  Knight Score
-    dd.sort         data-sort='updated_at'    Activity
-    dd.sort         data-sort='name'          Name
+    / Alternative Repos List
+    #js_repos_list
+      / Sort
+      dl.sort_list class='right'
+        dt Sort:
+        / REVIEW: Add a similarity option thats selected as standard
+        dd.sort  data-sort='knight_score'  Knight Score
+        dd.sort         data-sort='updated_at'    Activity
+        dd.sort         data-sort='name'          Name
 
-  / List
-  .list
-    = render partial: 'shared/repo', collection: @alternatives
+      / List
+      .list
+        = render partial: 'shared/repo', collection: @alternatives
 

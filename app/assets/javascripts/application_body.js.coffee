@@ -13,7 +13,7 @@
 
 # Vendors
 #    Repo.js by Darcy Clarke
-//= require repo 
+#//= require repo 
 
 # Knight
 //= require categories
@@ -52,3 +52,6 @@ $ ->
     list.page = 2500
     list.update()
     button.hide()
+
+  # Keep Readme Tab active
+  $('#readme_tab').click()
