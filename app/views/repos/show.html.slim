@@ -4,9 +4,11 @@
 .repo_header
   
   / Name and Owner
-  h3.name_and_owner = link_to @repo.github_url do
+  h3.name_and_owner style='display: inline-block' = link_to @repo.github_url do
     span.name #{ @repo.name }
     small.owner  by #{ @repo.owner }
+
+  iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px" style='margin-left: 2rem'
 
   / Description
   .description = @repo.description
@@ -16,7 +18,7 @@
   span.homepage_url = link_to url, url
 
   / Watchers
-  span.watchers data-icon='h' = @repo.watchers
+  / span.watchers data-icon='h' = @repo.watchers
 
   / Activity
   span.activity data-icon='t' class=activity_color(@repo.github_updated_at) = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
