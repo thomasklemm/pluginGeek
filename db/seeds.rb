@@ -183,7 +183,7 @@ seeds = [
   {name: 'Node: Guides / Styleguides', lang: 'JS', repos: %w(felixge/nodeguide.com), description: ''},
 
   # O
-  {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server dbloete/masq), description: ""},
+  {name: 'Oauth Servers', lang: 'Ruby', repos: %w(Lelylan/rest-oauth2-server nov/rack-oauth2 assaf/rack-oauth2-server rubycas/rubycas-server dennisreimann/masq), description: ""},
   # Optimize
   {name: 'Optimize: Split Testing / A/B Testing', lang: 'Ruby', repos: %w(xing/absurdity andrew/split assaf/vanity jhubert/rails-split-tester hayesgm/mountain_goat), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
   {name: 'Optimize: Split Testing / A/B Testing', lang: 'JS', repos: %w(jamesyu/cohorts grippy/node-multivariate thumbtack/abba jgallen23/dice-roll), description: 'Optimizing your website conversion rates can include A/B-Testing, Split Testing, Multivariate Testing, and more. Test your assumptions to see what is not working and what is.'},
@@ -323,7 +323,7 @@ seeds = [
 # {parent: '', children: %w()},
 
 plugins = [
-  {parent: 'twitter/bootstrap', children: %w(seyhunak/twitter-bootstrap-rails thomas-mcdonald/bootstrap-sass)}
+  {parent: 'twitter/bootstrap', children: %w(seyhunak/twitter-bootstrap-rails thomas-mcdonald/bootstrap-sass)},
   {parent: 'kneath/kss', children: %w(dewski/kss-rails)},
   {parent: 'pry/pry', children: %w(rweng/pry-rails nixme/pry-nav Mon-Ouie/pry-remote nixme/pry-debugger)},
   {parent: 'prawnpdf/prawn', children: %w(forrest/prawnto bkuhlmann/prawn_plus sbfaulkner/sinatra-prawn rtsinani/gambas)},
@@ -350,7 +350,6 @@ plugins = [
   {parent: '', children: %w()},
 ]
 
-
 puts "Writing Seeds..."
 
 # Enter or update seeds
@@ -371,7 +370,7 @@ seeds.each do |seed|
 
   # Create or update categories
   category = Category.find_or_initialize_by_name("#{ seed[:name] } (#{ seed[:lang] })")
-  category.description ||= seed[:description]
+  category.description = seed[:description]
   category.language_list = seed[:lang].split('/').join(', ')
   category.save
 end

@@ -11,10 +11,6 @@
 //= require foundation/jquery.tooltips
 //= require foundation/foundation
 
-# Vendors
-#    Repo.js by Darcy Clarke
-//= require repo 
-
 # Knight
 //= require categories
 //= require repos
@@ -52,3 +48,6 @@ $ ->
     list.page = 2500
     list.update()
     button.hide()
+
+  # Keep Readme Tab active
+  # $('#readme_tab').click()

@@ -37,7 +37,6 @@
   em, i { font-style: italic; line-height: inherit; }
   strong, b { font-weight: bold; line-height: inherit; }
   small { font-size: 60%; line-height: inherit; }
-  code { font-weight: bold; background: $highlightColor; }
 
   /* Lists ---------------------- */
   ul, ol { font-size: ms(0); line-height: 1.6; margin-bottom: ms(1); list-style-position: inside; }
@@ -80,4 +79,26 @@
     h2, h3 { page-break-after: avoid; }
     .hide-on-print { display: none !important; }
     .print-only { display: block !important; }
+  }
+
+  /* Github Readme */
+  #readme {
+
+    p { margin-bottom: 0.5rem; }
+
+    h1 { font-size: ms(3); }
+    /* Remove top padding of first h1 tag (usually the title of the Repo) */
+    h1:first-of-type { margin-top: 0 }
+    h2 { font-size: ms(2); padding-bottom: 5px; border-bottom: 1px solid #ccc}
+    h3 { font-size: ms(1); }
+    h4 { font-size: ms(0); }
+    h5 { font-size: ms(0); }
+    h6 { font-size: ms(0); }
+
+    /* Second-level lists */
+    ul { list-style-type: disc; }
+    ul > li > ul { list-style-type: circle; padding-left: 1.8rem }
+
+    /* Code Blocks */
+    pre { margin: 0 0 2rem 0 }
   }
