@@ -69,10 +69,8 @@ ul class='tabs-content contained'
   / Readme Tab Content
   li#readme_oTab.active: em Loading Readme for #{ @repo.full_name } ...
   / Alternatives Tab Content
-  li#alternatives_oTab 
-
-    / Display similar repos if there are some
-    / Alternative Repos List
+  li#alternatives_oTab
+    / Alternative Repos List (if there are some alternative repos)
     #js_repos_list
       / Sort
       dl.sort_list class='right'
@@ -85,4 +83,5 @@ ul class='tabs-content contained'
       / List
       .list
         = render partial: 'shared/repo', collection: @alternatives
+
 

@@ -19,7 +19,7 @@ class ReposController < ApplicationController
     @repo or return redirect_to action: 'create'
 
     # Find alternative repos
-    @alternatives = @repo.find_related_categories
+    @alternatives = @repo.find_related_categories if @repo.category_list.present?
   end
 
   # GET /repos/:owner/:name/create
