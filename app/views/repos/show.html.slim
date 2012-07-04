@@ -4,11 +4,14 @@
 .repo_header
   
   / Name and Owner
-  h3.name_and_owner style='display: inline-block' = link_to @repo.github_url do
+  h3.name_and_owner = link_to @repo.github_url do
     span.name #{ @repo.name }
     small.owner  by #{ @repo.owner }
 
-  iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px" style='margin-left: 2rem'
+  / Github Watch Button including Watcher Count
+  iframe.watch_button src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
+
+  span class='label round' style='bottom: 5px;' Sizzling Hot
 
   / Description
   .description = @repo.description

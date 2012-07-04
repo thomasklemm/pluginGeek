@@ -9,7 +9,7 @@
   content: attr(data-icon)
   -webkit-font-smoothing: antialiased
   vertical-align: middle
-  margin-right: 3px
+  margin-right: 4px
   line-height: 0
 
 // Alert Boxes
@@ -104,8 +104,10 @@ dl.languages_list, dl.scopes_list
   dd:last-child
     margin-bottom: 1rem !important
 
-@media screen and (max-width: 800px)
-  dl.languages_list, dl.scopes_list_sidebar
+// Media Queries
+@media screen and (max-width: 768px)
+  // Languages & Scopes Lists
+  dl.languages_list, dl.scopes_list
     dt, dd
       clear: none
     dd:last-child
@@ -113,3 +115,8 @@ dl.languages_list, dl.scopes_list
   dl.languages_list
     dd:last-child
       margin-bottom: 0 !important
+
+  // Topbar Slogan
+  #topbar .slogan
+    display: none
+
