@@ -350,7 +350,6 @@ plugins = [
   {parent: '', children: %w()},
 ]
 
-
 puts "Writing Seeds..."
 
 # Enter or update seeds
@@ -371,7 +370,7 @@ seeds.each do |seed|
 
   # Create or update categories
   category = Category.find_or_initialize_by_name("#{ seed[:name] } (#{ seed[:lang] })")
-  category.description ||= seed[:description]
+  category.description = seed[:description]
   category.language_list = seed[:lang].split('/').join(', ')
   category.save
 end
