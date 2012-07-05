@@ -12,16 +12,13 @@ jQuery(document).ready(function ($) {
     // Strip off the current url that IE adds
     contentLocation = contentLocation.replace(/^.+#/, '#');
 
-    // Strip off the current url that IE adds
-    contentLocation = contentLocation.replace(/^.+#/, '#');
-
     //Make Tab Active
     $activeTab.removeClass('active');
     $tab.addClass('active');
 
     //Show Tab Content
-    $(contentLocation).closest('.tabs-content').children('li').hide();
-    $(contentLocation).css('display', 'block');
+    $(contentLocation).closest('.tabs-content').children('li').removeClass('active').hide();
+    $(contentLocation).css('display', 'block').addClass('active');
   }
 
   $('dl.tabs dd a').on('click.fndtn', function (event) {
@@ -29,7 +26,7 @@ jQuery(document).ready(function ($) {
   });
 
   if (window.location.hash) {
-    activateTab($('a[href="' + window.location.hash + '"]'));
+    activateTab($('a[href="' + window.location.hash + '"]').parent('dd'));
     $.foundation.customForms.appendCustomMarkup();
   }
 
@@ -95,7 +92,6 @@ jQuery(document).ready(function ($) {
     $(this).siblings('ul').toggleClass('show-dropdown');
   });
   $('.button.dropdown').not('.split').on('click.fndtn touchstart.fndtn', function (e) {
-    e.preventDefault();
     $('.button.dropdown').not(this).children('ul').removeClass('show-dropdown');
     $(this).children('ul').toggleClass('show-dropdown');
   });
@@ -113,5 +109,8 @@ jQuery(document).ready(function ($) {
   $('.button.dropdown.large > ul').css('top', largeButtonHeight);
   $('.button.dropdown.small > ul').css('top', smallButtonHeight);
   $('.button.dropdown.tiny > ul').css('top', tinyButtonHeight);
+
+  /* CUSTOM FORMS */
+  $.foundation.customForms.appendCustomMarkup();
 
 });

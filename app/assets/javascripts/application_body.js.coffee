@@ -27,11 +27,11 @@ $ ->
   ###
   list = categoriesList if categoriesList.listContainer?
   list = reposList if reposList.listContainer?
-  p = list.page
+  p = list?.page
   button = $('.js_show_all_matching_items')
 
   # Initial
-  m = list.matchingItems.length
+  m = list?.matchingItems.length
   if p < m
     button.show()
 
@@ -48,6 +48,3 @@ $ ->
     list.page = 2500
     list.update()
     button.hide()
-
-  # Keep Readme Tab active
-  # $('#readme_tab').click()

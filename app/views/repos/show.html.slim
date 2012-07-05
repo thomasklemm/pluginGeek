@@ -8,7 +8,7 @@ javascript:
       'Accept': 'application/vnd.github.html'
     },
     success: function(data) {
-      $('#readme_oTab').html(data)
+      $('#ReadmeTab').html(data)
     }
   })
 
@@ -53,35 +53,47 @@ javascript:
       ' Categories
       span.right= link_to edit_repo_path(@repo) do 
         span data-icon='T' = @repo.category_list.present? ? 'Edit categories' : '<b>Add a category<b>'.html_safe
-      ul class='disc' 
+      / List all categories
+      - if @repo.categories.present?
         - @repo.categories.each do |category|
-          - category = Category.find_by_name(category.name)
-          li 
-            = link_to category.name, category
-            '  (#{ category.repo_count } Repos)
+            - @category = Category.find_by_name(category.name)
+            li 
+              = link_to @category.name, @category
+              '  (#{ @category.repo_count } Repos)
 
-/ Readme and Alternatives Tab
-dl class='tabs contained'
-  dd.active = link_to 'Readme', '#readme_o', id: 'readme_tab'
-  dd        = link_to 'Alternatives', '#alternatives_o', id: 'alternatives_tab'
 
-ul class='tabs-content contained'
-  / Readme Tab Content
-  li#readme_oTab.active: em Loading Readme for #{ @repo.full_name } ...
-  / Alternatives Tab Content
-  li#alternatives_oTab
-    / Alternative Repos List (if there are some alternative repos)
-    #js_repos_list
-      / Sort
-      dl.sort_list class='right'
-        dt Sort:
-        / REVIEW: Add a similarity option thats selected as standard
-        dd.sort  data-sort='knight_score'  Knight Score
-        dd.sort         data-sort='updated_at'    Activity
-        dd.sort         data-sort='name'          Name
+.readme_and_alternatives
 
-      / List
-      .list
-        = render partial: 'shared/repo', collection: @alternatives
+  / Readme and Alternatives Tab
+  dl class='tabs contained'
+    dd.active = link_to 'Readme', '#Readme', id: 'readme_tab'
+    dd        = link_to 'Alternatives', '#Alternatives', id: 'alternatives_tab'
+
+  ul class='tabs-content contained'
+    / Readme Tab Content
+    li#ReadmeTab.active: em Loading Readme for #{ @repo.full_name } ...
+    / Alternatives Tab Content
+    li#AlternativesTab
+      - unless @alternatives.nil?
+        / Alternative Repos List (if there are some alternative repos)
+        #js_repos_list
+          / Sort
+          dl.sort_list class='right'
+            dt Sort:
+            / REVIEW: Add a similarity option thats selected as standard
+            dd.sort  data-sort='knight_score'  Knight Score
+            dd.sort         data-sort='updated_at'    Activity
+            dd.sort         data-sort='name'          Name
+
+          / List
+          .list
+            = render partial: 'shared/repo', collection: @alternatives
+
+      - else  
+        
+        - if @repo.category_list.present?
+          ' No Alternatives could be found.
+        - else
+          em Please add a category to this repo to see alternatives.
 
 

@@ -82,7 +82,7 @@
   }
 
   /* Github Readme */
-  #readme {
+  #ReadmeTab {
 
     p { margin-bottom: 0.5rem; }
 
@@ -96,8 +96,10 @@
     h6 { font-size: ms(0); }
 
     /* Second-level lists */
+    ul, ol { padding-left: 2rem; }
     ul { list-style-type: disc; }
-    ul > li > ul { list-style-type: circle; padding-left: 1.8rem }
+    li > ul { list-style: circle; }
+    ul > li > ul, ul > li > ol, ol > li > ul, ol > li > ol { padding-left: 4rem }
 
     /* Code Blocks */
     pre { margin: 0 0 2rem 0 }

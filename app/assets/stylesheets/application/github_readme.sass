@@ -1,4 +1,270 @@
 .markdown-body
+  font-size: 14px
+  line-height: 1.6
+  > *
+    &:first-child
+      margin-top: 0!important
+    &:last-child
+      margin-bottom: 0!important
+  a
+    &.absent
+      color: #c00
+    &.anchor
+      display: block
+      padding-left: 30px
+      margin-left: -30px
+      cursor: pointer
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+  h1, h2, h3, h4, h5, h6
+    margin: 20px 0 10px
+    padding: 0
+    font-weight: bold
+    -webkit-font-smoothing: antialiased
+    cursor: text
+    position: relative
+  h1 .mini-icon-link, h2 .mini-icon-link, h3 .mini-icon-link, h4 .mini-icon-link, h5 .mini-icon-link, h6 .mini-icon-link
+    display: none
+    color: #000
+  h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor
+    text-decoration: none
+    line-height: 1
+    padding-left: 0
+    margin-left: -22px
+    top: 15%
+  h1:hover .mini-icon-link, h2:hover .mini-icon-link, h3:hover .mini-icon-link, h4:hover .mini-icon-link, h5:hover .mini-icon-link, h6:hover .mini-icon-link
+    display: inline-block
+  h1
+    tt, code
+      font-size: inherit
+  h2
+    tt, code
+      font-size: inherit
+  h3
+    tt, code
+      font-size: inherit
+  h4
+    tt, code
+      font-size: inherit
+  h5
+    tt, code
+      font-size: inherit
+  h6
+    tt, code
+      font-size: inherit
+  h1
+    font-size: 28px
+    color: #000
+  h2
+    font-size: 24px
+    border-bottom: 1px solid #ccc
+    color: #000
+  h3
+    font-size: 18px
+  h4
+    font-size: 16px
+  h5
+    font-size: 14px
+  h6
+    color: #777
+    font-size: 14px
+  p, blockquote, ul, ol, dl, table, pre
+    margin: 15px 0
+  hr
+    background: transparent url("https://a248.e.akamai.net/assets.github.com/images/modules/pulls/dirty-shade.png?ac8b47a3") repeat-x 0 0
+    border: 0 none
+    color: #ccc
+    height: 4px
+    padding: 0
+  >
+    h2:first-child
+      margin-top: 0
+      padding-top: 0
+    h1:first-child
+      margin-top: 0
+      padding-top: 0
+      + h2
+        margin-top: 0
+        padding-top: 0
+    h3:first-child, h4:first-child, h5:first-child, h6:first-child
+      margin-top: 0
+      padding-top: 0
+  a:first-child
+    h1, h2, h3, h4, h5, h6
+      margin-top: 0
+      padding-top: 0
+  h1 p, h2 p, h3 p, h4 p, h5 p, h6 p
+    margin-top: 0
+  li p.first
+    display: inline-block
+  ul, ol
+    padding-left: 30px
+  ul.no-list, ol.no-list
+    list-style-type: none
+    padding: 0
+  ul :first-child, ol :first-child
+    margin-top: 0
+  dl
+    padding: 0
+    dt
+      font-size: 14px
+      font-weight: bold
+      font-style: italic
+      padding: 0
+      margin: 15px 0 5px
+      &:first-child
+        padding: 0
+      >
+        \:first-child
+          margin-top: 0
+        \:last-child
+          margin-bottom: 0
+    dd
+      margin: 0 0 15px
+      padding: 0 15px
+      >
+        \:first-child
+          margin-top: 0
+        \:last-child
+          margin-bottom: 0
+  blockquote
+    border-left: 4px solid #DDD
+    padding: 0 15px
+    color: #777
+    >
+      \:first-child
+        margin-top: 0
+      \:last-child
+        margin-bottom: 0
+  table
+    padding: 0
+    tr
+      border-top: 1px solid #ccc
+      background-color: #fff
+      margin: 0
+      padding: 0
+      &:nth-child(2n)
+        background-color: #f8f8f8
+      th
+        font-weight: bold
+        border: 1px solid #ccc
+        text-align: left
+        margin: 0
+        padding: 6px 13px
+      td
+        border: 1px solid #ccc
+        text-align: left
+        margin: 0
+        padding: 6px 13px
+      th :first-child, td :first-child
+        margin-top: 0
+      th :last-child, td :last-child
+        margin-bottom: 0
+  img
+    max-width: 100%
+  span
+    &.frame
+      display: block
+      overflow: hidden
+      > span
+        border: 1px solid #ddd
+        display: block
+        float: left
+        overflow: hidden
+        margin: 13px 0 0
+        padding: 7px
+        width: auto
+      span
+        img
+          display: block
+          float: left
+        span
+          clear: both
+          color: #333
+          display: block
+          padding: 5px 0 0
+    &.align-center
+      display: block
+      overflow: hidden
+      clear: both
+      > span
+        display: block
+        overflow: hidden
+        margin: 13px auto 0
+        text-align: center
+      span img
+        margin: 0 auto
+        text-align: center
+    &.align-right
+      display: block
+      overflow: hidden
+      clear: both
+      > span
+        display: block
+        overflow: hidden
+        margin: 13px 0 0
+        text-align: right
+      span img
+        margin: 0
+        text-align: right
+    &.float-left
+      display: block
+      margin-right: 13px
+      overflow: hidden
+      float: left
+      span
+        margin: 13px 0 0
+    &.float-right
+      display: block
+      margin-left: 13px
+      overflow: hidden
+      float: right
+      > span
+        display: block
+        overflow: hidden
+        margin: 13px auto 0
+        text-align: right
+  code, tt
+    margin: 0 2px
+    padding: 0 5px
+    white-space: pre-line
+    word-wrap: break-word
+    border: 1px solid #eaeaea
+    background-color: #f8f8f8
+    border-radius: 3px
+  tt
+    font-size: 14px
+    // Addition by Thomas
+    white-space: normal !important
+  pre code
+    margin: 0
+    padding: 0
+    white-space: pre
+    border: none
+    background: transparent
+  .highlight pre
+    background-color: #f8f8f8
+    border: 1px solid #ccc
+    font-size: 13px
+    line-height: 19px
+    overflow: auto
+    padding: 6px 10px
+    border-radius: 3px
+  pre
+    background-color: #f8f8f8
+    border: 1px solid #ccc
+    font-size: 13px
+    line-height: 19px
+    overflow: auto
+    padding: 6px 10px
+    border-radius: 3px
+    code, tt
+      background-color: transparent
+      border: none
+
+.markdown-body
   code, tt
     margin: 0 2px
     padding: 0 5px
@@ -150,207 +416,3 @@
     color: #000
   .s, .sc
     color: #A31515
-
-#readme.rst
-  .borderless
-    border: 0
-  table.borderless
-    td, th
-      border: 0
-    td, th
-      padding: 0 .5em 0 0!important
-  .first
-    margin-top: 0!important
-  .last, .with-subtitle
-    margin-bottom: 0!important
-  .hidden
-    display: none
-  a.toc-backref
-    text-decoration: none
-    color: black
-  blockquote.epigraph
-    margin: 2em 5em
-  dl.docutils dd
-    margin-bottom: .5em
-  div
-    &.abstract
-      margin: 2em 5em
-      p.topic-title
-        font-weight: bold
-        text-align: center
-    &.admonition, &.attention, &.caution, &.danger, &.error, &.hint, &.important, &.note, &.tip, &.warning
-      margin: 2em
-      border: medium outset
-      padding: 1em
-    &.admonition p.admonition-title, &.hint p.admonition-title, &.important p.admonition-title, &.note p.admonition-title, &.tip p.admonition-title
-      font-weight: bold
-      font-family: sans-serif
-    &.attention p.admonition-title, &.caution p.admonition-title, &.danger p.admonition-title, &.error p.admonition-title, &.warning p.admonition-title
-      color: red
-      font-weight: bold
-      font-family: sans-serif
-    &.dedication
-      margin: 2em 5em
-      text-align: center
-      font-style: italic
-      p.topic-title
-        font-weight: bold
-        font-style: normal
-    &.figure
-      margin-left: 2em
-      margin-right: 2em
-    &.footer, &.header
-      clear: both
-      font-size: smaller
-    &.line-block
-      display: block
-      margin-top: 1em
-      margin-bottom: 1em
-      div.line-block
-        margin-top: 0
-        margin-bottom: 0
-        margin-left: 1.5em
-    &.sidebar
-      margin: 0 0 .5em 1em
-      border: medium outset
-      padding: 1em
-      background-color: #ffe
-      width: 40%
-      float: right
-      clear: right
-      p.rubric
-        font-family: sans-serif
-        font-size: medium
-    &.system-messages
-      margin: 5em
-      h1
-        color: red
-    &.system-message
-      border: medium outset
-      padding: 1em
-      p.system-message-title
-        color: red
-        font-weight: bold
-    &.topic
-      margin: 2em
-  h1.section-subtitle, h2.section-subtitle, h3.section-subtitle, h4.section-subtitle, h5.section-subtitle, h6.section-subtitle
-    margin-top: .4em
-  h1.title, h2.subtitle
-    text-align: center
-  hr.docutils
-    width: 75%
-  img.align-left, .figure.align-left, object.align-left
-    clear: left
-    float: left
-    margin-right: 1em
-  img.align-right, .figure.align-right, object.align-right
-    clear: right
-    float: right
-    margin-left: 1em
-  img.align-center, .figure.align-center, object.align-center
-    display: block
-    margin-left: auto
-    margin-right: auto
-  .align-left
-    text-align: left
-  .align-center
-    clear: both
-    text-align: center
-  .align-right
-    text-align: right
-  div.align-right
-    text-align: left
-  ol.simple, ul.simple
-    margin-bottom: 1em
-  ol
-    &.arabic
-      list-style: decimal
-    &.loweralpha
-      list-style: lower-alpha
-    &.upperalpha
-      list-style: upper-alpha
-    &.lowerroman
-      list-style: lower-roman
-    &.upperroman
-      list-style: upper-roman
-  p
-    &.attribution
-      text-align: right
-      margin-left: 50%
-    &.caption
-      font-style: italic
-    &.credits
-      font-style: italic
-      font-size: smaller
-    &.label
-      white-space: nowrap
-    &.rubric
-      font-weight: bold
-      font-size: larger
-      color: maroon
-      text-align: center
-    &.sidebar-title
-      font-family: sans-serif
-      font-weight: bold
-      font-size: larger
-    &.sidebar-subtitle
-      font-family: sans-serif
-      font-weight: bold
-    &.topic-title
-      font-weight: bold
-  pre
-    &.address
-      margin-bottom: 0
-      margin-top: 0
-      font: inherit
-    &.literal-block, &.doctest-block
-      margin-left: 2em
-      margin-right: 2em
-  span
-    &.classifier
-      font-family: sans-serif
-      font-style: oblique
-    &.classifier-delimiter
-      font-family: sans-serif
-      font-weight: bold
-    &.interpreted
-      font-family: sans-serif
-    &.option
-      white-space: nowrap
-    &.pre
-      white-space: pre
-    &.problematic
-      color: red
-    &.section-subtitle
-      font-size: 80%
-  table
-    &.citation
-      border-left: solid 1px gray
-      margin-left: 1px
-    &.docinfo
-      margin: 2em 4em
-    &.docutils
-      margin-top: .5em
-      margin-bottom: .5em
-    &.footnote
-      border-left: solid 1px black
-      margin-left: 1px
-    &.docutils
-      td, th
-        padding-left: .5em
-        padding-right: .5em
-        vertical-align: top
-    &.docinfo
-      td, th
-        padding-left: .5em
-        padding-right: .5em
-        vertical-align: top
-    &.docutils th.field-name, &.docinfo th.docinfo-name
-      font-weight: bold
-      text-align: left
-      white-space: nowrap
-      padding-left: 0
-  h1 tt.docutils, h2 tt.docutils, h3 tt.docutils, h4 tt.docutils, h5 tt.docutils, h6 tt.docutils
-    font-size: 100%
-  ul.auto-toc
-    list-style-type: none
