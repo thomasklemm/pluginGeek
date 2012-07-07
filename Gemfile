@@ -68,6 +68,9 @@ gem 'newrelic_rpm', group: :production
 # Github API
 gem 'github_api'
 
+# Annotate Models (Schema Info for Models and Routes)
+gem 'annotate', '>=2.5.0.pre1', group: :development
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
