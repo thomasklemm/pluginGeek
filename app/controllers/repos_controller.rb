@@ -11,12 +11,12 @@ class ReposController < ApplicationController
   def show
     @repo = Repo.find_by_full_name(full_name_from_params)
 
+    # Redirect to create action if @repo has not been found
+    @repo or return redirect_to action: 'create'
+
     # Always redirect to base
     #   Be sure to return to finish request
     return redirect_to @repo if params[:leftover]
-
-    # Redirect to create action if @repo has not been found
-    @repo or return redirect_to action: 'create'
 
     # Find alternative repos
     @alternatives = @repo.find_related_categories if @repo.category_list.present?

@@ -82,25 +82,11 @@
   }
 
   /* Github Readme */
-  #ReadmeTab {
-
-    p { margin-bottom: 0.5rem; }
-
+  .markdown-body {
     h1 { font-size: ms(3); }
-    /* Remove top padding of first h1 tag (usually the title of the Repo) */
-    h1:first-of-type { margin-top: 0 }
-    h2 { font-size: ms(2); padding-bottom: 5px; border-bottom: 1px solid #ccc}
+    h2 { font-size: ms(2); }
     h3 { font-size: ms(1); }
     h4 { font-size: ms(0); }
     h5 { font-size: ms(0); }
     h6 { font-size: ms(0); }
-
-    /* Second-level lists */
-    ul, ol { padding-left: 2rem; }
-    ul { list-style-type: disc; }
-    li > ul { list-style: circle; }
-    ul > li > ul, ul > li > ol, ol > li > ul, ol > li > ol { padding-left: 4rem }
-
-    /* Code Blocks */
-    pre { margin: 0 0 2rem 0 }
   }

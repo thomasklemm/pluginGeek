@@ -6,6 +6,8 @@
 # Modernizr
 //= require foundation/modernizr.foundation
 
+//= require readme
+
 
 
 

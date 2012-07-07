@@ -23,11 +23,10 @@ meta name='viewport' content='width=device-width'
 = stylesheet_link_tag '//get.pictos.cc/fonts/1689/2'
 = stylesheet_link_tag 'application'
 
-/ javascripts in head
-/   (jquery is placed in body)
-= javascript_include_tag 'application_head'
+/ javascripts
 / jquery
 = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
+= javascript_include_tag 'application_head'
 / knight
 = javascript_include_tag 'application_body'
 
