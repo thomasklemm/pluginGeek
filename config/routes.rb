@@ -20,7 +20,7 @@
 #                  GET /mu-a4ca81c6-8526fed8-0bc25966-0b2cc605(.:format) application#blitz
 #           static GET /:id(.:format)                                    pages#show
 #             root     /                                                 categories#index
-#             page     /pages/*id
+#             page     /pages/*id                                        high_voltage/pages#show
 
 Knight::Application.routes.draw do
 
@@ -122,4 +122,4 @@ Knight::Application.routes.draw do
   # You can have the root of your site routed with "root"
 
   # See how all your routes lay out with "rake routes"
-end                                      high_voltage/pages#show
+end

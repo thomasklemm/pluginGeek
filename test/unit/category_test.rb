@@ -14,6 +14,10 @@
 #  updated_at    :datetime         not null
 #  watcher_count :integer
 #
+# Indexes
+#
+#  index_categories_on_slug  (slug) UNIQUE
+#
 
 require 'test_helper'
 

@@ -16,6 +16,10 @@
 #  updated_at        :datetime         not null
 #  watchers          :integer
 #
+# Indexes
+#
+#  index_repos_on_full_name  (full_name) UNIQUE
+#
 
 require 'test_helper'
 
