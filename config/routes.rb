@@ -1,3 +1,27 @@
+#== Route Map
+# Generated on 07 Jul 2012 23:55
+#
+#            login GET /login(.:format)                                  sessions#login
+#   oauth_callback     /oauth/callback(.:format)                         oauths#callback
+# auth_at_provider     /oauth/:provider(.:format)                        oauths#oauth
+#       categories GET /categories(.:format)                             categories#index
+#    edit_category GET /categories/:id/edit(.:format)                    categories#edit
+#         category GET /categories/:id(.:format)                         categories#show
+#                  PUT /categories/:id(.:format)                         categories#update
+#         language GET /:language(/:scope)(.:format)                     categories#index {:language=>/ruby|js|design/i, :scope=>/categories/}
+#                  GET /:language/:scope(.:format)                       repos#index {:language=>/ruby|js|design/i, :scope=>/repos/}
+#                  GET /repos/:owner/:name/edit(.:format)                repos#edit {:name=>/[^\/]+(?=\.html\z)|[^\/]+/}
+#                  GET /repos/:owner/:name/create(.:format)              repos#create {:name=>/[^\/]+(?=\.html\z)|[^\/]+/}
+#                  GET /repos/:owner/:name(/*leftover)(.:format)         repos#show {:name=>/[^\/]+(?=\.html\z)|[^\/]+/}
+#                  PUT /repos/:owner/:name(.:format)                     repos#update {:name=>/[^\/]+(?=\.html\z)|[^\/]+/}
+#            repos GET /repos(.:format)                                  repos#index
+#        edit_repo GET /repos/:id/edit(.:format)                         repos#edit
+#             repo GET /repos/:id(.:format)                              repos#show
+#                  GET /mu-a4ca81c6-8526fed8-0bc25966-0b2cc605(.:format) application#blitz
+#           static GET /:id(.:format)                                    pages#show
+#             root     /                                                 categories#index
+#             page     /pages/*id
+
 Knight::Application.routes.draw do
 
   # Oauth
@@ -98,4 +122,4 @@ Knight::Application.routes.draw do
   # You can have the root of your site routed with "root"
 
   # See how all your routes lay out with "rake routes"
-end
+end                                      high_voltage/pages#show

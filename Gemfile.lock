@@ -31,6 +31,8 @@ GEM
     acts-as-taggable-on (2.3.1)
       rails (~> 3.0)
     addressable (2.2.8)
+    annotate (2.5.0.pre1)
+      rake
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bourbon (2.1.1)
@@ -182,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  annotate (>= 2.5.0.pre1)
   bourbon (~> 2.1.0)
   coffee-rails
   compass-rails
