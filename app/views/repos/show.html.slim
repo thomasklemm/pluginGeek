@@ -1,17 +1,5 @@
 / repos/show.html.slim
 
-/ Request Readme from Github
-javascript:
-  $.ajax({
-    url: "https://api.github.com/repos/#{ @repo.owner }/#{ @repo.name }/readme",
-    headers: {
-      'Accept': 'application/vnd.github.html'
-    },
-    success: function(data) {
-      $('#ReadmeTab').html(data)
-    }
-  });
-
 / Repo Header
 .repo_header
   
@@ -69,9 +57,13 @@ javascript:
     dd.active = link_to 'Readme', '#Readme', id: 'readme_tab'
     dd        = link_to 'Alternatives', '#Alternatives', id: 'alternatives_tab'
 
+  / Tabs Content
   ul class='tabs-content contained'
+  
     / Readme Tab Content
-    li#ReadmeTab.active: em Loading Readme for #{ @repo.full_name } ...
+    li#ReadmeTab.active
+      .readme_js data-owner=@repo.owner data-repo=@repo.name
+
     / Alternatives Tab Content
     li#AlternativesTab
       - unless @alternatives.nil?

@@ -11,10 +11,14 @@
 //= require foundation/jquery.tooltips
 //= require foundation/foundation
 
+# Readme
+//= require readme
+
 # Knight
 //= require categories
 //= require repos
 //= require users
+
 
 $ ->
   # Sort Buttons -> Mark sorted one as active
