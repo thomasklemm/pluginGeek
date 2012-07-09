@@ -7,16 +7,13 @@
 #  description   :text
 #  id            :integer          not null, primary key
 #  knight_score  :integer
+#  label         :string(255)
 #  name          :string(255)
 #  popular_repos :string(255)
 #  repo_count    :integer
 #  slug          :string(255)
 #  updated_at    :datetime         not null
 #  watcher_count :integer
-#
-# Indexes
-#
-#  index_categories_on_slug  (slug) UNIQUE
 #
 
 class Category < ActiveRecord::Base

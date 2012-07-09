@@ -16,10 +16,6 @@
 #  remember_me_token_expires_at :datetime
 #  updated_at                   :datetime         not null
 #
-# Indexes
-#
-#  index_users_on_remember_me_token  (remember_me_token)
-#
 
 require 'test_helper'
 

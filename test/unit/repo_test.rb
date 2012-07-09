@@ -11,14 +11,11 @@
 #  homepage_url      :string(255)
 #  id                :integer          not null, primary key
 #  knight_score      :integer
+#  label             :string(255)
 #  name              :string(255)
 #  owner             :string(255)
 #  updated_at        :datetime         not null
 #  watchers          :integer
-#
-# Indexes
-#
-#  index_repos_on_full_name  (full_name) UNIQUE
 #
 
 require 'test_helper'
