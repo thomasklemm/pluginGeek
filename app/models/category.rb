@@ -49,6 +49,6 @@ class Category < ActiveRecord::Base
 
   # Attribute Defaults
   def description
-   self[:description].present? ? self[:description] : ""
+   self[:description].present? ? self[:description] : " "
   end
 end
