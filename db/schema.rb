@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120704112549) do
+ActiveRecord::Schema.define(:version => 20120709201646) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20120704112549) do
     t.integer  "knight_score"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "label"
   end
 
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20120704112549) do
     t.datetime "github_updated_at"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "label"
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
