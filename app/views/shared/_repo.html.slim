@@ -12,6 +12,11 @@
   / Watchers
   span.watchers data-icon='h' = repo.watchers
 
+  / Label
+  - if repo.label
+    = link_to repo do
+      span.label = repo.label
+
   / Description
   .description  = repo.description
 
