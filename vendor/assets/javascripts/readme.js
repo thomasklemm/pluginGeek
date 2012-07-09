@@ -1,7 +1,7 @@
 /* 
   Readme.js
   by Thomas Klemm, Twitter: @thomasjklemm, Github: thomasklemm
-  Last modified: 2012/07/05
+  Last modified: 2012/07/07
   License: MIT
 
   Styling of Readme using Github Markup and CSS Code
