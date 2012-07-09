@@ -4,14 +4,19 @@
 .category
 
   / Name
-  = link_to category_url(category, subdomain: false) do
+  = link_to category do
     == category_name_helper(category.name)
 
   / Watchers
   span.watcher_count data-icon='h' = category.watcher_count
 
+  / Label
+  - if category.label
+    = link_to category do
+      span.label = category.label
+
   / Description
-  /     Note: truncate helper counts html link characters when calculating length
+  /   Note: truncate helper counts html link characters when calculating length
   - category_link = capture do 
     = link_to ' ... &raquo;'.html_safe, category_url(category, subdomain: false)
   span.description =raw truncate(category.description, length: 230, separator: ' ', omission: '2yXCBT').gsub('2yXCBT', category_link)
