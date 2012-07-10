@@ -133,11 +133,11 @@ protected
 
     # Remove Homepage if it is the same as github_url
     #   (does not work if https:// is substituted with http://)
-    repo[:homepage_url] = nil if repo[:homepage_url] == repo[:github_url]
+    repo[:homepage_url] = "http://" + repo[:homepage_url] unless repo[:homepage_url].start_with?('http')
 
     # Limit description length
     #   REVIEW: Better way to handle this? Postgres will throw errors is length exceeds 255 characters
-    repo[:description] = repo[:description].truncate(220) if repo[:description]
+    repo[:description] = repo[:description].truncate(250) if repo[:description]
 
     # Calculate Knight Score
     repo[:knight_score] = knight_score(github_repo)
@@ -211,11 +211,11 @@ protected
     # Repo Count
     category[:repo_count] = tag.count
     # Watcher Count
-    category[:watcher_count] = repos.sum(&:watchers)
+    category[:watcher_count] = repos.sum(&:watchers.to_i)
     #   Alternative: category[:watcher_count] = repos.sum { |repo| repo.watchers }
 
     # Knight Score
-    category[:knight_score] = repos.sum(&:knight_score)
+    category[:knight_score] = repos.sum(&:knight_score.to_i)
 
     # Save category
     category.save
