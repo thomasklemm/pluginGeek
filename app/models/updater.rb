@@ -131,10 +131,14 @@ protected
     # Update every attribute individually
     repo = recursive_update_of_repo_attributes(repo, github_repo)
 
-    # Remove Homepage if it is the same as github_url
-    #   (does not work if https:// is substituted with http://)
-    repo[:homepage_url] = "http://" + repo[:homepage_url] unless repo[:homepage_url].start_with?('http')
-
+    # Make homepage_url absolute
+    #   will be relative e.g. for 'activeadmin.info'
+    if repo[:homepage_url].present?
+      repo[:homepage_url] = "http://" + repo[:homepage_url] unless repo[:homepage_url].start_with?('http')
+    else
+      repo[:homepage_url] = repo[:github_url]
+    end
+    
     # Limit description length
     #   REVIEW: Better way to handle this? Postgres will throw errors is length exceeds 255 characters
     repo[:description] = repo[:description].truncate(250) if repo[:description]
@@ -210,12 +214,15 @@ protected
 
     # Repo Count
     category[:repo_count] = tag.count
+
     # Watcher Count
-    category[:watcher_count] = repos.sum(&:watchers.to_i)
-    #   Alternative: category[:watcher_count] = repos.sum { |repo| repo.watchers }
+    # category[:watcher_count] = repos.sum(&:watchers)
+    # Note: nil.to_i => 0
+    category[:watcher_count] = repos.sum { |repo| repo.watchers.to_i }
 
     # Knight Score
-    category[:knight_score] = repos.sum(&:knight_score.to_i)
+    # category[:knight_score] = repos.sum(&:knight_score)
+    category[:knight_score] = repos.sum { |repo| repo.knight_score.to_i }
 
     # Save category
     category.save

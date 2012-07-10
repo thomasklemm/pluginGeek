@@ -21,10 +21,9 @@
   .description  = repo.description
 
   / Url
-  - url = repo.homepage_url.present? ? repo.homepage_url : repo.github_url
-  span.homepage_url = link_to url, url
+  span.homepage_url = link_to repo.homepage_url, repo.homepage_url
   / DNS Prefetch for Url
-  link rel="dns-prefetch" href="#{ url }"
+  link rel="dns-prefetch" href="#{ repo.homepage_url }"
 
   / Activity
   span.activity data-icon='t' class=activity_color(repo.github_updated_at) = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
