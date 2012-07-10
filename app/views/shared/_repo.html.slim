@@ -15,7 +15,7 @@
   / Label
   - if repo.label
     = link_to repo do
-      span.label = repo.label
+      span.label.round = repo.label
 
   / Description
   .description  = repo.description
@@ -23,40 +23,22 @@
   / Url
   - url = repo.homepage_url.present? ? repo.homepage_url : repo.github_url
   span.homepage_url = link_to url, url
-  / DNS Prefetch
+  / DNS Prefetch for Url
   link rel="dns-prefetch" href="#{ url }"
 
   / Activity
   span.activity data-icon='t' class=activity_color(repo.github_updated_at) = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
-
 
   / Stats
   .knight_score = repo.knight_score
   .updated_at   = time_ago_from_now(repo.github_updated_at)
 
   / Children
-  /- @children = Repo.tagged_with(repo.full_name, on: :parents).order_knight_score
-  - if @children.present?
-    - @children.each do |repo|
-
-      / Child Repo
-      .child.repo
-
-        / Owner and Name
-        span.owner_and_name
-          = link_to repo.github_url, target: :blank do
-            span.name = repo.name
-            | &nbsp;by&nbsp;
-            span.owner = repo.owner
-
-        / Stats
-        span.watchers data-icon='h' = repo.watchers
-
-        / Activity
-        span.activity data-icon='t' class=activity_color(repo.github_updated_at) = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
-
-        div
-          / Description
-          span.description  = repo.description
-
-          span.show data-icon='T' = link_to 'Show', repo
+  - if repo.children
+    - children_count = repo.children.split(', ').length
+    .tiny.secondary.button.plugins_button = pluralize(children_count, 'Plugin')
+    - repo.children.split(', ').each do |full_name|
+      - if full_name
+        - repo = Repo.find_by_full_name(full_name)
+        - if repo
+          = render partial: 'shared/repo_child', locals: { repo: repo }

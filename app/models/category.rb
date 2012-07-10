@@ -15,6 +15,10 @@
 #  updated_at    :datetime         not null
 #  watcher_count :integer
 #
+# Indexes
+#
+#  index_categories_on_slug  (slug) UNIQUE
+#
 
 class Category < ActiveRecord::Base
 
@@ -49,6 +53,6 @@ class Category < ActiveRecord::Base
 
   # Attribute Defaults
   def description
-   self[:description].present? ? self[:description] : ""
+   self[:description].present? ? self[:description] : " "
   end
 end
