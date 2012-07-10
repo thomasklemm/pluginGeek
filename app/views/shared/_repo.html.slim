@@ -34,10 +34,9 @@
 
   / Children
   - if repo.children
-    - children_count = repo.children.split(', ').length
+    - children_array = repo.children.split(', ')
+    - children_count = children_array.length
     .tiny.secondary.button.plugins_button = pluralize(children_count, 'Plugin')
-    - repo.children.split(', ').each do |full_name|
-      - if full_name
-        - repo = Repo.find_by_full_name(full_name)
-        - if repo
-          = render partial: 'shared/repo_child', locals: { repo: repo }
+    - children = Repo.find_all_by_full_name(children_array)
+    - if children
+      = render partial: 'shared/repo_child', collection: children, as: :repo

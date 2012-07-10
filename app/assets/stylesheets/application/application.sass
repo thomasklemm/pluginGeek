@@ -76,8 +76,8 @@ dl.sort_list
     color: #fff
     padding: 4px 10px 5px
 
-// Languages List & Scopes List
-dl.languages_list, dl.scopes_list
+// Languages List
+dl.languages_list
   display: block
   width: auto
   clear: both
@@ -89,14 +89,16 @@ dl.languages_list, dl.scopes_list
     margin-top: 1.2rem
     clear: both
   dt
-    color: #999
-    font-weight: normal
+    color: #555
+    font-weight: bold
   dd
     a
       text-decoration: none
       @include border-radius(1000px)
       font-weight: bold
       padding-left: 12px
+      &:hover
+        text-decoration: underline
 
     &.active a
       font-weight: bold
@@ -104,6 +106,8 @@ dl.languages_list, dl.scopes_list
       color: #fff
       padding: 5px 12px 6px
       margin-top: 1.4rem !important
+      &:hover
+        text-decoration: none
 
   dd:last-child
     margin-bottom: 1rem !important
@@ -111,7 +115,7 @@ dl.languages_list, dl.scopes_list
 // Media Queries
 @media screen and (max-width: 768px)
   // Languages & Scopes Lists
-  dl.languages_list, dl.scopes_list
+  dl.languages_list
     dt, dd
       clear: none
     dd:last-child
@@ -123,4 +127,27 @@ dl.languages_list, dl.scopes_list
   // Topbar Slogan
   #topbar .slogan
     display: none
+
+// Colors for Languages List
+dl.languages_list
+  .ruby
+    dd.active
+      a
+        background: $rubyColor
+        &:hover
+          background: lighten($rubyColor, 8%)
+
+  .js
+    dd.active
+      a
+        background: $jsColor
+        &:hover
+          background: lighten($jsColor, 8%)
+
+  .design
+    dd.active
+      a
+        background: $designColor
+        &:hover
+          background: lighten($designColor, 4%)
 

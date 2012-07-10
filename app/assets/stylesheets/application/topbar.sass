@@ -3,7 +3,7 @@
 @import 'bourbon'
 
 #topbar
-  background: #445F96
+  background: $mainColor
   line-height: 51px /* center text vertically */
   color: #eee
 
@@ -52,3 +52,17 @@
 
     .login
       float: right
+      color: #fff
+      border-bottom: 1px solid #aaa
+      &:hover
+        color: #ddd
+
+
+// Topbar Colors
+#topbar
+  &.ruby
+    background: $rubyColor
+  &.js
+    background: $jsColor
+  &.design
+    background: $designColor

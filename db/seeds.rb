@@ -51,7 +51,7 @@ seeds = [
   {name: 'Background Jobs: Scheduling Jobs & Recurring Events', lang: 'Ruby', repos: %w(bvandenbos/resque-scheduler tomykaira/clockwork javan/whenever jmettraux/rufus-scheduler zencoder/recurrent seejohnrun/ice_cube), description: ""},
 
   # C
-  {name: 'Chat Servers', lang: 'Ruby/JS', repos: %w(negativecode/vines gravityonmars/Balloons.IO), description: ""},
+  {name: 'Chat Servers', lang: 'JS/Ruby', repos: %w(negativecode/vines gravityonmars/Balloons.IO), description: ""},
   {name: 'Charts & Graphs', lang: 'Ruby', repos: %w(topfunky/gruff), description: ""},
   # Coffeescript
   {name: 'Coffeescript: Guides / Styleguides', lang: 'JS', repos: %w(polarmobile/coffeescript-style-guide), description: ''},
@@ -113,7 +113,7 @@ seeds = [
 
   # G
   {name: 'Git: Guides / Styleguides / Learning Git', lang: 'Ruby/JS', repos: %w(rogerdudler/git-guide blynn/gitmagic nvie/gitflow), description: ''},
-  {name: 'Git: Accessing Git from Ruby', lang: 'Ruby/JS', repos: %w(mojombo/grit judofyr/gash schacon/ruby-git), description: ""},
+  {name: 'Git: Accessing Git from Ruby', lang: 'Ruby', repos: %w(mojombo/grit judofyr/gash schacon/ruby-git), description: ""},
   {name: 'Git: Self-Hosted Git Servers', lang: 'Ruby/JS', repos: %w(gitlabhq/gitlabhq toolmantim/bananajour), description: ""},
   {name: 'Git: Apps / GUIs', lang: 'Ruby/JS', repos: %w(Caged/gitnub), description: ""},
   {name: 'Git: Commit Messages', lang: 'Ruby/JS', repos: %w(mroth/lolcommits), description: ""},
@@ -127,9 +127,9 @@ seeds = [
 
   # I
   {name: 'Mobile: Backend', lang: 'JS', repos: %w(adelevie/parse-ruby-client), description: ""},
-  {name: 'Mobile: Text Editor Helpers', lang: 'JS/Ruby/Design', repos: %w(rubymotion/BubbleWrap rubymotion/teacup diemer/RubyMotionSublimeCompletions), description: ""},
+  {name: 'Mobile: Text Editor Helpers', lang: 'JS', repos: %w(rubymotion/BubbleWrap rubymotion/teacup diemer/RubyMotionSublimeCompletions), description: ""},
   {name: 'ActiveModel: Validations', lang: 'Ruby', repos: %w(Fingertips/validation-sets alexdunae/validates_email_format_of Fingertips/validates_email-san hallelujah/valid_email perfectline/validates_email pluginaweek/validates_as_email_address spectator/validates_email balexand/email_validator mpalmer/email-address-validator codyrobbins/active-model-email-validator), description: ""},
-  {name: 'Development: File System Watchers', lang: 'Ruby/JS/Design', repos: %w(guard/guard alloy/kicker), description: "Watch the file system and trigger actions (i.e. automatic compilation or browser reload) on file changes."},
+  {name: 'Development: File System Watchers', lang: 'Ruby', repos: %w(guard/guard alloy/kicker), description: "Watch the file system and trigger actions (i.e. automatic compilation or browser reload) on file changes."},
   {name: 'Development: Notifications', lang: 'Ruby', repos: %w(fnando/notifier), description: ""},
   {name: 'Git: Analysis', lang: 'Ruby', repos: %w(koraktor/metior), description: "Git and Github Analysis."},
   {name: 'API: Examples', lang: 'Ruby', repos: %w(500px/api-documentation), description: ""},
@@ -217,7 +217,7 @@ seeds = [
   # PDF
   {name: 'PDF: PDF & Ebook Writers', lang: 'Ruby', repos: %w(blueheadpublishing/bookshop prawnpdf/prawn igor-alexandrov/wisepdf pdfkit/pdfkit antialize/wkhtmltopdf mileszs/wicked_pdf fnando/kitabu shairontoledo/rghost walle/gimli TechnoGate/transmuter plessl/wkpdf  tcocca/active_pdftk expectedbehavior/doc_raptor_gem mbleigh/princely fnando/kitabu), description: ""},
   {name: 'PDF: Parsers', lang: 'Ruby', repos: %w(yob/pdf-reader jonmagic/grim CrossRef/pdfextract tcocca/active_pdftk), description: ""},
-  {name: 'Presentations', lang: 'Ruby/JS', repos: %w(bmcmurray/hekyll ), description: ""},
+  {name: 'Presentations', lang: 'Ruby/JS', repos: %w(bmcmurray/hekyll), description: ""},
   {name: 'Process Management', lang: 'Ruby', repos: %w(ddollar/foreman), description: ""},
   {name: 'Prototyping', lang: 'Ruby', repos: %w(jlong/serve mhs/scout-app), description: ""},
 
@@ -236,10 +236,10 @@ seeds = [
   {name: 'Security: Uncover Vulnerabilities', lang: 'Ruby', repos: %w(presidentbeef/brakeman), description: ""},
   {name: 'Statistics', lang: 'Ruby', repos: %w(thirtysixthspan/descriptive_statistics), description: ''},
   # Styling
-  {name: 'Styling: CSS Preprocessors', lang: 'Ruby/Design', repos: %w(nex3/sass chriseppstein/compass cowboyd/less.rb cloudhead/less.js), description: "Still writing plain CSS? Consider using SASS, Less, Stylus or any other preprocessor. They generally give you advanced features like variables, mixins, color functions and more. For some of them there are great mixin libraries available."},
-  {name: 'Styling: Design Frameworks', lang: 'Design/Ruby', repos: %w(twitter/bootstrap zurb/foundation h5bp/html5-boilerplate necolas/normalize.css joshuaclayton/blueprint-css), description: "Build great looking websites with ease."},
-  {name: 'Styling: Sass: Mixin Libraries', lang: 'Ruby/Design', repos: %w(thoughtbot/bourbon), description: ""},
-  {name: 'Styling: Sprite Generators', lang: 'Ruby/Design', repos: %w(jakesgordon/sprite-factory), description: ""},
+  {name: 'Views: CSS Preprocessors', lang: 'Ruby', repos: %w(nex3/sass chriseppstein/compass cowboyd/less.rb cloudhead/less.js), description: "Still writing plain CSS? Consider using SASS, Less, Stylus or any other preprocessor. They generally give you advanced features like variables, mixins, color functions and more. For some of them there are great mixin libraries available."},
+  {name: 'Design Frameworks', lang: 'Design', repos: %w(twitter/bootstrap zurb/foundation h5bp/html5-boilerplate necolas/normalize.css joshuaclayton/blueprint-css), description: "Build great looking websites with ease."},
+  {name: 'SASS Mixin Libraries', lang: 'Design', repos: %w(thoughtbot/bourbon), description: ""},
+  {name: 'Images: Sprite Generators', lang: 'Ruby', repos: %w(jakesgordon/sprite-factory), description: ""},
   {name: 'Speach: Making Ruby Speak', lang: 'Ruby', repos: %w(ruby-talks/talks), description: ""},
   {name: 'Speach: Siri Proxies', lang: 'Ruby', repos: %w(plamoni/SiriProxy), description: ""},
 
@@ -295,7 +295,7 @@ seeds = [
   # Design
   {name: 'Buttons', lang: 'Design', repos: %w(michenriksen/css3buttons thetron/css3buttons_rails_helpers necolas/css3-github-buttons ubuwaits/css3-buttons), description: ""},
   {name: 'Launch & Landing Pages', lang: 'Design', repos: %w(carmivore/comingsoon webandy/notify-me), description: "Landing Pages & Email Signup pages."},
-  {name: 'Styling: Styleguides', lang: 'Design/Ruby/JS', repos: %w(necolas/idiomatic-css csswizardry/CSS-Guidelines), description: 'Write consistent and maintainable view files. Book recommendation: The Rails View, Pragmatic Programmers.'},
+  {name: 'Styleguides', lang: 'Design', repos: %w(necolas/idiomatic-css csswizardry/CSS-Guidelines), description: 'Write consistent and maintainable view files. Book recommendation: The Rails View, Pragmatic Programmers.'},
   {name: 'Documentation', lang: 'Design', repos: %w(kneath/kss), description: ""},
   {name: 'Placeholders', lang: 'Design/JS', repos: %w(imsky/holder), description: ""},
   {name: 'Typography: Showcases', lang: 'Design', repos: %w(ubuwaits/beautiful-web-type), description: ""},
@@ -315,7 +315,7 @@ seeds = [
   {name: 'Collaboration / Project Management',lang: 'Ruby/JS', repos: %w(teambox/teambox), description: 'Team collaboration.'},
   {name: 'Rails App Tutorials', lang: 'Ruby', repos: %w(RailsApps/rails3-bootstrap-devise-cancan sferik/sign-in-with-twitter RailsApps/rails-prelaunch-signup RailsApps/rails3-mongoid-omniauth RailsApps/rails3-mongoid-devise RailsApps/rails3-bootstrap-devise-cancan RailsApps/rails3-devise-rspec-cucumber RailsApps/rails3-subdomains), description: 'Example apps and tutorials.'},
   {name: 'Textmate and Sublime Text Snippets', lang: 'Ruby/JS/Design', repos: %w(devtellect/sublime-twitter-bootstrap-snippets), description: 'Code Editor snippets. Mostly Textmate and Sublime Text. You can generally use Textmate Plugins in Sublime Text 2.'},
-  {name: 'Twitter Bootstrap for Rails', lang: 'Ruby/Design', repos: %w(mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms  metaskills/less-rails-bootstrap anjlab/bootstrap-rails yabawock/bootstrap-sass-rails xdite/bootstrap-helper yrgoldteeth/bootstrap-will_paginate decioferreira/bootstrap-generators pusewicz/twitter-bootstrap-markup-rails thomaspark/bootswatch anjlab/bootstrap-rails markdotto/bootstrap-university), description: 'Helpers for using Twitter Bootstrap with Rails.'},
+  {name: 'Twitter Bootstrap for Rails', lang: 'Ruby', repos: %w(mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms  metaskills/less-rails-bootstrap anjlab/bootstrap-rails yabawock/bootstrap-sass-rails xdite/bootstrap-helper yrgoldteeth/bootstrap-will_paginate decioferreira/bootstrap-generators pusewicz/twitter-bootstrap-markup-rails thomaspark/bootswatch anjlab/bootstrap-rails markdotto/bootstrap-university), description: 'Helpers for using Twitter Bootstrap with Rails.'},
   {name: 'Web Design Elements', lang: 'Design', repos: %w(todc/css3-google-buttons necolas/normalize.css necolas/css3-github-buttons michenriksen/css3buttons), description: 'Buttons, Form Styles, Cross-Browser Styles etc.'},
 ]
 

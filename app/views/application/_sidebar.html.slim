@@ -1,15 +1,22 @@
 / sidebar.html.slim
 
-/ scopes
-dl.scopes_list
-  dt Scopes
-  dd class=active_scope(:categories) = link_to 'Categories', language_path(language: params[:language], scope: '')
-  dd class=active_scope(:repos) = link_to 'Repos', language_path(language: params[:language], scope: :repos)
-
-
-/ languages
+/ Navigation
 dl.languages_list
-  dt Languages
-  dd class=active_language(:ruby) = link_to 'Ruby', language_path(language: :ruby, scope: params[:scope])
-  dd class=active_language(:js) = link_to 'Javascript', language_path(language: :js, scope: params[:scope])
-  dd class=active_language(:design) = link_to 'Web&nbsp;Design'.html_safe, language_path(language: :design, scope: params[:scope])
+  
+  /Ruby
+  .ruby
+    dt Ruby
+    dd class=active_navitem(:ruby, :categories) = link_to 'Categories', language_path(language: :ruby, scope: '')
+    dd class=active_navitem(:ruby, :repos) = link_to 'Repos', language_path(language: :ruby, scope: :repos)
+
+  /JS
+  .js
+    dt JS
+    dd class=active_navitem(:js, :categories) = link_to 'Categories', language_path(language: :js, scope: '')
+    dd class=active_navitem(:js, :repos) = link_to 'Repos', language_path(language: :js, scope: :repos)
+
+  /Web Design
+  .design
+    dt Web Design
+    dd class=active_navitem(:design, :categories) = link_to 'Categories', language_path(language: :design, scope: '')
+    dd class=active_navitem(:design, :repos) = link_to 'Repos', language_path(language: :design, scope: :repos)

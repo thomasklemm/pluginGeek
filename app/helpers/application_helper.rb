@@ -24,15 +24,25 @@ module ApplicationHelper
   #   Navigation
   ###
 
-  # Active Language
-  def active_language(language)
-    'active' if params[:language] == language.to_s
+  # # Active Language
+  # def active_language(language)
+  #   'active' if params[:language] == language.to_s
+  # end
+
+  # # Active Scope
+  # def active_scope(scope)
+  #   params[:scope] = 'categories' if params[:scope].blank?
+  #   'active' if params[:scope] == scope.to_s
+  # end
+
+  # Active Navitem
+  def active_navitem(language, scope)
+    params[:scope] = 'categories' if params[:scope].blank?
+    'active' if (params[:language] == language.to_s && params[:scope] == scope.to_s)
   end
 
-  # Active Scope
-  def active_scope(scope)
-    params[:scope] = 'categories' if params[:scope].blank?
-    'active' if params[:scope] == scope.to_s
+  def topbar_color
+    params[:language].to_s
   end
 
 end
