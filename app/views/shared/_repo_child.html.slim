@@ -1,0 +1,26 @@
+/ repo_child.html.slim
+
+/ Child Repo
+.child.repo_overview
+
+  / Owner and Name
+  = link_to repo do
+    span.name = repo.name
+    | &nbsp;by&nbsp;
+    span.owner = repo.owner
+
+  / Watchers
+  span.watchers data-icon='h' = repo.watchers
+
+  / Label
+  - if repo.label
+    = link_to repo do
+      span.label.round = repo.label
+
+  / Activity
+  span.activity data-icon='t' class=activity_color(repo.github_updated_at) = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+
+  / Description
+  .description  = repo.description
+
+

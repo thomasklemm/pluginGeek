@@ -12,7 +12,8 @@
   iframe.watch_button src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
   /Label
-  span.label.round = @repo.label
+  - if @repo.label
+    span.label.round = @repo.label
 
   / Description
   .description = @repo.description

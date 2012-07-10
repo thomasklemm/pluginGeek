@@ -379,12 +379,17 @@ puts 'Writing Plugins...'
 
 # Write Plugins
 plugins.each do |plugin|
-  plugin[:children].each do |child_full_name|
-    repo = Repo.find_or_initialize_by_full_name(child_full_name)
-    parents = repo.parent_list.split(', ')
-    parents << plugin[:parent]
-    repo.parent_list = parents.join(', ')
-    repo.save
+  # Children
+  #   Makes sure children are being entered if they have no category
+  plugin[:children].each do |full_name|
+    Repo.find_or_create_by_full_name(full_name)
+  end
+
+  # Write Association
+  parent = Repo.find_by_full_name(plugin[:parent])
+  if parent
+    parent.children = plugin[:children].join(', ')
+    parent.save
   end
 end
 
