@@ -162,28 +162,27 @@ Related Categories
 
 User Management: Authentication
 
-User authentication is required in almost every application.
+**User authentication is required in almost every application.**
 
-Authenticating Users typically involves setting up a user model, sessions controller, login & logout views, cookie handling etc. and can be extended to allow users to authorize from external services such as Twitter or Facebook. If this is the first time you are involved in authentication, Ryan Bates ([RailsCasts](http://railscasts.com/)) recommends building authentication from scratch to get to know the many details and moving parts that are involved in this matter. The RailsCasts listed below are a great place to start.
+Authenticating Users typically involves setting up a user model, sessions controller, login & logout views, cookie handling etc. and can be extended to allow users to authorize from external services such as Twitter or Facebook. 
 
-RailsCasts:
+If this is the first time you are involved in authentication, Ryan Bates ([RailsCasts](http://railscasts.com/)) recommends building authentication from scratch to get to know the many details and moving parts that are involved in this matter. The RailsCasts listed below are a great place to start.
+
+# RailsCasts:
 - [Authentication from Scratch (revised)](http://railscasts.com/episodes/250-authentication-from-scratch-revised) - Simple password authentication is easy to do with has_secure_password. Here you will learn how to make a complete Sign Up, Log In, and Log Out process as well as restrict access to certain actions.
 - [Authentication with Sorcery](http://railscasts.com/episodes/283-authentication-with-sorcery) - Sorcery is a full-featured, modular solution to authentication which leaves the controller and view layers up to you.
 - [Authentication in Rails 3.1](http://railscasts.com/episodes/270-authentication-in-rails-3-1) - Here I show off three new features in Rails 3.1 that will help with authentication: easier HTTP Basic Authentication, SecurePassword in the database, and forcing SSL.
 - [Authentication from Scratch (free, Jan. 2011)](http://railscasts.com/episodes/250-authentication-from-scratch) - Password authentication is not too complicated to make from scratch, it will also help to get a better understanding of how it works.
-- [All 20+ RailsCasts on Authorization](http://railscasts.com/?tag_id=25) 
-
-RailsCasts on Authorization through an External Provider via OAuth (Facebook, Twitter, Github ...):
 - [Facebook Authentication](http://railscasts.com/episodes/360-facebook-authentication) - This will show how to create a new facebook application and configure it. Then add some authentication with the omniauth-facebook gem and top it off with a client-side authentication using the JavaScript SDK
 - [Simple OmniAuth (revised)](http://railscasts.com/episodes/241-simple-omniauth-revised) - OmniAuth makes it easy to do user authentication through a third party provider such as Twitter or Facebook. Learn a simple approach in this episode.
-- [All 20+ RailsCasts on Authorization](http://railscasts.com/?tag_id=25)
+- [All 20+ RailsCasts on Authorization & Authorizing through an external provider](http://railscasts.com/?tag_id=25)
 
-Docs & Reading:
+# Docs & Reading:
 - [Rails authentication today: Options for 3.0 and 3.1](http://everydayrails.com/2011/09/21/rails-authentication.html) - A look at the current Rails authentication landscape (published 09/2011)
 - [OAuth 2.0](http://oauth.net/2/) - OAuth 2.0 is the next evolution of the OAuth protocol which was originally created in late 2006. OAuth 2.0 focuses on client developer simplicity while providing specific authorization flows for web applications, desktop applications, mobile phones, and living room devices.
 
-Related Categories Knight.io:
-- [User Management: Authorization] - ...
+# Related Categories Knight.io:
+- [User Management: Authorization]() - ...
 
 -----
 

@@ -11,8 +11,9 @@
 //= require foundation/jquery.tooltips
 //= require foundation/foundation
 
-# Readme
+# Readme & Autogrow
 //= require readme
+//= require jquery.autogrow
 
 # Knight
 //= require categories
@@ -52,3 +53,6 @@ $ ->
     list.page = 2500
     list.update()
     button.hide()
+
+  # Category Markdown Description Textarea Autogrow
+  $('#category_md_description').autoGrow()

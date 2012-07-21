@@ -1,0 +1,367 @@
+// categories/categories_description.sass
+
+.category_header .description
+  //-webkit-box-sizing: border-box
+  //font-size: 14px
+  //line-height: 1.6
+  //color: #333
+  //-webkit-font-smoothing: antialiased
+  > *
+    &:first-child
+      margin-top: 0 !important
+    &:last-child
+      margin-bottom: 0 !important
+  h1, h2, h3, h4, h5, h6
+    margin: 20px 0 6px
+    padding: 0
+    font-weight: bold
+    cursor: text
+    position: relative
+  h1
+    font-size: 16px
+    color: #000
+    //padding-bottom: 5px
+    //border-bottom: 1px solid #ccc
+  h2
+    font-size: 16px
+    color: #000
+  h3
+    font-size: 16px
+  h4
+    font-size: 15px
+  h5
+    font-size: 14px
+  h6
+    color: #555
+    font-size: 14px
+  p, blockquote, ul, ol, dl, table, pre
+    margin: 15px 0
+    font-size: 15px
+  hr
+    border: 0 none
+    border-bottom: 1px solid #ccc
+    color: #ccc
+    height: 4px
+    padding: 0
+  >
+    h2:first-child
+      margin-top: 0
+      padding-top: 0
+    h1:first-child
+      margin-top: 0
+      padding-top: 0
+      + h2
+        margin-top: 0
+        padding-top: 0
+    h3:first-child, h4:first-child, h5:first-child, h6:first-child
+      margin-top: 0
+      padding-top: 0
+  a:first-child
+    h1, h2, h3, h4, h5, h6
+      margin-top: 0
+      padding-top: 0
+  h1 p, h2 p, h3 p, h4 p, h5 p, h6 p
+    margin-top: 0
+  li p.first
+    display: inline-block
+  ul
+    list-style: disc
+    padding-left: 30px
+    margin-top: 0
+  ol
+    list-style: decimal
+    padding-left: 30px
+    margin-top: 0
+  ul.no-list, ol.no-list
+    list-style-type: none
+    padding: 0
+  ul :first-child, ol :first-child
+    margin-top: 0
+  dl
+    padding: 0
+    dt
+      font-size: 14px
+      font-weight: bold
+      font-style: italic
+      padding: 0
+      margin: 15px 0 5px
+      &:first-child
+        padding: 0
+      >
+        \:first-child
+          margin-top: 0
+        \:last-child
+          margin-bottom: 0
+    dd
+      margin: 0 0 15px
+      padding: 0 15px
+      >
+        \:first-child
+          margin-top: 0
+        \:last-child
+          margin-bottom: 0
+  blockquote
+    border-left: 4px solid #ddd
+    padding: 0 15px
+    color: #777
+    >
+      \:first-child
+        margin-top: 0
+      \:last-child
+        margin-bottom: 0
+  table
+    padding: 0
+    tr
+      border-top: 1px solid #ccc
+      background-color: #fff
+      margin: 0
+      padding: 0
+      &:nth-child(2n)
+        background-color: #f8f8f8
+      th
+        font-weight: bold
+        border: 1px solid #ccc
+        text-align: left
+        margin: 0
+        padding: 6px 13px
+      td
+        border: 1px solid #ccc
+        text-align: left
+        margin: 0
+        padding: 6px 13px
+      th :first-child, td :first-child
+        margin-top: 0
+      th :last-child, td :last-child
+        margin-bottom: 0
+  img
+    max-width: 100%
+  span
+    &.frame
+      display: block
+      overflow: hidden
+      > span
+        border: 1px solid #ddd
+        display: block
+        float: left
+        overflow: hidden
+        margin: 13px 0 0
+        padding: 7px
+        width: auto
+      span
+        img
+          display: block
+          float: left
+        span
+          clear: both
+          color: #333
+          display: block
+          padding: 5px 0 0
+    &.align-center
+      display: block
+      overflow: hidden
+      clear: both
+      > span
+        display: block
+        overflow: hidden
+        margin: 13px auto 0
+        text-align: center
+      span img
+        margin: 0 auto
+        text-align: center
+    &.align-right
+      display: block
+      overflow: hidden
+      clear: both
+      > span
+        display: block
+        overflow: hidden
+        margin: 13px 0 0
+        text-align: right
+      span img
+        margin: 0
+        text-align: right
+    &.float-left
+      display: block
+      margin-right: 13px
+      overflow: hidden
+      float: left
+      span
+        margin: 13px 0 0
+    &.float-right
+      display: block
+      margin-left: 13px
+      overflow: hidden
+      float: right
+      > span
+        display: block
+        overflow: hidden
+        margin: 13px auto 0
+        text-align: right
+  h1
+    tt, code
+      font-size: inherit
+  h2
+    tt, code
+      font-size: inherit
+  h3
+    tt, code
+      font-size: inherit
+  h4
+    tt, code
+      font-size: inherit
+  h5
+    tt, code
+      font-size: inherit
+  h6
+    tt, code
+      font-size: inherit
+  code, tt
+    margin: 0 2px
+    padding: 0 5px
+    white-space: normal
+    word-wrap: break-word
+    border: 1px solid #eaeaea
+    background-color: #f8f8f8
+    border-radius: 3px
+    font-size: 13px
+  pre code
+    margin: 0
+    padding: 0
+    white-space: pre
+    border: none
+    background: transparent
+  .highlight pre
+    background-color: #f8f8f8
+    border: 1px solid #ccc
+    font-size: 13px
+    line-height: 19px
+    overflow: auto
+    padding: 6px 10px
+    border-radius: 3px
+  pre
+    background-color: #f8f8f8
+    border: 1px solid #ccc
+    font-size: 13px
+    line-height: 19px
+    overflow: auto
+    padding: 6px 10px
+    border-radius: 3px
+    code, tt
+      background-color: transparent
+      border: none
+
+.highlight
+  background: #fff
+  .c
+    color: #998
+    font-style: italic
+  .err
+    color: #a61717
+    background-color: #e3d2d2
+  .k, .o
+    font-weight: bold
+  .cm
+    color: #998
+    font-style: italic
+  .cp
+    color: #999
+    font-weight: bold
+  .c1
+    color: #998
+    font-style: italic
+  .cs
+    color: #999
+    font-weight: bold
+    font-style: italic
+  .gd
+    color: #000
+    background-color: #fdd
+    .x
+      color: #000
+      background-color: #faa
+  .ge
+    font-style: italic
+  .gr
+    color: #a00
+  .gh
+    color: #999
+  .gi
+    color: #000
+    background-color: #dfd
+    .x
+      color: #000
+      background-color: #afa
+  .go
+    color: #888
+  .gp
+    color: #555
+  .gs
+    font-weight: bold
+  .gu
+    color: purple
+    font-weight: bold
+  .gt
+    color: #a00
+  .kc, .kd, .kn, .kp, .kr
+    font-weight: bold
+  .kt
+    color: #458
+    font-weight: bold
+  .m
+    color: #099
+  .s
+    color: #d14
+  .na
+    color: teal
+  .nb
+    color: #0086b3
+  .nc
+    color: #458
+    font-weight: bold
+  .no
+    color: teal
+  .ni
+    color: purple
+  .ne, .nf
+    color: #900
+    font-weight: bold
+  .nn
+    color: #555
+  .nt
+    color: navy
+  .nv
+    color: teal
+  .ow
+    font-weight: bold
+  .w
+    color: #bbb
+  .mf, .mh, .mi, .mo
+    color: #099
+  .sb, .sc, .sd, .s2, .se, .sh, .si, .sx
+    color: #d14
+  .sr
+    color: #009926
+  .s1
+    color: #d14
+  .ss
+    color: #990073
+  .bp
+    color: #999
+  .vc, .vg, .vi
+    color: teal
+  .il
+    color: #099
+  .gc
+    color: #999
+    background-color: #eaf2f5
+  .k, .kt
+    color: blue
+  .nf
+    color: #000
+    font-weight: normal
+  .nc
+    color: #2b91af
+  .nn
+    color: #000
+  .s, .sc
+    color: #a31515

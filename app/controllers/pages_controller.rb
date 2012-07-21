@@ -5,13 +5,7 @@ class PagesController < HighVoltage::PagesController
 protected
   
   def layout_for_page
-    # Requested Page is specified in params[:id]
-    case params[:id]
-    when 'readmejs'
-      false
-    else
-      'application'
-    end
+    'application'
   end
 
 end

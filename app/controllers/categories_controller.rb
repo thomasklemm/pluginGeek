@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   def index
     # Find categories (all or limited to language)
-    @categories = Category.tagged_with_language(params[:language]).has_repos.order_knight_score.overview_attributes
+    @categories = Category.tagged_with_language(params[:language]).load_overview_attributes.order_knight_score
   end
 
   # GET /categories/:id
@@ -35,17 +35,33 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
 
-    # Squish description if present
-    params[:category][:description] &&= params[:category][:description].squish
+    # Short Description: Render Markdown & Strip Tags & Squish 
+    #  To remove links and emphasis if someone accidentally inputs markdown or mischiefiously inputs <script> tags
+    params[:category][:short_description] &&= view_context.strip_tags(markdown.render(params[:category][:short_description])).squish
 
     if @category.update_attributes(params[:category])
-      # REVIEW: maybe squish description?
-      flash[:notice] = 'Category updated. Thanks a lot!'
-      redirect_to action: 'show'
+      # Render Markdown Description and save as description
+      @category.description = markdown.render(@category.md_description)
+      
+      if @category.save
+        flash[:notice] = 'Category updated. Thanks a lot!'
+        redirect_to action: 'show'
+      else
+        flash[:alert] = 'Markdown rendering failed. Please alert me if you see this.'
+        redirect_to action: 'show'
+      end
+      
     else
       flash[:alert] = "Category update failed. Please let me know if you assume this is a bug."
       redirect_to action: 'show'
     end
+  end
+
+protected
+
+  def markdown
+    # See Redcarpet options: https://github.com/tanoku/redcarpet
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, safe_links_only: true, with_toc_data: true, hard_wrap: true, no_intra_emphasis: true, autolink: true)
   end
 
 end
