@@ -34,13 +34,13 @@ class Category < ActiveRecord::Base
   # Scopes
   #   Tagged with language or all depending on presence of language
   scope :tagged_with_language, lambda { |language| tagged_with(language.downcase, on: :languages) if language.present? }
-
   #   Visibility only of categories that have repos associated with them
   scope :has_repos, where('repo_count > 0')
-
   #   Order
   scope :order_knight_score, order('knight_score desc')
   scope :order_watcher_count, order('watcher_count desc')
+  #   Attribute Selections
+  scope :load_overview_attributes, select([:name, :slug, :watcher_count, :label, :short_description, :repo_count, :popular_repos, :all_repos, :knight_score])
 
   # Validations
   after_validation :move_friendly_id_error_to_name
@@ -48,11 +48,16 @@ class Category < ActiveRecord::Base
     errors.messages[:name] = errors.messages.delete(:friendly_id)
   end
 
-  # Mass Assignment Whitelist
-  attr_accessible :description
-
   # Attribute Defaults
   def description
    self[:description].present? ? self[:description] : " "
   end
+
+  def short_description
+   self[:short_description].present? ? self[:short_description] : " "
+  end
+
+  # Mass Assignment Whitelist
+  attr_accessible :short_description, :md_description
+  
 end

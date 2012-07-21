@@ -1,17 +1,27 @@
 // application.css.sass
 
-// Bourbon SASS Mixins
-@import 'bourbon'
+// Normalize.css
+@import 'normalize'
 
 // Foundation Framework
+$base-size: 15px 48px
+$rubyColor: #912
+$jsColor: #33a
+$designColor: #077
+$mainColor: #5959BA
 @import 'foundation'
+@import 'application/foundation_overrides'
 
+
+// Bourbon SASS Mixins
+@import 'bourbon'
 
 // Application
 @import 'application/application'
 
 // Categories
 @import 'categories/categories'
+@import 'categories/category_description'
 
 // Repos
 @import 'repos/repos'

@@ -162,36 +162,35 @@ Related Categories
 
 User Management: Authentication
 
-User authentication is required in almost every application.
+**User authentication is required in almost every application.**
 
-Authenticating Users typically involves setting up a user model, sessions controller, login & logout views, cookie handling etc. and can be extended to allow users to authorize from external services such as Twitter or Facebook. If this is the first time you are involved in authentication, Ryan Bates ([RailsCasts](http://railscasts.com/)) recommends building authentication from scratch to get to know the many details and moving parts that are involved in this matter. The RailsCasts listed below are a great place to start.
+Authenticating Users typically involves setting up a user model, sessions controller, login & logout views, cookie handling etc. and can be extended to allow users to authorize from external services such as Twitter or Facebook. 
 
-RailsCasts:
-- [Authentication from Scratch (revised)](http://railscasts.com/episodes/250-authentication-from-scratch-revised) - Simple password authentication is easy to do with has_secure_password. Here you will learn how to make a complete Sign Up, Log In, and Log Out process as well as restrict access to certain actions.
-- [Authentication with Sorcery](http://railscasts.com/episodes/283-authentication-with-sorcery) - Sorcery is a full-featured, modular solution to authentication which leaves the controller and view layers up to you.
-- [Authentication in Rails 3.1](http://railscasts.com/episodes/270-authentication-in-rails-3-1) - Here I show off three new features in Rails 3.1 that will help with authentication: easier HTTP Basic Authentication, SecurePassword in the database, and forcing SSL.
-- [Authentication from Scratch (free, Jan. 2011)](http://railscasts.com/episodes/250-authentication-from-scratch) - Password authentication is not too complicated to make from scratch, it will also help to get a better understanding of how it works.
-- [All 20+ RailsCasts on Authorization](http://railscasts.com/?tag_id=25) 
+If this is the first time you are involved in authentication, Ryan Bates ([RailsCasts](http://railscasts.com/)) recommends building authentication from scratch to get to know the many details and moving parts that are involved in this matter. The RailsCasts listed below are a great place to start.
 
-RailsCasts on Authorization through an External Provider via OAuth (Facebook, Twitter, Github ...):
-- [Facebook Authentication](http://railscasts.com/episodes/360-facebook-authentication) - This will show how to create a new facebook application and configure it. Then add some authentication with the omniauth-facebook gem and top it off with a client-side authentication using the JavaScript SDK
-- [Simple OmniAuth (revised)](http://railscasts.com/episodes/241-simple-omniauth-revised) - OmniAuth makes it easy to do user authentication through a third party provider such as Twitter or Facebook. Learn a simple approach in this episode.
-- [All 20+ RailsCasts on Authorization](http://railscasts.com/?tag_id=25)
-
-Docs & Reading:
+# Docs & Reading:
 - [Rails authentication today: Options for 3.0 and 3.1](http://everydayrails.com/2011/09/21/rails-authentication.html) - A look at the current Rails authentication landscape (published 09/2011)
 - [OAuth 2.0](http://oauth.net/2/) - OAuth 2.0 is the next evolution of the OAuth protocol which was originally created in late 2006. OAuth 2.0 focuses on client developer simplicity while providing specific authorization flows for web applications, desktop applications, mobile phones, and living room devices.
 
-Related Categories Knight.io:
-- [User Management: Authorization] - ...
+# RailsCasts:
+- [**Authentication from Scratch** (revised)](http://railscasts.com/episodes/250-authentication-from-scratch-revised) - Simple password authentication is easy to do with has_secure_password. Here you will learn how to make a complete Sign Up, Log In, and Log Out process as well as restrict access to certain actions.
+- [**Authentication with Sorcery**](http://railscasts.com/episodes/283-authentication-with-sorcery) - Sorcery is a full-featured, modular solution to authentication which leaves the controller and view layers up to you.
+- [Authentication in Rails 3.1](http://railscasts.com/episodes/270-authentication-in-rails-3-1) - Here I show off three new features in Rails 3.1 that will help with authentication: easier HTTP Basic Authentication, SecurePassword in the database, and forcing SSL.
+- [Authentication from Scratch (free, Jan. 2011)](http://railscasts.com/episodes/250-authentication-from-scratch) - Password authentication is not too complicated to make from scratch, it will also help to get a better understanding of how it works.
+- [Facebook Authentication](http://railscasts.com/episodes/360-facebook-authentication) - This will show how to create a new facebook application and configure it. Then add some authentication with the omniauth-facebook gem and top it off with a client-side authentication using the JavaScript SDK
+- [Simple OmniAuth (revised)](http://railscasts.com/episodes/241-simple-omniauth-revised) - OmniAuth makes it easy to do user authentication through a third party provider such as Twitter or Facebook. Learn a simple approach in this episode.
+- [All 20+ RailsCasts on Authorization & Authorizing through an external provider &raquo;](http://railscasts.com/?tag_id=25)
+
+# Related Categories:
+- [User Management: Authorization]() - ...
 
 -----
 
 Form Builders
 
-Form Builders let you generate complex forms with simple markup. Forms can easily become quite a mess when adding custom markup for styling & client-side validation. There are better ways to handle forms.
+Form Builders let you generate complex forms with simple markup. Some include options to do client-side validation using JS or HTML5 by extracting your model's validation rules, other cohere with a certain markup structure so that i.e. Twitter Bootstrap styling is automatically applied.
 
-It's recommended to get familiar with the [Rails Form Helpers](http://guides.rubyonrails.org/form_helpers.html)  first before deciding to use any Form Builder gem.
+You should get familiar with the built-in [Rails Form Helpers](http://guides.rubyonrails.org/form_helpers.html) before deciding to use any additional Form Builder.
 
 Docs & Reading:
 - [Rails Form Helpers](http://guides.rubyonrails.org/form_helpers.html) - Forms in web applications are an essential interface for user input. However, form markup can quickly become tedious to write and maintain because of form control naming and their numerous attributes. Rails deals away with these complexities by providing view helpers for generating form markup. However, since they have different use-cases, developers are required to know all the differences between similar helper methods before putting them to use.
@@ -206,7 +205,7 @@ RailsCasts:
 
 CMS
 
-A CMS is a system that provides content authoring and adminstration tools to allow users with little knowledge of programming languages to edit a website's contents with relative ease. Visual File Uploads and Image Embedding are also part. The world's most known CMS (and blogging engine) is probably [Wordpress](http://wordpress.org/) (written in PHP).
+A Content Management System provides content authoring and adminstration tools to allow users with little knowledge of programming languages to edit a website's contents with relative ease. Visual File Uploads and Image Embedding are also part. The world's most known CMS (and blogging engine) is probably [Wordpress](http://wordpress.org/) (written in PHP).
 
 If you want someone else to edit or translate just a few strings, have a look at thoughtbot's [Copycopter](http://copycopter.com/).
 
@@ -219,7 +218,9 @@ Related Categories:
 
 Ruby Implementations
 
-Implementations of the Ruby Language for a variety of platforms and use cases. Ruby MRI (Matz's Ruby Interpreter) is has been the de facto standard Ruby implementation until the specification of the Ruby language in 2011. Nowadays however, several mature implementations exist and are used by various companies in production. Among them are JRuby and Rubinius, both providing just-in-time compilation in their respective environments. RubyMotion brings Ruby to iOS, while mruby is aiming to become an embeddable Ruby runtime.
+Implementations of the Ruby Language for a variety of platforms and use cases.
+
+Ruby MRI (Matz's Ruby Interpreter) is has been the de facto standard Ruby implementation until the specification of the Ruby language in 2011. Nowadays however, several mature implementations exist and are used by various companies in production. Among them are JRuby and Rubinius, both providing just-in-time compilation in their respective environments. RubyMotion brings Ruby to iOS, while mruby is aiming to become an embeddable Ruby runtime.
 
 Docs & Reading:
 - [Ruby MRI, JRuby and Rubinius Brodown](http://www.engineyard.com/blog/2011/ruby-mri-jruby-and-rubinius-throwdown-brodown/)
@@ -251,3 +252,18 @@ Deployment: Deploying to a Cloud Server / Cloud Service
 fog puppet chef chef-knife
 
 -----
+###########
+TODO:
+###########
+
+ActionMailer: Preview Emails
+
+Preview the Emails you would be sending in your development environment instead of actually sending them.
+
+----
+
+Users: Authorization
+
+Restrict what resources a given user is allowed to access.
+
+---

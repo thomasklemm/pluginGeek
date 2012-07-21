@@ -16,5 +16,6 @@ class CreateRepos < ActiveRecord::Migration
     end
 
     add_index :repos, :full_name, unique: true
+    add_index :repos, :knight_score
   end
 end

@@ -24,17 +24,20 @@ ActiveRecord::Schema.define(:version => 20120710063704) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.text     "description"
-    t.string   "popular_repos"
-    t.text     "all_repos"
     t.integer  "repo_count"
     t.integer  "watcher_count"
     t.integer  "knight_score"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.text     "short_description"
+    t.text     "description"
+    t.text     "md_description"
+    t.string   "popular_repos"
+    t.text     "all_repos"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "label"
   end
 
+  add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "friendly_id_slugs", :force => true do |t|
@@ -47,15 +50,6 @@ ActiveRecord::Schema.define(:version => 20120710063704) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
-
-  create_table "quick_commit_messages", :force => true do |t|
-    t.string   "name"
-    t.string   "path"
-    t.text     "message"
-    t.boolean  "follow_up"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "repos", :force => true do |t|
     t.string   "full_name"
@@ -75,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20120710063704) do
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
+  add_index "repos", ["knight_score"], :name => "index_repos_on_knight_score"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

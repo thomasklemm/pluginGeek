@@ -9,19 +9,18 @@
   
   / Description
   - if params[:action] == 'edit'
-    / Edit description form
-    = form_for @category do |f|
-      = f.text_area :description, style: 'height: 20rem'
-      = f.submit 'Update Description', class: 'round button'
+    / Edit Category Descriptions Form
+    = render 'edit_category'
 
   - else
-    p.description
-      / Description
-      = @category.description
-      / Edit description link
-      = link_to edit_category_path(@category), class: 'edit_description right' do
-        / Add a description or Edit description
-        span data-icon='T' = @category.description.present? ? "Edit" : "<b>Add a description</b>".html_safe
+    / Edit description link
+    = link_to edit_category_path(@category), class: 'edit_description right' do
+      / Add a description or Edit description
+      span data-icon='T' = @category.description.present? ? "Edit Description" : "<b>Add a description</b>".html_safe
+    / Description
+    .description
+      =raw @category.description.present? ? @category.description : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe
+
 
 / Repos List
 #js_repos_list
