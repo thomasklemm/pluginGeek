@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   def index
     # Find categories (all or limited to language)
-    @categories = Category.tagged_with_language(params[:language]).has_repos.order_knight_score
+    @categories = Category.tagged_with_language(params[:language]).has_repos.order_knight_score.overview_attributes
   end
 
   # GET /categories/:id

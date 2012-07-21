@@ -189,9 +189,9 @@ Related Categories Knight.io:
 
 Form Builders
 
-Form Builders let you generate complex forms with simple markup. Forms can easily become quite a mess when adding custom markup for styling & client-side validation. There are better ways to handle forms.
+Form Builders let you generate complex forms with simple markup. Some include options to do client-side validation using JS or HTML5 by extracting your model's validation rules, other cohere with a certain markup structure so that i.e. Twitter Bootstrap styling is automatically applied.
 
-It's recommended to get familiar with the [Rails Form Helpers](http://guides.rubyonrails.org/form_helpers.html)  first before deciding to use any Form Builder gem.
+You should get familiar with the built-in [Rails Form Helpers](http://guides.rubyonrails.org/form_helpers.html) before deciding to use any additional Form Builder.
 
 Docs & Reading:
 - [Rails Form Helpers](http://guides.rubyonrails.org/form_helpers.html) - Forms in web applications are an essential interface for user input. However, form markup can quickly become tedious to write and maintain because of form control naming and their numerous attributes. Rails deals away with these complexities by providing view helpers for generating form markup. However, since they have different use-cases, developers are required to know all the differences between similar helper methods before putting them to use.
@@ -206,7 +206,7 @@ RailsCasts:
 
 CMS
 
-A CMS is a system that provides content authoring and adminstration tools to allow users with little knowledge of programming languages to edit a website's contents with relative ease. Visual File Uploads and Image Embedding are also part. The world's most known CMS (and blogging engine) is probably [Wordpress](http://wordpress.org/) (written in PHP).
+A Content Management System provides content authoring and adminstration tools to allow users with little knowledge of programming languages to edit a website's contents with relative ease. Visual File Uploads and Image Embedding are also part. The world's most known CMS (and blogging engine) is probably [Wordpress](http://wordpress.org/) (written in PHP).
 
 If you want someone else to edit or translate just a few strings, have a look at thoughtbot's [Copycopter](http://copycopter.com/).
 
@@ -219,7 +219,9 @@ Related Categories:
 
 Ruby Implementations
 
-Implementations of the Ruby Language for a variety of platforms and use cases. Ruby MRI (Matz's Ruby Interpreter) is has been the de facto standard Ruby implementation until the specification of the Ruby language in 2011. Nowadays however, several mature implementations exist and are used by various companies in production. Among them are JRuby and Rubinius, both providing just-in-time compilation in their respective environments. RubyMotion brings Ruby to iOS, while mruby is aiming to become an embeddable Ruby runtime.
+Implementations of the Ruby Language for a variety of platforms and use cases.
+
+Ruby MRI (Matz's Ruby Interpreter) is has been the de facto standard Ruby implementation until the specification of the Ruby language in 2011. Nowadays however, several mature implementations exist and are used by various companies in production. Among them are JRuby and Rubinius, both providing just-in-time compilation in their respective environments. RubyMotion brings Ruby to iOS, while mruby is aiming to become an embeddable Ruby runtime.
 
 Docs & Reading:
 - [Ruby MRI, JRuby and Rubinius Brodown](http://www.engineyard.com/blog/2011/ruby-mri-jruby-and-rubinius-throwdown-brodown/)
@@ -251,3 +253,18 @@ Deployment: Deploying to a Cloud Server / Cloud Service
 fog puppet chef chef-knife
 
 -----
+###########
+TODO:
+###########
+
+ActionMailer: Preview Emails
+
+Preview the Emails you would be sending in your development environment instead of actually sending them.
+
+----
+
+Users: Authorization
+
+Restrict what resources a given user is allowed to access.
+
+---

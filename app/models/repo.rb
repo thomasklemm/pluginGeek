@@ -43,6 +43,15 @@ class Repo < ActiveRecord::Base
   attr_accessible :full_name, :category_list
 
   # Attribute defaults
+
+  def name
+    self[:name] or self[:full_name].split('/')[1]
+  end
+
+  def owner
+    self[:name] or self[:full_name].split('/')[0]
+  end
+
   def description
     self[:description] or "No description. Add one on Github."
   end
@@ -51,6 +60,9 @@ class Repo < ActiveRecord::Base
     self[:homepage_url] or ""
   end
 
+  def github_updated_at
+    self[:github_updated_at] or (Time.now - 2.years)
+  end
   ###
   #   Updating Jobs
   ###

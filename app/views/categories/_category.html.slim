@@ -19,7 +19,7 @@
   /   Note: truncate helper counts html link characters when calculating length
   - category_link = capture do 
     = link_to ' ... &raquo;'.html_safe, category_url(category, subdomain: false)
-  span.description =raw truncate(category.description, length: 230, separator: ' ', omission: '2yXCBT').gsub('2yXCBT', category_link)
+  span.description =raw truncate(category.short_description, length: 230, separator: ' ', omission: '2yXCBT').gsub('2yXCBT', category_link)
 
   / Popular Repos
   span.repo_count #{ category.repo_count } Repos: 
