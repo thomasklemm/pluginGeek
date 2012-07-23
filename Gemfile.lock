@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/thomasklemm/foundation.git
+  revision: ffb39f4f56a3d9d0f95c071da12074d4bacdddea
+  specs:
+    zurb-foundation (3.0.6.rc2)
+      compass (>= 0.12.2)
+      rake
+      sass (>= 3.2.0.alpha.244)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -175,10 +184,6 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    zurb-foundation (3.0.6.rc7)
-      compass (>= 0.12.2)
-      rake
-      sass (>= 3.2.0.alpha.244)
 
 PLATFORMS
   ruby
@@ -208,4 +213,4 @@ DEPENDENCIES
   sorcery (~> 0.7.12)
   uglifier
   unicorn
-  zurb-foundation (>= 3.0.6.rc7)
+  zurb-foundation!
