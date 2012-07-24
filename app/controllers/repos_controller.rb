@@ -1,72 +1,81 @@
 class ReposController < ApplicationController
 
-  before_filter :require_login, only: [:edit, :update, :destroy]
+  # Before Filters
+  before_filter :require_login, only: [:edit, :update]
+  before_filter :find_repo, except: :index
+  before_filter :find_alternatives, except: :index
 
   # GET /repos
   def index
-    @repos = Repo.order_knight_score
+    @repos = Repo.overview
   end
 
   # GET /repos/:owner/:name(/*leftover)
   def show
-    @repo = Repo.find_by_full_name(full_name_from_params)
+    # Redirect to create action if @repo is a new record
+    @repo.new_record? and return redirect_to action: 'create'
 
-    # Redirect to create action if @repo has not been found
-    @repo or return redirect_to action: 'create'
-
-    # Always redirect to base
-    #   Be sure to return to finish request
-    return redirect_to @repo if params[:leftover]
-
-    # Find alternative repos
-    @alternatives = @repo.find_related_categories if @repo.category_list.present?
+    # Always redirect to repo base url without leftover 
+    #   (can be attached when coming from github via bookmarklet)
+    params[:leftover] and return redirect_to @repo
   end
 
   # GET /repos/:owner/:name/create
-  #   (POST /repos/:owner/:name could not be redirected to from 'repos#new')
   def create
-    @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
-
     # Set different flash message if repo is already known
-    @repo.new_record? or flash[:notice] = "Repo '#{@repo.full_name}' already known."
+    @repo.new_record? or flash[:notice] = "Repo '#{ @repo.full_name }' already known."
 
-    if @repo.initialize_repo_from_github
+    if @repo.add_repo
       # Reload for correct redirection path
       @repo = Repo.find_by_full_name(@repo.full_name)
-      flash[:notice] ||= "Repo '#{@repo.full_name}' successfully added."
+      flash[:notice] ||= "Added repo '#{ @repo.full_name }'. Please add a tag so it can be found."
       redirect_to @repo
     else
-      flash[:alert] = "Repo '#{@repo.full_name}' could not be added."
+      flash[:alert] = "Failed to add repo '#{ @repo.full_name }'."
       redirect_to root_path
     end
   end
 
   # GET /repos/:owner/:name/edit
   def edit
-    @repo = Repo.find_by_full_name(full_name_from_params)
     render action: :show
   end
 
   # PUT /repos/:owner/:name
   def update
-    @repo = Repo.find_by_full_name(full_name_from_params)
-
     if @repo.update_attributes(params[:repo])
 
       # Update categories based on repo tags
       Updater.update_categories_from_repos
 
-      # TODO: expire caches here
-
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'
     else
-      flash[:alert] = 'Tags could not be saved.'
-      redirect_to action: 'show'
+      flash.now.alert = 'Failed to save tags.'
+      render action: 'show'
     end
   end
 
 protected
+
+  ###
+  #   Before Filters
+  ###
+
+  # Find or initialize repo
+  def find_repo 
+    @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
+  end
+
+  # Find alternatives
+  def find_alternatives
+    # Find alternative repos
+    @alternatives = @repo.category_list.present? && @repo.find_related_categories
+  end
+
+  ###
+  #   Helper Methods
+  ###
 
   def full_name_from_params(owner = params[:owner], name = params[:name])
     "#{owner}/#{name}"

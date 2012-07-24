@@ -26,7 +26,11 @@
 class Repo < ActiveRecord::Base
 
   # Scopes
-  #   Order
+  # overview
+  scope :overview, lambda { Repo.order_knight_score }
+  # has_language
+  scope :has_category, lambda { |c_name| Repo.tagged_with(c_name, on: :categories).order_knight_score }
+  # order_knight_score
   scope :order_knight_score, order('knight_score desc')
 
   # Validations
@@ -42,14 +46,15 @@ class Repo < ActiveRecord::Base
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :category_list
 
-  # Attribute defaults
-
+  ###
+  #   Attribute defaults
+  ###
   def name
     self[:name] or self[:full_name].split('/')[1]
   end
 
   def owner
-    self[:name] or self[:full_name].split('/')[0]
+    self[:owner] or self[:full_name].split('/')[0]
   end
 
   def description
@@ -63,17 +68,20 @@ class Repo < ActiveRecord::Base
   def github_updated_at
     self[:github_updated_at] or (Time.now - 2.years)
   end
+
   ###
   #   Updating Jobs
   ###
 
-  # Send 'initialize_repo_from_github' to (new) Repo object
-  def initialize_repo_from_github
+  # Send 'add_repo' to (new) Repo object
+  def add_repo
     if Updater.initialize_repo_from_github(full_name)
       # success
+      Rails.logger.info "Added new repo '#{ repo.full_name }'"
       true
     else
-      # error
+      # failure
+      Rails.logger.warn "Failed to initialize repo '#{ repo.full_name }'"
       false
     end
   end

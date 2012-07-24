@@ -4,13 +4,10 @@ class SessionsController < ApplicationController
   def login
   end
 
-  # def redirect_to_oauth
-  #  redirect_to auth_at_provider_path(provider: :github)
-  # end
-
   # get '/logout'
   def destroy
     logout
-    redirect_to root_url, notice: 'Logged out!'
+    flash[:notice] = 'Goodbye! Hope to see you again soon, Knight!'
+    redirect_to :back
   end
 end

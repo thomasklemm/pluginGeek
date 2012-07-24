@@ -16,7 +16,7 @@
     / Edit description link
     = link_to edit_category_path(@category), class: 'edit_description right' do
       / Add a description or Edit description
-      span data-icon='T' = @category.description.present? ? "Edit" : "<b>Add a description</b>".html_safe
+      span data-icon='T' = @category.description.present? ? "Edit" : "<b>Add a detailed description</b>".html_safe
     / Description
     .description
       =raw @category.description.present? ? @category.description.split('<p>[REPOS]</p>')[0] : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe

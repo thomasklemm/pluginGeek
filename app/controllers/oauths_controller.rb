@@ -12,8 +12,9 @@ class OauthsController < ApplicationController
     if @user = login_from(provider)
 
       # known user
-      cookies.permanent.signed[:remember_me_token] = auto_login(@user, true) # remember login
-      redirect_back_or_to root_path, notice: "Logged in from #{ provider.titleize }!"
+      #   remember login
+      cookies.permanent.signed[:remember_me_token] = auto_login(@user, true)
+      redirect_back_or_to root_path, notice: "Hi, #{ @user.name }. Welcome back to Knight.io. You definitely rock!"
 
     else
       # new user
@@ -21,11 +22,12 @@ class OauthsController < ApplicationController
         # create user
         @user = create_from(provider)
         reset_session # protect from session fixation attack
-        cookies.permanent.signed[:remember_me_token] = auto_login(@user, true) # remember login
-        redirect_back_or_to root_path, notice: "Logged in from #{ provider.titleize }!"
+        # remember login
+        cookies.permanent.signed[:remember_me_token] = auto_login(@user, true)
+        redirect_back_or_to root_path, notice: "Hi, #{ @user.name }. Welcome to Knight.io. You rock!"
       rescue
         # oauth failed
-        redirect_back_or_to root_path, alert: "Failed to login from #{ provider.titleize }!"
+        redirect_back_or_to root_path, alert: "Failed to sign up or log in from #{ provider.titleize }!"
       end
 
     end

@@ -1,18 +1,17 @@
 class CategoriesController < ApplicationController
 
+  # Before Filters
   before_filter :require_login, only: [:edit, :update]
+  before_filter :find_category, except: :index
 
   # GET /categories
   def index
     # Find categories (all or limited to language)
-    @categories = Category.tagged_with_language(params[:language]).load_overview_attributes.order_knight_score
+    @categories = Category.overview(params[:language])
   end
 
   # GET /categories/:id
   def show
-    # friendly_id's slug serves as params[:id]
-    @category = Category.find(params[:id])
-
     # If an old id or a numeric id was used to find the record, then
     #   the request path will not match the category_path, and we should do
     #   a 301 redirect that uses the current friendly id.
@@ -21,22 +20,20 @@ class CategoriesController < ApplicationController
       return redirect_to @category, status: :moved_permanently
     end
 
-    @repos = Repo.tagged_with(@category.name, on: :categories).order_knight_score
+    @repos = Repo.has_category(@category.name)
   end
 
   # GET /categories/:id/edit
   def edit
-    @category = Category.find(params[:id])
-    @repos = Repo.tagged_with(@category.name, on: :categories).order_knight_score
+    @repos = Repo.has_category(@category.name)
     render action: :show
   end
 
   # PUT /categories/:id
   def update
-    @category = Category.find(params[:id])
-
-    # Short Description: Render Markdown & Strip Tags & Squish 
-    #  To remove links and emphasis if someone accidentally inputs markdown or mischiefiously inputs <script> tags
+    # Prepare Attributes
+    #   Short Description: Render Markdown & Strip Tags & Squish 
+    #     To remove links and emphasis if someone accidentally inputs markdown or mischiefiously inputs <script> tags
     params[:category][:short_description] &&= view_context.strip_tags(markdown.render(params[:category][:short_description])).squish
 
     if @category.update_attributes(params[:category])
@@ -57,6 +54,20 @@ class CategoriesController < ApplicationController
   end
 
 protected
+
+  ###
+  # Before Filters
+  ###
+
+  # Find category
+  def find_category
+    # friendly_id's slug serves as params[:id]
+    @category = Category.find(params[:id])
+  end
+
+  ###
+  #   Helper Methods
+  ###
 
   def markdown
     # See Redcarpet options: https://github.com/tanoku/redcarpet

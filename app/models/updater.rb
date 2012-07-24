@@ -42,15 +42,14 @@ class Updater
   end
 
   # Initialize (or manually update) repo
+  #   Called from Repo.model, where success or failure are being logged
   def self.initialize_repo_from_github(repo_full_name)
     repo = Repo.find_or_initialize_by_full_name(repo_full_name)
     if update_repo(repo)
       # success
-      Rails.logger.info "Added new repo '#{ repo.full_name }'"
       true
     else
       # error
-      Rails.logger.warn "Failed to initialize repo '#{ repo.full_name }'"
       false
     end
   end

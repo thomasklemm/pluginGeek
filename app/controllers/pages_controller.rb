@@ -5,6 +5,7 @@ class PagesController < HighVoltage::PagesController
 protected
   
   def layout_for_page
+    # case statement can be well applied here
     'application'
   end
 
