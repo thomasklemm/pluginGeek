@@ -14,7 +14,7 @@ gem 'pg'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
+group :development do # group :assets originally
   gem 'sass-rails'
   gem 'compass-rails' # some syntax in the foundation stylesheets seems to be only compatible with compass
   gem 'zurb-foundation', '~> 3.0.5' # specifying nescessary versions for sass and compass
