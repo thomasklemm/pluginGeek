@@ -42,8 +42,7 @@ class CategoriesController < ApplicationController
     if @category.update_attributes(params[:category])
       # Render Markdown Description and save as description
       @category.description = markdown.render(@category.md_description)
-      
-      if @category.save
+       if @category.save
         flash[:notice] = 'Category updated. Thanks a lot!'
         redirect_to action: 'show'
       else

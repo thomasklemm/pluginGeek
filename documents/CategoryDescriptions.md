@@ -132,18 +132,21 @@ Docs & Reading
 
 Web Application Frameworks
 
-Web App Frameworks give you a lot of tools to speed you up with web development. A full-stack framework typically includes a data query abstraction language, a routing & view templating system, helpers for formatting view output, Internationalization APIs and more. A lower-level framework usually provides you with an easy way to routes and process web requests.
+**Web App Frameworks give you a lot of tools to speed you up with web development.** A full-stack framework typically includes a data query abstraction language, a routing & view templating system, helpers for formatting view output, Internationalization APIs and more. A lower-level framework usually provides you with an easy way to routes and process web requests.
 
 [Ruby on Rails](http://rubyonrails.org/), often shortened to Rails, is the open source full-stack web application framework for the Ruby programming language. Rails is perhaps the most widely used Ruby framework today, with good reason. Rails was extracted from [37signals' Basecamp](http://basecamp.com/) and powers Github, Shopify, Twitter & many other popular Web Services. Part of what makes Rails great is the vibrant ecosystem, with a lot of great programmers creating and maintaining valuable gems.
 
 [Sinatra](http://www.sinatrarb.com/) is small and flexible. It does not follow the typical model–view–controller pattern used in other frameworks, such as Ruby on Rails. Instead, Sinatra focuses on "quickly creating web-applications in Ruby with minimal effort."
 
-
-Docs & Reading:
-- ... is waiting for you on any framework's homepage
+[REPOS]
 
 Related Categories:
 - [Learning Rails]() - Tons of resources waiting to help you get better at Rails development
+
+Docs & Reading:
+- ... are waiting for you on any framework's homepage
+
+
 
 ---
 
@@ -151,12 +154,12 @@ Frameworks: Static Site Frameworks
 
 Build & Design a site in your favorite templating language and using CSS and JS preprocessors. Serve the compiled static HTML, CSS & JS.
 
+Related Categories
+- [Blogging Engines](/categories/apps-blogging-engines-ruby)
+
 Docs & Reading:
 - [Using Jekyll and GitHub Pages for a Static Site](http://developmentseed.org/blog/2011/09/09/jekyll-github-pages/)
 - [Github Pages](http://pages.github.com/) - Can be used for hosting a static Jekyll site for free
-
-Related Categories
-- [Blogging Engines](#)
 
 -----
 
@@ -168,21 +171,21 @@ Authenticating Users typically involves setting up a user model, sessions contro
 
 If this is the first time you are involved in authentication, Ryan Bates ([RailsCasts](http://railscasts.com/)) recommends building authentication from scratch to get to know the many details and moving parts that are involved in this matter. The RailsCasts listed below are a great place to start.
 
+[REPOS]
+
+# Related Categories:
+- [**User Management: Authorization**](http://knight.dev/categories/users-authorization-ruby) - Restrict what resources a user is allowed to access.
+
 # Docs & Reading:
-- [Rails authentication today: Options for 3.0 and 3.1](http://everydayrails.com/2011/09/21/rails-authentication.html) - A look at the current Rails authentication landscape (published 09/2011)
-- [OAuth 2.0](http://oauth.net/2/) - OAuth 2.0 is the next evolution of the OAuth protocol which was originally created in late 2006. OAuth 2.0 focuses on client developer simplicity while providing specific authorization flows for web applications, desktop applications, mobile phones, and living room devices.
+- [**Rails authentication today: Options for 3.0 and 3.1**](http://everydayrails.com/2011/09/21/rails-authentication.html) - A look at the current Rails authentication landscape (published 09/2011)
+- [**OAuth 2.0**](http://oauth.net/2/) - OAuth 2.0 is the next evolution of the OAuth protocol which was originally created in late 2006. OAuth 2.0 focuses on client developer simplicity while providing specific authorization flows for web applications, desktop applications, mobile phones, and living room devices.
 
 # RailsCasts:
 - [**Authentication from Scratch** (revised)](http://railscasts.com/episodes/250-authentication-from-scratch-revised) - Simple password authentication is easy to do with has_secure_password. Here you will learn how to make a complete Sign Up, Log In, and Log Out process as well as restrict access to certain actions.
 - [**Authentication with Sorcery**](http://railscasts.com/episodes/283-authentication-with-sorcery) - Sorcery is a full-featured, modular solution to authentication which leaves the controller and view layers up to you.
-- [Authentication in Rails 3.1](http://railscasts.com/episodes/270-authentication-in-rails-3-1) - Here I show off three new features in Rails 3.1 that will help with authentication: easier HTTP Basic Authentication, SecurePassword in the database, and forcing SSL.
-- [Authentication from Scratch (free, Jan. 2011)](http://railscasts.com/episodes/250-authentication-from-scratch) - Password authentication is not too complicated to make from scratch, it will also help to get a better understanding of how it works.
-- [Facebook Authentication](http://railscasts.com/episodes/360-facebook-authentication) - This will show how to create a new facebook application and configure it. Then add some authentication with the omniauth-facebook gem and top it off with a client-side authentication using the JavaScript SDK
-- [Simple OmniAuth (revised)](http://railscasts.com/episodes/241-simple-omniauth-revised) - OmniAuth makes it easy to do user authentication through a third party provider such as Twitter or Facebook. Learn a simple approach in this episode.
-- [All 20+ RailsCasts on Authorization & Authorizing through an external provider &raquo;](http://railscasts.com/?tag_id=25)
-
-# Related Categories:
-- [User Management: Authorization]() - ...
+- [**Authentication in Rails 3.1**](http://railscasts.com/episodes/270-authentication-in-rails-3-1) - Here I show off three new features in Rails 3.1 that will help with authentication: easier HTTP Basic Authentication, SecurePassword in the database, and forcing SSL.
+- [**Authentication from Scratch** (free)](http://railscasts.com/episodes/250-authentication-from-scratch) - Password authentication is not too complicated to make from scratch, it will also help to get a better understanding of how it works.
+- [**All 20+ RailsCasts on Authorization** & Authorizing through an external provider &raquo;](http://railscasts.com/?tag_id=25)
 
 -----
 

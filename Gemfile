@@ -13,18 +13,23 @@ gem 'rails', '3.2.6'
 gem 'pg'
 
 # Gems used only for assets and not required
-# in production environments by default.
-group :development do # group :assets originally
+#   in production environments by default.
+group :assets do
+  # CSS
   gem 'sass-rails'
-  gem 'compass-rails' # some syntax in the foundation stylesheets seems to be only compatible with compass
-  gem 'zurb-foundation', '~> 3.0.5' # specifying nescessary versions for sass and compass
+  gem 'compass-rails'
+  gem 'zurb-foundation', '~> 3.0.5'
+  # Bourbon (SASS Mixins)
+  #   next major version will deprecate border-radius mixin
+  gem 'bourbon', '~> 2.1.0' 
+
+  # JS
   gem 'coffee-rails'
   gem 'uglifier'
-  # Bourbon (SASS Mixins)
-  gem 'bourbon', '~> 2.1.0' # next major version deprecates border-radius mixin
-  # jQuery Rails (jQuery Adapter for Rails)
-  gem 'jquery-rails'
 end
+
+# jQuery Rails (jQuery Adapter for Rails)
+gem 'jquery-rails'
 
 # High Voltage (Static Pages)
 gem 'high_voltage'

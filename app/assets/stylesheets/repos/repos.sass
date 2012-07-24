@@ -1,6 +1,6 @@
 // repos.sass
 
-@import 'foundation'
+@import 'variables'
 
 // Repo
 .repo_overview
@@ -41,6 +41,9 @@
     // Not visible by default
     display: none
     border-left: 2px solid $mainColor
+
+.repo_overview:last-of-type
+  padding-bottom: 0
 
 // Repo Header (Repo Show View)
 .repo_header
