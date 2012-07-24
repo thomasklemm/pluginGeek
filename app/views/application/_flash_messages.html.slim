@@ -1,5 +1,12 @@
 / flash_messages.html.slim
 
+/ marketing message
+
+- if request.env['HTTP_REFERER'] && !(request.env['HTTP_REFERER'].include? 'knight')
+  .marketing_message class='alert-box'
+    span Knight.io is the developer's wiki. Find awesome Github projects to use for your current project.
+    a href='' class='close' &times;
+
 / flash messages
 - if flash
   - flash.each do |type, message|

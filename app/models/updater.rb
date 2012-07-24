@@ -3,35 +3,45 @@ class Updater
   # Github Attribute Mapping
   GITHUB_REPO_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
       description: 'description', watchers: 'watchers', forks: 'forks',
-      github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'pushed_at' ]
-  GITHUB_API_BASE_URL = 'https://api.github.com/'
+      github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'pushed_at' ].freeze
+  GITHUB_API_BASE_URL = 'https://api.github.com/'.freeze
 
 
   ###
   #   Repos
   ###
 
+  # Update Knight
+  #   a) Update Repos
+  #   b) Update Categories
+  def self.update_knight
+    Rails.logger.info 'Processing Updater.update_knight...'
+    update_repos_from_github
+    update_categories_from_repos
+    Rails.logger.info 'Finished processing Updater.update_knight'
+  end
+
   # Update repos
-  #   by running 'Updater.update_repos_from_github'
   def self.update_repos_from_github
+    Rails.logger.info 'Processing Updater.update_repos_from_github...'
     conn = Excon.new(GITHUB_API_BASE_URL)
-    # REVIEW: Rails API Doc suggests not using find_each for less than 1000 records
-    Repo.find_each(batch_size: 200) do |repo|
+    # REVIEW: Rails API Docs suggest not using find_each for less than 1000 records
+    # REVIEW: Do this concurrently, maybe by using Celluloid
+    Repo.find_each(batch_size: 250) do |repo|
       if update_repo(repo, conn)
-        # success
+        # update finished success
       else
-        # error
+        # update threw error
+        Rails.logger.error "Failed to update repo '#{ repo.full_name }'"
         # TODO: Mark repo for manual cleanup
         #   i.e. by using flag-shi-tzu (preferred)
         #   i.e. repo.update_attribute(:manual_work_required, true)
-        puts "ERROR while updating '#{ repo.full_name }'."
       end
     end
-    puts "'Updater.update_repos_from_github' successfully finished."
+    Rails.logger.info 'Finished processing Updater.update_repos_from_github'
   end
 
   # Initialize (or manually update) repo
-  #   by calling 'Updater.initialize_repo_from_github'
   def self.initialize_repo_from_github(repo_full_name)
     repo = Repo.find_or_initialize_by_full_name(repo_full_name)
     if update_repo(repo)
@@ -40,8 +50,11 @@ class Updater
     else
       # error
       false
+      Rails.logger.warn "Failed to initialize repo '#{ repo.full_name }'"
     end
   end
+
+
 
 
   ###
@@ -49,80 +62,40 @@ class Updater
   ###
 
   # Update Categories
-  #   by running 'Updater.update_categories_from_repos'
   def self.update_categories_from_repos
-    # Reset tag counts (if tag is completely removed categories would not be updated)
+    Rails.logger.info 'Processing Updater.update_categories_from_repos...'
+    
+    # Reset tag counts
+    #   (if tag is completely removed categories would not be updated otherwise and remain visible)
     Category.all.each do |category|
       category.update_attribute(:repo_count, 0)
     end
 
     tags = Repo.tag_counts_on(:categories)
-    tags.each { |tag| update_category_attributes(tag) }
-  end
-
-  ###
-  #  Caching Children <-> Parents Structure
-  ###
-
-  def self.update_parents
-  end
-
-  ###
-  #   Seeds
-  ###
-
-  # Rename a category
-  #   Run 'Updater.rename_category(old_name, new_name)'
-  def self.rename_category(old_name, new_name)
-    puts "The following message should appear once for each affected model (2 right now)."
-    models = [ActsAsTaggableOn::Tag, Category]
-    models.each do |model|
-      tag = model.find_by_name(old_name)
-      tag.name = new_name
-      if tag.save
-        puts "Renamed category '#{ old_name }' to '#{ new_name } in model #{ model.to_s }'."
+    tags.each do |tag| 
+      if update_category_attributes(tag)
+        # success
       else
-        puts "ERROR while renaming category '#{ old_name }' to '#{ new_name }' in model #{ model.to_s }."
+        # error
+        Rails.logger.error "Failed to update category '#{ tag.name }'"
       end
     end
+    Rails.logger.info 'Finished processing Updater.update_categories_from_repos'
   end
-
-
-  # transcribe seed format to a new one
-  # def self.transcribe_seeds
-  #   puts "The following messages should appear once for each affected model (currently two)."
-  #   models = [ActsAsTaggableOn::Tag, Category]
-  #   models.each do |model|
-  #     model.all.each do |tag|
-  #       match = /\((?<group>.*)\)(?<tag>.*)/.match(tag.name)
-  #       if match
-  #         group = match[:group].strip
-  #         t = match[:tag].strip
-
-  #         old_name = tag.name
-
-  #         tag.name = "#{ t } (#{ group })"
-
-  #         if tag.save
-  #           puts "Category '#{ old_name}' renamed to '#{ tag.name }'."
-  #         else
-  #           puts "ERROR while renaming '#{ old_name}' to '#{ tag.name }'."
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
 
 protected
 
+  ###
+  #   Repos
+  ###
+
+  # Update a single repo
   def self.update_repo(repo, conn = Excon.new(GITHUB_API_BASE_URL))
     # Request
     path = '/repos/' + repo.full_name
     res = conn.get(path: path)
 
-    # Error Handling
-    #   e.g. mark with flag for manual handling
-    #   be sure to return in case of repo renamed or non-existent etc on github
+    # Exit on error
     res.status != 200 and return false
 
     # Success Handling
@@ -133,6 +106,7 @@ protected
 
     # Make homepage_url absolute
     #   will be relative e.g. for 'activeadmin.info'
+    #   and assign the github_url to homepage_url if none is given
     if repo[:homepage_url].present?
       repo[:homepage_url] = "http://" + repo[:homepage_url] unless repo[:homepage_url].start_with?('http')
     else
@@ -140,15 +114,24 @@ protected
     end
     
     # Limit description length
-    #   REVIEW: Better way to handle this? Postgres will throw errors is length exceeds 255 characters
-    repo[:description] = repo[:description].truncate(250) if repo[:description]
+    #  Honor Postgres string limit 255 characters
+    repo[:description] &&= repo[:description].truncate(250)
 
     # Calculate Knight Score
     repo[:knight_score] = knight_score(github_repo)
+
     # Save Repo
-    repo.save
+    if repo.save
+      # Validations fine
+      true
+    else
+      # e.g. Validation errors
+      Rails.logger.error "Failed saving repo '#{ repo.full_name }'"
+      false
+    end
   end
 
+  # Update Repo Attributes recursively
   def self.recursive_update_of_repo_attributes(repo, github_repo)
     # Mapped attributes
     GITHUB_REPO_ATTRIBUTES.each do |repo_attr, github_attr|
@@ -165,14 +148,14 @@ protected
     return repo
   end
 
-  # Knight Score
+  # Calculate Knight Score
   #   calculate knight score
   #   returns knight score as an integer
   def self.knight_score(github_repo)
     (github_repo['watchers'] * activity_score(github_repo['pushed_at'])).ceil
   end
 
-  # Acitvity Score
+  # Calculate Acitvity Score
   #   used as a multiplier when calculating a repo's knight score
   def self.activity_score(time)
     diff = Time.now - time.to_datetime
@@ -188,6 +171,11 @@ protected
     score
   end
 
+  ###
+  #   Categories
+  ###
+
+  # Update a single category
   def self.update_category_attributes(tag)
     # Find or initialize category
     category = Category.find_or_initialize_by_name(tag[:name])
@@ -225,7 +213,13 @@ protected
     category[:knight_score] = repos.sum { |repo| repo.knight_score.to_i }
 
     # Save category
-    category.save
+    if category.save
+      true
+    else
+      # e.g. Validation failed
+      Rails.logger.error "Failed saving category '#{ category.name }'"
+      false
+    end
   end
 
 end
