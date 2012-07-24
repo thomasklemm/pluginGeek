@@ -46,6 +46,7 @@ class ReposController < ApplicationController
     if @repo.update_attributes(params[:repo])
 
       # Update categories based on repo tags
+      # REVIEW: MOVE THIS TO A SIDEKIQ BACKGROUND JOB
       Updater.update_categories_from_repos
 
       flash[:notice] = 'Tags successfully saved.'

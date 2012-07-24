@@ -31,7 +31,7 @@ module CategoriesHelper
     repos.split(', ').each do |repo|
       owner = repo.split('/')[0]
       name = repo.split('/')[1]
-      h << "<span class='repo_name'>#{ name }</span><span class='repo_owner'> by #{ owner }</span>"
+      h << "<span class='repo_name'>#{ name }</span>"
     end
     h.join(', ')
   end
