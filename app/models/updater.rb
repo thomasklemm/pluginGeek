@@ -46,11 +46,12 @@ class Updater
     repo = Repo.find_or_initialize_by_full_name(repo_full_name)
     if update_repo(repo)
       # success
+      Rails.logger.info "Added new repo '#{ repo.full_name }'"
       true
     else
       # error
-      false
       Rails.logger.warn "Failed to initialize repo '#{ repo.full_name }'"
+      false
     end
   end
 
