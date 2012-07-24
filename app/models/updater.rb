@@ -16,29 +16,9 @@ class Updater
   #   b) Update Categories
   def self.update_knight
     Rails.logger.info 'Processing Updater.update_knight...'
-    update_repos_from_github
+    Repo.pluck(:full_name).each { |repo_id| RepoUpdater.perform_async(repo_id) }
     update_categories_from_repos
     Rails.logger.info 'Finished processing Updater.update_knight'
-  end
-
-  # Update repos
-  def self.update_repos_from_github
-    Rails.logger.info 'Processing Updater.update_repos_from_github...'
-    conn = Excon.new(GITHUB_API_BASE_URL)
-    # REVIEW: Rails API Docs suggest not using find_each for less than 1000 records
-    # REVIEW: Do this concurrently, maybe by using Celluloid
-    Repo.find_each(batch_size: 250) do |repo|
-      if update_repo(repo, conn)
-        # update finished success
-      else
-        # update threw error
-        Rails.logger.error "Failed to update repo '#{ repo.full_name }'"
-        # TODO: Mark repo for manual cleanup
-        #   i.e. by using flag-shi-tzu (preferred)
-        #   i.e. repo.update_attribute(:manual_work_required, true)
-      end
-    end
-    Rails.logger.info 'Finished processing Updater.update_repos_from_github'
   end
 
   # Initialize (or manually update) repo
@@ -53,8 +33,6 @@ class Updater
       false
     end
   end
-
-
 
 
   ###

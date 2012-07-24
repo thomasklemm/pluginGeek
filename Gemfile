@@ -55,6 +55,9 @@ gem 'acts-as-taggable-on'
 # Excon (HTTP Client)
 gem 'excon'
 
+# HTTPClient (MT-Safe HTTP Client)
+gem 'httpclient'
+
 # Pry (IRB Replacement)
 gem 'pry-rails', group: :development
 gem 'pry-remote', group: :development
@@ -74,8 +77,9 @@ gem 'github_api'
 # Annotate Models (Schema Info for Models and Routes)
 gem 'annotate', '>=2.5.0.pre1', group: :development
 
-# Sidekiq
+# Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
+gem 'sinatra', require: false
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
