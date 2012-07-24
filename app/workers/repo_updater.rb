@@ -8,7 +8,7 @@ class RepoUpdater
       github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'pushed_at' ].freeze
 
   # Initialize a connection pool
-  GITHUB_POOL = ConnectionPool.new(size: 24, timeout: 10) { HTTPClient.new }
+  GITHUB_POOL = ConnectionPool.new(size: 12, timeout: 10) { HTTPClient.new }
 
   def perform(repo_id)
     # Pick a connection from the connection pool
@@ -56,6 +56,8 @@ class RepoUpdater
       end
     end
   end
+
+protected
 
   # Update Repo Attributes recursively
   def recursive_update_of_repo_attributes(repo, github_repo)

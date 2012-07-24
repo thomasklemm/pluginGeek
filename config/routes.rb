@@ -22,9 +22,6 @@
 #             root     /                                                 categories#index
 #             page     /pages/*id                                        high_voltage/pages#show
 
-# Sidekiq Web Interface
-require 'sidekiq/web'
-
 Knight::Application.routes.draw do
 
   # Oauth
@@ -73,6 +70,7 @@ Knight::Application.routes.draw do
   root to: 'categories#index'
 
   # Sidekiq Web Interface
+  require 'sidekiq/web'
   mount Sidekiq::Web, at: '/admin/sidekiq'
 
   # For when to implement json response for repos#show

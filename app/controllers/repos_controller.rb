@@ -47,7 +47,7 @@ class ReposController < ApplicationController
 
       # Update categories based on repo tags
       # REVIEW: MOVE THIS TO A SIDEKIQ BACKGROUND JOB
-      Updater.update_categories_from_repos
+      CategoriesUpdater.perform_async
 
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'

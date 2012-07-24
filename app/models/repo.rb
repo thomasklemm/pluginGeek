@@ -75,7 +75,7 @@ class Repo < ActiveRecord::Base
 
   # Send 'add_repo' to (new) Repo object
   def add_repo
-    if Updater.initialize_repo_from_github(full_name)
+    if RepoInitializer.perform_sync(full_name)
       # success
       Rails.logger.info "Added new repo '#{ repo.full_name }'"
       true
