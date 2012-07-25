@@ -28,9 +28,13 @@
   - if params[:action] == 'edit'
     .category_list_edit
       = form_for @repo do |f|
-        = f.label :category_list, "Categories <em>Comma Seperated in Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
-        = f.text_area :category_list, style: 'height: 7rem'
-        = f.submit 'Update Repo', class: 'round button'
+        = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
+        / = f.select :category_list, Category.pluck(:name), {}, {multiple: true}
+        = f.text_field :category_list
+        = f.submit 'Update Repo', class: 'round button', confirm: 'Save categories?'
+    - category_names = Category.pluck(:name).to_json.html_safe
+    javascript:
+      $('#repo_category_list').select2({tags: #{ category_names }});
 
   - else
     / Category List

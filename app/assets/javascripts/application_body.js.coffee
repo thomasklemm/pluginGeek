@@ -6,14 +6,15 @@
 
 # Foundation
 //= require foundation/jquery.reveal
-//= require foundation/jquery.customforms
+#//= require foundation/jquery.customforms
 //= require foundation/jquery.placeholder.min
 //= require foundation/jquery.tooltips
 //= require foundation/foundation
 
-# Readme & Autogrow
+# Readme, Autogrow & Select2
 //= require readme
 //= require jquery.autogrow
+//= require select2.min
 
 # Knight
 //= require categories
