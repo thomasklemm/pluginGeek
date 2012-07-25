@@ -358,25 +358,38 @@ Rails.logger.info "Processing Seed Categories and Repos..."
 # Enter or update seeds
 seeds.each do |seed|
 
-  # Create or update repos
+  # Build category name
+  category_name = "#{ seed[:name] } (#{ seed[:lang] })"
+
+  ### 
+  #   Create or update categories
+  ###  
+  # Find or initialize category
+  category = Category.find_or_initialize_by_name(category_name)
+
+  # Seed descriptions unless present 
+  category.short_description = seed[:description] unless category.short_description.present?
+  category.description = seed[:description] unless category.description.present?
+  
+  # Save Category
+  category.save
+
+  ### 
+  #   Create or update repos
+  ###
   seed[:repos].each do |full_name|
+    # Find or initialize repo
     repo = Repo.find_or_initialize_by_full_name(full_name)
 
     # Assign multiple categories to a repo while seeding
     categories = []
     categories << repo.category_list
-    categories << "#{ seed[:name] } (#{ seed[:lang] })"
+    categories << category_name
     repo.category_list = categories.join(', ')
 
+    # Save repo
     repo.save
   end
-
-  # Create or update categories
-  category = Category.find_or_initialize_by_name("#{ seed[:name] } (#{ seed[:lang] })")
-  category.short_description = seed[:description] unless category.short_description.present?
-  category.description = seed[:description] unless category.description.present?
-  category.language_list = seed[:lang].split('/').join(', ')
-  category.save
 end
 
 Rails.logger.info 'Processing Plugins...'
@@ -384,19 +397,18 @@ Rails.logger.info 'Processing Plugins...'
 # Write Plugins
 plugins.each do |plugin|
   # Children
-  #   Makes sure children are being entered if they have no category
-  plugin[:children].each do |full_name|
-    Repo.find_or_create_by_full_name(full_name)
-  end
+  #  ( Makes sure children are known if they aren't listed in any category 
+  #    and thus not seeded yet )
+  plugin[:children].each { |full_name| Repo.find_or_create_by_full_name(full_name) }
 
-  # Write Association
+  # Write 'Association'
   parent = Repo.find_or_initialize_by_full_name(plugin[:parent])
-  if parent
-    parent.children = plugin[:children].join(', ')
-    parent.save
-  end
+  parent.children = plugin[:children].join(', ')
+  parent.save
 end
 
+# Update Knight in serial
 KnightUpdater.update_knight_serial
 
+# Log success
 Rails.logger.info 'Finished writing seeds successfully.'
