@@ -1,5 +1,22 @@
 class CategoryUpdater
 
+  ###
+  #
+  #   CategoryUpdater
+  #
+  #   Instance Methods:
+  #     - perform(tag_name, tag_count): Update a single category
+  #
+  #   Class Methods:
+  #     - perform_async(tag_name, tag_count): Schedule a single category
+  #         to be updated asynchronously by the Sidekiq process
+  #     - update_categories_sidekiq: Trigger an asynchronous, 
+  #         Sidekiq-powered update of all categories
+  #     - update_categories_serial: Update all categories in serial,
+  #         blocking the Thread in which it is called
+  #
+  ###
+
   # Include Sidekiq::Worker Module
   include Sidekiq::Worker
 

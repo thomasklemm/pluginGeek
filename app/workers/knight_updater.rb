@@ -1,5 +1,16 @@
 class KnightUpdater
 
+  ###
+  #
+  #   KnightUpdater 
+  #     (not a real Sidekiq Worker)
+  #
+  #   Class Methods
+  #     - update_knight_serial: A serial, blocking Knight Update
+  #     - update_knight_sidekiq: An asynchronous, sidekiq-powered Knight Update
+  #
+  ###
+
   def self.update_knight_serial
     Rails.logger.info 'Processing a serial Knight update...'
     

@@ -1,4 +1,22 @@
 class RepoUpdater
+
+  ###
+  #
+  #   RepoUpdater
+  #
+  #   Instance Methods:
+  #     - perform('repo_owner/repo_name'): Update a single repo from Github
+  #
+  #   Class Methods:
+  #     - perform_async('repo_owner/repo_name'): Schedule a single repo
+  #         to be updated from Github asynchronously by the Sidekiq process
+  #     - update_repos_sidekiq: Trigger an asynchronous, 
+  #         Sidekiq-powered update of all repos
+  #     - update_repos_serial: Update all repos in serial,
+  #         blocking the Thread in which it is called
+  #
+  ###
+
   # Include Sidekiq::Worker Module
   include Sidekiq::Worker
 
@@ -48,10 +66,11 @@ class RepoUpdater
       # Save Repo
       if repo.save
         # Validations fine
+        Rails.logger.info "Updated repo '#{ repo.full_name }'"
         true
       else
         # e.g. Validation errors
-        Rails.logger.error "Failed saving repo '#{ repo.full_name }'"
+        Rails.logger.error "Failed updating/saving repo '#{ repo.full_name }'"
         false
       end
     end
