@@ -57,6 +57,23 @@ class RepoUpdater
     end
   end
 
+  # update all repos
+  def self.update_repos_sidekiq
+    Rails.logger.info 'Scheduling all repos to be updated by Sidekiq asynchronously...'
+    Repo.pluck(:full_name).each { |id| perform_async(id) }
+    Rails.logger.info 'Finished scheduling all repos to be updated by Sidekiq asynchronously'
+
+  end
+
+  # update all repos sync
+  def self.update_repos_serial
+    Rails.logger.info 'Updating repos from github in serial...'
+    repo_updater = RepoUpdater.new
+    Repo.pluck(:full_name).each { |id| repo_updater.perform(id) }
+    Rails.logger.info 'Finished updating repos from github in serial'
+
+  end
+
 protected
 
   # Update Repo Attributes recursively

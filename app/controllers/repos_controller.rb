@@ -25,7 +25,7 @@ class ReposController < ApplicationController
     # Set different flash message if repo is already known
     @repo.new_record? or flash[:notice] = "Repo '#{ @repo.full_name }' already known."
 
-    if @repo.add_repo
+    if repo_updater.perform(@repo.full_name)
       # Reload for correct redirection path
       @repo = Repo.find_by_full_name(@repo.full_name)
       flash[:notice] ||= "Added repo '#{ @repo.full_name }'. Please add a tag so it can be found."
@@ -80,6 +80,10 @@ protected
 
   def full_name_from_params(owner = params[:owner], name = params[:name])
     "#{owner}/#{name}"
+  end
+
+  def repo_updater
+    @repo_updater ||= RepoUpdater.new
   end
 
 end
