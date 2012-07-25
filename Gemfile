@@ -24,7 +24,7 @@ group :assets do
   gem 'bourbon', '~> 2.1.0' 
 
   # JS
-  gem 'coffee-rails', require: 'coffee-script'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 
