@@ -43,7 +43,9 @@ hr
 - unless params[:action] == 'edit'
   .category_header
     .description
-      =raw @category.description.present? && @category.description.split('<p>[REPOS]</p>')[1]
+      - if @category.description.present?
+        =raw @category.description.split('<p>[REPOS]</p>')[1]
+
       / Edit description link
       = link_to edit_category_path(@category), class: 'edit_description small secondary radius button' do
         / Add a description or Edit description

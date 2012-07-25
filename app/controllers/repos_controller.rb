@@ -43,11 +43,11 @@ class ReposController < ApplicationController
 
   # PUT /repos/:owner/:name
   def update
+    params[:repo][:category_list] &&= params[:repo][:category_list].split(',').join(', ')
     if @repo.update_attributes(params[:repo])
 
       # Update categories based on repo tags
-      # REVIEW: MOVE THIS TO A SIDEKIQ BACKGROUND JOB
-      CategoriesUpdater.perform_async
+      CategoryUpdater.update_categories_serial    
 
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'
@@ -80,10 +80,6 @@ protected
 
   def full_name_from_params(owner = params[:owner], name = params[:name])
     "#{owner}/#{name}"
-  end
-
-  def repo_updater
-    @repo_updater ||= RepoUpdater.new
   end
 
 end

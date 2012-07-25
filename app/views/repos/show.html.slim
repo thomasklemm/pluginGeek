@@ -28,23 +28,35 @@
   - if params[:action] == 'edit'
     .category_list_edit
       = form_for @repo do |f|
-        = f.label :category_list, "Categories <em>Comma Seperated in Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
-        = f.text_area :category_list, style: 'height: 7rem'
-        = f.submit 'Update Repo', class: 'round button'
+        = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
+        div style='padding-bottom: 1rem' = f.text_field :category_list
+        = f.submit 'Save Categories', class: 'small radius button'
+    - category_names = Category.pluck(:name).to_json.html_safe
+    javascript:
+      $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
 
   - else
     / Category List
     .category_list
-      ' Categories
-      span.right= link_to edit_repo_path(@repo) do 
-        span data-icon='T' = @repo.category_list.present? ? 'Edit categories' : '<b>Add a category<b>'.html_safe
-      / List all categories
-      - if @repo.categories.present?
-        - @repo.categories.each do |category|
-            - @category = Category.find_by_name(category.name)
-            li 
-              = link_to @category.name, @category
-              '  (#{ @category.repo_count } Repos)
+      b Categories
+
+      / Categories present
+      - if @repo.category_list.present?
+        / Add or edit categories link
+        span.right= link_to edit_repo_path(@repo) do 
+          span data-icon='T' Add or edit categories
+        / List categories and repo count
+        ul.square
+          - @repo.categories.each do |category|
+              - @category = Category.find_by_name(category.name)
+              li 
+                = link_to @category.name, @category
+                '  (#{ @category.repo_count } Repos)
+      - else
+        / Add categories link
+        div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do 
+          ' None yet.
+          b Add or edit categories
 
 / Readme and Alternatives
 .readme_and_alternatives
@@ -63,7 +75,7 @@
 
     / Alternatives Tab Content
     li#AlternativesTab
-      - unless @alternatives.nil?
+      - if @alternatives
         / Alternative Repos List (if there are some alternative repos)
         #js_repos_list
           / Sort
@@ -81,8 +93,12 @@
       - else  
         
         - if @repo.category_list.present?
-          ' No Alternatives could be found.
+          p No Alternatives could be found. Try adding a few more categories.
+
         - else
-          em Please add a category to this repo to see alternatives.
+          em 
+            ' Please 
+            b = link_to 'add a category', edit_repo_path(@repo) 
+            '  to this repo to see alternatives.
 
 

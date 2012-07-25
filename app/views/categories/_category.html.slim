@@ -1,5 +1,11 @@
 / category.html.slim
 
+/ Link Builders
+- category_link = capture do
+  = link_to '&nbsp;&raquo;'.html_safe, category
+- category_link_with_ellipsis = capture do
+  = link_to '&nbsp;&hellip;&nbsp;&raquo;'.html_safe, category
+
 / Category
 .category
 
@@ -16,15 +22,12 @@
       span.label.round = category.label
 
   / Description
-  /   Note: truncate helper counts html link characters when calculating length
-  - category_link = capture do 
-    = link_to ' ... &raquo;'.html_safe, category_url(category, subdomain: false)
-  span.description =raw truncate(category.short_description, length: 230, separator: ' ', omission: '2yXCBT').gsub('2yXCBT', category_link)
+  span.description = category.short_description
 
   / Popular Repos
-  span.repo_count #{ category.repo_count } Repos: 
+  span.repo_count #{ pluralize(category.repo_count, 'Repo') }: 
   span.popular_repos == category_popular_repos_helper(category.popular_repos)
-  span.link = category_link
+  span.link = category.all_repos.present? ? category_link_with_ellipsis : category_link
 
   / Stats
   span.all_repos = category.all_repos
