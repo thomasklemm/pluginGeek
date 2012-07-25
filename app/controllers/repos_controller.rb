@@ -46,7 +46,8 @@ class ReposController < ApplicationController
     params[:repo][:category_list] &&= params[:repo][:category_list].split(',').join(', ')
     if @repo.update_attributes(params[:repo])
 
-      # Update categories based on repo tags    
+      # Update categories based on repo tags
+      CategoryUpdater.update_categories_serial    
 
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'
@@ -79,14 +80,6 @@ protected
 
   def full_name_from_params(owner = params[:owner], name = params[:name])
     "#{owner}/#{name}"
-  end
-
-  def repo_updater
-    @repo_updater ||= RepoUpdater.new
-  end
-
-  def category_updater
-    @category_updater ||= CategoryUpdater.new
   end
 
 end
