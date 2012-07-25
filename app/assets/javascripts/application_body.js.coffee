@@ -14,7 +14,7 @@
 # Readme, Autogrow & Select2
 //= require readme
 //= require jquery.autogrow
-//= require select2.min
+//= require select2
 
 # Knight
 //= require categories

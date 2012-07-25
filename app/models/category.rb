@@ -66,8 +66,9 @@ class Category < ActiveRecord::Base
 
   # Determine Language and tag category appropriately
   def determine_language
-    languages = /\((?<languages>.*)\)/.match(name)[:languages]
-    self.language_list = languages.split('/').join(', ').downcase
+    languages = /\((?<languages>.*)\)/.match(name)[:languages] if 
+      /\((?<languages>.*)\)/.match(name).respond_to?(:languages)
+    self.language_list = languages.split('/').join(', ').downcase if languages
   end
 
 
