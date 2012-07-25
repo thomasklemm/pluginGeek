@@ -18,3 +18,11 @@ after_fork do |server, worker|
   defined?(ActiveRecord::Base) and
   ActiveRecord::Base.establish_connection
 end
+
+# Configure Sidekiq Redis Client
+#  via https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting
+after_fork do |server, worker|
+  Sidekiq.configure_client do |config|
+    config.redis = { :size => 1 }
+  end
+end

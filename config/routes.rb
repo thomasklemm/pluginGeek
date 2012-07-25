@@ -69,6 +69,10 @@ Knight::Application.routes.draw do
   # Root
   root to: 'categories#index'
 
+  # Sidekiq Web Interface
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/admin/sidekiq'
+
   # For when to implement json response for repos#show
   # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
 
