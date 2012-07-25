@@ -328,8 +328,6 @@ plugins = [
   {parent: 'thoughtbot/paperclip', children: %w(websymphony/Rails3-Paperclip-Uploadify jstorimer/delayed_paperclip igor-alexandrov/paperclip-aws dripster82/paperclipdropbox nhocki/paperclip-s3 kellym/mongoid_paperclip_queue bkuhlmann/paperclip_plus)},
   {parent: 'padrino/padrino-framework', children: %w(padrino/padrino-recipes)},
   {parent: 'jnicklas/carrierwave', children: %w(dwilkie/carrierwave_direct)},
-
-=begin
   {parent: 'twitter/bootstrap', children: %w(seyhunak/twitter-bootstrap-rails thomas-mcdonald/bootstrap-sass)},
   {parent: 'kneath/kss', children: %w(dewski/kss-rails)},
   {parent: 'pry/pry', children: %w(rweng/pry-rails nixme/pry-nav Mon-Ouie/pry-remote nixme/pry-debugger)},
@@ -350,12 +348,10 @@ plugins = [
   {parent: '', children: %w()},
   {parent: '', children: %w()},
   {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w
-=end
+  {parent: '', children: %w()}
 ]
 
-puts "Writing Seeds..."
+Rails.logger.info "Processing Seed Categories and Repos..."
 
 # Enter or update seeds
 seeds.each do |seed|
@@ -375,13 +371,13 @@ seeds.each do |seed|
 
   # Create or update categories
   category = Category.find_or_initialize_by_name("#{ seed[:name] } (#{ seed[:lang] })")
-  category.short_description = seed[:description]
-  category.description = seed[:description]
+  category.short_description = seed[:description] unless category.short_description.present?
+  category.description = seed[:description] unless category.description.present?
   category.language_list = seed[:lang].split('/').join(', ')
   category.save
 end
 
-puts 'Writing Plugins...'
+Rails.logger.info 'Processing Plugins...'
 
 # Write Plugins
 plugins.each do |plugin|
@@ -392,17 +388,13 @@ plugins.each do |plugin|
   end
 
   # Write Association
-  parent = Repo.find_by_full_name(plugin[:parent])
+  parent = Repo.find_or_initialize_by_full_name(plugin[:parent])
   if parent
     parent.children = plugin[:children].join(', ')
     parent.save
   end
 end
 
-puts "Running 'Updater.update_repos_from_github'."
-Updater.update_repos_from_github
+KnightUpdater.update_knight_serial
 
-puts "Running 'Updater.update_categories_from_repos'."
-Updater.update_categories_from_repos
-
-puts 'Finished writing seeds successfully.'
+Rails.logger.info 'Finished writing seeds successfully.'

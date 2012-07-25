@@ -13,6 +13,18 @@ class ApplicationController < ActionController::Base
   	render text: '42'
   end
 
+  def logger
+    @logger ||= Rails.logger
+  end
+
+  def repo_updater
+    @repo_updater ||= RepoUpdater.new
+  end
+
+  def category_updater
+    @category_updater ||= CategoryUpdater.new
+  end
+
 protected
   
   # Set language and scope
