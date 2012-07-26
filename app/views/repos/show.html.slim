@@ -22,7 +22,10 @@
   span.homepage_url = link_to @repo.homepage_url, @repo.homepage_url
 
   / Activity
-  span.activity data-icon='t' class=activity_color(@repo.github_updated_at) = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+  span.activity class=activity_color(@repo.github_updated_at) 
+    i.icon-leaf
+    | &nbsp;
+    = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
 
   / Categories & Edit Categories
   - if params[:action] == 'edit'

@@ -14,7 +14,10 @@
     == category_name_helper(category.name)
 
   / Watchers
-  span.watcher_count data-icon='h' = category.watcher_count
+  span.watcher_count
+    i.icon-heart-empty
+    | &nbsp;
+    = category.watcher_count
 
   / Label
   - if category.label
