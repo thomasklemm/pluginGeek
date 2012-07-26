@@ -353,6 +353,15 @@ plugins = [
   {parent: '', children: %w()}
 ]
 
+if Rails.env.development?
+
+ads = [
+  {name: 'Heroku', category_list: 'index', url: 'http://www.heroku.com', description: 'Heroku is the leading open language cloud application platform and supports Ruby, Java, Python, Clojure, Scala, Node.js. and custom language buildpacks.'}
+]
+
+end
+
+
 Rails.logger.info "Processing Seed Categories and Repos..."
 
 # Enter or update seeds

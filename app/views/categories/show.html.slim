@@ -20,7 +20,6 @@
     / Description
     .description
       =raw @category.description.present? ? @category.description.split('<p>[REPOS]</p>')[0] : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe
-hr
 
 / Repos List
 #js_repos_list
@@ -33,6 +32,13 @@ hr
     dd.sort.active  data-sort='knight_score'  Knight Score
     dd.sort         data-sort='updated_at'    Activity
     dd.sort         data-sort='name'          Name
+
+  / Ads
+  .ads
+    - @ads = Ad.tagged_with(@category.name)
+    - @ads = Ad.all.sample(2) unless @ads.present?
+    - @ads && @ads.shuffle!
+    = render partial: 'shared/ad', collection: @ads 
 
   / List
   .list

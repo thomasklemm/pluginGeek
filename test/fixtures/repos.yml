@@ -2,25 +2,21 @@
 #
 # Table name: repos
 #
-#  children          :string(255)
-#  created_at        :datetime         not null
-#  description       :string(255)
-#  forks             :integer
+#  id                :integer          not null, primary key
 #  full_name         :string(255)
-#  github_updated_at :datetime
+#  owner             :string(255)
+#  name              :string(255)
+#  watchers          :integer
+#  forks             :integer
+#  description       :string(255)
 #  github_url        :string(255)
 #  homepage_url      :string(255)
-#  id                :integer          not null, primary key
 #  knight_score      :integer
-#  label             :string(255)
-#  name              :string(255)
-#  owner             :string(255)
+#  github_updated_at :datetime
+#  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  watchers          :integer
-#
-# Indexes
-#
-#  index_repos_on_full_name  (full_name) UNIQUE
+#  label             :string(255)
+#  children          :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

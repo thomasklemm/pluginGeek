@@ -2,11 +2,19 @@
 
 h3 State your Purpose, Knight!
 
-p.subheader 
+.subheader 
   ' Discover 
   b #{ Repo.count } repos
   '  in 
   b #{ Category.count } categories
+
+/ Ads
+.ads
+  - @ads = Ad.tagged_with('index-ruby')
+  - @ads = Ad.all.sample(2) unless @ads.present?
+  - @ads && @ads.shuffle!
+  = render partial: 'shared/ad', collection: @ads
+  span.right style='position: relative; bottom: 18px; color: #aaa' Ads - Reason?
 
 / Categories List
 #js_categories_list
