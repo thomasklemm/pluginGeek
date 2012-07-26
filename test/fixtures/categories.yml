@@ -2,22 +2,20 @@
 #
 # Table name: categories
 #
-#  all_repos     :text
-#  created_at    :datetime         not null
-#  description   :text
-#  id            :integer          not null, primary key
-#  knight_score  :integer
-#  label         :string(255)
-#  name          :string(255)
-#  popular_repos :string(255)
-#  repo_count    :integer
-#  slug          :string(255)
-#  updated_at    :datetime         not null
-#  watcher_count :integer
-#
-# Indexes
-#
-#  index_categories_on_slug  (slug) UNIQUE
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  slug              :string(255)
+#  repo_count        :integer
+#  watcher_count     :integer
+#  knight_score      :integer
+#  short_description :text
+#  description       :text
+#  md_description    :text
+#  popular_repos     :string(255)
+#  all_repos         :text
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  label             :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

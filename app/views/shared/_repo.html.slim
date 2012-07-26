@@ -10,7 +10,10 @@
     span.owner = repo.owner
 
   / Watchers
-  span.watchers data-icon='h' = repo.watchers
+  span.watchers 
+    i.icon-eye-open
+    | &nbsp;
+    = repo.watchers
 
   / Label
   - if repo.label
@@ -26,7 +29,10 @@
   link rel="dns-prefetch" href="#{ repo.homepage_url }"
 
   / Activity
-  span.activity data-icon='t' class=activity_color(repo.github_updated_at) = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+  span.activity class=activity_color(repo.github_updated_at) 
+    i.icon-leaf
+    | &nbsp;
+    = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
 
   / Stats
   .knight_score = repo.knight_score
