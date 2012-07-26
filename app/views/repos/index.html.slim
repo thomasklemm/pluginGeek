@@ -3,27 +3,31 @@
 h3 Explore Our Knightly Projects
 
 p.subheader 
-  ' Listing 
-  b #{ Repo.count } 
+  ' Listing
+  - cache ['v2', Repo.maximum(:updated_at), 'repo_count'] do
+      b #{ Repo.count } 
   ' Repos. Discover Yours.
 
-/ Repos List
-#js_repos_list
 
-  / Repos Find
-  .repos_find
-    / Search
-    input.search type='text' autofocus='autofocus' autocomplete='off'
-    
-    / Sort
-    dl.sort_list class='right'
-      dt Sort:
-      dd.sort.active  data-sort='knight_score'  Knight Score
-      dd.sort         data-sort='updated_at'    Activity
-      dd.sort         data-sort='name'          Name
-
+- cache ['v4', Repo.maximum(:updated_at), 'all_repos'] do
   / Repos List
-  .list
-    = render partial: 'shared/repo', collection: @repos
+  #js_repos_list
 
-  button.js_show_all_matching_items class='button radius' More repos
+    / Repos Find
+    .repos_find
+      / Search
+      input.search type='text' autofocus='autofocus' autocomplete='off'
+      
+      / Sort
+      dl.sort_list
+        dt Sort:
+        dd.sort.active  data-sort='knight_score'  Knight Score
+        dd.sort         data-sort='updated_at'    Activity
+        dd.sort         data-sort='name'          Name
+
+    / Repos List
+    .list
+      - @repos = Repo.active
+      = render partial: 'shared/repo', collection: @repos
+
+    button.js_show_all_matching_items class='button radius' More repos

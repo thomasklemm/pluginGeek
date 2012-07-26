@@ -3,5 +3,6 @@
 $ ->
 
   # Toggle displaying of plugins
-  $('.plugins_button').live 'click', ->
+  $('.toggle_repo_children').live 'click', (event) ->
     $(this).siblings('.child').toggle()
+    event.preventDefault()

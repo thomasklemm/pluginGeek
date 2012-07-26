@@ -2,8 +2,11 @@
 
 @import 'variables'
 
-// Repo
-.repo_overview
+//
+// Repo 
+// (repos#index, categories#show, repos#show (alternatives section))
+//
+.repo
   clear: both
   padding-bottom: 2rem
   line-height: 1.6
@@ -26,12 +29,23 @@
   .activity
     margin-left: 1.2rem
 
-  .plugins_button
-    margin-left: 1.2rem
-
   // Hidden Stats
   .knight_score, .updated_at
     display: none
+
+  &:last-of-type
+    padding-bottom: 1rem
+
+  //
+  // Child repos 
+  // (repos#index, categories#show, repos#show (alternatives section))
+  //
+
+  // Toggle repo children switch
+  .toggle_repo_children
+    margin-left: 1.2rem
+    &:hover, &:active, &:focus
+      cursor: pointer
 
   // Child Margins and Paddings
   &.child
@@ -40,10 +54,8 @@
     display: none
     border-left: 2px solid $mainColor
 
-.repo_overview:last-of-type
-  padding-bottom: 0
 
-// Repo Header (Repo Show View)
+// Repo Header (repos#show)
 .repo_header
   line-height: 1.6
   

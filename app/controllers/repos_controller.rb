@@ -7,7 +7,7 @@ class ReposController < ApplicationController
 
   # GET /repos
   def index
-    @repos = Repo.overview
+    # @repos = Repo.overview
   end
 
   # GET /repos/:owner/:name(/*leftover)
