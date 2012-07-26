@@ -102,8 +102,9 @@ ActiveRecord: Scopes
 A scope represents a narrowing of a database query. Named scopes help organize these filters.
 
 Docs & Reading:
-- [Named Scopes](http://api.rubyonrails.org/classes/ActiveRecord/Scoping/Named/ClassMethods.html) - Rails API Docs (includes Examples)
-- [Default Scoping](http://api.rubyonrails.org/classes/ActiveRecord/Scoping/Default/ClassMethods.html) - Rails API Docs
+- [Scopes](http://guides.rubyonrails.org/active_record_querying.html#scopes) - Rails Guides on ActiveRecord Query Interface, Scopes Section
+- [Scopes](http://api.rubyonrails.org/classes/ActiveRecord/Scoping/Named/ClassMethods.html) - Rails API Docs (includes Examples)
+- [Default Scopes](http://api.rubyonrails.org/classes/ActiveRecord/Scoping/Default/ClassMethods.html) - Rails API Docs
 
 RailsCasts:
 - [Squeel](http://railscasts.com/episodes/354-squeel) - Squeel provides a comprehensive DSL for writing SQL queries in Ruby. It is built upon Arel giving you access to many of its powerful features.

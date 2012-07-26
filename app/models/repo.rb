@@ -20,8 +20,19 @@
 #
 
 class Repo < ActiveRecord::Base
+  ###
+  #   Module Extensions
+  ###
+  # FriendlyId
+  extend FriendlyId
+  friendly_id :full_name
 
-  # Scopes
+  # Tagging
+  acts_as_ordered_taggable_on :categories
+
+  ###
+  #   Scoping / Scopes & Validations
+  ###
   # overview
   scope :overview, lambda { Repo.order_knight_score }
   # has_language
@@ -32,18 +43,8 @@ class Repo < ActiveRecord::Base
   # Validations
   validates :full_name, uniqueness: true
 
-  # FriendlyId
-  extend FriendlyId
-  friendly_id :full_name
-
-  # Tagging
-  acts_as_ordered_taggable_on :categories
-
-  # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :category_list
-
   ###
-  #   Attribute defaults
+  #   Field Defaults
   ###
   def name
     self[:name] or self[:full_name].split('/')[1]
@@ -66,20 +67,16 @@ class Repo < ActiveRecord::Base
   end
 
   ###
-  #   Updating Jobs
+  #   Life-Cycle Callbacks
   ###
-
-  # Send 'add_repo' to (new) Repo object
-  def add_repo
-    if RepoInitializer.perform_sync(full_name)
-      # success
-      Rails.logger.info "Added new repo '#{ repo.full_name }'"
-      true
-    else
-      # failure
-      Rails.logger.warn "Failed to initialize repo '#{ repo.full_name }'"
-      false
-    end
+  # Touch parents after safe
+  #   cache auto-expiration
+  after_save :touch_parents
+  def touch_parents
+    parents = Repo.where("children LIKE ?", "%#{ full_name }%")
+    parents.each { |p| p.touch }
   end
 
+  # Whitelisting attributes for mass assignment
+  attr_accessible :full_name, :category_list
 end
