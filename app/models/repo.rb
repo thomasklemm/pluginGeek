@@ -29,16 +29,20 @@ class Repo < ActiveRecord::Base
 
   # Tagging
   acts_as_ordered_taggable_on :categories
+  acts_as_taggable_on :languages
 
   ###
   #   Scoping / Scopes & Validations
   ###
-  # overview
-  scope :overview, lambda { Repo.order_knight_score }
-  # has_language
-  scope :has_category, lambda { |c_name| Repo.tagged_with(c_name, on: :categories).order_knight_score }
-  # order_knight_score
-  scope :order_knight_score, order('knight_score desc')
+  # find_all_by_language('ruby'),
+  #   order by knight_score
+  scope :find_all_by_language, lambda {  |language| tagged_with(language, on: :languages).order_by_knight_score }
+  # find_all_by_category('awesome_category'),
+  #   order by knight_score
+  scope :find_all_by_category, lambda { |category_name| tagged_with(category_name, on: :categories).order_by_knight_score }
+  # order_by_knight_score,
+  #   order repos by descending knight_score
+  scope :order_by_knight_score, order('knight_score desc')
 
   # Validations
   validates :full_name, uniqueness: true
@@ -75,6 +79,19 @@ class Repo < ActiveRecord::Base
   def touch_parents
     parents = Repo.where("children LIKE ?", "%#{ full_name }%")
     parents.each { |p| p.touch }
+  end
+
+  # Determine Languages
+  before_save :determine_languages
+  def determine_languages
+    languages_array = []
+    categories.each do |c|
+      match = /\((?<languages>.*)\)/.match(c.name)
+      # if there is not match, match will be nil
+      languages_string = match[:languages] if match
+      (languages_array << languages_string.split('/').join(', ').downcase) if languages_string
+    end
+    self.language_list = languages_array.join(', ')
   end
 
   # Whitelisting attributes for mass assignment

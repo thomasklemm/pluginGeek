@@ -55,7 +55,7 @@ class Category < ActiveRecord::Base
 
   # Life-Cycle Callbacks
   after_validation :move_friendly_id_error_to_name
-  before_save :determine_language
+  before_save :determine_languages
 
   # Move FriendlyId error to name so it is attached to the input that is being displayed
   def move_friendly_id_error_to_name
@@ -63,9 +63,9 @@ class Category < ActiveRecord::Base
   end
 
   # Determine Language and tag category appropriately
-  def determine_language
-    languages = /\((?<languages>.*)\)/.match(name)[:languages] if 
-      /\((?<languages>.*)\)/.match(name).respond_to?(:languages)
+  def determine_languages
+    match = /\((?<languages>.*)\)/.match(name)
+    languages = match[:languages] if match.respond_to?(:languages)
     self.language_list = languages.split('/').join(', ').downcase if languages
   end
 

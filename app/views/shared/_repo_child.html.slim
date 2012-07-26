@@ -1,32 +1,33 @@
 / repo_child.html.slim
 
-/ Child Repo
-.child.repo_overview
+- cache ['v1', repo, 'repo_child'] do
+  / Child Repo
+  .repo.child
 
-  / Owner and Name
-  = link_to repo do
-    span.name = repo.name
-    | &nbsp;by&nbsp;
-    span.owner = repo.owner
-
-  / Watchers
-  span.watchers 
-    i.icon-heart-empty
-    | &nbsp;
-    = repo.watchers
-
-  / Label
-  - if repo.label
+    / Owner and Name
     = link_to repo do
-      span.label.round = repo.label
+      span.name = repo.name
+      | &nbsp;by&nbsp;
+      span.owner = repo.owner
 
-  / Activity
-  span.activity class=activity_color(repo.github_updated_at) 
-    i.icon-leaf
-    | &nbsp;
-    = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+    / Watchers
+    span.watchers 
+      i.icon-heart-empty
+      | &nbsp;
+      = repo.watchers
 
-  / Description
-  .description  = repo.description
+    / Label
+    - if repo.label
+      = link_to repo do
+        span.label.round = repo.label
+
+    / Activity
+    span.activity class=activity_color(repo.github_updated_at) 
+      i.icon-leaf
+      | &nbsp;
+      = (distance_of_time_in_words_to_now(repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+
+    / Description
+    .description  = repo.description
 
 
