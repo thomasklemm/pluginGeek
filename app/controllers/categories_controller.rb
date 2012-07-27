@@ -2,30 +2,20 @@ class CategoriesController < ApplicationController
 
   # Before Filters
   before_filter :require_login, only: [:edit, :update]
-  before_filter :find_category, except: :index
+  before_filter :find_category_and_repos, except: :index
 
   # GET /categories
   def index
-    # Find categories (all or limited to language)
-    @categories = Category.overview(params[:language])
   end
 
   # GET /categories/:id
   def show
-    # If an old id or a numeric id was used to find the record, then
-    #   the request path will not match the category_path, and we should do
-    #   a 301 redirect that uses the current friendly id.
-    #   (Source: friendly_id docs)
-    if request.path != category_path(@category)
-      return redirect_to @category, status: :moved_permanently
-    end
-
-    @repos = Repo.has_category(@category.name)
+    redirect_on_request_to_outdated_path
   end
 
   # GET /categories/:id/edit
   def edit
-    @repos = Repo.has_category(@category.name)
+    # Review: Own view for cachability
     render action: :show
   end
 
@@ -37,41 +27,39 @@ class CategoriesController < ApplicationController
     params[:category][:short_description] &&= view_context.strip_tags(markdown.render(params[:category][:short_description])).squish
 
     if @category.update_attributes(params[:category])
+      # Update success
       # Render Markdown Description and save as description
       @category.description = markdown.render(@category.md_description)
        if @category.save
-        flash[:notice] = 'Category updated. Thanks a lot!'
-        redirect_to action: 'show'
+        redirect_to @category, notice: 'Category updated. Thanks a lot!'
       else
-        flash[:alert] = 'Markdown rendering failed. Please alert me if you see this.'
-        redirect_to action: 'show'
-      end
-      
+        flash.now.alert = 'Markdown rendering failed. Please alert me if you read this, because you never should see this.'
+        render action: :edit
+      end  
     else
-      flash[:alert] = "Category update failed. Please let me know if you assume this is a bug."
-      redirect_to action: 'show'
+      # Update failed
+      flash.now.alert = "Category update failed. Please let me know if you assume this is a bug."
+      render action: :edit
     end
   end
 
 protected
 
-  ###
-  # Before Filters
-  ###
-
-  # Find category
-  def find_category
+  # Find category and repos
+  def find_category_and_repos
     # friendly_id's slug serves as params[:id]
     @category = Category.find(params[:id])
+    # Find all repos by category
+    @repos = Repo.find_all_by_category(@category.name)
   end
 
-  ###
-  #   Helper Methods
-  ###
-
-  def markdown
-    # See Redcarpet options: https://github.com/tanoku/redcarpet
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, safe_links_only: true, with_toc_data: true, hard_wrap: true, no_intra_emphasis: true, autolink: true)
+  # If an old id or a numeric id was used to find the record, then
+  # the request path will not match the category_path, and we should do
+  # a 301 redirect that uses the current friendly id. (Source: friendly_id docs)
+  def redirect_on_request_to_outdated_path
+    if request.path != category_path(@category)
+      return redirect_to @category, status: :moved_permanently
+    end
   end
 
 end

@@ -4,12 +4,11 @@ h3 Explore Our Knightly Projects
 
 p.subheader 
   ' Listing
-  - cache ['v2', Repo.maximum(:updated_at), 'repo_count'] do
-      b #{ Repo.count } 
+  / b #{ Repo.count } 
   ' Repos. Discover Yours.
 
 
-- cache ['v4', Repo.maximum(:updated_at), 'all_repos'] do
+- cache ['v5', Repo.find_all_by_language(language).maximum(:updated_at), 'repos_index', language ] do
   / Repos List
   #js_repos_list
 
@@ -27,7 +26,10 @@ p.subheader
 
     / Repos List
     .list
-      - @repos = Repo.active
+      / Force Lazy Loading
+      / FIX: In my development env every query is immediately performed.
+      /   Is Rails Footnotes or anything else forcing this?
+      - @repos = Repo.find_all_by_language(language)
       = render partial: 'shared/repo', collection: @repos
 
     button.js_show_all_matching_items class='button radius' More repos

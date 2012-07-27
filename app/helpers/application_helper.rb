@@ -45,4 +45,13 @@ module ApplicationHelper
     params[:language].to_s
   end
 
+  # Digest a string,
+  #  if nil is given a timestamp that is valid for 10 seconds will be used
+  def digest(str)
+    str = ((DateTime.now.getutc.to_i)/10).round unless str.present?
+    str = str.to_f.to_s if str.respond_to?(:to_f)
+    str = Digest::MD5.hexdigest(str.to_s) if str.respond_to?(:to_s)
+    str
+  end
+
 end

@@ -11,11 +11,9 @@
 #
 
 class Ad < ActiveRecord::Base
-
   ###
   #   Modules
   ###
-
   # Tagging
   acts_as_taggable_on :categories
 

@@ -20,9 +20,8 @@
 
 class Category < ActiveRecord::Base
   ###
-  #   Module Embedding
+  #   Modules
   ###
-
   # Friendly Id
   #   using history module (redirecting to new slug if slug changed)
   #   First language is considered to be main language
@@ -33,31 +32,33 @@ class Category < ActiveRecord::Base
   acts_as_ordered_taggable_on :languages
   # acts_as_taggable_on :keywords # REVIEW: Implement as column if nescessary at all
 
-
   ### 
-  #   Scoping / Scopes
+  #   Scopes
   ###
+  # find_all_by_language_and_select_main_fields('ruby'),
+  #  in use at categories#index
+  scope :find_all_by_language_and_select_main_fields, lambda { |language| find_all_by_language(language).select_main_fields.order_by_knight_score }
 
-  scope :overview, lambda { |language| Category.has_language(language).select_overview_attributes.order_knight_score }
-  #   Tagged with language or all depending on presence of language
-  scope :has_language, lambda { |language| tagged_with(language.downcase, on: :languages) if language.present? }
-  #   Visibility only of categories that have repos associated with them
-  scope :has_repos, where('repo_count > 0')
-  #   Order
-  scope :order_knight_score, order('knight_score desc')
-  #   Attribute Selections
-  scope :select_overview_attributes, select([:name, :slug, :watcher_count, :label, :short_description, :repo_count, :popular_repos, :all_repos, :knight_score])
-
+  # find_all_by_language('ruby'),
+  #  find all categories tagged with given language
+  #  if no language is given find all repos
+  scope :find_all_by_language, lambda { |language| tagged_with(language.downcase, on: :languages) if language.present? }
+  
+  # select_main_fields,
+  #  only select those fields that are relevant for _category partial
+  scope :select_main_fields, select([:name, :slug, :watcher_count, :label, :short_description, :repo_count, :popular_repos, :all_repos, :knight_score])
+  
+  # order_by_knight_score
+  scope :order_by_knight_score, order('knight_score desc')
 
   ###
-  #   Callbacks
+  #   Life-Cycle Callbacks
   ###
-
-  # Life-Cycle Callbacks
   after_validation :move_friendly_id_error_to_name
   before_save :determine_languages
 
-  # Move FriendlyId error to name so it is attached to the input that is being displayed
+  # Move FriendlyId error to name so it is attached to 
+  # the input that is being displayed
   def move_friendly_id_error_to_name
     errors.messages[:name] = errors.messages.delete(:friendly_id)
   end
@@ -65,21 +66,19 @@ class Category < ActiveRecord::Base
   # Determine Language and tag category appropriately
   def determine_languages
     match = /\((?<languages>.*)\)/.match(name)
-    languages = match[:languages] if match.respond_to?(:languages)
+    languages = match[:languages] if (match && match.respond_to?(:languages))
     self.language_list = languages.split('/').join(', ').downcase if languages
   end
-
 
   ### 
   #   Field Defaults
   ###
-
   def description
-   self[:description].present? ? self[:description] : " "
+   self[:description] || ' '
   end
 
   def short_description
-   self[:short_description].present? ? self[:short_description] : " "
+    self[:short_description] || ' '
   end
 
   # Mass Assignment Whitelist

@@ -21,7 +21,7 @@
 
 class Repo < ActiveRecord::Base
   ###
-  #   Module Extensions
+  #   Modules
   ###
   # FriendlyId
   extend FriendlyId
@@ -32,42 +32,44 @@ class Repo < ActiveRecord::Base
   acts_as_taggable_on :languages
 
   ###
-  #   Scoping / Scopes & Validations
+  #   Scopes & Validations
   ###
   # find_all_by_language('ruby'),
   #   order by knight_score
   scope :find_all_by_language, lambda {  |language| tagged_with(language, on: :languages).order_by_knight_score }
+  
   # find_all_by_category('awesome_category'),
   #   order by knight_score
   scope :find_all_by_category, lambda { |category_name| tagged_with(category_name, on: :categories).order_by_knight_score }
+  
   # order_by_knight_score,
   #   order repos by descending knight_score
   scope :order_by_knight_score, order('knight_score desc')
 
   # Validations
-  validates :full_name, uniqueness: true
+  validates :full_name, presence: true, uniqueness: true
 
   ###
   #   Field Defaults
   ###
   def name
-    self[:name] or self[:full_name].split('/')[1]
+    self[:name] || self[:full_name].split('/')[1]
   end
 
   def owner
-    self[:owner] or self[:full_name].split('/')[0]
+    self[:owner] || self[:full_name].split('/')[0]
   end
 
   def description
-    self[:description] or "No description. Add one on Github."
+    self[:description] || 'No description. Add one on Github.'
   end
 
   def homepage_url
-    self[:homepage_url] or ""
+    self[:homepage_url] || ''
   end
 
   def github_updated_at
-    self[:github_updated_at] or (Time.now - 2.years)
+    self[:github_updated_at] || (Time.now - 2.years)
   end
 
   ###
@@ -81,7 +83,18 @@ class Repo < ActiveRecord::Base
     parents.each { |p| p.touch }
   end
 
+  # after_destroy :remove_as_child_from_parents
+  # # Review: Implement as tagging
+  # def remove_as_child_from_parents
+  #   parents = Repo.where("children LIKE ?", "%#{ full_name }%")
+  #   parents.each do |p|
+  #     p.children = p.children.gsub(full_name, '')
+  #     p.save
+  #   end
+  # end
+
   # Determine Languages
+  #  and assign them to language_list
   before_save :determine_languages
   def determine_languages
     languages_array = []

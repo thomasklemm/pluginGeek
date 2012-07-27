@@ -2,36 +2,34 @@
 
 h3 State your Purpose, Knight!
 
-.subheader 
-  ' Discover 
-  b #{ Repo.count } repos
-  '  in 
-  b #{ Category.count } categories
+/
+  / Ads
+  .ads
+    - @ads = Ad.tagged_with('index-ruby')
+    - @ads = Ad.all.sample(2) unless @ads.present?
+    - @ads && @ads.shuffle!
+    = render partial: 'shared/ad', collection: @ads
+    span.right style='position: relative; bottom: 18px; color: #aaa' Ads - Reason?
 
-/ Ads
-.ads
-  - @ads = Ad.tagged_with('index-ruby')
-  - @ads = Ad.all.sample(2) unless @ads.present?
-  - @ads && @ads.shuffle!
-  = render partial: 'shared/ad', collection: @ads
-  span.right style='position: relative; bottom: 18px; color: #aaa' Ads - Reason?
-
-/ Categories List
-#js_categories_list
-
-  / Categories Find
-  .categories_find
-    / Search
-    input.search type='text' autofocus='autofocus' autocomplete='off'
-
-    / Sort
-    dl.sort_list class='right'
-      dt Sort:
-      dd.sort.active  data-sort='knight_score'  Knight Score
-      dd.sort         data-sort='category_name' Name
-
+- cache ['v1', 'categories_index', language, digest(Category.find_all_by_language(language).maximum(:updated_at)) ] do
   / Categories List
-  .list
-    = render partial: 'category', collection: @categories
+  #js_categories_list
 
-  button.js_show_all_matching_items class='button radius' More categories
+    / Categories Find
+    .categories_find
+      / Search
+      input.search type='text' autofocus='autofocus' autocomplete='off'
+
+      / Sort
+      dl.sort_list
+        dt Sort:
+        dd.sort.active  data-sort='knight_score'  Knight Score
+        dd.sort         data-sort='category_name' Name
+
+    / Categories List
+    .list
+      / Find categories (all or limited to language)
+      - @categories = Category.find_all_by_language_and_select_main_fields(language)
+      = render partial: 'category', collection: @categories
+
+    button.js_show_all_matching_items class='button radius' More categories
