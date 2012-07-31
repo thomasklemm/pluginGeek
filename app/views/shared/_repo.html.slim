@@ -1,6 +1,6 @@
 / shared/repo.html.slim
 
-- cache ['v1', repo, 'repo'] do
+- cache ['v3', repo, 'repo_partial'] do
   / Single Repo in Overview
   .repo
     / Owner and Name
@@ -47,4 +47,4 @@
       / Find children
       - children = Repo.find_all_by_full_name(children_array)
       - if children
-        = render partial: 'shared/repo_child', collection: children, as: :repo
+        = render partial: 'shared/repo', collection: children, as: :repo

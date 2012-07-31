@@ -51,6 +51,17 @@ class Category < ActiveRecord::Base
   # order_by_knight_score
   scope :order_by_knight_score, order('knight_score desc')
 
+  # most_recent_by_language('ruby')
+  #   find the timestamp of the most recently updated category
+  #   with fallback on a current 10.seconds window 
+  def self.timestamp_by_language(language)
+    if timestamp = find_all_by_language(language).maximum(:updated_at)
+      timestamp = timestamp.utc.to_s(:number)
+    else  
+      DateTime.now.utc.to_s(:number).slice(0..(-2))
+    end
+  end
+
   ###
   #   Life-Cycle Callbacks
   ###

@@ -44,7 +44,7 @@ gem 'letter_opener', group: :development
 gem 'quiet_assets', group: :development
 
 # Rails Footnotes (Debug Footnotes on every Page in Development)
-gem 'rails-footnotes', '>= 3.7.5.rc4', group: :development
+# gem 'rails-footnotes', '>= 3.7.5.rc4', group: :development
 
 # Friendly Id (Human-Readable IDs for ActiveRecord Models)
 gem 'friendly_id'

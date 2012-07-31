@@ -1,58 +1,61 @@
 / categories/show.html.slim
 
-/ Category Header
-.category_header
-  
-  / Group and Name
-  /   returns category_group and category_name
-  h3 == category_name_helper(@category.name)
-  
-  / Description
-  - if params[:action] == 'edit'
-    / Edit Category Descriptions Form
-    = render 'edit_category'
-
-  - else
-    / Edit description link
-    = link_to edit_category_path(@category), class: 'edit_description right' do
-      / Add a description or Edit description
-      span data-icon='T' = @category.description.present? ? "Edit" : "<b>Add a detailed description</b>".html_safe
-    / Description
-    .description
-      =raw @category.description.present? ? @category.description.split('<p>[REPOS]</p>')[0] : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe
-
-/ Repos List
-#js_repos_list
-
-  b Repos
-
-  / Sort
-  dl.sort_list class='right'
-    dt Sort:
-    dd.sort.active  data-sort='knight_score'  Knight Score
-    dd.sort         data-sort='updated_at'    Activity
-    dd.sort         data-sort='name'          Name
-
-  / Ads
-  .ads
-    - @ads = Ad.tagged_with(@category.name)
-    - @ads = Ad.all.sample(2) unless @ads.present?
-    - @ads && @ads.shuffle!
-    = render partial: 'shared/ad', collection: @ads 
-
-  / List
-  .list
-    = render partial: 'shared/repo', collection: @repos
-
-hr
-
-- unless params[:action] == 'edit'
+- cache ['v3', @category, 'category_show'] do
+  / Category Header
   .category_header
-    .description
-      - if @category.description.present?
-        =raw @category.description.split('<p>[REPOS]</p>')[1]
+    
+    / Group and Name
+    /   returns category_group and category_name
+    h3 == category_name_helper(@category.name)
+    
+    / Description
+    - if params[:action] == 'edit'
+      / Edit Category Descriptions Form
+      = render 'edit_category'
 
+    - else
       / Edit description link
-      = link_to edit_category_path(@category), class: 'edit_description small secondary radius button' do
+      = link_to edit_category_path(@category), class: 'edit_description right' do
         / Add a description or Edit description
-        span data-icon='T' = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe
+        span data-icon='T' = @category.description.present? ? "Edit" : "<b>Add a detailed description</b>".html_safe
+      / Description
+      .description
+        =raw @category.description.present? ? @category.description.split('<p>[REPOS]</p>')[0] : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe
+
+  / Repos List
+  #js_repos_list
+
+    b Repos
+
+    / Sort
+    dl.sort_list class='right'
+      dt Sort:
+      dd.sort.active  data-sort='knight_score'  Knight Score
+      dd.sort         data-sort='updated_at'    Activity
+      dd.sort         data-sort='name'          Name
+
+    / Ads
+    - if Rails.env.development?
+      .ads
+        - @ads = Ad.tagged_with(@category.name)
+        - @ads = Ad.all.sample(2) unless @ads.present?
+        - @ads && @ads.shuffle!
+        = render partial: 'shared/ad', collection: @ads 
+
+    / List
+    .list
+      - cache ['v1', @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
+        = render partial: 'shared/repo', collection: @repos
+
+  hr
+
+  - unless params[:action] == 'edit'
+    .category_header
+      .description
+        - if @category.description.present?
+          =raw @category.description.split('<p>[REPOS]</p>')[1]
+
+        / Edit description link
+        = link_to edit_category_path(@category), class: 'edit_description small secondary radius button' do
+          / Add a description or Edit description
+          span data-icon='T' = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe

@@ -2,16 +2,17 @@
 
 h3 State your Purpose, Knight!
 
-/
+- if Rails.env.development?
   / Ads
-  .ads
-    - @ads = Ad.tagged_with('index-ruby')
-    - @ads = Ad.all.sample(2) unless @ads.present?
-    - @ads && @ads.shuffle!
-    = render partial: 'shared/ad', collection: @ads
-    span.right style='position: relative; bottom: 18px; color: #aaa' Ads - Reason?
+  - cache ['v1', 'categories_index_ads', language, Random.rand(20) ] do
+    .ads
+      - @ads = Ad.tagged_with('index-ruby')
+      - @ads = Ad.all.sample(2) unless @ads.present?
+      - @ads && @ads.shuffle!
+      = render partial: 'shared/ad', collection: @ads
+      span.right style='position: relative; bottom: 18px; color: #aaa' Ads - Reason?
 
-- cache ['v1', 'categories_index', language, digest(Category.find_all_by_language(language).maximum(:updated_at)) ] do
+- cache ['v1', 'categories_index', language, Category.timestamp_by_language(language) ] do
   / Categories List
   #js_categories_list
 

@@ -131,8 +131,6 @@ GEM
       activesupport (= 3.2.6)
       bundler (~> 1.0)
       railties (= 3.2.6)
-    rails-footnotes (3.7.8)
-      rails (>= 3.0.0)
     railties (3.2.6)
       actionpack (= 3.2.6)
       activesupport (= 3.2.6)
@@ -222,7 +220,6 @@ DEPENDENCIES
   pry-remote
   quiet_assets
   rails (= 3.2.6)
-  rails-footnotes (>= 3.7.5.rc4)
   redcarpet
   sass-rails
   sidekiq

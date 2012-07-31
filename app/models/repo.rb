@@ -36,15 +36,28 @@ class Repo < ActiveRecord::Base
   ###
   # find_all_by_language('ruby'),
   #   order by knight_score
-  scope :find_all_by_language, lambda {  |language| tagged_with(language, on: :languages).order_by_knight_score }
+  scope :find_all_by_language, lambda {  |language| tagged_with(language, on: :languages) }
+  scope :ordered_find_all_by_language, lambda { |language| find_all_by_language(language).order_by_knight_score }
   
   # find_all_by_category('awesome_category'),
   #   order by knight_score
-  scope :find_all_by_category, lambda { |category_name| tagged_with(category_name, on: :categories).order_by_knight_score }
-  
+  scope :find_all_by_category, lambda { |category_name| tagged_with(category_name, on: :categories) }
+  scope :ordered_find_all_by_category, lambda { |category_name| find_all_by_category(category_name).order_by_knight_score }
+
   # order_by_knight_score,
   #   order repos by descending knight_score
-  scope :order_by_knight_score, order('knight_score desc')
+  scope :order_by_knight_score, lambda { order('knight_score desc') }
+
+  # most_recent_by_language('ruby')
+  #   find the timestamp of the most recently updated repo
+  #   with fallback on a current 10.seconds window 
+  def self.timestamp_by_language(language)
+    if timestamp = find_all_by_language(language).maximum(:updated_at)
+      timestamp = timestamp.utc.to_s(:number)
+    else  
+      DateTime.now.utc.to_s(:number).slice(0..(-2))
+    end
+  end
 
   # Validations
   validates :full_name, presence: true, uniqueness: true

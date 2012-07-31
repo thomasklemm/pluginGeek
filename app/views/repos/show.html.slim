@@ -1,5 +1,7 @@
 / repos/show.html.slim
 
+- cache ['v1', @repo, 'show_repo' ] do
+
 / Repo Header
 .repo_header
   
@@ -86,8 +88,8 @@
             dt Sort:
             / REVIEW: Add a similarity option thats selected as standard
             dd.sort  data-sort='knight_score'  Knight Score
-            dd.sort         data-sort='updated_at'    Activity
-            dd.sort         data-sort='name'          Name
+            dd.sort  data-sort='updated_at'    Activity
+            dd.sort  data-sort='name'          Name
 
           / List
           .list
