@@ -8,7 +8,7 @@ p.subheader
   ' Repos. Discover Yours.
 
 
-- cache ['v6', 'repos_index', language, Repo.timestamp_by_language(language) ] do
+- cache ['v8', 'repos_index', language, Repo.timestamp_by_language(language) ] do
   / Repos List
   #js_repos_list
 
@@ -26,10 +26,6 @@ p.subheader
 
     / Repos List
     .list
-      / Force Lazy Loading
-      / FIX: In my development env every query is immediately performed.
-      /   Is Rails Footnotes or anything else forcing this?
-      - @repos = Repo.ordered_find_all_by_language(language)
       = render partial: 'shared/repo', collection: @repos
 
     button.js_show_all_matching_items class='button radius' More repos

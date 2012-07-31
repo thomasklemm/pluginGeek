@@ -50,7 +50,7 @@ protected
     # friendly_id's slug serves as params[:id]
     @category = Category.find(params[:id])
     # Find all repos by category
-    @repos = Repo.find_all_by_category(@category.name)
+    @repos = Repo.ordered_find_all_by_category(@category.name)
   end
 
   # If an old id or a numeric id was used to find the record, then

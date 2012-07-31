@@ -7,6 +7,7 @@ class ReposController < ApplicationController
 
   # GET /repos
   def index
+    @repos = Repo.ordered_find_all_by_language(language)
   end
 
   # GET /repos/:owner/:name(/*leftover)

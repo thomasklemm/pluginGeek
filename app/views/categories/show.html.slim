@@ -1,6 +1,6 @@
 / categories/show.html.slim
 
-- cache ['v3', @category, 'category_show'] do
+- cache ['v5', @category, 'category_show'] do
   / Category Header
   .category_header
     
@@ -44,7 +44,7 @@
 
     / List
     .list
-      - cache ['v1', @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
+      - cache ['v2', @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
         = render partial: 'shared/repo', collection: @repos
 
   hr
