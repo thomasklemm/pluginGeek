@@ -81,6 +81,11 @@ gem 'annotate', '>=2.5.0.pre1', group: :development
 gem 'sidekiq'
 gem 'sinatra', require: false
 
+# Memcached on Heroku
+group :production do
+  gem 'memcachier'
+  gem 'dalli'
+end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
