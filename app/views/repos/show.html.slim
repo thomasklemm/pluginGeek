@@ -2,108 +2,108 @@
 
 - cache ['v1', @repo, 'show_repo' ] do
 
-/ Repo Header
-.repo_header
-  
-  / Name and Owner
-  h3.name_and_owner = link_to @repo.github_url do
-    span.name #{ @repo.name }
-    small.owner  by #{ @repo.owner }
+  / Repo Header
+  .repo_header
+    
+    / Name and Owner
+    h3.name_and_owner = link_to @repo.github_url do
+      span.name #{ @repo.name }
+      small.owner  by #{ @repo.owner }
 
-  / Github Watch Button including Watcher Count
-  iframe.watch_button src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
+    / Github Watch Button including Watcher Count
+    iframe.watch_button src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
-  /Label
-  - if @repo.label
-    span.label.round = @repo.label
+    /Label
+    - if @repo.label
+      span.label.round = @repo.label
 
-  / Description
-  .description = @repo.description
+    / Description
+    .description = @repo.description
 
-  / Url
-  span.homepage_url = link_to @repo.homepage_url, @repo.homepage_url
+    / Url
+    span.homepage_url = link_to @repo.homepage_url, @repo.homepage_url
 
-  / Activity
-  span.activity class=activity_color(@repo.github_updated_at) 
-    i.icon-leaf
-    | &nbsp;
-    = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+    / Activity
+    span.activity class=activity_color(@repo.github_updated_at) 
+      i.icon-leaf
+      | &nbsp;
+      = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
 
-  / Categories & Edit Categories
-  - if params[:action] == 'edit'
-    .category_list_edit
-      = form_for @repo do |f|
-        = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
-        div style='padding-bottom: 1rem' = f.text_field :category_list
-        = f.submit 'Save Categories', class: 'small radius button'
-    - category_names = Category.pluck(:name).to_json.html_safe
-    javascript:
-      $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
+    / Categories & Edit Categories
+    - if params[:action] == 'edit'
+      .category_list_edit
+        = form_for @repo do |f|
+          = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
+          div style='padding-bottom: 1rem' = f.text_field :category_list
+          = f.submit 'Save Categories', class: 'small radius button'
+      - category_names = Category.pluck(:name).to_json.html_safe
+      javascript:
+        $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
 
-  - else
-    / Category List
-    .category_list
-      b Categories
+    - else
+      / Category List
+      .category_list
+        b Categories
 
-      / Categories present
-      - if @repo.category_list.present?
-        / Add or edit categories link
-        span.right= link_to edit_repo_path(@repo) do 
-          span data-icon='T' Add or edit categories
-        / List categories and repo count
-        ul.square
-          - @repo.categories.each do |category|
-              - @category = Category.find_by_name(category.name)
-              li 
-                = link_to @category.name, @category
-                '  (#{ @category.repo_count } Repos)
-      - else
-        / Add categories link
-        div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do 
-          ' None yet.
-          b Add or edit categories
-
-/ Readme and Alternatives
-.readme_and_alternatives
-
-  / Readme and Alternatives Tab
-  dl class='tabs contained'
-    dd.active = link_to 'Readme', '#Readme', id: 'readme_tab'
-    dd        = link_to 'Alternatives', '#Alternatives', id: 'alternatives_tab'
-
-  / Tabs Content
-  ul class='tabs-content contained'
-  
-    / Readme Tab Content
-    li#ReadmeTab.active
-      .readme_js data-owner=@repo.owner data-repo=@repo.name
-
-    / Alternatives Tab Content
-    li#AlternativesTab
-      - if @alternatives
-        / Alternative Repos List (if there are some alternative repos)
-        #js_repos_list
-          / Sort
-          dl.sort_list class='right'
-            dt Sort:
-            / REVIEW: Add a similarity option thats selected as standard
-            dd.sort  data-sort='knight_score'  Knight Score
-            dd.sort  data-sort='updated_at'    Activity
-            dd.sort  data-sort='name'          Name
-
-          / List
-          .list
-            = render partial: 'shared/repo', collection: @alternatives
-
-      - else  
-        
+        / Categories present
         - if @repo.category_list.present?
-          p No Alternatives could be found. Try adding a few more categories.
-
+          / Add or edit categories link
+          span.right= link_to edit_repo_path(@repo) do 
+            span data-icon='T' Add or edit categories
+          / List categories and repo count
+          ul.square
+            - @repo.categories.each do |category|
+                - @category = Category.find_by_name(category.name)
+                li 
+                  = link_to @category.name, @category
+                  '  (#{ @category.repo_count } Repos)
         - else
-          em 
-            ' Please 
-            b = link_to 'add a category', edit_repo_path(@repo) 
-            '  to this repo to see alternatives.
+          / Add categories link
+          div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do 
+            ' None yet.
+            b Add or edit categories
+
+  / Readme and Alternatives
+  .readme_and_alternatives
+
+    / Readme and Alternatives Tab
+    dl class='tabs contained'
+      dd.active = link_to 'Readme', '#Readme', id: 'readme_tab'
+      dd        = link_to 'Alternatives', '#Alternatives', id: 'alternatives_tab'
+
+    / Tabs Content
+    ul class='tabs-content contained'
+    
+      / Readme Tab Content
+      li#ReadmeTab.active
+        .readme_js data-owner=@repo.owner data-repo=@repo.name
+
+      / Alternatives Tab Content
+      li#AlternativesTab
+        - if @alternatives
+          / Alternative Repos List (if there are some alternative repos)
+          #js_repos_list
+            / Sort
+            dl.sort_list class='right'
+              dt Sort:
+              / REVIEW: Add a similarity option thats selected as standard
+              dd.sort  data-sort='knight_score'  Knight Score
+              dd.sort  data-sort='updated_at'    Activity
+              dd.sort  data-sort='name'          Name
+
+            / List
+            .list
+              = render partial: 'shared/repo', collection: @alternatives
+
+        - else  
+          
+          - if @repo.category_list.present?
+            p No Alternatives could be found. Try adding a few more categories.
+
+          - else
+            em 
+              ' Please 
+              b = link_to 'add a category', edit_repo_path(@repo) 
+              '  to this repo to see alternatives.
 
 
