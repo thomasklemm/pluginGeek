@@ -15,7 +15,7 @@ class ReposController < ApplicationController
     # Redirect to create action if @repo is a new record
     @repo.new_record? and return redirect_to action: 'create'
 
-    # Always redirect to repo base url without leftover 
+    # Always redirect to repo base url without leftover
     #   (can be attached when coming from github via bookmarklet)
     params[:leftover] and return redirect_to @repo
   end
@@ -47,7 +47,7 @@ class ReposController < ApplicationController
     if @repo.update_attributes(params[:repo])
 
       # Update categories based on repo tags
-      CategoryUpdater.update_categories_serial    
+      CategoryUpdater.update_categories_serial
 
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'
@@ -64,7 +64,7 @@ protected
   ###
 
   # Find or initialize repo
-  def find_repo 
+  def find_repo
     @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
   end
 

@@ -22,7 +22,7 @@ class CategoriesController < ApplicationController
   # PUT /categories/:id
   def update
     # Prepare Attributes
-    #   Short Description: Render Markdown & Strip Tags & Squish 
+    #   Short Description: Render Markdown & Strip Tags & Squish
     #     To remove links and emphasis if someone accidentally inputs markdown or mischiefiously inputs <script> tags
     params[:category][:short_description] &&= view_context.strip_tags(markdown.render(params[:category][:short_description])).squish
 
@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
       else
         flash.now.alert = 'Markdown rendering failed. Please alert me if you read this, because you never should see this.'
         render action: :edit
-      end  
+      end
     else
       # Update failed
       flash.now.alert = "Category update failed. Please let me know if you assume this is a bug."
