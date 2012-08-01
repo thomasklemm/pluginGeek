@@ -10,7 +10,7 @@ class CategoryUpdater
   #   Class Methods:
   #     - perform_async(tag_name, tag_count): Schedule a single category
   #         to be updated asynchronously by the Sidekiq process
-  #     - update_categories_sidekiq: Trigger an asynchronous, 
+  #     - update_categories_sidekiq: Trigger an asynchronous,
   #         Sidekiq-powered update of all categories
   #     - update_categories_serial: Update all categories in serial,
   #         blocking the Thread in which it is called
@@ -21,12 +21,12 @@ class CategoryUpdater
   include Sidekiq::Worker
 
   # Update a single category
-  def perform(tag_name, tag_count)
+  def perform(tag_name)
     # Find or initialize category
     category = Category.find_or_initialize_by_name(tag_name)
 
     # Popular Repos and All Repos (String)
-    repos = Repo.has_category(tag_name)
+    repos = Repo.ordered_find_all_by_category(tag_name)
 
     # Popular Repos
     category[:popular_repos] = repos[0..2].inject('') do |result, repo|
@@ -46,7 +46,7 @@ class CategoryUpdater
     end
 
     # Repo Count
-    category[:repo_count] = tag_count
+    category[:repo_count] = repos.size
 
     # Watcher Count
     # category[:watcher_count] = repos.sum(&:watchers)
@@ -73,7 +73,7 @@ class CategoryUpdater
     Rails.logger.info 'Scheduling updating each category using Sidekiq...'
 
     # Reset tag counts
-    #  (if tag is completely removed categories would not be updated otherwise 
+    #  (if tag is completely removed categories would not be updated otherwise
     #   and remain visible)
     Category.update_all(repo_count: 0)
 
@@ -81,7 +81,7 @@ class CategoryUpdater
     tags = Repo.tag_counts_on(:categories)
 
     # Update each tag
-    tags.each { |tag| perform_async(tag.name, tag.count) }
+    tags.each { |tag| perform_async(tag.name) }
     Rails.logger.info 'Finished scheduling updating each category using Sidekiq...'
   end
 
@@ -91,9 +91,9 @@ class CategoryUpdater
 
     # CategoryUpdater Object
     category_updater = CategoryUpdater.new
-    
+
     # Reset tag counts
-    #  (if tag is completely removed categories would not be updated otherwise 
+    #  (if tag is completely removed categories would not be updated otherwise
     #   and remain visible)
     Category.update_all(repo_count: 0)
 
@@ -101,8 +101,8 @@ class CategoryUpdater
     tags = Repo.tag_counts_on(:categories)
 
     # Update each tag
-    tags.each do |tag| 
-      if category_updater.perform(tag.name, tag.count)
+    tags.each do |tag|
+      if category_updater.perform(tag.name)
         # success
       else
         # error

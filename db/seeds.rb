@@ -354,11 +354,9 @@ plugins = [
 ]
 
 if Rails.env.development?
-
-ads = [
-  {name: 'Heroku', category_list: 'index', url: 'http://www.heroku.com', description: 'Heroku is the leading open language cloud application platform and supports Ruby, Java, Python, Clojure, Scala, Node.js. and custom language buildpacks.'}
-]
-
+  ads = [
+    {name: 'Heroku', category_list: 'index', url: 'http://www.heroku.com', description: 'Heroku is the leading open language cloud application platform and supports Ruby, Java, Python, Clojure, Scala, Node.js. and custom language buildpacks.'}
+  ]
 end
 
 
@@ -370,20 +368,20 @@ seeds.each do |seed|
   # Build category name
   category_name = "#{ seed[:name] } (#{ seed[:lang] })"
 
-  ### 
+  ###
   #   Create or update categories
-  ###  
+  ###
   # Find or initialize category
   category = Category.find_or_initialize_by_name(category_name)
 
-  # Seed descriptions unless present 
+  # Seed descriptions unless present
   category.short_description = seed[:description] unless category.short_description.present?
   category.description = seed[:description] unless category.description.present?
-  
+
   # Save Category
   category.save
 
-  ### 
+  ###
   #   Create or update repos
   ###
   seed[:repos].each do |full_name|
@@ -406,13 +404,13 @@ Rails.logger.info 'Processing Plugins...'
 # Write Plugins
 plugins.each do |plugin|
   # Children
-  #  ( Makes sure children are known if they aren't listed in any category 
+  #  ( Makes sure children are known if they aren't listed in any category
   #    and thus not seeded yet )
   plugin[:children].each { |full_name| Repo.find_or_create_by_full_name(full_name) }
 
   # Write 'Association'
   parent = Repo.find_or_initialize_by_full_name(plugin[:parent])
-  parent.children = plugin[:children].join(', ')
+  parent.child_list = plugin[:children].join(', ')
   parent.save
 end
 

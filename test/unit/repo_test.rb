@@ -16,7 +16,6 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  label             :string(255)
-#  children          :string(255)
 #
 
 require 'test_helper'
