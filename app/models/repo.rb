@@ -90,11 +90,10 @@ class Repo < ActiveRecord::Base
   ###
   # Touch parents after safe
   #   cache auto-expiration
-  after_save :touch_parents
-  def touch_parents
-    parents = Repo.where("children LIKE ?", "%#{ full_name }%")
-    parents.each { |p| p.touch }
-  end
+  # after_save :touch_parents
+  # def touch_parents
+  #  # Touch parents
+  # end
 
   # after_destroy :remove_as_child_from_parents
   # # Review: Implement as tagging
@@ -111,13 +110,15 @@ class Repo < ActiveRecord::Base
   before_save :determine_languages
   def determine_languages
     languages_array = []
-    categories.each do |c|
-      match = /\((?<languages>.*)\)/.match(c.name)
-      # if there is not match, match will be nil
+    # category_list can be called before save
+    category_list.each do |category_name|
+      match = /\((?<languages>.*)\)/.match(category_name)
+      # if there is no match, match will be nil
       languages_string = match[:languages] if match
-      (languages_array << languages_string.split('/').join(', ').downcase) if languages_string
+      # add the first language of every category as a repo's language
+      (languages_array << languages_string.split('/')[0].downcase) if languages_string
     end
-    self.language_list = languages_array.join(', ')
+    self.language_list = languages_array
   end
 
   # Whitelisting attributes for mass assignment
