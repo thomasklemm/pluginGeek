@@ -16,7 +16,6 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  label             :string(255)
-#  children          :string(255)
 #
 
 class Repo < ActiveRecord::Base
@@ -29,7 +28,7 @@ class Repo < ActiveRecord::Base
 
   # Tagging
   acts_as_ordered_taggable_on :categories
-  acts_as_taggable_on :languages
+  acts_as_taggable_on :languages, :children
 
   ###
   #   Scopes & Validations
@@ -90,20 +89,26 @@ class Repo < ActiveRecord::Base
   ###
   # Touch parents after safe
   #   cache auto-expiration
-  # after_save :touch_parents
-  # def touch_parents
-  #  # Touch parents
-  # end
+  after_save :touch_parents
+  def touch_parents
+    # Find parents
+    parents = Repo.find_all_by_full_name(child_list)
+    # Touch each parent
+    parents.each { |parent| parent.touch }
+  end
 
-  # after_destroy :remove_as_child_from_parents
-  # # Review: Implement as tagging
-  # def remove_as_child_from_parents
-  #   parents = Repo.where("children LIKE ?", "%#{ full_name }%")
-  #   parents.each do |p|
-  #     p.children = p.children.gsub(full_name, '')
-  #     p.save
-  #   end
-  # end
+  # Remove child from parents
+  #  after destorying a repo
+  after_destroy :remove_child_from_parents
+  def remove_child_from_parents
+    # Find parents
+    parents = Repo.find_all_by_full_name(child_list)
+    parents.each do |parent|
+      # Remove repo from parent's child_list
+      parent.child_list.remove(full_name)
+      parent.save
+    end
+  end
 
   # Determine Languages
   #  and assign them to language_list

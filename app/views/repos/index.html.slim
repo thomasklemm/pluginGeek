@@ -2,13 +2,13 @@
 
 h3 Explore Our Knightly Projects
 
-p.subheader 
+p.subheader
   ' Listing
-  / b #{ Repo.count } 
+  / b #{ Repo.count }
   ' Repos. Discover Yours.
 
 
-- cache ['v8', 'repos_index', language, Repo.timestamp_by_language(language) ] do
+- cache ['v11', 'repos_index', language, Repo.timestamp_by_language(language) ] do
   / Repos List
   #js_repos_list
 
@@ -16,7 +16,7 @@ p.subheader
     .repos_find
       / Search
       input.search type='text' autofocus='autofocus' autocomplete='off'
-      
+
       / Sort
       dl.sort_list
         dt Sort:

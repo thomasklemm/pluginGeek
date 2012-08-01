@@ -28,7 +28,8 @@ module CategoriesHelper
   #   wrap owner and name of each popular repo in respective tags
   def category_popular_repos_helper(repos)
     h = []
-    repos.split(', ').each do |repo|
+    # if there are repos split them etc.
+    repos && repos.split(', ').each do |repo|
       owner = repo.split('/')[0]
       name = repo.split('/')[1]
       h << "<span class='repo_name'>#{ name }</span>"
