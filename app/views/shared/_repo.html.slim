@@ -38,12 +38,12 @@
     span.updated_at   = time_ago_from_now(repo.github_updated_at)
 
     / Children
-    - child_list = repo.child_list
-    - if child_list.present?
+    - if repo.cached_child_list.present?
+      - child_array = repo.cached_child_list.split(', ')
       / Toggle children switch
-      = link_to pluralize(child_list.size, 'Related Repo'), '', class: :toggle_repo_children
+      = link_to pluralize(child_array.size, 'Related Repo'), '', class: :toggle_repo_children
       / Find children
       /  in a way that does not raise an exception if child does not exist
-      - children = Repo.find_all_by_full_name(child_list)
+      - children = Repo.find_all_by_full_name(child_array)
       - if children
         = render partial: 'shared/repo', collection: children, as: :repo

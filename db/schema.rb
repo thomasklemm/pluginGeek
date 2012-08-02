@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726075524) do
+ActiveRecord::Schema.define(:version => 20120802062834) do
 
   create_table "ads", :force => true do |t|
     t.string   "name"
@@ -70,9 +70,12 @@ ActiveRecord::Schema.define(:version => 20120726075524) do
     t.string   "homepage_url"
     t.integer  "knight_score"
     t.datetime "github_updated_at"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "label"
+    t.string   "cached_category_list"
+    t.string   "cached_child_list"
+    t.string   "cached_language_list"
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true

@@ -1,13 +1,13 @@
 / categories/show.html.slim
 
-- cache ['v5', @category, 'category_show'] do
+- cache ['v6', @category, 'category_show'] do
   / Category Header
   .category_header
-    
+
     / Group and Name
     /   returns category_group and category_name
     h3 == category_name_helper(@category.name)
-    
+
     / Description
     - if params[:action] == 'edit'
       / Edit Category Descriptions Form
@@ -36,11 +36,12 @@
 
     / Ads
     - if Rails.env.development?
-      .ads
-        - @ads = Ad.tagged_with(@category.name)
-        - @ads = Ad.all.sample(2) unless @ads.present?
-        - @ads && @ads.shuffle!
-        = render partial: 'shared/ad', collection: @ads 
+      - @ads = Ad.tagged_with(@category.name)
+      - @ads = Ad.all.sample(2) unless @ads.present?
+      - @ads && @ads.shuffle!
+      - if @ads.present?
+        .ads
+          = render partial: 'shared/ad', collection: @ads
 
     / List
     .list

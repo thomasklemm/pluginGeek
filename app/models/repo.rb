@@ -126,6 +126,29 @@ class Repo < ActiveRecord::Base
     self.language_list = languages_array
   end
 
+  # Cache Taggings
+  # on categories, children and languages
+  # before save
+  before_save :cache_taggings
+  def cache_taggings
+    cache_category_list
+    cache_child_list
+    cache_language_list
+  end
+
+  def cache_category_list
+    self.cached_category_list = category_list.to_s
+  end
+
+  def cache_child_list
+    self.cached_child_list = child_list.to_s
+  end
+
+  def cache_language_list
+    self.cached_language_list = language_list.to_s
+  end
+
+
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :category_list
 end
