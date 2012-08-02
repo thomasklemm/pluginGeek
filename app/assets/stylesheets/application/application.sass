@@ -40,20 +40,20 @@ dl.sort_list
   padding-top: 4px
   float: right
 
-  dt, dd 
+  dt, dd
     float: left
     display: inline
     margin-left: 9px
     padding: 4px 0 5px
 
-  dt 
+  dt
     color: #999
     font-weight: normal
   dd
     text-decoration: none
     @include border-radius(1000px)
     cursor: pointer
-    
+
     // Make it look like a link
     color: $mainColor
     &:hover
@@ -140,5 +140,11 @@ dl.languages_list
         &:hover
           background: lighten($designColor, 4%)
 
-select
-  font-size: 1.6rem !important
+//select
+//  font-size: 1.6rem !important
+
+// jQuery Timeago
+// remove dots of abbr
+abbr.timeago
+  border-bottom: none
+  cursor: default

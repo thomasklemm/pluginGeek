@@ -3,6 +3,7 @@
 # jQuery and jQuery UJS
 #   insert jQuery-Tag before that (served via CDN)
 //= require jquery_ujs
+//= require jquery.timeago
 
 # Foundation
 //= require foundation/jquery.reveal
@@ -57,3 +58,13 @@ $ ->
 
   # Category Markdown Description Textarea Autogrow
   $('#category_md_description').autoGrow()
+
+  # Search for Group instead of loading category
+  # on click on category_group
+  $('.js_category_group').click (e) ->
+    $this = $(this)
+    console.log $this
+    e.preventDefault()
+    $('.search').val($this.text())
+    list.search($this.text())
+    $('.search').focus()

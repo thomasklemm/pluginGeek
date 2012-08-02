@@ -30,3 +30,9 @@ meta name='viewport' content='width=device-width'
 
 / csrf meta tags
 = csrf_meta_tags
+
+/ timeago in head
+javascript:
+  jQuery(document).ready(function() {
+   $("abbr.timeago").timeago();
+  });

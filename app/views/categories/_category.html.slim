@@ -1,37 +1,41 @@
 / category.html.slim
 
-/ Link Builders
-- category_link = capture do
-  = link_to '&nbsp;&raquo;'.html_safe, category
-- category_link_with_ellipsis = capture do
-  = link_to '&nbsp;&hellip;&nbsp;&raquo;'.html_safe, category
+/ Category Partial
+- cache ['v1', category, 'category_partial']do
 
-/ Category
-.category
+  / Link Builders
+  - category_link = capture do
+    = link_to '&nbsp;&raquo;'.html_safe, category
+  - category_link_with_ellipsis = capture do
+    = link_to '&nbsp;&hellip;&nbsp;&raquo;'.html_safe, category
 
-  / Name
-  = link_to category do
-    == category_name_helper(category.name)
+  / Category
+  .category
 
-  / Watchers
-  span.watcher_count
-    i.icon-heart-empty
-    | &nbsp;
-    = category.watcher_count
-
-  / Label
-  - if category.label
+    / Name
     = link_to category do
-      span.label.round = category.label
+      == category_name_helper(category.name)
 
-  / Description
-  span.description = category.short_description
+    / Watchers
+    span.watcher_count
+      i.icon-heart-empty
+      | &nbsp;
+      = category.watcher_count
 
-  / Popular Repos
-  span.repo_count #{ pluralize(category.repo_count, 'Repo') }: 
-  span.popular_repos == category_popular_repos_helper(category.popular_repos)
-  span.link = category.all_repos.present? ? category_link_with_ellipsis : category_link
+    / Label
+    - if category.label
+      = link_to category do
+        span.label.round = category.label
 
-  / Stats
-  span.all_repos = category.all_repos
-  span.knight_score = category.knight_score
+    / Description
+    span.description = category.short_description
+
+    / Popular Repos
+    span.repo_count = pluralize(category.repo_count, 'Repo')
+    | :&nbsp;
+    span.popular_repos == category_popular_repos_helper(category.popular_repos)
+    span.link = category.all_repos.present? ? category_link_with_ellipsis : category_link
+
+    / Stats
+    span.all_repos = category.all_repos
+    span.knight_score = category.knight_score

@@ -1,5 +1,6 @@
 module ReposHelper
 
+  # Review: do this in js on client side
   def activity_color(updated_at)
     diff = Time.now - updated_at
     klass = case diff
@@ -9,12 +10,6 @@ module ReposHelper
             else                                        'four'
             end
     klass
-  end
-
-  # return time ago in hours
-  def time_ago_from_now(time)
-    diff = Time.now - time
-    (diff / 3600).floor
   end
 
 end
