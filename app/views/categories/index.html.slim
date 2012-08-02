@@ -13,7 +13,7 @@ h3 State your Purpose, Knight!
       = render partial: 'shared/ad', collection: @ads
       span.right style='position: relative; bottom: 18px; color: #aaa' Ads - Reason?
 
-- cache ['v2', 'categories_index', language, Category.timestamp_by_language(language) ] do
+- cache ["#{Random.rand(100000)}", 'categories_index', language, Category.timestamp_by_language(language) ] do
   / Categories List
   #js_categories_list
 
@@ -31,7 +31,7 @@ h3 State your Purpose, Knight!
     / Categories List
     .list
       / Find categories (all or limited to language)
-      - @categories = Category.find_all_by_language_and_select_main_fields(language)
+      - @categories = Category.ordered_find_all_by_language(language)
       = render partial: 'category', collection: @categories
 
     button.js_show_all_matching_items class='button radius' More categories

@@ -37,16 +37,18 @@ class Category < ActiveRecord::Base
   ###
   # find_all_by_language_and_select_main_fields('ruby'),
   #  in use at categories#index
-  scope :find_all_by_language_and_select_main_fields, lambda { |language| find_all_by_language(language).select_main_fields.order_by_knight_score }
+  # scope :ordered_find_all_by_language_and_select_main_fields, lambda { |language| find_all_by_language(language).select_main_fields.order_by_knight_score }
 
   # find_all_by_language('ruby'),
   #  find all categories tagged with given language
   #  if no language is given find all repos
   scope :find_all_by_language, lambda { |language| tagged_with(language.downcase, on: :languages) if language.present? }
+  scope :ordered_find_all_by_language, lambda { |language| find_all_by_language(language).order_by_knight_score }
 
   # select_main_fields,
   #  only select those fields that are relevant for _category partial
-  scope :select_main_fields, select([:name, :slug, :watcher_count, :label, :short_description, :repo_count, :popular_repos, :all_repos, :knight_score])
+  #  if id can be selected it would work with caching
+  # scope :select_main_fields, select([:name, :slug, :watcher_count, :label, :short_description, :repo_count, :popular_repos, :all_repos, :knight_score, :updated_at])
 
   # order_by_knight_score
   scope :order_by_knight_score, order('knight_score desc')
