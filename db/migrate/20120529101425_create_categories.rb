@@ -3,9 +3,9 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories do |t|
       t.string :name
       t.string :slug
-      t.integer :repo_count
-      t.integer :watcher_count
-      t.integer :knight_score
+      t.integer :repo_count, default: 0
+      t.integer :watcher_count, default: 0
+      t.integer :knight_score, default: 0
       t.text :short_description
       t.text :description
       t.text :md_description

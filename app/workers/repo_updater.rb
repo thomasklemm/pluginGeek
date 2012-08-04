@@ -10,7 +10,7 @@ class RepoUpdater
   #   Class Methods:
   #     - perform_async('repo_owner/repo_name'): Schedule a single repo
   #         to be updated from Github asynchronously by the Sidekiq process
-  #     - update_repos_sidekiq: Trigger an asynchronous, 
+  #     - update_repos_sidekiq: Trigger an asynchronous,
   #         Sidekiq-powered update of all repos
   #     - update_repos_serial: Update all repos in serial,
   #         blocking the Thread in which it is called
@@ -39,7 +39,11 @@ class RepoUpdater
 
       # Exit on error
       # REVIEW: This could be the place for setting a flag is an update job fails for an existing repo
-      res.status != 200 and return false
+      if res.status != 200
+        # Set flag unless repo is a new record
+        repo.new_record? and repo.update_attribute('update_success', false)
+        return false
+      end
 
       # Success Handling
       github_repo = JSON.parse(res.body)
@@ -55,7 +59,7 @@ class RepoUpdater
       else
         repo[:homepage_url] = repo[:github_url]
       end
-      
+
       # Limit description length
       #  Honor Postgres string limit 255 characters
       repo[:description] &&= repo[:description].truncate(250)
@@ -67,10 +71,14 @@ class RepoUpdater
       if repo.save
         # Validations fine
         Rails.logger.info "Updated repo '#{ repo.full_name }'"
+        # Set flag
+        repo.update_attribute('update_success', true) unless repo.update_success == true
         true
       else
         # e.g. Validation errors
         Rails.logger.error "Failed updating/saving repo '#{ repo.full_name }'"
+        # Set flag
+        repo.update_attribute('update_success', false)
         false
       end
     end

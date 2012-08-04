@@ -4,12 +4,12 @@ class CreateRepos < ActiveRecord::Migration
       t.string  :full_name
       t.string  :owner
       t.string  :name
-      t.integer :watchers
-      t.integer :forks
+      t.integer :watchers, default: 0
+      t.integer :forks, default: 0
       t.string  :description
       t.string  :github_url
       t.string  :homepage_url
-      t.integer :knight_score
+      t.integer :knight_score, default: 0
 
       t.datetime :github_updated_at
       t.timestamps

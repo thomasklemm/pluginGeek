@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802062834) do
+ActiveRecord::Schema.define(:version => 20120804075656) do
 
   create_table "ads", :force => true do |t|
     t.string   "name"
@@ -32,16 +32,16 @@ ActiveRecord::Schema.define(:version => 20120802062834) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.integer  "repo_count"
-    t.integer  "watcher_count"
-    t.integer  "knight_score"
+    t.integer  "repo_count",        :default => 0
+    t.integer  "watcher_count",     :default => 0
+    t.integer  "knight_score",      :default => 0
     t.text     "short_description"
     t.text     "description"
     t.text     "md_description"
     t.string   "popular_repos"
     t.text     "all_repos"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "label"
   end
 
@@ -63,19 +63,20 @@ ActiveRecord::Schema.define(:version => 20120802062834) do
     t.string   "full_name"
     t.string   "owner"
     t.string   "name"
-    t.integer  "watchers"
-    t.integer  "forks"
+    t.integer  "watchers",             :default => 0
+    t.integer  "forks",                :default => 0
     t.string   "description"
     t.string   "github_url"
     t.string   "homepage_url"
-    t.integer  "knight_score"
+    t.integer  "knight_score",         :default => 0
     t.datetime "github_updated_at"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "label"
     t.string   "cached_category_list"
     t.string   "cached_child_list"
     t.string   "cached_language_list"
+    t.boolean  "update_success",       :default => false
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
