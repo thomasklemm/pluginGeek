@@ -1,0 +1,21 @@
+h3 Welcome, admin.
+
+p Here are your jobs.
+
+/ Repos that failed updating
+h6 1) Repos that failed updating:
+- @repos = Repo.update_failed
+- if @repos.present?
+  p #{ @repos.size } Repos failed updating
+  table
+    tr
+      th repo full_name
+      th style='padding: 1rem' update_success flag
+      th updated_at
+    - @repos.each do |repo|
+      tr
+        td = repo.full_name
+        td = repo.update_success.to_s
+        td = repo.updated_at.to_s(:long)
+- else
+  p: em None. All repos clear!
