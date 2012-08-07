@@ -1,8 +1,8 @@
 class CreateCategories < ActiveRecord::Migration
   def change
     create_table :categories do |t|
-      t.string :name
-      t.string :slug
+      t.string :name, null: false
+      t.string :slug, null: false
       t.integer :repo_count, default: 0
       t.integer :watcher_count, default: 0
       t.integer :knight_score, default: 0

@@ -1,0 +1,15 @@
+/* TEAM */
+Developer and Designer: Thomas Klemm
+Site: http://www.tklemm.eu
+Email: github@tklemm.eu
+Twitter: @thomasjklemm
+Github: thomasklemm
+Location: Berlin, Germany
+
+/* THANKS */
+Special thanks to the many gem and plugin
+authors who publish their great work
+open-source for me and the world to use.
+
+/* SITE */
+Ask me if you care for anything special.

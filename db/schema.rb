@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(:version => 20120804075656) do
   end
 
   create_table "categories", :force => true do |t|
-    t.string   "name"
-    t.string   "slug"
+    t.string   "name",                             :null => false
+    t.string   "slug",                             :null => false
     t.integer  "repo_count",        :default => 0
     t.integer  "watcher_count",     :default => 0
     t.integer  "knight_score",      :default => 0
@@ -60,12 +60,12 @@ ActiveRecord::Schema.define(:version => 20120804075656) do
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "repos", :force => true do |t|
-    t.string   "full_name"
+    t.string   "full_name",                               :null => false
     t.string   "owner"
     t.string   "name"
     t.integer  "watchers",             :default => 0
     t.integer  "forks",                :default => 0
-    t.string   "description"
+    t.text     "description"
     t.string   "github_url"
     t.string   "homepage_url"
     t.integer  "knight_score",         :default => 0

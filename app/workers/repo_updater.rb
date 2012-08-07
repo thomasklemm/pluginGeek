@@ -61,8 +61,8 @@ class RepoUpdater
       end
 
       # Limit description length
-      #  Honor Postgres string limit 255 characters
-      repo[:description] &&= repo[:description].truncate(250)
+      # (only if a repo owner think this is the place for a novel)
+      repo[:description] &&= repo[:description].truncate(300)
 
       # Calculate Knight Score
       repo[:knight_score] = knight_score(github_repo)
@@ -77,6 +77,8 @@ class RepoUpdater
       else
         # e.g. Validation errors
         Rails.logger.error "Failed updating/saving repo '#{ repo.full_name }'"
+        # Log repo validation errors
+        repo.errors.full_messages.each { |msg| Rails.logger.error msg }
         # Set flag
         repo.update_attribute('update_success', false)
         false

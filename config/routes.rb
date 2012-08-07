@@ -68,7 +68,10 @@ Knight::Application.routes.draw do
 
   # Sidekiq Web Interface
   require 'sidekiq/web'
-  mount Sidekiq::Web, at: '/admin/sidekiq', as: :sidekiq
+  admin_constraint = lambda { (http_basic_authenticate_with name: 'kshkjhe', password: 'tesfkfjksst') }
+  constraints admin_constraint do
+    mount Sidekiq::Web, at: '/admin/sidekiq', as: :sidekiq
+  end
 
     # Static Pages
   match '/:id' => 'pages#show', as: :page, via: :get
