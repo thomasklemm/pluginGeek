@@ -28,7 +28,7 @@ module ApplicationHelper
     when 'ruby'
       RUBY_NAMES.sample
     else
-      'Test'
+      'Knight'
     end
   end
 

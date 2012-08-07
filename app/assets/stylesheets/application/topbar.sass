@@ -46,7 +46,7 @@ $topbarHeight: 51px
   .happyday
 
   // login
-  .login
+  .login, .logout
     margin-left: 1rem
   // icon
   .icon
@@ -57,33 +57,28 @@ $topbarHeight: 51px
   .icon-github-sign
     margin-right: 0.6rem
 
-//
-  #login
-    // Avatar when developer is logged in
-    .avatar
-      // Styles for rounded corners on background-images as seen here: www.bram.us/sandbox/roundedcorners/
-      float: left
-      height: 40px
-      width: 40px
-      margin: 5px 7px 0 0
+  // Avatar when developer is logged in
+  .avatar
+    // Styles for rounded corners on background-images as seen here: www.bram.us/sandbox/roundedcorners/
+    float: right
+    height: 40px
+    width: 40px
 
-      background-size: 40px 40px
-      background-repeat: no-repeat
+    background-size: 40px 40px
+    background-repeat: no-repeat
 
-      @include border-radius(8px)
-      @include box-shadow(#000 0 0 3px)
+    @include border-radius(5px)
+    @include box-shadow(#777 0 0 4px)
 
-    // Avatar with generic greeting message
-    .github_avatar
-      background-color: #eee
-      background-image: image-url('github/Octocat.png')
-      float: right
-      height: 40px
-      width: 40px
-      margin: 5px 7px 0 0
+    margin: 5px 0 0 1rem
 
-      background-size: 40px 40px
-      background-repeat: no-repeat
+// Media Queries
+@media screen and (max-width: 540px)
+  #topbar
+    .nav-button a
+      padding: 0.5rem 1rem
 
-      @include border-radius(8px)
-      @include box-shadow(#000 0 0 3px)
+@media screen and (max-width: 710px)
+  #topbar
+    .greeting
+      display: none
