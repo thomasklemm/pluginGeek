@@ -1,4 +1,5 @@
 / topbar_login.html.slim
+/ The login section of the topbar
 
 / Developer logged in
 - if current_user
@@ -19,6 +20,7 @@
 
 
 / Generic greeting message
+/ Knight not logged in
 - else
 
   / happy day
@@ -30,9 +32,12 @@
       document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
 
   / name
-  span.name = %w(Githubber Developer Ruby&nbsp;Pro Rails&nbsp;Wizard JS&nbsp;Guru Human Web&nbsp;Designer Designer Web&nbsp;Engineer Knight Sir).shuffle.first.html_safe
-  span !&nbsp;&nbsp;
-  = link_to login_path do
-    span.login Login
-    / Github Octocat
-    span.github_avatar
+  span.name = greeting_name
+  | .
+
+  / login
+  span.nav.login
+    span.item
+      = link_to login_path, class: 'active' do
+        i.icon-github-sign
+        ' Login

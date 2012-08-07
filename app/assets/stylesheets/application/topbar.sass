@@ -3,18 +3,56 @@
 @import 'variables'
 @import 'bourbon'
 
-#topbar
-  background: $mainColor
-  line-height: 51px /* center text vertically */
-  color: #eee
+// Variables
+$topbarHeight: 51px
 
-  #knight
-    height: 52px
-    .knight_topbar_logo
-      width: 122px
+#topbar
+  line-height:  $topbarHeight
+  background:   $rubyColor
+  color:        $rubyTextColor
+  font-weight: bold
+
+  // knight text logo
+  .knight_logo_container
+    float: left
+    height: $topbarHeight
+    .knight_logo
+      width: 124px
       padding: 0
-      margin: 10px 1rem 0 0
-      
+      margin: 11px 1.2rem 0 0
+
+  // navigation
+  .nav
+    .item a
+      line-height: $topbarHeight
+      padding: 2rem 1.2rem
+      color: $rubyTextColor
+
+      // active
+      &.active
+        background: $rubyActiveColor
+        color: $rubyActiveTextColor
+
+      // hover
+      &:hover
+        background: $rubyHoverColor
+        color: $rubyHoverTextColor !important
+
+
+  // happy day
+  .happyday
+
+  // login
+  .login
+    margin-left: 1rem
+  // icon gihub
+  .icon-github-sign
+    font-size: 2.4rem
+    position: relative
+    top: 3px
+    margin-right: 0.5rem
+
+//
   #login
     // Avatar when developer is logged in
     .avatar
@@ -57,13 +95,3 @@
       border-bottom: 1px solid #aaa
       &:hover
         color: #ddd
-
-
-// Topbar Colors
-#topbar
-  &.ruby
-    background: $rubyColor
-  &.js
-    background: $jsColor
-  &.design
-    background: $designColor

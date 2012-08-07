@@ -1,27 +1,15 @@
 / body.html.slim
 
 / topbar
-#topbar class=topbar_color
+#topbar
   .row
     .twelve.columns
-
       = render 'topbar'
-
-/ explore bar
-/#explore_bar.row
-/  .twelve.columns
-
-/    = render 'explore_bar'
 
 / main and sidebar
 #main.row
-
-  / Sidebar Navigation
-  #sidebar.two.columns
-    = render 'sidebar'
-
   / Content
-  #content.ten.columns
+  #content.twelve.columns
 
     / flash messages
     = render 'flash_messages'
@@ -29,17 +17,10 @@
     / main body
     = yield
 
-
-
-  / Right Sidebar
-  / #sidebar.two.columns
-
 / footer
 #footer.row
   .twelve.columns
-
-    / = render 'footer'
-
+    = render 'footer'
 
 / javascripts in body
 = render 'javascripts_body'

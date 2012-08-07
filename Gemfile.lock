@@ -148,7 +148,7 @@ GEM
     redis (3.0.1)
     redis-namespace (1.2.0)
       redis (~> 3.0.0)
-    sass (3.2.0.alpha.275)
+    sass (3.2.0.alpha.278)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -195,7 +195,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    zurb-foundation (3.0.5)
+    zurb-foundation (3.0.7)
       compass (>= 0.12.2)
       rake
       sass (>= 3.2.0.alpha.244)
