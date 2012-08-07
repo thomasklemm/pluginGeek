@@ -21,7 +21,7 @@ group :assets do
   gem 'zurb-foundation', '~> 3.0.5'
   # Bourbon (SASS Mixins)
   #   next major version will deprecate border-radius mixin
-  gem 'bourbon', '~> 2.1.0' 
+  gem 'bourbon', '~> 2.1.0'
 
   # JS
   gem 'coffee-rails'
@@ -86,6 +86,10 @@ group :production do
   gem 'memcachier'
   gem 'dalli'
 end
+
+# Bullet (DB Query Optimizing)
+gem 'bullet', group: :development
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

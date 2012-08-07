@@ -1,7 +1,5 @@
 / categories/index.html.slim
 
-p Test
-
 - if Rails.env.development?
   / Ads
   /- cache ['v3', 'categories_index_ads', language, Random.rand(20) ] do
@@ -18,15 +16,20 @@ p Test
   / Categories List
   #js_categories_list
 
+    h4 Knightly Categories
+    h5.subheader Discover the best Ruby Gems in over #{Category.count.div(10)*10} Categories
+
     / Categories Find
     .categories_find
 
       / Search
-      input.search type='text' autofocus='autofocus' autocomplete='off'
+      input.search type='text' autofocus='autofocus' autocomplete='off' placeholder='Background Jobs...'
 
       / Sort
       dl.sort_list
-        dt Sort:
+        dt
+          i.icon-plus-sign style='color: #bbb'
+          '  Sort:
         dd.sort.active  data-sort='knight_score'  Knight Score
         dd.sort         data-sort='category_name' Name
 

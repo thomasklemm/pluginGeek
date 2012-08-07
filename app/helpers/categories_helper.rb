@@ -9,17 +9,17 @@ module CategoriesHelper
       # return name and group, strip lang
       group = match[:group].squish
       name = match[:name].squish
-      "<abbr class='category_group js_category_group'>#{ group }:</abbr> <span class='category_name'>#{ name }</span>"
+      "<span class='category_group' title='Search for all &quot;#{group}&quot; Categories'>#{ group }: </span><span class='category_name'>#{ name }</span>"
     else
       match = /(?<name>.*)\((?<lang>.*)\)/.match(name_and_lang)
 
       if match
         # strip lang, return only name
         name = match[:name].squish
-        "<abbr class='category_group js_category_group'></abbr><span class='category_name'>#{ name }</span>"
+        "<span class='category_group'></span><span class='category_name'>#{ name }</span>"
       else
         # return input
-        "<abbr class='category_group js_category_group'></abbr><span class='category_name'>#{ name_and_lang }</span>"
+        "<span class='category_group'></span><span class='category_name'>#{ name_and_lang }</span>"
       end
     end
   end

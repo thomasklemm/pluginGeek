@@ -11,7 +11,7 @@
 
     / Watchers
     span.watchers
-      i.icon-eye-open
+      i.icon-star
       | &nbsp;
       = repo.watchers
 
@@ -20,21 +20,23 @@
       = link_to repo do
         span.label.round = repo.label
 
+    div
+
+      / Url
+      span.homepage_url = link_to repo.homepage_url, repo.homepage_url
+      link rel="dns-prefetch" href="#{ repo.homepage_url }"
+
+      / Timestamp
+      - timestamp = repo.github_updated_at && repo.github_updated_at.utc
+
+      / Activity
+      span.activity class=activity_color(repo.github_updated_at)
+        i.icon-leaf
+        | &nbsp;
+        abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
+
     / Description
     .description  = repo.description
-
-    / Url
-    span.homepage_url = link_to repo.homepage_url, repo.homepage_url
-    link rel="dns-prefetch" href="#{ repo.homepage_url }"
-
-    / Timestamp
-    - timestamp = repo.github_updated_at && repo.github_updated_at.utc
-
-    / Activity
-    span.activity class=activity_color(repo.github_updated_at)
-      i.icon-leaf
-      | &nbsp;
-      abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
 
     / Stats
     span.knight_score = repo.knight_score
@@ -44,9 +46,12 @@
     - if repo.cached_child_list.present?
       - child_array = repo.cached_child_list.split(', ')
       / Toggle children switch
-      = link_to pluralize(child_array.size, 'Related Repo'), '', class: :toggle_repo_children
+      - link_name = "#{ pluralize(child_array.size, 'related repo') }&hellip;".html_safe
+      i.icon-plus-sign style='color: #bbb'
+      '
+      = link_to link_name, '', class: :toggle_repo_children
       / Find children
       /  in a way that does not raise an exception if child does not exist
-      - children = Repo.find_all_by_full_name(child_array)
+      - children = Repo.order_by_knight_score.find_all_by_full_name(child_array)
       - if children
         = render partial: 'shared/repo', collection: children, as: :repo

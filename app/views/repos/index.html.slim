@@ -1,16 +1,11 @@
 / repos/index.html.slim
 
-h3 Explore Our Knightly Projects
-
-p.subheader
-  ' Listing
-  / b #{ Repo.count }
-  ' Repos. Discover Yours.
-
-
 - cache ['v12', 'repos_index', language, Repo.timestamp_by_language(language) ] do
   / Repos List
   #js_repos_list
+
+    h4 Knightly Repos
+    h5.subheader Discover over #{ @repos.size.div(10)*10 } #{ language && language.titlecase } Repos
 
     / Repos Find
     .repos_find
@@ -19,7 +14,9 @@ p.subheader
 
       / Sort
       dl.sort_list
-        dt Sort:
+        dt
+          i.icon-plus-sign style='color: #bbb'
+          '  Sort:
         dd.sort.active  data-sort='knight_score'  Knight Score
         dd.sort         data-sort='updated_at'    Activity
         dd.sort         data-sort='name'          Name
