@@ -1,14 +1,18 @@
 / topbar.html.slim
 
 / knight logo
-span.knight_logo_container
+span.left.knight_logo_container
   = link_to root_path do
     = image_tag('logos/knight_w.png', class: 'knight_logo')
 
 / navigation
-span.nav
-  span.item = link_to 'Categories', root_path, class:active_scope(:categories)
-  span.item = link_to 'Repos', '/ruby/repos', class: active_scope(:repos)
+span.nav.left
+  span.nav-button = link_to root_path, class:active_scope(:categories) do
+    i.icon.icon-magnet
+    ' Categories
+  span.nav-button = link_to '/ruby/repos', class: active_scope(:repos) do
+    i.icon.icon-fire
+    ' Repos
 
 / login
 span.right

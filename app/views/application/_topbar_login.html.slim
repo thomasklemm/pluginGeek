@@ -36,8 +36,7 @@
   | .
 
   / login
-  span.nav.login
-    span.item
-      = link_to login_path, class: 'active' do
-        i.icon-github-sign
-        ' Login
+  span.login.nav-button
+    = link_to login_path, class: 'active' do
+      i.icon.icon-github-sign
+      ' Login
