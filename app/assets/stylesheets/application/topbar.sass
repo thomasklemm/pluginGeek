@@ -3,67 +3,82 @@
 @import 'variables'
 @import 'bourbon'
 
+// Variables
+$topbarHeight: 51px
+
 #topbar
-  background: $mainColor
-  line-height: 51px /* center text vertically */
-  color: #eee
+  line-height:  $topbarHeight
+  background:   $rubyColor
+  color:        $rubyTextColor
+  font-weight: bold
 
-  #knight
-    height: 52px
-    .knight_topbar_logo
-      width: 122px
-      padding: 0
-      margin: 10px 1rem 0 0
-      
-  #login
-    // Avatar when developer is logged in
-    .avatar
-      // Styles for rounded corners on background-images as seen here: www.bram.us/sandbox/roundedcorners/
-      float: left
-      height: 40px
-      width: 40px
-      margin: 5px 7px 0 0
+  // knight text logo
+  .knight_logo_container
+    .knight_logo
+      max-height: $topbarHeight
+      max-width: 124px
+      padding: 11px 0 0 0
+      margin: 0 1.2rem 0 0
+      vertical-align: top
 
-      background-size: 40px 40px
-      background-repeat: no-repeat
+  // navigation
+  .nav
+    // position: relative
+    // top: 3px
 
-      @include border-radius(8px)
-      @include box-shadow(#000 0 0 3px)
+  // buttons
+  .nav-button a
+    padding: 2rem 1.2rem
+    color: $rubyTextColor
 
-    // Avatar with generic greeting message
-    .github_avatar
-      background-color: #eee
-      background-image: image-url('github/Octocat.png')
-      float: right
-      height: 40px
-      width: 40px
-      margin: 5px 7px 0 0
+    // active
+    &.active
+      background: $rubyActiveColor
+      color: $rubyActiveTextColor
 
-      background-size: 40px 40px
-      background-repeat: no-repeat
-
-      @include border-radius(8px)
-      @include box-shadow(#000 0 0 3px)
-
-    // Both
-    .happyday
-    .name
-      font-weight: bold
-    .logout
-
-    .login
-      float: right
-      color: #fff
-      border-bottom: 1px solid #aaa
-      &:hover
-        color: #ddd
+    // hover
+    &:hover
+      background: $rubyHoverColor
+      color: $rubyHoverTextColor !important
 
 
-// Topbar Colors
-#topbar
-  &.ruby
-    background: $rubyColor
-  &.js
-    background: $jsColor
-  &.design
-    background: $designColor
+  // happy day
+  .happyday
+
+  // login
+  .login, .logout
+    margin-left: 1rem
+  // icon
+  .icon
+    font-size: 2.4rem
+    position: relative
+    top: 3px
+    margin-right: 0.54rem
+  .icon-github-sign
+    margin-right: 0.6rem
+
+  // Avatar when developer is logged in
+  .avatar
+    // Styles for rounded corners on background-images as seen here: www.bram.us/sandbox/roundedcorners/
+    float: right
+    height: 40px
+    width: 40px
+
+    background-size: 40px 40px
+    background-repeat: no-repeat
+
+    @include border-radius(5px)
+    @include box-shadow(#777 0 0 4px)
+
+    margin: 5px 0 0 1rem
+
+// Media Queries
+@media screen and (max-width: 540px)
+  #topbar
+    .nav-button a
+      padding: 0.5rem 1rem
+
+@media screen and (max-width: 750px)
+  #topbar
+    .greeting
+      display: none

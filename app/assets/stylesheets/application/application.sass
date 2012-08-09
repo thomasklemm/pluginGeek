@@ -4,6 +4,13 @@
 @import 'topbar'
 @import 'ads'
 
+// logo header
+.logo_header
+  max-width: 480px
+  padding-right: 3rem
+  margin: 1rem auto
+
+
 // Alert Boxes
 .alert-box
   margin-top: 1.4rem
@@ -37,8 +44,7 @@ dl.sort_list
   width: auto
   overflow: hidden
   margin: -4px 0 0 -9px
-  padding-top: 4px
-  float: right
+  padding: 1rem 0
 
   dt, dd
     float: left
@@ -54,97 +60,39 @@ dl.sort_list
     @include border-radius(1000px)
     cursor: pointer
 
-    // Make it look like a link
+    // Make it look like a normal link
     color: $mainColor
     &:hover
-      color: darken($mainColor, 15%)
+      color: darken($mainColor, 20%)
 
   dd.active
     font-weight: bold
-    background: $mainColor
+    background: #999
     color: #fff
     padding: 4px 10px 5px
+    @include transition (background 0.2s ease-in-out)
 
-// Languages List
-dl.languages_list
-  display: block
-  width: auto
-  clear: both
-
-  dt, dd
-    float: left
-    display: inline
-    margin-left: 9px
-    margin-top: 1.2rem
-    clear: both
-  dt
-    color: #555
-    font-weight: bold
-  dd
-    a
-      text-decoration: none
-      @include border-radius(1000px)
-      font-weight: bold
-      padding-left: 12px
-      &:hover
-        text-decoration: underline
-
-    &.active a
-      font-weight: bold
-      background: #2ba6cb
-      color: #fff
-      padding: 5px 12px 6px
-      margin-top: 1.4rem !important
-      &:hover
-        text-decoration: none
-
-  dd:last-child
-    margin-bottom: 1rem !important
-
-// Media Queries
-@media screen and (max-width: 768px)
-  // Languages & Scopes Lists
-  dl.languages_list
-    dt, dd
-      clear: none
-    dd:last-child
-      margin-bottom: 0.5rem !important
-  dl.languages_list
-    dd:last-child
-      margin-bottom: 0 !important
-
-  // Topbar Slogan
-  #topbar .slogan
-    display: none
-
-// Colors for Languages List
-dl.languages_list
-  .ruby
-    dd.active
-      a
-        background: $rubyColor
-        &:hover
-          background: lighten($rubyColor, 8%)
-
-  .js
-    dd.active
-      a
-        background: $jsColor
-        &:hover
-          background: lighten($jsColor, 8%)
-
-  .design
-    dd.active
-      a
-        background: $designColor
-        &:hover
-          background: lighten($designColor, 4%)
-
-//select
-//  font-size: 1.6rem !important
+    &:hover
+      background: $mainColor
+      @include transition (background 0.2s ease-in-out)
 
 // jQuery Timeago
 // remove dots of abbr
 abbr.timeago
   border-bottom: none
   cursor: default
+
+// Clear Icon
+.clear-container
+  padding-right: 5px
+  vertical-align: middle
+
+.clear-helper
+
+.clear-icon
+  padding: 1.1rem 1.8rem
+  cursor: pointer
+  float: right
+  position: relative
+  bottom: 51px
+  color: #999

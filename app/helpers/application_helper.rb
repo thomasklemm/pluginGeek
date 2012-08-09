@@ -20,28 +20,16 @@ module ApplicationHelper
     klass
   end
 
-  ###
-  #   Navigation
-  ###
-
-  # # Active Language
-  # def active_language(language)
-  #   'active' if params[:language] == language.to_s
-  # end
-
-  # # Active Scope
-  # def active_scope(scope)
-  #   params[:scope] = 'categories' if params[:scope].blank?
-  #   'active' if params[:scope] == scope.to_s
-  # end
-
-  # Active Navitem
-  def active_navitem(language, scope)
-    params[:scope] = 'categories' if params[:scope].blank?
-    'active' if (params[:language] == language.to_s && params[:scope] == scope.to_s)
+  # greeting every visiting knight
+  # with a cool name
+  RUBY_NAMES = ['Ruby Warrior', 'Ruby Knight', 'Knight']
+  def greeting_name
+    case language
+    when 'ruby'
+      RUBY_NAMES.sample
+    else
+      'Knight'
+    end
   end
 
-  def topbar_color
-    params[:language].to_s
-  end
 end

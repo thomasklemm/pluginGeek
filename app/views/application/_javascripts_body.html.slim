@@ -9,15 +9,21 @@ javascript:
     page: 12
   };
 
+javascript:
   var categoriesList = new List('js_categories_list', categories_list_options);
 
 / Repos List
 javascript:
   var repos_list_options = {
-    valueNames: ['owner', 'name', 'watchers', 'label', 'description', 'knight_score', 'updated_at'],
-    page: 12
+    valueNames: ['owner', 'name', 'watchers', 'label', 'description', 'knight_score', 'updated_at']
   };
 
+/ limit oage to 12 repos on index view
+- if params[:action] == 'index'
+  javascript:
+    repos_list_options['page'] = 12;
+
+javascript:
   var reposList = new List('js_repos_list', repos_list_options);
 
 / google analytics
@@ -37,8 +43,3 @@ javascript:
 - if Rails.env.development?
     javascript:
       document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
-
-/ Show ads in production only if they are real. Make them real!
-- if Rails.env.production?
-  javascript:
-    $('.ads').hide();

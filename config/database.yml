@@ -18,6 +18,8 @@ development:
   host: localhost
   encoding: unicode
   pool: 20
+  username: thomasklemm
+  password: development
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have

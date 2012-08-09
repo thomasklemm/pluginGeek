@@ -38,6 +38,8 @@ GEM
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (3.0.0)
+    bullet (4.1.5)
+      uniform_notifier (~> 1.0.0)
     celluloid (0.11.1)
       timers (>= 1.0.0)
     chunky_png (1.2.5)
@@ -148,7 +150,7 @@ GEM
     redis (3.0.1)
     redis-namespace (1.2.0)
       redis (~> 3.0.0)
-    sass (3.2.0.alpha.275)
+    sass (3.2.0.alpha.278)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -195,7 +197,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    zurb-foundation (3.0.5)
+    uniform_notifier (1.0.2)
+    zurb-foundation (3.0.7)
       compass (>= 0.12.2)
       rake
       sass (>= 3.2.0.alpha.244)
@@ -207,6 +210,7 @@ DEPENDENCIES
   acts-as-taggable-on
   annotate (>= 2.5.0.pre1)
   bourbon (~> 2.1.0)
+  bullet
   coffee-rails
   compass-rails
   dalli

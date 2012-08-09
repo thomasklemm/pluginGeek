@@ -1,14 +1,21 @@
 / topbar.html.slim
 
 / knight logo
-span.left#knight
-  = link_to image_tag('logos/knight_w.png', class: 'knight_topbar_logo'), root_path
+span.left.knight_logo_container
+  = link_to root_path do
+    = image_tag('logos/knight_w.png', class: 'knight_logo')
 
-/ slogan
-span.left.slogan Discover amazing <b>Github</b> Projects
+/ navigation
+span.nav.left
+  span.nav-button = link_to root_path, class:active_scope(:categories) do
+    i.icon.icon-magnet
+    ' Categories
+  span.nav-button = link_to '/ruby/repos', class: active_scope(:repos) do
+    i.icon.icon-fire
+    ' Repos
 
 / login
-span.right#login
+span.right
   = render 'topbar_login'
 
 

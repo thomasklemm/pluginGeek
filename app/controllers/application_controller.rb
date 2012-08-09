@@ -35,7 +35,6 @@ class ApplicationController < ActionController::Base
 
   def assert_scope
     params[:scope] = 'categories' if params[:scope].blank?
-    params[:scope] = ''           if params[:scope] == 'categories'
     params[:scope] = 'repos'      if request.path.start_with?('/repos')
     params[:scope]
   end

@@ -58,6 +58,9 @@ class Repo < ActiveRecord::Base
     end
   end
 
+  # update_failed
+  scope :update_failed, lambda { where('update_success = ?', false) }
+
   # Validations
   validates :full_name, presence: true, uniqueness: true
 

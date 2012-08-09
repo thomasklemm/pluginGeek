@@ -42,28 +42,73 @@ $ ->
   if p < m
     button.show()
 
-  # On keyup in search input
-  $('.search').keyup ->
+  evaluate_button = () ->
     m = list.matchingItems.length
     if p < m
       button.show()
     else
       button.hide()
 
+  # On keyup in search input
+  $('.search').keyup ->
+    evaluate_button()
+    evaluate_clear_icon()
+    $('abbr.timeago').timeago()
+
+
   # on click on 'show all matching repos / categories'
   button.click ->
     list.page = 2500
     list.update()
     button.hide()
+    $('abbr.timeago').timeago()
 
   # Category Markdown Description Textarea Autogrow
   $('#category_md_description').autoGrow()
 
   # Search for Group instead of loading category
   # on click on category_group
-  $('.js_category_group').click (e) ->
+  $('.category_group').live 'click', (e) ->
     $this = $(this)
     e.preventDefault()
     $('.search').val($this.text())
     list.search($this.text())
     $('.search').focus()
+    evaluate_button()
+    $('.clear-icon').show()
+
+
+  # Make .search clearable
+  # Clearable Plugin
+  `;(function ($, undefined) {
+    $.fn.clearable = function () {
+        var $this = this;
+        $this.wrap('<div class="clear-container" />');
+        var parent = $this.parent();
+        var helper = $('<span class="clear-helper"></span>');
+        var icon = $('<i class="icon-remove clear-icon"></i>');
+        parent.append(helper);
+        helper.append(icon);
+
+        icon
+          .attr('title', 'Click to clear this search')
+          .click(function(){
+            $this.val('').focus();
+            list.search();
+            icon.hide();
+          });
+    };
+  })(jQuery);`
+
+  # Initialize
+  $('.search').clearable()
+  # Hide clear-icon at first
+  $('.clear-icon').hide()
+  # Focus .search
+  $('.search').focus()
+
+  evaluate_clear_icon = () ->
+    if $('.search').val() is ''
+      $('.clear-icon').hide()
+    else
+      $('.clear-icon').show()

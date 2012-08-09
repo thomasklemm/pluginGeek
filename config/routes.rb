@@ -63,15 +63,21 @@ Knight::Application.routes.draw do
   # Blitz.io Authentication
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
 
-  # Static Pages
-  match '/:id' => 'pages#show', :as => :static, :via => :get
-  
-  # Root
-  root to: 'categories#index'
+  # Admin View
+  get 'admin' => 'admin#index', as: :admin
 
   # Sidekiq Web Interface
   require 'sidekiq/web'
-  mount Sidekiq::Web, at: '/admin/sidekiq'
+  admin_constraint = lambda { (http_basic_authenticate_with name: 'kshkjhe', password: 'tesfkfjksst') }
+  constraints admin_constraint do
+    mount Sidekiq::Web, at: '/admin/sidekiq', as: :sidekiq
+  end
+
+    # Static Pages
+  match '/:id' => 'pages#show', as: :page, via: :get
+
+  # Root
+  root to: 'categories#index'
 
   # For when to implement json response for repos#show
   # Constraints: name can be anything but cannot end on .html (and .json):constraints => { :name => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }

@@ -1,38 +1,26 @@
 / categories/show.html.slim
 
-- cache ['v6', @category, 'category_show'] do
+- cache ['v6', @category, 'category_show', current_user.present? ] do
   / Category Header
   .category_header
+    / Edit description link
+    = link_to edit_category_path(@category), class: 'edit_description right' do
+      / Add a description or Edit description
+
+      i.icon-edit
+      | &nbsp;
+      = current_user ? "Edit" : "Login to Edit"
 
     / Group and Name
     /   returns category_group and category_name
-    h3 == category_name_helper(@category.name)
+    h4 == category_name_helper(@category.name)
 
     / Description
-    - if params[:action] == 'edit'
-      / Edit Category Descriptions Form
-      = render 'edit_category'
-
-    - else
-      / Edit description link
-      = link_to edit_category_path(@category), class: 'edit_description right' do
-        / Add a description or Edit description
-        span data-icon='T' = @category.description.present? ? "Edit" : "<b>Add a detailed description</b>".html_safe
-      / Description
-      .description
-        =raw @category.description.present? ? @category.description.split('<p>[REPOS]</p>')[0] : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe
+    p.description
+      =raw @category.description.present? ? @category.description.split('<p>[REPOS]</p>')[0] : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe
 
   / Repos List
   #js_repos_list
-
-    b Repos
-
-    / Sort
-    dl.sort_list class='right'
-      dt Sort:
-      dd.sort.active  data-sort='knight_score'  Knight Score
-      dd.sort         data-sort='updated_at'    Activity
-      dd.sort         data-sort='name'          Name
 
     / Ads
     - if Rails.env.development?
@@ -48,15 +36,22 @@
       - cache ['v2', @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
         = render partial: 'shared/repo', collection: @repos
 
-  hr
+    / Sort
+    dl.sort_list style='border: 1px solid #bbb; margin-bottom: 2rem'
+      dt
+        i.icon-plus-sign style='color: #bbb'
+        '  Sort:
+      dd.sort.active  data-sort='knight_score'  Knight Score
+      dd.sort         data-sort='updated_at'    Activity
+      dd.sort         data-sort='name'          Name
 
-  - unless params[:action] == 'edit'
-    .category_header
-      .description
-        - if @category.description.present?
-          =raw @category.description.split('<p>[REPOS]</p>')[1]
+  .category_header
+    .description
+      - if @category.description.present?
+        =raw @category.description.split('<p>[REPOS]</p>')[1]
 
-        / Edit description link
-        = link_to edit_category_path(@category), class: 'edit_description small secondary radius button' do
-          / Add a description or Edit description
-          span data-icon='T' = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe
+      / Add a description or Edit description
+      = link_to edit_category_path(@category), class: 'edit_description' do
+          i.icon-edit
+          | &nbsp;
+          = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe
