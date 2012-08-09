@@ -84,7 +84,7 @@ seeds = [
   {name: 'Deployment: Webservers', lang: 'Ruby', repos: %w(macournoyer/thin rack/rack defunkt/unicorn puma/puma celluloid/reel postrank-labs/goliath zedshaw/mongrel2 ged/ruby-mongrel2 FooBarWidget/passenger), description: "Give Unicorn a try. There are also Rainbows! / Zbatery and others, each for specific kinds of apps."},
   {name: 'Deployment: Backups', lang: 'Ruby', repos: %w(meskyanichi/backup), description: ""},
   # Development
-  {name: 'Development: Editors', lang: 'Ruby/JS/Design', repos: %w(redcar/redcar adobe/brackets), description: ""},
+  {name: 'Development: Editors', lang: 'Ruby/JS/Design', repos: %w(redcar/redcar adobe/brackets textmate/textmate), description: ""},
   {name: 'Development: Development Webserver', lang: 'Ruby', repos: %w(37signals/pow rodreegez/powder), description: 'Automatically run your apps on your local machine, and access them with special domains in your browser.'},
   {name: 'Development: Development Machine Setup', lang: 'Ruby', repos: %w(atmos/smeagol thoughtbot/laptop oscardelben/RailsOneClick tokaido/tokaidoapp), description: 'Set up your laptop for Ruby or Rails development. http://www.rubypluspl.us/2012/06/ubuntu-1204-ruby-on-rails-development.html - Setting up ubuntu for RoR development.'},
   {name: 'Development: Manage Ruby Versions', lang: 'Ruby', repos: %w(wayneeseguin/rvm sstephenson/rbenv remear/jewelrybox ), description: 'Install the latest ruby builds on your laptop. You can also use different ruby versions on different projects.'},

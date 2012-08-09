@@ -1,5 +1,7 @@
 // application/foundation_overrides.scss
 
+// Link Hover Color
 a:hover { color: darken($mainColor, 20%) !important; }
 
-.search { font-weight: bold; padding: 2rem 1.2rem !important; }
+// Search field
+.search { font-weight: bold; padding: 2rem 1.2rem !important; color: #000 !important; }
