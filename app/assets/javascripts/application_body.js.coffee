@@ -89,6 +89,7 @@ $ ->
         var icon = $('<i class="icon-remove clear-icon"></i>');
         parent.append(helper);
         helper.append(icon);
+        icon.hide();
 
         icon
           .attr('title', 'Click to clear this search')
@@ -96,14 +97,14 @@ $ ->
             $this.val('').focus();
             list.search();
             icon.hide();
+            evaluate_button();
+            evaluate_clear_icon();
           });
     };
   })(jQuery);`
 
   # Initialize
   $('.search').clearable()
-  # Hide clear-icon at first
-  $('.clear-icon').hide()
   # Focus .search
   $('.search').focus()
 
