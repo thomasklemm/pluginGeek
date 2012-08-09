@@ -7,7 +7,7 @@ ruby '1.9.3'
 gem 'unicorn'
 
 # Rails
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.8'
 
 # Postgres Database Connector
 gem 'pg'
@@ -51,9 +51,6 @@ gem 'friendly_id'
 
 # Acts as Taggable On (Tagging for ActiveRecord Models)
 gem 'acts-as-taggable-on'
-
-# Excon (HTTP Client)
-gem 'excon'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
