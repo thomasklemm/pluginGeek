@@ -16,7 +16,9 @@ class ApplicationController < ActionController::Base
   ###
   #   Helper Methods
   ###
-  helper_method :logger, :language, :scope, :markdown, :repo_updater, :category_updater
+  helper_method :logger, :language, :scope,
+    :markdown, :repo_updater, :category_updater,
+    :cache_version
 
   # before_filter and helper_method
   def language
@@ -55,6 +57,12 @@ class ApplicationController < ActionController::Base
   # Review: Does caching the Rails logger in an instance variable make sense?
   def logger
     @logger ||= Rails.logger
+  end
+
+  # One cache version for all partials
+  # invalidates everything on every deploy
+  def cache_version
+    'v20'
   end
 
 end
