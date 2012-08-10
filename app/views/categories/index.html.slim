@@ -11,7 +11,7 @@
       = render partial: 'shared/ad', collection: @ads
       span.right style='position: relative; bottom: 18px; color: #aaa' Ads - Reason?
 
-- cache ["v2", 'categories_index', language, Category.timestamp_by_language(language) ] do
+- cache ["v4", 'categories_index', language, Category.timestamp_by_language(language) ] do
 
   / Categories List
   #js_categories_list
