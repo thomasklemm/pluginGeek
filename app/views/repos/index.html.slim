@@ -1,6 +1,6 @@
 / repos/index.html.slim
 
-- cache ['v12', 'repos_index', language, Repo.timestamp_by_language(language) ] do
+- cache ['v13', 'repos_index', language, Repo.timestamp_by_language(language) ] do
   / Repos List
   #js_repos_list
 
@@ -10,7 +10,7 @@
     / Repos Find
     .repos_find
       / Search
-      input.search type='text' autofocus='autofocus' autocomplete='off'
+      input.search type='text' autocomplete='off'
 
       / Sort
       dl.sort_list

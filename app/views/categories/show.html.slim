@@ -1,6 +1,6 @@
 / categories/show.html.slim
 
-- cache ['v6', @category, 'category_show', current_user.present? ] do
+- cache ['v8', @category, 'category_show', current_user.present? ] do
   / Category Header
   .category_header
     / Edit description link
@@ -13,7 +13,10 @@
 
     / Group and Name
     /   returns category_group and category_name
-    h4 == category_name_helper(@category.name)
+    h4
+      i.icon-fire style='color: #999; font-size: 2.2rem'
+      | &nbsp;
+      == category_name_helper(@category.name)
 
     / Description
     p.description

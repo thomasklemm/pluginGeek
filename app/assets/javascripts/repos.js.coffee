@@ -2,7 +2,7 @@
 
 $ ->
 
-  # Toggle displaying of plugins
-  $('.toggle_repo_children').live 'click', (event) ->
-    $(this).siblings('.repo').toggle()
-    event.preventDefault()
+  # Toggle displaying of children / plugins
+  $('.js_toggle_children').live 'click', (e) ->
+    $(this).parent().siblings('.js_child_list').toggle()
+    e.preventDefault()

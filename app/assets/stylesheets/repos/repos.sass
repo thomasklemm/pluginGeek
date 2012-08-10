@@ -29,8 +29,8 @@
   // Description
   .description
 
-  // Activity
-  .activity
+  // Activity & Toggle Children
+  .activity, .toggle_children
     margin-left: 1.2rem
 
   // Hidden Stats
@@ -45,22 +45,24 @@
   // (repos#index, categories#show, repos#show (alternatives section))
   //
 
-  // Toggle repo children switch
-  .toggle_repo_children
-    &:hover, &:active, &:focus
-      cursor: pointer
+  // Toggle children
+  .toggle_children
+
+  // Child List
+  .child_list
+    // Hidden by default
+    display: none
 
   // Child Margins and Paddings
-  & > .repo
-    // Not visible by default
-    padding-bottom: 1.2rem
-    padding-left: 1.2rem
-    display: none
-    border-left: 2px solid #bbb
+  .child_list > .repo
+    padding-bottom: 0
+    padding-left: 2rem
+    margin: 1rem 0
+    border-left: 1px dashed $mainColor
 
     &:last-of-type
       padding-bottom: 0
-
+      margin-bottom: 0
 
 // Repo Header (repos#show)
 .repo_header

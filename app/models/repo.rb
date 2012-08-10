@@ -88,6 +88,15 @@ class Repo < ActiveRecord::Base
   end
 
   ###
+  #   Virtual Attributes
+  ###
+  # Has Children
+  # Does the repo have children associated with it?
+  def has_children?
+    cached_child_list.present?
+  end
+
+  ###
   #   Life-Cycle Callbacks
   ###
   # Touch parents after safe
