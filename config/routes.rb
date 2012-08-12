@@ -24,6 +24,10 @@
 
 Knight::Application.routes.draw do
 
+  # CORs
+  match '*all' => 'application#cor', :constraints => {:method => 'OPTIONS'}
+  # Source: http://spinejs.com/docs/rails_cont
+
   # Oauth
   get 'logout' => 'sessions#destroy', as: :logout
   get 'login' => 'sessions#login', as: :login
