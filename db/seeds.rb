@@ -1,23 +1,6 @@
-# ruby encoding: utf-8
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-#
-# Empty Items List:    {name: '', lang: 'Ruby', repos: %w(ernie/ransack ernie/squeel rails/arel ernie/meta_search ernie/meta_where wvanbergen/scoped_search novagile/scoped-search), description: ""},
-#
-# Be sure to respect mass assignment protection!
-
-puts 'Processing Seeds. Check log for progress...'
-
-# Build seeds
+# encoding: UTF-8
+=begin
 seeds = [
-# Categories seeded in production already
-
-# Seeds for production as well
-  {name: 'ActiveRecord: Searching', lang: 'Ruby', repos: %w(ernie/squeel rails/arel binarylogic/searchlogic ernie/ransack wvanbergen/scoped_search novagile/scoped-search pioz/ximate sunspot/sunspot freelancing-god/thinking-sphinx karmi/tire mwmitchell/rsolr ryanb/xapit texticle/texticle jkraemer/acts_as_ferret  Casecommons/pg_search huacnlee/redis-search wvanbergen/scoped_search garaio/xapian_db dougal/acts_as_indexed grantr/rubberband), description: "Full-Text Searching."},
   {name: 'ActiveRecord: Scopes', lang: 'Ruby', repos: %w(ernie/ransack ernie/squeel rails/arel ernie/meta_search ernie/meta_where wvanbergen/scoped_search novagile/scoped-search), description: "Scopes represent narrowings of a database query. Named scopes help organize these filters."},
   {name: 'ActionMailer: Email Previews', lang: 'Ruby', repos: %w(37signals/mail_view ryanb/letter_opener sj26/mailcatcher), description: "Preview the Emails you would be sending in your development environment instead of actually sending them."},
   {name: 'Administration Interfaces', lang: 'Ruby', repos: %w(sferik/rails_admin gregbell/active_admin fesplugas/typus bigbinary/admin_data ianmurrays/active_invoices fhwang/admin_assistant elia/activeadmin-mongoid renderedtext/admin_view tomas/bowtie kryzhovnik/rails_admin_tag_list dce/rails_admin_interfaces activescaffold/active_scaffold puffer/puffer acesuares/inline_forms codez/dry_crud joost/admin_interface), description: "Administration Frameworks for Rails apps."},
@@ -32,7 +15,8 @@ seeds = [
   {name: 'Users: Authentication', lang: 'Ruby', repos: %w(plataformatec/devise NoamB/sorcery thoughtbot/clearance intridea/omniauth binarylogic/authlogic intridea/oauth2 moomerman/twitter_oauth arsduo/koala), description: "User authentication is required in almost every application."},
   {name: 'Users: Authorization', lang: 'Ruby', repos: %w(ryanb/cancan stffn/declarative_authorization kristianmandrup/cantango EppO/rolify platform45/easy_roles nathanl/authority james2m/canard mcrowe/roleable the-teacher/the_role Fingertips/authorization-san), description: "Restrict what resources a user is allowed to access."},
   {name: 'Ruby Implementations', lang: 'Ruby', repos: %w(ruby/ruby mruby/mruby jruby/jruby rubinius/rubinius), description: 'Implementations of the Ruby Language for a variety of platforms and use cases.'},
-=begin
+
+
   # A
   # ActionMailer
   {name: 'ActionMailer: Email Templating', lang: 'Ruby', repos: %w(plataformatec/markerb judofyr/temple), description: "Templating Engines for ActionMailer Emails."},
@@ -48,9 +32,9 @@ seeds = [
   {name: 'ActiveRecord: Tagging / Marking / Liking & Rating', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag chrome/markable schneems/likeable leehambley/opinions peteonrails/vote_fu medihack/make_voteable twitter/activerecord-reputation-system vshvedov/vote_fu_rails_3 raw1z/amistad edgarjs/ajaxful-rating glynx/rateable ygor/acts_as_rateable sujitsagar/acts_as_rateable asceth/acts_as_rateable anton-zaytsev/acts_as_rateable), description: 'Tagging and marking for your ActiveRecord models.'},
   {name: 'ActiveRecord: Annotate Models', lang: 'Ruby', repos: %w(ctran/annotate_models), description: "Print table schemas."},
   {name: 'ActiveRecord: Misc', lang: 'Ruby', repos: %w(activescaffold/active_scaffold codez/dry_crud metaskills/store_configurable robertwahler/dynabix), description: ""},
-  {name: 'ActiveRecord: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
   {name: 'ActiveRecord: Pagination & Sorting', lang: 'Ruby', repos: %w(mislav/will_paginate amatsuda/kaminari mynameisrufus/sorted ronalchn/ajax_pagination provideal/tabulatr hiteshrawal/sortable godfat/pagify Fingertips/peiji-san leikind/wice_grid bkuhlmann/sorter), description: ""},
   {name: 'ActiveRecord: Friendly Ids', lang: 'Ruby', repos: %w(norman/friendly_id bkuhlmann/tokener bumi/find_by_param), description: ""},
+  {name: 'ActiveRecord: Seeds', lang: 'Ruby', repos: %w(mbleigh/seed-fu rhalff/seed_dump sevenwire/bootstrapper james2m/seedbank simonc/versioned_seeds developer357/seeds midas/genesis innku/seedsv markmcspadden/seed_me kevTheDev/seed_dumper), description: "http://railscasts.com/episodes/179-seed-data http://www.ruby-auf-schienen.de/buch/seed_rb.html (in German)"},
   # API
   {name: 'API: API Builders', lang: 'Ruby', repos: %w(intridea/grape filtersquad/rocket_pants LTe/grape-rabl spastorino/rails-api bploetz/versionist filtersquad/api_smith mloughran/api_cache lyonrb/biceps vigetlabs/serialize_with_options fnando/rack-api fabrik42/acts_as_api atomicobject/to_api), description: "Build an API for your application."},
   {name: 'API: XML Parsers & Builders', lang: 'Ruby', repos: %w(ohler55/ox sferik/multi_xml Empact/roxml jnunemaker/happymapper pauldix/sax-machine rubiii/gyoku mdub/representative michael-harrison/xml_active craigambrose/sax_stream soulcutter/saxerator sparklemotion/nokogiri), description: "SAX Parser = Simple API for XML Parser, event oriented parsing"},
@@ -322,95 +306,5 @@ seeds = [
   {name: 'Textmate and Sublime Text Snippets', lang: 'Ruby/JS/Design', repos: %w(devtellect/sublime-twitter-bootstrap-snippets), description: 'Code Editor snippets. Mostly Textmate and Sublime Text. You can generally use Textmate Plugins in Sublime Text 2.'},
   {name: 'Twitter Bootstrap for Rails', lang: 'Ruby', repos: %w(mjbellantoni/formtastic-bootstrap rafaelfranca/simple_form-bootstrap sethvargo/bootstrap_forms  metaskills/less-rails-bootstrap anjlab/bootstrap-rails yabawock/bootstrap-sass-rails xdite/bootstrap-helper yrgoldteeth/bootstrap-will_paginate decioferreira/bootstrap-generators pusewicz/twitter-bootstrap-markup-rails thomaspark/bootswatch anjlab/bootstrap-rails markdotto/bootstrap-university), description: 'Helpers for using Twitter Bootstrap with Rails.'},
   {name: 'Web Design Elements', lang: 'Design', repos: %w(todc/css3-google-buttons necolas/normalize.css necolas/css3-github-buttons michenriksen/css3buttons), description: 'Buttons, Form Styles, Cross-Browser Styles etc.'},
+]
 =end
-]
-
-# Plugins
-# {parent: '', children: %w()},
-
-plugins = [
-  {parent: 'thoughtbot/paperclip', children: %w(websymphony/Rails3-Paperclip-Uploadify jstorimer/delayed_paperclip igor-alexandrov/paperclip-aws dripster82/paperclipdropbox nhocki/paperclip-s3 kellym/mongoid_paperclip_queue bkuhlmann/paperclip_plus)},
-  {parent: 'padrino/padrino-framework', children: %w(padrino/padrino-recipes)},
-  {parent: 'jnicklas/carrierwave', children: %w(dwilkie/carrierwave_direct)},
-  {parent: 'twitter/bootstrap', children: %w(seyhunak/twitter-bootstrap-rails thomas-mcdonald/bootstrap-sass)},
-  {parent: 'kneath/kss', children: %w(dewski/kss-rails)},
-  {parent: 'pry/pry', children: %w(rweng/pry-rails nixme/pry-nav Mon-Ouie/pry-remote nixme/pry-debugger)},
-  {parent: 'prawnpdf/prawn', children: %w(forrest/prawnto bkuhlmann/prawn_plus sbfaulkner/sinatra-prawn rtsinani/gambas)},
-  {parent: 'mileszs/wicked_pdf', children: %w(michaelklem/heroku-pdf-3)},
-  {parent: 'mislav/will_paginate', children: %w(nickpad/will_paginate-bootstrap yrgoldteeth/bootstrap-will_paginate travisjeffery/will_paginate_twitter_bootstrap)},
-  {parent: 'amatsuda/kaminari', children: %w(Djo/reverse_kaminari)},
-  {parent: 'phonegap/phonegap', children: %w(davebalmer/jo phonegap/phonegap-plugins davejohnson/phonegap-plugin-facebook-connect phonegap/phonegap-start wikimedia/WikipediaMobile Toura/mulberry triceam/app-UI)},
-  {parent: 'FooBarWidget/passenger', children: %w(Fingertips/passengerpane)},
-  {parent: 'Shopify/batman', children: %w(Shopify/batman-rails)},
-  {parent: 'intridea/hashie', children: %w(doublewide/hashie-model)},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()},
-  {parent: '', children: %w()}
-]
-
-Rails.logger.info "Processing Seed Categories and Repos..."
-
-# Enter or update seeds
-seeds.each do |seed|
-
-  # Build category name
-  category_name = "#{ seed[:name] } (#{ seed[:lang] })"
-
-  ###
-  #   Create or update categories
-  ###
-  # Find or initialize category
-  category = Category.find_or_initialize_by_name(category_name)
-
-  # Seed descriptions unless present
-  category.short_description = seed[:description] unless category.short_description.present?
-  category.description = seed[:description] unless category.description.present?
-
-  # Save Category
-  category.save
-
-  ###
-  #   Create or update repos
-  ###
-  seed[:repos].each do |full_name|
-    # Find or initialize repo
-    repo = Repo.find_or_initialize_by_full_name(full_name)
-
-    # Assign multiple categories to a repo while seeding
-    categories = []
-    categories << repo.category_list
-    categories << category_name
-    repo.category_list = categories.join(', ')
-
-    # Save repo
-    repo.save
-  end
-end
-
-Rails.logger.info 'Processing Plugins...'
-
-# Write Plugins
-plugins.each do |plugin|
-  # Children
-  #  ( Makes sure children are known if they aren't listed in any category
-  #    and thus not seeded yet )
-  plugin[:children].each { |full_name| Repo.find_or_create_by_full_name(full_name) }
-
-  # Write 'Association'
-  parent = Repo.find_or_initialize_by_full_name(plugin[:parent])
-  parent.child_list = plugin[:children].join(', ')
-  parent.save
-end
-
-# Update Knight in serial
-KnightUpdater.update_knight_serial
-
-# Log success
-Rails.logger.info 'Finished writing seeds successfully.'

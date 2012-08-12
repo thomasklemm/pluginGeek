@@ -18,10 +18,9 @@ group :assets do
   # CSS
   gem 'sass-rails'
   gem 'compass-rails'
-  gem 'zurb-foundation', '~> 3.0.5'
+  gem 'zurb-foundation'
   # Bourbon (SASS Mixins)
-  #   next major version will deprecate border-radius mixin
-  gem 'bourbon', '~> 2.1.0'
+  gem 'bourbon'
 
   # JS
   gem 'coffee-rails'
@@ -44,7 +43,7 @@ gem 'letter_opener', group: :development
 gem 'quiet_assets', group: :development
 
 # Rails Footnotes (Debug Footnotes on every Page in Development)
-# gem 'rails-footnotes', '>= 3.7.5.rc4', group: :development
+# gem 'rails-footnotes', '>= 3.7.8', group: :development
 
 # Friendly Id (Human-Readable IDs for ActiveRecord Models)
 gem 'friendly_id'
@@ -72,7 +71,7 @@ gem 'newrelic_rpm', group: :production
 gem 'github_api'
 
 # Annotate Models (Schema Info for Models and Routes)
-gem 'annotate', '>=2.5.0.pre1', group: :development
+gem 'annotate', '>=2.5.0', group: :development
 
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
@@ -84,8 +83,8 @@ group :production do
   gem 'dalli'
 end
 
-# Bullet (DB Query Optimizing)
-gem 'bullet', group: :development
+# Seedbank (Seed Structure)
+gem 'seedbank'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
