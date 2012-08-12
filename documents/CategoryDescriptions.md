@@ -81,7 +81,7 @@ RailsCasts:
 
 ---
 
-ActiveRecord: Searching 
+ActiveRecord: Searching
 
 Full-Text Searching.
 
@@ -166,13 +166,15 @@ Docs & Reading:
 
 User Management: Authentication
 
-**User authentication is required in almost every application.**
-
-Authenticating Users typically involves setting up a user model, sessions controller, login & logout views, cookie handling etc. and can be extended to allow users to authorize from external services such as Twitter or Facebook. 
-
-If this is the first time you are involved in authentication, Ryan Bates ([RailsCasts](http://railscasts.com/)) recommends building authentication from scratch to get to know the many details and moving parts that are involved in this matter. The RailsCasts listed below are a great place to start.
+User authentication is required in almost every application.
+It usually involves setting up a user model, sessions controller, login view and more
+and can be extended to persisting user tokens in cookies
+and allowing for authorization from external services such as Twitter or Facebook.
 
 [REPOS]
+
+## Note
+Ryan Bates from RailsCasts strongly recommends building authentication from scratch if you want to authenticate users for the first time. It's a great way to learn about the different cogs that play together in the gems listed here. The numerous [RailsCasts](http://railscasts.com/) on Authentication provide you with a great way to get started.
 
 # Related Categories:
 - [**User Management: Authorization**](http://knight.dev/categories/users-authorization-ruby) - Restrict what resources a user is allowed to access.

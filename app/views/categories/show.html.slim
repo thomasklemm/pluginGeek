@@ -2,7 +2,7 @@
 
 - cache [ cache_version, @category, 'category_show', current_user.present? ] do
   / Category Header
-  .category_header
+  .category_show
     / Edit description link
     = link_to edit_category_path(@category), class: 'edit_description right' do
       / Add a description or Edit description
@@ -16,45 +16,33 @@
     h4
       i.icon-fire style='color: #999; font-size: 2.2rem'
       | &nbsp;
-      == category_name_helper(@category.name)
+      = category_show_name_splitter(@category.name)
 
-    / Description
-    p.description
-      =raw @category.description.present? ? @category.description.split('<p>[REPOS]</p>')[0] : "#{ @category.short_description }<br /><em>Please add a detailed description for this category.</em>".html_safe
+    / Top Description
+    p.top_description class='category_description' = @category.top_description
 
   / Repos List
   #js_repos_list
 
-    / Ads
-    - if Rails.env.development?
-      - @ads = Ad.tagged_with(@category.name)
-      - @ads = Ad.all.sample(2) unless @ads.present?
-      - @ads && @ads.shuffle!
-      - if @ads.present?
-        .ads
-          = render partial: 'shared/ad', collection: @ads
-
-    / List
-    .list
-      - cache [ cache_version, @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
-        = render partial: 'shared/repo', collection: @repos
-
     / Sort
-    dl.sort_list style='border: 1px solid #bbb; margin-bottom: 2rem'
+    dl.sort_list
       dt
-        i.icon-plus-sign style='color: #bbb'
+        i.icon-sort
         '  Sort:
       dd.sort.active  data-sort='knight_score'  Knight Score
       dd.sort         data-sort='updated_at'    Activity
       dd.sort         data-sort='name'          Name
 
-  .category_header
-    .description
-      - if @category.description.present?
-        =raw @category.description.split('<p>[REPOS]</p>')[1]
+    / List
+    .list style='border-left: 1px solid #999; '
+      - cache [ cache_version, @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
+        = render partial: 'shared/repo', collection: @repos
 
-      / Add a description or Edit description
-      = link_to edit_category_path(@category), class: 'edit_description' do
-          i.icon-edit
-          | &nbsp;
-          = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe
+  / Bottom Description
+  .bottom_description class='category_description' = @category.bottom_description
+
+  / Add a description or Edit description
+  = link_to edit_category_path(@category), class: 'edit_description' do
+      i.icon-edit
+      | &nbsp;
+      = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe

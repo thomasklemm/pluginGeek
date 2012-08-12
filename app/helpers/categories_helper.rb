@@ -1,6 +1,6 @@
 module CategoriesHelper
 
-  # category name and group helper
+  # category name and group helper for category partial
   #   wrap category name and category group in respective tags
   def category_name_helper(name_and_lang)
     match = /(?<group>.*)\:(?<name>.*)\((?<lang>.*)\)/.match(name_and_lang)
@@ -20,6 +20,30 @@ module CategoriesHelper
       else
         # return input
         "<span class='category_group'></span><span class='category_name'>#{ name_and_lang }</span>"
+      end
+    end
+  end
+
+  # category name and group helper for category header
+  #   wrap category name and category group in respective tags
+  def category_show_name_splitter(name_and_lang)
+    match = /(?<group>.*)\:(?<name>.*)\((?<lang>.*)\)/.match(name_and_lang)
+
+    if match
+      # return name and group, strip lang
+      group = match[:group].squish
+      name = match[:name].squish
+      "<span class='category_header_group'>#{ group }: </span><span class='category_header_name'>#{ name }</span>".html_safe
+    else
+      match = /(?<name>.*)\((?<lang>.*)\)/.match(name_and_lang)
+
+      if match
+        # strip lang, return only name
+        name = match[:name].squish
+        "<span class='category_header_group'></span><span class='category_header_name'>#{ name }</span>".html_safe
+      else
+        # return input
+        "<span class='category_header_group'></span><span class='category_header_name'>#{ name_and_lang }</span>".html_safe
       end
     end
   end

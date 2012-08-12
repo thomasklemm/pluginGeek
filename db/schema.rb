@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804075656) do
+ActiveRecord::Schema.define(:version => 20120812113600) do
 
   create_table "ads", :force => true do |t|
     t.string   "name"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20120804075656) do
     t.integer  "knight_score",      :default => 0
     t.text     "short_description"
     t.text     "description"
-    t.text     "md_description"
     t.string   "popular_repos"
     t.text     "all_repos"
     t.datetime "created_at",                       :null => false

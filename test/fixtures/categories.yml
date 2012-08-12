@@ -3,14 +3,13 @@
 # Table name: categories
 #
 #  id                :integer          not null, primary key
-#  name              :string(255)
-#  slug              :string(255)
-#  repo_count        :integer
-#  watcher_count     :integer
-#  knight_score      :integer
+#  name              :string(255)      not null
+#  slug              :string(255)      not null
+#  repo_count        :integer          default(0)
+#  watcher_count     :integer          default(0)
+#  knight_score      :integer          default(0)
 #  short_description :text
 #  description       :text
-#  md_description    :text
 #  popular_repos     :string(255)
 #  all_repos         :text
 #  created_at        :datetime         not null

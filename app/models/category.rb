@@ -3,14 +3,13 @@
 # Table name: categories
 #
 #  id                :integer          not null, primary key
-#  name              :string(255)
-#  slug              :string(255)
-#  repo_count        :integer
-#  watcher_count     :integer
-#  knight_score      :integer
+#  name              :string(255)      not null
+#  slug              :string(255)      not null
+#  repo_count        :integer          default(0)
+#  watcher_count     :integer          default(0)
+#  knight_score      :integer          default(0)
 #  short_description :text
 #  description       :text
-#  md_description    :text
 #  popular_repos     :string(255)
 #  all_repos         :text
 #  created_at        :datetime         not null
@@ -31,6 +30,9 @@ class Category < ActiveRecord::Base
   # Tagging
   acts_as_ordered_taggable_on :languages
   # acts_as_taggable_on :keywords # REVIEW: Implement as column if nescessary at all
+
+  # Markdown
+  include MarkdownHelper
 
   ###
   #   Scopes
@@ -94,6 +96,25 @@ class Category < ActiveRecord::Base
 
   def short_description
     self[:short_description] || ' '
+  end
+
+  ###
+  #   Virtual Attributes
+  ###
+  # Render Markdown Description
+  def description
+    @description ||= markdown.render(self[:description]).html_safe
+  end
+
+  # Top Description and Bottom Description
+  # seperated automagically by [REPOS]
+  # FIX: TAG ENDINGS
+  def top_description
+    @top_description ||= description.split('[REPOS]')[0].html_safe
+  end
+
+  def bottom_description
+    @bottom_description ||= description.split('[REPOS]')[1].html_safe
   end
 
   # Mass Assignment Whitelist

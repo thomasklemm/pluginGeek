@@ -16,9 +16,10 @@ class ApplicationController < ActionController::Base
   ###
   #   Helper Methods
   ###
+  include MarkdownHelper
+
   helper_method :logger, :language, :scope,
-    :markdown, :repo_updater, :category_updater,
-    :cache_version
+    :repo_updater, :category_updater, :cache_version, :markdown
 
   # One cache version for all partials
   # invalidates everything on every deploy
@@ -45,11 +46,6 @@ class ApplicationController < ActionController::Base
     params[:scope] = 'categories' if params[:scope].blank?
     params[:scope] = 'repos'      if request.path.start_with?('/repos')
     params[:scope]
-  end
-
-  def markdown
-    # See Redcarpet options: https://github.com/tanoku/redcarpet
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, safe_links_only: true, with_toc_data: true, hard_wrap: true, no_intra_emphasis: true, autolink: true)
   end
 
   def repo_updater

@@ -26,16 +26,10 @@ class CategoriesController < ApplicationController
     #     To remove links and emphasis if someone accidentally inputs markdown or mischiefiously inputs <script> tags
     params[:category][:short_description] &&= view_context.strip_tags(markdown.render(params[:category][:short_description])).squish
 
+    # Update attributes
     if @category.update_attributes(params[:category])
       # Update success
-      # Render Markdown Description and save as description
-      @category.description = markdown.render(@category.md_description)
-       if @category.save
-        redirect_to @category, notice: 'Category updated. Thanks a lot!'
-      else
-        flash.now.alert = 'Markdown rendering failed. Please alert me if you read this, because you never should see this.'
-        render action: :edit
-      end
+      redirect_to @category, notice: 'Category updated. Thanks a lot!'
     else
       # Update failed
       flash.now.alert = "Category update failed. Please let me know if you assume this is a bug."
