@@ -36,4 +36,4 @@ desc 'Deploy, migrate & restart'
 task :deploy => ['heroku:deploy_and_migrate']
 
 desc 'Simple deploy without migration'
-task :simple_deploy => ['heroku:deploy']
+task 'deploy:simple' => ['heroku:deploy']
