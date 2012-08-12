@@ -1,8 +1,5 @@
 # Deployment Rake Tasks
 
-task :deploy => :heroku
-task :heroku => ['heroku:deploy_and_migrate']
-
 namespace :heroku do
   task :deploy do
     puts    'Deploying to production...'
@@ -24,16 +21,10 @@ namespace :heroku do
     system  'heroku restart'
   end
 
-  task :deploy_and_migrate do
-    Rake::Task['heroku:deploy'].invoke
-    Rake::Task['heroku:migrate'].invoke
-    Rake::Task['heroku:restart'].invoke
-  end
+  task :deploy_and_migrate => [:deploy, :migrate, :restart]
 
-  task :deploy_and_seed do
-    Rake::Task['heroku:deploy'].invoke
-    Rake::Task['heroku:migrate'].invoke
-    Rake::Task['heroku:seed'].invoke
-    Rake::Task['heroku:restart'].invoke
-  end
+  task :deploy_and_seed => ['heroku:deploy', 'heroku:migrate', 'heroku:seed', 'heroku:restart']
 end
+
+task :heroku => ['heroku:deploy_and_migrate']
+task :deploy => :heroku
