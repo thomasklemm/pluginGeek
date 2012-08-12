@@ -212,7 +212,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   annotate (>= 2.5.0)
-  bourbon (~> 2.1.0)
+  bourbon
   coffee-rails
   compass-rails
   dalli
@@ -238,4 +238,4 @@ DEPENDENCIES
   sorcery (~> 0.7.12)
   uglifier
   unicorn
-  zurb-foundation (~> 3.0.7)
+  zurb-foundation
