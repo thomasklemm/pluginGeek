@@ -31,20 +31,21 @@ end
 # jQuery Rails (jQuery Adapter for Rails)
 gem 'jquery-rails'
 
+# Production Gems
+group :production do
+  # Memcached on Heroku
+  gem 'memcachier'
+  gem 'dalli'
+
+  # New Relic (Server Monitoring)
+  gem 'newrelic_rpm'
+end
+
 # High Voltage (Static Pages)
 gem 'high_voltage'
 
 # Slim (Templating)
 gem 'slim-rails'
-
-# Letter Opener (Preview ActionMailer Emails in Development)
-gem 'letter_opener', group: :development
-
-# Quiet Assets (Mute Asset Log Messages in Development)
-gem 'quiet_assets', group: :development
-
-# Rails Footnotes (Debug Footnotes on every Page in Development)
-# gem 'rails-footnotes', '>= 3.7.8', group: :development
 
 # Friendly Id (Human-Readable IDs for ActiveRecord Models)
 gem 'friendly_id'
@@ -55,37 +56,44 @@ gem 'acts-as-taggable-on'
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
 
-# Pry (IRB Replacement)
-gem 'pry-rails', group: :development
-gem 'pry-remote', group: :development
-
 # Sorcery (User Authentication)
 gem 'sorcery', '~> 0.7.12'
 
 # Redcarpet (Markdown Parser)
 gem 'redcarpet'
 
-# New Relic (Server Monitoring)
-gem 'newrelic_rpm', group: :production
-
 # Github API
-gem 'github_api'
-
-# Annotate Models (Schema Info for Models and Routes)
-gem 'annotate', '>=2.5.0', group: :development
+# gem 'github_api'
 
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
 gem 'sinatra', require: false
 
-# Memcached on Heroku
-group :production do
-  gem 'memcachier'
-  gem 'dalli'
-end
-
 # Seedbank (Seed Structure)
 gem 'seedbank'
+
+# Development Gems
+group :development do
+  # Heroku (Custom Deployment Rake Tasks)
+  gem 'heroku'
+
+  # Annotate Models (Schema Info for Models and Routes)
+  gem 'annotate', '>=2.5.0', group: :development
+
+  # Pry (IRB Replacement)
+  gem 'pry-rails'
+  gem 'pry-remote'
+
+  # Letter Opener (Preview ActionMailer Emails in Development)
+  gem 'letter_opener'
+
+  # Quiet Assets (Mute Asset Log Messages in Development)
+  gem 'quiet_assets'
+
+  # Rails Footnotes (Debug Footnotes on every Page in Development)
+  # gem 'rails-footnotes', '>= 3.7.8', group: :development
+end
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
