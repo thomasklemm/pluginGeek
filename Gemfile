@@ -87,9 +87,6 @@ end
 # Seedbank (Seed Structure)
 gem 'seedbank'
 
-# Heroku San (Helpful stuff for Heroku)
-gem 'heroku_san', group: :development
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
