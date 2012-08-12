@@ -54,8 +54,13 @@ module Knight
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # Serve fonts via Asset Pipeline
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
+    # Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
+
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '1.01'
 
     # Heroku setting
     #   via https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting

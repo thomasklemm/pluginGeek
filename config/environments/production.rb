@@ -9,6 +9,8 @@ Knight::Application.configure do
   config.action_controller.perform_caching = true
 
   # Original: Disable Rails's static asset server (Apache or nginx will already do this)
+  # config.serve_static_assets = false
+
   # New: Enable this
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
   config.serve_static_assets = true
