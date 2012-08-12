@@ -1,30 +1,39 @@
 # Deployment Rake Tasks
 
 namespace :heroku do
+  desc 'Deploy to heroku'
   task :deploy do
     puts    'Deploying to production...'
     system  'git push heroku master'
   end
 
+  desc 'Migrate the database'
   task :migrate do
     puts    'Migrating Database'
     system  'heroku run rake db:migrate'
   end
 
+  desc 'Migrate new seeds'
   task :seed do
     puts    'Migrating new Seeds'
     system  'heroku run rake db:seed'
   end
 
+  desc 'Restart processes'
   task :restart do
     puts    'Restarting Processes'
     system  'heroku restart'
   end
 
+  desc ':deploy, :migrate, :restart'
   task :deploy_and_migrate => [:deploy, :migrate, :restart]
 
-  task :deploy_and_seed => ['heroku:deploy', 'heroku:migrate', 'heroku:seed', 'heroku:restart']
+  desc ':deploy, :migrate, :seed, :restart'
+  task :deploy_and_seed => [:deploy, :migrate, :seed, :restart]
 end
 
-task :heroku => ['heroku:deploy_and_migrate']
-task :deploy => :heroku
+desc 'Deploy, migrate & restart'
+task :deploy => ['heroku:deploy_and_migrate']
+
+desc 'Simple deploy without migration'
+task :simple_deploy => ['heroku:deploy']
