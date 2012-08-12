@@ -108,13 +108,15 @@ class Category < ActiveRecord::Base
 
   # Top Description and Bottom Description
   # seperated automagically by [REPOS]
-  # FIX: TAG ENDINGS
+  # FIX: TAG ENDINGS WHEN SPLITTING
   def top_description
-    @top_description ||= description.split('[REPOS]')[0].html_safe
+    top_description = description.split('[REPOS]')[0] && description.split('[REPOS]')[0].html_safe
+    @top_description ||= top_description || ''
   end
 
   def bottom_description
-    @bottom_description ||= description.split('[REPOS]')[1].html_safe
+    bottom_description = description.split('[REPOS]')[1] && description.split('[REPOS]')[1].html_safe
+    @bottom_description ||= bottom_description || ''
   end
 
   # Mass Assignment Whitelist
