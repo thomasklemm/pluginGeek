@@ -1,18 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  # Allow CORS for displaying Fonts from Cloudfront in Firefox
-  # Source: http://spinejs.com/docs/rails_cont
-  # Similar Solution: http://www.tsheffler.com/blog/?p=428
-  before_filter :cor
-
-  def cor
-    headers["Access-Control-Allow-Origin"]  = "knight.io"
-    headers["Access-Control-Allow-Methods"] = %w{GET POST PUT DELETE}.join(",")
-    headers["Access-Control-Allow-Headers"] = %w{Origin Accept Content-Type X-Requested-With X-CSRF-Token}.join(",")
-    head(:ok) if request.request_method == "OPTIONS"
-  end
-
   def not_authenticated
     redirect_back_or_to login_url, alert: 'Please log in with Github first.'
   end
