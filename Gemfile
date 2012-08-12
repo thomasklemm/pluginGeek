@@ -16,7 +16,7 @@ gem 'pg'
 #   in production environments by default.
 group :assets do
   # CSS
-  gem 'sass', '3.2.0.alpha244'
+  gem 'sass', '3.2.0.alpha261'
   gem 'sass-rails'
   gem 'compass-rails'
   gem 'zurb-foundation', '3.0.8'

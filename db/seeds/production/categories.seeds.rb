@@ -1,5 +1,11 @@
 # encoding: UTF-8
 # production/categories.seeds.rb
+
+###
+### Do not add new repos to existing categories here
+### Add them to Knight.io on the website
+###
+
 categories_and_repos = [
   # Batch 1
   {name: 'ActiveRecord: Searching', lang: 'Ruby', repos: %w(ernie/squeel rails/arel binarylogic/searchlogic ernie/ransack wvanbergen/scoped_search novagile/scoped-search pioz/ximate sunspot/sunspot freelancing-god/thinking-sphinx karmi/tire mwmitchell/rsolr ryanb/xapit texticle/texticle jkraemer/acts_as_ferret  Casecommons/pg_search huacnlee/redis-search wvanbergen/scoped_search garaio/xapian_db dougal/acts_as_indexed grantr/rubberband), description: "Full-Text Searching."},
@@ -39,6 +45,7 @@ categories_and_repos.each do |seed|
     category.short_description = seed[:description]
     category.description = seed[:description]
     category.save
+    Rails.logger.info "Added category #{ category.name }"
 
     # Create or update repos
     seed[:repos].each do |full_name|
@@ -51,6 +58,9 @@ categories_and_repos.each do |seed|
       categories << category_name
       repo.category_list = categories.join(', ')
       repo.save
+      Rails.logger.info "Added repo #{ repo.full_name }"
     end
+  else
+    Rails.logger.info "Existing category #{ category.name } stays unmodified"
   end
 end

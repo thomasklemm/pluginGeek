@@ -1,5 +1,10 @@
 # encoding: UTF-8
 # production/children.seeds.rb
+
+###
+###  Children can be updated here
+###
+
 Rails.logger.info 'Processing parents/children...'
 after 'production:categories' do
   plugins = [

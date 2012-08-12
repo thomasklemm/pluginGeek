@@ -90,8 +90,7 @@ $ ->
   $button.click ->
     list.page = 2500
     list.update()
-    $button.hide()
-    # update timestamps
+    # update button visibility and timestamps
     update_view()
 
   # On keyup in search input
@@ -100,6 +99,7 @@ $ ->
 
   # Decide if show all button should be visible
   eval_show_all_button = () ->
+    p = list?.page
     m = list.matchingItems.length
     if p < m
       $button.show()
@@ -119,7 +119,7 @@ $ ->
     eval_show_all_button()
     eval_clear_icon()
     update_timeago()
-  # Update view on initialize to mainly hide clear icon
+  # Update view on initialize mainly to hide clear icon
   update_view()
 
   # Search for Group instead of loading category

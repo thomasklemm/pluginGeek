@@ -150,7 +150,7 @@ GEM
     redis (3.0.1)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
-    sass (3.2.0.alpha.244)
+    sass (3.2.0.alpha.261)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -230,7 +230,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.8)
   redcarpet
-  sass (= 3.2.0.alpha244)
+  sass (= 3.2.0.alpha261)
   sass-rails
   seedbank
   sidekiq
