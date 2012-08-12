@@ -40,4 +40,7 @@ Knight::Application.configure do
 
   # Quiet Assets
   config.quiet_assets = true
+
+  # Use custom AccessControlHeader Middleware
+  config.middleware.use "AccessControlHeader"
 end
