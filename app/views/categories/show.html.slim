@@ -25,7 +25,7 @@
   #js_repos_list
 
     / Sort
-    dl.sort_list
+    dl.sort_list style='padding: 0 1.25rem 0.75rem'
       dt
         i.icon-sort
         '  Sort:
@@ -34,7 +34,7 @@
       dd.sort         data-sort='name'          Name
 
     / List
-    .list style='border-left: 1px solid #999; '
+    .list
       - cache [ cache_version, @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
         = render partial: 'shared/repo', collection: @repos
 
