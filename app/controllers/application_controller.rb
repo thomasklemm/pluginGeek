@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  # Before Filters
-  before_filter :language, :scope
+  # Allow CORS for displaying Fonts from Cloudfront in Firefox
+  after_filter :set_cors
+  def set_cors
+    headers['Access-Control-Allow-Origin']  = '*'
+    headers['Access-Control-Allow-Methods'] = '*'
+  end
 
   def not_authenticated
     redirect_back_or_to login_url, alert: 'Please log in with Github first.'
@@ -17,6 +21,9 @@ class ApplicationController < ActionController::Base
   #   Helper Methods
   ###
   include MarkdownHelper
+
+  # Before Filters
+  before_filter :language, :scope
 
   helper_method :logger, :language, :scope,
     :repo_updater, :category_updater, :cache_version, :markdown
