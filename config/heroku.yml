@@ -1,6 +1,6 @@
 #
 # Format:
-# 
+#
 # <stage name>:
 #   app: <Heroku app name>
 #   stack: <Heroku stack, optional>
@@ -9,25 +9,31 @@
 #   config:
 #     - <Heroku config:var name>: <Heroku config:var value>
 #
-production: 
-  app: awesomeapp
-  stack: bamboo-ree-1.8.7
-  tag: production/*
-  config:
-    BUNDLE_WITHOUT: "development:test"
-    GOOGLE_ANALYTICS: "UA-12345678-1"
 
-staging:
+production:
+  app: knightio
   stack: cedar
-  app: awesomeapp-staging
-  config: &default
-    BUNDLE_WITHOUT: "development:test"
-  addons:
-    - pgbackups:auto-week
-    - memcache:5mb
-    - logging:basic
-    - scheduler:standard
 
-demo: 
-  app: awesomeapp-demo
-  config: *default
+#
+# production:
+#   app: knightio
+#   stack: cedar
+#   tag: production/*
+#   config:
+#     BUNDLE_WITHOUT: "development:test"
+#     GOOGLE_ANALYTICS: "UA-12345678-1"
+
+# staging:
+#   app: knightio-staging
+#   stack: cedar
+#   config: &default
+#     BUNDLE_WITHOUT: "development:test"
+#   addons:
+#     - pgbackups:auto-week
+#     - memcache:5mb
+#     - logging:basic
+#     - scheduler:standard
+
+# demo:
+#   app: awesomeapp-demo
+#   config: *default
