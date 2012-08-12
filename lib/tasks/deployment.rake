@@ -1,6 +1,9 @@
-namespace :heroku do
-  default: :deploy
+# Deployment Rake Tasks
 
+task :deploy => :heroku
+task :heroku => ['heroku:deploy_and_migrate']
+
+namespace :heroku do
   task :deploy do
     puts    'Deploying to production...'
     system  'git push heroku master'
