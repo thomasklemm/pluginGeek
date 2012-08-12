@@ -91,6 +91,8 @@ $ ->
     list.page = 2500
     list.update()
     $button.hide()
+    # update timestamps
+    update_view()
 
   # On keyup in search input
   $search_field.keyup () ->

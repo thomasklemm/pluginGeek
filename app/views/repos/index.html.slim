@@ -4,18 +4,18 @@
   / Repos List
   #js_repos_list
 
-    h4 Knightly Repos
-    h5.subheader Discover over #{ @repos.size.div(10)*10 } #{ language && language.titlecase } Repos
+    h4 Repos <small>Knight.io</small>
+    h5.subheader Discover & explore over #{ @repos.size.div(10)*10 } of the most amazing #{ language && language.titlecase } Repos
 
     / Repos Find
     .repos_find
       / Search
-      input.search type='text' autocomplete='off'
+      input.search type='text' autocomplete='off' placeholder='Rails Authentication...'
 
       / Sort
       dl.sort_list
         dt
-          i.icon-plus-sign style='color: #bbb'
+          i.icon-sort
           '  Sort:
         dd.sort.active  data-sort='knight_score'  Knight Score
         dd.sort         data-sort='updated_at'    Activity
