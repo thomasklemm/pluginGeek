@@ -69,7 +69,7 @@ module Knight
     require 'rack/cache'
 
     if !Rails.env.development? && !Rails.env.test?
-      config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public'
+      config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=2592000'
       config.middleware.insert_before Rack::Static, 'AccessControlHeader'
     end
 
