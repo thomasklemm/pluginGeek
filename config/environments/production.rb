@@ -10,7 +10,8 @@ Knight::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
-  config.serve_static_assets = false
+  # True to insert Rack Cors before ActionDispath::Static
+  config.serve_static_assets = true
   # Cache Control Headers (might be irrelevant here)
   config.static_cache_control = "public, max-age=2592000"
 
@@ -70,4 +71,6 @@ Knight::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  require 'rack/cache'
 end
