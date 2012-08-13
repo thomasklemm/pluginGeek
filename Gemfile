@@ -6,6 +6,9 @@ ruby '1.9.3'
 # Unicorn (App Server)
 gem 'unicorn'
 
+# Rack Cors
+gem 'rack-cors', :require => 'rack/cors'
+
 # Rails
 gem 'rails', '3.2.8'
 
@@ -94,7 +97,6 @@ group :development do
   # Rails Footnotes (Debug Footnotes on every Page in Development)
   # gem 'rails-footnotes', '>= 3.7.8', group: :development
 end
-
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
