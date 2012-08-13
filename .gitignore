@@ -15,8 +15,7 @@
 /tmp
 
 # Pow Environment Configuration Variables
-.powrc
 /.powrc
 
 # Sass Cache
-.sass-cache/
+/.sass-cache
