@@ -15,6 +15,11 @@ Knight::Application.configure do
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=2592000"
+  config.action_dispatch.rack_cache = {
+    :metastore    => Dalli::Client.new,
+    :entitystore  => 'file:tmp/cache/rack/body',
+    :allow_reload => false
+  }
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -70,4 +75,9 @@ Knight::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # Use custom AccessControlHeader Middleware
+  # insert before Rack::Cache and ActionDispatch::Static Middleware
+  require 'rack-cache'
+  config.middleware.insert_before Rack::Cache, AccessControlHeader
 end

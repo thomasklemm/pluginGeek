@@ -40,4 +40,8 @@ Knight::Application.configure do
 
   # Quiet Assets
   config.quiet_assets = true
+
+  # Use custom AccessControlHeader Middleware
+  # insert before ActionDispatch::Static Middleware
+  config.middleware.insert_before ActionDispatch::Static, "AccessControlHeader"
 end
