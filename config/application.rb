@@ -70,7 +70,7 @@ module Knight
 
     if !Rails.env.development? && !Rails.env.test?
       config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public'
-      config.middleware.insert_before Rack::Static, AccessControlHeader
+      config.middleware.insert_before Rack::Static, 'AccessControlHeader'
     end
 
   end
