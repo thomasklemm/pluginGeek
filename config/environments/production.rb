@@ -80,6 +80,6 @@ Knight::Application.configure do
 
   # Use custom AccessControlHeader Middleware
   # insert before Rack::Cache and ActionDispatch::Static Middleware
-  # require 'rack-cache'
-  config.middleware.use AccessControlHeader
+  require 'rack-cache'
+  config.middleware.insert_before ActionDispatch::Static, AccessControlHeader
 end
