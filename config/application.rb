@@ -4,9 +4,9 @@ require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  # Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
+  Bundler.require(:default, :assets, Rails.env)
 end
 
 module Knight
@@ -66,11 +66,10 @@ module Knight
     #   via https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
     config.assets.initialize_on_precompile = false
 
-    if !Rails.env.development? && !Rails.env.test?
-      require 'rack/cache'
-      config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=2592000'
-      config.middleware.insert_before Rack::Static, 'AccessControlHeader'
-    end
-
+    # if !Rails.env.development? && !Rails.env.test?
+    #   require 'rack/cache'
+    #   config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=2592000'
+    #   config.middleware.insert_before Rack::Static, 'AccessControlHeader'
+    # end
   end
 end

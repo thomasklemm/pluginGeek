@@ -8,10 +8,10 @@ Knight::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # Enable Static Assets Server
-  # Original: Disable Rails's static asset server (Apache or nginx will already do this)
+  # Disable Rails's static asset server (Apache or nginx will already do this)
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
-  config.serve_static_assets = true
+  config.serve_static_assets = false
+  # Cache Control Headers (might be irrelevant here)
   config.static_cache_control = "public, max-age=2592000"
 
   # Compress JavaScripts and CSS
@@ -34,7 +34,7 @@ Knight::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  config.log_level = :debug
+  # config.log_level = :debug
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -43,7 +43,6 @@ Knight::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production
-  # config.cache_store = :mem_cache_store
   config.cache_store = :dalli_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
@@ -57,7 +56,7 @@ Knight::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  config.threadsafe!
+  # config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
