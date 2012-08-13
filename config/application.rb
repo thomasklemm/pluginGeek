@@ -71,5 +71,16 @@ module Knight
     #   config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=2592000'
     #   config.middleware.insert_before Rack::Static, 'AccessControlHeader'
     # end
+
+    # Use Rack::Cors Middleware
+    # to set Allow Origin Headers on Fonts (required by Firefox)
+    config.middleware.use Rack::Cors do
+      # Fonts
+      allow do
+        origins   '*'
+        resource  '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
+
   end
 end
