@@ -16,8 +16,10 @@ Knight::Application.configure do
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=2592000"
   config.action_dispatch.rack_cache = {
-    :metastore    => :dalli_store,
-    :entitystore  => :dalli_store,
+    :metastore    => :Dalli::Client.new(ENV["MEMCACHIER_SERVERS"],
+                    {:username => ENV["MEMCACHIER_USERNAME"],
+                     :password => ENV["MEMCACHIER_PASSWORD"]}),
+    :entitystore  => 'file:tmp/cache/rack/body',
     :allow_reload => false
   }
 
