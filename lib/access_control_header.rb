@@ -5,7 +5,7 @@ class AccessControlHeader
 
   def call(env)
     status, headers, response = @app.call(env)
-    [status, headers.merge({'Access-Control-Allow-Origin' => '*'}), response]
+    headers &&= headers.merge({'Access-Control-Allow-Origin' => 'knight.io,*.knight.io', 'Access-Control-Allow-Headers' => '*, X-Requested-With, X-Prototype-Version, X-CSRF-Token', 'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS', 'Access-Control-Max-Age' => '86400'})
+    [status, headers, response]
   end
 end
-# Source: http://blog.fallingmanstudios.net/post/14281163243/firefox-font-face-in-rails-with-asset-subdomains
