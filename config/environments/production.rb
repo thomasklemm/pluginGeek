@@ -13,15 +13,15 @@ Knight::Application.configure do
 
   # New: Enable this
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
-  config.serve_static_assets = true
+  config.serve_static_assets = false
   config.static_cache_control = "public, max-age=2592000"
-  config.action_dispatch.rack_cache = {
-    :metastore    => Dalli::Client.new(ENV["MEMCACHIER_SERVERS"],
-                    {:username => ENV["MEMCACHIER_USERNAME"],
-                     :password => ENV["MEMCACHIER_PASSWORD"]}),
-    :entitystore  => 'file:tmp/cache/rack/body',
-    :allow_reload => false
-  }
+  # config.action_dispatch.rack_cache = {
+  #   :metastore    => Dalli::Client.new(ENV["MEMCACHIER_SERVERS"],
+  #                   {:username => ENV["MEMCACHIER_USERNAME"],
+  #                    :password => ENV["MEMCACHIER_PASSWORD"]}),
+  #   :entitystore  => 'file:tmp/cache/rack/body',
+  #   :allow_reload => false
+  # }
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -65,7 +65,7 @@ Knight::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  config.threadsafe!
+  # config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
