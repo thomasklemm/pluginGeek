@@ -155,7 +155,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyzip (0.9.9)
-    sass (3.3.0.alpha.1)
+    sass (3.2.0.alpha.244)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -205,9 +205,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    zurb-foundation (3.0.8)
+    zurb-foundation (3.0.7)
       compass (>= 0.12.2)
-      modular-scale (>= 1.0.0)
       rake
       sass (>= 3.2.0.alpha.244)
 
@@ -228,6 +227,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   memcachier
+  modular-scale (= 1.0.2)
   newrelic_rpm
   pg
   pry-rails
@@ -235,6 +235,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.8)
   redcarpet
+  sass (= 3.2.0.alpha244)
   sass-rails
   seedbank
   sidekiq
@@ -243,4 +244,4 @@ DEPENDENCIES
   sorcery (~> 0.7.12)
   uglifier
   unicorn
-  zurb-foundation (= 3.0.8)
+  zurb-foundation (= 3.0.7)

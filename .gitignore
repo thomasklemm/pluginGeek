@@ -14,8 +14,8 @@
 /log/*.log
 /tmp
 
-# Pow Environment Configuration Variables
+# Ignore Pow Environment Configuration Variables
 /.powrc
 
-# Sass Cache
+# Ignore Sass Cache
 /.sass-cache

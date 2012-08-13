@@ -66,9 +66,8 @@ module Knight
     #   via https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
     config.assets.initialize_on_precompile = false
 
-    require 'rack/cache'
-
     if !Rails.env.development? && !Rails.env.test?
+      require 'rack/cache'
       config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=2592000'
       config.middleware.insert_before Rack::Static, 'AccessControlHeader'
     end

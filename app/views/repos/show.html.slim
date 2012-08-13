@@ -10,9 +10,8 @@
       span.name #{ @repo.name }
       small.owner  by #{ @repo.owner }
 
-    / Github Watch Button including Watcher Count
-    /
-      iframe.watch_button src="http://markdotto.github.com/github-buttons/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
+    / Github Star Button including Stars Count
+    / iframe.watch_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
     /Label
     - if @repo.label

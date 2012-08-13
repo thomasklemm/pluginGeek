@@ -8,26 +8,17 @@ Knight::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Enable Static Assets Server
   # Original: Disable Rails's static asset server (Apache or nginx will already do this)
-  # config.serve_static_assets = false
-
-  # New: Enable this
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
-  config.serve_static_assets = false
+  config.serve_static_assets = true
   config.static_cache_control = "public, max-age=2592000"
-  # config.action_dispatch.rack_cache = {
-  #   :metastore    => Dalli::Client.new(ENV["MEMCACHIER_SERVERS"],
-  #                   {:username => ENV["MEMCACHIER_USERNAME"],
-  #                    :password => ENV["MEMCACHIER_PASSWORD"]}),
-  #   :entitystore  => 'file:tmp/cache/rack/body',
-  #   :allow_reload => false
-  # }
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -56,7 +47,8 @@ Knight::Application.configure do
   config.cache_store = :dalli_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = 'd2ishtm40wfhei.cloudfront.net'
+  # Review: prefix with http:// or not
+  config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
@@ -65,7 +57,7 @@ Knight::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -77,9 +69,4 @@ Knight::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-  # Use custom AccessControlHeader Middleware
-  # insert before Rack::Cache and ActionDispatch::Static Middleware
-  # require 'rack-cache'
-  # config.middleware.insert_before Rack::Cache, AccessControlHeader
 end
