@@ -95,7 +95,7 @@ GEM
     memcachier (0.0.1)
     method_source (0.8)
     mime-types (1.19)
-    modular-scale (1.0.1)
+    modular-scale (1.0.2)
       compass (>= 0.11.5)
       sassy-math (>= 1.2)
     multi_json (1.3.6)
@@ -155,7 +155,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyzip (0.9.9)
-    sass (3.2.0.alpha.261)
+    sass (3.3.0.alpha.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -235,7 +235,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.8)
   redcarpet
-  sass (= 3.2.0.alpha261)
   sass-rails
   seedbank
   sidekiq
