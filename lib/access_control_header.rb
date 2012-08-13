@@ -5,7 +5,7 @@ class AccessControlHeader
 
   def call(env)
     status, headers, response = @app.call(env)
-    headers &&= headers.merge({'Access-Control-Allow-Origin' => 'knight.io,*.knight.io', 'Access-Control-Allow-Headers' => '*, X-Requested-With, X-Prototype-Version, X-CSRF-Token', 'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS', 'Access-Control-Max-Age' => '86400'})
+    headers &&= headers.merge({'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Headers' => '*, X-Requested-With, X-Prototype-Version, X-CSRF-Token', 'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS', 'Access-Control-Max-Age' => '86400'})
     [status, headers, response]
   end
 end
