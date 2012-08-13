@@ -65,5 +65,9 @@ module Knight
     # Heroku setting
     #   via https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
     config.assets.initialize_on_precompile = false
+
+    # Use custom AccessControlHeader Middleware
+    # insert before ActionDispatch::Static Middleware
+    config.middleware.insert_before ActionDispatch::Static, "AccessControlHeader"
   end
 end

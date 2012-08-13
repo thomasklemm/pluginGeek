@@ -9,20 +9,26 @@ namespace :heroku do
 
   desc 'Migrate the database'
   task :migrate do
-    puts    'Migrating Database'
+    puts    'Migrating Database...'
     system  'heroku run rake db:migrate'
   end
 
   desc 'Migrate new seeds'
   task :seed do
-    puts    'Migrating new Seeds'
+    puts    'Migrating new Seeds...'
     system  'heroku run rake db:seed'
   end
 
   desc 'Restart processes'
   task :restart do
-    puts    'Restarting Processes'
+    puts    'Restarting Processes...'
     system  'heroku restart'
+  end
+
+  desc 'Clean Assets'
+  task 'assets:clean' do
+    puts    'Cleaning Assets...'
+    system  'heroku run rails runner Rails.cache.clear'
   end
 
   desc ':deploy, :migrate, :restart'
