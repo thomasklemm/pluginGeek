@@ -15,11 +15,11 @@ Knight::Application.configure do
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=2592000"
-  config.action_dispatch.rack_cache = {
-    :metastore    => Dalli::Client.new,
-    :entitystore  => 'file:tmp/cache/rack/body',
-    :allow_reload => false
-  }
+  # config.action_dispatch.rack_cache = {
+  #   :metastore    => Dalli::Client.new,
+  #   :entitystore  => 'file:tmp/cache/rack/body',
+  #   :allow_reload => false
+  # }
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -78,6 +78,6 @@ Knight::Application.configure do
 
   # Use custom AccessControlHeader Middleware
   # insert before Rack::Cache and ActionDispatch::Static Middleware
-  require 'rack-cache'
-  config.middleware.use AccessControlHeader
+  # require 'rack-cache'
+  # config.middleware.use AccessControlHeader
 end
