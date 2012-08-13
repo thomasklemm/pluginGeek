@@ -43,7 +43,7 @@ Knight::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -80,6 +80,6 @@ Knight::Application.configure do
 
   # Use custom AccessControlHeader Middleware
   # insert before Rack::Cache and ActionDispatch::Static Middleware
-  require 'rack-cache'
-  config.middleware.insert_before Rack::Cache, AccessControlHeader
+  # require 'rack-cache'
+  # config.middleware.insert_before Rack::Cache, AccessControlHeader
 end
