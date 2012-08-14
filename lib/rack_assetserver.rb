@@ -104,8 +104,8 @@ module Rack
         },
         env["REQUEST_METHOD"] == "HEAD" ? [] : self
       ]
-      if headers
-        headers.each do |key, value|
+      if @headers
+        @headers.each do |key, value|
           response[1][key] = value
         end
       end
