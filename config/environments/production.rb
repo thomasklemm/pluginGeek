@@ -89,6 +89,7 @@ Knight::Application.configure do
 
   # Serve Static Assets
   if !Rails.env.development? && !Rails.env.test?
-    config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public'
+    config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=13370'
+    config.middleware.delete ActionDispatch::Static
   end
 end

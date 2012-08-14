@@ -4,9 +4,9 @@ require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  # Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
-  Bundler.require(:default, :assets, Rails.env)
+  # Bundler.require(:default, :assets, Rails.env)
 end
 
 module Knight
@@ -57,32 +57,14 @@ module Knight
     # Serve fonts via Asset Pipeline
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += %w( .svg .eot .woff .ttf )
-    # Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
+    #   Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
     # Heroku setting
-    #   via https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
     config.assets.initialize_on_precompile = false
-
-    # if !Rails.env.development? && !Rails.env.test?
-    #   require 'rack/cache'
-    #   config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=2592000'
-    #   config.middleware.insert_before Rack::Static, 'AccessControlHeader'
-    # end
-
-
-    require 'rack-cache' if Rails.env.production?
-    where_to_insert = defined?(Rack::Cache) ? Rack::Cache : ActionDispatch::Static
-
-    config.middleware.insert_before where_to_insert, Rack::Cors do
-      # Fonts
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
-      end
-    end
+    #   Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
 
   end
 end
