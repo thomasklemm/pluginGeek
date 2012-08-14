@@ -10,8 +10,8 @@ Knight::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
-  # True to insert Rack Cors before ActionDispath::Static
-  config.serve_static_assets = false
+  # Insert ActionDispatch::Static here, delete later
+  config.serve_static_assets = true
   # Cache Control Headers (might be irrelevant here)
   config.static_cache_control = 'public, max-age=1337000'
 
