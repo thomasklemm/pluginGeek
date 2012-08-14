@@ -11,9 +11,9 @@ Knight::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
   # True to insert Rack Cors before ActionDispath::Static
-  config.serve_static_assets = true
+  config.serve_static_assets = false
   # Cache Control Headers (might be irrelevant here)
-  config.static_cache_control = "public, max-age=2592000"
+  config.static_cache_control = 'public, max-age=1337000'
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -43,14 +43,10 @@ Knight::Application.configure do
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
-  # Use a different cache store in production
-  config.cache_store = :dalli_store
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # Review: prefix with http:// or not
   config.action_controller.asset_host = 'http://ruby.knight.io'
   # config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
-
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
@@ -72,5 +68,27 @@ Knight::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  ###
+  #   Caching
+  ###
+  # Explicit Requires
+  require 'memcachier'
+  require 'dalli'
   require 'rack/cache'
+
+  # Use a different cache store in production
+  # Cache Store for Fragment Caching
+  config.cache_store = :dalli_store
+
+  # HTTP Caching
+  config.action_dispatch.rack_cache = {
+    :metastore    => Dalli::Client.new,
+    :entitystore  => 'file:tmp/cache/rack/body',
+    :allow_reload => false
+  }
+
+  # Serve Static Assets
+  if !Rails.env.development? && !Rails.env.test?
+    config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public'
+  end
 end
