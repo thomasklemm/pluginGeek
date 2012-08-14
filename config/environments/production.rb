@@ -9,11 +9,12 @@ Knight::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  # Source: https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
-  # Insert ActionDispatch::Static here, delete later
+  # Insert ActionDispatch::Static here (Heroku will do it anyway), delete later
   config.serve_static_assets = true
+
   # Cache Control Headers (might be irrelevant here)
-  config.static_cache_control = 'public, max-age=1337000'
+  #   just as a fallback if ActionDispatch::Static is used nevertheless
+  config.static_cache_control = 'public, max-age=31536000'
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -44,9 +45,7 @@ Knight::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # Review: prefix with http:// or not
-  config.action_controller.asset_host = 'http://ruby.knight.io'
-  # config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
+  config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
