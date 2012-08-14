@@ -50,7 +50,6 @@ module Rack
     def initialize(root, headers = nil)
       @root = root
       @headers = headers
-      raise headers.inspect
     end
 
     def call(env)

@@ -90,7 +90,7 @@ Knight::Application.configure do
   # Serve Static Assets
   if !Rails.env.development? && !Rails.env.test?
     # switch to insert_after later
-    config.middleware.insert_before Rack::Cache, Rack::AssetServer, urls: [config.assets.prefix], root: 'public', headers: { 'Cache-Control' => 'public, max-age=1234567', 'Allow-Thomas' => 'true' }
+    config.middleware.insert_before Rack::Cache, Rack::AssetServer, urls: [config.assets.prefix], root: 'public', headers: { 'Cache-Control' => 'public, max-age=3241333', 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Headers' => '*, X-Requested-With, X-Prototype-Version, X-CSRF-Token', 'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS', 'Access-Control-Max-Age' => '1337' }
     config.middleware.delete ActionDispatch::Static
   end
 end
