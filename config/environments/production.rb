@@ -45,7 +45,7 @@ Knight::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
+  # config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
@@ -74,6 +74,7 @@ Knight::Application.configure do
   require 'memcachier'
   require 'dalli'
   require 'rack/cache'
+  require 'rack_assetserver'
 
   # Use a different cache store in production
   # Cache Store for Fragment Caching
@@ -88,7 +89,8 @@ Knight::Application.configure do
 
   # Serve Static Assets
   if !Rails.env.development? && !Rails.env.test?
-    config.middleware.insert_after Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=31536000'
+    # switch to insert_after later
+    config.middleware.insert_before Rack::Cache, Rack::AssetServer, urls: [config.assets.prefix], root: 'public', headers: { 'Cache-Control' => 'public, max-age=1234567', 'Allow-Thomas' => 'true' }
     config.middleware.delete ActionDispatch::Static
   end
 end
