@@ -45,8 +45,8 @@ Knight::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # Review: prefix with http:// or not
-  # config.action_controller.asset_host = 'http://ruby.knight.io'
-  config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
+  config.action_controller.asset_host = 'http://ruby.knight.io'
+  # config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
@@ -91,5 +91,6 @@ Knight::Application.configure do
   if !Rails.env.development? && !Rails.env.test?
     config.middleware.insert_before Rack::Cache, Rack::Static, urls: [config.assets.prefix], root: 'public', cache_control: 'public, max-age=133711'
     config.middleware.delete ActionDispatch::Static
+    config.middleware.insert_before Rack::Static, Rack::ETag
   end
 end
