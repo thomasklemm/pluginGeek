@@ -193,11 +193,11 @@ module Rack
               end
             else
               # Placeholder
-              headers
             end
           end
         end
 
+        raise headers.inspect
         headers
       end
     end

@@ -104,8 +104,8 @@ Knight::Application.configure do
     # using 'Cache-Control' => 'public, max-age=31536000'
     '*' => { 'Cache-Control' => 'public, max-age=1726873' },
     '/fonts' => { 'Access-Control-Allow-Origin' => '*' },
-    /.(ttf|otf|eot|woff|svg)/ => { 'Access-Control-Allow-Origin' => '*' },
-    /.js\z/ => {'Whos your daddy' => 'Thomas' },
+    /.(ttf|otf|eot|woff|svg)/ => { 'Access-Control-Allow-Origin' => '*', 'Font-Header-regexp' => 'bla' },
+    /.js/ => {'Whos your daddy' => 'Thomas' },
     :webfonts => true
   }
 end
