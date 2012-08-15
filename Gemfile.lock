@@ -95,9 +95,6 @@ GEM
     memcachier (0.0.1)
     method_source (0.8)
     mime-types (1.19)
-    modular-scale (1.0.2)
-      compass (>= 0.11.5)
-      sassy-math (>= 1.2)
     multi_json (1.3.6)
     multipart-post (1.1.5)
     netrc (0.7.5)
@@ -157,13 +154,11 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyzip (0.9.9)
-    sass (3.2.0)
+    sass (3.2.0.alpha.278)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sassy-math (1.2)
-      compass (~> 0.11)
     seedbank (0.2.0)
     sidekiq (2.1.1)
       celluloid (~> 0.11.1)
@@ -207,11 +202,10 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    zurb-foundation (3.0.9)
+    zurb-foundation (3.0.7)
       compass (>= 0.12.2)
-      modular-scale (>= 1.0.2)
       rake
-      sass (>= 3.2.0)
+      sass (>= 3.2.0.alpha.244)
 
 PLATFORMS
   ruby
@@ -238,6 +232,7 @@ DEPENDENCIES
   rack-cors
   rails (= 3.2.8)
   redcarpet
+  sass (= 3.2.0.alpha.278)
   sass-rails
   seedbank
   sidekiq
@@ -246,4 +241,4 @@ DEPENDENCIES
   sorcery (~> 0.7.12)
   uglifier
   unicorn
-  zurb-foundation (= 3.0.9)
+  zurb-foundation (= 3.0.7)
