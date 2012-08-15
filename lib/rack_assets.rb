@@ -98,6 +98,7 @@ module Rack
       end
 
       def serving(env)
+        raise @path.inspect
         last_modified = F.mtime(@path).httpdate
         return [304, {}, []] if env['HTTP_IF_MODIFIED_SINCE'] == last_modified
         response = [
@@ -180,8 +181,11 @@ module Rack
             case rule
             when '*'
               http_headers.each { |field, content| headers[field] = content }
-            when rule.is_a? Regexp
+            when rule.instance_of?(Regexp)
               # Placeholder
+              if @path.match(rule)
+                # raise @path
+              end
               headers = {}
             else
               # Placeholder
