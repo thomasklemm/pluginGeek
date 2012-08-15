@@ -181,6 +181,11 @@ module Rack
             # Global
             when '*'
               http_headers.each { |field, content| headers[field] = content }
+            # WebFonts
+            when :webfonts
+              if @path.match(/.(ttf|otf|eot|woff|svg)/)
+                http_headers.each { |field, content| headers[field] = content }
+              end
             # Match Regexp
             when rule.instance_of?(Regexp)
               if @path.match(rule)
