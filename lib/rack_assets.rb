@@ -178,25 +178,26 @@ module Rack
           @http_header_rules.each do |rule, http_headers|
             # Global
             if rule == '*'
-              headers = assign_headers(headers, http_headers)
+              http_headers.each { |field, content| headers[field] = content}
 
             # Match Regexp, e.g. '/\.(css/js)/'
             elsif rule.kind_of? Regexp
-              headers = assign_headers(headers, http_headers) if @path.match(rule)
+              if @path.match(rule)
+                http_headers.each { |field, content| headers[field] = content}
+              end
 
             # Path, starting with '/', e.g. '/fonts'
             else
               path = @path.gsub(Rails.public_path, '').gsub('/assets', '')
-              headers = assign_headers(headers, http_headers) if path.start_with?(rule)
+              if path.start_with?(rule)
+                http_headers.each { |field, content| headers[field] = content}
+              end
             end
           end
         end
         headers
       end
 
-      def assign_headers(headers, http_headers)
-        http_headers.each { |field, content| headers[field] = content; headers }
-      end
     end
   end
 end
