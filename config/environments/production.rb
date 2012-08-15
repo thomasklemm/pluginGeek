@@ -106,6 +106,5 @@ Knight::Application.configure do
     '/fonts' => { 'Access-Control-Allow-Origin' => '*' },
     /.(ttf|otf|eot|woff|svg)/ => { 'Access-Control-Allow-Origin' => '*', 'Font-Header-regexp' => 'bla' },
     /.js/ => {'Whos your daddy' => 'Thomas' },
-    :webfonts => true
   }
 end
