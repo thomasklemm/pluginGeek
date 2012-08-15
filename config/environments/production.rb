@@ -101,10 +101,7 @@ Knight::Application.configure do
 
   config.assets.http_header_rules = {
     # Cache all static assets
-    # using 'Cache-Control' => 'public, max-age=31536000'
-    '*' => { 'Cache-Control' => 'public, max-age=1726873' },
-    '/fonts' => { 'Access-Control-Allow-Origin' => '*' },
-    /\.(ttf|otf|eot|woff|svg)/ => { 'Access-Control-Allow-Origin' => '*', 'Font-Header-regexp' => 'bla' },
-    /\.js/ => {'Whos your daddy' => 'Thomas' },
+    '*' => { 'Cache-Control' => 'public, max-age=31536000' },
+    '/fonts' => { 'Access-Control-Allow-Origin' => '*' }
   }
 end
