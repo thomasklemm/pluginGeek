@@ -195,7 +195,7 @@ module Rack
       end
 
       def assign_headers(headers, http_headers)
-        http_headers.each { |field, content| headers[field] = content; return headers }
+        http_headers.each { |field, content| headers[field] = content; headers }
       end
     end
   end
