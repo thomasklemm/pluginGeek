@@ -10,11 +10,11 @@ module Rack
     class Server
       def initialize(app, options={})
         @app = app
-        @urls = options[:urls] || [Rails.application.config.assets.prefix]
+        @urls = [Rails.application.config.assets.prefix]
         @index = options[:index]
-        root = options[:root] || Rails.public_path
-        headers = options[:headers] || Rails.application.config.assets.headers
-        @file_server = File.new(root, headers)
+        root = Rails.public_path
+        http_header_rules = Rails.application.config.assets.http_header_rules || {}
+        @file_server = File.new(root, http_header_rules)
       end
 
       def overwrite_file_path(path)
@@ -51,9 +51,9 @@ module Rack
 
       alias :to_path :path
 
-      def initialize(root, headers = nil)
+      def initialize(root, http_header_rules = {})
         @root = root
-        @headers = headers
+        @http_header_rules = http_header_rules
       end
 
       def call(env)
@@ -109,11 +109,10 @@ module Rack
           env["REQUEST_METHOD"] == "HEAD" ? [] : self
         ]
 
-        # Set custom headers
-        if @headers
-          @headers.each { |key, value| response[1][key] = value }
+        # Set HTTP headers
+        if http_headers
+          http_headers.each { |field, content| response[1][field] = content }
         end
-        response[1]['Thomas-rulez'] = 'so true'
 
         # NOTE:
         #   We check via File::size? whether this file provides size info
@@ -171,6 +170,25 @@ module Rack
           },
           [body]
         ]
+      end
+
+      def http_headers
+        headers = {}
+
+        if @http_header_rules
+          @http_header_rules.each do |rule, http_headers|
+            case rule
+            when '*'
+              http_headers.each { |field, content| headers[field] = content }
+            when rule.is_a? Regexp
+
+            else
+
+            end
+          end
+        end
+
+        headers
       end
     end
   end

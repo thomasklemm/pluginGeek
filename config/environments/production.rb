@@ -99,11 +99,11 @@ Knight::Application.configure do
     config.middleware.insert_before Rack::Cache, Rack::Assets::Server
   end
 
-  # Rack Assets Config
-  config.assets.headers = {
-    'Cache-Control' => 'public, max-age=31536000',
-    'Access-Control-Allow-Origin' => '*',
-    'Access-Control-Allow-Headers' => '*, X-Requested-With, X-Prototype-Version, X-CSRF-Token',
-    'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS', 'Access-Control-Max-Age' => '2592000'
+  config.assets.http_header_rules = {
+    # Cache all static assets
+    # using 'Cache-Control' => 'public, max-age=31536000'
+    '*' => { 'Cache-Control' => 'public, max-age=1726873' },
+    '/fonts' => { 'Access-Control-Allow-Origin' => '*' },
+    /.(ttf|otf|eot|woff|svg)\z/ => { 'Access-Control-Allow-Origin' => '*' }
   }
 end
