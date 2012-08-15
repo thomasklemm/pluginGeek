@@ -190,14 +190,13 @@ module Rack
               raise @path.inspect
               if @path.match(rule)
                 http_headers.each { |field, content| headers[field] = content }
+                raise headers.inspect
               end
             else
               # Placeholder
             end
           end
         end
-
-        raise headers.inspect
         headers
       end
     end
