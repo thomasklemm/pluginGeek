@@ -99,6 +99,7 @@ Knight::Application.configure do
     config.middleware.insert_before Rack::Cache, Rack::Assets::Server
   end
 
+  # Rack Assets HTTP Header Rules
   config.assets.http_header_rules = {
     # Cache all static assets
     '*' => { 'Cache-Control' => 'public, max-age=31536000' },

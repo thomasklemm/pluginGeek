@@ -109,7 +109,7 @@ module Rack
           env["REQUEST_METHOD"] == "HEAD" ? [] : self
         ]
 
-        # Set HTTP headers
+        # Set Custom HTTP headers
         if http_headers
           http_headers.each { |field, content| response[1][field] = content }
         end
