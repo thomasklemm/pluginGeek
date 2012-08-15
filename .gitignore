@@ -16,6 +16,7 @@
 
 # Ignore Pow Environment Configuration Variables
 /.powrc
+/.powenv
 
 # Ignore Sass Cache
 /.sass-cache
