@@ -174,7 +174,7 @@ module Rack
 
       def http_headers
         headers = {}
-
+        raise @path
         if @http_header_rules
           @http_header_rules.each do |rule, http_headers|
             case rule
