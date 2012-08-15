@@ -181,9 +181,11 @@ module Rack
             when '*'
               http_headers.each { |field, content| headers[field] = content }
             when rule.is_a? Regexp
-
+              # Placeholder
+              headers = {}
             else
-
+              # Placeholder
+              headers = {}
             end
           end
         end
