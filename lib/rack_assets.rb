@@ -99,6 +99,7 @@ module Rack
 
       def serving(env)
         raise @path.inspect
+
         last_modified = F.mtime(@path).httpdate
         return [304, {}, []] if env['HTTP_IF_MODIFIED_SINCE'] == last_modified
         response = [
