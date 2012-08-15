@@ -186,6 +186,7 @@ module Rack
                 http_headers.each { |field, content| headers[field] = content }
                 raise headers.inspect
               end
+              raise 'entered regexp end'
             else
               # Placeholder
             end
