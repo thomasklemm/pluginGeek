@@ -24,7 +24,7 @@
       = category.watcher_count
 
     / Label
-    - if category.label
+    - if category.label.present?
       = link_to category do
         span.success.label.round
           i.icon-star

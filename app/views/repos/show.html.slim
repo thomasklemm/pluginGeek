@@ -23,7 +23,7 @@
     iframe.star_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
     /Label
-    - if @repo.label
+    - if @repo.label.present?
       span.label.round
           i.icon-star
           | &nbsp;

@@ -25,7 +25,7 @@
       = repo.watchers
 
     / Label
-    - if repo.label
+    - if repo.label.present?
       = link_to repo do
         span.label.round
           i.icon-star
