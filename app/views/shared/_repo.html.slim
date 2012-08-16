@@ -27,7 +27,10 @@
     / Label
     - if repo.label
       = link_to repo do
-        span.label.round = repo.label
+        span.label.round
+          i.icon-star
+          | &nbsp;
+          = repo.label
 
     / Url, Activity & Toggle Children
     div
@@ -36,7 +39,7 @@
       link rel="dns-prefetch" href="#{ repo.homepage_url }"
 
       / Activity
-      span.activity class=activity_color(repo.github_updated_at)
+      span.activity class=activity_color(timestamp)
         i.icon-leaf
         | &nbsp;
         abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)

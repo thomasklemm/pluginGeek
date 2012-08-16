@@ -1,20 +1,19 @@
 / repos/show.html.slim
 
-- cache [ cache_version, @repo, 'show_repo' ] do
+- cache [ cache_version, @repo, 'show_repo', params[:action] ] do
 
   / Title
   - provide :title, "#{ @repo.full_name } on Knight.io"
 
   / Variables
-  - categories = @repo.cached_category_list && @repo.cached_category_list.split(', ')
+  - timestamp = @repo.github_updated_at && @repo.github_updated_at.utc
 
   / Repo Header
   .repo_header
 
     / Name and Owner
     h3.name_and_owner = link_to @repo.github_url do
-      i.icon-github
-      | &nbsp;
+      i.icon-github style='padding-right: 12px'
       span.owner #{ @repo.owner }
       span style='padding: 0 5px' #{'/'}
       span.name #{ @repo.name }
@@ -25,7 +24,10 @@
 
     /Label
     - if @repo.label
-      span.label.round = @repo.label
+      span.label.round
+          i.icon-star
+          | &nbsp;
+          = @repo.label
 
     / Description
     .description = @repo.description
@@ -34,11 +36,10 @@
     span.homepage_url = link_to @repo.homepage_url, @repo.homepage_url
 
     / Activity
-    span.activity class=activity_color(@repo.github_updated_at)
-      i.icon-leaf
-      | &nbsp;
-      / UPDATE
-      = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
+    span.activity class=activity_color(timestamp)
+        i.icon-leaf
+        | &nbsp;
+        abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
 
     / Category List
     .category_list
@@ -47,20 +48,8 @@
         i.icon-edit
         | &nbsp;Edit
 
-      / Categories present
-      - if categories.present?
-        ul.square
-          - categories.each do |category_name|
-              - @category = Category.find_by_name(category_name)
-              li
-                = link_to @category do
-                  = category_show_name_splitter(@category.name)
-                span.category_repo_count &nbsp;&nbsp;(#{ @category.repo_count } Repos)
-      - else
-        / Add categories link
-        div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
-          ' None yet.
-          b Add or edit categories
+      = render 'repo_categories'
+
 
   / Readme and Alternatives
   .readme_and_alternatives
@@ -106,15 +95,6 @@
               '  to this repo to see alternatives.
 
 /
-    / Categories & Edit Categories
-    - if params[:action] == 'edit'
-      .category_list_edit
-        = form_for @repo do |f|
-          = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
-          div style='padding-bottom: 1rem' = f.text_field :category_list
-          = f.submit 'Save Categories', class: 'small radius button'
-      - category_names = Category.pluck(:name).to_json.html_safe
-      javascript:
-        $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
+
 
     - else

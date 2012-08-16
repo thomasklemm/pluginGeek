@@ -103,7 +103,7 @@ class Category < ActiveRecord::Base
   ###
   # Render Markdown Description
   def description
-    @description ||= markdown.render(self[:description]).html_safe
+    @description ||= self[:description].present? ? markdown.render(self[:description]).html_safe : ''
   end
 
   # Top Description and Bottom Description

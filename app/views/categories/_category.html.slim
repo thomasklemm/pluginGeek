@@ -26,7 +26,10 @@
     / Label
     - if category.label
       = link_to category do
-        span.success.label.round = category.label
+        span.success.label.round
+          i.icon-star
+          | &nbsp;
+          = category.label
 
     / Popular Repos
     div

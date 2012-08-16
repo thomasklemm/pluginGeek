@@ -1,0 +1,40 @@
+/repos/_repo_categories.html.slim
+
+/ Variables
+- categories = @repo.cached_category_list && @repo.cached_category_list.split(', ')
+
+/ Edit View
+- if params[:action] == 'edit'
+  .category_list_edit
+    = form_for @repo do |f|
+      / Categories
+      = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
+      div style='padding-bottom: 1rem' = f.text_field :category_list
+
+      = f.label :label
+      = f.text_field :label
+
+      / Submit
+      = f.submit 'Save Categories', class: 'small radius button'
+
+  / Category Names Autocomplete
+  - category_names = Category.pluck(:name).to_json.html_safe
+  javascript:
+    $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
+
+/ Show View
+- else
+
+  / Categories present
+  - if categories.present?
+    ul.square
+      - categories.each do |category_name|
+          - @category = Category.find_by_name(category_name)
+          li
+            = link_to @category do
+              = category_show_name_splitter(@category.name)
+            span.category_repo_count &nbsp;&nbsp;(#{ @category.repo_count } Repos)
+  - else
+    / Repo has no categories
+    div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
+      b Add a category.
