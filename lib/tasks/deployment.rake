@@ -34,7 +34,8 @@ namespace :heroku do
   desc 'Bust Caches'
   task :caches do
     puts 'Busting Caches...'
-    system 'heroku run rails runner Repo.bust_caches && Category.bust_caches '
+    system 'heroku run rails runner Repo.bust_caches'
+    system 'heroku run rails runner Category.bust_caches'
   end
 
   desc ':deploy, :migrate, :restart'

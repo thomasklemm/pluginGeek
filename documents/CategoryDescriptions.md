@@ -131,21 +131,19 @@ Docs & Reading
 
 ---
 
-Web Application Frameworks
-
 **Web App Frameworks give you a lot of tools to speed you up with web development.** A full-stack framework typically includes a data query abstraction language, a routing & view templating system, helpers for formatting view output, Internationalization APIs and more. A lower-level framework usually provides you with an easy way to routes and process web requests.
 
-[Ruby on Rails](http://rubyonrails.org/), often shortened to Rails, is the open source full-stack web application framework for the Ruby programming language. Rails is perhaps the most widely used Ruby framework today, with good reason. Rails was extracted from [37signals' Basecamp](http://basecamp.com/) and powers Github, Shopify, Twitter & many other popular Web Services. Part of what makes Rails great is the vibrant ecosystem, with a lot of great programmers creating and maintaining valuable gems.
+[**Ruby on Rails**](http://rubyonrails.org/), often shortened to Rails, is the open source full-stack web application framework for the Ruby programming language. Rails is perhaps the most widely used Ruby framework today, with good reason. Rails was extracted from [37signals' Basecamp](http://basecamp.com/) and powers Github, Shopify, Twitter & many other popular Web Services. Part of what makes Rails great is the vibrant ecosystem, with a lot of great programmers creating and maintaining valuable gems.
 
-[Sinatra](http://www.sinatrarb.com/) is small and flexible. It does not follow the typical model–view–controller pattern used in other frameworks, such as Ruby on Rails. Instead, Sinatra focuses on "quickly creating web-applications in Ruby with minimal effort."
+[**Sinatra**](http://www.sinatrarb.com/) is small and flexible. It does not follow the typical model–view–controller pattern used in other frameworks, such as Ruby on Rails. Instead, Sinatra focuses on "quickly creating web-applications in Ruby with minimal effort."
 
 [REPOS]
 
-Related Categories:
-- [Learning Rails]() - Tons of resources waiting to help you get better at Rails development
-
-Docs & Reading:
+# Docs & Reading:
 - ... are waiting for you on any framework's homepage
+
+# Related Categories:
+- [Learning Rails]() - Tons of resources waiting to help you get better at Rails development
 
 
 
