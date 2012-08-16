@@ -5,18 +5,18 @@
 / Categories List
 javascript:
   var categories_list_options = {
-    valueNames: ['category_group', 'category_name', 'watcher_count', 'label', 'description', 'popular_repos', 'all_repos', 'knight_score'],
-    page: 12
-  };
+      valueNames: ['category_group', 'category_name', 'watcher_count', 'label',   'description', 'popular_repos', 'all_repos', 'knight_score']
+    };
 
+  categories_list_options['page'] = $('.list').data('page') || 12
 javascript:
   var categoriesList = new List('js_categories_list', categories_list_options);
 
 / Repos List
 javascript:
   var repos_list_options = {
-    valueNames: ['owner', 'name', 'watchers', 'label', 'description', 'knight_score', 'updated_at']
-  };
+      valueNames: ['owner', 'name', 'watchers', 'label', 'description', 'knight_score', 'updated_at']
+    };
 
   repos_list_options['page'] = $('.list').data('page') || 12
 

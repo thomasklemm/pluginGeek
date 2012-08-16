@@ -247,4 +247,4 @@ DEPENDENCIES
   sorcery (~> 0.7.12)
   uglifier
   unicorn
-  zurb-foundation (= 3.0.9)
+  zurb-foundation (>= 3.0.9)

@@ -1,6 +1,10 @@
 / repos/index.html.slim
 
 - cache [ cache_version, 'repos_index', language, Repo.timestamp_by_language(language) ] do
+
+  / Title
+  - provide :title, "Knight.io: #{ language.titlecase } Repos"
+
   / Repos List
   #js_repos_list
 

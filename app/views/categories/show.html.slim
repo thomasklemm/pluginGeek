@@ -1,6 +1,10 @@
 / categories/show.html.slim
 
 - cache [ cache_version, @category, 'category_show'] do
+
+  / Title
+  - provide :title, "#{ @category.name } - Knight.io"
+
   / Category Header
   .category_show
     / Edit description link
@@ -16,16 +20,17 @@
       = category_show_name_splitter(@category.name)
 
     / Top Description
-    p.top_description class='category_description' = @category.top_description
+    .top_description class='category_description' = @category.top_description
 
   / Repos List
   = render 'category_show_repos_list'
 
-  / Bottom Description
-  .bottom_description class='category_description' = @category.bottom_description
+  / Bottom
+  - if @category.bottom_description
+    / Bottom Description
+    .bottom_description class='category_description' = @category.bottom_description
 
-  / Add a description or Edit description
-  / = link_to edit_category_path(@category), class: 'edit_description' do
+    / Edit Resources
+    = link_to edit_category_path(@category), class: 'edit_description' do
       i.icon-edit
-      | &nbsp;
-      = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe
+      | &nbsp;Edit Description &amp; Resources

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def not_authenticated
-    # flash[:notice] = 'Draw, Knight!'
+    flash[:notice] = 'Draw, Knight!'
     redirect_to login_url
   end
 

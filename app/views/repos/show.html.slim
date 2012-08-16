@@ -2,6 +2,9 @@
 
 - cache [ cache_version, @repo, 'show_repo' ] do
 
+  / Title
+  - provide :title, "#{ @repo.full_name } on Knight.io"
+
   / Repo Header
   .repo_header
 
