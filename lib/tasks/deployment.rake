@@ -31,6 +31,12 @@ namespace :heroku do
     system  'heroku run rails runner Rails.cache.clear'
   end
 
+  desc 'Bust Caches'
+  task :caches do
+    puts 'Busting Caches...'
+    system 'heroku run rails runner Repo.bust_caches && Category.bust_caches '
+  end
+
   desc ':deploy, :migrate, :restart'
   task :deploy_and_migrate => [:deploy, :migrate, :restart]
 

@@ -119,6 +119,13 @@ class Category < ActiveRecord::Base
     @bottom_description ||= bottom_description || ''
   end
 
+  # Class methods
+  # Bust Caches
+  # by touching every category
+  def self.bust_caches
+    find_each { |category| category.touch }
+  end
+
   # Mass Assignment Whitelist
   attr_accessible :short_description, :description, :label
 

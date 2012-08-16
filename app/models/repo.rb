@@ -164,6 +164,12 @@ class Repo < ActiveRecord::Base
     self.cached_language_list = language_list.to_s
   end
 
+  # Class methods
+  # Bust Caches
+  # by touching every repo
+  def self.bust_caches
+    find_each { |repo| repo.touch }
+  end
 
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :category_list, :label
