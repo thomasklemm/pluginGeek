@@ -16,11 +16,16 @@
     = f.text_area :short_description, rows: 2
 
     / Description using Markdown
-    = f.label :description, 'Detailed Description <br><em>(As much as you like; markdown-enhanced; <br>might include a description of the topic, common solutions, and pointers to related resources and railscasts); used the "[REPOS]" to split between what is rendered above and below the listed repos. Thanks for making Knight better, Knight!</em>'.html_safe
+    = f.label :description, "Detailed Description <br><em>(As much as you like; markdown-enhanced; <br>might include a description of the topic, common solutions, and pointers to related resources and railscasts); use [REPOS] to split between what is rendered above and below the listed repos. Thanks for making Knight better, Knight!<br>Great Markdown Cheat Sheet: Go to Github and press 'm'.</em>".html_safe
     = f.text_area :description, cols: 122, rows: 8
+
+    = f.label :label
+    = f.text_field :label
+
+    / Submit
     = f.submit 'Update Descriptions', class: 'small radius button'
     '  or
-    = link_to 'Cancel', @category, confirm: "RETURN TO '#{ @category.name }'' WITHOUT SAVING ANY CHANGES?"
+    = link_to 'Cancel', @category, confirm: "Discard changes?", style: 'text-decoration: underline'
 
   / Repos List
   = render 'category_show_repos_list'

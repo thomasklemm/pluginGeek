@@ -15,9 +15,21 @@
     / Group and Name
     /   returns category_group and category_name
     h4
-      i.icon-bookmark style='color: #999; font-size: 2.2rem'
-      | &nbsp;
-      = category_show_name_splitter(@category.name)
+      span.left
+        i.icon-bookmark style='color: #999; font-size: 2.2rem'
+        | &nbsp;
+        = category_show_name_splitter(@category.name)
+
+      span.watcher_count style='font-size: 1.5rem; margin-left: 2rem; color: #999'
+        i.icon-star
+        | &nbsp;
+        = @category.watcher_count
+
+      - if @category.label.present?
+        span.label.round style='margin-left: 2rem'
+          i.icon-bookmark
+          | &nbsp;
+          = @category.label
 
     / Top Description
     .top_description class='category_description' = @category.top_description

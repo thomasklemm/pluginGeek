@@ -25,7 +25,7 @@
 
 $ ->
   # Category Markdown Description Textarea Autogrow
-  $('#category_md_description').autoGrow()
+  $('#category_description').autoGrow()
 
   # Update Timeago
   # for previously hidden items

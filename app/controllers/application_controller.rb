@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   # Authorize Blitz.io Load Testing
   def blitz
-  	render text: '42'
+    render text: '42'
   end
 
   ###

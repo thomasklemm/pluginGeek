@@ -70,11 +70,14 @@
 
   .name_and_owner
     display: inline-block
-    .name
+    font-weight: normal
+    margin-bottom: 0
     .owner
+    .name
+      font-weight: bold
 
-  .watch_button
-    margin-left: 2rem
+  .star_button
+    margin-left: 1.5rem
 
   .label
     margin-left: 0.8rem
@@ -84,11 +87,15 @@
     clear: both
 
   .activity
-    margin-left: 2rem
+    margin-left: 1.5rem
 
-  .category_list, .category_list_edit
-    margin: 1.5rem 0 2.5rem
-
+  .category_list
+    margin: 1.25rem 0 2.5rem
+    .category_header_group
+    .category_header_name
+      font-weight: bold
+    .category_repo_count
+      color: #777
 
 // Activity
 .activity

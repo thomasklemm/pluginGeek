@@ -30,7 +30,7 @@ class CategoriesController < ApplicationController
       redirect_to @category, notice: 'Category updated. Thanks a lot!'
     else
       # Update failed
-      flash.now.alert = "Category update failed. Please let me know if you assume this is a bug."
+      flash.now.alert = "Category update failed. Please let me know how you got this error."
       render action: :edit
     end
   end

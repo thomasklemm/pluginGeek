@@ -5,16 +5,23 @@
   / Title
   - provide :title, "#{ @repo.full_name } on Knight.io"
 
+  / Variables
+  - categories = @repo.cached_category_list && @repo.cached_category_list.split(', ')
+
   / Repo Header
   .repo_header
 
     / Name and Owner
     h3.name_and_owner = link_to @repo.github_url do
+      i.icon-github
+      | &nbsp;
+      span.owner #{ @repo.owner }
+      span style='padding: 0 5px' #{'/'}
       span.name #{ @repo.name }
-      small.owner  by #{ @repo.owner }
+
 
     / Github Star Button including Stars Count
-    / iframe.watch_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
+    iframe.star_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
     /Label
     - if @repo.label
@@ -30,41 +37,30 @@
     span.activity class=activity_color(@repo.github_updated_at)
       i.icon-leaf
       | &nbsp;
+      / UPDATE
       = (distance_of_time_in_words_to_now(@repo.github_updated_at) + ' ago').gsub(/about|almost|over/, '')
 
-    / Categories & Edit Categories
-    - if params[:action] == 'edit'
-      .category_list_edit
-        = form_for @repo do |f|
-          = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
-          div style='padding-bottom: 1rem' = f.text_field :category_list
-          = f.submit 'Save Categories', class: 'small radius button'
-      - category_names = Category.pluck(:name).to_json.html_safe
-      javascript:
-        $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
+    / Category List
+    .category_list
+      b style='color: #777' Categories&nbsp;&nbsp;
+      = link_to edit_repo_path(@repo) do
+        i.icon-edit
+        | &nbsp;Edit
 
-    - else
-      / Category List
-      .category_list
-        b Categories
-
-        / Categories present
-        - if @repo.cached_category_list.present?
-          / Add or edit categories link
-          span.right= link_to edit_repo_path(@repo) do
-            span data-icon='T' Add or edit categories
-          / List categories and repo count
-          ul.square
-            - @repo.cached_category_list && @repo.cached_category_list.split(', ').each do |category_name|
-                - @category = Category.find_by_name(category_name)
-                li
-                  = link_to @category.name, @category
-                  '  (#{ @category.repo_count } Repos)
-        - else
-          / Add categories link
-          div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
-            ' None yet.
-            b Add or edit categories
+      / Categories present
+      - if categories.present?
+        ul.square
+          - categories.each do |category_name|
+              - @category = Category.find_by_name(category_name)
+              li
+                = link_to @category do
+                  = category_show_name_splitter(@category.name)
+                span.category_repo_count &nbsp;&nbsp;(#{ @category.repo_count } Repos)
+      - else
+        / Add categories link
+        div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
+          ' None yet.
+          b Add or edit categories
 
   / Readme and Alternatives
   .readme_and_alternatives
@@ -109,4 +105,16 @@
               b = link_to 'add a category', edit_repo_path(@repo)
               '  to this repo to see alternatives.
 
+/
+    / Categories & Edit Categories
+    - if params[:action] == 'edit'
+      .category_list_edit
+        = form_for @repo do |f|
+          = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
+          div style='padding-bottom: 1rem' = f.text_field :category_list
+          = f.submit 'Save Categories', class: 'small radius button'
+      - category_names = Category.pluck(:name).to_json.html_safe
+      javascript:
+        $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
 
+    - else

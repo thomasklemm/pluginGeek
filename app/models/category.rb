@@ -120,6 +120,6 @@ class Category < ActiveRecord::Base
   end
 
   # Mass Assignment Whitelist
-  attr_accessible :short_description, :description
+  attr_accessible :short_description, :description, :label
 
 end
