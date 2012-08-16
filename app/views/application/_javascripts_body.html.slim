@@ -18,10 +18,7 @@ javascript:
     valueNames: ['owner', 'name', 'watchers', 'label', 'description', 'knight_score', 'updated_at']
   };
 
-/ limit oage to 12 repos on index view
-- if params[:action] == 'index'
-  javascript:
-    repos_list_options['page'] = 12;
+  repos_list_options['page'] = $('.list').data('page') || 12
 
 javascript:
   var reposList = new List('js_repos_list', repos_list_options);

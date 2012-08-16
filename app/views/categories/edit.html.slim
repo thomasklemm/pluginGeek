@@ -1,0 +1,26 @@
+/categories/edit.html.slim
+
+.category_edit
+
+  / Group and Name
+  /   returns category_group and category_name
+  h4
+    i.icon-edit style='color: #999; font-size: 2.2rem'
+    | &nbsp;
+    = category_show_name_splitter(@category.name)
+
+  / Edit description form
+  = form_for @category do |f|
+    / Short Description
+    = f.label :short_description, 'Short Description <em>(One sentence; no markdown; rendered in overviews)</em>'.html_safe
+    = f.text_area :short_description, rows: 2
+
+    / Description using Markdown
+    = f.label :description, 'Detailed Description <br><em>(As much as you like; markdown-enhanced; <br>might include a description of the topic, common solutions, and pointers to related resources and railscasts); used the "[REPOS]" to split between what is rendered above and below the listed repos. Thanks for making Knight better, Knight!</em>'.html_safe
+    = f.text_area :description, cols: 122, rows: 8
+    = f.submit 'Update Descriptions', class: 'small radius button'
+    '  or
+    = link_to 'Cancel', @category, confirm: "RETURN TO '#{ @category.name }'' WITHOUT SAVING ANY CHANGES?"
+
+  / Repos List
+  = render 'category_show_repos_list'

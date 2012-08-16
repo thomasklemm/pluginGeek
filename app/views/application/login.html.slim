@@ -1,11 +1,18 @@
 / login.html.slim
 
-h3 Login
+h3
+  ' Wow.
+  small You're courageous, young Knight!
+p
+  | You want to contribute?! You're showing some courage here, Knight! <br>
+  b Just go ahead and login with Github first.
 
-markdown:
-  **Want to contribute to Knight.io? Awesome!**
-  <br> Please login via Github first. (We will only be able to access your public info, nothing more!)
+.button.radius = link_to auth_at_provider_path(provider: :github) do
+    /= image_tag 'github/Octocat.png', style: 'height: 20px; vertical-align: middle'
+    span style='color: #fff'
+      i.icon.icon-github-sign style='font-size:3rem; vertical-align: baseline; position: relative; bottom: -3px'
+      | &nbsp;&nbsp;
+      span style='position: relative; bottom: 3px' Login with Github
 
-= link_to auth_at_provider_path(provider: :github), class: 'login_with_github' do
-  = image_tag 'github/Octocat.png', class: 'octocat'
-  span.login Login with Github
+p / just for the space
+p: em Note: We will only be able to access your public information, and we only save you name and github username to identify your contributions to Knight. For example no private repo information can be accessed by Knight.

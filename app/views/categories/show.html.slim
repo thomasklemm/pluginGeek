@@ -1,20 +1,17 @@
 / categories/show.html.slim
 
-- cache [ cache_version, @category, 'category_show', current_user.present? ] do
+- cache [ cache_version, @category, 'category_show'] do
   / Category Header
   .category_show
     / Edit description link
     = link_to edit_category_path(@category), class: 'edit_description right' do
-      / Add a description or Edit description
-
       i.icon-edit
-      | &nbsp;
-      = current_user ? "Edit" : "Login to Edit"
+      | &nbsp;Edit
 
     / Group and Name
     /   returns category_group and category_name
     h4
-      i.icon-fire style='color: #999; font-size: 2.2rem'
+      i.icon-bookmark style='color: #999; font-size: 2.2rem'
       | &nbsp;
       = category_show_name_splitter(@category.name)
 
@@ -22,27 +19,13 @@
     p.top_description class='category_description' = @category.top_description
 
   / Repos List
-  #js_repos_list
-
-    / Sort
-    dl.sort_list style='padding: 0 1.25rem 0.75rem'
-      dt
-        i.icon-sort
-        '  Sort:
-      dd.sort.active  data-sort='knight_score'  Knight Score
-      dd.sort         data-sort='updated_at'    Activity
-      dd.sort         data-sort='name'          Name
-
-    / List
-    .list
-      - cache [ cache_version, @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
-        = render partial: 'shared/repo', collection: @repos
+  = render 'category_show_repos_list'
 
   / Bottom Description
   .bottom_description class='category_description' = @category.bottom_description
 
   / Add a description or Edit description
-  = link_to edit_category_path(@category), class: 'edit_description' do
+  / = link_to edit_category_path(@category), class: 'edit_description' do
       i.icon-edit
       | &nbsp;
       = @category.description.present? ? "Edit Description & Resources" : "<b>Add Description & Resources</b>".html_safe

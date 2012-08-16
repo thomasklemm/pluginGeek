@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def not_authenticated
-    redirect_back_or_to login_url, alert: 'Please log in with Github first.'
+    # flash[:notice] = 'Draw, Knight!'
+    redirect_to login_url
   end
 
   # Authorize Blitz.io Load Testing

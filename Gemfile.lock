@@ -157,7 +157,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyzip (0.9.9)
-    sass (3.3.0.alpha.2)
+    sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -238,7 +238,7 @@ DEPENDENCIES
   rack-cors
   rails (= 3.2.8)
   redcarpet
-  sass (= 3.3.0.alpha.2)
+  sass (>= 3.2.1)
   sass-rails
   seedbank
   sidekiq

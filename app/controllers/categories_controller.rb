@@ -15,8 +15,6 @@ class CategoriesController < ApplicationController
 
   # GET /categories/:id/edit
   def edit
-    # Review: Own view for cachability
-    render action: :show
   end
 
   # PUT /categories/:id

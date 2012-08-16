@@ -1,0 +1,21 @@
+/ categories/_category_show_repos_list.html.slim
+
+/ Repos List
+#js_repos_list
+
+  / List
+  .list data-page=4
+    - cache [ cache_version, @category, 'repos', @repos.maximum(:updated_at).utc.to_s(:number)] do
+      = render partial: 'shared/repo', collection: @repos
+
+  / Show all
+  button.js_show_all_matching_items class='small secondary button round' style='margin: 0.5rem 0 2rem' Show all
+
+  / Sort
+  dl.sort_list
+    dt
+      i.icon-sort
+      '  Sort:
+    dd.sort.active  data-sort='knight_score'  Knight Score
+    dd.sort         data-sort='updated_at'    Activity
+    dd.sort         data-sort='name'          Name
