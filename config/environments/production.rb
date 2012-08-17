@@ -6,11 +6,11 @@ Knight::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   # Insert ActionDispatch::Static here (Heroku will do it anyway), delete later
-  config.serve_static_assets = true
+  # config.serve_static_assets = true
 
   # Cache Control Headers (might be irrelevant here)
   #   just as a fallback if ActionDispatch::Static is used nevertheless
-  config.static_cache_control = 'public, max-age=31536000'
+  # config.static_cache_control = 'public, max-age=31536000'
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -41,7 +41,7 @@ Knight::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
+  config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
@@ -50,7 +50,7 @@ Knight::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -70,7 +70,7 @@ Knight::Application.configure do
   require 'memcachier'
   require 'dalli'
   require 'rack/cache'
-  require 'rack_assets'
+  # require 'rack_assets'
 
   # Global enable/disable all memcached usage
   config.perform_caching = true
@@ -93,16 +93,13 @@ Knight::Application.configure do
     :allow_reload => false
   }
 
-  # Rack Assets
   if !Rails.env.development? && !Rails.env.test?
+    # Use Rack::Static to serve static files
     config.middleware.delete ActionDispatch::Static
-    config.middleware.insert_before Rack::Cache, Rack::Assets::Server
+    config.middleware.insert_before Rack::Cache, Rack::Static,
+      header_rules: {
+        :global => {'Cache-Control' => 'public, max-age=31536000'},
+        '/fonts' => {'Access-Control-Allow-Origin' => '*'}
+      }
   end
-
-  # Rack Assets HTTP Header Rules
-  config.assets.http_header_rules = {
-    # Cache all static assets
-    '*' => { 'Cache-Control' => 'public, max-age=31536000' },
-    '/fonts' => { 'Access-Control-Allow-Origin' => '*' }
-  }
 end

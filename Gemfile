@@ -3,11 +3,11 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby '1.9.3'
 
+# Rack (My Fork)
+gem 'rack', git: 'git://github.com/thomasklemm/rack.git', branch: 'develop'
+
 # Unicorn (App Server)
 gem 'unicorn'
-
-# Rack Cors
-gem 'rack-cors', :require => 'rack/cors'
 
 # Rails
 gem 'rails', '3.2.8'
