@@ -97,7 +97,9 @@ Knight::Application.configure do
     # Use Rack::Static to serve static files
     config.middleware.delete ActionDispatch::Static
     config.middleware.insert_before Rack::Cache, Rack::Static,
-      header_rules: {
+     urls: [config.assets.prefix],
+     root: 'public',
+     header_rules: {
         :global => {'Cache-Control' => 'public, max-age=31536000'},
         '/fonts' => {'Access-Control-Allow-Origin' => '*'}
       }
