@@ -101,7 +101,8 @@ Knight::Application.configure do
      root: 'public',
      header_rules: {
         :global => {'Cache-Control' => 'public, max-age=31536000'},
-        /\.(ttf|otf|eot|woff|svg)\z/ => {'Access-Control-Allow-Origin' => '*'}
+        /\.(ttf|otf|eot|woff|svg)\z/ => {'Access-Control-Allow-Origin' => '*'},
+        '/assets/fonts' => { 'Cache-Control' => 'private' }
       }
   end
 end
