@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   def index
     # Cache in Rack-Cache for 30 seconds
-    response.headers['Cache-Control'] = 'public, max-age=30'
+    response.headers['Cache-Control'] = 'public, max-age=90'
   end
 
   # GET /categories/:id
