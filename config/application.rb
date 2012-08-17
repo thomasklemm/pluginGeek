@@ -60,7 +60,7 @@ module Knight
     #   Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.07'
+    config.assets.version = '1.08'
 
     # Heroku setting
     config.assets.initialize_on_precompile = false
