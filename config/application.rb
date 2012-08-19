@@ -60,7 +60,7 @@ module Knight
     #   Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.09'
+    config.assets.version = '1.10'
 
     # Heroku setting
     config.assets.initialize_on_precompile = false
@@ -68,10 +68,17 @@ module Knight
 
     # Butler serves assets
     require 'butler'
-    config.middleware.swap ActionDispatch::Static, ::Butler::Static, paths['public'].first,
-      header_rules: {
-        :global => {'Cache-Control' => 'public, max-age=1234567'},
-        :fonts => {'Access-Control-Allow-Origin' => '*'}
-      }
+    if Rails.env.development?
+      config.middleware.swap ActionDispatch::Static, ::Butler::Static
+    end
+
+    if !Rails.env.development? && !Rails.env.test?
+      config.middleware.delete ActionDispatch::Static
+      config.middleware.insert_before Rack::Cache, ::Butler::Static,
+        header_rules: {
+          :global => {'Cache-Control' => 'public, max-age=3153600'},
+          :fonts => {'Access-Control-Allow-Origin' => '*'}
+        }
+    end
   end
 end

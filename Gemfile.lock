@@ -38,7 +38,7 @@ GEM
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (3.0.0)
-    butler_static (0.0.3)
+    butler_static (0.0.4)
       rack
     celluloid (0.11.1)
       timers (>= 1.0.0)
