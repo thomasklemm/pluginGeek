@@ -41,7 +41,7 @@ Knight::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
+  # config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
