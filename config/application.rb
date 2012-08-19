@@ -70,7 +70,8 @@ module Knight
     require 'butler'
     config.middleware.swap ActionDispatch::Static, ::Butler::Static, paths['public'].first,
       header_rules: {
-        :global => {'Cache-Control' => 'public, max-age=1234567'}
+        :global => {'Cache-Control' => 'public, max-age=1234567'},
+        :fonts => {'Access-Control-Allow-Origin' => '*'}
       }
   end
 end

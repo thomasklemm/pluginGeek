@@ -95,7 +95,7 @@ group :development do
 end
 
 # Butler (Serving Static Assets)
-gem 'butler_static', '>= 0.0.2.alpha.1'
+gem 'butler_static', '>= 0.0.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
