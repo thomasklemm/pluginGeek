@@ -4,14 +4,6 @@ Knight::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this)
-  # Insert ActionDispatch::Static here (Heroku will do it anyway), delete later
-  config.serve_static_assets = true
-
-  # Cache Control Headers (might be irrelevant here)
-  #   just as a fallback if ActionDispatch::Static is used nevertheless
-  # config.static_cache_control = 'public, max-age=31536000'
-
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
@@ -50,7 +42,7 @@ Knight::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  config.threadsafe!
+  # config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -78,7 +70,7 @@ Knight::Application.configure do
   # Disable/enable fragment and page caching in ActionController
   config.action_controller.perform_caching = true
 
-    # Full error reports are disabled
+  # Full error reports are disabled
   config.consider_all_requests_local = false
 
   # The underlying cache store to use.
@@ -93,15 +85,22 @@ Knight::Application.configure do
     :allow_reload => false
   }
 
-  # Butler serves assets
-  if !Rails.env.development? && !Rails.env.test?
-    config.middleware.delete ActionDispatch::Static
-    config.middleware.insert_before Rack::Cache, ::Butler::Static
-  end
-
-  # Butler HTTP Header Rules
-  config.assets.header_rules = {
-    :global => {'Cache-Control' => 'public, max-age=3153600'},
-    :fonts => {'Access-Control-Allow-Origin' => '*'}
+  # Butler Config
+  config.butler = ActiveSupport::OrderedOptions.new # enable namespaced configuration
+  config.butler.enable_butler = true
+  config.butler.header_rules = {
+    :global => {'Cache-Control' => 'public, max-age=31536000'},
+    :fonts  => {'Access-Control-Allow-Origin' => '*'}
   }
+
+  # Use Butler
+  enable_butler = config.butler.enable_butler
+  path = config.paths['public'].first
+  options = {}
+  options[:header_rules] = config.butler.header_rules
+
+  if enable_butler
+    config.middleware.delete ActionDispatch::Static
+    config.middleware.insert_before Rack::Cache, ::Butler::Static, path, options
+  end
 end

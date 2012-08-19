@@ -38,8 +38,9 @@ GEM
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (3.0.0)
-    butler_static (0.0.7)
+    butler_static (0.0.8)
       rack
+      rails (>= 3.1.0)
     celluloid (0.11.1)
       timers (>= 1.0.0)
     chunky_png (1.2.6)
@@ -220,7 +221,7 @@ DEPENDENCIES
   acts-as-taggable-on
   annotate (>= 2.5.0)
   bourbon
-  butler_static (>= 0.0.3)
+  butler_static (>= 0.0.8)
   coffee-rails
   compass-rails
   dalli
