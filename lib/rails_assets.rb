@@ -129,9 +129,7 @@ module ActionDispatch
     SEPS = Regexp.union(*[::File::SEPARATOR, ::File::ALT_SEPARATOR].compact)
     ALLOWED_VERBS = %w[GET HEAD]
 
-    attr_accessor :root
-    attr_accessor :path
-    attr_accessor :headers
+    attr_accessor :root, :path, :headers
 
     alias :to_path :path
 

@@ -3,9 +3,6 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby '1.9.3'
 
-# Rack (My Fork)
-gem 'rack', git: 'git://github.com/thomasklemm/rack.git', branch: 'develop'
-
 # Unicorn (App Server)
 gem 'unicorn'
 
@@ -96,6 +93,9 @@ group :development do
   # Rails Footnotes (Debug Footnotes on every Page in Development)
   # gem 'rails-footnotes', '>= 3.7.8', group: :development
 end
+
+# Butler (Serving Static Assets)
+gem 'butler_static', '>= 0.0.2.alpha.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

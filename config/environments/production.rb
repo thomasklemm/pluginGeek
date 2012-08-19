@@ -6,7 +6,7 @@ Knight::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   # Insert ActionDispatch::Static here (Heroku will do it anyway), delete later
-  # config.serve_static_assets = true
+  config.serve_static_assets = true
 
   # Cache Control Headers (might be irrelevant here)
   #   just as a fallback if ActionDispatch::Static is used nevertheless
@@ -41,7 +41,7 @@ Knight::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
+  # config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( application_head.js application_body.js )
@@ -92,17 +92,4 @@ Knight::Application.configure do
     :entitystore  => 'file:tmp/cache/rack/body',
     :allow_reload => false
   }
-
-  if !Rails.env.development? && !Rails.env.test?
-    # Use Rack::Static to serve static files
-    config.middleware.delete ActionDispatch::Static
-    config.middleware.insert_before Rack::Cache, Rack::Static,
-     urls: [config.assets.prefix],
-     root: 'public',
-     header_rules: {
-        :global => {'Cache-Control' => 'public, max-age=31536000'},
-        /\.(ttf|otf|eot|woff|svg)\z/ => {'Access-Control-Allow-Origin' => '*'},
-        '/assets/fonts' => {}
-      }
-  end
 end
