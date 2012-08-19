@@ -70,7 +70,7 @@ Knight::Application.configure do
   require 'memcachier'
   require 'dalli'
   require 'rack/cache'
-  # require 'rack_assets'
+  require 'butler'
 
   # Global enable/disable all memcached usage
   config.perform_caching = true
@@ -91,5 +91,17 @@ Knight::Application.configure do
     :metastore    => Dalli::Client.new,
     :entitystore  => 'file:tmp/cache/rack/body',
     :allow_reload => false
+  }
+
+  # Butler serves assets
+  if !Rails.env.development? && !Rails.env.test?
+    config.middleware.delete ActionDispatch::Static
+    config.middleware.insert_before Rack::Cache, ::Butler::Static
+  end
+
+  # Butler HTTP Header Rules
+  config.assets.header_rules = {
+    :global => {'Cache-Control' => 'public, max-age=3153600'},
+    :fonts => {'Access-Control-Allow-Origin' => '*'}
   }
 end

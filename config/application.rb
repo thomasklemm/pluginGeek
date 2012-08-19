@@ -65,20 +65,5 @@ module Knight
     # Heroku setting
     config.assets.initialize_on_precompile = false
     #   Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
-
-    # Butler serves assets
-    require 'butler'
-    if Rails.env.development?
-      config.middleware.swap ActionDispatch::Static, ::Butler::Static
-    end
-
-    if !Rails.env.development? && !Rails.env.test?
-      config.middleware.delete ActionDispatch::Static
-      config.middleware.insert_before Rack::Cache, ::Butler::Static,
-        header_rules: {
-          :global => {'Cache-Control' => 'public, max-age=3153600'},
-          :fonts => {'Access-Control-Allow-Origin' => '*'}
-        }
-    end
   end
 end
