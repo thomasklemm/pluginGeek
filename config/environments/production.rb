@@ -71,7 +71,8 @@ Knight::Application.configure do
   config.action_controller.perform_caching = true
 
   # Full error reports are disabled
-  config.consider_all_requests_local = false
+  # DISABLE THIS
+  config.consider_all_requests_local = true
 
   # The underlying cache store to use.
   config.cache_store = :dalli_store
@@ -94,7 +95,7 @@ Knight::Application.configure do
   # Set HTTP Headers on static assets
   require 'rack_headers'
   assets_path = config.assets.prefix
-  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers', assets_path,
+  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers',
     header_rules: {
       :global => {'Cache-Control' => 'public, max-age=31536000', 'who rules' => 'thomas'},
       :fonts  => {'Access-Control-Allow-Origin' => '*'}

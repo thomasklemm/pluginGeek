@@ -1,11 +1,12 @@
 require 'rack/utils'
+require 'pry-remote'
 
 module Rack
   class Headers
 
-    def initialize(app, path, options={})
+    def initialize(app, options={})
       @app = app
-      @path = path
+      @path = options.fetch(:path, 'assets')
       @rules = options.fetch(:rules, {})
     end
 
@@ -14,9 +15,9 @@ module Rack
     end
 
     def _call(env)
-      @response = @app.call(env)
-      @response[1]['Cache-Control'] = 'public, max-age=1337'
-      @response
+      status, @headers, response = @app.call(env)
+      puts @headers.inspect
+      [status, @headers, response]
     end
 
     def set_headers
