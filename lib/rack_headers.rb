@@ -5,7 +5,8 @@ module Rack
 
     def initialize(app, options={})
       @app = app
-      @path = options.fetch(:path, 'assets')
+      default_path = Rails.application.config.assets.prefix || '/assets'
+      @asset_path = options.fetch(:path, default_path)
       @rules = options.fetch(:rules, {})
     end
 
@@ -15,7 +16,12 @@ module Rack
 
     def _call(env)
       status, @headers, response = @app.call(env)
-      puts [env['PATH_INFO'], @headers].inspect
+      @path = ::Rack::Utils.unescape(env['PATH_INFO'])
+
+      if @path.start_with?(@asset_path)
+        puts [env['PATH_INFO'], @headers].inspect
+      end
+
       [status, @headers, response]
     end
 
@@ -27,9 +33,8 @@ module Rack
         when :fonts  # Fonts Shortcut
           set_header(headers) if @path.match %r{\.(?:ttf|otf|eot|woff|svg)\z}
         when String  # Folder
-          path = ::Rack::Utils.unescape(@path) # TEST IF NESCESSARY
           set_header(result) if
-            (path.start_with? rule || path.start_with?('/' + rule))
+            (@path.start_with? rule || @path.start_with?('/' + rule))
         when Array   # Extension/Extensions
           extensions = rule.join('|')
           set_header(result) if @path.match %r{\.(#{extensions})\z}
