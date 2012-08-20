@@ -15,7 +15,7 @@ module Rack
 
     def _call(env)
       @response = @app.call(env)
-      set_headers if env['PATH_INFO'].match @path
+      @response[1]['Cache-Control'] = 'public, max-age=1337'
       @response
     end
 
