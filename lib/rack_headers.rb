@@ -35,12 +35,12 @@ module Rack
           set_header(headers)
         when :fonts  # Fonts Shortcut
           set_header(headers) if @path.match %r{\.(?:ttf|otf|eot|woff|svg)\z}
-        when String  # Folder
-          set_header(result) if
-            (@path.start_with? rule || @path.start_with?('/' + rule))
         when Array   # Extension/Extensions
           extensions = rule.join('|')
           set_header(result) if @path.match %r{\.(#{extensions})\z}
+        when String  # Folder
+          set_header(result) if
+            (@path.start_with? rule || @path.start_with?('/' + rule))
         when Regexp  # Flexible Regexp
           set_header(result) if @path.match rule
         else
@@ -49,7 +49,7 @@ module Rack
     end
 
     def set_header(headers)
-      headers.each { |field, content| @response[1][field] = content }
+      headers.each { |field, content| @headers[field] = content }
     end
   end
 end

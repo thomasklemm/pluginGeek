@@ -93,11 +93,12 @@ Knight::Application.configure do
 
   # Rack Headers
   # Set HTTP Headers on static assets
-  require 'rack_headers'
+
   config.assets.header_rules = {
     :global => {'Cache-Control' => 'public, max-age=31536000'},
     :fonts  => {'Access-Control-Allow-Origin' => '*'}
   }
+  require 'rack_headers'
   config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers'
 
 
