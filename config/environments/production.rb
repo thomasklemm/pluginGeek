@@ -94,12 +94,13 @@ Knight::Application.configure do
   # Rack Headers
   # Set HTTP Headers on static assets
   require 'rack_headers'
-  assets_path = config.assets.prefix
-  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers',
-    header_rules: {
-      :global => {'Cache-Control' => 'public, max-age=31536000', 'who rules' => 'thomas'},
-      :fonts  => {'Access-Control-Allow-Origin' => '*'}
-    }
+  config.assets.header_rules = {
+    :global => {'Cache-Control' => 'public, max-age=31536000'},
+    :fonts  => {'Access-Control-Allow-Origin' => '*'}
+  }
+  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers'
+
+
   # # Butler Config
   # config.butler = ActiveSupport::OrderedOptions.new # enable namespaced configuration
   # config.butler.enable_butler = true

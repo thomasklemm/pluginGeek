@@ -5,9 +5,12 @@ module Rack
 
     def initialize(app, options={})
       @app = app
+
       default_path = Rails.application.config.assets.prefix || '/assets'
       @asset_path = options.fetch(:path, default_path)
-      @rules = options.fetch(:rules, {})
+
+      default_rules = Rails.application.config.assets.header_rules || {}
+      @rules = options.fetch(:header_rules, default_rules)
     end
 
     def call(env)
@@ -19,7 +22,7 @@ module Rack
       @path = ::Rack::Utils.unescape(env['PATH_INFO'])
 
       if @path.start_with?(@asset_path)
-        puts [env['PATH_INFO'], @headers].inspect
+        set_headers
       end
 
       [status, @headers, response]
