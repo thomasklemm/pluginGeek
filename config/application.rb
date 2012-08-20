@@ -64,6 +64,6 @@ module Knight
 
     # Heroku setting
     config.assets.initialize_on_precompile = false
-    #   Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
+    # Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
   end
 end

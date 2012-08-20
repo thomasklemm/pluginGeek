@@ -85,22 +85,34 @@ Knight::Application.configure do
     :allow_reload => false
   }
 
-  # Butler Config
-  config.butler = ActiveSupport::OrderedOptions.new # enable namespaced configuration
-  config.butler.enable_butler = true
-  config.butler.header_rules = {
-    :global => {'Cache-Control' => 'public, max-age=31536000'},
-    :fonts  => {'Access-Control-Allow-Origin' => '*'}
-  }
+  # Static Assets
+  config.middleware.delete ActionDispatch::Static
+  config.middleware.insert_before ::Rack::Cache, ::ActionDispatch::Static, paths["public"].first
 
-  # Use Butler
-  enable_butler = config.butler.enable_butler
-  path = config.paths['public'].first
-  options = {}
-  options[:header_rules] = config.butler.header_rules
+  # Rack Headers
+  # Set HTTP Headers on static assets
+  require 'rack_headers'
+  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers', config.paths['public'].first,
+    header_rules: {
+      :global => {'Cache-Control' => 'public, max-age=31536000', 'who rules' => 'thomas'},
+      :fonts  => {'Access-Control-Allow-Origin' => '*'}
+    }
+  # # Butler Config
+  # config.butler = ActiveSupport::OrderedOptions.new # enable namespaced configuration
+  # config.butler.enable_butler = true
+  # config.butler.header_rules = {
+  #   :global => {'Cache-Control' => 'public, max-age=31536000'},
+  #   :fonts  => {'Access-Control-Allow-Origin' => '*'}
+  # }
 
-  if enable_butler
-    config.middleware.delete ActionDispatch::Static
-    config.middleware.insert_before Rack::Cache, ::Butler::Static, path, options
-  end
+  # # Use Butler
+  # enable_butler = config.butler.enable_butler
+  # path = config.paths['public'].first
+  # options = {}
+  # options[:header_rules] = config.butler.header_rules
+
+  # if enable_butler
+  #   config.middleware.delete ActionDispatch::Static
+  #   config.middleware.insert_before Rack::Cache, ::Butler::Static, path, options
+  # end
 end
