@@ -8,6 +8,8 @@ class ReposController < ApplicationController
   # GET /repos
   def index
     @repos = Repo.ordered_find_all_by_language(language)
+    expires_in 10.minutes
+    fresh_when last_modified: @repos.maximum(:updated_at), public: true
   end
 
   # GET /repos/:owner/:name(/*leftover)

@@ -1,6 +1,6 @@
 / repos/index.html.slim
 
-- cache [ cache_version, 'repos_index', language, Repo.timestamp_by_language(language) ] do
+- cache [ cache_version, 'repos_index', language, @repos.maximum(:updated_at) ] do
 
   / Title
   - provide :title, "Knight.io: #{ language.titlecase } Repos"

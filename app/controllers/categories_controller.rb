@@ -6,6 +6,9 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
+    @categories = Category.ordered_find_all_by_language(language)
+    expires_in 2.minutes
+    fresh_when last_modified: @categories.maximum(:updated_at), public: true
   end
 
   # GET /categories/:id

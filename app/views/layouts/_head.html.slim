@@ -38,7 +38,7 @@ link rel='author' href='/humans.txt'
 = javascript_include_tag 'application_body'
 
 / csrf meta tags
-= csrf_meta_tags
+= csrf_meta_tags unless response.cache_control[:public]
 
 
 

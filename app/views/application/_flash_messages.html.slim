@@ -8,8 +8,9 @@
       a href='' class='close' &times;
 
 / flash messages
-- if flash
-  - flash.each do |type, message|
-    div class=flash_message_container(type)
-      span = message
-      a href='' class='close' &times;
+- unless response.cache_control[:public]
+  - if flash
+    - flash.each do |type, message|
+      div class=flash_message_container(type)
+        span = message
+        a href='' class='close' &times;

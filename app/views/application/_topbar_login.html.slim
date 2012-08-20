@@ -1,48 +1,49 @@
 / topbar_login.html.slim
 / The login section of the topbar
 
-/ Developer logged in
-- if current_user
-  span.right
-    / logout
-    span.logout.nav-button = link_to logout_path, class: 'active' do
-      i.icon.icon-signout
-      ' Logout.
+- unless response.cache_control[:public]
+  / Developer logged in
+  - if current_user
+    span.right
+      / logout
+      span.logout.nav-button = link_to logout_path, class: 'active' do
+        i.icon.icon-signout
+        ' Logout.
 
-  span.greeting
-    / avatar
-    span.avatar style="background-image: url('#{ current_user.avatar_url }')"
+    span.greeting
+      / avatar
+      span.avatar style="background-image: url('#{ current_user.avatar_url }')"
 
-    / happy day
-    span.happyday
-      / hidden icon to vertically align text
-      i.icon.icon-github-sign
-      coffee:
-        dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
-        now = new Date()
-        document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
-    / name or login
-    span.name = current_user.name || current_user.login
-    | .
+      / happy day
+      span.happyday
+        / hidden icon to vertically align text
+        i.icon.icon-github-sign
+        coffee:
+          dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
+          now = new Date()
+          document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
+      / name or login
+      span.name = current_user.name || current_user.login
+      | .
 
-/ Generic greeting message
-/ Knight not logged in
-- else
-  span.greeting
-    / happy day
-    span.happyday
-      /! Heavily influenced and inspired by 37signals. Thanks guys for your great work!
-      coffee:
-        dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
-        now = new Date()
-        document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
+  / Generic greeting message
+  / Knight not logged in
+  - else
+    span.greeting
+      / happy day
+      span.happyday
+        /! Heavily influenced and inspired by 37signals. Thanks guys for your great work!
+        coffee:
+          dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
+          now = new Date()
+          document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
 
-    / name
-    span.name = greeting_name
-    | .
+      / name
+      span.name = greeting_name
+      | .
 
-  / login
-  span.login.nav-button
-    = link_to login_path, class: 'active' do
-      i.icon.icon-github-sign
-      ' Login.
+    / login
+    span.login.nav-button
+      = link_to login_path, class: 'active' do
+        i.icon.icon-github-sign
+        ' Login.
