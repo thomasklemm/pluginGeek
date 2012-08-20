@@ -15,7 +15,7 @@ module Rack
 
     def _call(env)
       status, @headers, response = @app.call(env)
-      puts @headers.inspect
+      puts [env['PATH_INFO'], @headers].inspect
       [status, @headers, response]
     end
 
