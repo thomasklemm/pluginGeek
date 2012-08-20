@@ -86,13 +86,15 @@ Knight::Application.configure do
   }
 
   # Static Assets
+  public_path = config.paths['public'].first
   config.middleware.delete ActionDispatch::Static
-  config.middleware.insert_before ::Rack::Cache, ::ActionDispatch::Static, paths["public"].first
+  config.middleware.insert_before ::Rack::Cache, ::ActionDispatch::Static, public_path
 
   # Rack Headers
   # Set HTTP Headers on static assets
   require 'rack_headers'
-  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers', config.paths['public'].first,
+  assets_path = config.assets.prefix
+  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers', assets_path,
     header_rules: {
       :global => {'Cache-Control' => 'public, max-age=31536000', 'who rules' => 'thomas'},
       :fonts  => {'Access-Control-Allow-Origin' => '*'}
