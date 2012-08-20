@@ -1,5 +1,4 @@
 require 'rack/utils'
-require 'pry-remote'
 
 module Rack
   class Headers
