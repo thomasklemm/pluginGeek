@@ -8,21 +8,25 @@ class ReposController < ApplicationController
   # GET /repos
   def index
     @repos = Repo.ordered_find_all_by_language(language)
-    expires_in 10.minutes
-    fresh_when last_modified: @repos.maximum(:updated_at), public: true
+    # Don't do such scalablity shit before it's nescessary.
+    # Rather make happen that it becomes nescessary!
+    # if !Rails.env.development? && !Rails.env.test?
+    #   expires_in 10.minutes
+    #   fresh_when last_modified: @repos.maximum(:updated_at), public: true
+    # end
   end
 
   # GET /repos/:owner/:name(/*leftover)
   def show
     # Redirect to create action if @repo is a new record
-    @repo.new_record? and return redirect_to action: 'create'
+    @repo.new_record? and render 'add_repo'
 
     # Always redirect to repo base url without leftover
     #   (can be attached when coming from github via bookmarklet)
     params[:leftover] and return redirect_to @repo
   end
 
-  # GET /repos/:owner/:name/create
+  # POST /repos/:owner/:name/create
   def create
     # Set different flash message if repo is already known
     @repo.new_record? or flash[:notice] = "Repo '#{ @repo.full_name }' already known."

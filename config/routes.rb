@@ -50,10 +50,10 @@ Knight::Application.routes.draw do
 
       # Repo Routes
       constraints name: /[^\/]+(?=\.html\z)|[^\/]+/ do
-        get ':owner/:name/edit' => 'repos#edit'
-        get ':owner/:name/create' => 'repos#create'
-        get ':owner/:name(/*leftover)' => 'repos#show'
-        put ':owner/:name' => 'repos#update'
+        get ':owner/:name/edit'         => 'repos#edit'
+        get ':owner/:name(/*leftover)'  => 'repos#show'
+        post ':owner/:name'             => 'repos#create'
+        put ':owner/:name'              => 'repos#update'
       end
 
     end
@@ -73,7 +73,7 @@ Knight::Application.routes.draw do
   end
 
     # Static Pages
-  match '/:id' => 'pages#show', as: :page, via: :get
+  match '/:id' => 'pages#show', as: :static, via: :get
 
   # Root
   root to: 'categories#index'
