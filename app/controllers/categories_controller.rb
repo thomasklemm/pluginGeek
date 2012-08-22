@@ -27,9 +27,7 @@ class CategoriesController < ApplicationController
   # PUT /categories/:id
   def update
     # Prepare Attributes
-    #   Short Description: Render Markdown & Strip Tags & Squish
-    #     To remove links and emphasis if someone accidentally inputs markdown or mischiefiously inputs <script> tags
-    params[:category][:short_description] &&= view_context.strip_tags(markdown.render(params[:category][:short_description])).squish
+    params[:category][:short_description] &&= view_context.strip_tags(params[:category][:short_description]).squish
 
     # Update attributes
     if @category.update_attributes(params[:category])

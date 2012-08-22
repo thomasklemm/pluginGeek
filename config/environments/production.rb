@@ -71,8 +71,7 @@ Knight::Application.configure do
   config.action_controller.perform_caching = true
 
   # Full error reports are disabled
-  # DISABLE THIS
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = false
 
   # The underlying cache store to use.
   config.cache_store = :dalli_store
