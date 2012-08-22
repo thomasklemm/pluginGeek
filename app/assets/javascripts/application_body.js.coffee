@@ -124,7 +124,7 @@ $ ->
 
   # Search for Group instead of loading category
   # on click on js_category_group
-  $('.js_category_group').live 'click', (e) ->
+  $('.category_group').live 'click', (e) ->
     $this = $(this)
     e.preventDefault()
     # Insert value in field
