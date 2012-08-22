@@ -1,16 +1,16 @@
-/ imprint.html.slim
+/ pages/impressum.html.slim
 
-// Imprints
-.imprints
-  // ENGLISH IMPRINT
-  .english.imprint
+.terms_of_service
+  / terms nav
+  = render 'terms_navigation'
 
-  // GERMAN IMPRINT
-  .german.imprint
+  / GERMAN IMPRINT
+  .german
     markdown:
       # Impressum
 
       ## Angaben gemäß § 5 TMG:
+      Knight.io ist ein Projekt der <br>
       Curious Craftsmen UG (haftungsbeschränkt) in Gründung <br>
       Minnesängerstraße 18 <br>
       97688 Bad Kissingen
@@ -59,6 +59,3 @@
       Auf unseren Seiten sind Funktionen des Dienstes Twitter eingebunden. Diese Funktionen werden angeboten durch die Twitter Inc., 795 Folsom St., Suite 600, San Francisco, CA 94107, USA. Durch das Benutzen von Twitter und der Funktion "Re-Tweet" werden die von Ihnen besuchten Webseiten mit Ihrem Twitter-Account verknüpft und anderen Nutzern bekannt gegeben. Dabei werden auch Daten an Twitter übertragen.
       Wir weisen darauf hin, dass wir als Anbieter der Seiten keine Kenntnis vom Inhalt der übermittelten Daten sowie deren Nutzung durch Twitter erhalten. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von Twitter unter http://twitter.com/privacy.
       Ihre Datenschutzeinstellungen bei Twitter können Sie in den Konto-Einstellungen unter http://twitter.com/account/settings ändern.
-
-      Quelle: Impressum von e-recht24.de speziell für Gesellschaft beschränkter Haftung (GmbH) erzeugt; Disclaimer von eRecht24, dem Portal zum Internetrecht von Rechtsanwalt Sören Siebert, Datenschutzerklärung für Twitter
-

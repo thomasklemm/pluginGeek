@@ -1,0 +1,8 @@
+/ pages/_terms_navigation.html.slim
+
+h1 Legal Notes
+
+ul class='link-list'
+  b: li = link_to 'Terms of Service', static_path(id: :terms_of_service)
+  b: li = link_to 'Privacy Policy', static_path(id: :privacy)
+  b: li = link_to 'Impressum', static_path(id: :impressum)
