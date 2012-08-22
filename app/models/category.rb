@@ -45,7 +45,7 @@ class Category < ActiveRecord::Base
   #  find all categories tagged with given language
   #  if no language is given find all repos
   scope :find_all_by_language, lambda { |language| tagged_with(language.downcase, on: :languages) if language.present? }
-  scope :ordered_find_all_by_language, lambda { |language| find_all_by_language(language).order_by_knight_score }
+  scope :ordered_find_all_by_language, lambda { |language| find_all_by_language(language).order_by_knight_score.visible }
 
   # select_main_fields,
   #  only select those fields that are relevant for _category partial
@@ -54,6 +54,9 @@ class Category < ActiveRecord::Base
 
   # order_by_knight_score
   scope :order_by_knight_score, order('knight_score desc')
+
+  # visible
+  scope :visible, where('repo_count > 0')
 
   # most_recent_by_language('ruby')
   #   find the timestamp of the most recently updated category
