@@ -1,6 +1,23 @@
 # Deployment Rake Tasks
 
-namespace :heroku do
+##
+#  Deploy
+#
+desc 'Deploy, migrate and restart processes'
+task :deploy => 'deploy:deploy_and_migrate'
+
+namespace :deploy do
+  desc 'Simple deploy without migration'
+  task :simple => :deploy
+
+  desc ':deploy, :migrate, :restart'
+  task :deploy_and_migrate => [:deploy, :migrate, 'knight:restart']
+  desc ':deploy, :migrate, :restart'
+  task :default => :deploy_and_migrate
+
+  desc ':deploy, :migrate, :seed, :restart'
+  task :deploy_and_seed => [:deploy, :migrate, :seed, 'knight:restart']
+
   desc 'Deploy to heroku'
   task :deploy do
     puts    'Deploying to production...'
@@ -18,42 +35,19 @@ namespace :heroku do
     puts    'Migrating new Seeds...'
     system  'heroku run rake db:seed'
   end
+end
 
+##
+#  Knight
+#
+namespace :knight do
   desc 'Restart processes'
   task :restart do
     puts    'Restarting Processes...'
     system  'heroku restart'
   end
 
-  desc 'Clean Assets'
-  task 'assets:clean' do
-    puts    'Cleaning Assets...'
-    system  'heroku run rails runner Rails.cache.clear'
-  end
-
-  desc 'Bust Caches'
-  task :caches do
-    puts 'Busting Caches...'
-    system 'heroku run rails runner Repo.bust_caches'
-    system 'heroku run rails runner Category.bust_caches'
-  end
-
-  desc ':deploy, :migrate, :restart'
-  task :deploy_and_migrate => [:deploy, :migrate, :restart]
-
-  desc ':deploy, :migrate, :seed, :restart'
-  task :deploy_and_seed => [:deploy, :migrate, :seed, :restart]
-end
-
-desc 'Deploy, migrate & restart'
-task :deploy => ['heroku:deploy_and_migrate']
-
-desc 'Simple deploy without migration'
-task 'deploy:simple' => ['heroku:deploy']
-
-
-namespace :knight do
-  desc 'Run KnightUpdater serial'
+  desc 'Perform serial Knight Update'
   task :update do
     puts 'Processing update Knight in production...'
     system 'heroku run rails runner KnightUpdater.update_knight_serial'
@@ -64,3 +58,11 @@ namespace :knight do
     puts 'Cleaning Knight of empty categories...'
     system 'heroku run rails runner Category.clean'
   end
+
+  desc 'Bust Caches'
+  task :caches do
+    puts 'Busting Caches...'
+    system 'heroku run rails runner Repo.bust_caches'
+    system 'heroku run rails runner Category.bust_caches'
+  end
+end
