@@ -171,6 +171,14 @@ class Repo < ActiveRecord::Base
     find_each { |repo| repo.touch }
   end
 
+  # Clean up untagged repos
+  # RISK: ONE MIGHT DELETE REPOS THAT CARRY NO TAG
+  # BUT ARE CHILDREN TO SOME OTHER REPO
+  # def self.clean
+  #   repos = find_all_by_cached_category_list('')
+  #   repos.each { |repo| repo.destroy }
+  # end
+
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :category_list, :label
 end

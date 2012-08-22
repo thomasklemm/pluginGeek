@@ -51,9 +51,16 @@ task :deploy => ['heroku:deploy_and_migrate']
 desc 'Simple deploy without migration'
 task 'deploy:simple' => ['heroku:deploy']
 
-desc 'Run KnightUpdater serial'
-task 'knight:update' do
-  puts 'Processing update Knight in production...'
-  system 'heroku run rails runner KnightUpdater.update_knight_serial'
-  puts 'Updated Knight in Production'
-end
+
+namespace :knight do
+  desc 'Run KnightUpdater serial'
+  task :update do
+    puts 'Processing update Knight in production...'
+    system 'heroku run rails runner KnightUpdater.update_knight_serial'
+  end
+
+  desc 'Clear away empty categories'
+  task :clean do
+    puts 'Cleaning Knight of empty categories...'
+    system 'heroku run rails runner Category.clean'
+  end

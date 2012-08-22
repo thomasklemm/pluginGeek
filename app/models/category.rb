@@ -129,6 +129,12 @@ class Category < ActiveRecord::Base
     find_each { |category| category.touch }
   end
 
+  # Clean up unused categories
+  def self.clean
+    categories = find_all_by_repo_count(0)
+    categories.each { |c| c.destroy }
+  end
+
   # Mass Assignment Whitelist
   attr_accessible :short_description, :description, :label
 
