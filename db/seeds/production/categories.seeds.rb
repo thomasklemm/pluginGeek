@@ -37,7 +37,7 @@ categories_and_repos = [
   {name: 'Apps: Project Management & Organization', lang: 'Ruby', repos: %w(redmine/redmine chiliproject/chiliproject gitlabhq/gitlabhq malclocke/fulcrum ari/jobsworth jamesu/railscollab Bettermeans/bettermeans camelpunch/simply_agile kiskolabs/splendidbacon), description: ""},
   {name: 'Deployment: Webservers', lang: 'Ruby', repos: %w(macournoyer/thin rack/rack defunkt/unicorn puma/puma celluloid/reel postrank-labs/goliath zedshaw/mongrel2 ged/ruby-mongrel2 FooBarWidget/passenger), description: ""},
   {name: 'Development: Webservers', lang: 'Ruby', repos: %w(37signals/pow rodreegez/powder pyromaniac/hoof rtomayko/shotgun puma/puma-express jc00ke/guard-puma), description: "Run and restart local apps automatically while developing."},
-=end
+
   # Batch 3
   {name: 'ActiveRecord: Model Annotations', lang: 'Ruby', repos: %w(ctran/annotate_models), description: "Annotate your models with your database schema."},
   {name: 'ActiveRecord: Tags, Favorites & Votes', lang: 'Ruby', repos: %w(mbleigh/acts-as-taggable-on bradphelan/rocket_tag chrome/markable schneems/likeable leehambley/opinions peteonrails/vote_fu medihack/make_voteable twitter/activerecord-reputation-system vshvedov/vote_fu_rails_3 raw1z/amistad edgarjs/ajaxful-rating glynx/rateable ygor/acts_as_rateable sujitsagar/acts_as_rateable asceth/acts_as_rateable anton-zaytsev/acts_as_rateable), description: 'Tagging and marking for your ActiveRecord models.'},
@@ -62,6 +62,7 @@ categories_and_repos = [
   {name: 'Forms: Multi-Step & Wizard Forms', lang: 'JS', repos: %w(wbotelhos/stepy kflorence/jquery-wizard thecodemine/formwizard dominicbarnes/jWizard mstratman/jQuery-Smart-Wizard), description: ""},
   {name: 'HTTP: Consoles', lang: 'Ruby', repos: %w(htty/htty), description: ""},
   {name: 'HTTP: Clients', lang: 'Ruby', repos: %w(typhoeus/typhoeus deepfryed/http-parser-lite c42/wrest Manfred/SHL), description: "Consume APIs and web services."},
+=end
 
   # Batch 4
   # Batch 5

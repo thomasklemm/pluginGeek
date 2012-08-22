@@ -77,8 +77,8 @@ class CategoryUpdater
     #   and remain visible)
     Category.update_all(repo_count: 0)
 
-    # Count tags
-    tags = Repo.tag_counts_on(:categories)
+    # Load tags
+    tags = all_existing_and_new_category_names
 
     # Update each tag
     tags.each { |tag| perform_async(tag.name) }
@@ -97,12 +97,12 @@ class CategoryUpdater
     #   and remain visible)
     Category.update_all(repo_count: 0)
 
-    # Count tags
-    tags = Repo.tag_counts_on(:categories)
+    # Load tags
+    tags = all_existing_and_new_category_names
 
     # Update each tag
-    tags.each do |tag|
-      if category_updater.perform(tag.name)
+    tags.each do |tag_name|
+      if category_updater.perform(tag_name)
         # success
       else
         # error
@@ -110,6 +110,15 @@ class CategoryUpdater
       end
     end
     Rails.logger.info 'Finished updating categories from repos in serial'
+  end
+
+  def self.all_existing_and_new_category_names
+    tags = []
+    tags = Repo.tag_counts_on(:categories)
+    tags &&= tags.map { |tag| tag.name }
+    tags << Category.pluck(:name)
+    tags &&= tags.flatten.uniq
+    tags
   end
 
 end
