@@ -1,5 +1,9 @@
 / footer.html.slim
 
-hr
-
-= link_to 'Help', static_path(id: :help)
+ul.link-list
+  .left
+    li: b = link_to 'What is Knight.io?'.html_safe, static_path(id: :help)
+  .right
+    li = link_to 'Quick Commits & Suggestions', static_path(id: :quick_commit)
+    li = link_to 'Imprint', static_path(id: :imprint)
+    li = image_tag('logos/knight_w.png', class: 'knight_footer')

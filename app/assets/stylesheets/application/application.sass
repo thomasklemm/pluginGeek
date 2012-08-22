@@ -96,5 +96,25 @@ abbr.timeago
   bottom: 47px
   color: #999
 
-.testingtest
-  margin-left: 2rem
+// Sticky Footer
+@import 'compass/layout/sticky-footer'
+@include sticky-footer(44px, "#root", "#root_footer", "#footer")
+
+// Footer
+#footer
+  border-top: 2px solid #ddd
+  background: $mainColor
+  line-height: 42px !important
+
+  a
+    color: #e9e9e9
+    &:hover
+      color: #fff !important
+
+  .link-list
+    line-height: 43px !important
+
+  .knight_footer
+    position: relative
+    top: 7px
+    height: 28px
