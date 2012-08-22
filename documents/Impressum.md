@@ -1,6 +1,6 @@
 Impressum
 Angaben gemäß § 5 TMG:
-Curious Craftsmen UG (haftungsbeschränkt)
+Curious Craftsmen UG (haftungsbeschränkt) in Gründung
 Minnesängerstraße 18
 97688 Bad Kissingen
 
@@ -13,8 +13,8 @@ Telefax: - none yet
 E-Mail: hi@knight.io
 
 Registereintrag:
-Eintragung im Handelsregister. 
-Registergericht:- not yet 
+Eintragung im Handelsregister.
+Registergericht:- not yet
 Registernummer: - not yet
 
 Umsatzsteuer-ID:
@@ -26,7 +26,7 @@ Wirtschafts-Identifikationsnummer gemäß §139 c Abgabenordnung: - not yet
 Quellenangaben für die verwendeten Bilder und Grafiken:
 http://www.vectorstock.com
 VectorStock
- 
+
 Quelle: Impressum von e-recht24.de speziell für Gesellschaft beschränkter Haftung (GmbH) erzeugt.
 
 Haftungsausschluss:
@@ -43,10 +43,10 @@ Datenschutz
 Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder eMail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.
 Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.
 Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor.
- 
+
 Datenschutzerklärung für die Nutzung von Twitter:
 Auf unseren Seiten sind Funktionen des Dienstes Twitter eingebunden. Diese Funktionen werden angeboten durch die Twitter Inc., 795 Folsom St., Suite 600, San Francisco, CA 94107, USA. Durch das Benutzen von Twitter und der Funktion "Re-Tweet" werden die von Ihnen besuchten Webseiten mit Ihrem Twitter-Account verknüpft und anderen Nutzern bekannt gegeben. Dabei werden auch Daten an Twitter übertragen.
 Wir weisen darauf hin, dass wir als Anbieter der Seiten keine Kenntnis vom Inhalt der übermittelten Daten sowie deren Nutzung durch Twitter erhalten. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von Twitter unter http://twitter.com/privacy.
 Ihre Datenschutzeinstellungen bei Twitter können Sie in den Konto-Einstellungen unter http://twitter.com/account/settings ändern.
- 
+
 Quellverweis: Disclaimer von eRecht24, dem Portal zum Internetrecht von Rechtsanwalt Sören Siebert, Datenschutzerklärung für Twitter
