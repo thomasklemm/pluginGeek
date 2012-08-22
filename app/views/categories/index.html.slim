@@ -26,7 +26,7 @@
         dd.sort         data-sort='category_name' Name
 
     / Categories List
-    .list
+    .list data-page=5
       / Find categories (all or limited to language)
       = render partial: 'category', collection: @categories
 
