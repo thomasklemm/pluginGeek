@@ -1,0 +1,44 @@
+/ pages/commit.html.slim
+
+h3 Tell us what bugs you
+
+p Just got rid of the last earwax. We're listening here:
+
+/ Twitter
+h4
+  i.icon-twitter
+  | &nbsp;&nbsp;
+  = link_to '@repo_knight', 'https://twitter.com/repo_knight', target: :blank
+
+h4
+  i.icon-envelope-alt
+  | &nbsp;&nbsp;
+  = mail_to 'hi@knight.io'
+
+h6 &nbsp;
+p But if you like the <em>medieval</em> way, we have no objections
+
+/ Wufoo Form
+div id="wufoo-z7x3p9"
+  p Please tell us what you'd like to tell us<a href="http://knightio.wufoo.com/forms/z7x3p9"><b>via our Wufoo form</b></a>. <br> Also you may email us at <b>hi@knight.io</b> or tweet <b>@repo_knight.</b> <br> Thanks for your help improving Knight.io today in advance!
+
+/ Wufoo Form Javascript
+javascript:
+  var z7x3p9;(function(d, t) {
+  var s = d.createElement(t), options = {
+  'userName':'knightio',
+  'formHash':'z7x3p9',
+  'autoResize':true,
+  'height':'518',
+  'async':true,
+  'header':'show'};
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+  var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+  try { z7x3p9 = new WufooForm();z7x3p9.initialize(options);z7x3p9.display(); } catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+  })(document, 'script');</script>
+
+h4 Thanks for any commits in advance!
+
+h4: em Lord Knight
