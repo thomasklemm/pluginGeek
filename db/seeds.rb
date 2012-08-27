@@ -124,8 +124,6 @@ seeds = [
   {name: 'ORMs: MySQL', lang: 'Ruby', repos: %w(jeremyevans/sequel datamapper/dm-core), description: "ActiveRecord"},
   {name: 'ORMs: NoSQL', lang: 'Ruby', repos: %w(twitter/cassandra seancribbs/ripple Imikimi-LLC/monotable), description: ""},
 
-
-
   # P
   # Parsers
   {name: 'Parsers: CSV', lang: 'Ruby', repos: %w(seamusabshere/data_miner pillowfactory/csv-mapper internuity/map-fields seamusabshere/remote_table), description: ''},
@@ -137,42 +135,15 @@ seeds = [
   {name: 'Parsers: XLS', lang: 'Ruby', repos: %w(seamusabshere/data_miner seamusabshere/remote_table), description: ''},
   {name: 'Parsers: XML', lang: 'Ruby', repos: %w(jnunemaker/crack rubiii/nori sparklemotion/nokogiri flavorjones/loofah jnunemaker/happymapper seamusabshere/data_miner), description: ''},
   {name: 'Parsers: Natural Language Dates', lang: 'Ruby', repos: %w(mojombo/chronic hpoydar/chronic_duration), description: ""},
-  # PDF
-
-  # Q
 
   # R
   # Rails
   {name: 'Rails: Bootstrap your project', lang: 'Ruby', repos: %w(jeriko/app_drone RailsApps/rails_apps_composer RailsApps/rails3-application-templates kfaustino/rails-templater renderedtext/base-app intridea/rails_wizard dfischer/Rails-3-Quickstart-Compass--Haml--Sass--SCSS russfrisch/h5bp-rails greendog99/greendog-rails-template cwsaylor/rails3-quickstart), description: "Rails App Generators and Templates. Get you off the ground quickly by bringing in sensible defaults. Templates, Blueprints, Project Generators"},
   {name: 'Rails: Generators for Popular Gems', lang: 'Ruby', repos: %w(ryanb/nifty-generators indirect/rails3-generators leogalmeida/slim-rails indirect/haml-rails), description: ""},
-  # Routing
-  {name: 'Routing: Subdomains', lang: 'Ruby', repos: %w(RailsApps/rails3-subdomains mbleigh/subdomain-fu), description: "Working with Subdomains got much easier in Rails 3.1+. Take a look at the Rails Guide [Rails Routing."},
-
 
   # S
   # Styling
   {name: 'Images: Sprite Generators', lang: 'Ruby', repos: %w(jakesgordon/sprite-factory), description: ""},
-
-
-  # T
-  {name: 'Templating: JSON', lang: 'Ruby', repos: %w(nesquena/rabl fabrik42/acts_as_api), description: ''},
-  {name: 'Templating: XML', lang: 'Ruby', repos: %w(nesquena/rabl fabrik42/acts_as_api), description: ''},
-
-  # U
-
-  # V
-
-  # W
-
-  # X
-
-  # Y
-
-  # Z
-
-  # 123
-
-
 
   # JS
   {name: 'Clipboard', lang: 'JS', repos: %w(mojombo/clippy), description: ""},

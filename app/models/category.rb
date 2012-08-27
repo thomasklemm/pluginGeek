@@ -74,6 +74,7 @@ class Category < ActiveRecord::Base
   ###
   after_validation :move_friendly_id_error_to_name
   before_save :determine_languages
+  after_save :touch_children
 
   # Move FriendlyId error to name so it is attached to
   # the input that is being displayed
@@ -88,6 +89,12 @@ class Category < ActiveRecord::Base
     # as this is the only thing we are looking for
     languages = match[:languages] if match.present?
     self.language_list = languages.split('/').join(', ').downcase if languages
+  end
+
+  # Touch children to update repo count in cache
+  def touch_children
+    repos = Repo.tagged_with(self.name, on: :categories)
+    repos.each { |repo| repo.touch }
   end
 
   ###
