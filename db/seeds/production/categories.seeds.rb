@@ -62,7 +62,6 @@ categories_and_repos = [
   {name: 'Forms: Multi-Step & Wizard Forms', lang: 'JS', repos: %w(wbotelhos/stepy kflorence/jquery-wizard thecodemine/formwizard dominicbarnes/jWizard mstratman/jQuery-Smart-Wizard), description: ""},
   {name: 'HTTP: Consoles', lang: 'Ruby', repos: %w(htty/htty), description: ""},
   {name: 'HTTP: Clients', lang: 'Ruby', repos: %w(typhoeus/typhoeus deepfryed/http-parser-lite c42/wrest Manfred/SHL), description: "Consume APIs and web services."},
-=end
 
   # Batch 4
   {name: 'PDF: PDF & Ebook Writers', lang: 'Ruby', repos: %w(blueheadpublishing/bookshop prawnpdf/prawn igor-alexandrov/wisepdf pdfkit/pdfkit antialize/wkhtmltopdf mileszs/wicked_pdf fnando/kitabu shairontoledo/rghost walle/gimli TechnoGate/transmuter plessl/wkpdf  tcocca/active_pdftk expectedbehavior/doc_raptor_gem mbleigh/princely fnando/kitabu), description: ""},
@@ -87,6 +86,7 @@ categories_and_repos = [
   {name: 'Feeds: Fetch & Parse Feeds', lang: 'Ruby', repos: %w(pauldix/feedzirra pauldix/sax-machine), description: ""},
   {name: 'Email', lang: 'Ruby', repos: %w(mikel/mail), description: ""},
   {name: 'Hash Extensions', lang: 'Ruby', repos: %w(intridea/hashie svenfuchs/hashr ahoward/map delano/gibbler ismasan/hash_mapper rubyworks/hashery), description: ""},
+=end
 
   # Batch 5
   # Batch 6
