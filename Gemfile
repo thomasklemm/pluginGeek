@@ -97,6 +97,9 @@ end
 # Butler (Serving Static Assets)
 gem 'butler_static', '>= 0.0.8'
 
+# MiniTest (Testing)
+gem 'minitest-rails', group: [:development, :test]
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
