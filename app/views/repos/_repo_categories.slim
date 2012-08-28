@@ -9,7 +9,7 @@
     = form_for @repo do |f|
       / Categories
       = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
-      div style='padding-bottom: 1rem' = f.text_field :category_list
+      div style='padding-bottom: 1rem' = f.text_field :category_list, autocomplete: 'off'
 
       / Label
       = f.label :label
@@ -17,7 +17,7 @@
 
       / Parents
       = f.label :parents
-      div style='padding-bottom: 1rem' = f.text_field :parent_list
+      div style='padding-bottom: 1rem' = f.text_field :parent_list, autocomplete: 'off'
 
       / Submit
       = f.submit 'Save Categories', class: 'small radius button'
@@ -31,6 +31,7 @@
   - all_repo_names = Repo.pluck(:full_name).to_json.html_safe
   javascript:
     $('#repo_parent_list').select2({tags: #{ all_repo_names }, placeholder: 'Is this repo a child to another one?'})
+
 
 / Show View
 - else
