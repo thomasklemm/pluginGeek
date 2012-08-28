@@ -1,4 +1,4 @@
-/ shared/repo.html.slim
+/ shared/_child
 
 - cache [repo, 'repo_partial'] do
 
@@ -57,14 +57,3 @@
     / Stats
     span.knight_score = repo.knight_score
     span.updated_at   = timestamp.iso8601
-
-    / Children
-    - if repo.has_children?
-      .child_list.js_child_list
-        / Find children
-        / in a way that does not raise an exception if child does not exist
-        - children = Repo.order_by_knight_score.find_all_by_full_name(child_array)
-
-        / Render Children
-        - if children
-          = render partial: 'shared/child', collection: children, as: :repo
