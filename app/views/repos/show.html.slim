@@ -1,6 +1,6 @@
 / repos/show.html.slim
 
-- cache [ cache_version, @repo, 'show_repo', params[:action] ] do
+- cache [@repo, 'show_repo', params[:action] ] do
 
   / Title
   - provide :title, "#{ @repo.full_name } on Knight.io"

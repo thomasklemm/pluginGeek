@@ -22,12 +22,6 @@ class ApplicationController < ActionController::Base
   helper_method :logger, :language, :scope,
     :repo_updater, :category_updater, :cache_version, :markdown
 
-  # One cache version for all partials
-  # invalidates everything on every deploy
-  def cache_version
-    'v22'
-  end
-
   # before_filter and helper_method
   def language
     @language ||= assert_language

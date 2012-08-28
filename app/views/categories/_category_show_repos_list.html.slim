@@ -5,7 +5,7 @@
 
   / List
   .list data-page=4
-    - cache [ cache_version, @category, 'repos', @repos.present? && @repos.maximum(:updated_at).utc.to_s(:number)] do
+    - cache [@category, 'repos', @repos.present? && @repos.maximum(:updated_at).utc.to_s(:number)] do
       = render partial: 'shared/repo', collection: @repos
 
       / No repos
