@@ -32,7 +32,7 @@ class Repo < ActiveRecord::Base
 
   # Tagging
   acts_as_ordered_taggable_on :categories
-  acts_as_taggable_on :languages, :children
+  acts_as_taggable_on :languages, :parents
 
   ##
   # Scopes & Validations
@@ -103,26 +103,25 @@ class Repo < ActiveRecord::Base
   ##
   # Life-Cycle Callbacks
   #
-  # Touch parents after safe
-  #   cache auto-expiration
+  # Save parents after save
+  #  for cache auto-expiration
+  #  and updating cache_child_list
   after_save :touch_parents
   def touch_parents
-    # Find parents
-    parents = Repo.find_all_by_full_name(child_list)
-    # Touch each parent
-    parents.each { |parent| parent.touch }
+    parents = Repo.find_all_by_full_name(parents)
+    parents.each { |parent| parent.save }
   end
 
-  # Remove child from parents
-  #  after destorying a repo
-  after_destroy :remove_child_from_parents
-  def remove_child_from_parents
-    # Find parents
-    parents = Repo.find_all_by_full_name(child_list)
-    parents.each do |parent|
-      # Remove repo from parent's child_list
-      parent.child_list.remove(full_name)
-      parent.save
+  # Remove parent from children
+  #  after destroying a repo
+  after_destroy :remove_parent_from_children
+  def remove_parent_from_children
+    children = Repo.tagged_with(full_name, on: :parents)
+    if children
+      children.each do |child|
+        child.parent_list.remove(full_name)
+        child.save
+      end
     end
   end
 
@@ -143,24 +142,28 @@ class Repo < ActiveRecord::Base
   end
 
   # Cache Taggings
-  #  on categories, children and languages before save
+  #  on categories and languages
+  #  as well as cached_child_list of parents
+  #  before save
   before_save :cache_taggings
   def cache_taggings
     cache_category_list
-    cache_child_list
     cache_language_list
+    cache_child_list_on_parents
   end
 
   def cache_category_list
     self.cached_category_list = category_list.to_s
   end
 
-  def cache_child_list
-    self.cached_child_list = child_list.to_s
-  end
-
   def cache_language_list
     self.cached_language_list = language_list.to_s
+  end
+
+  def cache_child_list_on_parents
+    children = Repo.tagged_with(self.name, on: :parents)
+    child_list = children.pluck(:full_name).join(', ')
+    self.cached_child_list = child_list
   end
 
   ##
@@ -182,5 +185,5 @@ class Repo < ActiveRecord::Base
 
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :category_list, :label
+  attr_accessible :full_name, :category_list, :label, :parent_list
 end
