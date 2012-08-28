@@ -18,17 +18,17 @@
 #
 
 class User < ActiveRecord::Base
-  ###
-  #   Modules
-  ###
+  ##
+  # Modules
+  #
   # Authenticates with sorcery!
   authenticates_with_sorcery! do |config|
     config.authetications_class = Authentication
   end
 
-  ###
-  #   Relations & Validations
-  ###
+  ##
+  # Relations & Validations
+  #
   # Authentications
   has_many :authentications, dependent: :destroy
   accepts_nested_attributes_for :authentications
@@ -36,7 +36,9 @@ class User < ActiveRecord::Base
   # Validations
   validates_uniqueness_of :username
 
+  ##
   # Mass-assignment protection
-  #   REVIEW: does :username have to be whitelisted, try!
+  #
+  # REVIEW: does :username have to be whitelisted, try!
   attr_accessible :username, :authentications_attributes
 end

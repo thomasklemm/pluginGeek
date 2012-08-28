@@ -30,10 +30,11 @@
     ul.square
       - categories.each do |category_name|
           - @category = Category.find_by_name(category_name)
-          li
-            = link_to @category do
-              = category_show_name_splitter(@category.name)
-            span.category_repo_count &nbsp;&nbsp;(#{ @category.repo_count } Repos)
+          - if @category
+            li
+              = link_to @category do
+                = category_show_name_splitter(@category.name)
+              span.category_repo_count &nbsp;&nbsp;(#{ @category.repo_count } Repos)
   - else
     / Repo has no categories
     div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do

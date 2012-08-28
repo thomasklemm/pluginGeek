@@ -18,9 +18,9 @@
 #
 
 class Category < ActiveRecord::Base
-  ###
-  #   Modules
-  ###
+  ##
+  # Modules
+  #
   # Friendly Id
   #   using history module (redirecting to new slug if slug changed)
   #   First language is considered to be main language
@@ -34,9 +34,9 @@ class Category < ActiveRecord::Base
   # Markdown
   include MarkdownHelper
 
-  ###
-  #   Scopes
-  ###
+  ##
+  # Scopes
+  #
   # find_all_by_language_and_select_main_fields('ruby'),
   #  in use at categories#index
   # scope :ordered_find_all_by_language_and_select_main_fields, lambda { |language| find_all_by_language(language).select_main_fields.order_by_knight_score }
@@ -69,20 +69,18 @@ class Category < ActiveRecord::Base
     end
   end
 
-  ###
-  #   Life-Cycle Callbacks
-  ###
-  after_validation :move_friendly_id_error_to_name
-  before_save :determine_languages
-  after_save :touch_children
-
+  ##
+  # Life-Cycle Callbacks
+  #
   # Move FriendlyId error to name so it is attached to
   # the input that is being displayed
+  after_validation :move_friendly_id_error_to_name
   def move_friendly_id_error_to_name
     errors.messages[:name] = errors.messages.delete(:friendly_id)
   end
 
   # Determine Language and tag category appropriately
+  before_save :determine_languages
   def determine_languages
     match = /\((?<languages>.*)\)/.match(name)
     # match will be nill if there is no matching languages
@@ -91,15 +89,15 @@ class Category < ActiveRecord::Base
     self.language_list = languages.split('/').join(', ').downcase if languages
   end
 
-  # Touch children to update repo count in cache
+  # Touch children to update repo count in cache on repo#show view
+  after_save :touch_children
   def touch_children
     repos = Repo.tagged_with(self.name, on: :categories)
     repos.each { |repo| repo.touch }
   end
 
-  ###
-  #   Field Defaults
-  ###
+  ##
+  # Field Defaults
   def description
    self[:description] || ' '
   end
@@ -108,9 +106,33 @@ class Category < ActiveRecord::Base
     self[:short_description] || ' '
   end
 
-  ###
-  #   Virtual Attributes
-  ###
+  ##
+  # Remame Categories
+  #  Changing the name of an existing tag will cause
+  #  the tag to be last in the repo, the order wont be maintained
+  #
+  def name=(new_name)
+    # Update self
+    old_name = self[:name]
+    self[:name] = new_name
+
+    if self.save
+      # Update ActsAsTaggableOn::Tag
+      tag = ActsAsTaggableOn::Tag.find_by_name(old_name)
+      if tag
+        tag.name = new_name
+        tag.save
+      end
+
+      # Update cached_category_list of associated repos
+      repos = Repo.tagged_with(new_name, on: :categories)
+      repos.each { |repo| repo.save }
+    end
+  end
+
+  ##
+  # Virtual Attributes
+  #
   # Render Markdown Description
   def description
     @description ||= self[:description].present? ? markdown.render(self[:description]).html_safe : ''
@@ -129,7 +151,9 @@ class Category < ActiveRecord::Base
     @bottom_description ||= bottom_description || ''
   end
 
+  ##
   # Class methods
+  #
   # Bust Caches
   # by touching every category
   def self.bust_caches
@@ -142,7 +166,10 @@ class Category < ActiveRecord::Base
     categories.each { |c| c.destroy }
   end
 
+  ##
   # Mass Assignment Whitelist
-  attr_accessible :short_description, :description, :label
+  #
+  # label and name need only be accessible for admins
+  attr_accessible :short_description, :description, :label, :name
 
 end

@@ -23,9 +23,9 @@
 #
 
 class Repo < ActiveRecord::Base
-  ###
-  #   Modules
-  ###
+  ##
+  # Modules
+  #
   # FriendlyId
   extend FriendlyId
   friendly_id :full_name
@@ -34,9 +34,9 @@ class Repo < ActiveRecord::Base
   acts_as_ordered_taggable_on :categories
   acts_as_taggable_on :languages, :children
 
-  ###
-  #   Scopes & Validations
-  ###
+  ##
+  # Scopes & Validations
+  #
   # find_all_by_language('ruby'),
   #   order by knight_score
   scope :find_all_by_language, lambda {  |language| tagged_with(language, on: :languages) }
@@ -68,9 +68,9 @@ class Repo < ActiveRecord::Base
   # Validations
   validates :full_name, presence: true, uniqueness: true
 
-  ###
-  #   Field Defaults
-  ###
+  ##
+  # Field Defaults
+  #
   def name
     self[:name] || self[:full_name].split('/')[1]
   end
@@ -91,18 +91,18 @@ class Repo < ActiveRecord::Base
     self[:github_updated_at] || (Time.now - 2.years)
   end
 
-  ###
-  #   Virtual Attributes
-  ###
+  ##
+  # Virtual Attributes
+  #
   # Has Children
-  # Does the repo have children associated with it?
+  #  Does the repo have children associated with it?
   def has_children?
     cached_child_list.present?
   end
 
-  ###
-  #   Life-Cycle Callbacks
-  ###
+  ##
+  # Life-Cycle Callbacks
+  #
   # Touch parents after safe
   #   cache auto-expiration
   after_save :touch_parents
@@ -143,8 +143,7 @@ class Repo < ActiveRecord::Base
   end
 
   # Cache Taggings
-  # on categories, children and languages
-  # before save
+  #  on categories, children and languages before save
   before_save :cache_taggings
   def cache_taggings
     cache_category_list
@@ -164,7 +163,9 @@ class Repo < ActiveRecord::Base
     self.cached_language_list = language_list.to_s
   end
 
+  ##
   # Class methods
+  #
   # Bust Caches
   # by touching every repo
   def self.bust_caches
@@ -179,6 +180,7 @@ class Repo < ActiveRecord::Base
   #   repos.each { |repo| repo.destroy }
   # end
 
+  ##
   # Whitelisting attributes for mass assignment
   attr_accessible :full_name, :category_list, :label
 end
