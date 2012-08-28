@@ -1,6 +1,6 @@
 / categories/show.html.slim
 
-- cache [ cache_version, @category, 'category_show'] do
+- cache [@category, 'category_show'] do
 
   / Title
   - provide :title, "#{ @category.name } - Knight.io"
