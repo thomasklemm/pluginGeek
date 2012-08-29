@@ -164,8 +164,12 @@ class Repo < ActiveRecord::Base
   # Update Categories on save
   after_save :touch_categories
   def touch_categories
-    categories_array = category_list.split(', ')
-    categories_array.each {|category_name| category_updater.perform(category_name) }
+    if categories_list.present?
+      categories_array = category_list.split(', ')
+      if categories_array.present?
+        categories_array.each {|category_name| category_updater.perform(category_name) }
+      end
+    end
   end
 
   # Remove parent from children
