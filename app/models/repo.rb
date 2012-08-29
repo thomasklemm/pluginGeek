@@ -106,11 +106,19 @@ class Repo < ActiveRecord::Base
   # Save parents after save
   #  for cache auto-expiration
   #  and updating cache_child_list
-  after_save :touch_parents
+  after_commit :touch_parents, on: :save
   def touch_parents
     parents_names = parents.map {|parent| parent.name}
     parents = Repo.find_all_by_full_name(parents_names)
     parents.each { |parent| parent.save }
+  end
+
+  # Update Categories on save
+  after_commit :touch_categories, on: :save
+  def touch_categories
+    category_array = cached_category_list.split(', ')
+    categories = Category.find_all_by_name(category_array)
+    categories.each {|category| category.touch}
   end
 
   # Remove parent from children
