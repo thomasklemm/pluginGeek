@@ -151,7 +151,7 @@ class Repo < ActiveRecord::Base
   end
 
   # instruct parents to update themselves
-  after_save :update_parents
+  after_commit :update_parents, on: :update
   def update_parents
     parents_array = parent_list.split(', ')
     parents = Repo.find_all_by_full_name(parents_array)
@@ -171,7 +171,7 @@ class Repo < ActiveRecord::Base
   end
 
   # Update Categories on save
-  after_save :touch_categories
+  after_commit :touch_categories, on: :update
   def touch_categories
     categories_array = category_list.split(', ') if category_list.present?
     if categories_array.present?
@@ -181,7 +181,7 @@ class Repo < ActiveRecord::Base
 
   # Remove parent from children
   #  after destroying a repo
-  after_destroy :remove_parent_from_children
+  after_commit :remove_parent_from_children, on: :destroy
   def remove_parent_from_children
     children = Repo.tagged_with(full_name, on: :parents)
     if children
