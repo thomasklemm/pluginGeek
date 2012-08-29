@@ -158,7 +158,6 @@ class Repo < ActiveRecord::Base
   def cache_taggings
     cache_category_list
     cache_language_list
-    cache_child_list_on_parents
   end
 
   def cache_category_list
@@ -169,6 +168,7 @@ class Repo < ActiveRecord::Base
     self.cached_language_list = language_list.to_s
   end
 
+  after_commit :cache_child_list_on_parents, on: :save
   def cache_child_list_on_parents
     children = Repo.tagged_with(full_name, on: :parents)
     if children.present?
