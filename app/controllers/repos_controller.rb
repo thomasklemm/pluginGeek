@@ -53,7 +53,7 @@ class ReposController < ApplicationController
     if @repo.update_attributes(params[:repo])
 
       # Update categories based on repo tags
-      CategoryUpdater.update_categories_serial
+      # CategoryUpdater.update_categories_serial
 
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'

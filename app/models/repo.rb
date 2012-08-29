@@ -108,7 +108,8 @@ class Repo < ActiveRecord::Base
   #  and updating cache_child_list
   after_save :touch_parents
   def touch_parents
-    parents = Repo.find_all_by_full_name(parents)
+    parents_names = parents.map {|parent| parent.name}
+    parents = Repo.find_all_by_full_name(parents_names)
     parents.each { |parent| parent.save }
   end
 
@@ -161,9 +162,11 @@ class Repo < ActiveRecord::Base
   end
 
   def cache_child_list_on_parents
-    children = Repo.tagged_with(self.name, on: :parents)
-    child_list = children.pluck(:full_name).join(', ')
-    self.cached_child_list = child_list
+    children = Repo.tagged_with(full_name, on: :parents)
+    if children.present?
+      child_array = children.map {|child| child.full_name}
+      self.cached_child_list = child_array.join(', ')
+    end
   end
 
   ##
