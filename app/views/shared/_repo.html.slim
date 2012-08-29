@@ -65,6 +65,8 @@
         / in a way that does not raise an exception if child does not exist
         - children = Repo.order_by_knight_score.find_all_by_full_name(child_array)
 
+        - raise child_array.inspect
+
         / Render Children
         - if children
           = render partial: 'shared/child', collection: children, as: :repo

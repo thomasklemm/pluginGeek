@@ -5,10 +5,6 @@
   / Variables
   / Timestamp
   - timestamp = repo.github_updated_at && repo.github_updated_at.utc
-  / Toggle Children Link Name
-  - if repo.has_children?
-    - child_array = repo.cached_child_list.split(', ')
-    - toggle_children_link_name = "#{ pluralize(child_array.size, 'related repo') }".html_safe
 
   / Single Repo in Overview
   .repo
@@ -43,13 +39,6 @@
         i.icon-leaf
         | &nbsp;
         abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
-
-      / Toggle Children
-      - if repo.has_children?
-        = link_to 'javascript:', class: 'toggle_children js_toggle_children' do
-          i.icon-plane
-          | &nbsp;
-          = toggle_children_link_name
 
     / Description
     .description  = repo.description

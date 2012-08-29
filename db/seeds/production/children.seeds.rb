@@ -36,14 +36,15 @@ after 'production:categories' do
 
   # Seed Children Plugins
   plugins.each do |plugin|
-    # Children
-    # ( Makes sure children are known if they aren't listed in any category and thus not seeded yet )
-    plugin[:children].each { |full_name| Repo.find_or_create_by_full_name(full_name) }
+    # Make sure parent exists
+    Repo.find_or_create_by_full_name(plugin[:parent])
 
-    # Write 'Association'
-    parent = Repo.find_or_initialize_by_full_name(plugin[:parent])
-    parent.child_list = plugin[:children].join(', ')
-    parent.save
+    # Write children
+    plugin[:children].each do |child_full_name|
+      child = Repo.find_or_create_by_full_name(child_full_name)
+      child.parent_list = [child.parent_list, plugin[:parent]].join(', ')
+      child.save
+    end
   end
 end
 Rails.logger.info 'Finished processing parents/children'
