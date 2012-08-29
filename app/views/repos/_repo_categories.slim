@@ -16,22 +16,35 @@
       = f.text_field :label
 
       / Parents
-      = f.label :parents
-      div style='padding-bottom: 1rem' = f.text_field :parent_list, autocomplete: 'off'
+      / = f.label :parents
+      / div style='padding-bottom: 1rem' = f.text_field :parent_list, autocomplete: 'off'
+
+      / For Parents
+      - @all_repos = Repo.order_by_knight_score.select(:full_name)
+
+      / = debug .match(/@repo.parent_list
+
+      / Parents
+      = f.label :parent_list, 'Parents'
+      div style='padding-bottom: 1rem'
+        = f.select :parent_list, options_for_select(Repo.pluck(:full_name), @repo.parent_list), {}, {multiple: true}
 
       / Submit
       = f.submit 'Save Categories', class: 'small radius button'
 
   / Category Names Autocomplete
-  - category_names = Category.pluck(:name).to_json.html_safe
+  - category_names = Category.order_by_knight_score.pluck(:name).to_json.html_safe
   javascript:
     $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
 
   / Parents Autocomplete
-  - all_repo_names = Repo.pluck(:full_name).to_json.html_safe
-  javascript:
-    $('#repo_parent_list').select2({tags: #{ all_repo_names }, placeholder: 'Is this repo a child to another one?'})
+  /- all_repo_names = Repo.pluck(:full_name).to_json.html_safe
+  /javascript:
+  /  $('#repo_parent_list').select2({tags: #{ all_repo_names }, placeholder: 'Is this repo a child to another one?'})
 
+  / Parent List
+  javascript:
+    $('#repo_parent_list').select2();
 
 / Show View
 - else
