@@ -168,12 +168,17 @@ class Repo < ActiveRecord::Base
     self.cached_language_list = language_list.to_s
   end
 
-  after_commit :cache_child_list_on_parents, on: :save
-  def cache_child_list_on_parents
-    children = Repo.tagged_with(full_name, on: :parents)
-    if children.present?
-      child_array = children.map {|child| child.full_name}
-      self.cached_child_list = child_array.join(', ')
+  after_commit :update_parents_child_list, on: :save
+  def update_parents_child_list
+    parents_array = parent_list.split(', ')
+    parents = Repo.find_all_by_full_name(parents_array)
+    parents.each do |parent|
+      children = Repo.tagged_with(parent.full_name, on: :parents)
+      if children.present?
+        child_array = children.map {|child| child.full_name}
+        parent.cached_child_list = child_array.join(', ')
+      end
+      parent.save
     end
   end
 
