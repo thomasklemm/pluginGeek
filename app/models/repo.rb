@@ -151,8 +151,8 @@ class Repo < ActiveRecord::Base
   end
 
   # instruct parents to update themselves
-  after_commit :update_parents
-  def update_parents_child_list
+  after_save :update_parents
+  def update_parents
     parents_array = parent_list.split(', ')
     parents = Repo.find_all_by_full_name(parents_array)
     parents.each do |parent|

@@ -6,17 +6,15 @@
 desc 'Deploy, migrate and restart processes'
 task :deploy => 'deploy:deploy_and_migrate'
 
-namespace :deploy do
+namespace :knight do
   desc 'Simple deploy without migration'
   task :simple => :deploy
 
   desc ':deploy, :migrate, :restart'
-  task :deploy_and_migrate => [:deploy, :migrate, 'knight:restart']
+  task :deploy_and_migrate => [:deploy, :migrate, :restart]
+
   desc ':deploy, :migrate, :restart'
   task :default => :deploy_and_migrate
-
-  desc ':deploy, :migrate, :seed, :restart'
-  task :deploy_and_seed => [:deploy, :migrate, :seed, 'knight:restart']
 
   desc 'Deploy to heroku'
   task :deploy do
@@ -35,12 +33,7 @@ namespace :deploy do
     puts    'Migrating new Seeds...'
     system  'heroku run rake db:seed'
   end
-end
 
-##
-#  Knight
-#
-namespace :knight do
   desc 'Restart processes'
   task :restart do
     puts    'Restarting Processes...'
@@ -48,19 +41,19 @@ namespace :knight do
   end
 
   desc 'Perform serial Knight Update'
-  task :update do
+  task :update_knight do
     puts 'Processing update Knight in production...'
     system 'heroku run rails runner KnightUpdater.update_knight_serial'
   end
 
   desc 'Clear away empty categories'
-  task :clean do
+  task :clean_empty_categories do
     puts 'Cleaning Knight of empty categories...'
     system 'heroku run rails runner Category.clean'
   end
 
   desc 'Bust Caches'
-  task :caches do
+  task :bust_caches do
     puts 'Busting Caches...'
     system 'heroku run rails runner Repo.bust_caches'
     system 'heroku run rails runner Category.bust_caches'
