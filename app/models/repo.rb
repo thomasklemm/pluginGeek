@@ -164,11 +164,9 @@ class Repo < ActiveRecord::Base
   # Update Categories on save
   after_save :touch_categories
   def touch_categories
-    if categories_list.present?
-      categories_array = category_list.split(', ')
-      if categories_array.present?
-        categories_array.each {|category_name| category_updater.perform(category_name) }
-      end
+    categories_array = category_list.split(', ') if category_list.present?
+    if categories_array.present?
+      categories_array.each {|category_name| category_updater.perform(category_name) }
     end
   end
 
