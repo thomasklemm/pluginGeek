@@ -45,6 +45,9 @@ Knight.io - State your purpose
 ---
 ### Changelog
 
+v0.3.0
+- A lot has changed since last entry. Knight.io is now a fully fledged Rails app and will launch soon. Add repos now.
+
 v0.2.0
 - Add sole user authentication via Github for update and destroy methods
 
