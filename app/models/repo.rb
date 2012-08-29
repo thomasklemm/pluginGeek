@@ -158,6 +158,15 @@ class Repo < ActiveRecord::Base
     parents.each do |parent|
       parent.cache_child_list
       parent.save
+
+      # Touch parent categories
+      category_array = parent.category_list.split(', ') if parent.category_list.present?
+      if category_array.present?
+        categories = Category.find_all_by_name(category_array)
+        if categories.present?
+          categories.each {|category| category.touch}
+        end
+      end
     end
   end
 
