@@ -127,7 +127,6 @@ class Repo < ActiveRecord::Base
   def cache_taggings
     cache_category_list
     cache_language_list
-    cache_child_list # will this be called twice?
   end
 
   def cache_category_list
@@ -156,8 +155,7 @@ class Repo < ActiveRecord::Base
     parents_array = parent_list.split(', ')
     parents = Repo.find_all_by_full_name(parents_array)
     parents.each do |parent|
-      parent.cache_child_list
-      parent.save
+      parent.save # calls cache_child_list
 
       # Touch parent categories
       category_array = parent.category_list.split(', ') if parent.category_list.present?
@@ -175,7 +173,10 @@ class Repo < ActiveRecord::Base
   def touch_categories
     categories_array = category_list.split(', ') if category_list.present?
     if categories_array.present?
-      categories_array.each {|category_name| category_updater.perform(category_name) }
+      categories = Category.find_all_by_name(categories_array)
+      if categories.present?
+        categories.each {|category| category.touch}
+      end
     end
   end
 
