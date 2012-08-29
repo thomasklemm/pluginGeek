@@ -11,16 +11,16 @@ class ApplicationController < ActionController::Base
     render text: '42'
   end
 
-  ###
-  #   Helper Methods
-  ###
-  include MarkdownHelper
+  ##
+  # Helper Methods
+  #
+  # markdown, category_updater and repo_updater helpers
+  include InstancesHelper
+  helper_method :markdown
 
   # Before Filters
   before_filter :language, :scope
-
-  helper_method :logger, :language, :scope,
-    :repo_updater, :category_updater, :cache_version, :markdown
+  helper_method :language, :scope
 
   # before_filter and helper_method
   def language
@@ -42,18 +42,4 @@ class ApplicationController < ActionController::Base
     params[:scope] = 'repos'      if request.path.start_with?('/repos')
     params[:scope]
   end
-
-  def repo_updater
-    @repo_updater ||= RepoUpdater.new
-  end
-
-  def category_updater
-    @category_updater ||= CategoryUpdater.new
-  end
-
-  # Review: Does caching the Rails logger in an instance variable make sense?
-  def logger
-    @logger ||= Rails.logger
-  end
-
 end

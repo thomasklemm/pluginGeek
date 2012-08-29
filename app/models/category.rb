@@ -31,9 +31,8 @@ class Category < ActiveRecord::Base
   acts_as_ordered_taggable_on :languages
   # acts_as_taggable_on :keywords # REVIEW: Implement as column if nescessary at all
 
-  # Markdown
-  include MarkdownHelper
-
+  # InstancesHelper
+  include InstancesHelper
   ##
   # Scopes
   #
@@ -82,18 +81,11 @@ class Category < ActiveRecord::Base
   # Determine Language and tag category appropriately
   before_save :determine_languages
   def determine_languages
-    match = /\((?<languages>.*)\)/.match(name)
+    match = /\((?<languages>.*)\)/.match(name) if name.instance_of? String
     # match will be nill if there is no matching languages
     # as this is the only thing we are looking for
     languages = match[:languages] if match.present?
     self.language_list = languages.split('/').join(', ').downcase if languages
-  end
-
-  # Touch children to update repo count in cache on repo#show view
-  after_save :touch_children
-  def touch_children
-    repos = Repo.tagged_with(self.name, on: :categories)
-    repos.each { |repo| repo.touch }
   end
 
   ##
@@ -163,7 +155,7 @@ class Category < ActiveRecord::Base
   # Clean up unused categories
   def self.clean
     categories = find_all_by_repo_count(0)
-    categories.each { |c| c.destroy }
+    categories.each { |category| category.destroy }
   end
 
   ##

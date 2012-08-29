@@ -34,6 +34,9 @@ class Repo < ActiveRecord::Base
   acts_as_ordered_taggable_on :categories
   acts_as_taggable_on :languages, :parents
 
+  # InstancesHelper
+  include InstancesHelper
+
   ##
   # Scopes & Validations
   #
@@ -103,37 +106,6 @@ class Repo < ActiveRecord::Base
   ##
   # Life-Cycle Callbacks
   #
-  # Save parents after save
-  #  for cache auto-expiration
-  #  and updating cache_child_list
-  after_save :touch_parents
-  def touch_parents
-    parents_names = parents.map {|parent| parent.name}
-    parents = Repo.find_all_by_full_name(parents_names)
-    parents.each { |parent| parent.save }
-  end
-
-  # Update Categories on save
-  after_save :touch_categories
-  def touch_categories
-    category_array = cached_category_list.split(', ')
-    categories = Category.find_all_by_name(category_array)
-    categories.each {|category| category.touch}
-  end
-
-  # Remove parent from children
-  #  after destroying a repo
-  after_destroy :remove_parent_from_children
-  def remove_parent_from_children
-    children = Repo.tagged_with(full_name, on: :parents)
-    if children
-      children.each do |child|
-        child.parent_list.remove(full_name)
-        child.save
-      end
-    end
-  end
-
   # Determine Languages
   #  and assign them to language_list
   before_save :determine_languages
@@ -151,13 +123,11 @@ class Repo < ActiveRecord::Base
   end
 
   # Cache Taggings
-  #  on categories and languages
-  #  as well as cached_child_list of parents
-  #  before save
   before_save :cache_taggings
   def cache_taggings
     cache_category_list
     cache_language_list
+    cache_child_list # will this be called twice?
   end
 
   def cache_category_list
@@ -168,17 +138,46 @@ class Repo < ActiveRecord::Base
     self.cached_language_list = language_list.to_s
   end
 
-  after_commit :update_parents_child_list, on: :save
+  ##
+  #  Parents <-> Children
+  #
+  # Update child list on parent
+  def cache_child_list
+    children = Repo.tagged_with(full_name, on: :parents)
+    if children.present?
+      child_array = children.map {|child| child.full_name}
+      self.cached_child_list = child_array.join(', ')
+    end
+  end
+
+  # instruct parents to update themselves
+  after_commit :update_parents
   def update_parents_child_list
     parents_array = parent_list.split(', ')
     parents = Repo.find_all_by_full_name(parents_array)
     parents.each do |parent|
-      children = Repo.tagged_with(parent.full_name, on: :parents)
-      if children.present?
-        child_array = children.map {|child| child.full_name}
-        parent.cached_child_list = child_array.join(', ')
-      end
+      parent.cache_child_list
       parent.save
+    end
+  end
+
+  # Update Categories on save
+  after_save :touch_categories
+  def touch_categories
+    categories_array = category_list.split(', ')
+    categories_array.each {|category_name| category_updater.perform(category_name) }
+  end
+
+  # Remove parent from children
+  #  after destroying a repo
+  after_destroy :remove_parent_from_children
+  def remove_parent_from_children
+    children = Repo.tagged_with(full_name, on: :parents)
+    if children
+      children.each do |child|
+        child.parent_list.remove(full_name)
+        child.save
+      end
     end
   end
 
