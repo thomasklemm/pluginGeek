@@ -205,28 +205,24 @@ categories_and_repos.each do |seed|
   # Find or initialize category
   category = Category.find_or_initialize_by_name(category_name)
 
-  # Seed category and repos if new_record?
-  if category.new_record?
-    category.short_description = seed[:description]
-    category.description = seed[:description]
-    category.save
-    Rails.logger.info "Added category #{ category.name }"
+  # Seed category and repos
+  category.short_description = seed[:description]
+  category.description = seed[:description]
+  category.save
+  Rails.logger.info "Added category #{ category.name }"
 
-    # Create or update repos
-    seed[:repos].each do |full_name|
-      # Find or initialize repo
-      repo = Repo.find_or_initialize_by_full_name(full_name)
+  # Create or update repos
+  seed[:repos].each do |full_name|
+    # Find or initialize repo
+    repo = Repo.find_or_initialize_by_full_name(full_name)
 
-      # Assign multiple categories to a repo while seeding
-      categories = []
-      categories << repo.category_list
-      categories << category_name
-      repo.category_list = categories.join(', ')
-      repo.save
-      Rails.logger.info "Added repo #{ repo.full_name }"
-    end
-  else
-    Rails.logger.info "Existing category #{ category.name } stays unmodified"
+    # Assign multiple categories to a repo while seeding
+    categories = []
+    categories << repo.category_list
+    categories << category_name
+    repo.category_list = categories.join(', ')
+    repo.save
+    Rails.logger.info "Added repo #{ repo.full_name }"
   end
 end
 

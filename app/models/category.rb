@@ -153,6 +153,7 @@ class Category < ActiveRecord::Base
 
   # Clean up unused categories
   def self.clean
+    CategoryUpdater.update_categories_serial
     categories = find_all_by_repo_count(0)
     categories.each { |category| category.destroy }
   end
