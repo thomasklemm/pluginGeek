@@ -56,6 +56,9 @@ class ReposController < ApplicationController
       # Update repo, parents and categories
       @repo.after_repo_update
 
+      # Insert new categories
+      CategoryUpdater.update_categories_serial
+
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'
     else
