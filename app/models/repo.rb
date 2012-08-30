@@ -216,6 +216,15 @@ class Repo < ActiveRecord::Base
     find_each { |repo| repo.touch }
   end
 
+  # Update parents
+  def self.update_parents
+    find_each do |repo|
+      repo.parent_list.each do |parent_full_name|
+        repo.cache_child_list_on_parent(parent_full_name)
+      end
+    end
+  end
+
   # Clean up untagged repos
   # RISK: ONE MIGHT DELETE REPOS THAT CARRY NO TAG
   # BUT ARE CHILDREN TO SOME OTHER REPO
