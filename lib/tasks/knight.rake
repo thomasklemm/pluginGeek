@@ -40,16 +40,16 @@ namespace :knight do
     system 'heroku run rails runner KnightUpdater.update_knight_serial'
   end
 
-  desc 'Clear away empty categories'
-  task :clean_empty_categories do
-    puts 'Cleaning Knight of empty categories...'
-    system 'heroku run rails runner Category.clean'
-  end
-
   desc 'Bust Caches'
   task :bust_caches do
     puts 'Busting Caches...'
     system 'heroku run rails runner Repo.bust_caches'
     system 'heroku run rails runner Category.bust_caches'
+  end
+
+  desc 'Clear away empty categories'
+  task :clean_empty_categories do
+    puts 'Cleaning Knight of empty categories...'
+    system 'heroku run rails runner Category.clean'
   end
 end

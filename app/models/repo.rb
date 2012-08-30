@@ -161,6 +161,7 @@ class Repo < ActiveRecord::Base
   # UPDATE PARENT/S
 
   after_save :update_parents
+  # WILL try to update PARENT'S PARENTS AS WELL as its an after_save callback
   def update_parents
     # including parents from which it has been removed
     @changes_to_parent_list = changes[:parent_list]
