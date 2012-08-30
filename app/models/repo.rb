@@ -219,8 +219,11 @@ class Repo < ActiveRecord::Base
   # Update parents
   def self.update_parents
     find_each do |repo|
-      repo.parent_list.each do |parent_full_name|
-        repo.cache_child_list_on_parent(parent_full_name)
+      children = Repo.tagged_with(repo.full_name, on: :parents)
+      if children.present?
+        child_array = children.map {|child| child.full_name}
+        repo.cached_child_list = child_array.join(', ')
+        repo.save
       end
     end
   end
