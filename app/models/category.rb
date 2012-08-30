@@ -116,23 +116,23 @@ class Category < ActiveRecord::Base
         tag.save
       end
 
-      # Update cached_category_list of associated repos
+      # Update cached_category_list of associated repos etc.
+      # and invalidate timestamp
       repos = Repo.tagged_with(new_name, on: :categories)
-      repos.each { |repo| repo.save }
+      repos.each { |repo| repo.update_repo }
     end
   end
 
   ##
   # Virtual Attributes
-  #
-  # Render Markdown Description
+
+  # Description (stored as markdown)
   def description
     @description ||= self[:description].present? ? markdown.render(self[:description]).html_safe : ''
   end
 
-  # Top Description and Bottom Description
-  # seperated automagically by [REPOS]
-  # FIX: TAG ENDINGS WHEN SPLITTING
+  # Top Description and Bottom Description seperated automagically by [REPOS]
+  # FIX: DELETE REMAINING TAG ENDINGS WHEN SPLITTING
   def top_description
     top_description = description.split('[REPOS]')[0] && description.split('[REPOS]')[0].html_safe
     @top_description ||= top_description || ''
@@ -145,9 +145,8 @@ class Category < ActiveRecord::Base
 
   ##
   # Class methods
-  #
-  # Bust Caches
-  # by touching every category
+
+  # Bust Caches by touching every single category
   def self.bust_caches
     find_each { |category| category.touch }
   end
@@ -160,8 +159,7 @@ class Category < ActiveRecord::Base
 
   ##
   # Mass Assignment Whitelist
-  #
+
   # label and name need only be accessible for admins
   attr_accessible :short_description, :description, :label, :name
-
 end
