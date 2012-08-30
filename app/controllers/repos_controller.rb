@@ -52,8 +52,8 @@ class ReposController < ApplicationController
     params[:repo][:category_list] &&= params[:repo][:category_list].split(',').join(', ')
     if @repo.update_attributes(params[:repo])
 
-      # Update categories based on repo tags
-      # CategoryUpdater.update_categories_serial
+      # Update repo, parents and categories
+      @repo.after_repo_update
 
       flash[:notice] = 'Tags successfully saved.'
       redirect_to action: 'show'
