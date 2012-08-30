@@ -228,7 +228,7 @@ categories_and_repos.each do |seed|
   else
     Rails.logger.info "Existing category #{ category.name } stays unmodified"
   end
-
-  # Cache categories and languages etc.
-  Repo.find_each {|repo| repo.update_repo}
 end
+
+# Cache categories and languages etc.
+Repo.find_each {|repo| repo.update_repo}
