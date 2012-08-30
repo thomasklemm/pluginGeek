@@ -13,6 +13,7 @@ class CategoriesController < ApplicationController
     #   expires_in 2.minutes
     #   fresh_when last_modified: @categories.maximum(:updated_at), public: true
     # end
+    expires_in 2.minutes
   end
 
   # GET /categories/:id

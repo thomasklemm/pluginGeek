@@ -14,6 +14,7 @@ class ReposController < ApplicationController
     #   expires_in 10.minutes
     #   fresh_when last_modified: @repos.maximum(:updated_at), public: true
     # end
+    expires_in 2.minutes
   end
 
   # GET /repos/:owner/:name(/*leftover)
