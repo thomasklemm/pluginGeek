@@ -1,4 +1,4 @@
-# Knight.io - State your purpose
+# [Knight.io](http://www.knight.io) - State your purpose
 
 Knight.io is the place for you developer to find the right 'x' for your purpose:
 
