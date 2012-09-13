@@ -7,7 +7,7 @@ h3
   span style='font-weight: normal' Help & FAQ
 
 h5 style='margin-bottom: 1rem; font-weight: normal' Contents
-ul.disc
+b: ul.disc
   li = link_to '1) How can I add repos?', '#how_can_i_add_repos'
   li = link_to '2) Can everyone add repos?', '#can_everyone_add_repos'
   li
@@ -35,10 +35,12 @@ hr
 / Bookmarklet
 h5#bookmarklet 3) Knight.io Bookmarklet
 p Our bookmarklet allows you to <b>add repos</b> and <b>see alternatives</b> to any Github repo when you are browsing Github. In fact, this is the way <a href='http://tklemm.eu'>Thomas</a> (the maintainer) has been and is adding a lot of repos he stumbles upon to Knight.io.
-= link_to bookmarklet do
-  .radius.button Knight.io &raquo;
 
-b &nbsp;&nbsp;&nbsp;&larr;&nbsp;Pin this Bookmarklet to you Bookmarks / Bookmark Bar
+.radius.panel
+  = link_to bookmarklet do
+    .large.radius.button Knight.io &raquo;
+
+    b &nbsp;&nbsp;&nbsp;&larr;&nbsp;Pin this bookmarklet to your bookmarks bar!
 
 p: b Thanks for making Knight.io better!
 
