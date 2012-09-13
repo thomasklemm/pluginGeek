@@ -3,8 +3,9 @@
 ul.link-list
   li: b = link_to 'What is Knight.io?'.html_safe, static_path(id: :help)
   .right
-    li = link_to 'Started by Thomas Klemm', 'https://github.com/thomasklemm'
-    li = link_to 'Source', 'https://github.com/thomasklemm/knight'
+    li.show-for-small = link_to '@thomasjklemm', 'http://tklemm.eu'
+    li.hide-for-small = link_to 'Started by Thomas Klemm', 'http://tklemm.eu'
+    li.hide-for-small = link_to 'Source', 'https://github.com/thomasklemm/knight'
     li = link_to 'Commit & Suggest', static_path(id: :commit)
     li = link_to 'Terms', static_path(id: :terms_of_service)
-    li = image_tag('logos/knight_w.png', class: 'knight_footer')
+    li.hide-for-small = image_tag('logos/knight_w.png', class: 'knight_footer')

@@ -2,40 +2,43 @@
 
 - bookmarklet = 'javascript:(function(){if(document.URL.indexOf("https://github.com/") === 0){open("http://knight.io/repos/" + document.URL.split("/").slice(3).join("/"));}else{alert("Please use the Knight.io bookmarklet on a URL like https://github.com/rails/rails");}}).call(this);'
 
-h3 Help & FAQ
+h3
+  ' Knight.io:
+  span style='font-weight: normal' Help & FAQ
 
-b Contents
-ul.circle
-  li = link_to 'The Knight.io Bookmarklet', '#bookmarklet'
-  li = link_to 'Can everyone add repos?', '#can_everyone_add_repos'
-  li = link_to 'How can I add repos?', '#how_can_i_add_repos'
-
-hr
-/ Bookmarklet
-h5#bookmarklet The Knight.io Bookmarklet
-p allows you to <b>add repos</b> and <b>see alternatives</b> to repos when browsing on Github
-= link_to bookmarklet do
-  .radius.button Knight.io - Show or add repo
-
-b &nbsp;&nbsp;&nbsp;&larr;&nbsp;Pin this Bookmarklet to you Bookmarks / Bookmark Bar
+h5 style='margin-bottom: 1rem; font-weight: normal' Contents
+ul.disc
+  li = link_to '1) How can I add repos?', '#how_can_i_add_repos'
+  li = link_to '2) Can everyone add repos?', '#can_everyone_add_repos'
+  li
+    = link_to '3) Our Bookmarklet', '#bookmarklet'
+    ' &nbsp;&larr; Add repos yourself!
 
 hr
-h5#can_everyone_add_repos Can everyone add repos?
-p <b>Yes, of course!</b> That's the point of a wiki, isn't it? All you need to do is login with your Github account, then you can add repos and edit repo tags & category resources.
 
-hr
-h5#how_can_i_add_repos How can I add repos?
-
-/ Bookmarklet
-= link_to bookmarklet do
-  .radius.button Knight.io - Show or add repo
-
-b &nbsp;&nbsp;&nbsp;&larr;&nbsp;Pin this Bookmarklet to you Bookmarks / Bookmark Bar
-p
+/ How can I add repos?
+h5#how_can_i_add_repos 1) How can I add repos?
 ol
-  b: li Add Bookmarklet to your bookmarklets bar
-  li Browse Github, visit a repo there
-  li Click the bookmarklet
-  li A new tab will open and show you the repo and it's alternatives on Knight.io if it's known already.<br> You might like to look over it's categories then.
-  li You'll be asked if you consider the repo worth listing on Knight and may add it and categorize it.
+  b: li Drag our <a href='#bookmarket'>bookmarklet</a> to your bookmark bar.
+  li When you stumble upon a noteworthy repo on Github you click the bookmarklet.
+  li Add the repo, tag it, and clap yourself on the shoulder knowing that you did something great for the developer community!
+
+p: b Thanks for making Knight.io better!
+
 hr
+
+/ Can everyone add repos?
+h5#can_everyone_add_repos 2) Can everyone add repos?
+p <b>Yes, of course!</b> That's the point of a wiki, isn't it? All you need to do is authenticate yourself via Github Oauth, then you can basically edit repos, categories, and whatever else there is to edit.
+hr
+
+/ Bookmarklet
+h5#bookmarklet 3) Knight.io Bookmarklet
+p Our bookmarklet allows you to <b>add repos</b> and <b>see alternatives</b> to any Github repo when you are browsing Github. In fact, this is the way <a href='http://tklemm.eu'>Thomas</a> (the maintainer) has been and is adding a lot of repos he stumbles upon to Knight.io.
+= link_to bookmarklet do
+  .radius.button Knight.io &raquo;
+
+b &nbsp;&nbsp;&nbsp;&larr;&nbsp;Pin this Bookmarklet to you Bookmarks / Bookmark Bar
+
+p: b Thanks for making Knight.io better!
+
