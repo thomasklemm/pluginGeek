@@ -9,7 +9,9 @@ task 'deploy:simple' => 'knight:deploy'
 namespace :knight do
   desc 'Deploy to Heroku'
   task :deploy do
-    puts    'Deploying to production...'
+    puts    'Pushing to Github...'
+    system  'git push origin master'
+    puts    'Deploying to Heroku production...'
     system  'git push heroku master'
   end
 
