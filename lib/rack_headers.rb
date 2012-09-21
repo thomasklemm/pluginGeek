@@ -56,10 +56,10 @@ module Rack
     def initialize(app, opts={})
       @app = app
 
-      asset_path = defined? Rails ? (Rails.application.config.assets.prefix || '/assets') : '/assets'
+      asset_path = Rails.application.config.assets.prefix || '/assets'
       @asset_path = opts.fetch(:path, asset_path)
 
-      header_rules = defined? Rails ? (Rails.application.config.assets.header_rules || []) : []
+      header_rules = Rails.application.config.assets.header_rules || []
       @header_rules = opts.fetch(:header_rules, header_rules)
     end
 
