@@ -62,7 +62,7 @@ Knight::Application.configure do
   require 'memcachier'
   require 'dalli'
   require 'rack/cache'
-  require 'butler'
+  # require 'butler'
 
   # Global enable/disable all memcached usage
   config.perform_caching = true
@@ -93,10 +93,10 @@ Knight::Application.configure do
   # Rack Headers
   # Set HTTP Headers on static assets
 
-  config.assets.header_rules = {
-    :global => {'Cache-Control' => 'public, max-age=31536000'},
-    :fonts  => {'Access-Control-Allow-Origin' => '*'}
-  }
+  config.assets.header_rules = [
+    [:global, {'Cache-Control' => 'public, max-age=31536001'}],
+    [:fonts,  {'Access-Control-Allow-Origin' => '*'}]
+  ]
   require 'rack_headers'
   config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers'
 
