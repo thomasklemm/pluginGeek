@@ -1,12 +1,24 @@
 require 'rack/utils'
-
-# Set custom HTTP Headers for based on rules:
 #
-#     use Rack::Headers, :root => 'public',
-#         :header_rules => [
-#           [rule, {header_field => content, header_field => content}],
-#           [rule, {header_field => content}]
-#         ]
+# Rack::Headers
+#
+# Set custom HTTP Headers for based on rules in Rails 3:
+#
+#      # Put this in your config/environments/production.rb
+#
+#      # Rack Headers
+#      # Set HTTP Headers on static assets
+#      config.assets.header_rules = [
+#        # Cache all static files in public caches (e.g. Rack::Cache)
+#        #  as well as in the browser
+#        [:all,   {'Cache-Control' => 'public, max-age=31536000'}],
+#
+#        # Provide web fonts with cross-origin access-control-headers
+#        #  Firefox requires this when serving assets using a Content Delivery Network
+#        [:fonts, {'Access-Control-Allow-Origin' => '*'}]
+#      ]
+#      require 'rack_headers'
+#      config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers'
 #
 #  Rules for selecting files:
 #
@@ -37,19 +49,6 @@ require 'rack/utils'
 #    Rules are applied in the order that they are provided.
 #    List rather general rules above special ones.
 #
-#  Complete example use case including HTTP header rules:
-#
-#     use Rack::Headers, :root => 'public',
-#         :header_rules => [
-#           # Cache all static files in public caches (e.g. Rack::Cache)
-#           #  as well as in the browser
-#           [:all, {'Cache-Control' => 'public, max-age=31536000'}],
-#
-#           # Provide web fonts with cross-origin access-control-headers
-#           #  Firefox requires this when serving assets using a Content Delivery Network
-#           [:fonts, {'Access-Control-Allow-Origin' => '*'}]
-#         ]
-
 module Rack
   class Headers
 
