@@ -41,7 +41,7 @@ class Repo < ActiveRecord::Base
             foreign_key:  :child_id,
             dependent:    :destroy
 
-  has_many  :parents,
+  has_many  :new_parents,
             through:      :parent_child_relationships,
             source:       :parent,
             uniq:         true,
@@ -59,26 +59,28 @@ class Repo < ActiveRecord::Base
             uniq:         true,
             order:        'knight_score DESC'
 
-  def parent_list
-    parents.map(&:full_name).join(', ')
+  def new_parent_list
+    new_parents.map(&:full_name).join(', ')
   end
 
-  def parent_list=(full_names)
-    self.parents = full_names.split(', ').map do |full_name|
+  def new_parent_list=(full_names)
+    self.new_parents = full_names.split(', ').map do |full_name|
       # REVIEW: This can be used to add repos that are not known yet
       # as parents and they would be created
       Repo.where(full_name: full_name.strip).first_or_create!
     end
   end
 
-  def child_list
-    children.map(&:full_name).join(', ')
-  end
+  # def child_list
+  #   children.map(&:full_name).join(', ')
+  # end
 
   def has_children?
     children.size > 0
   end
 
+  # FOR TRANSITION ONLY
+  acts_as_taggable_on :parents
 
   # Modules
   include InstancesHelper
