@@ -64,10 +64,9 @@ class Repo < ActiveRecord::Base
   end
 
   def parent_list=(full_names)
-    self.parents = full_names.split(', ').map do |full_name|
-      # REVIEW: This can be used to add repos that are not known yet
-      # as parents and they would be created
-      Repo.where(full_name: full_name.strip).first_or_create!
+    full_names.delete("")
+    self.parents = full_names.map do |full_name|
+      Repo.find_by_full_name(full_name.strip)
     end
   end
 
@@ -148,13 +147,7 @@ class Repo < ActiveRecord::Base
   # REVIEW: Can changes be persisted somehow?
 
   def after_repo_update
-    update_repo
     update_categories
-  end
-
-  def update_repo
-    determine_languages_from_categories
-    self.save
   end
 
   def update_categories
@@ -183,5 +176,5 @@ class Repo < ActiveRecord::Base
 
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :category_list, :label
+  attr_accessible :full_name, :category_list, :parent_list, :label
 end
