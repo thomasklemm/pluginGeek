@@ -32,6 +32,34 @@ class Repo < ActiveRecord::Base
   # Validations
   validates :full_name, presence: true, uniqueness: true
 
+  ##
+  # Associations
+  #
+  # Parents
+  has_many  :parent_child_relationships,
+            class_name:   'RepoRelationship',
+            foreign_key:  :child_id,
+            dependent:    :destroy
+
+  has_many  :parents,
+            through:      :parent_child_relationships,
+            source:       :parent,
+            uniq:         true,
+            order:        'knight_score DESC'
+
+  # Children
+  has_many  :child_parent_relationships,
+            class_name:   'RepoRelationship',
+            foreign_key:  :parent_id,
+            dependent:    :destroy
+
+  has_many  :children,
+            through:      :child_parent_relationships,
+            source:       :child,
+            uniq:         true,
+            order:        'knight_score DESC'
+
+
   # Modules
   include InstancesHelper
 
