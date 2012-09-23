@@ -62,9 +62,6 @@ gem 'sorcery', '~> 0.7.12'
 # Redcarpet (Markdown Parser)
 gem 'redcarpet'
 
-# Github API
-# gem 'github_api'
-
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
 gem 'sinatra', require: false
@@ -78,7 +75,7 @@ group :development do
   gem 'heroku'
 
   # Annotate Models (Schema Info for Models and Routes)
-  gem 'annotate', '>=2.5.0', group: :development
+  gem 'annotate', '>=2.5.0'
 
   # Pry (IRB Replacement)
   gem 'pry-rails'
@@ -89,28 +86,7 @@ group :development do
 
   # Quiet Assets (Mute Asset Log Messages in Development)
   gem 'quiet_assets'
-
-  # Rails Footnotes (Debug Footnotes on every Page in Development)
-  # gem 'rails-footnotes', '>= 3.7.8', group: :development
 end
-
-# Butler (Serving Static Assets)
-gem 'butler_static', '>= 0.0.8'
-
-# MiniTest (Testing)
-gem 'minitest-rails', group: [:development, :test]
 
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
