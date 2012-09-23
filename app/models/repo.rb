@@ -17,9 +17,8 @@
 #  updated_at           :datetime         not null
 #  label                :string(255)
 #  cached_category_list :string(255)
-#  cached_child_list    :string(255)
-#  cached_language_list :string(255)
 #  update_success       :boolean          default(FALSE)
+#  temp_parent_list     :string(255)
 #
 
 class Repo < ActiveRecord::Base
