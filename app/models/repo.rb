@@ -22,22 +22,18 @@
 #
 
 class Repo < ActiveRecord::Base
-  ##
-  # Modules
-
-  # FriendlyId
+  # Friendly ID
   extend FriendlyId
   friendly_id :full_name
 
   # Tagging
   acts_as_ordered_taggable_on :categories
 
-  # InstancesHelper
-  include InstancesHelper
-
-  ##
   # Validations
   validates :full_name, presence: true, uniqueness: true
+
+  # Modules
+  include InstancesHelper
 
   ##
   # Scopes
