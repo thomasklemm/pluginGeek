@@ -41,14 +41,38 @@
         | &nbsp;
         abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
 
-    / Category List
-    .category_list
-      b style='color: #777' Categories&nbsp;&nbsp;
-      = link_to edit_repo_path(@repo) do
-        i.icon-edit
-        | &nbsp;Edit
+    / REVIEW: This should be much cleaner
+    - unless params[:action] == 'edit'
 
-      = render 'repo_categories'
+      / Category List
+      .category_list
+        b style='color: #777' Categories&nbsp;&nbsp;
+        = link_to edit_repo_path(@repo) do
+          i.icon-edit
+          | &nbsp;Edit
+
+        - categories = @repo.cached_category_list && @repo.cached_category_list.split(', ')
+
+        / Categories present
+        - if categories.present?
+          ul.square
+            - categories.each do |category_name|
+                / REVIEW: Pretty expensive way just for making a few links
+                / Review: Include category language here after rewrite
+                - @category = Category.find_by_name(category_name)
+                - if @category
+                  li
+                    = link_to @category do
+                      = category_show_name_splitter(@category.name)
+                    span.category_repo_count &nbsp;&nbsp;(#{ @category.repo_count } Repos)
+        - else
+          / Repo has no categories
+          div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
+            b Add a category.
+
+    / Render Edit Repo partial
+
+    = render 'edit_repo'
 
 
   / Readme and Alternatives
@@ -58,6 +82,7 @@
     dl class='tabs contained'
       dd.active = link_to 'Readme', '#Readme', id: 'readme_tab'
       dd        = link_to 'Alternatives', '#Alternatives', id: 'alternatives_tab'
+      dd        = link_to 'Relationships', '#Relationships', id: 'relationships_tab'
 
     / Tabs Content
     ul class='tabs-content contained'
@@ -68,20 +93,11 @@
 
       / Alternatives Tab Content
       li#AlternativesTab
-        - if @alternatives
-          / Alternative Repos List (if there are some alternative repos)
-          #js_repos_list
-            / Sort
-            dl.sort_list class='right'
-              dt Sort:
-              / REVIEW: Add a similarity option thats selected as standard
-              dd.sort  data-sort='knight_score'  Knight Score
-              dd.sort  data-sort='updated_at'    Activity
-              dd.sort  data-sort='name'          Name
+        b style='font-size: 1.8rem' Similar Repos (#{ @alternatives.length})
+        p style='color:#555' ... sorted by <b>similarity of their assigned categories</b> and secondly by Knight Score
 
-            / List
-            .list
-              = render partial: 'shared/repo', collection: @alternatives
+        - if @alternatives
+          = render partial: 'shared/repo', collection: @alternatives
 
         - else
 
@@ -94,7 +110,24 @@
               b = link_to 'add a category', edit_repo_path(@repo)
               '  to this repo to see alternatives.
 
-/
+      li#RelationshipsTab
+        b style='font-size: 1.8rem' Parents & Children&nbsp;
+        = link_to edit_repo_path(@repo) do
+          i.icon-edit
+          | &nbsp;Edit
 
+        / Parents
+        h6 Parents (#{ @repo.parents.size })
+        .parents
+          - if @repo.has_parents?
+            = render partial: 'shared/repo', collection: @repo.parents
+          - else
+            p No parents specified.
 
-    - else
+        / Children
+        h6 Children (#{ @repo.children.size })
+        .children
+          - if @repo.has_children?
+            = render partial: 'shared/repo', collection: @repo.children
+          - else
+            p No children specified.

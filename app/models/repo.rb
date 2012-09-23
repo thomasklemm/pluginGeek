@@ -74,6 +74,10 @@ class Repo < ActiveRecord::Base
     children.map(&:full_name).join(', ')
   end
 
+  def has_parents?
+    parents.size > 0
+  end
+
   def has_children?
     children.size > 0
   end
