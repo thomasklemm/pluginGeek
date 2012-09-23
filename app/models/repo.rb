@@ -31,14 +31,17 @@ class Repo < ActiveRecord::Base
 
   # Tagging
   acts_as_ordered_taggable_on :categories
-  acts_as_taggable_on :languages, :parents
 
   # InstancesHelper
   include InstancesHelper
 
   ##
-  # Scopes & Validations
+  # Validations
+  validates :full_name, presence: true, uniqueness: true
 
+  ##
+  # Scopes
+  #
   # find_all_by_language('ruby'),
   #   order by knight_score
   scope :find_all_by_language, lambda {  |language| tagged_with(language, on: :languages) }
@@ -67,12 +70,8 @@ class Repo < ActiveRecord::Base
   # update_failed
   scope :update_failed, lambda { where('update_success = ?', false) }
 
-  # Validations
-  validates :full_name, presence: true, uniqueness: true
-
   ##
   # Field Defaults
-
   def name
     self[:name] || self[:full_name].split('/')[1]
   end
@@ -92,16 +91,6 @@ class Repo < ActiveRecord::Base
   def github_updated_at
     self[:github_updated_at] || (Time.now - 2.years)
   end
-
-  ##
-  # Virtual Attributes
-
-  # Has Children
-  #  Does the repo have children associated with it?
-  def has_children?
-    cached_child_list.present?
-  end
-
   ##
   # Update Actions
   #
@@ -122,8 +111,6 @@ class Repo < ActiveRecord::Base
 
   def update_repo
     determine_languages_from_categories
-    cache_category_list
-    cache_language_list
     self.save
   end
 
@@ -131,74 +118,9 @@ class Repo < ActiveRecord::Base
     category_list.each {|category_name| update_category(category_name)}
   end
 
-  ##
-  # UPDATE REPO
-
-  # Determine Languages and assign them to language_list
-  def determine_languages_from_categories
-    languages_array = []
-    # category_list can be called before save
-    category_list.each do |category_name|
-      match = /\((?<languages>.*)\)/.match(category_name)
-      # if there is no match, match will be nil
-      languages_string = match[:languages] if match
-      # add the first language of every category as a repo's language
-      (languages_array << languages_string.split('/')[0].downcase) if languages_string
-    end
-    self.language_list = languages_array
-  end
-
   def cache_category_list
     self.cached_category_list = category_list.to_s
   end
-
-  def cache_language_list
-    self.cached_language_list = language_list.to_s
-  end
-
-  ##
-  # UPDATE PARENT/S
-
-  after_save :update_parents
-  # WILL try to update PARENT'S PARENTS AS WELL as its an after_save callback
-  def update_parents
-    # including parents from which it has been removed
-    @changes_to_parent_list = changes[:parent_list]
-    if @changes_to_parent_list.present?
-      old_parent_list = @changes_to_parent_list[0].split(', ')
-      new_parent_list = @changes_to_parent_list[1]
-      list = old_parent_list.concat(new_parent_list).flatten.uniq
-      list.each {|parent_full_name| cache_child_list_on_parent(parent_full_name)}
-    end
-  end
-
-  # Update child list on parent
-  def cache_child_list_on_parent(parent_full_name)
-    parent = Repo.find_by_full_name(parent_full_name)
-    if parent.present?
-      children = Repo.tagged_with(parent.full_name, on: :parents)
-      if children.present?
-        child_array = children.map {|child| child.full_name}
-        parent.cached_child_list = child_array.join(', ')
-        parent.save
-      end
-    end
-  end
-
-  # Remove parent from children after destroying a repo
-  after_destroy :remove_parent_from_children
-  def remove_parent_from_children
-    children = Repo.tagged_with(full_name, on: :parents)
-    if children.present?
-      children.each do |child|
-        child.parent_list.remove(full_name)
-        child.save
-      end
-    end
-  end
-
-  ##
-  # UPDATE CATEGORIES
 
   # Invalidate timestamp of category on repo update
   def update_category(name)
@@ -210,33 +132,13 @@ class Repo < ActiveRecord::Base
 
   ##
   # Class methods
-
+  #
   # Bust Caches by touching every repo
   def self.bust_caches
     find_each { |repo| repo.touch }
   end
 
-  # Update parents
-  def self.update_parents
-    find_each do |repo|
-      children = Repo.tagged_with(repo.full_name, on: :parents)
-      if children.present?
-        child_array = children.map {|child| child.full_name}
-        repo.cached_child_list = child_array.join(', ')
-        repo.save
-      end
-    end
-  end
-
-  # Clean up untagged repos
-  # RISK: ONE MIGHT DELETE REPOS THAT CARRY NO TAG
-  # BUT ARE CHILDREN TO SOME OTHER REPO
-  # def self.clean
-  #   repos = find_all_by_cached_category_list('')
-  #   repos.each { |repo| repo.destroy }
-  # end
-
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :category_list, :label, :parent_list
+  attr_accessible :full_name, :category_list, :label
 end
