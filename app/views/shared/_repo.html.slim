@@ -7,8 +7,7 @@
   - timestamp = repo.github_updated_at && repo.github_updated_at.utc
   / Toggle Children Link Name
   - if repo.has_children?
-    - child_array = repo.cached_child_list.split(', ')
-    - toggle_children_link_name = "#{ pluralize(child_array.size, 'related repo') }".html_safe
+    - toggle_children_link_name = "#{ pluralize(repo.children.size, 'related repo') }".html_safe
 
   / Single Repo in Overview
   .repo
@@ -61,10 +60,4 @@
     / Children
     - if repo.has_children?
       .child_list.js_child_list
-        / Find children
-        / in a way that does not raise an exception if child does not exist
-        - children = Repo.order_by_knight_score.find_all_by_full_name(child_array)
-
-        / Render Children
-        - if children
-          = render partial: 'shared/child', collection: children, as: :repo
+        = render partial: 'shared/child', collection: repo.children, as: :repo

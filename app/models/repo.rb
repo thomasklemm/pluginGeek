@@ -59,6 +59,26 @@ class Repo < ActiveRecord::Base
             uniq:         true,
             order:        'knight_score DESC'
 
+  def parent_list
+    parents.map(&:full_name).join(', ')
+  end
+
+  def parent_list=(full_names)
+    self.parents = full_names.split(', ').map do |full_name|
+      # REVIEW: This can be used to add repos that are not known yet
+      # as parents and they would be created
+      Repo.where(full_name: full_name.strip).first_or_create!
+    end
+  end
+
+  def child_list
+    children.map(&:full_name).join(', ')
+  end
+
+  def has_children?
+    children.size > 0
+  end
+
 
   # Modules
   include InstancesHelper
