@@ -47,6 +47,24 @@ class Repo < ActiveRecord::Base
             uniq:         true,
             order:        'knight_score DESC'
 
+  # TODO: Counter Cache
+  def has_parents?
+    parents.size > 0
+  end
+
+  def parent_list
+    parents.map(&:full_name).join(', ')
+  end
+
+  def parent_list=(full_names)
+    full_names.delete("")
+    unless full_names.join(', ') == parent_list
+      self.parents = full_names.map do |full_name|
+        Repo.find_by_full_name(full_name.strip)
+      end
+    end
+  end
+
   # Children
   has_many  :child_parent_relationships,
             class_name:   'RepoRelationship',
@@ -59,28 +77,18 @@ class Repo < ActiveRecord::Base
             uniq:         true,
             order:        'knight_score DESC'
 
-  def parent_list
-    parents.map(&:full_name).join(', ')
-  end
-
-  def parent_list=(full_names)
-    full_names.delete("")
-    self.parents = full_names.map do |full_name|
-      Repo.find_by_full_name(full_name.strip)
-    end
+  # TODO: Cache Couter
+  def has_children?
+    children.size > 0
   end
 
   def child_list
     children.map(&:full_name).join(', ')
   end
 
-  def has_parents?
-    parents.size > 0
-  end
-
-  def has_children?
-    children.size > 0
-  end
+  # Categories
+  has_and_belongs_to_many :categories,
+                          uniq: true
 
   # Modules
   include InstancesHelper
