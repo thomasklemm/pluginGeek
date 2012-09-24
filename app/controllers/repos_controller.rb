@@ -83,7 +83,7 @@ protected
   # Find alternatives
   def find_alternatives
     # Find alternative repos
-    @alternatives = @repo.category_list.present? && @repo.find_related_categories.order_by_knight_score
+    @alternatives = @repo.category_list.present? ? @repo.find_related_categories.order_by_knight_score : []
   end
 
   ###
