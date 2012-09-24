@@ -22,7 +22,7 @@ class Category < ActiveRecord::Base
   #   using history module (redirecting to new slug if slug changed)
   #   First language is considered to be main language
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :history]
+  friendly_id :name_and_languages, use: [:slugged, :history]
 
   # Repos
   has_and_belongs_to_many :repos,
@@ -71,18 +71,18 @@ class Category < ActiveRecord::Base
   ##
   # Life-Cycle Callbacks
   #
-  # Move FriendlyId error to name so it is attached to
-  # the input that is being displayed
+  # Move FriendlyId error to name_and_languages
+  # so it is attached to the visible input field
   after_validation :move_friendly_id_error_to_name
   def move_friendly_id_error_to_name
-    errors.messages[:name] = errors.messages.delete(:friendly_id)
+    errors.messages[:name_and_languages] = errors.messages.delete(:friendly_id)
   end
 
   # Determine Language and tag category appropriately
   before_save :determine_languages
   def determine_languages
     match = /\((?<languages>.*)\)/.match(name) if name.instance_of? String
-    # match will be nill if there is no matching languages
+    # match will be nil if there is no matching languages
     # as this is the only thing we are looking for
     languages = match[:languages] if match.present?
     self.language_list = languages.split('/').join(', ').downcase if languages
@@ -99,32 +99,25 @@ class Category < ActiveRecord::Base
   end
 
   ##
-  # Remame Categories
-  #  Changing the name of an existing tag will cause
-  #  the tag to be last in the repo, the order wont be maintained
+  # Virtual Attributes
   #
-  def name=(new_name)
-    # Update self
-    old_name = self[:name]
-    self[:name] = new_name
+  # def name_and_languages
+  #   self[:name_and_languages]
+  # end
 
-    if self.save
-      # Update ActsAsTaggableOn::Tag
-      tag = ActsAsTaggableOn::Tag.find_by_name(old_name)
-      if tag
-        tag.name = new_name
-        tag.save
-      end
-
-      # Update cached_category_list of associated repos etc.
-      # and invalidate timestamp
-      repos = Repo.tagged_with(new_name, on: :categories)
-      repos.each { |repo| repo.update_repo }
-    end
+  def name
+    md = name_and_languages.match %r{(?<name>.*)[[:space:]]\(}
+    @name ||= md.present? ? md[:name].strip : nil
   end
 
-  ##
-  # Virtual Attributes
+  def languages
+    md = name_and_languages.match %r{\((?<languages>.*)\)}
+    @languages ||= md.present? ? md[:languages].split('/') : nil
+  end
+
+  def language_list
+    @language_list ||= languages.join(', ')
+  end
 
   # Description (stored as markdown)
   def description
