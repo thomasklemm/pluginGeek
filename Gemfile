@@ -90,3 +90,6 @@ end
 
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
+
+# Flag Shih Tzu (Bit fields for ActiveRecord)
+gem 'flag_shih_tzu'

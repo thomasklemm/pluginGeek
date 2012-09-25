@@ -65,6 +65,8 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
+    flag_shih_tzu (0.2.3)
+      activerecord (>= 2.3.0)
     friendly_id (4.0.8)
     fssm (0.2.9)
     heroku (2.30.3)
@@ -224,6 +226,7 @@ DEPENDENCIES
   coffee-rails
   compass-rails
   dalli
+  flag_shih_tzu
   friendly_id
   heroku
   high_voltage
