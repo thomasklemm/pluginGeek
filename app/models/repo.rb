@@ -18,7 +18,7 @@
 #  label                :string(255)
 #  cached_category_list :string(255)
 #  update_success       :boolean          default(FALSE)
-#  temp_parent_list     :string(255)
+#  languages            :integer
 #
 
 class Repo < ActiveRecord::Base
