@@ -87,7 +87,8 @@ class Repo < ActiveRecord::Base
   end
 
   # Categories
-  has_and_belongs_to_many :categories,
+  has_and_belongs_to_many :new_categories,
+                          class_name: 'Category',
                           uniq: true
 
   # Modules

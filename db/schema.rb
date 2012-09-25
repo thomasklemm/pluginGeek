@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925191504) do
+ActiveRecord::Schema.define(:version => 20120924083822) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -36,9 +36,6 @@ ActiveRecord::Schema.define(:version => 20120925191504) do
     t.string   "label"
     t.string   "name_and_languages"
     t.string   "languages"
-    t.boolean  "ruby"
-    t.boolean  "javascript"
-    t.boolean  "design"
   end
 
   add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
@@ -87,9 +84,6 @@ ActiveRecord::Schema.define(:version => 20120925191504) do
     t.string   "label"
     t.string   "cached_category_list"
     t.boolean  "update_success",       :default => false
-    t.boolean  "ruby"
-    t.boolean  "javascript"
-    t.boolean  "design"
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true

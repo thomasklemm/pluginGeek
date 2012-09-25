@@ -20,7 +20,6 @@
 class Category < ActiveRecord::Base
   # Friendly Id
   #   using history module (redirecting to new slug if slug changed)
-  #   First language is considered to be main language
   extend FriendlyId
   friendly_id :name_and_languages, use: [:slugged, :history]
 
@@ -28,8 +27,8 @@ class Category < ActiveRecord::Base
   has_and_belongs_to_many :repos,
                           uniq: true
 
-  # Tagging
-  acts_as_ordered_taggable_on :languages
+  # Languages
+  # TODO here
 
   # InstancesHelper
   include InstancesHelper
