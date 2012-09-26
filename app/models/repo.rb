@@ -26,7 +26,7 @@ class Repo < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name
 
-  # Tagging
+  # Tagging (LEGACY RIGHT NOW)
   acts_as_ordered_taggable_on :categories
 
   # Validations
@@ -91,8 +91,33 @@ class Repo < ActiveRecord::Base
                           class_name: 'Category',
                           uniq: true
 
-  # Modules
-  include InstancesHelper
+  def has_new_categories?
+    new_categories.size > 0
+  end
+
+  def new_category_list
+    # check if ordering is working
+    new_categories.order_by_knight_score.map(&:name_and_languages).join(', ')
+  end
+
+  def new_category_list=(names_and_languages)
+    names_and_languages.delete("")
+    unless names_and_languages.join(', ') == new_category_list
+      self.new_categories = names_and_languages.map do |name_and_languages|
+        Category.where(name_and_languages: name_and_languages.strip).first_or_create
+      end
+    end
+  end
+
+  # Languages (through categories)
+  def languages
+    # Maybe sort by how often each language occurs
+    new_categories.map(&:languages).flatten.uniq
+  end
+
+  def language_list
+    languages.join(', ')
+  end
 
   ##
   # Scopes
