@@ -14,7 +14,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  label              :string(255)
-#  name_and_languages :string(255)
+#  name_and_languages :string(255)      not null
 #  languages          :integer
 #  name               :string(255)
 #
@@ -36,14 +36,16 @@ class Category < ActiveRecord::Base
             1 => :ruby,
             2 => :javascript,
             3 => :design
+
   ##
   # Scopes
   # order_by_knight_score
   scope :order_by_knight_score, order('knight_score desc')
 
+  # language(:ruby) / language('ruby')
+  scope :language, lambda { |lang| send(lang) if LANGUAGES.include?(lang.to_s) }
   # find_all_by_language(:ruby)
-  scope :find_all_by_language, lambda { |lang| send(lang) if LANGUAGES.include?(lang.to_s) }
-  scope :ordered_find_all_by_language, lambda { |lang| find_all_by_language(lang).order_by_knight_score }
+  scope :find_all_by_language, lambda { |lang| language(lang).order_by_knight_score }
 
   ##
   # Validations
@@ -52,9 +54,14 @@ class Category < ActiveRecord::Base
 
   ##
   # Attributes and field defaults
-  def name_and_languages
-    self[:name_and_languages] || ''
-  end
+
+  # def name_and_languages
+  #   self[:name_and_languages]
+  # end
+
+  # def name
+  #   self[:name]
+  # end
 
   def name_and_languages=(new_name_and_languages)
     if new_name_and_languages != name_and_languages
@@ -62,29 +69,35 @@ class Category < ActiveRecord::Base
       self[:name_and_languages] = new_name_and_languages
 
       # Set name
-      md = new_name_and_languages.match %r{(?<name>.*)[[:space:]]\(}
-      self[:name] = md.present? ? md[:name].strip : new_name_and_languages.strip
+      md_name = new_name_and_languages.match %r{(?<name>.*)[[:space:]]\(}
+      self[:name] = md_name.present? ? md_name[:name].strip : new_name_and_languages.strip
 
       # Set language_list
       # Start here for example
-      # md = name.match %r{\((?<languages>.*)\)}
-      # @languages ||= md.present? ? md[:languages].split('/') : nil
+      md_langs = new_name_and_languages.match %r{\((?<languages>.*)\)}
+      if md_langs.present?
+        langs = md_langs[:languages].downcase.split('/')
+        # Replace js input with javascript
+        langs.push('javascript') if langs.delete('js')
+        LANGUAGES.each do |lang|
+          langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
+        end
+      end
     end
   end
 
-  def name
-    md = name_and_languages.match %r{(?<name>.*)[[:space:]]\(}
-    @name ||= md.present? ? md[:name].strip : nil
-  end
-
-  def name= (new_name)
+  def name=(new_name)
     # 1) Do nothing here
     # 2) Maybe raise a warning and an error if there is a try to set the name this way
     # 3) or allow and keep in sync with name_and_languages
   end
 
   def languages
-
+    @langs ||= begin
+      array = []
+      LANGUAGES.each { |lang| array << lang if send(lang) }
+      array
+    end
   end
 
   def language_list
@@ -97,22 +110,22 @@ class Category < ActiveRecord::Base
 
   # Description
   #   saved as markdown, rendered as html
-  include MarkdownHelper
+  include MarkdownHelper  # use the same rendering settings everywhere
   def description
     @description ||= self[:description].present? ? markdown.render(self[:description]).html_safe : ''
   end
 
   # Top Description and Bottom Description seperated automagically by [REPOS]
   # FIX: DELETE REMAINING TAG ENDINGS WHEN SPLITTING
-  def top_description
-    top_description = description.split('[REPOS]')[0] && description.split('[REPOS]')[0].html_safe
-    @top_description ||= top_description || ''
-  end
+  # def top_description
+  #   top_description = description.split('[REPOS]')[0] && description.split('[REPOS]')[0].html_safe
+  #   @top_description ||= top_description || ''
+  # end
 
-  def bottom_description
-    bottom_description = description.split('[REPOS]')[1] && description.split('[REPOS]')[1].html_safe
-    @bottom_description ||= bottom_description || ''
-  end
+  # def bottom_description
+  #   bottom_description = description.split('[REPOS]')[1] && description.split('[REPOS]')[1].html_safe
+  #   @bottom_description ||= bottom_description || ''
+  # end
 
   ##
   # Class methods
