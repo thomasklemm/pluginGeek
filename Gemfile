@@ -51,7 +51,7 @@ gem 'slim-rails'
 gem 'friendly_id'
 
 # Acts as Taggable On (Tagging for ActiveRecord Models)
-gem 'acts-as-taggable-on'
+# gem 'acts-as-taggable-on'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
@@ -67,7 +67,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 
 # Seedbank (Seed Structure)
-gem 'seedbank'
+# gem 'seedbank'
 
 # Development Gems
 group :development do
