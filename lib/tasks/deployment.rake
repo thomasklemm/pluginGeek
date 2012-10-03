@@ -6,6 +6,9 @@ task :deploy => 'knight:deploy_and_migrate'
 desc 'Simple deploy without migration'
 task 'deploy:simple' => 'knight:deploy'
 
+desc 'Deploy to staging'
+task 'deploy:staging' => 'knight:deploy:staging'
+
 namespace :knight do
   desc 'Deploy to Heroku'
   task :deploy do
@@ -13,6 +16,14 @@ namespace :knight do
     system  'git push origin master'
     puts    'Deploying to Heroku production...'
     system  'git push heroku master'
+  end
+
+  namespace :deploy do
+    task :staging do
+      puts    'Deploying to staging...'
+      system  'git push staging staging'
+      puts    'Deployed to staging'
+    end
   end
 
   desc 'Migrate the database'
