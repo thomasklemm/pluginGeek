@@ -18,7 +18,7 @@
 #  label                :string(255)
 #  cached_category_list :string(255)
 #  update_success       :boolean          default(FALSE)
-#  temp_parent_list     :string(255)
+#  languages            :integer
 #
 
 class Repo < ActiveRecord::Base
@@ -26,7 +26,7 @@ class Repo < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name
 
-  # Tagging
+  # Tagging (LEGACY RIGHT NOW)
   acts_as_ordered_taggable_on :categories
 
   # Validations
@@ -47,6 +47,24 @@ class Repo < ActiveRecord::Base
             uniq:         true,
             order:        'knight_score DESC'
 
+  # TODO: Counter Cache
+  def has_parents?
+    parents.size > 0
+  end
+
+  def parent_list
+    parents.map(&:full_name).join(', ')
+  end
+
+  def parent_list=(full_names)
+    full_names.delete("")
+    unless full_names.join(', ') == parent_list
+      self.parents = full_names.map do |full_name|
+        Repo.find_by_full_name(full_name.strip)
+      end
+    end
+  end
+
   # Children
   has_many  :child_parent_relationships,
             class_name:   'RepoRelationship',
@@ -59,31 +77,47 @@ class Repo < ActiveRecord::Base
             uniq:         true,
             order:        'knight_score DESC'
 
-  def parent_list
-    parents.map(&:full_name).join(', ')
-  end
-
-  def parent_list=(full_names)
-    full_names.delete("")
-    self.parents = full_names.map do |full_name|
-      Repo.find_by_full_name(full_name.strip)
-    end
+  # TODO: Cache Couter
+  def has_children?
+    children.size > 0
   end
 
   def child_list
     children.map(&:full_name).join(', ')
   end
 
-  def has_parents?
-    parents.size > 0
+  # Categories
+  has_and_belongs_to_many :new_categories,
+                          class_name: 'Category',
+                          uniq: true
+
+  def has_new_categories?
+    new_categories.size > 0
   end
 
-  def has_children?
-    children.size > 0
+  def new_category_list
+    # check if ordering is working
+    new_categories.order_by_knight_score.map(&:name_and_languages).join(', ')
   end
 
-  # Modules
-  include InstancesHelper
+  def new_category_list=(names_and_languages)
+    names_and_languages.delete("")
+    unless names_and_languages.join(', ') == new_category_list
+      self.new_categories = names_and_languages.map do |name_and_languages|
+        Category.where(name_and_languages: name_and_languages.strip).first_or_create
+      end
+    end
+  end
+
+  # Languages (through categories)
+  def languages
+    # Maybe sort by how often each language occurs
+    new_categories.map(&:languages).flatten.uniq
+  end
+
+  def language_list
+    languages.join(', ')
+  end
 
   ##
   # Scopes
