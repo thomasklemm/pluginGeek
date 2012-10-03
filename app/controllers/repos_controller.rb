@@ -7,7 +7,7 @@ class ReposController < ApplicationController
 
   # GET /repos
   def index
-    @repos = Repo.ordered_find_all_by_language(language)
+    @repos = Repo.find_all_by_language(language)
     # Don't do such scalablity shit before it's nescessary.
     # Rather make happen that it becomes nescessary!
     # if !Rails.env.development? && !Rails.env.test?
