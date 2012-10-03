@@ -41,6 +41,7 @@ namespace :staging do
 
   desc 'Open a console to staging app'
   task :console do
+    puts   'Open a console to STAGING app'
     system 'heroku run console --remote staging'
   end
 end
@@ -74,6 +75,7 @@ namespace :production do
 
   desc 'Open a console to production app'
   task :console do
+    puts   'Open a console to PRODUCTION app'
     system 'heroku run console --remote production'
   end
 end

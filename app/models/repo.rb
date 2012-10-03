@@ -26,9 +26,6 @@ class Repo < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name
 
-  # Tagging (LEGACY RIGHT NOW)
-  acts_as_ordered_taggable_on :categories
-
   # Validations
   validates :full_name, presence: true, uniqueness: true
 
@@ -87,23 +84,21 @@ class Repo < ActiveRecord::Base
   end
 
   # Categories
-  has_and_belongs_to_many :new_categories,
-                          class_name: 'Category',
+  has_and_belongs_to_many :categories,
                           uniq: true
 
-  def has_new_categories?
-    new_categories.size > 0
+  def has_categories?
+    categories.size > 0
   end
 
-  def new_category_list
-    # check if ordering is working
-    new_categories.order_by_knight_score.map(&:name_and_languages).join(', ')
+  def category_list
+    categories.order_by_knight_score.map(&:name_and_languages).join(', ')
   end
 
-  def new_category_list=(names_and_languages)
-    names_and_languages.delete("")
-    unless names_and_languages.join(', ') == new_category_list
-      self.new_categories = names_and_languages.map do |name_and_languages|
+  def category_list=(names_and_languages)
+    names_and_languages.delete('')
+    unless names_and_languages.join(', ') == category_list
+      self.categories = names_and_languages.map do |name_and_languages|
         Category.where(name_and_languages: name_and_languages.strip).first_or_create
       end
     end
@@ -112,7 +107,7 @@ class Repo < ActiveRecord::Base
   # Languages (through categories)
   def languages
     # Maybe sort by how often each language occurs
-    new_categories.map(&:languages).flatten.uniq
+    categories.map(&:languages).flatten.uniq
   end
 
   def language_list
@@ -122,16 +117,8 @@ class Repo < ActiveRecord::Base
   ##
   # Scopes
   #
-  # find_all_by_language('ruby'),
-  #   order by knight_score
-  scope :find_all_by_language, lambda {  |language| tagged_with(language, on: :languages) }
-  scope :ordered_find_all_by_language, lambda { |language| find_all_by_language(language).order_by_knight_score }
-
-  # find_all_by_category('awesome_category'),
-  #   order by knight_score
-  scope :find_all_by_category, lambda { |category_name| tagged_with(category_name, on: :categories) }
-  scope :ordered_find_all_by_category, lambda { |category_name| find_all_by_category(category_name).order_by_knight_score }
-
+  # TODO: find_all_by_language('ruby')
+  #
   # order_by_knight_score,
   #   order repos by descending knight_score
   scope :order_by_knight_score, lambda { order('knight_score desc') }

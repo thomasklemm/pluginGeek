@@ -6,14 +6,13 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.ordered_find_all_by_language(language)
+    @categories = Category.find_all_by_language(language)
     # Don't do such scalablity shit before it's nescessary.
     # Rather make happen that it becomes nescessary!
     # if !Rails.env.development? && !Rails.env.test?
     #   expires_in 2.minutes
     #   fresh_when last_modified: @categories.maximum(:updated_at), public: true
     # end
-    expires_in 2.minutes
   end
 
   # GET /categories/:id
@@ -48,7 +47,7 @@ protected
     # friendly_id's slug serves as params[:id]
     @category = Category.find(params[:id])
     # Find all repos by category
-    @repos = Repo.ordered_find_all_by_category(@category.name)
+    @repos = @category.repos
   end
 
   # If an old id or a numeric id was used to find the record, then
