@@ -1,12 +1,58 @@
+##
 # Deployment Rake Tasks
-desc 'Simple deploy to production (no migrations)'
-task :deploy => 'deploy:production'
 
-namespace :deploy do
-  ##
-  # PRODUCTION
+##
+# STAGING
+namespace :staging do
+  desc 'Deploy to STAGING'
+  task :deploy do
+    puts    'Deploying to staging...'
+    system  'git push staging develop:master'
+    puts    'Deployed to staging'
+  end
+
+  desc 'Migrate STAGING database'
+  task :migrate_db do
+    puts    'Migrating STAGING database...'
+    system  'heroku run rake db:migrate --remote staging'
+    puts    'Migrated staging database'
+
+    system  'heroku restart --remote staging'
+  end
+
+  desc 'Transfer production database to staging'
+  task :transfer_db do
+    # Expire oldest manual backup
+    puts    'Expiring oldest manual backup...'
+    system  'heroku pgbackups:capture --expire --remote production'
+
+    # Capture manual database backup in production
+    puts    'Capturing manual database backup in production...'
+    system  'heroku pgbackups:capture --remote production'
+    puts    'Captured manual database backup in production'
+
+    # Restore most current backup to database in staging
+    puts    'Transfering production database to STAGING...'
+    system  'heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging --confirm knightio-staging'
+    puts    'Transferred production database to staging'
+
+    system  'heroku restart --remote staging'
+  end
+
+  desc 'Open a console to staging app'
+  task :console do
+    system 'heroku run console --remote staging'
+  end
+end
+
+desc 'Deploy to STAGING'
+task :deploy => 'staging:deploy'
+
+##
+# PRODUCTION
+namespace :production do
   desc 'Deploy to PRODUCTION'
-  task :production do
+  task :deploy do
     puts    'Pushing to Github...'
     system  'git push origin master'
     puts    'Pushed to Github'
@@ -16,32 +62,18 @@ namespace :deploy do
     puts    'Deployed to production'
   end
 
-  desc 'Migrate production databases'
-  task 'production:migrate' do
-    puts    'Migrating PRODUCTION databases...'
-    system  'heroku run rake db:migrate --app knightio'
-    puts    'Migrated production databases'
+  desc 'Migrate production database'
+  task :migrate_db do
+    puts    'Migrating PRODUCTION database...'
+    system  'heroku run rake db:migrate --remote production'
+    puts    'Migrated production database'
 
     puts    'Restarting processes'
-    system  'heroku restart --app knightio'
+    system  'heroku restart --remote production'
   end
 
-  ##
-  # STAGING
-  desc 'Deploy to STAGING'
-  task :staging do
-    puts    'Deploying to staging...'
-    system  'git push staging staging'
-    puts    'Deployed to staging'
-  end
-
-  desc 'Migrate STAGING databases'
-  task 'production:migrate' do
-    puts    'Migrating STAGING databases...'
-    system  'heroku run rake db:migrate --app knightio-staging'
-    puts    'Migrated staging databases'
-
-    puts    'Restarting processes'
-    system  'heroku restart --app knightio-staging'
+  desc 'Open a console to production app'
+  task :console do
+    system 'heroku run console --remote production'
   end
 end
