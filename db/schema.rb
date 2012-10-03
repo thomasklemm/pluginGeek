@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926081438) do
+ActiveRecord::Schema.define(:version => 20121003200632) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -23,16 +23,11 @@ ActiveRecord::Schema.define(:version => 20120926081438) do
 
   create_table "categories", :force => true do |t|
     t.string   "slug",                              :null => false
-    t.integer  "repo_count",         :default => 0
-    t.integer  "watcher_count",      :default => 0
     t.integer  "knight_score",       :default => 0
     t.text     "short_description"
     t.text     "description"
-    t.string   "popular_repos"
-    t.text     "all_repos"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
-    t.string   "label"
     t.string   "name_and_languages",                :null => false
     t.integer  "languages"
     t.string   "name"
@@ -105,6 +100,14 @@ ActiveRecord::Schema.define(:version => 20120926081438) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "temp_categories", :force => true do |t|
+    t.string   "name_and_languages"
+    t.text     "short_description"
+    t.text     "description"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "users", :force => true do |t|

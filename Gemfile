@@ -86,6 +86,9 @@ group :development do
 
   # Quiet Assets (Mute Asset Log Messages in Development)
   gem 'quiet_assets'
+
+  # Lol DBA (Find missing indexes)
+  gem 'lol_dba'
 end
 
 # Cache Digests (Watch Progress of this gem!)

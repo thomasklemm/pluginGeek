@@ -54,7 +54,6 @@ class Category < ActiveRecord::Base
 
   ##
   # Attributes and field defaults
-
   # def name_and_languages
   #   self[:name_and_languages]
   # end
@@ -73,16 +72,7 @@ class Category < ActiveRecord::Base
       self[:name] = md_name.present? ? md_name[:name].strip : new_name_and_languages.strip
 
       # Set language_list
-      # Start here for example
-      md_langs = new_name_and_languages.match %r{\((?<languages>.*)\)}
-      if md_langs.present?
-        langs = md_langs[:languages].downcase.split('/')
-        # Replace js input with javascript
-        langs.push('javascript') if langs.delete('js')
-        LANGUAGES.each do |lang|
-          langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
-        end
-      end
+      set_languages(new_name_and_languages)
     end
   end
 
@@ -90,6 +80,18 @@ class Category < ActiveRecord::Base
     # 1) Do nothing here
     # 2) Maybe raise a warning and an error if there is a try to set the name this way
     # 3) or allow and keep in sync with name_and_languages
+  end
+
+  def set_languages(new_name_and_languages)
+    md_langs = new_name_and_languages.match %r{\((?<languages>.*)\)}
+    if md_langs.present?
+      langs = md_langs[:languages].downcase.split('/')
+      # Replace js input with javascript
+      langs.push('javascript') if langs.delete('js')
+      LANGUAGES.each do |lang|
+        langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
+      end
+    end
   end
 
   def languages
@@ -112,20 +114,9 @@ class Category < ActiveRecord::Base
   #   saved as markdown, rendered as html
   include MarkdownHelper  # use the same rendering settings everywhere
   def description
-    @description ||= self[:description].present? ? markdown.render(self[:description]).html_safe : ''
+    d = self[:desription] || ''
+    @description ||= markdown.render(d).html_safe
   end
-
-  # Top Description and Bottom Description seperated automagically by [REPOS]
-  # FIX: DELETE REMAINING TAG ENDINGS WHEN SPLITTING
-  # def top_description
-  #   top_description = description.split('[REPOS]')[0] && description.split('[REPOS]')[0].html_safe
-  #   @top_description ||= top_description || ''
-  # end
-
-  # def bottom_description
-  #   bottom_description = description.split('[REPOS]')[1] && description.split('[REPOS]')[1].html_safe
-  #   @bottom_description ||= bottom_description || ''
-  # end
 
   ##
   # Class methods
@@ -137,6 +128,6 @@ class Category < ActiveRecord::Base
 
   ##
   # Mass Assignment Whitelist
-  # TODO: label and name_and_languages need only be accessible for admins
-  attr_accessible :short_description, :description, :label, :name_and_languages
+  # TODO: strong params
+  attr_accessible :name_and_languages, :short_description, :description, :label
 end

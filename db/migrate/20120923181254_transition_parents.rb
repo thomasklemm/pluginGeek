@@ -7,6 +7,7 @@ class TransitionParents < ActiveRecord::Migration
   end
 
   def down
-    # One-Way only
+    # One way only
+    raise ActiveRecord::IrreversibleMigration, "One way only"
   end
 end
