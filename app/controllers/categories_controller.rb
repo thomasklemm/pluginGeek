@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.find_all_by_language(language)
+    @categories = Category.find_all_by_language(params[:language])
     # Don't do such scalablity shit before it's nescessary.
     # Rather make happen that it becomes nescessary!
     # if !Rails.env.development? && !Rails.env.test?
