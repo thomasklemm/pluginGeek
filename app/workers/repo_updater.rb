@@ -20,10 +20,11 @@ class RepoUpdater
   # Include Sidekiq::Worker Module
   include Sidekiq::Worker
 
- # Github Attribute Mapping
+  # Github Attribute Mapping (:my_field => :github_field)
   GITHUB_REPO_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
-      description: 'description', watchers: 'watchers', forks: 'forks',
-      github_url: 'html_url', homepage_url: 'homepage', owner: ['owner', 'login'], github_updated_at: 'pushed_at' ].freeze
+      description: 'description', stars: 'watchers', github_url: 'html_url',
+      homepage_url: 'homepage', owner: ['owner', 'login'],
+      github_updated_at: 'pushed_at'].freeze
 
   # Initialize a connection pool
   GITHUB_POOL = ConnectionPool.new(size: 12, timeout: 10) { HTTPClient.new }
