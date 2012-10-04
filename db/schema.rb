@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003200632) do
+ActiveRecord::Schema.define(:version => 20121004164702) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -64,21 +64,18 @@ ActiveRecord::Schema.define(:version => 20121003200632) do
   end
 
   create_table "repos", :force => true do |t|
-    t.string   "full_name",                               :null => false
+    t.string   "full_name",                            :null => false
     t.string   "owner"
     t.string   "name"
-    t.integer  "watchers",             :default => 0
-    t.integer  "forks",                :default => 0
+    t.integer  "stars",             :default => 0
     t.text     "description"
     t.string   "github_url"
     t.string   "homepage_url"
-    t.integer  "knight_score",         :default => 0
+    t.integer  "knight_score",      :default => 0
     t.datetime "github_updated_at"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
-    t.string   "label"
-    t.string   "cached_category_list"
-    t.boolean  "update_success",       :default => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "update_success",    :default => false
     t.integer  "languages"
   end
 

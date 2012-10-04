@@ -4,16 +4,11 @@
 #
 #  id                 :integer          not null, primary key
 #  slug               :string(255)      not null
-#  repo_count         :integer          default(0)
-#  watcher_count      :integer          default(0)
 #  knight_score       :integer          default(0)
 #  short_description  :text
 #  description        :text
-#  popular_repos      :string(255)
-#  all_repos          :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  label              :string(255)
 #  name_and_languages :string(255)      not null
 #  languages          :integer
 #  name               :string(255)
@@ -109,6 +104,14 @@ class Category < ActiveRecord::Base
 
   def short_description
     self[:short_description] || " "
+  end
+
+  def stars_count
+    repos.map(&:stars).reduce(:+)
+  end
+
+  def knight_score
+    repos.map(&:knight_score).reduce(:+)
   end
 
   # Description
