@@ -82,6 +82,7 @@ class Category < ActiveRecord::Base
     # 3) or allow and keep in sync with name_and_languages
   end
 
+  # Languages
   def set_languages(new_name_and_languages)
     md_langs = new_name_and_languages.match %r{\((?<languages>.*)\)}
     if md_langs.present?
@@ -114,7 +115,7 @@ class Category < ActiveRecord::Base
   #   saved as markdown, rendered as html
   include MarkdownHelper  # use the same rendering settings everywhere
   def description
-    d = self[:desription] || ''
+    d = self[:desription] || " "
     @description ||= markdown.render(d).html_safe
   end
 
