@@ -14,35 +14,27 @@
   .category
 
     / Name
-    = link_to category do
-      == category_name_helper(category.name)
+    = link_to category.name, category
 
-    / Watchers
-    / span.watcher_count
-    /   i.icon-star
-    /   | &nbsp;
-    /   = category.watcher_count
-
-    / Label
-    / - if category.label.present?
-    /   = link_to category do
-    /     span.label.round
-    /       i.icon-star
-    /       | &nbsp;
-    /       = category.label
+    / Stars
+    span.stars
+      i.icon-star
+      | &nbsp;
+      = category.stars
 
     / Popular Repos
-    / div
-    /   span.popular_repos == category_popular_repos_helper(category.popular_repos)
-    /   - if category.all_repos.present?
-    /     '  &amp;
-    /     span.repo_count = category_repo_link
-    /   - else
-    /     span.link = category_link
+    div
+      span.popular_repos = category.repos[0..2].map(&:name).join(', ')
+      / Link
+      - if category.repos[3..10].present?
+        '  &amp;
+        span.repo_count = category_repo_link
+      - else
+        span.link = category_link
 
     / Description
     .description = category.short_description.html_safe
 
     / Stats
     / span.all_repos = category.all_repos
-    / span.knight_score = category.knight_score
+    span.knight_score = category.knight_score

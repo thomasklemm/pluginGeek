@@ -114,6 +114,10 @@ class Category < ActiveRecord::Base
     repos.map(&:knight_score).reduce(:+)
   end
 
+  def repo_count
+    @count ||= repos.size
+  end
+
   # Description
   #   saved as markdown, rendered as html
   include MarkdownHelper  # use the same rendering settings everywhere

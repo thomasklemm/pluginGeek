@@ -20,27 +20,13 @@
         | &nbsp;
         = category_show_name_splitter(@category.name)
 
-      / span.watcher_count style='font-size: 1.5rem; margin-left: 2rem; color: #999'
-      /   i.icon-star
-      /   | &nbsp;
-      /   = @category.watcher_count
-
-      / - if @category.label.present?
-      /   span.label.round style='margin-left: 2rem'
-      /     i.icon-star
-      /     | &nbsp;
-      /     = @category.label
-
-    / Top Description
-    / .top_description class='category_description' = @category.top_description
+      span.stars style='font-size: 1.5rem; margin-left: 2rem; color: #999'
+        i.icon-star
+        | &nbsp;
+        = @category.stars
 
   / Repos List
   = render 'category_show_repos_list'
-
-  / Bottom
-  / - if @category.bottom_description
-  /   / Bottom Description
-  /   .bottom_description class='category_description' = @category.bottom_description
 
     / Edit Resources
     = link_to edit_category_path(@category), class: 'edit_description' do

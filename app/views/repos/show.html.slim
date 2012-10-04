@@ -1,6 +1,6 @@
 / repos/show
 
-- cache [@repo, 'show_repo', params[:action] ] do
+- cache [@repo, 'show_repo'] do
 
   / Title
   - provide :title, "#{ @repo.full_name } on Knight.io"
@@ -22,13 +22,6 @@
     / Github Star Button including Stars Count
     iframe.star_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
-    /Label
-    - if @repo.label.present?
-      span.label.round
-          i.icon-star
-          | &nbsp;
-          = @repo.label
-
     / Description
     .description = @repo.description
 
@@ -41,75 +34,59 @@
         | &nbsp;
         abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
 
-    / REVIEW: This should be much cleaner
-    - unless params[:action] == 'edit'
+    / Category List
+    .category_list
+      b style='color: #777' Categories&nbsp;&nbsp;
 
-      / Category List
-      .category_list
-        b style='color: #777' Categories&nbsp;&nbsp;
-        = link_to edit_repo_path(@repo) do
-          i.icon-edit
-          | &nbsp;Edit
+      / Edit link
+      = link_to edit_repo_path(@repo) do
+        i.icon-edit
+        | &nbsp;Edit
 
-        - categories = @repo.cached_category_list && @repo.cached_category_list.split(', ')
+      / Repo has categories
+      - if @repo.has_categories?
+        ul.square
+          - @repo.categories.each do |category|
+              li
+                = link_to category.name_and_languages, category
+                span.category_repo_count &nbsp;&nbsp;(#{ category.repo_count } Repos)
 
-        / Categories present
-        - if categories.present?
-          ul.square
-            - categories.each do |category_name|
-                / REVIEW: Pretty expensive way just for making a few links
-                / Review: Include category language here after rewrite
-                - @category = Category.find_by_name(category_name)
-                - if @category
-                  li
-                    = link_to @category do
-                      = category_show_name_splitter(@category.name)
-                    span.category_repo_count &nbsp;&nbsp;(#{ @category.repo_count } Repos)
-        - else
-          / Repo has no categories
-          div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
-            b Add a category.
+      / Repo has no categories yet
+      - else
+        div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
+          b Add a category.
 
-    / Render Edit Repo partial
+  / Tabs
+  .tabs_with_content
 
-    = render 'edit_repo'
-
-
-  / Readme and Alternatives
-  .readme_and_alternatives
-
-    / Readme and Alternatives Tab
+    / Navigation
     dl class='tabs contained'
       dd.active = link_to 'Readme', '#Readme', id: 'readme_tab'
-      dd        = link_to 'Alternatives', '#Alternatives', id: 'alternatives_tab'
+      dd        = link_to 'Similar repos', '#Alternatives', id: 'alternatives_tab'
       dd        = link_to 'Relationships', '#Relationships', id: 'relationships_tab'
 
-    / Tabs Content
+    / Content
     ul class='tabs-content contained'
 
-      / Readme Tab Content
+      / Readme
       li#ReadmeTab.active
         .readme_js data-owner=@repo.owner data-repo=@repo.name
 
-      / Alternatives Tab Content
+      / Alternatives
       li#AlternativesTab
-        b style='font-size: 1.8rem' Similar Repos (#{ @alternatives.length})
-        p style='color:#555' ... sorted by <b>similarity of their assigned categories</b> and secondly by Knight Score
 
-        - if @alternatives
-          = render partial: 'shared/repo', collection: @alternatives
+        / Repo has categories
+        - if @repo.has_categories?
+          - @repo.categories.each do |category|
 
+            / TODO: Sort repos in each category by knight score, maybe by has_many_through relation
+            = render partial: 'shared/repo', collection: category.repos[0..2]
+
+        / Repo has no categories
         - else
+          em Please <b>#{link_to 'add a category', edit_repo_path(@repo)} to this repo.
 
-          - if @repo.cached_category_list.present?
-            p No Alternatives could be found. Try adding a few more categories.
-
-          - else
-            em
-              ' Please
-              b = link_to 'add a category', edit_repo_path(@repo)
-              '  to this repo to see alternatives.
-
+      / Relationships
       li#RelationshipsTab
         b style='font-size: 1.8rem' Parents & Children&nbsp;
         = link_to edit_repo_path(@repo) do

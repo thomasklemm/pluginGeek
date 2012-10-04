@@ -17,19 +17,11 @@
       | &nbsp;by&nbsp;
       span.owner = repo.owner
 
-    / Watchers
-    span.watchers
+    / Stars
+    span.stars
       i.icon-star
       | &nbsp;
-      = repo.watchers
-
-    / Label
-    - if repo.label.present?
-      = link_to repo do
-        span.label.round
-          i.icon-star
-          | &nbsp;
-          = repo.label
+      = repo.stars
 
     / Url, Activity & Toggle Children
     div

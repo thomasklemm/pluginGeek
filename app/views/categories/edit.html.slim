@@ -19,15 +19,11 @@
     = f.label :description, "Detailed Description <br><em>(As much as you like; markdown-enhanced; <br>might include a description of the topic, common solutions, and pointers to related resources and railscasts); use [REPOS] to split between what is rendered above and below the listed repos. Thanks for making Knight better, Knight!<br>Great Markdown Cheat Sheet: Go to Github and press 'm'.</em>".html_safe
     = f.text_area :description, cols: 122, rows: 8
 
-    / Label
-    / = f.label :label
-    / = f.text_field :label
-
     / Category Name
-    = f.label :name
-    = f.text_field :name
+    = f.label :name_and_languages
+    = f.text_field :name_and_languages
 
-    / Submit
+    / Submit or cancel
     = f.submit 'Update Descriptions', class: 'small radius button'
     '  or
     = link_to 'Cancel', @category, confirm: "Discard changes?", style: 'text-decoration: underline'

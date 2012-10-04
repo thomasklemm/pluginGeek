@@ -1,6 +1,6 @@
 / repos/index
 
-- cache ['repos_index', language, @repos.maximum(:updated_at) ] do
+- cache ['repos_index', language], expires_in: 300.seconds do
 
   / Title
   - provide :title, "Knight.io: #{ language.titlecase } Repos"

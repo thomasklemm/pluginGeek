@@ -5,12 +5,11 @@
 
   / List
   .list data-page=4
-    - cache [@category, 'repos', @repos.present? && @repos.maximum(:updated_at).utc.to_s(:number)] do
-      = render partial: 'shared/repo', collection: @repos
+    = render partial: 'shared/repo', collection: @repos
 
-      / No repos
-      - if @repos.blank?
-        p: b No repos associated with this category any longer!
+    / No repos
+    - if @repos.blank?
+      p: b No repos associated with this category any longer!
 
   / Show all
   button.js_show_all_matching_items class='small secondary button round' style='margin: 0.5rem 0 2rem' Show all

@@ -1,6 +1,6 @@
 / categories/index
 
-- cache ['categories_index', language, @categories.maximum(:updated_at)] do
+- cache ['categories_index', language], expires_in: 600.seconds do
 
   / Title
   - provide :title, "Knight.io: Find your prefect Ruby Gem"
