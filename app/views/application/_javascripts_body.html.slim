@@ -8,7 +8,7 @@ javascript:
       valueNames: ['category_group', 'category_name', 'watcher_count', 'label',   'description', 'popular_repos', 'all_repos', 'knight_score']
     };
 
-  categories_list_options['page'] = $('.list').data('page') || 12
+  categories_list_options['page'] = $('.list').data('page') || 8
 javascript:
   var categoriesList = new List('js_categories_list', categories_list_options);
 
@@ -18,23 +18,10 @@ javascript:
       valueNames: ['owner', 'name', 'watchers', 'label', 'description', 'knight_score', 'updated_at']
     };
 
-  repos_list_options['page'] = $('.list').data('page') || 12
+  repos_list_options['page'] = $('.list').data('page') || 8
 
 javascript:
   var reposList = new List('js_repos_list', repos_list_options);
-
-/ google analytics
-- if Rails.env.production?
-  javascript:
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-33644736-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
 
 / livereload (in development)
 - if Rails.env.development?
