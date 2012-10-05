@@ -13,9 +13,8 @@ class ApplicationController < ActionController::Base
 
   ##
   # Helper Methods
-  #
-  # markdown, category_updater and repo_updater helpers
-  include InstancesHelper
+  # Markdown Renderer
+  include MarkdownHelper
   helper_method :markdown
 
   # Before Filters

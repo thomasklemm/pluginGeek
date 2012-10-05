@@ -7,12 +7,12 @@ class CategoriesController < ApplicationController
   # GET /categories
   def index
     @categories = Category.find_all_by_language(params[:language])
-    # Don't do such scalablity shit before it's nescessary.
-    # Rather make happen that it becomes nescessary!
-    # if !Rails.env.development? && !Rails.env.test?
-    #   expires_in 2.minutes
-    #   fresh_when last_modified: @categories.maximum(:updated_at), public: true
-    # end
+
+    # HTTP Caching
+    if !Rails.env.development? && !Rails.env.test?
+      expires_in 2.minutes
+      fresh_when last_modified: @categories.maximum(:updated_at), public: true
+    end
   end
 
   # GET /categories/:id

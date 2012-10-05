@@ -73,7 +73,7 @@ Knight::Application.routes.draw do
   end
 
     # Static Pages
-  match '/:id' => 'pages#show', as: :static, via: :get
+  match '/:id' => 'high_voltage/pages#show', as: :static, via: :get
 
   # Root
   root to: 'categories#index'
