@@ -22,13 +22,9 @@ namespace :staging do
 
   desc 'Transfer production database to staging'
   task :transfer_db do
-    # Expire oldest manual backup
-    # puts    'Expiring oldest manual backup...'
-    # system  'heroku pgbackups:capture --expire --remote production'
-
     # Capture manual database backup in production
-    puts    'Capturing manual database backup in production...'
-    system  'heroku pgbackups:capture --remote production'
+    puts    'Capturing manual database backup in production and expire oldest one...'
+    system  'heroku pgbackups:capture --expire --remote production'
     puts    'Captured manual database backup in production'
 
     # Restore most current backup to database in staging
@@ -93,8 +89,8 @@ namespace :production do
 
   desc 'Backup production database manually'
   task :backup_db do
-    puts    'Capturing manual database backup in production...'
-    system  'heroku pgbackups:capture --remote production'
+    puts    'Capturing manual database backup in production and expire oldest one...'
+    system  'heroku pgbackups:capture --expire --remote production'
     puts    'Captured manual database backup in production'
   end
 
