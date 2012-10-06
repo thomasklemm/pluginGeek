@@ -23,8 +23,8 @@ namespace :staging do
   desc 'Transfer production database to staging'
   task :transfer_db do
     # Expire oldest manual backup
-    puts    'Expiring oldest manual backup...'
-    system  'heroku pgbackups:capture --expire --remote production'
+    # puts    'Expiring oldest manual backup...'
+    # system  'heroku pgbackups:capture --expire --remote production'
 
     # Capture manual database backup in production
     puts    'Capturing manual database backup in production...'
@@ -43,6 +43,11 @@ namespace :staging do
   task :console do
     puts   'Open a console to STAGING app'
     system 'heroku run console --remote staging'
+  end
+
+  desc 'Tail staging logs'
+  task :logs do
+    system  'heroku logs -t --remote staging'
   end
 end
 
@@ -84,5 +89,17 @@ namespace :production do
     puts   'Pulling PRODUCTION db to local...'
     system 'heroku db:pull --app knightio --confirm knightio'
     puts   'PUlled production db to local'
+  end
+
+  desc 'Backup production database manually'
+  task :backup_db do
+    puts    'Capturing manual database backup in production...'
+    system  'heroku pgbackups:capture --remote production'
+    puts    'Captured manual database backup in production'
+  end
+
+  desc 'Tail production logs'
+  task :logs do
+    system  'heroku logs -t --remote production'
   end
 end

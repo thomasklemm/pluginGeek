@@ -16,6 +16,8 @@
 #  updated_at        :datetime         not null
 #  update_success    :boolean          default(FALSE)
 #  languages         :integer
+#  children_count    :integer          default(0)
+#  parents_count     :integer          default(0)
 #
 
 class Repo < ActiveRecord::Base
@@ -43,7 +45,7 @@ class Repo < ActiveRecord::Base
 
   # TODO: Counter Cache
   def has_parents?
-    parents.length > 0
+    parents.size > 0
   end
 
   def parent_list
@@ -73,7 +75,7 @@ class Repo < ActiveRecord::Base
 
   # TODO: Cache Couter
   def has_children?
-    children_count > 0
+    children.size > 0
   end
 
   def child_list
@@ -87,7 +89,7 @@ class Repo < ActiveRecord::Base
   # REVIEW: How can categories be implemented in ordered list fashion?
 
   def has_categories?
-    categories.length > 0
+    categories.size > 0
   end
 
   def category_list
