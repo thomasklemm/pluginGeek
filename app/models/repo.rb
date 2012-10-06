@@ -38,12 +38,12 @@ class Repo < ActiveRecord::Base
   has_many  :parents,
             through:      :parent_child_relationships,
             source:       :parent,
-            uniq:         true,
-            order:        'knight_score DESC'
+            uniq:         true#,
+            #order:        'knight_score DESC'
 
   # TODO: Counter Cache
   def has_parents?
-    parents.size > 0
+    parents.length > 0
   end
 
   def parent_list
@@ -68,12 +68,12 @@ class Repo < ActiveRecord::Base
   has_many  :children,
             through:      :child_parent_relationships,
             source:       :child,
-            uniq:         true,
-            order:        'knight_score DESC'
+            uniq:         true#,
+            #order:        'knight_score DESC'
 
   # TODO: Cache Couter
   def has_children?
-    children.size > 0
+    children_count > 0
   end
 
   def child_list
@@ -87,7 +87,7 @@ class Repo < ActiveRecord::Base
   # REVIEW: How can categories be implemented in ordered list fashion?
 
   def has_categories?
-    categories.size > 0
+    categories.length > 0
   end
 
   def category_list

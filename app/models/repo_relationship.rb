@@ -12,7 +12,9 @@
 class RepoRelationship < ActiveRecord::Base
   belongs_to  :parent,
               class_name: 'Repo',
-              touch: true
+              touch: true,
+              counter_cache: :children_count
+
   belongs_to  :child,
               class_name: 'Repo',
               touch: true

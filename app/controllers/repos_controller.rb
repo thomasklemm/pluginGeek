@@ -6,7 +6,7 @@ class ReposController < ApplicationController
 
   # GET /repos
   def index
-    @repos = Repo.find_all_by_language(language)
+    @repos = Repo.find_all_by_language(language).includes(:children)
 
     # HTTP Caching
     if !Rails.env.development? && !Rails.env.test?
@@ -63,7 +63,7 @@ protected
   ##
   # Before Filters
   def find_repo
-    @repo = Repo.find_or_initialize_by_full_name(full_name_from_params)
+    @repo = Repo.where(full_name: full_name_from_params).includes([:children, :parents, {:parents => :children}, {:children => :children}, {:categories => {:repos => :children}}]).first
   end
 
   ##

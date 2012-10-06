@@ -89,6 +89,9 @@ group :development do
 
   # Lol DBA (Find missing indexes)
   gem 'lol_dba'
+
+  # Bullet (Eager Loading Notification)
+  gem 'bullet'
 end
 
 # Cache Digests (Watch Progress of this gem!)

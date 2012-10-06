@@ -36,6 +36,8 @@ GEM
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (3.0.3)
+    bullet (4.1.5)
+      uniform_notifier (~> 1.0.0)
     cache_digests (0.2.0)
       actionpack (>= 3.2)
     celluloid (0.12.0)
@@ -210,6 +212,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.0.2)
     zurb-foundation (3.1.1)
       compass (>= 0.12.2)
       modular-scale (>= 1.0.2)
@@ -222,6 +225,7 @@ PLATFORMS
 DEPENDENCIES
   annotate (>= 2.5.0)
   bourbon
+  bullet
   cache_digests
   coffee-rails
   compass-rails
