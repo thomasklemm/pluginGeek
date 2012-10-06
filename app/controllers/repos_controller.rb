@@ -27,7 +27,7 @@ class ReposController < ApplicationController
 
   # POST /repos/:owner/:name
   def create
-    if RepoUpdater.perform(@repo.full_name)
+    if RepoUpdater.new.perform(@repo.full_name)
 
       # Reload for correct redirection path
       @repo = Repo.find_by_full_name(@repo.full_name)
