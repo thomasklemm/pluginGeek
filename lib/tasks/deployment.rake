@@ -78,4 +78,11 @@ namespace :production do
     puts   'Open a console to PRODUCTION app'
     system 'heroku run console --remote production'
   end
+
+  desc 'Pull the production DB to the local env'
+  task :pull_db do
+    puts   'Pulling PRODUCTION db to local...'
+    system 'heroku db:pull --app knightio --confirm knightio'
+    puts   'PUlled production db to local'
+  end
 end

@@ -101,14 +101,6 @@ ActiveRecord::Schema.define(:version => 20121006121451) do
     t.string "name"
   end
 
-  create_table "temp_categories", :force => true do |t|
-    t.string   "name_and_languages"
-    t.text     "short_description"
-    t.text     "description"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "login",                        :null => false
     t.string   "email"
