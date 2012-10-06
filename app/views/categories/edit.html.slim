@@ -7,7 +7,7 @@
   h4
     i.icon-edit style='color: #999; font-size: 2.2rem'
     | &nbsp;
-    = category_show_name_splitter(@category.name)
+    = @category.full_name
 
   / Edit description form
   = form_for @category do |f|
@@ -19,9 +19,9 @@
     = f.label :description, "Detailed Description <br><em>(As much as you like; markdown-enhanced; <br>might include a description of the topic, common solutions, and pointers to related resources and railscasts); use [REPOS] to split between what is rendered above and below the listed repos. Thanks for making Knight better, Knight!<br>Great Markdown Cheat Sheet: Go to Github and press 'm'.</em>".html_safe
     = f.text_area :description, cols: 122, rows: 8
 
-    / Category Name
-    = f.label :name_and_languages
-    = f.text_field :name_and_languages
+    / Full Name
+    = f.label :full_name
+    = f.text_field :full_name
 
     / Submit or cancel
     = f.submit 'Update Descriptions', class: 'small radius button'

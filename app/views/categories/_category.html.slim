@@ -8,25 +8,23 @@
     = link_to '&nbsp;&raquo;'.html_safe, category
   - category_repo_link = capture do
     = link_to category do
-      = pluralize((category.repos.size - 3), 'more repo')
+      = pluralize((category.repos_count - 3), 'more repo')
+      | &nbsp;&raquo;
 
   / Category
   .category
 
-    / Name
-    = link_to category.name, category
+    / Full Name
+    = link_to category.full_name, category
 
     / Stars
-    span.stars
-      i.icon-star
-      | &nbsp;
-      = category.stars
+    = stars_mixin(category.stars)
 
     / Popular Repos
     div
       span.popular_repos = category.repos[0..2].map(&:name).join(', ')
       / Link
-      - if category.repos[3..10].present?
+      - if category.repos_count > 3
         '  &amp;
         span.repo_count = category_repo_link
       - else

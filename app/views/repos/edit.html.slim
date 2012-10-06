@@ -1,8 +1,5 @@
 / repos/_repo_categories
 
-/ Variables
-- categories = @repo.cached_category_list && @repo.cached_category_list.split(', ')
-
 / Edit View
 - if params[:action] == 'edit'
   hr
@@ -10,7 +7,7 @@
   .category_list_edit
     = form_for @repo do |f|
       / Categories
-      = f.label :category_list, "Categories <em>Style: 'Group: Category Name (Language1/Language2)'</em>".html_safe
+      = f.label :category_list, "Categories  <em>Style: 'My Category (Ruby/JS/Design)'</em>".html_safe
       div style='padding-bottom: 1rem' = f.text_field :category_list, autocomplete: 'off'
 
       / Parents
@@ -22,9 +19,9 @@
       = f.submit 'Save Categories', class: 'small radius button'
 
   / Category Names Autocomplete
-  - category_names = Category.order_by_knight_score.pluck(:name).to_json.html_safe
+  - category_full_names = Category.order_by_knight_score.pluck(:full_name).to_json.html_safe
   javascript:
-    $('#repo_category_list').select2({tags: #{ category_names }, placeholder: 'Find or create tags'});
+    $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Find or create tags'});
 
   / Parent List
   javascript:

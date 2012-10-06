@@ -9,4 +9,8 @@ module ApplicationHelper
     end
   end
 
+  def stars_mixin(count)
+    "<span class='stars'><i class='icon-star'></i>&nbsp;#{ count }</span>".html_safe
+  end
+
 end

@@ -82,29 +82,61 @@ class Repo < ActiveRecord::Base
 
   # Categories
   has_and_belongs_to_many :categories,
-                          uniq: true
+                          uniq: true,
+                          order: 'knight_score desc'
+  # REVIEW: How can categories be implemented in ordered list fashion?
 
   def has_categories?
     categories.size > 0
   end
 
   def category_list
-    categories.order_by_knight_score.map(&:name_and_languages).join(', ')
+    categories.map(&:full_name).join(', ')
   end
 
-  def category_list=(names_and_languages)
-    names_and_languages.delete('')
-    unless names_and_languages.join(', ') == category_list
-      self.categories = names_and_languages.map do |name_and_languages|
-        Category.where(name_and_languages: name_and_languages.strip).first_or_create
+  def category_list=(full_names)
+    unless full_names == category_list
+      # Prepare
+      full_names &&= full_names.split(', ')
+      full_names.delete('')
+      old_categories = categories.map(&:full_name)
+
+      # Set categories
+      self.categories = full_names.map do |full_name|
+        Category.find_or_create_by_full_name(full_name.strip)
       end
+
+      # Update category stats
+      # REVIEW: There should be a nicer way, maybe using dirty tracking
+      new_categories = categories.map(&:full_name)
+      cs = (old_categories + new_categories).uniq
+      cs.each {|c_full_name| Category.find_by_full_name(c_full_name).save}
     end
   end
 
   # Languages (through categories)
+  include FlagShihTzu
+  LANGUAGES = %w(ruby javascript design)
+  has_flags :column => 'languages',
+            1 => :ruby,
+            2 => :javascript,
+            3 => :design
+
+  before_save :set_languages
+  def set_languages
+    langs = categories.map(&:languages).flatten.uniq
+
+    LANGUAGES.each do |lang|
+      langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
+    end
+  end
+
   def languages
-    # Maybe sort by how often each language occurs
-    categories.map(&:languages).flatten.uniq
+    langs = begin
+      array = []
+      LANGUAGES.each { |lang| array << lang if send(lang) }
+      array
+    end
   end
 
   def language_list
@@ -113,12 +145,13 @@ class Repo < ActiveRecord::Base
 
   ##
   # Scopes
-  #
-  # TODO: find_all_by_language('ruby')
-  #
-  # order_by_knight_score,
-  #   order repos by descending knight_score
-  scope :order_by_knight_score, lambda { order('knight_score desc') }
+  # order_by_knight_score
+  scope :order_by_knight_score, order('knight_score desc')
+
+  # language(:ruby) / language('ruby')
+  scope :language, lambda { |lang| send(lang) if LANGUAGES.include?(lang.to_s) }
+  # find_all_by_language(:ruby)
+  scope :find_all_by_language, lambda { |lang| language(lang).order_by_knight_score }
 
   # most_recent_by_language('ruby')
   #   find the timestamp of the most recently updated repo
@@ -155,48 +188,14 @@ class Repo < ActiveRecord::Base
   def github_updated_at
     self[:github_updated_at] || (Time.now - 2.years)
   end
-  ##
-  # Update Actions
-  #
-  # When updating a repo via repos#update these operations should be performed:
-  #
-  # 1) Determine Languages from Categories
-  # 2) Cache Lists
-  # 3) Update categories
-  #
-  # Updating parents is implemented as an after_save callback
-  # as it need access to the dirty object with changes tracked
-  # REVIEW: Can changes be persisted somehow?
-
-  def after_repo_update
-    update_categories
-  end
-
-  def update_categories
-    category_list.each {|category_name| update_category(category_name)}
-  end
-
-  def cache_category_list
-    self.cached_category_list = category_list.to_s
-  end
-
-  # Invalidate timestamp of category on repo update
-  def update_category(name)
-    if name.present?
-      categories = Category.find_all_by_name(name)
-      categories.each {|category| category.touch}
-    end
-  end
 
   ##
   # Class methods
-  #
-  # Bust Caches by touching every repo
   def self.bust_caches
-    find_each { |repo| repo.touch }
+    find_each(&:touch)
   end
 
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :category_list, :parent_list, :label
+  attr_accessible :full_name, :category_list, :parent_list
 end

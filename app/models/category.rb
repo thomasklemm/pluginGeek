@@ -2,27 +2,30 @@
 #
 # Table name: categories
 #
-#  id                 :integer          not null, primary key
-#  slug               :string(255)      not null
-#  knight_score       :integer          default(0)
-#  short_description  :text
-#  description        :text
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  name_and_languages :string(255)      not null
-#  languages          :integer
-#  name               :string(255)
+#  id                :integer          not null, primary key
+#  slug              :string(255)      not null
+#  knight_score      :integer          default(0)
+#  short_description :text
+#  description       :text
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  full_name         :string(255)      not null
+#  languages         :integer
+#  name              :string(255)
+#  stars             :integer          default(0)
+#  repos_count       :integer          default(0)
 #
 
 class Category < ActiveRecord::Base
   # Friendly Id
   #   using history module (redirecting to new slug if slug changed)
   extend FriendlyId
-  friendly_id :name_and_languages, use: [:slugged, :history]
+  friendly_id :full_name, use: [:slugged, :history]
 
   # Repos
   has_and_belongs_to_many :repos,
-                          uniq: true
+                          uniq: true,
+                          order: 'knight_score desc'
 
   # Languages
   include FlagShihTzu
@@ -44,42 +47,42 @@ class Category < ActiveRecord::Base
 
   ##
   # Validations
-  validates :name_and_languages, uniqueness: true
+  validates :full_name, uniqueness: true
   validates :slug, uniqueness: true
 
   ##
   # Attributes and field defaults
-  # def name_and_languages
-  #   self[:name_and_languages]
+  # def full_name
+  #   self[:full_name]
   # end
 
   # def name
   #   self[:name]
   # end
 
-  def name_and_languages=(new_name_and_languages)
-    if new_name_and_languages != name_and_languages
+  def full_name=(new_full_name)
+    if new_full_name != full_name
       # Set names_and_languages
-      self[:name_and_languages] = new_name_and_languages
+      self[:full_name] = new_full_name
 
       # Set name
-      md_name = new_name_and_languages.match %r{(?<name>.*)[[:space:]]\(}
-      self[:name] = md_name.present? ? md_name[:name].strip : new_name_and_languages.strip
+      md_name = new_full_name.match %r{(?<name>.*)[[:space:]]\(}
+      self[:name] = md_name.present? ? md_name[:name].strip : new_full_name.strip
 
       # Set language_list
-      set_languages(new_name_and_languages)
+      set_languages(new_full_name)
     end
   end
 
   def name=(new_name)
     # 1) Do nothing here
     # 2) Maybe raise a warning and an error if there is a try to set the name this way
-    # 3) or allow and keep in sync with name_and_languages
+    # 3) or allow and keep in sync with full_name
   end
 
   # Languages
-  def set_languages(new_name_and_languages)
-    md_langs = new_name_and_languages.match %r{\((?<languages>.*)\)}
+  def set_languages(new_full_name)
+    md_langs = new_full_name.match %r{\((?<languages>.*)\)}
     if md_langs.present?
       langs = md_langs[:languages].downcase.split('/')
       # Replace js input with javascript
@@ -91,7 +94,7 @@ class Category < ActiveRecord::Base
   end
 
   def languages
-    @langs ||= begin
+    langs = begin
       array = []
       LANGUAGES.each { |lang| array << lang if send(lang) }
       array
@@ -99,23 +102,29 @@ class Category < ActiveRecord::Base
   end
 
   def language_list
-    @language_list ||= languages.join(', ')
+    languages.join(', ')
   end
 
   def short_description
     self[:short_description] || " "
   end
 
-  def stars_count
-    repos.map(&:stars).reduce(:+)
+  ##
+  # Set Stats in Callbacks
+  before_save :set_stars
+  before_save :set_knight_score
+  before_save :set_repos_count
+
+  def set_stars
+    self.stars = repos.map(&:stars).reduce(:+) || 0
   end
 
-  def knight_score
-    repos.map(&:knight_score).reduce(:+)
+  def set_knight_score
+    self.knight_score = repos.map(&:knight_score).reduce(:+) || 0
   end
 
-  def repo_count
-    @count ||= repos.size
+  def set_repos_count
+    self.repos_count = repos.size || 0
   end
 
   # Description
@@ -131,11 +140,11 @@ class Category < ActiveRecord::Base
   # Bust Caches by touching every single category
   # Curious: There must a single SQL call for doing this on the whole table
   def self.touch_all
-    find_each { |category| category.touch }
+    find_each(&:touch)
   end
 
   ##
   # Mass Assignment Whitelist
   # TODO: strong params
-  attr_accessible :name_and_languages, :short_description, :description, :label
+  attr_accessible :full_name, :short_description, :description, :label
 end

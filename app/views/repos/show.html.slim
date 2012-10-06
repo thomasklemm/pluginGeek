@@ -48,8 +48,10 @@
         ul.square
           - @repo.categories.each do |category|
               li
-                = link_to category.name_and_languages, category
-                span.category_repo_count &nbsp;&nbsp;(#{ category.repo_count } Repos)
+                = link_to category.full_name, category
+                span style='color: #777; font-size: 14px'
+                  | &nbsp;&nbsp;#{ pluralize(category.repos_count, 'repos') },&nbsp;
+                  = stars_mixin(category.stars)
 
       / Repo has no categories yet
       - else
