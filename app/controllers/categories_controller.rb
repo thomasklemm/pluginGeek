@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.find_all_by_language(params[:language]).includes(:repos)
+    @categories = Category.language(params[:language]).includes(:repos).order_by_knight_score
 
     # HTTP Caching
     if !Rails.env.development? && !Rails.env.test?
@@ -47,7 +47,7 @@ protected
     # friendly_id's slug serves as params[:id]
     @category = Category.find(params[:id])
     # Find all repos by category
-    @repos = @category.repos.includes(:children)
+    @repos = @category.repos.includes(:children).order_by_knight_score
   end
 
   # If an old id or a numeric id was used to find the record, then

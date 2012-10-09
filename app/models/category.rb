@@ -23,9 +23,10 @@ class Category < ActiveRecord::Base
   friendly_id :full_name, use: [:slugged, :history]
 
   # Repos
-  has_and_belongs_to_many :repos,
-                          uniq: true,
-                          order: 'knight_score desc'
+  has_many  :categorizations
+  has_many  :repos,
+            through: :categorizations,
+            uniq: true
 
   # Languages
   include FlagShihTzu
@@ -38,7 +39,7 @@ class Category < ActiveRecord::Base
   ##
   # Scopes
   # order_by_knight_score
-  scope :order_by_knight_score, order('knight_score desc')
+  scope :order_by_knight_score, order('categories.knight_score desc')
 
   # language(:ruby) / language('ruby')
   scope :language, lambda { |lang| send(lang) if LANGUAGES.include?(lang.to_s) }
