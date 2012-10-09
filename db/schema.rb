@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121006121451) do
+ActiveRecord::Schema.define(:version => 20121009192540) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -38,14 +38,14 @@ ActiveRecord::Schema.define(:version => 20121006121451) do
   add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
-  create_table "categories_repos", :id => false, :force => true do |t|
+  create_table "categorizations", :force => true do |t|
     t.integer "repo_id"
     t.integer "category_id"
   end
 
-  add_index "categories_repos", ["category_id"], :name => "index_categories_repos_on_category_id"
-  add_index "categories_repos", ["repo_id", "category_id"], :name => "index_categories_repos_on_repo_id_and_category_id"
-  add_index "categories_repos", ["repo_id"], :name => "index_categories_repos_on_repo_id"
+  add_index "categorizations", ["category_id"], :name => "index_categories_repos_on_category_id"
+  add_index "categorizations", ["repo_id", "category_id"], :name => "index_categories_repos_on_repo_id_and_category_id"
+  add_index "categorizations", ["repo_id"], :name => "index_categories_repos_on_repo_id"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20121006121451) do
     t.datetime "updated_at",                           :null => false
     t.boolean  "update_success",    :default => false
     t.integer  "languages"
+    t.integer  "children_count",    :default => 0
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
