@@ -38,43 +38,6 @@
   margin-top: 1.2rem
 .navbar_paths
 
-// Sort Lists
-dl.sort_list
-  display: block
-  width: auto
-  overflow: hidden
-  margin: -4px 0 0 -9px
-
-  dt, dd
-    float: left
-    display: inline
-    margin-left: 9px
-    padding: 4px 0 5px
-
-  dt
-    color: #999
-    font-weight: normal
-  dd
-    text-decoration: none
-    @include border-radius(1000px)
-    cursor: pointer
-
-    // Make it look like a normal link
-    color: $mainColor
-    &:hover
-      color: darken($mainColor, 20%)
-
-  dd.active
-    font-weight: bold
-    background: #999
-    color: #fff
-    padding: 2px 9px 4px
-    @include transition (background 0.2s ease-in-out)
-
-    &:hover
-      background: $mainColor
-      @include transition (background 0.2s ease-in-out)
-
 // jQuery Timeago
 // remove dots of abbr
 abbr.timeago
@@ -137,3 +100,36 @@ abbr.timeago
     color: #555
   p
     font-size: 13px
+
+// Sorting list
+ul.sort_list
+  list-style: none
+  margin: 0
+  padding: 0
+
+  .intro
+    float: left
+    color: #999
+
+  li
+    float: left
+    font-size: 14px
+    border-right: 1px solid #ddd
+    padding: 0 10px
+    text-decoration: none
+    color: #999
+    border-radius: 4px
+    cursor: pointer
+
+    &:last-child
+      border-right: none
+
+    &:hover, &:focus
+      color: #333
+
+    &:active
+      color: #666
+
+    &.active
+      font-weight: bold
+      color: #333

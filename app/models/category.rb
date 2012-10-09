@@ -131,7 +131,7 @@ class Category < ActiveRecord::Base
   #   saved as markdown, rendered as html
   include MarkdownHelper  # use the same rendering settings everywhere
   def description
-    d = self[:desription] || " "
+    d = self[:description] || " "
     @description ||= markdown.render(d).html_safe
   end
 

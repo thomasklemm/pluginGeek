@@ -17,13 +17,11 @@
       input.search type='text' autocomplete='off' placeholder='Rails Authentication...'
 
       / Sort
-      dl.sort_list style='padding: 0.75rem 1.25rem'
-        dt
-          i.icon-sort
-          '  Sort:
-        dd.sort.active  data-sort='knight_score'  Knight Score
-        dd.sort         data-sort='updated_at'    Activity
-        dd.sort         data-sort='name'          Name
+      ul.sort_list class='right'
+        span.intro <i class='icon-sort'></i> Sort:
+        li.sort.active  data-sort='knight_score'  Knight Score
+        li.sort         data-sort='updated_at'    Activity
+        li.sort         data-sort='name'          Name
 
     / Repos List
     .list data-page=5
