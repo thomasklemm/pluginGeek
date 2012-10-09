@@ -140,6 +140,7 @@ $ ->
 
   # Sort Buttons -> Mark sorted one as active
   $('.sort').click ->
-      $this = $(this)
-      $this.addClass('active')
-      $this.siblings('dd').removeClass('active')
+    $this = $(this)
+    $this.addClass('active')
+    $this.siblings('li').removeClass('active')
+

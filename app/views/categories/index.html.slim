@@ -8,7 +8,7 @@
   / Categories List
   #js_categories_list
 
-    h4 Categories <small>Knight.io</small>
+    h4 <i class='icon-magnet main_color' style='font-size: 2.1rem'></i> Categories <small>Knight.io</small>
     h5.subheader Discover the best Ruby Gems in over #{Category.count.div(10)*10} Categories
 
     / Categories Find
@@ -18,12 +18,10 @@
       input.search type='text' autocomplete='off' placeholder='Background Jobs...'
 
       / Sort
-      dl.sort_list style='padding: 0.75rem 1.25rem'
-        dt
-          i.icon-sort
-          '  Sort:
-        dd.sort.active  data-sort='knight_score'  Knight Score
-        dd.sort         data-sort='category_name' Name
+      ul.sort_list class='right'
+        span.intro <i class='icon-sort'></i> Sort:
+        li.sort.active  data-sort='knight_score'  Knight Score
+        li.sort         data-sort='category_name' Name
 
     / Categories List
     .list data-page=5

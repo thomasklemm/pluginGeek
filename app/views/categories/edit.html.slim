@@ -2,31 +2,29 @@
 
 .category_edit
 
-  / Group and Name
-  /   returns category_group and category_name
+  / Full name
   h4
     i.icon-edit style='color: #999; font-size: 2.2rem'
     | &nbsp;
     = @category.full_name
 
-  / Edit description form
+  / Edit form
   = form_for @category do |f|
+
+    / Full Name
+    = f.label :full_name, "<b>Full name</b> <em>'Group: Category Name (Ruby/JS/Design)'</em>".html_safe
+    = f.text_field :full_name
+
     / Short Description
-    = f.label :short_description, 'Short Description <em>(One sentence; no markdown; rendered in overviews)</em>'.html_safe
+    = f.label :short_description, "<b style='font-size: 1.6rem'>Short Description</b> <em>for overviews, no markdown.</em>".html_safe
     = f.text_area :short_description, rows: 2
 
     / Description using Markdown
-    = f.label :description, "Detailed Description <br><em>(As much as you like; markdown-enhanced; <br>might include a description of the topic, common solutions, and pointers to related resources and railscasts); use [REPOS] to split between what is rendered above and below the listed repos. Thanks for making Knight better, Knight!<br>Great Markdown Cheat Sheet: Go to Github and press 'm'.</em>".html_safe
+    = f.label :description, "<b style='font-size: 1.6rem'>How-to & detailed instructions</b>".html_safe
+    p style='margin-bottom: 0; margin-top: 0.5rem' <b>Help others in deciding on solutions for their job to be done.</b><br><em>You can use <b><a href='http://daringfireball.net/projects/markdown/' target='_blank'>Markdown</a></b>. Press 'm' on your keyboard when visiting <b><a href='https://github.com' target='_blank'>Github</a></b> for a great markdown cheat sheet.</em>
     = f.text_area :description, cols: 122, rows: 8
-
-    / Full Name
-    = f.label :full_name
-    = f.text_field :full_name
 
     / Submit or cancel
     = f.submit 'Update Descriptions', class: 'small radius button'
     '  or
     = link_to 'Cancel', @category, confirm: "Discard changes?", style: 'text-decoration: underline'
-
-  / Repos List
-  = render 'category_show_repos_list'

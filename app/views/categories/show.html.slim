@@ -7,26 +7,43 @@
 
   / Category Header
   .category_show
+
     / Edit description link
     = link_to edit_category_path(@category), class: 'edit_description right' do
       i.icon-edit
       | &nbsp;Edit
 
-    / Group and Name
-    /   returns category_group and category_name
+    / Full name
     h4
-      span.left
-        i.icon-bookmark style='color: #999; font-size: 2.2rem'
-        | &nbsp;
+      / Full name
+      span.full_name.left
+        i.icon-magnet
         = @category.full_name
 
-      span.stars style='font-size: 1.5rem; margin-left: 2rem; color: #999'
-        = stars_mixin(@category.stars)
+      / Stars
+      span.stars_header = stars_mixin(@category.stars)
 
-  / Repos List
-  = render 'category_show_repos_list'
+    / Short description
+    p.short_description = @category.short_description
 
-  / Edit Resources
-  = link_to edit_category_path(@category), class: 'edit_description' do
-    i.icon-edit
-    | &nbsp;Add &amp; edit resources
+    / Tabs
+    dl class='tabs contained'
+      dd class='active': a href='#repos' Repos
+      dd: a href='#howto' How-to &amp; solutions
+
+    / Tabs content
+    ul class='tabs-content contained'
+
+      / Repos list
+      li id='reposTab' class='active'
+        = render 'category_show_repos_list'
+
+      / How-to and solutions
+      li id='howtoTab'
+        h4.title How-to & solutions
+        - if @category.description.present?
+          .c_howto = @category.description
+        - else
+          = link_to edit_category_path(@category), class: 'edit_description' do
+              i.icon-edit
+              | &nbsp;Please add instructions. Thanks!
