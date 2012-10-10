@@ -9,30 +9,32 @@
   - category_repo_link = capture do
     = link_to category do
       = pluralize((category.repos_count - 3), 'more repo')
-      | &nbsp;&raquo;
+      '  &raquo;
 
   / Category
   .category
 
     / Full Name
-    = link_to category.full_name, category
+    = link_to category do
+      span.fn = category.full_name
 
     / Stars
     = stars_mixin(category.stars)
 
     / Popular Repos
     div
-      span.popular_repos = category.repos[0..2].map(&:name).join(', ')
+      span.pr = category.popular_repos
+
       / Link
       - if category.repos_count > 3
         '  &amp;
-        span.repo_count = category_repo_link
+        = category_repo_link
       - else
-        span.link = category_link
+        = category_link
 
     / Description
-    .description = category.short_description.html_safe
+    .d = category.short_description
 
     / Stats
-    / span.all_repos = category.all_repos
-    span.knight_score = category.knight_score
+    span.fr = category.further_repos
+    span.ks = category.knight_score

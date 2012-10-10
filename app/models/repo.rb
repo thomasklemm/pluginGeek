@@ -190,7 +190,13 @@ class Repo < ActiveRecord::Base
   end
 
   def github_updated_at
-    self[:github_updated_at] || (Time.now - 2.years)
+    (self[:github_updated_at] && self[:github_updated_at].utc) || (Time.now - 2.years)
+  end
+
+  ##
+  # Virtual attributes
+  def smart_timestamp
+    github_updated_at.iso8601
   end
 
   ##

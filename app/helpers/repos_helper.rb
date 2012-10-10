@@ -4,10 +4,10 @@ module ReposHelper
   def activity_color(updated_at)
     diff = Time.now - updated_at
     klass = case diff
-            when 0..4.months                      then  'one'
-            when 4.months+1.second..12.months     then  'two'
-            when 12.months+1.second..24.months    then  'three'
-            else                                        'four'
+            when 0..3.months                      then  'a1'
+            when 3.months+1.second..10.months     then  'a2'
+            when 10.months+1.second..20.months    then  'a3'
+            else                                        'a4'
             end
     klass
   end

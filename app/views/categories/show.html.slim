@@ -3,7 +3,7 @@
 - cache [@category, 'category_show'] do
 
   / Title
-  - provide :title, "#{ @category.name } - Knight.io"
+  - content_for :title, "#{ @category.full_name } - Knight"
 
   / Category Header
   .category_show

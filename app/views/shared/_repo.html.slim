@@ -2,52 +2,46 @@
 
 - cache [repo, 'repo_partial'] do
 
-  / Variables
-  / Timestamp
-  - timestamp = repo.github_updated_at && repo.github_updated_at.utc
   / Toggle Children Link Name
   - if repo.has_children?
     - toggle_children_link_name = "#{ pluralize(repo.children.size, 'related repo') }".html_safe
 
   / Single Repo in Overview
   .repo
+
     / Owner and Name
     = link_to repo do
-      span.name = repo.name
-      | &nbsp;by&nbsp;
-      span.owner = repo.owner
+      span.n = repo.name
+      '  by
+      span.o = repo.owner
 
     / Stars
-    span.stars
-      i.icon-star
-      | &nbsp;
-      = repo.stars
+    = stars_mixin(repo.stars)
 
-    / Url, Activity & Toggle Children
     div
-      / Url
-      span.homepage_url = link_to repo.homepage_url, repo.homepage_url
+      / Homepage URL
+      span.hp = link_to repo.homepage_url, repo.homepage_url
       link rel="dns-prefetch" href="#{ repo.homepage_url }"
 
       / Activity
-      span.activity class=activity_color(timestamp)
+      span.ac class=activity_color(repo.github_updated_at)
         i.icon-leaf
-        | &nbsp;
-        abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
+        '
+        abbr.timeago title=repo.smart_timestamp = repo.github_updated_at.to_s(:long)
 
       / Toggle Children
       - if repo.has_children?
         = link_to 'javascript:', class: 'toggle_children js_toggle_children' do
           i.icon-plane
-          | &nbsp;
+          '
           = toggle_children_link_name
 
     / Description
-    .description  = repo.description
+    .d = repo.description
 
     / Stats
-    span.knight_score = repo.knight_score
-    span.updated_at   = timestamp.iso8601
+    span.ks = repo.knight_score
+    span.ua = repo.smart_timestamp
 
     / Children
     - if repo.has_children?

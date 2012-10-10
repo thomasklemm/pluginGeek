@@ -3,7 +3,7 @@
 - cache [@repo, 'show_repo'] do
 
   / Title
-  - provide :title, "#{ @repo.full_name } on Knight.io"
+  - content_for :title, "#{ @repo.full_name } - Knight"
 
   / Variables
   - timestamp = @repo.github_updated_at && @repo.github_updated_at.utc

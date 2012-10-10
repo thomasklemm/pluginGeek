@@ -143,4 +143,5 @@ $ ->
     $this = $(this)
     $this.addClass('active')
     $this.siblings('li').removeClass('active')
+    update_view()
 

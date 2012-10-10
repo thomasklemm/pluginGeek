@@ -126,8 +126,9 @@ protected
   # Calculate Knight Score
   #   calculate knight score
   #   returns knight score as an integer
+  #   add +1 to stars as they start now with 0
   def knight_score(github_repo)
-    (github_repo['watchers'] * activity_score(github_repo['pushed_at'])).ceil
+    ((github_repo['watchers'] + 1) * activity_score(github_repo['pushed_at'])).ceil
   end
 
   # Calculate Acitvity Score

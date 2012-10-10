@@ -107,7 +107,15 @@ class Category < ActiveRecord::Base
   end
 
   def short_description
-    self[:short_description] || " "
+    (self[:short_description] && self[:short_description].html_safe) || " "
+  end
+
+  def popular_repos
+    (repos[0..2] && repos[0..2].map(&:name).join(', ')) || ''
+  end
+
+  def further_repos
+    (repos[3..100] && repos[0..3].map(&:name).join(', ')) || ''
   end
 
   ##

@@ -5,7 +5,7 @@
 / Categories List
 javascript:
   var categories_list_options = {
-      valueNames: ['category_group', 'category_name', 'watcher_count', 'label',   'description', 'popular_repos', 'all_repos', 'knight_score']
+      valueNames: ['fn', 'ks', 'd', 'pr', 'fr']
     };
 
   categories_list_options['page'] = $('.list').data('page') || 8
@@ -15,7 +15,7 @@ javascript:
 / Repos List
 javascript:
   var repos_list_options = {
-      valueNames: ['owner', 'name', 'watchers', 'label', 'description', 'knight_score', 'updated_at']
+      valueNames: ['o', 'n', 'd', 'ks', 'ua']
     };
 
   repos_list_options['page'] = $('.list').data('page') || 8

@@ -11,28 +11,25 @@
   padding-bottom: 2rem
   line-height: 1.6
 
-  // Owner and Name, i.e. bootstrap by twitter
-  .name
+  // Owner and Name, e.g. bootstrap by twitter
+  .n
     font-weight: bold
-  .owner
+  .o
 
   .stars
     margin-left: 1.2rem
     i // Icon
       color: $mainColor
 
-  .label
-    margin-left: 1.2rem
-
   // Description
-  .description
+  .d
 
-  // Activity & Toggle Children
-  .activity, .toggle_children
+  // Activity and Toggle Children link
+  .ac, .toggle_children
     margin-left: 1.2rem
 
-  // Hidden Stats
-  .knight_score, .updated_at
+  // Knight score and github_updated_at
+  .ks, .ua
     display: none
 
   &:last-of-type
@@ -96,17 +93,20 @@
       color: #777
 
 // Activity
-.activity
+.ac
   // Activity colors
-  //   one == < 4.months
-  //   two == 4.months - 12.months
-  //   three == 12.months - 24.months
-  //   four == > 24.months
-  &.one
-    color: #090
-  &.two
-  &.three
-  &.four
+  //   a1 == < 3.months
+  //   a2 == 3.months - 10.months
+  //   a3 == 10.months - 20.months
+  //   a4 == > 20.months
+  &.a1
+    color: #88C425
+  &.a2
+    color: #519548
+  &.a3
+    color: #999
+  &.a4
+    color: #ccc
 
   // Icon
   &:before

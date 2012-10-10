@@ -13,4 +13,8 @@ module ApplicationHelper
     "<span class='stars'><i class='icon-star'></i>&nbsp;#{ count }</span>".html_safe
   end
 
+  def language_size(size)
+    (size/10*10).to_i
+  end
+
 end
