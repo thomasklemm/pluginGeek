@@ -3,13 +3,13 @@
 - cache ['categories_index', language], expires_in: 600.seconds do
 
   / Title
-  - content_for :title, "Rubygems of note - Knight"
+  - content_for :title, "Rubygems Of Note - Knight"
 
   / Categories List
   #js_categories_list
 
     h4 <i class='icon-tags main_color' style='font-size: 2.1rem'></i> Categories <small>Knight.io</small>
-    h5.subheader Discover the best Ruby Gems in over #{Category.count.div(10)*10} Categories
+    h5.subheader Discover the best Rubygems in over #{ language_size(Category.count)} categories
 
     / Categories Find
     .categories_find
