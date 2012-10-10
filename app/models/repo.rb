@@ -112,6 +112,9 @@ class Repo < ActiveRecord::Base
       new_categories = categories.map(&:full_name)
       cs = (old_categories + new_categories).uniq
       cs.each {|c_full_name| Category.find_by_full_name(c_full_name).save}
+
+      # Touch self (based on online tests)
+      self.touch
     end
   end
 
