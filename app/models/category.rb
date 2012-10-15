@@ -31,10 +31,20 @@ class Category < ActiveRecord::Base
   # Languages
   include FlagShihTzu
   LANGUAGES = %w(ruby javascript design)
+  LANGUAGES_WITH_SHORTCUTS = %w(ruby javascript design js)
+
   has_flags :column => 'languages',
             1 => :ruby,
             2 => :javascript,
             3 => :design
+
+  # Alias js to javascript globally
+  alias_method :js, :javascript
+  alias_method :js=, :javascript=
+
+  def self.js
+    javascript
+  end
 
   ##
   # Scopes
@@ -42,7 +52,8 @@ class Category < ActiveRecord::Base
   scope :order_by_knight_score, order('categories.knight_score desc')
 
   # language(:ruby) / language('ruby')
-  scope :language, lambda { |lang| send(lang) if LANGUAGES.include?(lang.to_s) }
+  scope :language, lambda { |lang| send(lang) if
+    LANGUAGES_WITH_SHORTCUTS.include?(lang.to_s) }
   # find_all_by_language(:ruby)
   scope :find_all_by_language, lambda { |lang| language(lang).order_by_knight_score }
 
