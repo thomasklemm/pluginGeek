@@ -3,7 +3,7 @@
 - cache ['repos_index', language], expires_in: 300.seconds do
 
   / Title
-  - content_for :title, "Over #{ language_size(@repos.size) } amazing #{ language.titlecase } repos - Knight"
+  - content_for :title, "Discover Amazing #{ language.titlecase } Github Repos &middot Knight".html_safe
 
   / Repos List
   #js_repos_list
