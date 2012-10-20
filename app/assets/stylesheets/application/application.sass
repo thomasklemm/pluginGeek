@@ -43,21 +43,6 @@ abbr.timeago
   border-bottom: none
   cursor: default
 
-// Clear Icon
-.clear_container
-  padding-right: 5px
-  vertical-align: middle
-
-.clear_helper
-
-.clear_icon
-  padding: 1.1rem 1.8rem
-  cursor: pointer
-  float: right
-  position: relative
-  bottom: 47px
-  color: #999
-
 // Sticky Footer
 @import 'compass/layout/sticky-footer'
 @include sticky-footer(48px, "#root", "#root_footer", "#footer")
@@ -135,3 +120,12 @@ ul.sort_list
 
 .main_color
   color: $mainColor
+
+// Link Hover Color
+a:hover
+  color: darken($mainColor, 20%) !important
+
+// Search field
+.search
+  font-weight: bold
+  color: #000 !important

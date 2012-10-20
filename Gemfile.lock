@@ -33,8 +33,6 @@ GEM
       rake
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bourbon (2.1.1)
-      sass (>= 3.1)
     builder (3.0.4)
     bullet (4.2.0)
       uniform_notifier
@@ -258,7 +256,6 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (>= 2.5.0)
-  bourbon
   bullet
   cache_digests
   capybara

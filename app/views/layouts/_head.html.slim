@@ -41,10 +41,8 @@ javascript:
    $('abbr.timeago').timeago();
   });
 
-/ knight head
-= javascript_include_tag 'application_head'
-/ knight body
-= javascript_include_tag 'application_body'
+/ javascripts
+= javascript_include_tag 'application'
 
 / csrf meta tags
 = csrf_meta_tags unless response.cache_control[:public]

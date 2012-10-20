@@ -61,8 +61,6 @@ group :assets do
   gem 'sass-rails'
   gem 'compass-rails'
   gem 'zurb-foundation', '>= 3.0.9'
-  # Bourbon (SASS Mixins)
-  gem 'bourbon'
 
   # JS
   gem 'coffee-rails'
