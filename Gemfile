@@ -50,9 +50,6 @@ gem 'slim-rails'
 # Friendly Id (Human-Readable IDs for ActiveRecord Models)
 gem 'friendly_id'
 
-# Acts as Taggable On (Tagging for ActiveRecord Models)
-# gem 'acts-as-taggable-on'
-
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
 
@@ -65,9 +62,6 @@ gem 'redcarpet'
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
 gem 'sinatra', require: false
-
-# Seedbank (Seed Structure)
-# gem 'seedbank'
 
 # Development Gems
 group :development do
