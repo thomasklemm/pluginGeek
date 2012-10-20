@@ -41,9 +41,10 @@ class Category < ActiveRecord::Base
   # Alias js to javascript globally
   alias_method :js, :javascript
   alias_method :js=, :javascript=
+  alias_method :js?, :javascript?
 
   def self.js
-    javascript
+    self.javascript
   end
 
   ##

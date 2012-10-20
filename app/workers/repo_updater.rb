@@ -29,11 +29,11 @@ class RepoUpdater
   # Initialize a connection pool
   GITHUB_POOL = ConnectionPool.new(size: 12, timeout: 10) { HTTPClient.new }
 
-  def perform(repo_id)
+  def perform(full_name)
     # Pick a connection from the connection pool
     GITHUB_POOL.with_connection do |github|
       # Find repo
-      repo = Repo.find_or_initialize_by_full_name(repo_id)
+      repo = Repo.find_or_initialize_by_full_name(full_name)
 
       # HTTP Request
       res = github.get('https://api.github.com/repos/' + repo.full_name)

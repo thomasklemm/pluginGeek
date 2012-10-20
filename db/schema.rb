@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009192540) do
+ActiveRecord::Schema.define(:version => 20121020082207) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20121009192540) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "categories", :force => true do |t|
     t.string   "slug",                             :null => false
@@ -65,6 +67,9 @@ ActiveRecord::Schema.define(:version => 20121009192540) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "repo_relationships", ["child_id"], :name => "index_repo_relationships_on_child_id"
+  add_index "repo_relationships", ["parent_id"], :name => "index_repo_relationships_on_parent_id"
+
   create_table "repos", :force => true do |t|
     t.string   "full_name",                            :null => false
     t.string   "owner"
@@ -84,23 +89,6 @@ ActiveRecord::Schema.define(:version => 20121009192540) do
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
   add_index "repos", ["knight_score"], :name => "index_repos_on_knight_score"
-
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       :limit => 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", :force => true do |t|
-    t.string "name"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                        :null => false

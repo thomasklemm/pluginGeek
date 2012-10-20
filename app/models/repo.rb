@@ -16,6 +16,7 @@
 #  updated_at        :datetime         not null
 #  update_success    :boolean          default(FALSE)
 #  languages         :integer
+#  children_count    :integer          default(0)
 #
 
 class Repo < ActiveRecord::Base
@@ -121,10 +122,17 @@ class Repo < ActiveRecord::Base
   # Languages (through categories)
   include FlagShihTzu
   LANGUAGES = %w(ruby javascript design)
+  LANGUAGES_WITH_SHORTCUTS = %w(ruby javascript design js)
+
   has_flags :column => 'languages',
             1 => :ruby,
             2 => :javascript,
             3 => :design
+
+  # Alias js to javascript globally
+  alias_method :js, :javascript
+  alias_method :js=, :javascript=
+  alias_method :js?, :javascript?
 
   before_save :set_languages
   def set_languages
