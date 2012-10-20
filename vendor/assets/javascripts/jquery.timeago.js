@@ -13,7 +13,7 @@
  *
  * Copyright (c) 2008-2012, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
  */
-(function($) {
+;(function($) {
   $.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
