@@ -58,6 +58,12 @@ $ ->
     else
       $show_button.hide()
 
+  # Show no items found message of there are no matches
+  visiblity_of_no_items_found_message = () ->
+    m = list?.matchingItems.length
+    if m == 0
+      $('.list').html("<div class='no_matching_items'>Sorry. No matches. :-/<br/>Just try again. :-D</div>")
+
   # Update View
   update_view = () ->
     # Show or hide 'show all' button
@@ -86,6 +92,8 @@ $ ->
   # when typing in search field
   $search.keyup () ->
     update_view()
+    # Display 'no results found' message if appropriate
+    visiblity_of_no_items_found_message()
 
   # Click on sort button marks it as active and
   # removes active class from sibling further sort buttons

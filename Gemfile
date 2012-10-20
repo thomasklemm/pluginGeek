@@ -56,12 +56,19 @@ end
 # Gems used only for assets and not required
 #   in production environments by default.
 group :assets do
+  ##
   # CSS
+  # Sass
   gem 'sass', '>= 3.2.1'
   gem 'sass-rails'
+  # Compass
   gem 'compass-rails'
+  # Bourbon (sass mixin library)
+  gem 'bourbon'
+  # Zurb Foundation (design framework)
   gem 'zurb-foundation', '>= 3.0.9'
 
+  ##
   # JS
   gem 'coffee-rails'
   gem 'uglifier'
