@@ -12,34 +12,8 @@ gem 'rails', '3.2.8'
 # Postgres Database Connector
 gem 'pg'
 
-# Gems used only for assets and not required
-#   in production environments by default.
-group :assets do
-  # CSS
-  gem 'sass', '>= 3.2.1'
-  gem 'sass-rails'
-  gem 'compass-rails'
-  gem 'zurb-foundation', '>= 3.0.9'
-  # Bourbon (SASS Mixins)
-  gem 'bourbon'
-
-  # JS
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
-
 # jQuery Rails (jQuery Adapter for Rails)
 gem 'jquery-rails'
-
-# Production Gems
-group :production do
-  # Memcached on Heroku
-  gem 'memcachier'
-  gem 'dalli'
-
-  # New Relic (Server Monitoring)
-  gem 'newrelic_rpm'
-end
 
 # High Voltage (Static Pages)
 gem 'high_voltage'
@@ -62,6 +36,38 @@ gem 'redcarpet'
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
 gem 'sinatra', require: false
+
+# Cache Digests (Watch Progress of this gem!)
+gem 'cache_digests'
+
+# Flag Shih Tzu (Bit fields for ActiveRecord)
+gem 'flag_shih_tzu'
+
+# Production Gems
+group :production do
+  # Memcached on Heroku
+  gem 'memcachier'
+  gem 'dalli'
+
+  # New Relic (Server Monitoring)
+  gem 'newrelic_rpm'
+end
+
+# Gems used only for assets and not required
+#   in production environments by default.
+group :assets do
+  # CSS
+  gem 'sass', '>= 3.2.1'
+  gem 'sass-rails'
+  gem 'compass-rails'
+  gem 'zurb-foundation', '>= 3.0.9'
+  # Bourbon (SASS Mixins)
+  gem 'bourbon'
+
+  # JS
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
 
 # Development Gems
 group :development do
@@ -88,8 +94,11 @@ group :development do
   gem 'bullet'
 end
 
-# Cache Digests (Watch Progress of this gem!)
-gem 'cache_digests'
-
-# Flag Shih Tzu (Bit fields for ActiveRecord)
-gem 'flag_shih_tzu'
+# Test Gems
+# Source: http://stackoverflow.com/questions/7628654/using-minitest-in-rails#comment12068363_9221625
+group :test do
+  gem 'minitest'
+  gem 'capybara'
+  gem 'miniskirt'
+  gem 'turn'
+end

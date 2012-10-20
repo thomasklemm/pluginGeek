@@ -31,6 +31,7 @@ GEM
     addressable (2.3.2)
     annotate (2.5.0)
       rake
+    ansi (1.4.3)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bourbon (2.1.1)
@@ -40,9 +41,18 @@ GEM
       uniform_notifier
     cache_digests (0.2.0)
       actionpack (>= 3.2)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
     celluloid (0.12.2)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
+    childprocess (0.3.6)
+      ffi (~> 1.0, >= 1.0.6)
     chunky_png (1.2.6)
     coderay (1.0.8)
     coffee-rails (3.2.2)
@@ -67,6 +77,7 @@ GEM
     facter (1.6.13)
     faraday (0.8.4)
       multipart-post (~> 1.1)
+    ffi (1.1.5)
     flag_shih_tzu (0.2.3)
       activerecord (>= 2.3.0)
     friendly_id (4.0.8)
@@ -94,6 +105,8 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.0.0)
       launchy (>= 2.0.4)
+    libwebsocket (0.1.5)
+      addressable
     lol_dba (1.3.0)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
@@ -105,6 +118,9 @@ GEM
     memcachier (0.0.1)
     method_source (0.8.1)
     mime-types (1.19)
+    miniskirt (1.2.1)
+      activesupport
+    minitest (4.1.0)
     modular-scale (1.0.2)
       compass (>= 0.11.5)
       sassy-math (>= 1.2)
@@ -112,6 +128,7 @@ GEM
     multipart-post (1.1.5)
     netrc (0.7.7)
     newrelic_rpm (3.5.0)
+    nokogiri (1.5.5)
     oauth (0.4.7)
     oauth2 (0.6.1)
       faraday (~> 0.7)
@@ -172,6 +189,11 @@ GEM
       tilt (~> 1.3)
     sassy-math (1.2)
       compass (~> 0.11)
+    selenium-webdriver (2.25.0)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
     sidekiq (2.4.0)
       celluloid (~> 0.12.0)
       connection_pool (~> 0.9.2)
@@ -206,6 +228,8 @@ GEM
     treetop (1.4.11)
       polyglot
       polyglot (>= 0.3.1)
+    turn (0.9.6)
+      ansi
     tzinfo (0.3.33)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -215,6 +239,8 @@ GEM
       rack
       raindrops (~> 0.7)
     uniform_notifier (1.1.0)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
     zurb-foundation (3.1.1)
       compass (>= 0.12.2)
       modular-scale (>= 1.0.2)
@@ -229,6 +255,7 @@ DEPENDENCIES
   bourbon
   bullet
   cache_digests
+  capybara
   coffee-rails
   compass-rails
   dalli
@@ -241,6 +268,8 @@ DEPENDENCIES
   letter_opener
   lol_dba
   memcachier
+  miniskirt
+  minitest
   newrelic_rpm
   pg
   pry-rails
@@ -254,6 +283,7 @@ DEPENDENCIES
   sinatra
   slim-rails
   sorcery (~> 0.7.12)
+  turn
   uglifier
   unicorn
   zurb-foundation (>= 3.0.9)
