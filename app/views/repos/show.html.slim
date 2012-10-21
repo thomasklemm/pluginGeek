@@ -89,9 +89,8 @@
           em Please <b>#{link_to 'add a category', edit_repo_path(@repo)} to this repo.
 
       / Relationships
-      li#RelationshipsTab
-        b.tab_title
-          ' Parents &amp; Children
+      li id='RelationshipsTab'
+        span.tab_title Parents &amp; Children&nbsp;
 
         / Edit link
         = link_to edit_repo_path(@repo) do

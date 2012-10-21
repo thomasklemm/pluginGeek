@@ -13,7 +13,6 @@
 #  languages         :integer
 #  name              :string(255)
 #  stars             :integer          default(0)
-#  repos_count       :integer          default(0)
 #
 
 class Category < ActiveRecord::Base

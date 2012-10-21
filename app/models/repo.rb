@@ -16,7 +16,6 @@
 #  updated_at        :datetime         not null
 #  update_success    :boolean          default(FALSE)
 #  languages         :integer
-#  children_count    :integer          default(0)
 #
 
 class Repo < ActiveRecord::Base
