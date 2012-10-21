@@ -79,6 +79,9 @@ $ ->
   # Category Markdown Description Textarea Autogrow
   $('#category_description').autoGrow()
 
+  # Update view to calculate visibility of 'show more' button and more
+  update_view()
+
   ##
   # Event handlers
   # Show all matching items
