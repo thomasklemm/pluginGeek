@@ -8,7 +8,7 @@
     = link_to '&nbsp;&raquo;'.html_safe, category
   - category_repo_link = capture do
     = link_to category do
-      = pluralize((category.repos_count - 3), 'more repo')
+      = pluralize((category.repos.size - 3), 'more repo')
       '  &raquo;
 
   / Category
@@ -26,7 +26,7 @@
       span.pr = category.popular_repos
 
       / Link
-      - if category.repos_count > 3
+      - if category.repos.size > 3
         '  &amp;
         = category_repo_link
       - else

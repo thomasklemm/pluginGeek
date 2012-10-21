@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020082207) do
+ActiveRecord::Schema.define(:version => 20121021194359) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20121020082207) do
     t.integer  "languages"
     t.string   "name"
     t.integer  "stars",             :default => 0
-    t.integer  "repos_count",       :default => 0
   end
 
   add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"

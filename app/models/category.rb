@@ -134,7 +134,6 @@ class Category < ActiveRecord::Base
   # Set Stats in Callbacks
   before_save :set_stars
   before_save :set_knight_score
-  before_save :set_repos_count
 
   def set_stars
     self.stars = repos.map(&:stars).reduce(:+) || 0
@@ -142,10 +141,6 @@ class Category < ActiveRecord::Base
 
   def set_knight_score
     self.knight_score = repos.map(&:knight_score).reduce(:+) || 0
-  end
-
-  def set_repos_count
-    self.repos_count = repos.size || 0
   end
 
   # Description

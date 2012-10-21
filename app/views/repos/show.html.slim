@@ -50,7 +50,7 @@
               li
                 = link_to category.full_name, category
                 span style='color: #777; font-size: 14px'
-                  | &nbsp;&nbsp;#{ pluralize(category.repos_count, 'repos') },&nbsp;
+                  | &nbsp;&nbsp;#{ pluralize(category.repos.size, 'repos') },&nbsp;
                   = stars_mixin(category.stars)
 
       / Repo has no categories yet
