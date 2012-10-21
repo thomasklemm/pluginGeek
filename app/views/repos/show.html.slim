@@ -47,9 +47,9 @@
       - if @repo.has_categories?
         ul.square
           - @repo.categories.each do |category|
-              li
-                = link_to category.full_name, category
-                span style='color: #777; font-size: 14px'
+              li.repo_category
+                = link_to category.full_name, category, class: 'full_name'
+                span.stats
                   | &nbsp;&nbsp;#{ pluralize(category.repos.size, 'repos') },&nbsp;
                   = stars_mixin(category.stars)
 

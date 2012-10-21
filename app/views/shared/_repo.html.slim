@@ -31,7 +31,7 @@
 
       / Toggle Children
       - if repo.has_children?
-        = link_to 'javascript:', class: 'toggle_children js_toggle_children' do
+        = link_to 'javascript:', class: 'toggle_children' do
           i.icon-plane
           '
           = toggle_children_link_name
@@ -45,5 +45,5 @@
 
     / Children
     - if repo.has_children?
-      .child_list.js_child_list
+      .child_list
         = render partial: 'shared/child', collection: repo.children, as: :repo

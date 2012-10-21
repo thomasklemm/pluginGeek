@@ -52,17 +52,19 @@ $ ->
   # Decide if show all show_button should be visible
   visibility_of_show_button = () ->
     p = list?.page
-    m = list.matchingItems.length
-    if p < m
-      $show_button.show()
-    else
-      $show_button.hide()
+    m = list?.matchingItems.length
+    if p && m
+      if p < m
+        $show_button.show()
+      else
+        $show_button.hide()
 
   # Show no items found message of there are no matches
   visiblity_of_no_items_found_message = () ->
     m = list?.matchingItems.length
-    if m == 0
-      $('.list').html("<div class='no_matching_items'>Sorry. No matches. :-/<br/>Just try again. :-D</div>")
+    if m
+      if m == 0
+        $('.list').html("<div class='no_matching_items'>Sorry. No matches. :-/<br/>Just try again. :-D</div>")
 
   # Update View
   update_view = () ->
@@ -108,6 +110,6 @@ $ ->
 
   # Click on toggle children
   # toggles the child list of a repo
-  $('.js_toggle_children').live 'click', (e) ->
-    $(this).parent().siblings('.js_child_list').toggle()
+  $('.toggle_children').live 'click', (e) ->
+    $(this).parent().siblings('.child_list').toggle()
     e.preventDefault()
