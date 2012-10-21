@@ -90,7 +90,10 @@
 
       / Relationships
       li#RelationshipsTab
-        b style='font-size: 1.8rem' Parents & Children&nbsp;
+        b.tab_title
+          ' Parents &amp; Children
+
+        / Edit link
         = link_to edit_repo_path(@repo) do
           i.icon-edit
           | &nbsp;Edit

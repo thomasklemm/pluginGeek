@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021194359) do
+ActiveRecord::Schema.define(:version => 20121021204920) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(:version => 20121021194359) do
     t.datetime "updated_at",                           :null => false
     t.boolean  "update_success",    :default => false
     t.integer  "languages"
-    t.integer  "children_count",    :default => 0
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
