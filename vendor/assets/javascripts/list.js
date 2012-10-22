@@ -28,22 +28,22 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
-;(function( window, undefined ) {
+(function( window, undefined ) {
 "use strict";
 var document = window.document,
-  h;
+    h;
 
 var List = function(id, options, values) {
     var self = this,
-    templater,
-    init,
-    initialItems,
-    Item,
-    Templater,
-    sortButtons,
-    events = {
-        'updated': []
-    };
+        templater,
+        init,
+        initialItems,
+        Item,
+        Templater,
+        sortButtons,
+        events = {
+            'updated': []
+        };
     this.listContainer = (typeof(id) == 'string') ? document.getElementById(id) : id;
     // Check if the container exists. If not return instead of breaking the javascript
     if (!this.listContainer)
@@ -194,11 +194,11 @@ var List = function(id, options, values) {
         }
     };
 
-  this.show = function(i, page) {
-    this.i = i;
-    this.page = page;
-    self.update();
-  };
+    this.show = function(i, page) {
+        this.i = i;
+        this.page = page;
+        self.update();
+    };
 
     /* Removes object from list.
     * Loops through the list and removes objects where
@@ -412,22 +412,22 @@ var List = function(id, options, values) {
 
     this.update = function() {
         var is = self.items,
-      il = is.length;
+            il = is.length;
 
         self.visibleItems = [];
         self.matchingItems = [];
         templater.clear();
         for (var i = 0; i < il; i++) {
-            if (is[i].matching() && ((i+1) >= self.i && self.visibleItems.length < self.page)) {
+            if (is[i].matching() && ((self.matchingItems.length+1) >= self.i && self.visibleItems.length < self.page)) {
                 is[i].show();
                 self.visibleItems.push(is[i]);
                 self.matchingItems.push(is[i]);
-      } else if (is[i].matching()) {
+            } else if (is[i].matching()) {
                 self.matchingItems.push(is[i]);
                 is[i].hide();
-      } else {
+            } else {
                 is[i].hide();
-      }
+            }
         }
         trigger('updated');
     };
@@ -687,7 +687,7 @@ h = {
     /* http://stackoverflow.com/questions/7238177/detect-htmlcollection-nodelist-in-javascript */
     isNodeList: function(nodes) {
         var result = Object.prototype.toString.call(nodes);
-        if (typeof nodes === 'object' && /^\[object (HTMLCollection|NodeList|Object)\]$/.test(result) && (nodes.length == 0 || (typeof node === "object" && nodes[0].nodeType > 0))) {
+        if (typeof nodes === 'object' && /^\[object (HTMLCollection|NodeList|Object)\]$/.test(result) && (nodes.length == 0 || (typeof nodes[0] === "object" && nodes[0].nodeType > 0))) {
             return true;
         }
         return false;
