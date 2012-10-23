@@ -15,6 +15,14 @@
       div style='padding-bottom: 1rem'
         = f.select :parent_list, options_for_select(Repo.order_by_knight_score.pluck(:full_name), @repo.parents.map(&:full_name)), {}, {multiple: true}
 
+      / Description
+      = f.label :description
+      = f.text_area :description, rows: 2
+
+      / Label
+      = f.label :label
+      = f.text_field :label
+
       / Submit
       = f.submit 'Save Categories', class: 'small radius button'
 
