@@ -223,5 +223,5 @@ class Repo < ActiveRecord::Base
 
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :description, :label, :category_list, :parent_list
+  attr_accessible :full_name, :description, :label, :category_ids, :parent_ids
 end
