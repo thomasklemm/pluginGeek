@@ -26,6 +26,9 @@ class Repo < ActiveRecord::Base
   # Validations
   validates :full_name, presence: true, uniqueness: true
 
+  validates :description, length: {maximum: 500}
+  validates :label,       length: {maximum: 100}
+
   ##
   # Associations
   #
@@ -188,10 +191,7 @@ class Repo < ActiveRecord::Base
     self[:owner] || self[:full_name].split('/')[0]
   end
 
-  def description
-    self[:description] || 'No description. Add one on Github.'
-  end
-
+  # REVIEW: Is this really nescessary for list.js to work?
   def homepage_url
     self[:homepage_url] || ''
   end
@@ -200,12 +200,14 @@ class Repo < ActiveRecord::Base
     (self[:github_updated_at] && self[:github_updated_at].utc) || (Time.now - 2.years)
   end
 
-  # Labels and Pitches in categories and overview
-  alias_attribute :label_in_categories, :lic
-  alias_attribute :pitch_in_categories, :pic
+  def description
+    self[:description] || github_description || '<em>Add a description for this repo here on Knight.io or on Github.</em>'.html_safe
+  end
 
-  alias_attribute :label_in_overview, :lic
-  alias_attribute :pitch_in_overview, :pic
+  # REVIEW: Is this really nescessary for list.js to work?
+  def label
+    self[:label] || ''
+  end
 
   ##
   # Virtual attributes
@@ -221,5 +223,5 @@ class Repo < ActiveRecord::Base
 
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :category_list, :parent_list
+  attr_accessible :full_name, :description, :label, :category_list, :parent_list
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023082531) do
+ActiveRecord::Schema.define(:version => 20121023095826) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -70,23 +70,21 @@ ActiveRecord::Schema.define(:version => 20121023082531) do
   add_index "repo_relationships", ["parent_id"], :name => "index_repo_relationships_on_parent_id"
 
   create_table "repos", :force => true do |t|
-    t.string   "full_name",                            :null => false
+    t.string   "full_name",                             :null => false
     t.string   "owner"
     t.string   "name"
-    t.integer  "stars",             :default => 0
-    t.text     "description"
+    t.integer  "stars",              :default => 0
+    t.text     "github_description"
     t.string   "github_url"
     t.string   "homepage_url"
-    t.integer  "knight_score",      :default => 0
+    t.integer  "knight_score",       :default => 0
     t.datetime "github_updated_at"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.boolean  "update_success",    :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "update_success",     :default => false
     t.integer  "languages"
-    t.string   "lic"
-    t.string   "pic"
-    t.string   "lio"
-    t.string   "pio"
+    t.text     "description"
+    t.text     "label"
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true

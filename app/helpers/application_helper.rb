@@ -9,8 +9,14 @@ module ApplicationHelper
     end
   end
 
+  # Generate a '.stars' span
   def stars_mixin(count)
     "<span class='stars'><i class='icon-star'></i>&nbsp;#{ count }</span>".html_safe
+  end
+
+  # Generate a '.l' span
+  def label_mixin(text)
+    "<span class='l label round'><i class='icon-star'></i>&nbsp;#{ text }</span>".html_safe if text.present?
   end
 
   def language_size(size)
