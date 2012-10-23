@@ -200,6 +200,13 @@ class Repo < ActiveRecord::Base
     (self[:github_updated_at] && self[:github_updated_at].utc) || (Time.now - 2.years)
   end
 
+  # Labels and Pitches in categories and overview
+  alias_attribute :label_in_categories, :lic
+  alias_attribute :pitch_in_categories, :pic
+
+  alias_attribute :label_in_overview, :lic
+  alias_attribute :pitch_in_overview, :pic
+
   ##
   # Virtual attributes
   def smart_timestamp
