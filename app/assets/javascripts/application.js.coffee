@@ -5,7 +5,6 @@
 # Requires
 # List.js
 //= require list
-//= require list.fuzzySearch
 
 # jQuery Rails adapter
 //= require jquery_ujs
