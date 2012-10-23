@@ -46,14 +46,13 @@ class ReposController < ApplicationController
 
   # PUT /repos/:owner/:name
   def update
-    # REVIEW: Working?
     params[:repo][:category_list] &&= params[:repo][:category_list].split(',').join(', ')
 
     if @repo.update_attributes(params[:repo])
       flash[:notice] = 'Repo saved.'
       redirect_to action: :show
     else
-      flash.now.alert = 'Failed to save repo!'
+      flash.now.alert = 'Some validation errors occured.'
       render action: :edit
     end
   end

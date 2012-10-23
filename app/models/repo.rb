@@ -2,20 +2,22 @@
 #
 # Table name: repos
 #
-#  id                :integer          not null, primary key
-#  full_name         :string(255)      not null
-#  owner             :string(255)
-#  name              :string(255)
-#  stars             :integer          default(0)
-#  description       :text
-#  github_url        :string(255)
-#  homepage_url      :string(255)
-#  knight_score      :integer          default(0)
-#  github_updated_at :datetime
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  update_success    :boolean          default(FALSE)
-#  languages         :integer
+#  id                 :integer          not null, primary key
+#  full_name          :string(255)      not null
+#  owner              :string(255)
+#  name               :string(255)
+#  stars              :integer          default(0)
+#  github_description :text
+#  github_url         :string(255)
+#  homepage_url       :string(255)
+#  knight_score       :integer          default(0)
+#  github_updated_at  :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  update_success     :boolean          default(FALSE)
+#  languages          :integer
+#  description        :text
+#  label              :text
 #
 
 class Repo < ActiveRecord::Base
@@ -26,8 +28,8 @@ class Repo < ActiveRecord::Base
   # Validations
   validates :full_name, presence: true, uniqueness: true
 
-  validates :description, length: {maximum: 500}
-  validates :label,       length: {maximum: 100}
+  validates :description, length: {maximum: 255}
+  validates :label,       length: {maximum: 60}
 
   ##
   # Associations
@@ -49,18 +51,18 @@ class Repo < ActiveRecord::Base
     parents.size > 0
   end
 
-  def parent_list
-    parents.map(&:full_name).join(', ')
-  end
+  # def parent_list
+  #   parents.map(&:full_name).join(', ')
+  # end
 
-  def parent_list=(full_names)
-    full_names.delete("")
-    unless full_names.join(', ') == parent_list
-      self.parents = full_names.map do |full_name|
-        Repo.find_by_full_name(full_name.strip)
-      end
-    end
-  end
+  # def parent_list=(full_names)
+  #   full_names.delete("")
+  #   unless full_names.join(', ') == parent_list
+  #     self.parents = full_names.map do |full_name|
+  #       Repo.find_by_full_name(full_name.strip)
+  #     end
+  #   end
+  # end
 
   # Children
   has_many  :child_parent_relationships,
@@ -201,7 +203,7 @@ class Repo < ActiveRecord::Base
   end
 
   def description
-    self[:description] || github_description || '<em>Add a description for this repo here on Knight.io or on Github.</em>'.html_safe
+    (self[:description].present? && self[:description]) || (github_description.present? && github_description) || '<em>Add a description for this repo here on Knight.io or on Github.</em>'.html_safe
   end
 
   # REVIEW: Is this really nescessary for list.js to work?
@@ -223,5 +225,5 @@ class Repo < ActiveRecord::Base
 
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :description, :label, :category_ids, :parent_ids
+  attr_accessible :full_name, :description, :label, :category_list, :parent_ids
 end

@@ -4,7 +4,7 @@
 # Formtastic::FormBuilder.default_text_field_size = 50
 
 # Set the default text area height when input is a text. Default is 20.
-# Formtastic::FormBuilder.default_text_area_height = 5
+Formtastic::FormBuilder.default_text_area_height = 5
 
 # Set the default text area width when input is a text. Default is nil.
 # Formtastic::FormBuilder.default_text_area_width = 50
@@ -66,7 +66,7 @@
 # specifying that class here.  Defaults to Formtastic::FormBuilder.
 # Formtastic::Helpers::FormHelper.builder = MyCustomBuilder
 
-# You can opt-in to Formtastic's use of the HTML5 `required` attribute on `<input>`, `<select>` 
+# You can opt-in to Formtastic's use of the HTML5 `required` attribute on `<input>`, `<select>`
 # and `<textarea>` tags by setting this to false (defaults to true).
 # Formtastic::FormBuilder.use_required_attribute = true
 

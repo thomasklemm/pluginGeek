@@ -2,48 +2,29 @@
 
 = semantic_form_for @repo do |f|
 
+  = f.semantic_errors
+
   = f.inputs do
-    = f.input :description
-    = f.input :label
+    .input
+      .label Description on Github
+      .github_description= @repo.github_description
 
-    = f.input :categories
-    = f.input :parents
+    = f.input :description, input_html: {rows: 4}, hint: 'max. 500 characters || Will replace the Github description displayed above if filled...'
+    = f.input :label, as: :string, hint: 'max. 100 characters'
 
-  = f.actions
+    = f.input :category_list, hint: 'Form Builders (Ruby), Timestamps (JS), Static Sites (Ruby/JS/Design), ... Just add new categories if the existing ones do not fit.'.html_safe
+    = f.input :parents, hint: 'Is this repo a child of any other one?'
 
-  / = f.input :category_list
+  = f.actions do
+    = f.action :submit, as: :button, button_html: {class: 'medium radius button'}
 
+/ Category Names Autocomplete
+- category_full_names = Category.order_by_knight_score.pluck(:full_name).to_json.html_safe
+javascript:
+  $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Find or create tags'});
 
-/ h6 Edit this repo ( #{ @repo.full_name } )
-/ .category_list_edit
-/   = form_for @repo do |f|
-/     / Categories
-/     / = f.label :category_list, "Categories  <em>Style: 'My Category (Ruby/JS/Design)'</em>".html_safe
-/     / div style='padding-bottom: 1rem' = f.text_field :category_list, autocomplete: 'off'
-
-/     / Parents
-/     / = f.label :parent_list, 'Parents'
-/     / div style='padding-bottom: 1rem'
-/     /   = f.select :parent_list, options_for_select(Repo.order_by_knight_score.pluck(:full_name), @repo.parents.map(&:full_name)), {}, {multiple: true}
-
-/     / Description
-/     = f.label :description
-/     = f.text_area :description, rows: 2
-
-/     / Label
-/     = f.label :label
-/     = f.text_field :label
-
-/     / Submit
-/     = f.submit 'Save Categories', class: 'small radius button'
-
-/ / Category Names Autocomplete
-/ - category_full_names = Category.order_by_knight_score.pluck(:full_name).to_json.html_safe
-/ javascript:
-/   $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Find or create tags'});
-
-/ / Parent List
-/ javascript:
-/   $('#repo_parent_list').select2();
+/ Parent List
+javascript:
+  $('#repo_parent_ids').select2();
 
 / hr
