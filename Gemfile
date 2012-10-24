@@ -43,6 +43,9 @@ gem 'cache_digests'
 # Flag Shih Tzu (Bit fields for ActiveRecord)
 gem 'flag_shih_tzu'
 
+# Formtastic (Form Markup)
+gem 'formtastic'
+
 # Production Gems
 group :production do
   # Memcached on Heroku

@@ -1,38 +1,49 @@
-/ repos/_repo_categories
+/ repos/edit
 
-/ Edit View
-- if params[:action] == 'edit'
-  hr
-  h6 Edit this repo ( #{ @repo.full_name } )
-  .category_list_edit
-    = form_for @repo do |f|
-      / Categories
-      = f.label :category_list, "Categories  <em>Style: 'My Category (Ruby/JS/Design)'</em>".html_safe
-      div style='padding-bottom: 1rem' = f.text_field :category_list, autocomplete: 'off'
+/ Repo Header
+.repo_header
 
-      / Parents
-      = f.label :parent_list, 'Parents'
-      div style='padding-bottom: 1rem'
-        = f.select :parent_list, options_for_select(Repo.order_by_knight_score.pluck(:full_name), @repo.parents.map(&:full_name)), {}, {multiple: true}
+  / Name and Owner
+  h3.name_and_owner = link_to @repo.github_url do
+    i.icon-github style='padding-right: 12px'
+    span.owner #{ @repo.owner }
+    span style='padding: 0 5px' #{'/'}
+    span.name #{ @repo.name }
 
-      / Description
-      = f.label :description
-      = f.text_area :description, rows: 2
+  / Github Star Button including Stars Count
+  iframe.star_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
-      / Label
-      = f.label :label
-      = f.text_field :label
+= semantic_form_for @repo do |f|
 
-      / Submit
-      = f.submit 'Save Categories', class: 'small radius button'
+  = f.semantic_errors
 
-  / Category Names Autocomplete
-  - category_full_names = Category.order_by_knight_score.pluck(:full_name).to_json.html_safe
-  javascript:
-    $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Find or create tags'});
+  = f.inputs do
+    .input
+      .label Description on Github
+      .github_description "#{ @repo.github_description }"
+      .inline-hints Github description shows when no custom description is entered below.
 
-  / Parent List
-  javascript:
-    $('#repo_parent_list').select2();
+    = f.input :description, input_html: {rows: 4}, hint: 'Custom description replaces the Github description, so craft it wisely. || max. 360 characters'
+    = f.input :label, as: :string, hint: 'A label highlights great repos. || max. 60 characters'
 
-  hr
+    = f.input :category_list, hint: 'Categories like Form Builders (Ruby), Static Sites (Ruby/JS/Design) are valid. You can add new categories if the existing ones do not fit.'.html_safe
+    = f.input :parents, collection: Repo.all_without(@repo), hint: 'Is this repo related to any other one?'
+
+  = f.actions do
+    = f.action :submit, as: :button, button_html: {class: 'medium radius button'}
+
+    p style='margin-top: 1rem'
+      i.icon-star.main_color
+      '  Thanks for contributing!
+
+
+/ Category Names Autocomplete
+- category_full_names = Category.order_by_knight_score.pluck(:full_name).to_json.html_safe
+javascript:
+  $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Find or create tags'});
+
+/ Parent List
+javascript:
+  $('#repo_parent_ids').select2();
+
+/ hr

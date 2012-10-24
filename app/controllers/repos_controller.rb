@@ -46,14 +46,13 @@ class ReposController < ApplicationController
 
   # PUT /repos/:owner/:name
   def update
-    # REVIEW: Working?
     params[:repo][:category_list] &&= params[:repo][:category_list].split(',').join(', ')
 
     if @repo.update_attributes(params[:repo])
       flash[:notice] = 'Repo saved.'
       redirect_to action: :show
     else
-      flash.now.alert = 'Failed to save repo!'
+      flash.now.alert = 'Some validation errors occured.'
       render action: :edit
     end
   end
@@ -63,7 +62,7 @@ protected
   ##
   # Before Filters
   def find_repo
-    @repo = Repo.where(full_name: full_name_from_params).includes([:children, :parents, {:parents => :children}, {:children => :children}, {:categories => {:repos => :children}}]).first_or_initialize
+    @repo = Repo.where(full_name: full_name_from_params).first_or_initialize
   end
 
   ##
