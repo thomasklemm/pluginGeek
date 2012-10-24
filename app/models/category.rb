@@ -25,7 +25,7 @@ class Category < ActiveRecord::Base
   has_many  :categorizations
   has_many  :repos,
             through: :categorizations,
-            uniq: true
+            order: 'knight_score desc'
 
   # Languages
   include FlagShihTzu

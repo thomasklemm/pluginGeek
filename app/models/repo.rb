@@ -89,8 +89,8 @@ class Repo < ActiveRecord::Base
   has_many  :categorizations
   has_many  :categories,
             through: :categorizations,
-            uniq: true
-  # REVIEW: How can categories be implemented in ordered list fashion?
+            uniq: true,
+            order: 'knight_score DESC'
 
   def has_categories?
     categories.size > 0
@@ -178,6 +178,12 @@ class Repo < ActiveRecord::Base
     else
       DateTime.now.utc.to_s(:number).slice(0..(-2))
     end
+  end
+
+  # All repos without the given one
+  # used in repo#edit to disencourage setting a repo's parent to itself
+  def self.all_without(repo)
+    order_by_knight_score - [repo]
   end
 
   # update_failed

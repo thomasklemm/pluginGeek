@@ -62,7 +62,7 @@ protected
   ##
   # Before Filters
   def find_repo
-    @repo = Repo.where(full_name: full_name_from_params).includes([:children, :parents, {:parents => :children}, {:children => :children}, {:categories => {:repos => :children}}]).first_or_initialize
+    @repo = Repo.where(full_name: full_name_from_params).first_or_initialize
   end
 
   ##
