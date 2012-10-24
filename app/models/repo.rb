@@ -28,7 +28,7 @@ class Repo < ActiveRecord::Base
   # Validations
   validates :full_name, presence: true, uniqueness: true
 
-  validates :description, length: {maximum: 255}
+  validates :description, length: {maximum: 360}
   validates :label,       length: {maximum: 60}
 
   ##
