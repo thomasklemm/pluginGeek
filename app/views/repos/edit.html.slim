@@ -23,11 +23,11 @@
       .github_description "#{ @repo.github_description }"
       .inline-hints Github description shows when no custom description is entered below.
 
-    = f.input :description, input_html: {rows: 4}, hint: 'Custom description replaces the Github description, so craft it wisely. || max. 360 characters'
-    = f.input :label, as: :string, hint: 'A label highlights great repos. || max. 60 characters'
+    = f.input :description, input_html: {rows: 4, placeholder: 'What is the point of this repo?'}, hint: 'Custom description replaces the Github description, so craft it wisely. || max. 360 characters'
+    = f.input :label, as: :string, hint: 'A label highlights great repos. || max. 60 characters', input_html: {placeholder: 'What makes this repo stand out?'}
 
     = f.input :category_list, hint: 'Categories like Form Builders (Ruby), Static Sites (Ruby/JS/Design) are valid. You can add new categories if the existing ones do not fit.'.html_safe
-    = f.input :parents, collection: Repo.all_without(@repo), hint: 'Is this repo related to any other one?'
+    = f.input :parents, collection: Repo.all_without(@repo), hint: 'Is this repo related to any other one?', input_html: {placeholder: 'Standalone or related to other repos?'}
 
   = f.actions do
     = f.action :submit, as: :button, button_html: {class: 'medium radius button'}
@@ -40,7 +40,7 @@
 / Category Names Autocomplete
 - category_full_names = Category.order_by_knight_score.pluck(:full_name).to_json.html_safe
 javascript:
-  $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Find or create tags'});
+  $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Which categories does this repo belong to? Which problems does it solve?'});
 
 / Parent List
 javascript:

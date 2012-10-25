@@ -22,7 +22,7 @@ class RepoUpdater
 
   # Github Attribute Mapping (:my_field => :github_field)
   GITHUB_REPO_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
-      description: 'description', stars: 'watchers', github_url: 'html_url',
+      github_description: 'description', stars: 'watchers', github_url: 'html_url',
       homepage_url: 'homepage', owner: ['owner', 'login'],
       github_updated_at: 'pushed_at'].freeze
 
@@ -42,7 +42,7 @@ class RepoUpdater
       # REVIEW: This could be the place for setting a flag is an update job fails for an existing repo
       if res.status != 200
         # Set flag unless repo is a new record
-        repo.new_record? and repo.update_attribute('update_success', false)
+        repo.update_column('update_success', false) unless repo.new_record?
         return false
       end
 
@@ -61,9 +61,9 @@ class RepoUpdater
         repo[:homepage_url] = repo[:github_url]
       end
 
-      # Limit description length
+      # Limit github description length
       # (only if a repo owner think this is the place for a novel)
-      repo[:description] &&= repo[:description].truncate(300)
+      repo[:github_description] &&= repo[:github_description].truncate(360)
 
       # Calculate Knight Score
       repo[:knight_score] = knight_score(github_repo)
