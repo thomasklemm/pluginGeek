@@ -32,6 +32,10 @@ GEM
     annotate (2.5.0)
       rake
     arel (3.0.2)
+    audited (3.0.0)
+    audited-activerecord (3.0.0)
+      activerecord (~> 3.0)
+      audited (= 3.0.0)
     bcrypt-ruby (3.0.1)
     bourbon (2.1.1)
       sass (>= 3.1)
@@ -260,6 +264,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (>= 2.5.0)
+  audited-activerecord (~> 3.0)
   bourbon
   bullet
   cache_digests

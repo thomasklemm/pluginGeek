@@ -46,6 +46,12 @@ gem 'flag_shih_tzu'
 # Formtastic (Form Markup)
 gem 'formtastic'
 
+<<<<<<< HEAD
+=======
+# Audited (Model Versioning and Auditing)
+gem 'audited-activerecord', '~> 3.0'
+
+>>>>>>> feature/versioning
 # Production Gems
 group :production do
   # Memcached on Heroku

@@ -21,6 +21,10 @@ class Category < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name, use: [:slugged, :history]
 
+  ##
+  # Audits
+  audited only: [:full_name, :short_description, :description]
+
   # Repos
   has_many  :categorizations
   has_many  :repos,

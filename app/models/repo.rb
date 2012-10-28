@@ -32,6 +32,10 @@ class Repo < ActiveRecord::Base
   validates :label,       length: {maximum: 60}
 
   ##
+  # Audits
+  audited only: [:full_name, :description, :label]
+
+  ##
   # Associations
   #
   # Parents
