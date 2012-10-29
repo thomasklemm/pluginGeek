@@ -78,7 +78,7 @@ $ ->
   $search.focus()
 
   # Category Markdown Description Textarea Autogrow
-  $('#category_description').autoGrow()
+  $('.autogrow').autoGrow()
 
   # Update view to calculate visibility of 'show more' button and more
   update_view()
