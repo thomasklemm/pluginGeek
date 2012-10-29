@@ -3,24 +3,22 @@
 / Repos List
 #js_repos_list
 
-  / Sort
-  ul.sort_list class='right'
-    span.intro <i class='icon-sort'></i> Sort:
-    li.sort.active  data-sort='ks' Knight Score
-    li.sort         data-sort='ua'   Activity
-    li.sort         data-sort='n'         Name
-
-  h4.title Repos
-
   / List
-  .list data-page=4
+  .list data-page=3
     = render partial: 'shared/repo', collection: @repos
 
     / No repos
     - if @repos.blank?
-      p: b No repos associated with this category any longer!
+      p: b No repos associated with this category any longer
 
   / Show all
-  button.js_show_all_matching_items class='radius button' style='margin-top: 1rem' Show all repos
+  button.js_show_all_matching_items class='radius button' style='margin-top: 1rem;' Show all repos
+
+  / Sort
+  ul.sort_list style='height: 2rem; margin-top: 1rem'
+    span.intro <i class='icon-sort'></i> Sort:
+    li.sort.active  data-sort='ks' Knight Score
+    li.sort         data-sort='ua' Activity
+    li.sort         data-sort='n'  Name
 
 

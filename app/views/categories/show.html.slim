@@ -27,24 +27,10 @@
     / FIXME: Escape short description properly, strip of all html when saving with sanitizer
     p.short_description = @category.short_description.html_safe
 
-    / Tabs
-    dl class='tabs contained'
-      dd class='active': a href='#repos' Repos
-      dd: a href='#howto' How-to &amp; solutions
+    / Repos
+    .my-panel
+      = render 'category_show_repos_list'
 
-    / Tabs content
-    ul class='tabs-content contained'
+    / Solutions
+    .markdown-body = @category.description
 
-      / Repos list
-      li id='reposTab' class='active'
-        = render 'category_show_repos_list'
-
-      / How-to and solutions
-      li id='howtoTab'
-        h4.title How-to & solutions
-        - if @category.description.present?
-          .c_howto = @category.description
-        - else
-          = link_to edit_category_path(@category), class: 'edit_description' do
-              i.icon-edit
-              | &nbsp;Please add instructions. Thanks!
