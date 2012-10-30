@@ -10,7 +10,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  full_name         :string(255)      not null
-#  languages         :integer
+#  languages         :integer          default(0)
 #  name              :string(255)
 #  stars             :integer          default(0)
 #

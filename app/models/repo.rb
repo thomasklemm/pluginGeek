@@ -15,7 +15,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  update_success     :boolean          default(FALSE)
-#  languages          :integer
+#  languages          :integer          default(0)
 #  description        :text
 #  label              :text
 #

@@ -38,11 +38,14 @@ class RepoUpdater
       # HTTP Request
       res = github.get('https://api.github.com/repos/' + repo.full_name)
 
+      binding.pry
+
       # Exit on error
-      # REVIEW: This could be the place for setting a flag is an update job fails for an existing repo
       if res.status != 200
         # Set flag unless repo is a new record
         repo.update_column('update_success', false) unless repo.new_record?
+
+        # Exit
         return false
       end
 
