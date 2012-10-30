@@ -25,6 +25,10 @@ class Category < ActiveRecord::Base
   # Audits
   audited only: [:full_name, :short_description, :description]
 
+  ##
+  # Validations
+  validates :short_description, length: {maximum: 360}
+
   # Repos
   has_many  :categorizations
   has_many  :repos,
