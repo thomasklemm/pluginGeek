@@ -1,0 +1,23 @@
+/ application/_ads
+
+/ Load ads
+/ Load category ads
+- @ads = []
+- @ads = @category.ads if @category.present?
+- case @ads.flatten.size
+  - when 0 then @ads << Ad.all.sample(2)
+  - when 1 then @ads << Ad.all.sample(1)
+  - else @ads = @ads.sample(2)
+
+/ Only display unique ads
+- @ads = @ads.flatten.uniq
+
+/ Render ads
+.ads
+  - @ads.each do |ad|
+    .ad
+      div
+        span.name = link_to ad.name, ad.url
+        span.keyword = icon_mixin('star', ad.keyword)
+      .description = ad.description
+
