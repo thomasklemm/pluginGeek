@@ -14,11 +14,15 @@ class Ad < ActiveRecord::Base
   ##
   # Attributes
   def name
-    self[:name].html_safe
+    self[:name] && self[:name].html_safe
   end
 
   def description
-    self[:description].html_safe
+    self[:description] && self[:description].html_safe
+  end
+
+  def keyword
+    self[:keyword] && self[:keyword].html_safe
   end
 
   ##
