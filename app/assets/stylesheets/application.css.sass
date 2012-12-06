@@ -1,21 +1,25 @@
 // application.css.sass
-
-// Foundation Framework
-@import 'foundation_and_overrides'
+// Place all import here
 
 // Libraries
-// @import 'formtastic'
-@import 'application/select2custom'
+@import 'libraries/formtastic_overrides'
+@import 'libraries/select2custom'
+@import 'libraries/foundation_and_overrides'
 @import 'font-awesome'
-@import 'formtastic_overrides'
+@import 'libraries/markdown_body'
 
-// Application
-@import 'application/application'
+// Experiments
+@import 'experiments/experiments_in_css'
+@import 'experiments/experiments_in_sass'
 
-// Categories
-@import 'categories/categories'
-@import 'categories/category_description'
+// Models
+@import 'models/categories'
+@import 'models/repos'
+@import 'models/ads'
 
-// Repos
-@import 'repos/repos'
-@import 'ads'
+// Elements
+@import 'elements/flash_messages'
+@import 'elements/footer'
+@import 'elements/sidebar'
+@import 'elements/terms_of_service'
+@import 'elements/topbar'

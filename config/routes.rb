@@ -10,8 +10,7 @@ Knight::Application.routes.draw do
   # Categories
   resources :categories, only: [:index, :show, :edit, :update]
   # REVIEW: There must be a nicer way to do this
-  get ':language(/:scope)' => 'categories#index', as: :language, constraints: { language: /ruby|js|design/i, scope: /categories/ }
-  get ':language/:scope' => 'repos#index', constraints: { language: /ruby|js|design/i, scope: /repos/ }
+  get ':language(/:sublanguage)' => 'categories#index', as: :language, constraints: { language: /ruby|javascript|web_design|mobile/i, scope: /categories/ }
 
   ##
   # Repos

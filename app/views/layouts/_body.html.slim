@@ -11,8 +11,12 @@
 
   / main and sidebar
   #main.row
+    / navigation sidebar
+    #sidebar.three.columns
+      = render 'sidebar'
+
     / Content
-    #content.twelve.columns
+    #content.nine.columns
 
       / flash messages
       = render 'flash_messages'
