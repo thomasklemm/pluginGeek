@@ -26,15 +26,19 @@ class Category < ActiveRecord::Base
   audited only: [:full_name, :short_description, :description]
 
   ##
-  # Validations
-  validates :short_description, length: {maximum: 360}
-
+  # Associations
   # Repos
   has_many  :categorizations
   has_many  :repos,
             through: :categorizations,
             order: 'knight_score desc'
 
+  # Ads
+  has_many  :ad_categorizations
+  has_many  :ads,
+            through: :ad_categorizations
+
+  ##
   # Languages
   include FlagShihTzu
   LANGUAGES = %w(ruby javascript design)
@@ -69,6 +73,7 @@ class Category < ActiveRecord::Base
   # Validations
   validates :full_name, uniqueness: true
   validates :slug, uniqueness: true
+  validates :short_description, length: {maximum: 360}
 
   ##
   # Attributes and field defaults

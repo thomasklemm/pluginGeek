@@ -19,6 +19,10 @@ module ApplicationHelper
     "<span class='l label round'><i class='icon-star'></i>&nbsp;#{ text }</span>".html_safe if text.present?
   end
 
+  def icon_mixin(name, text)
+    "<i class='icon-#{name}'></i> #{text}".html_safe
+  end
+
   def language_size(size)
     (size/10*10).to_i
   end
