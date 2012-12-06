@@ -7,7 +7,7 @@ ruby '1.9.3'
 gem 'unicorn'
 
 # Rails
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 # Postgres Database Connector
 gem 'pg'
@@ -35,7 +35,7 @@ gem 'redcarpet'
 
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
-gem 'sinatra', require: false
+gem 'sinatra', :require => false
 
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
