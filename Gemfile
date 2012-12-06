@@ -49,6 +49,12 @@ gem 'formtastic'
 # Audited (Model Versioning and Auditing)
 gem 'audited-activerecord', '~> 3.0'
 
+# Swiftype (Search Engine and Autocompletion)
+gem 'swiftype'
+
+# Figaro (Managing credentials)
+gem 'figaro'
+
 # Production Gems
 group :production do
   # Memcached on Heroku
