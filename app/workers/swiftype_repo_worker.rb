@@ -2,11 +2,11 @@ class SwiftypeRepoWorker
   include Sidekiq::Worker
 
   def perform(id, action)
-    repo = Repo.find(id)
-    url = Rails.application.routes.url_helpers.repo_url(repo)
+    @repo = Repo.find(id)
+    @url = Rails.application.routes.url_helpers.repo_url(@repo)
 
-    engine = Swiftype::Engine.find(ENV['SWIFTYPE_ENGINE_SLUG'])
-    type = engine.document_type(Repo.model_name.downcase)
+    @engine = Swiftype::Engine.find(ENV['SWIFTYPE_ENGINE_SLUG'])
+    @type = @engine.document_type(Repo.model_name.downcase)
 
     case action
          when :create  then create_repo
@@ -16,29 +16,36 @@ class SwiftypeRepoWorker
   end
 
   def create_repo
-    type.create_document({
-      external_id: repo.id,
+    @type.create_document({
+      external_id: @repo.id,
       fields: [
-        {name: 'full_name', type: 'string', value: repo.full_name},
-        {name: 'owner', type: 'string', value: repo.owner},
-        {name: 'name', type: 'string', value: repo.name},
-        {name: 'stars', type: 'integer', value: repo.stars},
-        {name: 'description', type: 'string', value: repo.description},
-        {name: 'url', type: 'enum', value: url},
-        {name: 'languages', type: 'enum', value: repo.languages} # repo.languages is an array
+        {name: 'full_name', type: 'string', value: @repo.full_name},
+        {name: 'owner', type: 'string', value: @repo.owner},
+        {name: 'name', type: 'string', value: @repo.name},
+        {name: 'stars', type: 'integer', value: @repo.stars},
+        {name: 'description', type: 'string', value: @repo.description},
+        {name: 'url', type: 'enum', value: @url},
+        {name: 'languages', type: 'enum', value: @repo.languages} # @repo.languages is an array
       ]
     })
   end
 
   def update_repo
-    not_implemented
+    @type.update_document({
+      external_id: @repo.id,
+      fields: {
+        full_name:    @repo.full_name,
+        owner:        @repo.owner,
+        name:         @repo.name,
+        stars:        @repo.stars,
+        description:  @repo.description,
+        url:          @url,
+        languages:    @repo.languages
+      }
+    })
   end
 
   def destroy_repo
-    not_implemented
-  end
-
-  def not_implemented
-    nil
+    @type.destroy_document(@repo.id)
   end
 end
