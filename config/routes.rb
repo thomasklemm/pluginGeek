@@ -9,8 +9,11 @@ Knight::Application.routes.draw do
   ##
   # Categories
   resources :categories, only: [:index, :show, :edit, :update]
-  # REVIEW: There must be a nicer way to do this
-  get ':language(/:sublanguage)' => 'categories#index', as: :language, constraints: { language: /ruby|javascript|web_design|mobile/i, scope: /categories/ }
+
+  get ':language' => 'categories#index', constraints: { language: /ruby|javascript|webdesign|mobile|ios|android/i }
+
+  # Redirect language shortcuts and subdomains
+  get '/js' => redirect('/javascript')
 
   ##
   # Repos

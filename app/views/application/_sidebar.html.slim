@@ -3,19 +3,29 @@
 / Navigation
 ul class='vertical tabs'
 
-  li class=current_path?(:ruby)
-    = link_to 'Ruby', path(:ruby)
+  / li class=current_path?(:ruby)
+  /   = link_to 'Ruby', path(:ruby)
 
-  li class=current_path?(:javascript)
-    = link_to 'Javascript', path(:javascript)
+  / li class=current_path?(:javascript)
+  /   = link_to 'Javascript', path(:javascript)
+
+
+  li class=current_path?(:web)
+    = link_to 'Web Development', path(:webdevelopment)
+
+    / Web development submenu
+    ul
+      li class=current_path?(:ruby)       = link_to 'Ruby', path(:ruby)
+      li class=current_path?(:javascript) = link_to 'Javascript', path(:javascript)
+      li class=current_path?(:scala)      = link_to 'Scala', path(:scala)
 
   li class=current_path?(:mobile)
-    = link_to 'Mobile', path(:mobile)
+    = link_to 'Mobile Development', path(:mobile)
 
-    / Mobile submenu
+    / Mobile development submenu
     ul
-      li class=current_path?(:mobile, :ios)     = link_to 'iOS', path(:mobile, :ios)
-      li class=current_path?(:mobile, :android) = link_to 'Android', path(:mobile, :android)
+      li class=current_path?(:ios)     = link_to 'iOS', path(:ios)
+      li class=current_path?(:android) = link_to 'Android', path(:android)
 
   li class=current_path?(:web_design)
-    = link_to 'Web Design', path(:web_design)
+    = link_to 'Web Design', path(:webdesign)

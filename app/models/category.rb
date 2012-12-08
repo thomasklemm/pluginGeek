@@ -23,7 +23,7 @@ class Category < ActiveRecord::Base
 
   ##
   # Audits
-  audited only: [:full_name, :short_description, :description]
+  # audited only: [:full_name, :short_description, :description]
 
   ##
   # Associations
@@ -41,22 +41,14 @@ class Category < ActiveRecord::Base
   ##
   # Languages
   include FlagShihTzu
-  LANGUAGES = %w(ruby javascript design)
-  LANGUAGES_WITH_SHORTCUTS = %w(ruby javascript design js)
-
+  LANGUAGES = %w(ruby javascript webdesign mobile ios android)
   has_flags :column => 'languages',
             1 => :ruby,
             2 => :javascript,
-            3 => :design
-
-  # Alias js to javascript globally
-  alias_method :js, :javascript
-  alias_method :js=, :javascript=
-  alias_method :js?, :javascript?
-
-  def self.js
-    self.javascript
-  end
+            3 => :webdesign,
+            4 => :mobile,
+            5 => :ios,
+            6 => :android
 
   ##
   # Scopes
@@ -64,8 +56,7 @@ class Category < ActiveRecord::Base
   scope :order_by_knight_score, order('categories.knight_score desc')
 
   # language(:ruby) / language('ruby')
-  scope :language, lambda { |lang| send(lang) if
-    LANGUAGES_WITH_SHORTCUTS.include?(lang.to_s) }
+  scope :language, lambda { |lang| send(lang) if LANGUAGES.include?(lang.to_s) }
   # find_all_by_language(:ruby)
   scope :find_all_by_language, lambda { |lang| language(lang).order_by_knight_score }
 
@@ -88,7 +79,7 @@ class Category < ActiveRecord::Base
   def full_name=(new_full_name)
     if new_full_name != full_name
       # Set names_and_languages
-      self[:full_name] = new_full_name
+      super
 
       # Set name
       md_name = new_full_name.match %r{(?<name>.*)[[:space:]]\(}
@@ -110,20 +101,24 @@ class Category < ActiveRecord::Base
     md_langs = new_full_name.match %r{\((?<languages>.*)\)}
     if md_langs.present?
       langs = md_langs[:languages].downcase.split('/')
-      # Replace js input with javascript
-      langs.push('javascript') if langs.delete('js')
+
       LANGUAGES.each do |lang|
         langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
       end
+
+      # if mobile then ios and android true, too
+      self.mobile? ? (self.ios = true and self.android = true) : nil
     end
   end
 
+  # Update languages of associated repos after commit
+  after_commit :update_repo_languages
+  def update_repo_languages
+    repos(true).each { |repo| repo.save }
+  end
+
   def languages
-    langs = begin
-      array = []
-      LANGUAGES.each { |lang| array << lang if send(lang) }
-      array
-    end
+    langs = LANGUAGES.each_with_object([]) { |lang, array| array << lang if send(lang) }
   end
 
   def language_list

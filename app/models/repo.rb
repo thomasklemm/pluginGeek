@@ -33,7 +33,7 @@ class Repo < ActiveRecord::Base
 
   ##
   # Audits
-  audited only: [:full_name, :description, :label]
+  # audited only: [:full_name, :description, :label]
 
   ##
   # Associations
@@ -129,34 +129,31 @@ class Repo < ActiveRecord::Base
 
   # Languages (through categories)
   include FlagShihTzu
-  LANGUAGES = %w(ruby javascript design)
-  LANGUAGES_WITH_SHORTCUTS = %w(ruby javascript design js)
-
+  LANGUAGES = %w(ruby javascript webdesign mobile ios android)
   has_flags :column => 'languages',
             1 => :ruby,
             2 => :javascript,
-            3 => :design
-
-  # Alias js to javascript globally
-  alias_method :js, :javascript
-  alias_method :js=, :javascript=
-  alias_method :js?, :javascript?
+            3 => :webdesign,
+            4 => :mobile,
+            5 => :ios,
+            6 => :android
 
   before_save :set_languages
   def set_languages
-    langs = categories.map(&:languages).flatten.uniq
+    langs = categories(true).map(&:languages).flatten.uniq
 
     LANGUAGES.each do |lang|
       langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
     end
+
+    # if mobile then ios and android true, too
+    self.mobile? ? (self.ios = true and self.android = true) : nil
   end
 
+  # All languages in an array
+  # e.g. ['ruby'], ['ruby', 'javascript']
   def languages
-    langs = begin
-      array = []
-      LANGUAGES.each { |lang| array << lang if send(lang) }
-      array
-    end
+    langs = LANGUAGES.each_with_object([]) { |lang, array| array << lang if send(lang) }
   end
 
   def language_list
@@ -191,6 +188,7 @@ class Repo < ActiveRecord::Base
   end
 
   # update_failed
+  # REVIEW: Maybe a state-machine would help make this nicer
   scope :update_failed, lambda { where('update_success = ?', false) }
 
   ##

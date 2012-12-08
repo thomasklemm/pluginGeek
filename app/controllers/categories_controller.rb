@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.language(params[:language]).order_by_knight_score
+    @categories = Category.language(params[:language].downcase).order_by_knight_score
 
     # HTTP Caching
     if !Rails.env.development? && !Rails.env.test?
