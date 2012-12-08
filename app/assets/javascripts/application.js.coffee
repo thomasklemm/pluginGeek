@@ -8,6 +8,7 @@
 
 # jQuery Rails adapter
 //= require jquery_ujs
+#= require foundation
 
 # Foundation
 //= require foundation
