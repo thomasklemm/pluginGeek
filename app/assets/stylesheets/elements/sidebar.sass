@@ -1,6 +1,30 @@
-// Nested lists
-.vertical.tabs ul li a
+// nested vertical list
+.tabs.vertical li ul
+  margin-left: 0
+  padding-top: 10px
+  padding-bottom: 10px
+  border-left: solid 3px #eee
+  border-right: solid 1px #eee
+  margin-left: -4px
+  -webkit-box-shadow: 1px 0 0 white inset
+  -moz-box-shadow: 1px 0 0 white inset
+  box-shadow: 1px 0 0 white inset
+.tabs.vertical li ul li
   border: none
+.tabs.vertical li ul li a
+  cursor: pointer !important
+  font-weight: normal
+  color: #666 !important
+  padding: 7px 0 7px 20px
+  background: #fff !important
+  border: none
+.tabs.vertical li ul li a:hover
+  color: #111 !important
+.tabs.vertical li ul li.active
+  border: none
+.tabs.vertical li ul li.active a
+  font-weight: bold
+  color: #222 !important
 
 #sidebar
   margin-top: 20px

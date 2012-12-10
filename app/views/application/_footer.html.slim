@@ -1,12 +1,10 @@
-/ application/_footer
-
-ul.inline-list
-  li: b = link_to 'What is Knight.io?'.html_safe, static_path(id: :help)
-  .right
-    ul.inline-list
-      li.show-for-small = link_to '@thomasjklemm', 'http://tklemm.eu'
-      li.hide-for-small = link_to 'Started by Thomas Klemm', 'http://tklemm.eu'
-      li.hide-for-small = link_to 'Source', 'https://github.com/thomasklemm/knight'
-      li = link_to 'Commit & Suggest', static_path(id: :commit)
-      li = link_to 'Terms', static_path(id: :terms_of_service)
-      li.hide-for-small = image_tag('logos/knight_w.png', class: 'knight_footer')
+/ footer
+.footer
+  ul.footer-list
+    li = link_to '<b>About & Help</b>'.html_safe, static_path(:about)
+    li = link_to '<b>Contribute a Repo</b>'.html_safe, static_path(:about)
+    li = link_to '<b>Terms of Service</b>'.html_safe, static_path(:about)
+    li
+      ' Copyright &copy; 2013
+      = link_to '<b>Space Monkeys</b>'.html_safe, 'http://tklemm.eu'
+      ' . All rights reserved.

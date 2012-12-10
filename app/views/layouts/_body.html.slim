@@ -21,10 +21,6 @@
       / flash messages
       = render 'flash_messages'
 
-      - if params[:action] == 'index'
-        / logo header
-        .logo_header = image_tag('tower_logo/3.png')
-
       / main body
       = yield
 
