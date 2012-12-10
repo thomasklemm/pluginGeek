@@ -26,6 +26,8 @@ gem 'friendly_id'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
+# Excon (HTTP Client used with Faraday)
+gem 'excon'
 
 # Sorcery (User Authentication)
 gem 'sorcery', '~> 0.7.12'
@@ -90,8 +92,8 @@ end
 group :development do
   # Heroku (Custom Deployment Rake Tasks)
   gem 'heroku'
-  gem 'taps'    # for rake production:pull_db
-  gem 'sqlite3' # for rake production:pull_db
+  # gem 'taps'    # for rake production:pull_db
+  # gem 'sqlite3' # for rake production:pull_db
 
   # Annotate Models (Schema Info for Models and Routes)
   gem 'annotate', '>=2.5.0'

@@ -210,8 +210,12 @@ class Repo < ActiveRecord::Base
     (self[:github_updated_at] && self[:github_updated_at].utc) || (Time.now - 2.years)
   end
 
+  def github_description
+    (self[:description].present? && self[:description]) || ""
+  end
+
   def description
-    (self[:description].present? && self[:description]) || (github_description.present? && github_description) || '<em>Add a description for this repo here on Knight.io or on Github.</em>'.html_safe
+    (self[:description].present? && self[:description]) || github_description
   end
 
   # REVIEW: Is this really nescessary for list.js to work?
@@ -230,12 +234,20 @@ class Repo < ActiveRecord::Base
   #
   # Update search index after each transaction
   #
-  after_commit :update_search_index(:create), on: :create
-  after_commit :update_search_index(:update), on: :update
-  after_commit :update_search_index(:destory), on: :destroy
+  after_commit :create_document, on: :create
+  after_commit :update_document, on: :update
+  after_commit :destroy_document, on: :destroy
 
-  def update_search_index(action)
-    SwiftypeRepoWorker.perform_async(id, action)
+  def create_document
+    SwiftypeRepoWorker.perform_async(id, :create)
+  end
+
+  def update_document
+    SwiftypeRepoWorker.perform_async(id, :update)
+  end
+
+  def destroy_document
+    SwiftypeRepoWorker.perform_async(id, :destroy)
   end
 
   ##
