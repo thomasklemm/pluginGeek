@@ -16,6 +16,7 @@
 # Further libraries
 //= require jquery.timeago
 //= require jquery.autogrow
+//= require jquery.swiftype.autocomplete
 
 //= require readme
 //= require select2
