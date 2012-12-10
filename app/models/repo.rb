@@ -201,26 +201,24 @@ class Repo < ActiveRecord::Base
     self[:owner] || self[:full_name].split('/')[0]
   end
 
-  # REVIEW: Is this really nescessary for list.js to work?
   def homepage_url
-    self[:homepage_url] || ''
+    self[:homepage_url] || ""
   end
 
   def github_updated_at
-    (self[:github_updated_at] && self[:github_updated_at].utc) || (Time.now - 2.years)
+    self[:github_updated_at] ? self[:github_updated_at].utc : 2.years.ago
   end
 
   def github_description
-    (self[:description].present? && self[:description]) || ""
+    self[:github_description].present? ? self[:github_description] : ""
   end
 
   def description
-    (self[:description].present? && self[:description]) || github_description
+    self[:description].present? ? self[:description] : github_description
   end
 
-  # REVIEW: Is this really nescessary for list.js to work?
   def label
-    self[:label] || ''
+    self[:label] || ""
   end
 
   ##
