@@ -226,6 +226,19 @@ class Repo < ActiveRecord::Base
   end
 
   ##
+  # Swiftype Full-Text Searching
+  #
+  # Update search index after each transaction
+  #
+  after_commit :update_search_index(:create), on: :create
+  after_commit :update_search_index(:update), on: :update
+  after_commit :update_search_index(:destory), on: :destroy
+
+  def update_search_index(action)
+    SwiftypeRepoWorker.perform_async(id, action)
+  end
+
+  ##
   # Class methods
   def self.bust_caches
     find_each(&:touch)
