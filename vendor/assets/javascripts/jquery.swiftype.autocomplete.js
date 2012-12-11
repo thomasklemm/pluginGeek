@@ -547,7 +547,7 @@
     suggestionListClass: 'autocomplete',
     resultListSelector: 'li',
     setWidth: true,
-    typingDelay: 80,
+    typingDelay: 0,
     disableAutocomplete: false
   };
 
