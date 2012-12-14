@@ -380,39 +380,18 @@
     };
 
   var defaultResultRenderFunction = function(ctx, results) {
-    var h;
-    h = '';
+    var $list = ctx.list,
+      config = ctx.config;
 
-    $.each(results, function(type, items) {
-      if (items.length !== 0) {
-        h += renderTypeStart();
-
-        $.each(items, function(idx, item) {
-          renderRegisteredItem(ctx, type, idx, item);
-          h += renderItem(type, idx, item)
-        });
-
-        h += renderTypeEnd(type);
-      }
+    $.each(results, function(document_type, items) {
+      $.each(items, function(idx, item) {
+        ctx.registerResult($('<li>' + config.renderFunction(document_type, item) + '</li>').appendTo($list), item);
+      });
     });
-
-    $(h).appendTo(ctx.list);
   };
 
-  var renderTypeStart = function() {
-      return "<li class=\"soulmate-type-container\">\n  <ul class=\"soulmate-type-suggestions\">";
-    };
-
-  var renderTypeEnd = function(type) {
-      return "  </ul>\n  <div class=\"soulmate-type\">" + type + "</div>\n</li>";
-    };
-
-  var renderRegisteredItem = function(ctx, type, idx, item) {
-    ctx.registerResult($(renderItem(type, idx, item)), item);
-  };
-
-  var renderItem = function(type, idx, item) {
-    return "<li id=\"" + item.full_name + "\" class=\"soulmate-suggestion\">\n" + Swiftype.htmlEscape(item.full_name)+ "\n</li>"
+  var defaultRenderFunction = function(document_type, item) {
+    return '<p class="title">' + Swiftype.htmlEscape(item['title']) + '</p>';
   };
 
   var defaultOnComplete = function(item, prefix) {
@@ -558,16 +537,17 @@
     sortDirection: undefined,
     fetchFields: undefined,
     noResultsClass: 'noResults',
-    noResultsMessage: 'No Results',
+    noResultsMessage: undefined,
     onComplete: defaultOnComplete,
     resultRenderFunction: defaultResultRenderFunction,
+    renderFunction: defaultRenderFunction,
     dropdownStylesFunction: defaultDropdownStylesFunction,
     resultLimit: undefined,
     suggestionListType: 'ul',
-    suggestionListClass: 'soulmate-autocomplete',
+    suggestionListClass: 'autocomplete',
     resultListSelector: 'li',
     setWidth: true,
-    typingDelay: 75,
+    typingDelay: 80,
     disableAutocomplete: false
   };
 

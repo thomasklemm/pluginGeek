@@ -26,29 +26,12 @@ javascript:
 
 / swiftype autocomplete
 javascript:
-  var resultRenderFunction = function(ctx, results) {
-    var $list = ctx.list,
-      config = ctx.config;
-
-    $.each(results, function(document_type, items) {
-      $.each(items, function(idx, item) {
-        ctx.registerResult($('<li>' + config.renderFunction(document_type, item) + '</li>').appendTo($list), item);
-      });
-    });
-  };
-
-  var renderFunction = function(document_type, item) {
-    return '<p class="test">' + item['full_name'] + '</p>'
-  };
-
-javascript:
   $(function() {
     $('#st-search-input').swiftype({
       engineKey: "#{ ENV['SWIFTYPE_ENGINE_KEY'] }",
-      renderFunction: renderFunction,
-      resultRenderFunction: resultRenderFunction,
       sort_field: {'repos': 'stars'},
-      sort_direction: {'repos': 'desc'}
+      sort_direction: {'repos': 'desc'},
+      resultLimit: 5
     });
   });
 

@@ -113,6 +113,10 @@ group :development do
 
   # Bullet (Eager Loading Notification)
   gem 'bullet'
+
+  # Better Errors (REPL Debug)
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Test Gems
