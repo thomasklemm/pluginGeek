@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby '1.9.3'
 
-# Unicorn (App Server)
-gem 'unicorn'
+# Puma (App Server)
+gem 'puma', '>= 2.0.0.b4'
 
 # Rails
 gem 'rails', '3.2.9'
@@ -57,14 +57,14 @@ gem 'swiftype'
 # Figaro (Managing credentials)
 gem 'figaro'
 
+# New Relic (Server Monitoring)
+gem 'newrelic_rpm'
+
 # Production Gems
 group :production do
   # Memcached on Heroku
   gem 'memcachier'
   gem 'dalli'
-
-  # New Relic (Server Monitoring)
-  gem 'newrelic_rpm'
 end
 
 # Gems used only for assets and not required

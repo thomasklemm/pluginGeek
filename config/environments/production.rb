@@ -40,13 +40,13 @@ Knight::Application.configure do
   config.action_controller.asset_host = 'http://d2ishtm40wfhei.cloudfront.net'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( application_head.js application_body.js )
+  # config.assets.precompile += %w()
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -59,14 +59,13 @@ Knight::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  ###
-  #   Caching
-  ###
+  ##
+  # Caching
+  #
   # Explicit Requires
   require 'memcachier'
   require 'dalli'
   require 'rack/cache'
-  # require 'butler'
 
   # Global enable/disable all memcached usage
   config.perform_caching = true
@@ -102,24 +101,4 @@ Knight::Application.configure do
   ]
   require 'rack_headers'
   config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers'
-
-
-  # # Butler Config
-  # config.butler = ActiveSupport::OrderedOptions.new # enable namespaced configuration
-  # config.butler.enable_butler = true
-  # config.butler.header_rules = {
-  #   :global => {'Cache-Control' => 'public, max-age=31536000'},
-  #   :fonts  => {'Access-Control-Allow-Origin' => '*'}
-  # }
-
-  # # Use Butler
-  # enable_butler = config.butler.enable_butler
-  # path = config.paths['public'].first
-  # options = {}
-  # options[:header_rules] = config.butler.header_rules
-
-  # if enable_butler
-  #   config.middleware.delete ActionDispatch::Static
-  #   config.middleware.insert_before Rack::Cache, ::Butler::Static, path, options
-  # end
 end
