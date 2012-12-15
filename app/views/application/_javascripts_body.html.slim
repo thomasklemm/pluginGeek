@@ -26,14 +26,23 @@ javascript:
 
 / swiftype autocomplete
 javascript:
-  $(function() {
-    $('#st-search-input').swiftype({
-      engineKey: "#{ ENV['SWIFTYPE_ENGINE_KEY'] }",
-      sort_field: {'repos': 'stars'},
-      sort_direction: {'repos': 'desc'},
-      resultLimit: 5
-    });
-  });
+  var swiftype_engine_key = "#{ ENV['SWIFTYPE_ENGINE_KEY'] }"
+
+coffee:
+  suggestionRender = (data, type) ->
+    console.log data
+    repo = data
+    "#{ repo.owner }/<b>#{ repo.name }</b> <em>(#{ repo.stars })</em>"
+
+  $('#search-input').swiftmate {
+    engineKey: swiftype_engine_key
+    renderCallback: suggestionRender
+    sortField: {repos: 'stars'}
+    sortDirection: {repos: 'desc'}
+    fetchFields: {
+      repos: ['owner', 'name', 'stars']
+    }
+  }
 
 / livereload (in development)
 - if Rails.env.development?

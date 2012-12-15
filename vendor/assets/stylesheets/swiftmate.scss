@@ -40,9 +40,9 @@ $lucida: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu 
 
 $suggestionWidth: 490px;
 $inputWidth: 600px;
-$soulmateWidth: $inputWidth - 21px;
+$swiftmateWidth: $inputWidth - 21px;
 
-#st-search-input{
+#search-input{
   border: 1px solid #999;
   color: #545C5F;
   font-family: $helvetica;
@@ -54,11 +54,12 @@ $soulmateWidth: $inputWidth - 21px;
   @include border-radius(4px);
 
   &:focus{
-//    outline: none;
+    // outline: none;
   }
 }
 
-.soulmate-autocomplete {
+// SWIFTMATE AUTOCOMPLETE
+#swiftmate {
   background-color: #fafafa;
   border: 1px solid #bbb;
   display: none;
@@ -69,25 +70,19 @@ $soulmateWidth: $inputWidth - 21px;
   padding: 0;
   position: absolute;
   text-shadow: 0 0 0 white;
-  top: 306px;
-  width: $soulmateWidth;
+  width: $swiftmateWidth;
   z-index: 1000;
   @include border-radius(4px);
   @include box-shadow(0, 4px, 10px, rgba(0,0,0,.2));
 
-  ul {
-    margin-bottom: 0;
-  }
-
-  .soulmate-type-container {
+  .swiftmate-type-container {
     border-top: 1px solid #ddd;
-    list-style: none;
     &:first-child {
       border-top: none;
     }
   }
 
-  .soulmate-type-suggestions {
+  .swiftmate-type-suggestions {
     border-left: 1px solid #ddd;
     float: right;
     list-style: none;
@@ -96,7 +91,7 @@ $soulmateWidth: $inputWidth - 21px;
     letter-spacing: 0.5px;
   }
 
-  .soulmate-suggestion {
+  .swiftmate-suggestion {
     color: #111;
     cursor: pointer;
     font-weight: 500;
@@ -117,7 +112,7 @@ $soulmateWidth: $inputWidth - 21px;
     }
   }
 
-  .soulmate-type {
+  .swiftmate-type {
     background-color: white;
     color: #333;
     font-family: $helvetica;
