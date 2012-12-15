@@ -66,16 +66,6 @@ class Category < ActiveRecord::Base
   validates :slug, uniqueness: true
   validates :short_description, length: {maximum: 360}
 
-  ##
-  # Attributes and field defaults
-  # def full_name
-  #   self[:full_name]
-  # end
-
-  # def name
-  #   self[:name]
-  # end
-
   def full_name=(new_full_name)
     if new_full_name != full_name
       # Set names_and_languages
@@ -126,7 +116,7 @@ class Category < ActiveRecord::Base
   end
 
   def short_description
-    (self[:short_description] && self[:short_description].html_safe) || " "
+    self[:short_description].try(:html_safe) || " "
   end
 
   def popular_repos
@@ -168,15 +158,15 @@ class Category < ActiveRecord::Base
   after_commit :destroy_document, on: :destroy
 
   def create_document
-    SwiftypeIndexWorker.perform_async(model_name, id, :create)
+    SwiftypeIndexWorker.perform_async('Category', id, :create)
   end
 
   def update_document
-    SwiftypeIndexWorker.perform_async(model_name, id, :update)
+    SwiftypeIndexWorker.perform_async('Category', id, :update)
   end
 
   def destroy_document
-    SwiftypeIndexWorker.perform_async(model_name, id, :destroy)
+    SwiftypeIndexWorker.perform_async('Category', id, :destroy)
   end
 
   ##

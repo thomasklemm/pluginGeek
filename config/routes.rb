@@ -6,6 +6,8 @@ Knight::Application.routes.draw do
   match 'oauth/callback'  => 'oauths#callback'
   match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
+  get 'debug' => 'users#debug'
+
   ##
   # Categories
   resources :categories, only: [:index, :show, :edit, :update]

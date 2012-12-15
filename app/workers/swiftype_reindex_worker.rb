@@ -2,7 +2,7 @@ class SwiftypeReindexWorker
   include Sidekiq::Worker
 
   def perform(model_name)
-    case model_name.downase
+    case model_name.downcase
          when /repo/ then reindex_repos
          when /categ/ then reindex_categories
          else raise "SwiftyeReindexWorker: Cannot reindex model '#{model_name}'"
@@ -28,12 +28,13 @@ private
       documents = repos.map do |repo|
         url = Rails.application.routes.url_helpers.repo_url(repo)
         {
-          external_id: repo.id.to_s,
+          external_id: repo.id,
           fields: [
             {name: 'full_name', type: 'string', value: repo.full_name},
             {name: 'owner', type: 'string', value: repo.owner},
             {name: 'name', type: 'string', value: repo.name},
-            {name: 'stars', type: 'integer', value: repo.stars.to_s},
+            {name: 'stars', type: 'integer', value: repo.stars},
+            {name: 'knight_score', type: 'integer', value: repo.knight_score},
             {name: 'description', type: 'string', value: repo.description},
             {name: 'url', type: 'enum', value: url},
             {name: 'languages', type: 'enum', value: repo.languages} # repo.languages is an array
@@ -64,13 +65,26 @@ private
     destroy_documents(type, all_ids)
 
     # Create all records
-    Category.find_in_batches(batch_size: 50) do |categories|
+    Category.find_in_batches(batch_size: 1) do |categories|
       documents = categories.map do |category|
         url = Rails.application.routes.url_helpers.category_url(category)
+
+        puts 'out: ' + category.full_name.inspect
+        puts 'out: ' + category.name.inspect
+        puts 'out: ' + category.knight_score.inspect
+        puts 'out: ' + category.short_description.inspect
+        puts 'out: ' + url.inspect
+        puts 'out: ' + category.languages.inspect
+
         {
           external_id: category.id,
           fields: [
-            # fields
+            {name: 'full_name', type: 'string', value: category.full_name},
+            {name: 'name', type: 'string', value: category.name},
+            {name: 'knight_score', type: 'integer', value: category.knight_score},
+            {name: 'description', type: 'string', value: category.short_description},
+            {name: 'url', type: 'enum', value: url},
+            {name: 'languages', type: 'enum', value: category.languages} # category.languages is an array
           ]
         }
       end

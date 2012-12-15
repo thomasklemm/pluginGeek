@@ -36,6 +36,7 @@ class SwiftypeIndexWorker
         {name: 'owner', type: 'string', value: repo.owner},
         {name: 'name', type: 'string', value: repo.name},
         {name: 'stars', type: 'integer', value: repo.stars},
+        {name: 'knight_score', type: 'integer', value: repo.knight_score},
         {name: 'description', type: 'string', value: repo.description},
         {name: 'url', type: 'enum', value: url},
         {name: 'languages', type: 'enum', value: repo.languages} # repo.languages is an array
@@ -57,6 +58,7 @@ class SwiftypeIndexWorker
         owner:        repo.owner,
         name:         repo.name,
         stars:        repo.stars,
+        knight_score: repo.knight_score,
         description:  repo.description,
         url:          url,
         languages:    repo.languages # repo.languages is an array
@@ -93,10 +95,9 @@ class SwiftypeIndexWorker
       external_id: category.id,
       fields: [
         {name: 'full_name', type: 'string', value: category.full_name},
-        {name: 'owner', type: 'string', value: category.owner},
         {name: 'name', type: 'string', value: category.name},
-        {name: 'stars', type: 'integer', value: category.stars},
-        {name: 'description', type: 'string', value: category.description},
+        {name: 'knight_score', type: 'integer', value: category.knight_score},
+        {name: 'description', type: 'string', value: category.short_description},
         {name: 'url', type: 'enum', value: url},
         {name: 'languages', type: 'enum', value: category.languages} # category.languages is an array
       ]
@@ -113,11 +114,10 @@ class SwiftypeIndexWorker
     type.update_document({
       external_id: category.id,
       fields: {
-        full_name:    category.full_name,
-        owner:        category.owner,
+        full_name:    category.full_name, # name and languages
         name:         category.name,
-        stars:        category.stars,
-        description:  category.description,
+        description:  category.short_description,
+        knight_score: category.knight_score,
         url:          url,
         languages:    category.languages # category.languages is an array
       }
