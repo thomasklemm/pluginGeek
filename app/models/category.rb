@@ -159,6 +159,27 @@ class Category < ActiveRecord::Base
   end
 
   ##
+  # Swiftype Full-Text Searching
+  #
+  # Update search index after each transaction
+  #
+  after_commit :create_document, on: :create
+  after_commit :update_document, on: :update
+  after_commit :destroy_document, on: :destroy
+
+  def create_document
+    SwiftypeIndexWorker.perform_async(model_name, id, :create)
+  end
+
+  def update_document
+    SwiftypeIndexWorker.perform_async(model_name, id, :update)
+  end
+
+  def destroy_document
+    SwiftypeIndexWorker.perform_async(model_name, id, :destroy)
+  end
+
+  ##
   # Class methods
   # Bust Caches by touching every single category
   # Curious: There must a single SQL call for doing this on the whole table

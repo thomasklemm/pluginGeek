@@ -1,9 +1,21 @@
-class SwiftypeAllReposWorker
+class SwiftypeReindexWorker
   include Sidekiq::Worker
 
-  def perform
+  def perform(model_name)
+    case model_name.downase
+         when /repo/ then reindex_repos
+         when /categ/ then reindex_categories
+         else raise "SwiftyeReindexWorker: Cannot reindex model '#{model_name}'"
+         end
+  end
+
+private
+
+  ##
+  # Repo
+  def reindex_repos
     engine = find_engine
-    type   = find_document_type(engine)
+    type   = find_repo_document_type(engine)
 
     # Destroy all records
     max_id = Repo.maximum(:id)
@@ -35,16 +47,56 @@ class SwiftypeAllReposWorker
         puts "Could not create #{repos[index].full_name} (##{repos[index].id})" if result == false
       end
     end
+
+    puts 'Successfully reindexed all Repo records'
   end
 
-  private
+  ##
+  # Category
+  def reindex_categories
+    engine = find_engine
+    type   = find_category_document_type(engine)
 
+    # Destroy all records
+    max_id = Category.maximum(:id)
+    all_ids = (1..max_id).to_a
+
+    destroy_documents(type, all_ids)
+
+    # Create all records
+    Category.find_in_batches(batch_size: 50) do |categories|
+      documents = categories.map do |category|
+        url = Rails.application.routes.url_helpers.category_url(category)
+        {
+          external_id: category.id,
+          fields: [
+            # fields
+          ]
+        }
+      end
+
+      results = type.create_documents(documents)
+
+      results.each_with_index do |result, index|
+        puts "Could not create #{categories[index].full_name} (##{categories[index].id})" if result == false
+      end
+    end
+
+    puts 'Successfully reindexed all Category records'
+  end
+
+  ##
+  #  Commons
   def find_engine
     Swiftype::Engine.find(ENV['SWIFTYPE_ENGINE_SLUG'])
   end
 
-  def find_document_type(engine)
+  def find_repo_document_type(engine)
     engine.document_type(Repo.model_name.downcase)
+  end
+
+  def find_category_document_type(engine)
+    engine.document_type(Category.model_name.downcase)
   end
 
   def destroy_documents(type, ids)

@@ -237,15 +237,15 @@ class Repo < ActiveRecord::Base
   after_commit :destroy_document, on: :destroy
 
   def create_document
-    SwiftypeRepoWorker.perform_async(id, :create)
+    SwiftypeIndexWorker.perform_async(model_name, id, :create)
   end
 
   def update_document
-    SwiftypeRepoWorker.perform_async(id, :update)
+    SwiftypeIndexWorker.perform_async(model_name, id, :update)
   end
 
   def destroy_document
-    SwiftypeRepoWorker.perform_async(id, :destroy)
+    SwiftypeIndexWorker.perform_async(model_name, id, :destroy)
   end
 
   ##
