@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20121217114014
 #
 # Table name: categories
 #
@@ -13,6 +14,11 @@
 #  languages         :integer          default(0)
 #  name              :string(255)
 #  stars             :integer          default(0)
+#
+# Indexes
+#
+#  index_categories_on_knight_score  (knight_score)
+#  index_categories_on_slug          (slug) UNIQUE
 #
 
 class Category < ActiveRecord::Base

@@ -63,6 +63,9 @@ gem 'figaro'
 # New Relic (Server Monitoring)
 gem 'newrelic_rpm'
 
+# Closure Tree (Nesting Structures)
+gem 'closure_tree'
+
 # Production Gems
 group :production do
   # Memcached on Heroku

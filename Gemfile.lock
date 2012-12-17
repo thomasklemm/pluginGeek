@@ -65,6 +65,8 @@ GEM
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     chunky_png (1.2.6)
+    closure_tree (3.6.5)
+      activerecord (>= 3.0.0)
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -293,6 +295,7 @@ DEPENDENCIES
   bullet
   cache_digests
   capybara
+  closure_tree
   coffee-rails
   compass-rails
   dalli

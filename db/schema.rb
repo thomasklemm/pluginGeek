@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121207130400) do
+ActiveRecord::Schema.define(:version => 20121217124342) do
 
   create_table "ad_categorizations", :force => true do |t|
     t.integer  "category_id"
@@ -98,6 +98,25 @@ ActiveRecord::Schema.define(:version => 20121207130400) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "language_hierarchies", :id => false, :force => true do |t|
+    t.integer "ancestor_id",   :null => false
+    t.integer "descendant_id", :null => false
+    t.integer "generations",   :null => false
+  end
+
+  add_index "language_hierarchies", ["ancestor_id", "descendant_id"], :name => "index_language_hierarchies_on_ancestor_id_and_descendant_id", :unique => true
+  add_index "language_hierarchies", ["descendant_id"], :name => "index_language_hierarchies_on_descendant_id"
+
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "languages", ["slug"], :name => "index_languages_on_slug", :unique => true
 
   create_table "repo_relationships", :force => true do |t|
     t.integer  "parent_id"

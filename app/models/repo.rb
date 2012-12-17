@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20121217114014
 #
 # Table name: repos
 #
@@ -18,6 +19,11 @@
 #  languages          :integer          default(0)
 #  description        :text
 #  label              :text
+#
+# Indexes
+#
+#  index_repos_on_full_name     (full_name) UNIQUE
+#  index_repos_on_knight_score  (knight_score)
 #
 
 class Repo < ActiveRecord::Base

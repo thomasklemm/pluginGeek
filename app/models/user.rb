@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20121217114014
 #
 # Table name: users
 #
@@ -15,6 +16,10 @@
 #  updated_at                   :datetime         not null
 #  remember_me_token            :string(255)
 #  remember_me_token_expires_at :datetime
+#
+# Indexes
+#
+#  index_users_on_remember_me_token  (remember_me_token)
 #
 
 class User < ActiveRecord::Base
