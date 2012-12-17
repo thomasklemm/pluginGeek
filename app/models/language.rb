@@ -16,12 +16,34 @@
 #
 
 class Language < ActiveRecord::Base
+  # Constants
+  Web = %w(javascript ruby webdesign python php scala go)
+  Mobile = %w(ios android)
+
   # FriendlyId
   extend FriendlyId
   friendly_id :name, use: :slugged
 
   # Hierarchy
   acts_as_tree
+
+  ##
+  # Categories and Repos
+  has_many :language_classifications
+
+  has_many :categories,
+           through: :language_classifications,
+           source: :classifier,
+           source_type: 'Category',
+           uniq: true #,
+           # order: 'knight_score DESC'
+
+  has_many :repos,
+           through: :language_classifications,
+           source: :classifier,
+           source_type: 'Repo',
+           uniq: true #,
+           # order: 'knight_score DESC'
 
   attr_accessible :name
 end

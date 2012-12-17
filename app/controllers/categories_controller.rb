@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.language(params[:language].downcase).order_by_knight_score
+    @categories = Category.limit(10)
 
     # HTTP Caching
     if !Rails.env.development? && !Rails.env.test?
@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
   # PUT /categories/:id
   def update
     # Prepare Attributes
-    params[:category][:short_description] &&= view_context.strip_tags(params[:category][:short_description]).squish
+    params[:category][:short_description] &&= view_context.strip_tags(params[:category][:short_description])
 
     # Update attributes
     if @category.update_attributes(params[:category])
