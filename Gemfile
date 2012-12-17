@@ -39,6 +39,9 @@ gem 'redcarpet'
 gem 'sidekiq'
 gem 'sinatra', :require => false
 
+# Autoscaler (Scales Sidekiq on Heroku)
+gem 'autoscaler'
+
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
 

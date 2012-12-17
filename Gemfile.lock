@@ -36,6 +36,9 @@ GEM
     audited-activerecord (3.0.0)
       activerecord (~> 3.0)
       audited (= 3.0.0)
+    autoscaler (0.0.3)
+      heroku-api
+      sidekiq (~> 2.2)
     bcrypt-ruby (3.0.1)
     better_errors (0.2.0)
       coderay (>= 1.0.0)
@@ -283,6 +286,7 @@ PLATFORMS
 DEPENDENCIES
   annotate (>= 2.5.0)
   audited-activerecord (~> 3.0)
+  autoscaler
   better_errors
   binding_of_caller
   bourbon
