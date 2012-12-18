@@ -1,38 +1,31 @@
 class ReposController < ApplicationController
+  # Filters
+  before_filter :find_language, only: :index
 
-  # Before Filters
+  before_filter :find_or_initialize_repo, only: [:show, :create, :edit, :update]
   before_filter :require_login, only: [:edit, :update]
-  before_filter :find_repo, only: [:show, :create, :edit, :update]
 
-  # GET /repos
+  # NOTE: not mapped in routing currently
   def index
-    @repos = Repo.find_all_by_language(language).includes(:children)
-
-    # HTTP Caching
-    if !Rails.env.development? && !Rails.env.test?
-      expires_in 10.minutes
-      fresh_when last_modified: @repos.maximum(:updated_at), public: true
-    end
+    @repos = @language.repos.includes(:children)
   end
 
   # GET /repos/:owner/:name(/*leftover)
   def show
-    # Redirect to create action if @repo is a new record
+    # Show view that allows to add a repo if it isn't known yet
     @repo.new_record? and render 'add_repo'
 
-    # Always redirect to repo base url without leftover
-    #   (might be attached when clicking bookmarklet on github repo's wiki page etc.)
-    params[:leftover] and return redirect_to @repo
+    # Redirect to base url (remains might be attached when clicking bookmarklet on github repo's wiki page...)
+    params[:remains] and return redirect_to @repo
   end
 
   # POST /repos/:owner/:name
   def create
     if RepoUpdater.new.perform(@repo.full_name)
-
       # Reload for correct redirection path
       @repo = Repo.find_by_full_name(@repo.full_name)
 
-      flash[:notice] ||= "Added repo '#{ @repo.full_name }'. Please add a tag so it can be found."
+      flash[:notice] ||= "Added repo '#{ @repo.full_name }'. Add categories so that people can find it."
       redirect_to @repo
     else
       flash[:alert] = "Failed to add repo '#{ @repo.full_name }'."
@@ -59,16 +52,15 @@ class ReposController < ApplicationController
 
 protected
 
-  ##
-  # Before Filters
-  def find_repo
+  def find_language
+    @language = Language.find(params[:language])
+  end
+
+  def find_or_initialize_repo
     @repo = Repo.where(full_name: full_name_from_params).first_or_initialize
   end
 
-  ##
-  # Helper Methods
   def full_name_from_params(owner = params[:owner], name = params[:name])
     "#{owner}/#{name}"
   end
-
 end

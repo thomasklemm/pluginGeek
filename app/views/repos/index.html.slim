@@ -1,15 +1,12 @@
 / repos/index
 
-- cache ['repos_index', language], expires_in: 300.seconds do
+- cache [@language, @repos] do
 
   / Title
-  - content_for :title, "Discover Amazing #{ language.titlecase } Github Repos &middot Knight".html_safe
+  - content_for :title, "Discover Amazing Github Repos &middot Knight".html_safe
 
   / Repos List
   #js_repos_list
-
-    h4 <i class='icon-certificate main_color'></i> Repos <small>Knight.io</small>
-    h5.subheader Discover and explore over #{ language_size(@repos.size) } of the most amazing #{ language } repos
 
     / Repos Find
     .repos_find

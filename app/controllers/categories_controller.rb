@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
   # Filters
-  before_filter :set_language_or_default, only: :index
   before_filter :find_language, only: :index
 
   before_filter :find_category_and_repos, except: :index
@@ -9,12 +8,6 @@ class CategoriesController < ApplicationController
   # GET '/:language'
   def index
     @categories = @language.categories
-
-    # HTTP Caching
-    if !Rails.env.development? && !Rails.env.test?
-      expires_in 2.minutes
-      fresh_when last_modified: @categories.maximum(:updated_at)
-    end
   end
 
   # GET /categories/:id
@@ -40,15 +33,6 @@ class CategoriesController < ApplicationController
   end
 
 protected
-
-  def set_language_or_default
-    # format language
-    params[:language] = params[:language].downcase.strip
-    # make 'web' default language if none is set
-    params[:language] ||= 'web'
-    # force 'web' default language if the one that is present is not whitelisted
-    params[:language] = 'web' unless Language::All.include?(params[:language])
-  end
 
   def find_language
     @language = Language.find(params[:language])

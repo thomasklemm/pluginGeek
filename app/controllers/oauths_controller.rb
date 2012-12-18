@@ -1,5 +1,4 @@
 class OauthsController < ApplicationController
-
   # Sends the user on a trip to the provider
   #   and after authorizing there back to the callback url.
   def oauth
@@ -14,7 +13,7 @@ class OauthsController < ApplicationController
       # known user
       #   remember login
       cookies.permanent.signed[:remember_me_token] = auto_login(@user, true)
-      redirect_back_or_to root_path, notice: "Hi, #{ @user.name }. Welcome back to Knight.io. You definitely rock!"
+      redirect_back_or_to root_path, notice: "Hi, #{ @user.name }. Welcome back. You most definitely rock!"
 
     else
       # new user
@@ -24,7 +23,7 @@ class OauthsController < ApplicationController
         reset_session # protect from session fixation attack
         # remember login
         cookies.permanent.signed[:remember_me_token] = auto_login(@user, true)
-        redirect_back_or_to root_path, notice: "Hi, #{ @user.name }. Welcome to Knight.io. You rock!"
+        redirect_back_or_to root_path, notice: "Hi, #{ @user.name }. Welcome, you rock!"
       rescue
         # oauth failed
         redirect_back_or_to root_path, alert: "Failed to sign up or log in from #{ provider.titleize }!"
