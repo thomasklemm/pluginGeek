@@ -12,12 +12,14 @@ Knight::Application.routes.draw do
   # Categories
   resources :categories, only: [:show, :edit, :update]
 
-  get ':language' => 'categories#index', constraints: { language: /#{ Language::All.join('|') }/i }
+  get ':language' => 'categories#index',
+    as: :categories,
+    constraints: { language: /#{ Language::All.join('|') }/i }
 
-  # shortcut redirection
+  # language shortcut redirection
   get 'js' => redirect('/javascript')
 
-  # subdomain redirection
+  # language subdomain redirection
   constraints(Subdomain) do
     get '/' => 'application#redirect_subdomain'
   end
