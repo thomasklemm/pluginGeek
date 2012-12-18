@@ -38,8 +38,6 @@ class RepoUpdater
       # HTTP Request
       res = github.get('https://api.github.com/repos/' + repo.full_name)
 
-      binding.pry
-
       # Exit on error
       if res.status != 200
         # Set flag unless repo is a new record
