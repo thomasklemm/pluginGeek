@@ -17,8 +17,10 @@
 
 class Language < ActiveRecord::Base
   # Constants
+  Main = %w(web mobile)
   Web = %w(javascript ruby webdesign python php scala go)
   Mobile = %w(ios android)
+  All = (Main + Web + Mobile).uniq
 
   # FriendlyId
   extend FriendlyId

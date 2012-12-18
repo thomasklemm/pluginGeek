@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
 
   # Before Filters
   before_filter :require_login, only: [:edit, :update]
-  before_filter :find_category_and_repos, except: :index
+  before_filter :find_category_and_repos, except: [:index, :redirect_subdomain]
 
   # GET /categories
   def index
@@ -38,6 +38,12 @@ class CategoriesController < ApplicationController
       flash.now.alert = "Category update failed. Please let me know how you got this error."
       render action: :edit
     end
+  end
+
+  # Redirect subdomains to namespaced path using 301 redirect
+  def redirect_subdomain
+    subdomain = request.subdomain.downcase.strip
+    redirect_to root_url(subdomain: false) + subdomain, status: :moved_permanently
   end
 
 protected

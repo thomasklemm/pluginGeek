@@ -93,7 +93,6 @@ class Category < ActiveRecord::Base
         Language.find_by_slug(lang.strip)
       end.compact
 
-      if language
       Language::Web.each do |lang|
         language = Language.find_by_slug(lang)
         self.languages << language if language
