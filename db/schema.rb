@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217170908) do
+ActiveRecord::Schema.define(:version => 20121218083327) do
 
   create_table "ad_categorizations", :force => true do |t|
     t.integer  "category_id"
@@ -64,15 +64,15 @@ ActiveRecord::Schema.define(:version => 20121217170908) do
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "categories", :force => true do |t|
-    t.string   "slug",                             :null => false
-    t.integer  "knight_score",      :default => 0
-    t.text     "short_description"
+    t.string   "slug",                            :null => false
+    t.integer  "knight_score",     :default => 0
     t.text     "description"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.string   "full_name",                        :null => false
+    t.text     "long_description"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.string   "full_name",                       :null => false
     t.string   "name"
-    t.integer  "stars",             :default => 0
+    t.integer  "stars",            :default => 0
   end
 
   add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
