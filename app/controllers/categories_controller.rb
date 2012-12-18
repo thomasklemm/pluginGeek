@@ -28,8 +28,8 @@ class CategoriesController < ApplicationController
 
   # PUT /categories/:id
   def update
-    # Prepare short_description
-    params[:category][:short_description] &&= view_context.strip_tags(params[:category][:short_description])
+    # escape description attribute
+    params[:category][:description] &&= view_context.strip_tags(params[:category][:description])
 
     if @category.update_attributes(params[:category])
       redirect_to @category, notice: 'Thanks! Your update is saved.'

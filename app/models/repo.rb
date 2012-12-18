@@ -37,10 +37,6 @@ class Repo < ActiveRecord::Base
   validates :label,       length: {maximum: 60}
 
   ##
-  # Audits
-  audited only: [:full_name, :description, :label]
-
-  ##
   # Parents
   has_many  :parent_child_relationships,
             class_name:   'RepoRelationship',
@@ -94,27 +90,35 @@ class Repo < ActiveRecord::Base
     categories.pluck(:full_name).join(', ')
   end
 
-  # for handling changes in tag input
-  def category_list=(full_names)
-    unless full_names == category_list
-      # Prepare
-      full_names &&= full_names.split(', ')
-      full_names.delete('')
-      old_categories = categories.map(&:full_name)
+  # set categories, handle changes in tag input
+  def category_list=(new_list)
+    if new_list != category_list
+      old_ones = categories.pluck(&:full_name)
 
-      # Set categories
+      full_names &&= new_list.split(', ').delete('').compact.map(&:strip)
+
       self.categories = full_names.map do |full_name|
-        Category.find_or_create_by_full_name(full_name.strip)
+        Category.find_or_create_by_full_name(full_name)
       end
 
-      # Update category stats
-      # REVIEW: There should be a nicer way, maybe using dirty tracking
-      new_categories = categories.map(&:full_name)
-      cs = (old_categories + new_categories).uniq
-      cs.each {|c_full_name| Category.find_by_full_name(c_full_name).save}
+      new_ones = categories.pluck(&:full_name)
 
-      # invalidate caches of self
-      self.touch
+      # Expire caches
+      expire_old_and_new_categories(old_ones, new_ones)
+      expire_self
+   end
+  end
+
+  # Expire cache when associations changed
+  def expire_self
+    self.touch
+  end
+
+  def expire_old_and_new_categories(old_ones, new_ones)
+    ones = old_ones | new_ones
+    ones.each do |full_name|
+      category = Category.find_by_full_name(full_name)
+      category.save if category # trigger callbacks that update statistics by saving instead of touching
     end
   end
 
@@ -126,28 +130,6 @@ class Repo < ActiveRecord::Base
             through: :language_classifications,
             uniq: true
 
-  # before_save :set_languages
-  # def set_languages
-  #   langs = categories(true).map(&:languages).flatten.uniq
-
-  #   LANGUAGES.each do |lang|
-  #     langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
-  #   end
-
-  #   # if mobile then ios and android true, too
-  #   self.mobile? ? (self.ios = true and self.android = true) : nil
-  # end
-
-  # # All languages in an array
-  # # e.g. ['ruby'], ['ruby', 'javascript']
-  # def languages
-  #   langs = LANGUAGES.each_with_object([]) { |lang, array| array << lang if send(lang) }
-  # end
-
-  def language_list
-    languages.map(&:name).join(', ')
-  end
-
   ##
   # Scopes
   scope :order_by_knight_score, order('repos.knight_score desc')
@@ -158,9 +140,12 @@ class Repo < ActiveRecord::Base
     order_by_knight_score - [repo]
   end
 
-  # update_failed
   # REVIEW: Maybe a state-machine would help make this nicer
   scope :update_failed, lambda { where('update_success = ?', false) }
+
+  ##
+  # Audits
+  audited only: [:full_name, :description, :label]
 
   ##
   # Field Defaults and Virtual attributes
@@ -188,6 +173,10 @@ class Repo < ActiveRecord::Base
     self[:description].present? ? self[:description] : github_description
   end
 
+  def language_list
+    languages.map(&:name).join(', ')
+  end
+
   def label
     self[:label] || ""
   end
@@ -195,6 +184,13 @@ class Repo < ActiveRecord::Base
   # for relative timestamp using smart timeago
   def smart_timestamp
     github_updated_at.iso8601
+  end
+
+  ##
+  # Callbacks
+  before_save :set_languages
+  def set_languages
+    self.languages = categories.flat_map(&:languages).uniq
   end
 
   ##

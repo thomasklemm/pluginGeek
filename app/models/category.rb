@@ -94,6 +94,11 @@ class Category < ActiveRecord::Base
     end
   end
 
+  # to ease transition, replace all instance though
+  def short_description
+    self[:description] || ''
+  end
+
   ##
   # Callbacks
   # Set stats before saving
@@ -116,7 +121,7 @@ class Category < ActiveRecord::Base
   end
 
   # Set languages
-  before_save :set_languages if full_name_changed?
+  before_save :set_languages
   def set_languages
     match = full_name.match %r{\((?<languages>.*)\)}
     if match.present?
