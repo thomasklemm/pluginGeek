@@ -10,16 +10,16 @@ Knight::Application.routes.draw do
 
   ##
   # Categories
-  resources :categories, only: [:index, :show, :edit, :update]
+  resources :categories, only: [:show, :edit, :update]
 
   get ':language' => 'categories#index', constraints: { language: /#{ Language::All.join('|') }/i }
 
-  # Redirect language shortcuts and subdomains
-  get '/js' => redirect('/javascript')
+  # shortcut redirection
+  get 'js' => redirect('/javascript')
 
   # subdomain redirection
   constraints(Subdomain) do
-    get '/' => 'categories#redirect_subdomain'
+    get '/' => 'application#redirect_subdomain'
   end
 
   ##
@@ -51,11 +51,16 @@ Knight::Application.routes.draw do
   require 'sidekiq/web'
   admin_constraint = lambda { (http_basic_authenticate_with name: 'kshkjhe', password: 'tesfkfjksst') }
   constraints admin_constraint do
-    mount Sidekiq::Web, at: '/admin/sidekiq', as: :sidekiq
+    mount Sidekiq::Web, at: 'admin/sidekiq', as: :sidekiq
   end
 
   # Static Pages
-  match '/:id' => 'high_voltage/pages#show', as: :static, via: :get
+  match ':id' => 'high_voltage/pages#show', as: :static, via: :get
+
+  # Remove unknown subdomains on root
+  constraints(SubdomainPresence) do
+    get '' =>  'application#remove_subdomain'
+  end
 
   # Root
   root to: 'categories#index'
