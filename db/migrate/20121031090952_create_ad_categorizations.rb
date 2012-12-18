@@ -1,6 +1,6 @@
 class CreateAdCategorizations < ActiveRecord::Migration
   def change
-    create_table :ad_categorizations do |t|
+    create_table :ad_categorizations, force: true do |t|
       t.belongs_to :category
       t.belongs_to :ad
 

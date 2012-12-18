@@ -1,6 +1,6 @@
 class CreateAdsTable < ActiveRecord::Migration
   def change
-    create_table :ads do |t|
+    create_table :ads, force: true do |t|
       t.string :name
       t.string :url
       t.string :description
