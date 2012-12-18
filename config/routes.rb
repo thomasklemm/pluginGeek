@@ -1,10 +1,12 @@
 Knight::Application.routes.draw do
   # Oauth
-  get 'logout' => 'sessions#destroy', as: :logout
-  get 'login' => 'sessions#login', as: :login
-  match 'oauth/callback'  => 'oauths#callback'
-  match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
+  get 'login'   => 'sessions#login',   as: :login
+  get 'logout'  => 'sessions#destroy', as: :logout
 
+  match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
+  match 'oauth/callback'  => 'oauths#callback'
+
+  ##
   # Categories
   resources :categories, only: [:show, :edit, :update]
 
@@ -20,6 +22,7 @@ Knight::Application.routes.draw do
     get '/' => 'application#redirect_subdomain'
   end
 
+  ##
   # Repos
   #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
@@ -36,24 +39,21 @@ Knight::Application.routes.draw do
     end
   end
 
-  # Blitz.io Authentication
-  get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
-
-  # Admin View
-  get 'admin' => 'admin#index', as: :admin
-
   # Sidekiq Web Interface
-  # TODO: HTTP Basic Authentication
+  # TODO: Authentication
   require 'sidekiq/web'
   mount Sidekiq::Web, at: 'admin/sidekiq', as: :sidekiq
 
-  # Static Pages
-  get ':id' => 'high_voltage/pages#show', as: :static
+  # Blitz.io Authentication
+  get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
 
   # Remove unknown subdomains on root
   constraints(SubdomainPresence) do
     get '' =>  'application#remove_subdomain'
   end
+
+  # Static Pages
+  get ':id' => 'high_voltage/pages#show', as: :static
 
   # Root
   root to: 'categories#index'
