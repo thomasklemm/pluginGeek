@@ -79,7 +79,7 @@ class Repo < ActiveRecord::Base
   has_many  :categories,
             through: :categorizations,
             uniq: true,
-            order: 'knight_score DESC'
+            order: 'categories.knight_score DESC'
 
   def has_categories?
     categories.size > 0
@@ -132,7 +132,7 @@ class Repo < ActiveRecord::Base
 
   ##
   # Scopes
-  scope :order_by_knight_score, order('repos.knight_score desc')
+  scope :order_by_knight_score, order('repos.knight_score DESC')
 
   # All repos without the given one
   # used in repo#edit to disencourage setting a repo's parent to itself

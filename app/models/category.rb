@@ -32,12 +32,14 @@ class Category < ActiveRecord::Base
   has_many  :categorizations
   has_many  :repos,
             through: :categorizations,
-            order: 'knight_score desc'
+            uniq: true,
+            order: 'repos.knight_score DESC'
 
   # Ads
   has_many  :ad_categorizations
   has_many  :ads,
-            through: :ad_categorizations
+            through: :ad_categorizations,
+            uniq: true
 
   ##
   # Languages
@@ -49,7 +51,7 @@ class Category < ActiveRecord::Base
 
   ##
   # Scopes
-  scope :order_by_knight_score, order('categories.knight_score desc')
+  scope :order_by_knight_score, order('categories.knight_score DESC')
 
   ##
   # Validations

@@ -37,15 +37,15 @@ class Language < ActiveRecord::Base
            through: :language_classifications,
            source: :classifier,
            source_type: 'Category',
-           uniq: true #,
-           # order: 'knight_score DESC'
+           uniq: true,
+           order: 'categories.knight_score DESC'
 
   has_many :repos,
            through: :language_classifications,
            source: :classifier,
            source_type: 'Repo',
-           uniq: true #,
-           # order: 'knight_score DESC'
+           uniq: true,
+           order: 'repos.knight_score DESC'
 
   attr_accessible :name
 end
