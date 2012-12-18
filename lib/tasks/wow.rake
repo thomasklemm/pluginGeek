@@ -1,2 +1,0 @@
-namespace :wow do
-end

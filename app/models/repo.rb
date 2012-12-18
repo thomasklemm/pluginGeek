@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20121217170908
 #
 # Table name: repos
 #
@@ -15,9 +16,13 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  update_success     :boolean          default(FALSE)
-#  languages          :integer          default(0)
 #  description        :text
 #  label              :text
+#
+# Indexes
+#
+#  index_repos_on_full_name     (full_name) UNIQUE
+#  index_repos_on_knight_score  (knight_score)
 #
 
 class Repo < ActiveRecord::Base
@@ -32,12 +37,6 @@ class Repo < ActiveRecord::Base
   validates :label,       length: {maximum: 60}
 
   ##
-  # Audits
-  audited only: [:full_name, :description, :label]
-
-  ##
-  # Associations
-  #
   # Parents
   has_many  :parent_child_relationships,
             class_name:   'RepoRelationship',
@@ -47,27 +46,13 @@ class Repo < ActiveRecord::Base
   has_many  :parents,
             through:      :parent_child_relationships,
             source:       :parent,
-            uniq:         true#,
-            #order:        'knight_score DESC'
+            uniq:         true
 
-  # TODO: Counter Cache
   def has_parents?
     parents.size > 0
   end
 
-  # def parent_list
-  #   parents.map(&:full_name).join(', ')
-  # end
-
-  # def parent_list=(full_names)
-  #   full_names.delete("")
-  #   unless full_names.join(', ') == parent_list
-  #     self.parents = full_names.map do |full_name|
-  #       Repo.find_by_full_name(full_name.strip)
-  #     end
-  #   end
-  # end
-
+  ##
   # Children
   has_many  :child_parent_relationships,
             class_name:   'RepoRelationship',
@@ -77,112 +62,77 @@ class Repo < ActiveRecord::Base
   has_many  :children,
             through:      :child_parent_relationships,
             source:       :child,
-            uniq:         true#,
-            #order:        'knight_score DESC'
+            uniq:         true
 
-  # TODO: Cache Couter
+  # Review: Add counter cache?
   def has_children?
     children.size > 0
   end
 
   def child_list
-    children.map(&:full_name).join(', ')
+    children.pluck(:full_name).join(', ')
   end
 
+  ##
   # Categories
   has_many  :categorizations
   has_many  :categories,
             through: :categorizations,
             uniq: true,
-            order: 'knight_score DESC'
+            order: 'categories.knight_score DESC'
 
   def has_categories?
     categories.size > 0
   end
 
+  # for tag input
   def category_list
-    categories.map(&:full_name).join(', ')
+    categories.pluck(:full_name).join(', ')
   end
 
-  def category_list=(full_names)
-    unless full_names == category_list
-      # Prepare
-      full_names &&= full_names.split(', ')
-      full_names.delete('')
-      old_categories = categories.map(&:full_name)
+  # set categories, handle changes in tag input
+  def category_list=(new_list)
+    if new_list != category_list
+      old_ones = categories.pluck(&:full_name)
 
-      # Set categories
+      full_names &&= new_list.split(', ').delete('').compact.map(&:strip)
+
       self.categories = full_names.map do |full_name|
-        Category.find_or_create_by_full_name(full_name.strip)
+        Category.find_or_create_by_full_name(full_name)
       end
 
-      # Update category stats
-      # REVIEW: There should be a nicer way, maybe using dirty tracking
-      new_categories = categories.map(&:full_name)
-      cs = (old_categories + new_categories).uniq
-      cs.each {|c_full_name| Category.find_by_full_name(c_full_name).save}
+      new_ones = categories.pluck(&:full_name)
 
-      # Touch self (based on online tests)
-      self.touch
-    end
+      # Expire caches
+      expire_old_and_new_categories(old_ones, new_ones)
+      expire_self
+   end
   end
 
-  # Languages (through categories)
-  include FlagShihTzu
-  LANGUAGES = %w(ruby javascript design)
-  LANGUAGES_WITH_SHORTCUTS = %w(ruby javascript design js)
-
-  has_flags :column => 'languages',
-            1 => :ruby,
-            2 => :javascript,
-            3 => :design
-
-  # Alias js to javascript globally
-  alias_method :js, :javascript
-  alias_method :js=, :javascript=
-  alias_method :js?, :javascript?
-
-  before_save :set_languages
-  def set_languages
-    langs = categories.map(&:languages).flatten.uniq
-
-    LANGUAGES.each do |lang|
-      langs.include?(lang) ? send("#{ lang }=", true) : send("#{ lang }=", false)
-    end
+  # Expire cache when associations changed
+  def expire_self
+    self.touch
   end
 
-  def languages
-    langs = begin
-      array = []
-      LANGUAGES.each { |lang| array << lang if send(lang) }
-      array
+  def expire_old_and_new_categories(old_ones, new_ones)
+    ones = old_ones | new_ones
+    ones.each do |full_name|
+      category = Category.find_by_full_name(full_name)
+      category.save if category # trigger callbacks that update statistics by saving instead of touching
     end
-  end
-
-  def language_list
-    languages.join(', ')
   end
 
   ##
+  # Languages
+  has_many  :language_classifications,
+            as: :classifier
+  has_many  :languages,
+            through: :language_classifications,
+            uniq: true
+
+  ##
   # Scopes
-  # order_by_knight_score
-  scope :order_by_knight_score, order('repos.knight_score desc')
-
-  # language(:ruby) / language('ruby')
-  scope :language, lambda { |lang| send(lang) if LANGUAGES.include?(lang.to_s) }
-  # find_all_by_language(:ruby)
-  scope :find_all_by_language, lambda { |lang| language(lang).order_by_knight_score }
-
-  # most_recent_by_language('ruby')
-  #   find the timestamp of the most recently updated repo
-  #   with fallback on a current 10.seconds window
-  def self.timestamp_by_language(language)
-    if timestamp = find_all_by_language(language).maximum(:updated_at)
-      timestamp = timestamp.utc.to_s(:number)
-    else
-      DateTime.now.utc.to_s(:number).slice(0..(-2))
-    end
-  end
+  scope :order_by_knight_score, order('repos.knight_score DESC')
 
   # All repos without the given one
   # used in repo#edit to disencourage setting a repo's parent to itself
@@ -190,11 +140,15 @@ class Repo < ActiveRecord::Base
     order_by_knight_score - [repo]
   end
 
-  # update_failed
+  # REVIEW: Maybe a state-machine would help make this nicer
   scope :update_failed, lambda { where('update_success = ?', false) }
 
   ##
-  # Field Defaults
+  # Audits
+  audited only: [:full_name, :description, :label]
+
+  ##
+  # Field Defaults and Virtual attributes
   def name
     self[:name] || self[:full_name].split('/')[1]
   end
@@ -203,34 +157,61 @@ class Repo < ActiveRecord::Base
     self[:owner] || self[:full_name].split('/')[0]
   end
 
-  # REVIEW: Is this really nescessary for list.js to work?
   def homepage_url
-    self[:homepage_url] || ''
+    self[:homepage_url] || ""
   end
 
   def github_updated_at
-    (self[:github_updated_at] && self[:github_updated_at].utc) || (Time.now - 2.years)
+    self[:github_updated_at].present? ? self[:github_updated_at].utc : 2.years.ago
+  end
+
+  def github_description
+    self[:github_description].present? ? self[:github_description] : ""
   end
 
   def description
-    (self[:description].present? && self[:description]) || (github_description.present? && github_description) || '<em>Add a description for this repo here on Knight.io or on Github.</em>'.html_safe
+    self[:description].present? ? self[:description] : github_description
   end
 
-  # REVIEW: Is this really nescessary for list.js to work?
+  def language_list
+    languages.map(&:name).join(', ')
+  end
+
   def label
-    self[:label] || ''
+    self[:label] || ""
   end
 
-  ##
-  # Virtual attributes
+  # for relative timestamp using smart timeago
   def smart_timestamp
     github_updated_at.iso8601
   end
 
   ##
-  # Class methods
-  def self.bust_caches
-    find_each(&:touch)
+  # Callbacks
+  before_save :set_languages
+  def set_languages
+    self.languages = categories.flat_map(&:languages).uniq
+  end
+
+  ##
+  # Swiftype Full-Text Searching
+  #
+  # Update search index after each transaction
+  #
+  after_commit :create_document, on: :create
+  after_commit :update_document, on: :update
+  after_commit :destroy_document, on: :destroy
+
+  def create_document
+    SwiftypeIndexWorker.perform_async('Repo', id, :create)
+  end
+
+  def update_document
+    SwiftypeIndexWorker.perform_async('Repo', id, :update)
+  end
+
+  def destroy_document
+    SwiftypeIndexWorker.perform_async('Repo', id, :destroy)
   end
 
   ##

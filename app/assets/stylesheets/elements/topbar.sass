@@ -1,0 +1,51 @@
+// Topbar
+
+#topbar
+  background: #900
+  height: 46px // 44px is height of foundation's vertical tabs
+  line-height: 44px
+  color: #eee
+
+  .brand
+    font:
+      size: 22px
+      weight: bold
+    color: white
+
+  // user section on the right side
+  .user-section
+
+    // login
+    .login, .logout
+      a
+        padding: 15px 12px // fill height
+        color: #eee
+        background: #777
+        margin-left: 8px
+        &:hover
+          background: #944
+
+
+    // icon
+    .topbar-icon
+      font-size: 16px
+      position: relative
+      top: 1px
+      margin-right: 5px
+
+    // Avatar when developer is logged in
+    .avatar
+      // Styles for rounded corners on background-images as seen here: www.bram.us/sandbox/roundedcorners/
+      float: right
+      height: 36px
+      width: 36px
+
+      background-size: 36px 36px
+      background-repeat: no-repeat
+
+      // REVIEW: write without bourbon
+      @import 'bourbon'
+      @include border-radius(5px)
+      @include box-shadow(#777 0 0 4px)
+
+      margin: 5px 0 0 10px

@@ -11,15 +11,15 @@
 
   / main and sidebar
   #main.row
+    / navigation sidebar
+    #sidebar.two.columns
+      = render 'sidebar'
+
     / Content
-    #content.twelve.columns
+    #content.ten.columns
 
       / flash messages
       = render 'flash_messages'
-
-      - if params[:action] == 'index'
-        / logo header
-        .logo_header = image_tag('tower_logo/3.png')
 
       / main body
       = yield

@@ -11,6 +11,17 @@ class ApplicationController < ActionController::Base
     render text: '42'
   end
 
+  # Redirect subdomains to namespaced path using 301 redirect
+  def redirect_subdomain
+    subdomain = request.subdomain.downcase.strip
+    redirect_to root_url(subdomain: false) + subdomain, status: :moved_permanently
+  end
+
+  # Remove unknown subdomains
+  def remove_subdomain
+    redirect_to root_url(subdomain: false)
+  end
+
   ##
   # Helper Methods
   # Markdown Renderer

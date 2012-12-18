@@ -21,9 +21,9 @@
   = f.inputs do
     = f.input :full_name, hint: 'Style: "Category group: Category name (Ruby/JS)"'
 
-    = f.input :short_description, input_html: {rows: 2, class: 'autogrow', cols: 150}, hint: 'What is this category about? || Shows in Overviews || No Markdown'
+    = f.input :description, input_html: {rows: 3, class: 'autogrow', cols: 150}, hint: 'Describe the category in up to 360 characters.'
 
-    = f.input :description, input_html: {rows: 8, cols: 150, class: 'autogrow'}, hint: "Give developers a hand in deciding on the right tool for the job.<br /><i class='icon-thumbs-up main_color'></i> The repos in this category solve <b>which particular job</b>? <br /> <i class='icon-star main_color'></i> <b>How can one solve it</b>, what are the crucial points? <br /> <i class='icon-glass main_color'></i> <b>What differentiates the listed repos</b>? Which one is suited best for which job? <br />You can use <a href='http://warpedvisions.org/projects/markdown-cheat-sheet/' target='_blank'>Markdown</a> for structure and links.".html_safe
+    /= f.input :description, input_html: {rows: 8, cols: 150, class: 'autogrow'}, hint: "Give developers a hand in deciding on the right tool for the job.<br /><i class='icon-thumbs-up main_color'></i> The repos in this category solve <b>which particular job</b>? <br /> <i class='icon-star main_color'></i> <b>How can one solve it</b>, what are the crucial points? <br /> <i class='icon-glass main_color'></i> <b>What differentiates the listed repos</b>? Which one is suited best for which job? <br />You can use <a href='http://warpedvisions.org/projects/markdown-cheat-sheet/' target='_blank'>Markdown</a> for structure and links.".html_safe
 
   / Actions
   = f.actions do

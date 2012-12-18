@@ -1,0 +1,130 @@
+$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$lucida: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+
+@mixin border-radius($radius){
+  -webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+  -o-border-radius: $radius;
+	-khtml-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin box-shadow($horizontal-offset, $vertical-offset, $blur-radius, $color){
+  -webkit-box-shadow: $horizontal-offset $vertical-offset $blur-radius $color;
+  -moz-box-shadow: $horizontal-offset $vertical-offset $blur-radius $color;
+  -khtml-box-shadow: $horizontal-offset $vertical-offset $blur-radius $color;
+  -ms-box-shadow: $horizontal-offset $vertical-offset $blur-radius $color;
+  -o-box-shadow: $horizontal-offset $vertical-offset $blur-radius $color;
+  box-shadow:$horizontal-offset $vertical-offset $blur-radius $color;
+}
+
+@mixin vertical-gradient($top-color, $bottom-color){
+  background: $top-color;
+  background: -moz-linear-gradient(top, $top-color 0, $bottom-color 100%);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from($top-color), to($bottom-color));
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$top-color},endColorstr=#{$bottom-color})";
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$top-color},endColorstr=#{$bottom-color});
+}
+
+@mixin clearfix {
+  zoom: 1;
+  &:before, &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+$suggestionWidth: 490px;
+$inputWidth: 600px;
+$swiftmateWidth: $inputWidth - 21px;
+
+#search-input{
+  border: 1px solid #999;
+  color: #545C5F;
+  font-family: $helvetica;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  margin: 0;
+  padding: 12px 12px 10px;
+  width: $inputWidth;
+  @include border-radius(4px);
+
+  &:focus{
+    // outline: none;
+  }
+}
+
+// SWIFTMATE AUTOCOMPLETE
+#swiftmate {
+  background-color: #fafafa;
+  border: 1px solid #bbb;
+  display: none;
+  font: 12px/14px $helvetica;
+  font-weight: normal;
+  list-style: none;
+  margin: 0 0 0 10px;
+  padding: 0;
+  position: absolute;
+  text-shadow: 0 0 0 white;
+  width: $swiftmateWidth;
+  z-index: 1000;
+  @include border-radius(4px);
+  @include box-shadow(0, 4px, 10px, rgba(0,0,0,.2));
+
+  .swiftmate-type-container {
+    border-top: 1px solid #ddd;
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  .swiftmate-type-suggestions {
+    border-left: 1px solid #ddd;
+    float: right;
+    list-style: none;
+    padding: 5px 0;
+    width: $suggestionWidth;
+    letter-spacing: 0.5px;
+  }
+
+  .swiftmate-suggestion {
+    color: #111;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 5px 0 6px 12px;
+    text-decoration: none;
+
+    &.focus{
+      color: white;
+      margin-left: -1px;
+      margin-right: -1px;
+      padding-left: 13px;
+      position: relative;
+      text-shadow: 0 1px 1px #32629b;
+      z-index: 1;
+      @include box-shadow(0, 1px, 2px , rgba(0,0,0,0.3));
+      @include vertical-gradient(#545454, #444444);
+    }
+  }
+
+  .swiftmate-type {
+    background-color: white;
+    color: #333;
+    font-family: $helvetica;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    margin-right: $suggestionWidth;
+    padding: 10px 10px 0 10px;
+    text-align: right;
+    text-transform: capitalize;
+    vertical-align: top;
+    @include border-radius(5px);
+    @include clearfix();
+  }
+
+}

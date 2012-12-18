@@ -6,12 +6,23 @@ Knight::Application.routes.draw do
   match 'oauth/callback'  => 'oauths#callback'
   match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
+  get 'debug' => 'users#debug'
+
   ##
   # Categories
-  resources :categories, only: [:index, :show, :edit, :update]
-  # REVIEW: There must be a nicer way to do this
-  get ':language(/:scope)' => 'categories#index', as: :language, constraints: { language: /ruby|js|design/i, scope: /categories/ }
-  get ':language/:scope' => 'repos#index', constraints: { language: /ruby|js|design/i, scope: /repos/ }
+  resources :categories, only: [:show, :edit, :update]
+
+  get ':language' => 'categories#index',
+    as: :categories,
+    constraints: { language: /#{ Language::All.join('|') }/i }
+
+  # language shortcut redirection
+  get 'js' => redirect('/javascript')
+
+  # language subdomain redirection
+  constraints(Subdomain) do
+    get '/' => 'application#redirect_subdomain'
+  end
 
   ##
   # Repos
@@ -42,11 +53,16 @@ Knight::Application.routes.draw do
   require 'sidekiq/web'
   admin_constraint = lambda { (http_basic_authenticate_with name: 'kshkjhe', password: 'tesfkfjksst') }
   constraints admin_constraint do
-    mount Sidekiq::Web, at: '/admin/sidekiq', as: :sidekiq
+    mount Sidekiq::Web, at: 'admin/sidekiq', as: :sidekiq
   end
 
   # Static Pages
-  match '/:id' => 'high_voltage/pages#show', as: :static, via: :get
+  match ':id' => 'high_voltage/pages#show', as: :static, via: :get
+
+  # Remove unknown subdomains on root
+  constraints(SubdomainPresence) do
+    get '' =>  'application#remove_subdomain'
+  end
 
   # Root
   root to: 'categories#index'

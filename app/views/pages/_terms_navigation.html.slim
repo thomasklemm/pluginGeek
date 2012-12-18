@@ -2,7 +2,7 @@
 
 h1 Legal Notes
 
-ul class='link-list'
-  b: li = link_to 'Terms of Service', static_path(id: :terms_of_service)
-  b: li = link_to 'Privacy Policy', static_path(id: :privacy)
-  b: li = link_to 'Impressum', static_path(id: :impressum)
+ul class='inline-list'
+  li = link_to_unless_current 'Terms of Service', static_path(id: :terms_of_service)
+  li = link_to_unless_current 'Privacy Policy', static_path(id: :privacy)
+  li = link_to_unless_current 'Impressum', static_path(id: :impressum)

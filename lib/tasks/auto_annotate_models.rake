@@ -7,7 +7,7 @@ if(Rails.env.development?)
     ENV['position_in_fixture']  = "before"
     ENV['position_in_factory']  = "before"
     ENV['show_indexes']         = "true"
-    ENV['include_version']      = "false"
+    ENV['include_version']      = "true"
     ENV['exclude_tests']        = "false"
     ENV['exclude_fixtures']     = "false"
     ENV['ignore_model_sub_dir'] = "false"
@@ -17,4 +17,7 @@ if(Rails.env.development?)
     ENV['no_sort']              = "false"
     ENV['force']                = "false"
   end
+
+  # Annotate models on running rake db:migrate
+  Dir["#{Gem::Specification.find_by_name("annotate").full_gem_path}/**/tasks/**/*.rake"].each {|ext| load ext}
 end

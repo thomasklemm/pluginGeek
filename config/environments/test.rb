@@ -1,6 +1,10 @@
 Knight::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # Default URL Host
+  #  required by Swiftype
+  Rails.application.routes.default_url_options[:host] = 'knight.dev'
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped

@@ -11,22 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031122108) do
-
-  create_table "active_admin_comments", :force => true do |t|
-    t.string   "resource_id",   :null => false
-    t.string   "resource_type", :null => false
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.text     "body"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "namespace"
-  end
-
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+ActiveRecord::Schema.define(:version => 20121218083327) do
 
   create_table "ad_categorizations", :force => true do |t|
     t.integer  "category_id"
@@ -37,24 +22,6 @@ ActiveRecord::Schema.define(:version => 20121031122108) do
 
   add_index "ad_categorizations", ["ad_id"], :name => "index_ad_categorizations_on_ad_id"
   add_index "ad_categorizations", ["category_id"], :name => "index_ad_categorizations_on_category_id"
-
-  create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-  end
-
-  add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
-  add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "ads", :force => true do |t|
     t.string   "name"
@@ -97,16 +64,15 @@ ActiveRecord::Schema.define(:version => 20121031122108) do
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "categories", :force => true do |t|
-    t.string   "slug",                             :null => false
-    t.integer  "knight_score",      :default => 0
-    t.text     "short_description"
+    t.string   "slug",                            :null => false
+    t.integer  "knight_score",     :default => 0
     t.text     "description"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.string   "full_name",                        :null => false
-    t.integer  "languages",         :default => 0
+    t.text     "long_description"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.string   "full_name",                       :null => false
     t.string   "name"
-    t.integer  "stars",             :default => 0
+    t.integer  "stars",            :default => 0
   end
 
   add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
@@ -132,6 +98,36 @@ ActiveRecord::Schema.define(:version => 20121031122108) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
+  create_table "language_classifications", :force => true do |t|
+    t.integer  "language_id",     :null => false
+    t.integer  "classifier_id",   :null => false
+    t.string   "classifier_type", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "language_classifications", ["classifier_id", "classifier_type"], :name => "index_language_classifications_on_classifier"
+  add_index "language_classifications", ["language_id"], :name => "index_language_classifications_on_language_id"
+
+  create_table "language_hierarchies", :id => false, :force => true do |t|
+    t.integer "ancestor_id",   :null => false
+    t.integer "descendant_id", :null => false
+    t.integer "generations",   :null => false
+  end
+
+  add_index "language_hierarchies", ["ancestor_id", "descendant_id"], :name => "index_language_hierarchies_on_ancestor_id_and_descendant_id", :unique => true
+  add_index "language_hierarchies", ["descendant_id"], :name => "index_language_hierarchies_on_descendant_id"
+
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "languages", ["slug"], :name => "index_languages_on_slug", :unique => true
+
   create_table "repo_relationships", :force => true do |t|
     t.integer  "parent_id"
     t.integer  "child_id"
@@ -155,7 +151,6 @@ ActiveRecord::Schema.define(:version => 20121031122108) do
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.boolean  "update_success",     :default => false
-    t.integer  "languages",          :default => 0
     t.text     "description"
     t.text     "label"
   end

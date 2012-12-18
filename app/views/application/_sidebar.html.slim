@@ -1,22 +1,26 @@
 / application/_sidebar
 
 / Navigation
-dl.languages_list
+ul class='vertical tabs'
 
-  /Ruby
-  .ruby
-    dt Ruby
-    dd class=active_navitem(:ruby, :categories) = link_to 'Categories', language_path(language: :ruby, scope: '')
-    dd class=active_navitem(:ruby, :repos) = link_to 'Repos', language_path(language: :ruby, scope: :repos)
+  / Web
+  li class=current_path?(:web)
+    = link_to 'Web', path(:web)
 
-  /JS
-  .js
-    dt JS
-    dd class=active_navitem(:js, :categories) = link_to 'Categories', language_path(language: :js, scope: '')
-    dd class=active_navitem(:js, :repos) = link_to 'Repos', language_path(language: :js, scope: :repos)
+    ul
+      li class=current_path?(:javascript) = link_to 'Javascript', path(:javascript)
+      li class=current_path?(:ruby)       = link_to 'Ruby', path(:ruby)
+      li class=current_path?(:webdesign)  = link_to 'Webdesign', path(:webdesign)
+      li class=current_path?(:python)     = link_to 'Python', path(:python)
+      li class=current_path?(:php)        = link_to 'PHP', path(:php)
+      li class=current_path?(:scala)      = link_to 'Scala', path(:scala)
+      li class=current_path?(:go)         = link_to 'Go', path(:go)
 
-  /Web Design
-  .design
-    dt Web Design
-    dd class=active_navitem(:design, :categories) = link_to 'Categories', language_path(language: :design, scope: '')
-    dd class=active_navitem(:design, :repos) = link_to 'Repos', language_path(language: :design, scope: :repos)
+
+  / Mobile
+  li class=current_path?(:mobile)
+    = link_to 'Mobile', path(:mobile)
+
+    ul
+      li class=current_path?(:ios)     = link_to 'iOS', path(:ios)
+      li class=current_path?(:android) = link_to 'Android', path(:android)

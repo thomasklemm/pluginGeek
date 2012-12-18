@@ -3,11 +3,11 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby '1.9.3'
 
-# Unicorn (App Server)
-gem 'unicorn'
+# Puma (App Server)
+gem 'puma', '>= 2.0.0.b4'
 
 # Rails
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 # Postgres Database Connector
 gem 'pg'
@@ -26,6 +26,8 @@ gem 'friendly_id'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
+# Excon (HTTP Client used with Faraday)
+gem 'excon'
 
 # Sorcery (User Authentication)
 gem 'sorcery', '~> 0.7.12'
@@ -35,7 +37,10 @@ gem 'redcarpet'
 
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
-gem 'sinatra', require: false
+gem 'sinatra', :require => false
+
+# Autoscaler (Scales Sidekiq on Heroku)
+gem 'autoscaler'
 
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
@@ -49,14 +54,23 @@ gem 'formtastic'
 # Audited (Model Versioning and Auditing)
 gem 'audited-activerecord', '~> 3.0'
 
+# Swiftype (Search Engine and Autocompletion)
+gem 'swiftype'
+
+# Figaro (Managing credentials)
+gem 'figaro'
+
+# New Relic (Server Monitoring)
+gem 'newrelic_rpm'
+
+# Closure Tree (Nesting Structures)
+gem 'closure_tree'
+
 # Production Gems
 group :production do
   # Memcached on Heroku
   gem 'memcachier'
   gem 'dalli'
-
-  # New Relic (Server Monitoring)
-  gem 'newrelic_rpm'
 end
 
 # Gems used only for assets and not required
@@ -84,6 +98,8 @@ end
 group :development do
   # Heroku (Custom Deployment Rake Tasks)
   gem 'heroku'
+  # gem 'taps'    # for rake production:pull_db
+  # gem 'sqlite3' # for rake production:pull_db
 
   # Annotate Models (Schema Info for Models and Routes)
   gem 'annotate', '>=2.5.0'
@@ -103,6 +119,10 @@ group :development do
 
   # Bullet (Eager Loading Notification)
   gem 'bullet'
+
+  # Better Errors (REPL Debug)
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Test Gems

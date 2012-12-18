@@ -1,12 +1,14 @@
 class CategoriesController < ApplicationController
+  # Filters
+  before_filter :set_language_or_default, only: :index
+  before_filter :find_language, only: :index
 
-  # Before Filters
-  before_filter :require_login, only: [:edit, :update]
   before_filter :find_category_and_repos, except: :index
+  before_filter :require_login, only: [:edit, :update]
 
-  # GET /categories
+  # GET '/:language'
   def index
-    @categories = Category.language(params[:language]).order_by_knight_score
+    @categories = @language.categories
 
     # HTTP Caching
     if !Rails.env.development? && !Rails.env.test?
@@ -26,28 +28,37 @@ class CategoriesController < ApplicationController
 
   # PUT /categories/:id
   def update
-    # Prepare Attributes
-    params[:category][:short_description] &&= view_context.strip_tags(params[:category][:short_description]).squish
+    # escape description attribute
+    params[:category][:description] &&= view_context.strip_tags(params[:category][:description])
 
-    # Update attributes
     if @category.update_attributes(params[:category])
-      # Update success
-      redirect_to @category, notice: 'Category updated. Thanks a lot!'
+      redirect_to @category, notice: 'Thanks! Your update is saved.'
     else
-      # Update failed
-      flash.now.alert = "Category update failed. Please let me know how you got this error."
+      flash.now.alert = 'AARRGH! Please let me know by mail how you got this error! Thanks in advance.'
       render action: :edit
     end
   end
 
 protected
 
-  # Find category and repos
+  def set_language_or_default
+    # format language
+    params[:language] = params[:language].downcase.strip
+    # make 'web' default language if none is set
+    params[:language] ||= 'web'
+    # force 'web' default language if the one that is present is not whitelisted
+    params[:language] = 'web' unless Language::All.include?(params[:language])
+  end
+
+  def find_language
+    @language = Language.find(params[:language])
+  end
+
   def find_category_and_repos
-    # friendly_id's slug serves as params[:id]
+    # params[:id] brings friendly_id's slug
     @category = Category.find(params[:id])
-    # Find all repos by category
-    @repos = @category.repos.includes(:children).order_by_knight_score
+
+    @repos = @category.repos.includes(:children)
   end
 
   # If an old id or a numeric id was used to find the record, then
