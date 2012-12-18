@@ -1,5 +1,4 @@
 / layouts/_head
-
 meta charset='utf-8'
 
 / dns prefetch
@@ -12,6 +11,10 @@ link rel="dns-prefetch" href="https://github.com"
 
 / title and description
 - title = yield :title
+/ TODO: SET TITLE HERE WITH OPTION TO OVERRRIDE IT
+/  - content_for :title, "#{ @category.full_name } &middot; Knight".html_safe
+/  - content_for :title, "Knight &middot; Ruby Gems of Note".html_safe
+/
 title = title.present? ? title : "Knight &middot; Discover Web Development Plugins Of Note".html_safe
 
 meta name='description' content='Amazing Rubygems and jQuery plugins - pointing web entrepreneurs, developers and designers to great solutions.'

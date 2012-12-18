@@ -1,12 +1,5 @@
 / categories/index
-
-= render 'ads'
-
 - cache [@language, @categories] do
-
-  / Title
-  - content_for :title, "Knight &middot; Ruby Gems of Note".html_safe
-
   / Categories List
   #js_categories_list
 

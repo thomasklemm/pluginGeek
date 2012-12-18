@@ -1,38 +1,19 @@
 / categories/edit
+.edit-category
+  .full_name = @category.full_name
 
-.category_show
+  / Form
+  = semantic_form_for @category do |f|
+    = f.semantic_errors
 
-  / Full name
-  h4
-    / Full name
-    span.full_name.left
-      i.icon-tag
-      = @category.full_name
+    / Inputs
+    = f.inputs do
+      = f.input :full_name, hint: 'Style: "ActiveRecord: Nested Records (Ruby), Texteditor Plugins (Web/Mobile)"'
+        / link to 'which languages do we cover?'
 
-    / Stars
-    span.stars_header = stars_mixin(@category.stars)
+      = f.input :description, input_html: {rows: 3, class: 'autogrow', cols: 150}, hint: 'Describe this category in up to 360 characters. What is the purpose of the repos listed here?'
+        / display descriptions of associated repos, as a guide for writing
 
-/ Form
-= semantic_form_for @category do |f|
-  / Error Messages
-  = f.semantic_errors
-
-  / Inputs
-  = f.inputs do
-    = f.input :full_name, hint: 'Style: "Category group: Category name (Ruby/JS)"'
-
-    = f.input :description, input_html: {rows: 3, class: 'autogrow', cols: 150}, hint: 'Describe the category in up to 360 characters.'
-
-    /= f.input :description, input_html: {rows: 8, cols: 150, class: 'autogrow'}, hint: "Give developers a hand in deciding on the right tool for the job.<br /><i class='icon-thumbs-up main_color'></i> The repos in this category solve <b>which particular job</b>? <br /> <i class='icon-star main_color'></i> <b>How can one solve it</b>, what are the crucial points? <br /> <i class='icon-glass main_color'></i> <b>What differentiates the listed repos</b>? Which one is suited best for which job? <br />You can use <a href='http://warpedvisions.org/projects/markdown-cheat-sheet/' target='_blank'>Markdown</a> for structure and links.".html_safe
-
-  / Actions
-  = f.actions do
-    = f.action :submit, as: :button, button_html: {class: 'medium radius button'}
-
-    p style='margin-top: 1rem'
-      i.icon-star.main_color
-      '  Thanks for contributing!
-
-/ Repos
-div class='radius panel'
-  = render 'category_show_repos_list'
+    / Submit button
+    = f.actions do
+      = f.action :submit, as: :button, button_html: {class: 'medium radius button'}

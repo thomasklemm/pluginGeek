@@ -11,30 +11,26 @@
       = pluralize((category.repos.size - 3), 'more repo')
       '  &raquo;
 
-  / Category
+  / Category partial in lists
   .category
 
-    / Full Name
-    = link_to category do
-      span.fn = category.full_name
+    / A category's full_name includes 'name (languages)'
+    div.full_name
+      span.name = link_to category.name, category
+      span.language_list = category.language_list
 
-    / Stars
+    / Cummulative stars count from Github of all associated repos
     = stars_mixin(category.stars)
 
-    / Popular Repos
-    div
-      span.pr = category.popular_repos
+    / Up to three of the most popular repos
+    div.popular_repos
+      span = category.popular_repos
+      / Deeplink into category to see more repos
+      = (category.repos.size > 3) ? "&amp; #{ category_repo_link }".html_safe : category_link
 
-      / Link
-      - if category.repos.size > 3
-        '  &amp;
-        = category_repo_link
-      - else
-        = category_link
+    / Description, either a custom one, or the one from Github
+    .description = category.description
 
-    / Description
-    .d = category.short_description
-
-    / Stats
-    span.fr = category.further_repos
-    span.ks = category.knight_score
+    / Hidden statistics that can be searched and sorted with list.js nonetheless
+    span.further_repos style='display: none' = category.further_repos
+    span.knight_score  style='display: none' = category.knight_score

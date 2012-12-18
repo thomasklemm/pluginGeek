@@ -1,15 +1,10 @@
 / layouts/_body
-
-/ root
 #root
-
-  / topbar
   #topbar
     .row
       .twelve.columns
         = render 'topbar'
 
-  / main and sidebar
   #main.row
     / navigation sidebar
     #sidebar.two.columns
@@ -17,21 +12,18 @@
 
     / Content
     #content.ten.columns
-
-      / flash messages
       = render 'flash_messages'
 
       / main body
       = yield
 
-  / Root for footer
   #root_footer
 
-/ footer
 #footer
   .row
     .twelve.columns
       = render 'footer'
 
-/ javascripts in body
-= render 'javascripts_body'
+/ asynchronous javascript snippets at the end of the body
+/ to improve overall load times
+= render 'javascripts'

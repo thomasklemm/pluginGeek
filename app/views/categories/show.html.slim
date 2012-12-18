@@ -1,36 +1,40 @@
 / categories/show
-
 - cache [@category, 'details'] do
-
-  / Title
-  - content_for :title, "#{ @category.full_name } &middot; Knight".html_safe
-
-  / Category Header
-  .category_show
-
-    / Edit description link
-    = link_to edit_category_path(@category), class: 'edit_description right' do
+  .category-details
+    / Link to edit view, where description is editable
+    = link_to edit_category_path(@category), class: 'edit-link right' do
       i.icon-edit
       | &nbsp;Edit
 
-    / Full name
-    h4
-      / Full name
-      span.full_name.left
-        i.icon-tag
-        = @category.full_name
 
-      / Stars
-      span.stars_header = stars_mixin(@category.stars)
+    / Name without languages (full_name is 'name (languages)')
+    .name = @category.name
+    .language_list = @category.language_list
 
-    / Short description
-    / FIXME: Escape short description properly, strip of all html when saving with sanitizer
-    p.short_description = @category.short_description.html_safe
+    / Cummulative stars of all associated Github repos
+    = stars_mixin(@category.stars)
 
-    / Repos
-    .my-panel
-      = render 'category_show_repos_list'
+    / Up to 360 characters describing the purpose of this category
+    / or summing up the repos use cases among others
+    .description = @category.description
 
-    / Solutions
-    .markdown-body = @category.description
+    / List containing repos
+    #js-repos-list
+      .list data-page=4
+        = render partial: 'shared/repo', collection: @repos
 
+        / No repos are present, the category might be deleted soon
+        - if @repos.blank?
+          p: em This category is no longer associated with any repos and might be cleared away soon.
+
+      / At first only a few repos will be shown, a click on this button will reveal
+      / all associated repos
+      button.js-show-all class='radius button' style='margin-top: 1rem;' Show all repos
+
+      / Sort options and buttons for repos
+      / Maybe hide if there are only a few options
+      ul.sort-list
+        span.intro <i class='icon-sort'></i> Sort:
+        li.sort.active  data-sort='knight_score'  Knight Score
+        li.sort         data-sort='activity'      Activity
+        li.sort         data-sort='name'          Name

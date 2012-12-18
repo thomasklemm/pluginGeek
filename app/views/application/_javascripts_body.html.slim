@@ -1,30 +1,30 @@
 / application/_javascripts_body
 
-/ List.js in head
-/   Lists initalized here so I can access them in their respective variables
-
-/ Categories List
+/ List.js: Categories
+/   Note: Lists will be initalized here so I can access them in their respective variables
 javascript:
   var categories_list_options = {
-      valueNames: ['fn', 'ks', 'd', 'pr', 'fr']
+      valueNames: ['full_name', 'knight_score', 'description', 'popular_repos', 'further_repos']
     };
 
   categories_list_options['page'] = $('.list').data('page') || 8
 javascript:
-  var categoriesList = new List('js_categories_list', categories_list_options);
+  var categoriesList = new List('js-categories-list', categories_list_options);
 
-/ Repos List
+/ List.js: Repos
 javascript:
   var repos_list_options = {
-      valueNames: ['o', 'n', 'd', 'ks', 'ua']
+      valueNames: ['owner', 'name', 'description', 'knight_score', 'activity']
     };
 
   repos_list_options['page'] = $('.list').data('page') || 8
 
 javascript:
-  var reposList = new List('js_repos_list', repos_list_options);
+  var reposList = new List('js-repos-list', repos_list_options);
 
-/ swiftype autocomplete
+
+/ Swiftype-powered Autocomplete
+/ for landing page
 javascript:
   var swiftype_engine_key = "#{ ENV['SWIFTYPE_ENGINE_KEY'] }"
 
@@ -44,7 +44,9 @@ coffee:
     }
   }
 
-/ livereload (in development)
+/ LiveReload (in development only)
+/   reloading browser in development when file changes in the directories
+/   livereload is watching are being noticed
 - if Rails.env.development?
     javascript:
       document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
