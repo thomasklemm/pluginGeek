@@ -1,114 +1,70 @@
 / repos/show
-
-- cache [@repo, 'show_repo'] do
-
-  / Title
-  - content_for :title, "#{ @repo.full_name } &middot Knight".html_safe
-
-  / Variables
-  - timestamp = @repo.github_updated_at && @repo.github_updated_at.utc
-
-  / Repo Header
-  .repo_header
+- cache [@repo, 'details'] do
+  .repo-details
+    / Link to edit view
+    = link_to edit_repo_path(@repo), class: 'edit-link' do
+      i.icon-edit
+      | &nbsp;Edit
 
     / Name and Owner
-    h3.name_and_owner = link_to @repo.github_url do
-      i.icon-github style='padding-right: 12px'
-      span.owner #{ @repo.owner }
-      span style='padding: 0 5px' #{'/'}
-      span.name #{ @repo.name }
-
+    .name-and-owner = link_to @repo.github_url do
+      i.icon-github
+      span.owner = @repo.owner
+      span.name  = @repo.name
 
     / Github Star Button including Stars Count
-    iframe.star_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
+    iframe.star-button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
-    / Description
+    / Description, primary custom one, with github description
+    / as regular fallback
     .description = @repo.description
 
-    / Url
-    span.homepage_url = link_to @repo.homepage_url, @repo.homepage_url
+    / Visible link to homepage, if given, or Github repo
+    span.homepage-url = link_to @repo.homepage_url, @repo.homepage_url
 
     / Activity
-    span.activity class=activity_color(timestamp)
-        i.icon-leaf
-        | &nbsp;
-        abbr.timeago title=timestamp.iso8601 = timestamp.to_s(:long)
+    span.activity class=activity_color(@repo.timestamp)
+      i.icon-leaf
+      abbr.timeago title=@repo.smart_timestamp = @repos.timestamp.to_s(:long)
 
-    / Category List
-    .category_list
-      b style='color: #777' Categories&nbsp;&nbsp;
-
-      / Edit link
-      = link_to edit_repo_path(@repo) do
-        i.icon-edit
-        | &nbsp;Edit
-
-      / Repo has categories
+    / Associated categories in a list
+    ul.category-list
+      / display categories if present
       - if @repo.has_categories?
-        ul.square
-          - @repo.categories.each do |category|
-              li.repo_category
-                = link_to category.full_name, category, class: 'full_name'
-                span.stats
-                  | &nbsp;&nbsp;#{ pluralize(category.repos.size, 'repos') },&nbsp;
-                  = stars_mixin(category.stars)
+        - @repo.categories.each do |category|
+          li.category
+            span.name = link_to category.name, category
+            span.language-list = category.language_list
+            span.stats
+              span.repos-count = pluralize(category.repos.size, 'repos')
+              span.stars-count = stars_mixin(category.stars)
 
-      / Repo has no categories yet
+      / link to edit view if repo has no categories yet
       - else
-        div style='padding-left: 2rem' = link_to edit_repo_path(@repo) do
-          b Add a category.
+        = link_to 'Let me add the first category!', edit_repo_path(@repo), class: 'no-categories-yet'
 
-  / Tabs
-  .tabs_with_content
 
-    / Navigation
-    dl class='tabs contained'
-      dd.active = link_to 'Readme', '#Readme', id: 'readme_tab'
-      dd        = link_to 'Similar repos', '#Alternatives', id: 'alternatives_tab'
-      dd        = link_to 'Relationships', '#Relationships', id: 'relationships_tab'
+    / Readme from Github, requested live in the browser
+    #readme.readme
+      .readme_js data-owner=@repo.owner data-repo=@repo.name
 
-    / Content
-    ul class='tabs-content contained'
+    / highest ranking repos in associated categories, ordered by knight_score
+    .alternatives
+      - if @repo.has_alternatives?
+        = render partial: 'shared/repo', collection: @repo.alternatives
+      - else
+        = link_to 'Let me add the first category!', edit_repo_path(@repo), class: 'no-categories-yet'
 
-      / Readme
-      li#ReadmeTab.active
-        .readme_js data-owner=@repo.owner data-repo=@repo.name
-
-      / Alternatives
-      li#AlternativesTab
-
-        / Repo has categories
-        - if @repo.has_categories?
-          - @repo.categories.each do |category|
-
-            / TODO: Sort repos in each category by knight score, maybe by has_many_through relation
-            = render partial: 'shared/repo', collection: category.repos[0..2]
-
-        / Repo has no categories
+    / parent/child structures between repos
+    .relationships
+      .parents
+        - if @repo.has_parents?
+          = render partial: 'shared/repo', collection: @repo.parents
         - else
-          em Please <b>#{link_to 'add a category', edit_repo_path(@repo)} to this repo.
+          .no-relationships-yet No parents have been added yet.
 
-      / Relationships
-      li id='RelationshipsTab'
-        span.tab_title Parents &amp; Children&nbsp;
-
-        / Edit link
-        = link_to edit_repo_path(@repo) do
-          i.icon-edit
-          | &nbsp;Edit
-
-        / Parents
-        h6 Parents (#{ @repo.parents.size })
-        .parents
-          - if @repo.has_parents?
-            = render partial: 'shared/repo', collection: @repo.parents
-          - else
-            p No parents specified.
-
-        / Children
-        h6 Children (#{ @repo.children.size })
-        .children
-          - if @repo.has_children?
-            = render partial: 'shared/repo', collection: @repo.children
-          - else
-            p No children specified.
+      .children
+        - if @repo.has_children?
+          = render partial: 'shared/repo', collection: @repo.children
+        - else
+          .no-relationships-yet No children have been added yet.

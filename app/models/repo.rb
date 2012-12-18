@@ -158,7 +158,7 @@ class Repo < ActiveRecord::Base
   end
 
   def homepage_url
-    self[:homepage_url] || ""
+    self[:homepage_url] || ''
   end
 
   def github_updated_at
@@ -166,7 +166,7 @@ class Repo < ActiveRecord::Base
   end
 
   def github_description
-    self[:github_description].present? ? self[:github_description] : ""
+    self[:github_description].present? ? self[:github_description] : ''
   end
 
   def description
@@ -178,12 +178,41 @@ class Repo < ActiveRecord::Base
   end
 
   def label
-    self[:label] || ""
+    self[:label] || ''
+  end
+
+  def github_url
+    self[:github_url] || ''
+  end
+
+  def homepage_url
+    self[:homepage_url].present? ? self[:homepage_url] : github_url
   end
 
   # for relative timestamp using smart timeago
   def smart_timestamp
-    github_updated_at.iso8601
+    github_updated_at.utc.iso8601
+  end
+
+  def timestamp
+    github_updated_at.utc
+  end
+
+  # Alternatives
+  # repos in associated categories, sorted by knight_score
+  def alternatives
+    @alternatives ||= find_alternatives
+  end
+
+  def find_alternatives
+    categories.each_with_object([]) do |category, ary|
+      ary = ary | category.repos
+      ary = ary.sort_by(&:knight_score)
+    end
+  end
+
+  def has_alternatives?
+    alternatives.size > 0
   end
 
   ##

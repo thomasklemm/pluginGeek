@@ -55,11 +55,8 @@ class RepoUpdater
 
       # Make homepage_url absolute
       #   will be relative e.g. for 'activeadmin.info'
-      #   and assign the github_url to homepage_url if none is given
       if repo[:homepage_url].present?
         repo[:homepage_url] = "http://" + repo[:homepage_url] unless repo[:homepage_url].start_with?('http')
-      else
-        repo[:homepage_url] = repo[:github_url]
       end
 
       # Limit github description length
