@@ -2,7 +2,7 @@
 
 = render 'ads'
 
-- cache ['categories_index', language], expires_in: 600.seconds do
+- cache [@language, @categories] do
 
   / Title
   - content_for :title, "Knight &middot; Ruby Gems of Note".html_safe
