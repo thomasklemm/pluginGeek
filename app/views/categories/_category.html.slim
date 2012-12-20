@@ -12,9 +12,8 @@
 
   / Category partial in lists
   .category
-
     / A category's full_name includes 'name (languages)'
-    div.full-name
+    span.full-name
       span.name = link_to category.name, category
       span.language-list = category.language_list
 
@@ -24,14 +23,14 @@
       = category.stars
 
     / Up to three of the most popular repos
-    div.popular_repos
-      span = category.popular_repos
+    span.popular-repos
+      span.repos = category.popular_repos
       / Deeplink into category to see more repos
       = (category.repos.size > 3) ? "&amp; #{ category_repo_link }".html_safe : category_link
 
     / Description, either a custom one, or the one from Github
-    .description = category.description
+    span.description = category.description
 
     / Hidden statistics that can be searched and sorted with list.js nonetheless
-    span.further_repos style='display: none' = category.further_repos
-    span.knight_score  style='display: none' = category.knight_score
+    span.further-repos style='display: none' = category.further_repos
+    span.knight-score  style='display: none' = category.knight_score

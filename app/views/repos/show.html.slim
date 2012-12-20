@@ -2,22 +2,22 @@
 - cache [@repo, 'details'] do
   .repo-details
     / Link to edit view
-    = link_to edit_repo_path(@repo), class: 'edit-link' do
+    span.edit-link = link_to edit_repo_path(@repo) do
       i.icon-edit
-      | &nbsp;Edit
+      | Edit
 
     / Name and Owner
-    .name-and-owner = link_to @repo.github_url do
+    span.name-and-owner = link_to @repo.github_url do
       i.icon-github
       span.owner = @repo.owner
       span.name  = @repo.name
 
     / Github Star Button including Stars Count
-    iframe.star-button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
+    iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
 
     / Description, primary custom one, with github description
     / as regular fallback
-    .description = @repo.description
+    span.description = @repo.description
 
     / Visible link to homepage, if given, or Github repo
     span.homepage-url = link_to @repo.homepage_url, @repo.homepage_url
@@ -29,24 +29,21 @@
 
     / Associated categories in a list
     ul.category-list
-      / display categories if present
       - if @repo.has_categories?
-        - @repo.categories.each do |category|
-          / Review: Extract in partial?
+        - for category in @repo.categories
+
+          / list categories
           li.category
             span.name = link_to category.name, category
             span.language-list = category.language_list
-            span.stats
-              span.repos-count
-                = pluralize(category.repos.size, 'repos')
-              span.stars-count
-                i.icon-star
-                = category.stars
+            span.repos-count = pluralize(category.repos.size, 'repos')
+            span.stars-count
+              i.icon-star
+              = category.stars
 
       / link to edit view if repo has no categories yet
       - else
         = link_to 'Let me add the first category!', edit_repo_path(@repo), class: 'no-categories-yet'
-
 
     / Readme from Github, requested live in the browser
     #readme.readme

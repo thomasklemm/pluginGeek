@@ -1,0 +1,27 @@
+/ inline javascripts in head
+
+/ initialize timeago as soon as document is ready
+javascript:
+  jQuery(document).ready(function() {
+    $('abbr.timeago').timeago();
+  });
+
+/ google analytics in production
+- if Rails.env.production?
+  javascript:
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33644736-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+/ LiveReload (in development only)
+/   reloading browser in development when file changes in the directories
+/   livereload is watching are being noticed
+- if Rails.env.development?
+    javascript:
+      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')

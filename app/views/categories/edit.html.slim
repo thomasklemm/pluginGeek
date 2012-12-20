@@ -1,6 +1,6 @@
 / categories/edit
 .edit-category
-  .full_name = @category.full_name
+  .full-name = @category.full_name
 
   / Form
   = semantic_form_for @category do |f|
@@ -8,12 +8,20 @@
 
     / Inputs
     = f.inputs do
-      = f.input :full_name, hint: 'Style: "ActiveRecord: Nested Records (Ruby), Texteditor Plugins (Web/Mobile)"'
-        / link to 'which languages do we cover?'
+      / Name including Languages, e.g. Text Editor Plugins (Web/Mobile)
+      = f.input :full_name, hint: 'Style: "ActiveRecord: Nested Records (Ruby), Texteditor Plugins (Web/Mobile)" <a href="#" target="_blank">Learn more about languages and categories &raquo;</a>'
+        / Todo: make link work, explain about languages and categories
 
+      / description for the category that will be rendered in overviews and is searchable
       = f.input :description, input_html: {rows: 3, class: 'autogrow', cols: 150}, hint: 'Describe this category in up to 360 characters. What is the purpose of the repos listed here?'
-        / display descriptions of associated repos, as a guide for writing
+
+      / display descriptions of associated repos, as a guide for writing
+      .description-of-repos
+        .title For some inspiration, here are the descriptions of the associated repos
+        - @category.repos
+          .full_name   = full_name
+          .description = description
 
     / Submit button
     = f.actions do
-      = f.action :submit, as: :button, button_html: {class: 'medium radius button'}
+      = f.action :submit, as: :button, button_html: {class: 'submit-button'}

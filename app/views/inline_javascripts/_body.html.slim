@@ -1,4 +1,4 @@
-/ application/_javascripts_body
+/ inline javascript in body
 
 / List.js: Categories
 /   Note: Lists will be initalized here so I can access them in their respective variables
@@ -43,10 +43,3 @@ coffee:
       repos: ['owner', 'name', 'stars']
     }
   }
-
-/ LiveReload (in development only)
-/   reloading browser in development when file changes in the directories
-/   livereload is watching are being noticed
-- if Rails.env.development?
-    javascript:
-      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')

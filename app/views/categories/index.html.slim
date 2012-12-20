@@ -3,16 +3,15 @@
   / Categories List
   #js-categories-list
     .find-categories
+      / Instant client-side searching via list.js
       input class='search' type='text' autocomplete='off' placeholder='Background Jobs...'
 
-      / Sort
-      ul.sort-list
-        span.intro <i class='icon-sort'></i> Sort:
-        li.sort.active  data-sort='knight_score'  Knight Score
-        li.sort         data-sort='name'          Name
+      / Sort buttons for categories
+      = render 'categories/sort_categories'
 
     / List for list.js
     .list data-page=5
       = render partial: 'category', collection: @categories
 
+    / display all matches on click
     .show-all.js-show-all More categories
