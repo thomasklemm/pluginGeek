@@ -83,8 +83,11 @@ group :assets do
   gem 'sass-rails'
   # Compass
   gem 'compass-rails'
-  # Bourbon (sass mixin library)
-  gem 'bourbon'
+
+  # Bourbon and Neat (SASS Mixins and Grid)
+  # gem 'bourbon' // 'neat' will include bourbon
+  gem 'neat'
+
   # Zurb Foundation (design framework)
   gem 'zurb-foundation', '>= 3.0.9'
 
