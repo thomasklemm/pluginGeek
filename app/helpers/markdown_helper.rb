@@ -5,7 +5,3 @@ module MarkdownHelper
       with_toc_data: true, hard_wrap: true, no_intra_emphasis: true, autolink: true)
   end
 end
-
-# Source:
-# Rails 3 helper method available in model -
-#   http://stackoverflow.com/questions/5524835/rails-3-helper-method-available-in-model

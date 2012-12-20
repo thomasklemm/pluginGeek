@@ -162,7 +162,7 @@ class Repo < ActiveRecord::Base
   end
 
   def github_updated_at
-    self[:github_updated_at].present? ? self[:github_updated_at].utc : 2.years.ago
+    self[:github_updated_at].present? ? self[:github_updated_at].utc : 2.years.ago.utc
   end
 
   def github_description
@@ -189,13 +189,9 @@ class Repo < ActiveRecord::Base
     self[:homepage_url].present? ? self[:homepage_url] : github_url
   end
 
-  # for relative timestamp using smart timeago
-  def smart_timestamp
-    github_updated_at.utc.iso8601
-  end
-
+  # for relative timestamp using jquery timeago
   def timestamp
-    github_updated_at.utc
+    github_updated_at.utc.iso8601
   end
 
   # Alternatives
@@ -213,6 +209,11 @@ class Repo < ActiveRecord::Base
 
   def has_alternatives?
     alternatives.size > 0
+  end
+
+  # Autocomplete full_names on repo#edit
+  def self.full_names_for_autocomplete
+    order_by_knight_score.pluck(:full_name).to_json
   end
 
   ##

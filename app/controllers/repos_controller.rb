@@ -12,8 +12,8 @@ class ReposController < ApplicationController
 
   # GET /repos/:owner/:name(/*leftover)
   def show
-    # Show view that allows to add a repo if it isn't known yet
-    @repo.new_record? and render 'add_repo'
+    # Render view that allows to add a repo if it isn't known yet
+    @repo.new_record? and render 'add_a_new_repo'
 
     # Redirect to base url (remains might be attached when clicking bookmarklet on github repo's wiki page...)
     params[:remains] and return redirect_to @repo

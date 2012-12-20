@@ -1,0 +1,25 @@
+/ Child partial
+.repo-child
+  / Name and owner
+  = link_to repo do
+    span.name = repo.name
+    span.owner by #{ repo.owner }
+
+  / Github stars counter
+  span.stars
+    i.icon-star
+    = repo.stars
+
+  / Custom or Github description
+  .description = repo.description
+
+  / Url, Activity
+  div
+    span.homepage = link_to repo.homepage_url, repo.homepage_url
+    link rel="dns-prefetch" href="#{ repo.homepage_url }"
+
+    span.activity class=activity_color(repo.timestamp)
+      i.icon-leaf
+      abbr.timeago title=repo.timestamp = repo.timestamp.to_s(:long)
+
+

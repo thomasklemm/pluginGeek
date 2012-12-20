@@ -25,19 +25,23 @@
     / Activity
     span.activity class=activity_color(@repo.timestamp)
       i.icon-leaf
-      abbr.timeago title=@repo.smart_timestamp = @repos.timestamp.to_s(:long)
+      abbr.timeago title=@repo.timestamp = @repos.timestamp.to_s(:long)
 
     / Associated categories in a list
     ul.category-list
       / display categories if present
       - if @repo.has_categories?
         - @repo.categories.each do |category|
+          / Review: Extract in partial?
           li.category
             span.name = link_to category.name, category
             span.language-list = category.language_list
             span.stats
-              span.repos-count = pluralize(category.repos.size, 'repos')
-              span.stars-count = stars_mixin(category.stars)
+              span.repos-count
+                = pluralize(category.repos.size, 'repos')
+              span.stars-count
+                i.icon-star
+                = category.stars
 
       / link to edit view if repo has no categories yet
       - else
