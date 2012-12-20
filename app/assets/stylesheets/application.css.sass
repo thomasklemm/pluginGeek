@@ -4,31 +4,21 @@
 // Libraries
 // @import 'libraries/formtastic_overrides'
 // @import 'libraries/select2custom'
-// @import 'libraries/foundation_and_overrides'
-// @import 'libraries/markdown_body'
 
-// Vendor
-// @import 'font-awesome'
+// Libraries
+@import 'normalize'
+@import 'bourbon'
+@import 'neat'
+@import 'font-awesome'
 // @import 'swiftmate'
-
-// NEW
-@import 'normalize' // Normalize.css by Nicolas Gallagher
-@import 'bourbon'   // Sass Mixins by Thoughtbot
-@import 'neat'      // Grid by Thoughtbot
+@import 'github-markdown'
+@import 'formastic-overrides'
+@import 'select2'
 
 // Experiments
-@import 'experiments/experiments_in_css'
-@import 'experiments/experiments_in_scss'
-@import 'experiments/experiments_in_sass'
+@import 'experiments/experiments-in-css'
+@import 'experiments/experiments-in-scss'
+@import 'experiments/experiments-in-sass'
 
-// Models
-@import 'models/categories'
-@import 'models/repos'
-@import 'models/ads'
-
-// Elements
-@import 'elements/flash_messages'
-@import 'elements/footer'
-@import 'elements/sidebar'
-@import 'elements/terms_of_service'
-@import 'elements/topbar'
+// Knight
+@include 'application/1-footer'

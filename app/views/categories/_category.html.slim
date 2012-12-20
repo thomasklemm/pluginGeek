@@ -1,5 +1,4 @@
 / categories/_category
-
 / Category Partial
 - cache [category, 'partial'] do
 
@@ -15,12 +14,14 @@
   .category
 
     / A category's full_name includes 'name (languages)'
-    div.full_name
+    div.full-name
       span.name = link_to category.name, category
-      span.language_list = category.language_list
+      span.language-list = category.language_list
 
     / Cummulative stars count from Github of all associated repos
-    = stars_mixin(category.stars)
+    span.stars
+      i.icon-star
+      = category.stars
 
     / Up to three of the most popular repos
     div.popular_repos
