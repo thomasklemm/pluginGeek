@@ -1,0 +1,10 @@
+/ repos/add_a_new_repo
+.add-a-new-repo
+  p.
+    The repo <span class='name'>#{ @repo.full_name }</span>
+    is new to Knight. Would you like to add and tag it?!
+
+  / button to add repo to Knight
+  = button_to repo_path(@repo), class: 'submit-button' do
+    i.icon-plus-sign
+    | Add #{@repo.full_name}

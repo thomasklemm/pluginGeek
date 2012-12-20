@@ -1,15 +1,14 @@
 module ReposHelper
-
-  # Review: do this in js on client side
-  def activity_color(updated_at)
-    diff = Time.now - updated_at
+  # Assign classes based on color
+  def activity_color(timestamp)
+    diff = Time.zone.now - timestamp
     klass = case diff
-            when 0..3.months                      then  'a1'
-            when 3.months+1.second..10.months     then  'a2'
-            when 10.months+1.second..20.months    then  'a3'
-            else                                        'a4'
+            when diff <= 2.months          then 'very-high'
+            when (2.months+1)..6.months    then 'high'
+            when (6.months+1)..12.months   then 'medium'
+            when (12.months+1)..24.months  then 'low'
+            else                                'very-low'
             end
     klass
   end
-
 end

@@ -9,20 +9,25 @@ link rel="dns-prefetch" href="//google-analytics.com"
 link rel="dns-prefetch" href="//github.com"
 link rel="dns-prefetch" href="https://github.com"
 
-/ title and description
+/ set title
+/   override defaults by calling content_for :title, "My new title"
 - title = yield :title
-/ TODO: SET TITLE HERE WITH OPTION TO OVERRRIDE IT
-/  - content_for :title, "#{ @category.full_name } &middot; Knight".html_safe
-/  - content_for :title, "Knight &middot; Ruby Gems of Note".html_safe
-/   - content_for :title, "Discover Amazing Github Repos &middot Knight".html_safe
-/ - content_for :title, "#{ @repo.full_name } &middot Knight".html_safe
-title = title.present? ? title : "Knight &middot; Discover Web Development Plugins Of Note".html_safe
+- title ||= "#{ @category.full_name } &middot; Knight" if @category
+- title ||= "#{ @repo.full_name } &middot; Categories and Alternatives &middot; Knight" if @repo
+- title ||= "Noteable Plugins for Web and Mobile Development &middot Knight"
 
-meta name='description' content='Amazing Rubygems and jQuery plugins - pointing web entrepreneurs, developers and designers to great solutions.'
+/ title and description
+title = title.html_safe
+meta name='description' content='Notable Plugins for Web and Mobile Development. Like AirBnB but for Space Travel.'
+
 meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'
 meta name='viewport' content='width=device-width'
 meta name='robots' content='index, follow'
-meta name='keywords' content='find ruby gems, find rubygems, rubygem, rubygems'
+meta name='keywords' content='find ruby gems, rubygems, ruby, gem, javascript, ios, cocoapods, wiki, find, search, alternative, alternatives, rails, jquery, node.js, web development, mobile, plugin'
+
+/ TODO: exclude certain paths (like tos etc.) from indexing
+/ using robots.txt
+
 / favicon
 / IE uses favicon.ico in root
 / Browsers use favicon.png
@@ -36,32 +41,12 @@ link rel='author' href='/humans.txt'
 = stylesheet_link_tag 'application'
 
 / javascripts
-/ jquery
-= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
-
-/ timeago in head
-javascript:
-  jQuery(document).ready(function() {
-   $('abbr.timeago').timeago();
-  });
-
-/ javascripts
+/   jquery
+= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'
+/   inline javascript in head
+= render 'inline_javascripts/head'
+/   my minified javascripts and libraries
 = javascript_include_tag 'application'
 
 / csrf meta tags
 = csrf_meta_tags unless response.cache_control[:public]
-
-/ google analytics
-- if Rails.env.production?
-  javascript:
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-33644736-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-

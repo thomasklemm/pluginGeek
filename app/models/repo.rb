@@ -87,21 +87,25 @@ class Repo < ActiveRecord::Base
 
   # for tag input
   def category_list
-    categories.pluck(:full_name).join(', ')
+    # Review: more efficient 'pluck' breaks
+    categories.map(&:full_name).join(', ')
   end
 
   # set categories, handle changes in tag input
   def category_list=(new_list)
     if new_list != category_list
-      old_ones = categories.pluck(&:full_name)
+      # Review: more efficient 'pluck' breaks
+      old_ones = categories.map(&:full_name)
 
-      full_names &&= new_list.split(', ').delete('').compact.map(&:strip)
+      full_names = new_list.split(', ')
+      full_names.delete('')
+      full_names = full_names.compact.map(&:strip)
 
       self.categories = full_names.map do |full_name|
         Category.find_or_create_by_full_name(full_name)
       end
 
-      new_ones = categories.pluck(&:full_name)
+      new_ones = categories.map(&:full_name)
 
       # Expire caches
       expire_old_and_new_categories(old_ones, new_ones)
@@ -162,7 +166,7 @@ class Repo < ActiveRecord::Base
   end
 
   def github_updated_at
-    self[:github_updated_at].present? ? self[:github_updated_at].utc : 2.years.ago
+    self[:github_updated_at].present? ? self[:github_updated_at].utc : 2.years.ago.utc
   end
 
   def github_description
@@ -189,11 +193,7 @@ class Repo < ActiveRecord::Base
     self[:homepage_url].present? ? self[:homepage_url] : github_url
   end
 
-  # for relative timestamp using smart timeago
-  def smart_timestamp
-    github_updated_at.utc.iso8601
-  end
-
+  # for relative timestamp using jquery timeago
   def timestamp
     github_updated_at.utc
   end

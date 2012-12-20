@@ -92,7 +92,7 @@ class Category < ActiveRecord::Base
   def name
     @name ||= begin
       match = full_name.match %r{(?<name>.*)[[:space:]]\(}
-      match.try(:name).try(:strip) || full_name
+      match[:name].try(:strip) || full_name
     end
   end
 
@@ -157,6 +157,11 @@ class Category < ActiveRecord::Base
       language = Language.find_by_slug(lang)
       self.languages << language if language
     end
+  end
+
+  # Autocomplete category full_names on repo#edit
+  def self.full_names_for_autocomplete
+    order_by_knight_score.pluck(:full_name).to_json
   end
 
   ##

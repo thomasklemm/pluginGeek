@@ -1,50 +1,50 @@
 / repos/edit
+.edit-repo
+  span.name-and-owner = link_to @repo.github_url do
+    i.icon-github
+    span.owner = @repo.owner
+    span.name  = @repo.name
 
-/ Repo Header
-.repo_header
-
-  / Name and Owner
-  h3.name_and_owner = link_to @repo.github_url do
-    i.icon-github style='padding-right: 12px'
-    span.owner #{ @repo.owner }
-    span style='padding: 0 5px' #{'/'}
-    span.name #{ @repo.name }
-
-  / Github Star Button including Stars Count
-  iframe.star_button src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
-
-/ Form
+/ Edit repo form
 = semantic_form_for @repo do |f|
-
+  / Validation errors
   = f.semantic_errors
 
   = f.inputs do
+    / Categories
+    / Text field transformed to multiple select with ability to add new tags
+    / by select2
+    = f.input :category_list, hint: 'Ex.: Navigation (Webdesign), Tagging (Javascript), Prototyping (Web/Mobile). You may add new categories, please give them a useful description afterwards.'.html_safe
+
+    / Display Github description as a guideline
     .input
       .label Description on Github
-      .github_description "#{ @repo.github_description }"
-      .inline-hints Github description shows when no custom description is entered below.
+      .github-description = @repo.github_description
+      .inline-hints The project's description from Github. You may extend it with a custom one below.
 
-    = f.input :description, input_html: {rows: 4, placeholder: 'What is the point of this repo?'}, hint: 'Custom description replaces the Github description, so craft it wisely. || max. 360 characters'
-    = f.input :label, as: :string, hint: 'A label highlights great repos. || max. 60 characters', input_html: {placeholder: 'What makes this repo stand out?'}
+    / Custom description will override Github description
+    = f.input :description, input_html: {rows: 4, placeholder: 'Sum up the project.'}, hint: 'Our custom description replaces the Github description, so craft it wisely. || max. 360 characters'
 
-    = f.input :category_list, hint: 'Categories like Form Builders (Ruby), Static Sites (Ruby/JS/Design) are valid. You can add new categories if the existing ones do not fit.'.html_safe
-    = f.input :parents, collection: Repo.all_without(@repo), hint: 'Is this repo related to any other one?', input_html: {placeholder: 'Standalone or related to other repos?'}
+    / Label
+    / for highlighting outstanding projects
+    = f.input :label, as: :string, hint: 'A label highlights great repos. || max. 60 characters', input_html: {placeholder: 'Highlight outstanding repos. What makes this project insanely great? || max. 80 characters'}
+
+    / Parents as multiple select
+    / to enter parent/child relationship
+    = f.input :parents, collection: Repo.all_without(@repo), hint: 'Is this repo a child of another one?', input_html: {placeholder: 'Standalone project or related to other repos?'}
 
   = f.actions do
-    = f.action :submit, as: :button, button_html: {class: 'medium radius button'}
+    = f.action :submit, as: :button, button_html: {class: 'submit-button'}
 
-    p style='margin-top: 1rem'
-      i.icon-star.main_color
-      '  Thanks for contributing!
+//
+// Javascripts to initialize select2 input enhancements on this page
+//
 
-
-/ Category Names Autocomplete
-- category_full_names = Category.order_by_knight_score.pluck(:full_name).to_json.html_safe
+/ Autocomplete the category names input
+- category_full_names = Category.full_names_for_autocomplete.html_safe
 javascript:
-  $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Which categories does this repo belong to? Which problems does it solve?'});
+  $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Add categories for #{ @repo.full_name }'});
 
-/ Parent List
+/ Multiple select on the parents_list
 javascript:
   $('#repo_parent_ids').select2();
-
-/ hr

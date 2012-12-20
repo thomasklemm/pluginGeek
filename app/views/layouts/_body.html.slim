@@ -1,29 +1,20 @@
 / layouts/_body
 #root
-  #topbar
-    .row
-      .twelve.columns
-        = render 'topbar'
+  #navigation
+    = render 'navigation'
 
-  #main.row
-    / navigation sidebar
-    #sidebar.two.columns
-      = render 'sidebar'
+  #flash-messages
+    = render 'flash_messages'
 
-    / Content
-    #content.ten.columns
-      = render 'flash_messages'
+  #content
+    = yield
 
-      / main body
-      = yield
-
+  / sticky footer that stays at the bottom of the page
   #root_footer
 
 #footer
-  .row
-    .twelve.columns
-      = render 'footer'
+  = render 'footer'
 
-/ asynchronous javascript snippets at the end of the body
+/ async javascript snippets at the end of the body
 / to improve overall load times
-= render 'javascripts'
+= render 'inline_javascripts/body'

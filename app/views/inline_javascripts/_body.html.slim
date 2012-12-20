@@ -1,10 +1,10 @@
-/ application/_javascripts_body
+/ inline javascript in body
 
 / List.js: Categories
 /   Note: Lists will be initalized here so I can access them in their respective variables
 javascript:
   var categories_list_options = {
-      valueNames: ['full_name', 'knight_score', 'description', 'popular_repos', 'further_repos']
+      valueNames: ['js-name', 'js-description', 'js-knight-score', 'js-repos', 'js-further-repos']
     };
 
   categories_list_options['page'] = $('.list').data('page') || 8
@@ -14,7 +14,7 @@ javascript:
 / List.js: Repos
 javascript:
   var repos_list_options = {
-      valueNames: ['owner', 'name', 'description', 'knight_score', 'activity']
+      valueNames: ['js-name', 'js-owner', 'js-label', 'js-description', 'js-knight-score', 'js-timestamp']
     };
 
   repos_list_options['page'] = $('.list').data('page') || 8
@@ -43,10 +43,3 @@ coffee:
       repos: ['owner', 'name', 'stars']
     }
   }
-
-/ LiveReload (in development only)
-/   reloading browser in development when file changes in the directories
-/   livereload is watching are being noticed
-- if Rails.env.development?
-    javascript:
-      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
