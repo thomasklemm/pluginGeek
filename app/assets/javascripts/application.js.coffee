@@ -1,23 +1,13 @@
 # application.js.coffee
 # insert after jQuery
-
-##
+#
 # Requires
-# List.js
 //= require list
-
 # jQuery Rails adapter
 //= require jquery_ujs
-#= require foundation
-
-# Foundation
-//= require foundation
-
-# Further libraries
 //= require jquery.timeago
 //= require jquery.autogrow
-//= require jquery.swiftmate
-
+# //= require jquery.swiftmate
 //= require readme
 //= require select2
 
@@ -27,9 +17,9 @@ $ ->
   ##
   # Variables
   # Search field
-  $search = $('.search')
+  $search = $('.js-search')
   # 'Show all matching items' button for list.js
-  $show_button = $('.js_show_all_matching_items')
+  $show_button = $('.js-show-all')
 
   ##
   # List.js

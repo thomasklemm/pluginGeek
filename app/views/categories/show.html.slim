@@ -28,7 +28,7 @@
         = render 'repos/sort_repos'
 
       .list data-page=4
-        = render partial: 'shared/repo', collection: @repos
+        = render partial: 'repos/repo', collection: @repos
 
         / No repos are present, the category might be deleted soon
         - if @repos.blank?

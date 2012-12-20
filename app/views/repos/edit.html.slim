@@ -2,8 +2,8 @@
 .edit-repo
   span.name-and-owner = link_to @repo.github_url do
     i.icon-github
-    span.owner #{ @repo.owner }
-    span.name \/ #{ @repo.name }
+    span.owner = @repo.owner
+    span.name  = @repo.name
 
 / Edit repo form
 = semantic_form_for @repo do |f|
@@ -41,7 +41,7 @@
 //
 
 / Autocomplete the category names input
-- category_full_names = Category.full_names_for_autcomplete.html_safe
+- category_full_names = Category.full_names_for_autocomplete.html_safe
 javascript:
   $('#repo_category_list').select2({tags: #{ category_full_names }, placeholder: 'Add categories for #{ @repo.full_name }'});
 

@@ -16,11 +16,11 @@
       = f.input :description, input_html: {rows: 3, class: 'autogrow', cols: 150}, hint: 'Describe this category in up to 360 characters. What is the purpose of the repos listed here?'
 
       / display descriptions of associated repos, as a guide for writing
-      .description-of-repos
-        .title For some inspiration, here are the descriptions of the associated repos
-        - @category.repos
-          .full_name   = full_name
-          .description = description
+      span.description-of-repos
+        span.title For some inspiration, here are the descriptions of the associated repos
+        - for repo in @category.repos
+          span.full-name   = repo.full_name
+          span.description = repo.description
 
     / Submit button
     = f.actions do

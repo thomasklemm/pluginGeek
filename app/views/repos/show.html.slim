@@ -25,7 +25,7 @@
     / Activity
     span.activity class=activity_color(@repo.timestamp)
       i.icon-leaf
-      abbr.timeago title=@repo.timestamp = @repos.timestamp.to_s(:long)
+      abbr.timeago title=@repo.timestamp.iso8601 = @repo.timestamp.to_s(:long)
 
     / Associated categories in a list
     ul.category-list
@@ -52,7 +52,7 @@
     / highest ranking repos in associated categories, ordered by knight_score
     .alternatives
       - if @repo.has_alternatives?
-        = render partial: 'shared/repo', collection: @repo.alternatives
+        = render partial: 'repos/repo', collection: @repo.alternatives
       - else
         = link_to 'Let me add the first category!', edit_repo_path(@repo), class: 'no-categories-yet'
 
@@ -60,12 +60,12 @@
     .relationships
       .parents
         - if @repo.has_parents?
-          = render partial: 'shared/repo', collection: @repo.parents
+          = render partial: 'repos/repo', collection: @repo.parents
         - else
           .no-relationships-yet No parents have been added yet.
 
       .children
         - if @repo.has_children?
-          = render partial: 'shared/repo', collection: @repo.children
+          = render partial: 'repos/repo', collection: @repo.children
         - else
           .no-relationships-yet No children have been added yet.

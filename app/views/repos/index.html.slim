@@ -3,10 +3,10 @@
   #js-repos-list
     .find-repos
       / Search and sort live in list.js
-      input.search type='text' autocomplete='off' placeholder='Authentication...'
+      input.search.js-search type='text' autocomplete='off' placeholder='Authentication...'
       = render 'repos/sort_repos'
 
     .list data-page=5
-      = render partial: 'shared/repo', collection: @repos
+      = render partial: 'repos/repo', collection: @repos
 
     .show-all.js-show-all More repos

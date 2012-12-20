@@ -87,21 +87,25 @@ class Repo < ActiveRecord::Base
 
   # for tag input
   def category_list
-    categories.pluck(:full_name).join(', ')
+    # Review: more efficient 'pluck' breaks
+    categories.map(&:full_name).join(', ')
   end
 
   # set categories, handle changes in tag input
   def category_list=(new_list)
     if new_list != category_list
-      old_ones = categories.pluck(&:full_name)
+      # Review: more efficient 'pluck' breaks
+      old_ones = categories.map(&:full_name)
 
-      full_names &&= new_list.split(', ').delete('').compact.map(&:strip)
+      full_names = new_list.split(', ')
+      full_names.delete('')
+      full_names = full_names.compact.map(&:strip)
 
       self.categories = full_names.map do |full_name|
         Category.find_or_create_by_full_name(full_name)
       end
 
-      new_ones = categories.pluck(&:full_name)
+      new_ones = categories.map(&:full_name)
 
       # Expire caches
       expire_old_and_new_categories(old_ones, new_ones)
@@ -191,7 +195,7 @@ class Repo < ActiveRecord::Base
 
   # for relative timestamp using jquery timeago
   def timestamp
-    github_updated_at.utc.iso8601
+    github_updated_at.utc
   end
 
   # Alternatives
@@ -209,11 +213,6 @@ class Repo < ActiveRecord::Base
 
   def has_alternatives?
     alternatives.size > 0
-  end
-
-  # Autocomplete full_names on repo#edit
-  def self.full_names_for_autocomplete
-    order_by_knight_score.pluck(:full_name).to_json
   end
 
   ##

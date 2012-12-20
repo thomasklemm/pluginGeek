@@ -2,10 +2,10 @@
 / Repo Partial
 - cache [repo, 'repo_partial'] do
   .repo
-    / Name and Owner, like rails by rails
-    span.name-and-owner = link_to repo do
-      span.name = repo.name
-      span.owner by #{ repo.owner }
+    / Name and Owner is Full Name, like rails by rails
+    span.full-name = link_to repo do
+      span.name.js-name   = repo.name
+      span.owner.js-owner by #{ repo.owner }
 
     / Github star count to help evaluate awesomeness quickly
     span.stars
@@ -15,10 +15,10 @@
     / Label highlighting the repo's uniquenesses
     span.label
       i.icon-tag
-      = repo.label
+      span.js-label = repo.label
 
     / Custom description or Github one
-    span.description = repo.description
+    span.description.js-description = repo.description
 
     / Url to the homepage or to Github repo
     span.homepage-link = link_to repo.homepage_url, repo.homepage_url
@@ -28,7 +28,7 @@
     / Most recent activity timestamp on the repo
     span.activity class=activity_color(repo.timestamp)
       i.icon-leaf
-      abbr.timeago title=repo.timestamp = repo.timestamp.to_s(:long)
+      abbr.timeago title=repo.timestamp.iso8601 = repo.timestamp.to_s(:long)
 
     / Toggle children link
     - if repo.has_children?
@@ -37,10 +37,10 @@
         = "#{ pluralize(repo.children.size, 'related repo') }".html_safe
 
     / Hidden stats for searching and sorting
-    span.knight-score = repo.knight_score
-    span.timestamp    = repo.timestamp
+    span.js-knight-score style='display: none' = repo.knight_score
+    span.js-timestamp style='display: none' = repo.timestamp.iso8601
 
     / Children
-    .child-list
+    span.child-list style='display: none'
       - if repo.has_children?
-        = render partial: 'child', collection: repo.children, as: :repo
+        = render partial: 'repos/child', collection: repo.children, as: :repo

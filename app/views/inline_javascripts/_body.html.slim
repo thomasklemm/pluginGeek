@@ -4,7 +4,7 @@
 /   Note: Lists will be initalized here so I can access them in their respective variables
 javascript:
   var categories_list_options = {
-      valueNames: ['full_name', 'knight_score', 'description', 'popular_repos', 'further_repos']
+      valueNames: ['js-name', 'js-description', 'js-knight-score', 'js-repos', 'js-further-repos']
     };
 
   categories_list_options['page'] = $('.list').data('page') || 8
@@ -14,7 +14,7 @@ javascript:
 / List.js: Repos
 javascript:
   var repos_list_options = {
-      valueNames: ['owner', 'name', 'description', 'knight_score', 'activity']
+      valueNames: ['js-name', 'js-owner', 'js-label', 'js-description', 'js-knight-score', 'js-timestamp']
     };
 
   repos_list_options['page'] = $('.list').data('page') || 8

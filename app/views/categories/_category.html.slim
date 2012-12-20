@@ -14,7 +14,7 @@
   .category
     / A category's full_name includes 'name (languages)'
     span.full-name
-      span.name = link_to category.name, category
+      span.name.js-name = link_to category.name, category
       span.language-list = category.language_list
 
     / Cummulative stars count from Github of all associated repos
@@ -24,13 +24,13 @@
 
     / Up to three of the most popular repos
     span.popular-repos
-      span.repos = category.popular_repos
+      span.repos.js-repos = category.popular_repos
       / Deeplink into category to see more repos
       = (category.repos.size > 3) ? "&amp; #{ category_repo_link }".html_safe : category_link
 
     / Description, either a custom one, or the one from Github
-    span.description = category.description
+    span.description.js-description = category.description
 
     / Hidden statistics that can be searched and sorted with list.js nonetheless
-    span.further-repos style='display: none' = category.further_repos
-    span.knight-score  style='display: none' = category.knight_score
+    span.js-further-repos style='display: none' = category.further_repos
+    span.js-knight-score  style='display: none' = category.knight_score

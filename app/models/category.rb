@@ -159,6 +159,11 @@ class Category < ActiveRecord::Base
     end
   end
 
+  # Autocomplete category full_names on repo#edit
+  def self.full_names_for_autocomplete
+    order_by_knight_score.pluck(:full_name).to_json
+  end
+
   ##
   # Swiftype Full-Text Searching
   #
