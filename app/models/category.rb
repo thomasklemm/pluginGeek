@@ -92,7 +92,7 @@ class Category < ActiveRecord::Base
   def name
     @name ||= begin
       match = full_name.match %r{(?<name>.*)[[:space:]]\(}
-      match[:name].try(:strip) || full_name
+      match.present? ? match[:name].strip : full_name
     end
   end
 
