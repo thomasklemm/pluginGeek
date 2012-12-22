@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     # format language
     params[:language] &&= params[:language].downcase.strip
     # make 'web' default language if none is set
-    params[:language] ||= 'web'
+    params[:language] ||= 'ruby' # Set to web later
     # force 'web' default language if the one that is present is not whitelisted
     params[:language] = 'web' unless Language::All.include?(params[:language])
   end

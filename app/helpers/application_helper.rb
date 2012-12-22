@@ -1,11 +1,11 @@
 module ApplicationHelper
   def eye_catcher_message
     case params[:language]
-      when /ruby/ then "So you're looking for an awesome <span class='type'>Ruby Gem?</span>"
-      when /javascript/ then "So you're looking for an awesome <span class='type'>Javascript Plugin?<span>"
+      when /ruby/ then "So you're looking <br />for some awesome <span class='type'>Ruby Gems?</span>"
+      when /javascript/ then "So you're looking <br />for some awesome <span class='type'>Javascript Plugins?<span>"
       when /webdesign/ then "So you're looking <br />for some great <span class='type'>Webdesign Inspiration?</span>"
-      when /mobile|ios|android/ then "So you're looking <br />for a handy <span class='type'>Mobile Development Plugin?<span>"
-      else "So you're looking <br />for an awesome <span class='type'>Webdevelopment Plugin?<span>"
+      when /mobile|ios|android/ then "So you're looking <br />for some handy <span class='type'>Mobile Development Plugins?<span>"
+      else "So you're looking <br />for some awesome <span class='type'>Webdevelopment Plugins?<span>"
       end
   end
 end
