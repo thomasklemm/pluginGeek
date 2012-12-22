@@ -11,10 +11,11 @@ ul class='vertical tabs'
       li class=current_path?(:javascript) = link_to 'Javascript', path(:javascript)
       li class=current_path?(:ruby)       = link_to 'Ruby', path(:ruby)
       li class=current_path?(:webdesign)  = link_to 'Webdesign', path(:webdesign)
-      li class=current_path?(:python)     = link_to 'Python', path(:python)
-      li class=current_path?(:php)        = link_to 'PHP', path(:php)
-      li class=current_path?(:scala)      = link_to 'Scala', path(:scala)
-      li class=current_path?(:go)         = link_to 'Go', path(:go)
+      li                                  = link_to 'more', path(:scala)
+      / li class=current_path?(:python)     = link_to 'Python', path(:python)
+      / li class=current_path?(:php)        = link_to 'PHP', path(:php)
+      / li class=current_path?(:scala)      = link_to 'Scala', path(:scala)
+      / li class=current_path?(:go)         = link_to 'Go', path(:go)
 
 
   / Mobile

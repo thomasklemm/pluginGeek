@@ -78,7 +78,15 @@ class Category < ActiveRecord::Base
   end
 
   def language_list
-    languages.map(&:name).join(', ')
+    @languages ||= calculate_language_list
+  end
+
+  # only display web and mobile without subcategories
+  def calculate_language_list
+    langs = languages.map(&:name)
+    langs.delete_if {|lang| Language::Web.include?(lang.downcase)} if langs.include? 'Web'
+    langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}  if langs.include? 'Mobile'
+    langs.join(', ')
   end
 
   def popular_repos
@@ -92,7 +100,7 @@ class Category < ActiveRecord::Base
   def name
     @name ||= begin
       match = full_name.match %r{(?<name>.*)[[:space:]]\(}
-      match[:name].try(:strip) || full_name
+      match.present? ? match[:name].strip : full_name
     end
   end
 

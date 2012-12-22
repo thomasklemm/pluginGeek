@@ -6,7 +6,7 @@ module UrlHelper
 
   # Mark matching paths as 'active'
   def current_path?(lang)
-    (current_page?(path(lang)) || category_has_language?(lang) || repo_has_language?(lang)) ? 'active' : nil
+    (current_page?(path(lang)) || category_has_language?(lang) || repo_has_language?(lang) || params_is_language?(lang)) ? 'active' : nil
   end
 
   def category_has_language?(lang)
@@ -15,5 +15,9 @@ module UrlHelper
 
   def repo_has_language?(lang)
     @repo and @repo.languages.include?(lang)
+  end
+
+  def params_is_language?(lang)
+    params[:language].downcase == lang.to_s.downcase
   end
 end

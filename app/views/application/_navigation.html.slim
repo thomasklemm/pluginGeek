@@ -1,1 +1,22 @@
 / Navigation
+.row.header
+  / My first brand
+  .branding
+    = link_to 'Knight', root_path
+
+  / Web Navigation
+  .web-navigation.navigation
+    .top class=current_path?(:web) = link_to 'Web', path(:web)
+
+    ul.bottom
+      li class=current_path?(:javascript) = link_to 'Javascript', path(:javascript)
+      li class=current_path?(:ruby)       = link_to 'Ruby', path(:ruby)
+      li class=current_path?(:webdesign)  = link_to 'Webdesign', path(:webdesign)
+
+  / Mobile Navigation
+  .mobile-navigation.navigation
+    .top class=current_path?(:mobile)  = link_to 'Mobile', path(:mobile)
+
+    ul.bottom
+      li class=current_path?(:ios)     = link_to 'iOS', path(:ios)
+      li class=current_path?(:android) = link_to 'Android', path(:android)

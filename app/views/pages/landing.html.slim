@@ -1,0 +1,16 @@
+.row
+  .marketing-text
+    .first
+      ' So you're looking for an awesome
+      span.type Ruby gem?
+    .second Find it right here on Knight
+
+.search-wrapper
+  input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
+
+.row
+  ul.sort-list
+    li.sort.active  data-sort='js-knight-score'  Sort by <b>Knight Score</b>
+    li.sort         data-sort='js-name'          Sort by <b>Name</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+= render partial: 'categories/category', collection: Category.limit(10)
