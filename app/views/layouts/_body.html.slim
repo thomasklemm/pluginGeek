@@ -1,12 +1,12 @@
 / layouts/_body
 #root
-  #navigation
+  .row#navigation
     = render 'navigation'
 
-  #flash-messages
+  .row#flash-messages
     = render 'flash_messages'
 
-  #content
+  .row#content
     = yield
 
   / sticky footer that stays at the bottom of the page

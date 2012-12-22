@@ -32,11 +32,13 @@ a
 
 .row
   @include span-columns(12)
-  // HEADER
-  &:first-of-type
-    margin-top: 0.4rem
-    padding-bottom: 0.25rem
-    border-bottom: 3px solid $border-color
+
+// header
+.header
+  margin-top: 8px
+  padding-bottom: 8px
+  border-bottom: 3px solid $border-color
+  margin-bottom: 1rem
 
 // branding
 .branding
@@ -45,15 +47,17 @@ a
   font-weight: 600
   line-height: 1
   text-rendering: optimizeLegibility
+  a
+    color: inherit
 
 // navigation
 .navigation
   &.web-navigation
-    @include span-columns(5)
+    @include span-columns(4)
     .top
       width: 100%
   &.mobile-navigation
-    @include span-columns(2)
+    @include span-columns(3)
     .top
 
   // top
@@ -62,6 +66,10 @@ a
     font-weight: 600
     padding: 0
     border-bottom: 3px solid $border-color
+    a:hover
+      border-bottom: 2px dotted #bbb
+    &.active a
+      border-bottom: 2px dotted $border-color
 
   // bottom
   .bottom
@@ -74,10 +82,14 @@ a
       border-right: 2px dotted $vertical-border-color
       &:last-child
         border-right: none
+      a:hover
+        border-bottom: 2px dotted #aaa
+      &.active a
+        border-bottom: 2px dotted $border-color
 
 // marketing text
 .marketing-text
-  padding: 1.217rem 0 1.618rem
+  padding: 0 0 1.618rem
 
   text-rendering: optimizeLegibility
   text-align: center
@@ -86,6 +98,7 @@ a
     font-size: 2.058rem
     font-weight: 300
     .type
+      font-size: 2.058rem
       font-weight: 600
   .second
     display: inline
@@ -118,23 +131,29 @@ ul.sort-list
   list-style: none
   font-size: 0.875rem
   color: #777
-  text-align: center
+  text-align: right
+
+  .divider:after
+    content: "or"
 
   li
     display: inline
-    padding: 0 10px 0 0
-    margin: 0 10px 0 0
-    border-right: 2px solid #ccc
-
+    padding: 0
+    margin: 0 8px
     &:last-of-type
-      border-right: none
+      margin-right: 0
+    &.active
+      border-bottom: 2px dotted $border-color
+    &:hover
+      border-bottom: 2px dotted #aaa
+      cursor: pointer
 
 // category
 .category
   @include span-columns(6)
-  @include nth-omega(2n)
   padding: 0.8rem 1rem
   margin-top: 5px
+  @include nth-omega(2n)
 
   min-height: 162px
   font-size: 0.875rem
@@ -160,9 +179,26 @@ ul.sort-list
     color: #777
     margin-left: 6px
     i
-      margin-right: 2px
+      margin-right: 3px
 
   .popular-repos
     color: #777
   .description
     display: block
+
+// show all link
+.show-all
+  @extend .category
+  @include span-columns(12) // reset
+  min-height: 0 // reset
+
+  line-height: 54px // vertical centering
+  font-size: 1rem
+  font-weight: 600
+  text-decoration: underline
+
+  text-align: center
+  color: $color
+  &:hover
+    cursor: pointer
+
