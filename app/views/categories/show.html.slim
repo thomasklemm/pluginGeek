@@ -1,38 +1,40 @@
 / categories/show
 - cache [@category, 'details'] do
   .category-details
-    / Link to edit view, where description is editable
-    span.edit-link = link_to edit_category_path(@category) do
-      i.icon-edit
-      | Edit
-
     / Name without languages (full_name is 'name (languages)')
     span.name = @category.name
-    / Languages, seperated by a comma
-    span.language-list = @category.language_list
 
-    / Cummulative stars of all associated Github repos
-    span.stars
-      i.icon-star
-      = @category.stars
+    span.details
+      / Languages, seperated by a comma
+      span.language-list = @category.language_list
+
+      / Cummulative stars of all associated Github repos
+      span.stars
+        i.icon-star
+        = @category.stars
+
+      / Link to edit view, where description is editable
+      span.edit-link = link_to edit_category_path(@category) do
+        i.icon-edit
+        | Edit
 
     / Up to 360 characters describing the purpose of this category
     / or summing up the repos use cases among others
-    span.description = @category.description
+    span.description == @category.description
 
     / List containing repos
-    #js-repos-list
+    #js-repos-list.repos
       / Sort options and buttons for repos
       / hide if there are only a few options
       - if @repos.size >= 6
         = render 'repos/sort_repos'
 
-      .list data-page=4
+      .list data-page=100
         = render partial: 'repos/repo', collection: @repos
 
         / No repos are present, the category might be deleted soon
-        - if @repos.blank?
-          p: em This category is no longer associated with any repos and might be cleared away soon.
+        / - if @repos.blank?
+        /   p: em This category is no longer associated with any repos and might be cleared away soon.
 
       / At first only a few repos will be shown, a click on this button will reveal
       / all associated repos

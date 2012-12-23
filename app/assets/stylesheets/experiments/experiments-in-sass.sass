@@ -7,6 +7,16 @@ $millenial-blue-2: #136e9d
 $border-color: $millenial-blue-2
 $color: $border-color
 $vertical-border-color: #ccc
+$middle: #777
+
+$box-border-color: lighten($color, 50%)
+
+// color for a repo's activities
+$very-high-activity: #777
+$high-activity: #777
+$medium-activity: #777
+$low-activity: #777
+$very-low-activity: #777
 
 // general
 body
@@ -14,6 +24,19 @@ body
   font-family: 'Proxima Nova', $helvetica
   color: #333332
   line-height: 1.618
+
+  background: image-url('backgrounds/compressed/debut_light.png') // 5
+
+  // background: image-url('backgrounds/compressed/clean_textile.png') // 1
+  // background: image-url('backgrounds/compressed/diagonal-noise.png') // 1, pretty dark
+  // background: image-url('backgrounds/compressed/grilled.png') // 0, fishbone
+  // background: image-url('backgrounds/compressed/light_wool.png') // 2, a little too light
+  // background: image-url('backgrounds/compressed/light_alu.png') // 3, darker
+  // background: image-url('backgrounds/compressed/snow.png') // 2, very light, almost no structure
+  // background: image-url('backgrounds/compressed/subtle_dots.png') // 2, like millimeterpapier
+  // background: image-url('backgrounds/compressed/subtle_freckles.png') // 4
+  // background: image-url('backgrounds/compressed/white_brick_wall.png') // 1, building blocks, a little to extreme
+
 
 // unordered lists
 ul
@@ -159,7 +182,7 @@ ul.sort-list
   font-size: 0.875rem
   color: #222
 
-  border: 3px solid #eee
+  border: 3px solid $box-border-color
   border-radius: 4px
 
   @include box-shadow(inset 0 0 2px #777)
@@ -170,7 +193,6 @@ ul.sort-list
     font-size: 1rem
     line-height: 20px // like language-list and stars
     font-weight: 600
-    text-decoration: underline
   .language-list
     float: right
     color: #777
@@ -201,4 +223,80 @@ ul.sort-list
   color: $color
   &:hover
     cursor: pointer
+
+// category details
+.category-details
+  @include span-columns(12)
+  .name
+    font-size: 1.618rem
+    font-weight: 600
+  .details
+    font-size: 0.9375rem
+    line-height: 53px
+    span
+      margin-left: 1rem
+  .language-list, .stars
+    color: $middle
+    i
+      margin-right: 4px
+  .edit-link
+    white-space: nowrap
+    i
+      margin-right: 4px
+  .description
+    display: block
+
+// repos in overview
+.repos .repo
+  @include span-columns(6)
+  padding: 0.8rem 1rem
+  margin-top: 8px
+  @include nth-omega(2n)
+
+  min-height: 119px
+  font-size: 0.875rem
+  color: #222
+
+  border: 3px solid $box-border-color
+  border-radius: 4px
+
+  @include box-shadow(inset 0 0 2px #777)
+
+  .full-name
+    display: block
+  .name
+    font-size: 1rem
+    line-height: 20px // like language-list and stars
+    font-weight: 600
+  .owner
+    color: #777
+  .stars
+    float: right
+    margin-left: 6px
+    color: #777
+    i
+      margin-right: 3px
+  .description
+    display: block
+    min-height: 44px
+    word-break: break-all
+  .activity
+    float: right
+    i
+      margin-right: 4px
+    abbr
+      border-bottom: none
+
+    // colors
+    &.very-high
+      color: $very-high-activity
+    &.high
+      color: $high-activity
+    &.medium
+      color: $medium-activity
+    &.low
+      color: $low-activity
+    &.very-low
+      color: $very-low-activity
+
 
