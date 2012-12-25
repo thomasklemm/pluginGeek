@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20121217170908
+# Schema version: 20121225201333
 #
 # Table name: repos
 #
@@ -9,7 +9,6 @@
 #  name               :string(255)
 #  stars              :integer          default(0)
 #  github_description :text
-#  github_url         :string(255)
 #  homepage_url       :string(255)
 #  knight_score       :integer          default(0)
 #  github_updated_at  :datetime
@@ -161,8 +160,12 @@ class Repo < ActiveRecord::Base
     self[:owner] || self[:full_name].split('/')[0]
   end
 
+  def github_url
+    "https://github.com/#{full_name}"
+  end
+
   def homepage_url
-    self[:homepage_url] || ''
+    self[:homepage_url].present? ? self[:homepage_url] : github_url
   end
 
   def github_updated_at
@@ -183,14 +186,6 @@ class Repo < ActiveRecord::Base
 
   def label
     self[:label] || ''
-  end
-
-  def github_url
-    self[:github_url] || ''
-  end
-
-  def homepage_url
-    self[:homepage_url].present? ? self[:homepage_url] : github_url
   end
 
   # for relative timestamp using jquery timeago

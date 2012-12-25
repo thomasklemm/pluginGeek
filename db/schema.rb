@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121225145414) do
+ActiveRecord::Schema.define(:version => 20121225201333) do
 
   create_table "ad_categorizations", :force => true do |t|
     t.integer  "category_id"
@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(:version => 20121225145414) do
     t.string   "name"
     t.integer  "stars",              :default => 0
     t.text     "github_description"
-    t.string   "github_url"
     t.string   "homepage_url"
     t.integer  "knight_score",       :default => 0
     t.datetime "github_updated_at"
