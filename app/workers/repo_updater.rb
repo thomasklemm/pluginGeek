@@ -21,34 +21,37 @@ class RepoUpdater
   include Sidekiq::Worker
 
   # Github Attribute Mapping (:my_field => :github_field)
-  GITHUB_REPO_ATTRIBUTES = Hash[full_name: 'full_name', name: 'name',
-      github_description: 'description', stars: 'watchers', github_url: 'html_url',
-      homepage_url: 'homepage', owner: ['owner', 'login'],
-      github_updated_at: 'pushed_at'].freeze
+  GITHUB_REPO_ATTRIBUTES = {
+    full_name: 'full_name',
+    name: 'name',
+    github_description: 'description',
+    stars: 'watchers',
+    github_url: 'html_url',
+    homepage_url: 'homepage',
+    owner: ['owner', 'login'],
+    github_updated_at: 'pushed_at'
+  }.freeze
 
   # Initialize a connection pool
-  GITHUB_POOL = ConnectionPool.new(size: 12, timeout: 10) { HTTPClient.new }
+  GITHUB_POOL = ConnectionPool.new(size: 20, timeout: 10) { Github.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD']) }
 
   def perform(full_name)
     # Pick a connection from the connection pool
-    GITHUB_POOL.with_connection do |github|
+    GITHUB_POOL.with do |github|
       # Find repo
       repo = Repo.find_or_initialize_by_full_name(full_name)
 
       # HTTP Request
-      res = github.get('https://api.github.com/repos/' + repo.full_name)
+      owner = full_name.split('/')[0]
+      name = full_name.split('/')[1]
 
-      # Exit on error
-      if res.status != 200
+      begin
+        github_repo = github.repos.get(owner, name)
+      rescue Github::Error::NotFound
         # Set flag unless repo is a new record
         repo.update_column('update_success', false) unless repo.new_record?
-
-        # Exit
         return false
       end
-
-      # Success Handling
-      github_repo = JSON.parse(res.body)
 
       # Update every attribute individually
       repo = recursive_update_of_repo_attributes(repo, github_repo)
@@ -60,7 +63,6 @@ class RepoUpdater
       end
 
       # Limit github description length
-      # (only if a repo owner think this is the place for a novel)
       repo[:github_description] &&= repo[:github_description].truncate(360)
 
       # Calculate Knight Score

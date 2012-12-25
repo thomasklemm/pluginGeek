@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20121218083327
+# Schema version: 20121225145414
 #
 # Table name: categories
 #
@@ -11,7 +11,6 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  full_name        :string(255)      not null
-#  name             :string(255)
 #  stars            :integer          default(0)
 #
 # Indexes

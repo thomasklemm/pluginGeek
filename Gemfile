@@ -66,6 +66,9 @@ gem 'newrelic_rpm'
 # Closure Tree (Nesting Structures)
 gem 'closure_tree'
 
+# Github (Github API Wrapper)
+gem 'github_api'
+
 # Production Gems
 group :production do
   # Memcached on Heroku
