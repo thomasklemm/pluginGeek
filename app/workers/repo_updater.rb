@@ -45,6 +45,9 @@ class RepoUpdater
     Repo.pluck(:full_name).shuffle.each do |full_name|
       updater.perform(full_name)
     end
+
+    # Expire all categories (based on browser testing)
+    Category.find_each {|category| category.touch}
   end
 
 private

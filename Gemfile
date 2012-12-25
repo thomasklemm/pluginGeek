@@ -95,8 +95,8 @@ end
 group :development do
   # Heroku (Custom Deployment Rake Tasks)
   gem 'heroku'
-  # gem 'taps'    # for rake production:pull_db
-  # gem 'sqlite3' # for rake production:pull_db
+  # gem 'taps'    # for rake production:pull_db, has outdated dependencies
+  # gem 'sqlite3' # for rake production:pull_db, has outdated dependencies
 
   # Annotate Models (Schema Info for Models and Routes)
   gem 'annotate', '>=2.5.0'
