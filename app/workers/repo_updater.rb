@@ -26,8 +26,6 @@ class RepoUpdater
 
     @github = JSON.parse(res.content)
 
-    binding.pry
-
     update_repo_from_github_repo
 
     perform_calculations_and_modifications

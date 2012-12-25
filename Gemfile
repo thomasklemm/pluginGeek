@@ -26,8 +26,6 @@ gem 'friendly_id'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
-# Excon (HTTP Client used with Faraday)
-gem 'excon'
 
 # Sorcery (User Authentication)
 gem 'sorcery', '~> 0.7.12'
@@ -40,13 +38,10 @@ gem 'sidekiq'
 gem 'sinatra', :require => false
 
 # Autoscaler (Scales Sidekiq on Heroku)
-gem 'autoscaler'
+# gem 'autoscaler'
 
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
-
-# Flag Shih Tzu (Bit fields for ActiveRecord)
-gem 'flag_shih_tzu'
 
 # Formtastic (Form Markup)
 gem 'formtastic'
@@ -66,9 +61,6 @@ gem 'newrelic_rpm'
 # Closure Tree (Nesting Structures)
 gem 'closure_tree'
 
-# Github (Github API Wrapper)
-gem 'github_api'
-
 # Production Gems
 group :production do
   # Memcached on Heroku
@@ -80,22 +72,21 @@ end
 #   in production environments by default.
 group :assets do
   ##
-  # CSS
+  # Stylesheets
+  #
   # Sass
   gem 'sass', '>= 3.2.1'
   gem 'sass-rails'
+
   # Compass
   gem 'compass-rails'
 
   # Bourbon and Neat (SASS Mixins and Grid)
-  # gem 'bourbon' // 'neat' will include bourbon
+  gem 'bourbon'
   gem 'neat'
 
-  # Zurb Foundation (design framework)
-  gem 'zurb-foundation', '>= 3.0.9'
-
   ##
-  # JS
+  # Javascripts
   gem 'coffee-rails'
   gem 'uglifier'
 end
