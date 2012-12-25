@@ -33,7 +33,7 @@ class RepoUpdater
   }.freeze
 
   # Initialize a connection pool
-  GITHUB_POOL = ConnectionPool.new(size: 20, timeout: 10) { Github.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD']) }
+  GITHUB_POOL = ConnectionPool.new(size: 20, timeout: 10) { Github.new(oauth_token: ENV["GITHUB_TOKEN_#{ (1..5).to_a.shuffle.sample }"] || ENV["GITHUB_TOKEN_1"]) }
 
   def perform(full_name)
     # Pick a connection from the connection pool
