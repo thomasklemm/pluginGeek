@@ -6,6 +6,7 @@
 # jQuery Rails adapter
 //= require jquery_ujs
 //= require jquery.timeago
+//= require jquery.trunk8
 //= require jquery.autogrow
 # //= require jquery.swiftmate
 //= require readme
@@ -104,3 +105,19 @@ $ ->
   $('.toggle_children').live 'click', (e) ->
     $(this).parent().siblings('.child_list').toggle()
     e.preventDefault()
+
+  # Truncate Repo Descriptions
+  $('.repo .js-description').trunk8(
+    fill: '&hellip; <a class="js-read-more">read more</a>'
+  )
+
+  $('.js-read-more').live 'click', (event) ->
+    $(this).parent().trunk8('revert')
+    return false
+
+  # Truncate category descriptions
+  # only trucates when category is being displayed among the first visible ones
+  $('.category .description').trunk8(
+    fill: '&hellip; <a class="js-read-more">read more</a>'
+    lines: 3
+  )

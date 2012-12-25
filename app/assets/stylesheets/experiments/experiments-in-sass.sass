@@ -12,7 +12,7 @@ $middle: #777
 $box-border-color: lighten($color, 50%)
 
 // color for a repo's activities
-$very-high-activity: #777
+$very-high-activity: #090
 $high-activity: #777
 $medium-activity: #777
 $low-activity: #777
@@ -176,11 +176,11 @@ ul.sort-list
 // category
 .category
   @include span-columns(6)
-  padding: 0.8rem 1rem
+  padding: 0.725rem 0.875rem
   margin-top: 5px
   @include nth-omega(2n)
 
-  min-height: 162px
+  min-height: 138px
   font-size: 0.875rem
   color: #222
 
@@ -281,11 +281,13 @@ ul.sort-list
   .description
     display: block
     min-height: 44px
-    word-break: break-all
+  .homepage-link
+    display: block
+
   .activity
-    float: right
-    i
-      margin-right: 4px
+    &:before
+      content: 'Updated \2192 \a0'
+      color: #777
     abbr
       border-bottom: none
 
@@ -301,4 +303,7 @@ ul.sort-list
     &.very-low
       color: $very-low-activity
 
+// truncation via trunk8
+.js-read-more, .js-read-less
+  cursor: pointer
 
