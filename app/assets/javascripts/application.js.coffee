@@ -7,7 +7,6 @@
 //= require jquery_ujs
 //= require jquery.timeago
 //= require jquery.trunk8
-//= require jquery.autogrow
 # //= require jquery.swiftmate
 //= require readme
 //= require select2
@@ -16,107 +15,98 @@
 # Knight
 $ ->
   ##
-  # Variables
-  # Search field
-  $search = $('.js-search')
-  # 'Show all matching items' button for list.js
-  $show_button = $('.js-show-all')
-
-  ##
-  # List.js
-  list = categoriesList if categoriesList.listContainer?
-  list = reposList if reposList.listContainer?
-  p = list?.page
-
-  # Initial state
-  m = list?.matchingItems.length
-  if p < m
-    $show_button.show()
-
-  ##
-  # Functions
+  # Timeago
   # Update relative timestamps
   update_timestamps = () ->
-    # Timestamps
     $timestamps = $('abbr.timeago')
     $timestamps.timeago()
 
-  # Decide if show all show_button should be visible
-  visibility_of_show_button = () ->
-    p = list?.page
-    m = list?.matchingItems.length
-    if p && m
-      if p < m
+  ##
+  # List.js
+  #
+  # Variables for list.js
+  $search = $('.js-search')         # Search field
+  $show_button = $('.js-show-all')  # 'Display all items' button
+
+  list = categoriesList if categoriesList.listContainer?
+  list = reposList if reposList.listContainer?
+
+  # Update list view
+  # display or hide show button
+  # and update relative timestamps on newly visible items
+  update_list_view = () ->
+    display_or_hide_show_button()
+    update_timestamps()
+
+  # Expand list
+  # to display all items
+  expand_list = () ->
+    list.page = 3200
+    list.update()
+    update_list_view() # update timestamps and hide show_button
+
+  # Decide if the show_button should be visible
+  display_or_hide_show_button = () ->
+    page = list?.page
+    matches = list?.matchingItems.length
+    if page && matches
+      if page < matches
         $show_button.show()
       else
         $show_button.hide()
-
-  # Show no items found message of there are no matches
-  visiblity_of_no_items_found_message = () ->
-    m = list?.matchingItems.length
-    if m
-      if m == 0
-        $('.list').html("<div class='no_matching_items'>Sorry. No matches. :-/<br/>Just try again. :-D</div>")
-
-  # Update View
-  update_view = () ->
-    # Show or hide 'show all' button
-    visibility_of_show_button()
-    # Update timestamps of previously hidden fields
-    update_timestamps()
+    else
+      $show_button.hide()
 
   ##
-  # Initialization
+  # List and search Initialization
   # Autofocus on search field
   $search.focus()
-
-  # Category Markdown Description Textarea Autogrow
-  $('.autogrow').autoGrow()
-
-  # Update view to calculate visibility of 'show more' button and more
-  update_view()
+  update_list_view() # update visibility of show_button
 
   ##
-  # Event handlers
-  # Show all matching items
-  # on click on 'show all' button
+  # List.js Events
+  #
+  # Expand list on click on 'display all matches'
   $show_button.click ->
-    list.page = 2500
-    list.update()
-    update_view()
+    expand_list() # includes updating timestamps and hiding show_button
 
-  # Update timestamps and visibility of buttons
-  # when typing in search field
-  $search.keyup () ->
-    update_view()
-    # Display 'no results found' message if appropriate
-    visiblity_of_no_items_found_message()
+  # Person typing in search field
+  $search.keyup ->
+    update_list_view() # update timestamps and visibilty of show_button
 
+  ##
+  # List.js Sorting
+  #
   # Click on sort button marks it as active and
   # removes active class from sibling further sort buttons
   $('.sort').click ->
-    $this = $(this)
-    $this.addClass('active')
-    $this.siblings('li').removeClass('active')
-    update_view()
+    $(this).addClass('active').siblings('li').removeClass('active')
+    update_list_view() # update timestamps
 
+  ##
+  # Truncation via trunk8
+  #
   # Truncate Repo Descriptions
   $('.repo .js-description').trunk8(
     fill: '&hellip; <a class="js-read-more">read more</a>'
   )
 
+  # Display entire description on click on 'read more'
   $('.js-read-more').live 'click', (event) ->
     $(this).parent().trunk8('revert')
     return false
 
   # Truncate category descriptions
-  # only trucates when category is being displayed among the first visible ones
+  # Note: Only trucates when category is being displayed among the first visible ones!
   $('.category .description').trunk8(
     fill: '&hellip; <a class="js-read-more">read more</a>'
     lines: 3
   )
 
-  # Readme related stuff
+  ##
+  # Readme.js
+  #
+  # Unfold and fold Readme on user inputs
   # could certainly be shortened e.g. by using some kind of toggling
   $readme = $('.readme')
 
