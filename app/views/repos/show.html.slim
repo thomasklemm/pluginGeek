@@ -64,16 +64,13 @@
     / display all matches on click
     .show-all.js-show-all Display all alternatives
 
-  / / parent/child structures between repos
-  / .relationships
-  /   .parents
-  /     - if @repo.has_parents?
-  /       = render partial: 'repos/repo', collection: @repo.parents
-  /     - else
-  /       .no-relationships-yet No parents have been added yet.
+  / parent/child structures between repos
+  .parents-and-children
+    .header
+      span.primary Parents and Children
+      span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
 
-  /   .children
-  /     - if @repo.has_children?
-  /       = render partial: 'repos/repo', collection: @repo.children
-  /     - else
-  /       .no-relationships-yet No children have been added yet.
+    .repos
+      = render partial: 'repos/repo', collection: @repo.parents_and_children
+    - unless @repo.parents_and_children.present?
+      p Neither parents nor children yet.

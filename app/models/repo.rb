@@ -214,6 +214,10 @@ class Repo < ActiveRecord::Base
     "<i class='icon-star'></i>#{ alt_stars.max } &ndash; <i class='icon-star'></i>#{ alt_stars.min }".html_safe
   end
 
+  def parents_and_children
+    parents | children
+  end
+
   ##
   # Callbacks
   before_save :set_languages
