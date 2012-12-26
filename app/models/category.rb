@@ -124,6 +124,7 @@ class Category < ActiveRecord::Base
   end
 
   # Update languages of each associated repo after commit
+  # and expire repos
   after_commit :update_repo_languages
   def update_repo_languages
     repos(true).each { |repo| repo.save }
@@ -175,21 +176,21 @@ class Category < ActiveRecord::Base
   # Swiftype Full-Text Searching
   #
   # Update search index after each transaction
-  after_commit :create_document, on: :create
-  after_commit :update_document, on: :update
-  after_commit :destroy_document, on: :destroy
+  # after_commit :create_document, on: :create
+  # after_commit :update_document, on: :update
+  # after_commit :destroy_document, on: :destroy
 
-  def create_document
-    SwiftypeIndexWorker.perform_async('Category', id, :create)
-  end
+  # def create_document
+  #   SwiftypeIndexWorker.perform_async('Category', id, :create)
+  # end
 
-  def update_document
-    SwiftypeIndexWorker.perform_async('Category', id, :update)
-  end
+  # def update_document
+  #   SwiftypeIndexWorker.perform_async('Category', id, :update)
+  # end
 
-  def destroy_document
-    SwiftypeIndexWorker.perform_async('Category', id, :destroy)
-  end
+  # def destroy_document
+  #   SwiftypeIndexWorker.perform_async('Category', id, :destroy)
+  # end
 
   # Mass Assignment Whitelist
   attr_accessible :full_name, :description, :label

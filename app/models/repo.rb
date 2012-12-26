@@ -230,21 +230,21 @@ class Repo < ActiveRecord::Base
   #
   # Update search index after each transaction
   #
-  after_commit :create_document, on: :create
-  after_commit :update_document, on: :update
-  after_commit :destroy_document, on: :destroy
+  # after_commit :create_document, on: :create
+  # after_commit :update_document, on: :update
+  # after_commit :destroy_document, on: :destroy
 
-  def create_document
-    SwiftypeIndexWorker.perform_async('Repo', id, :create)
-  end
+  # def create_document
+  #   SwiftypeIndexWorker.perform_async('Repo', id, :create)
+  # end
 
-  def update_document
-    SwiftypeIndexWorker.perform_async('Repo', id, :update)
-  end
+  # def update_document
+  #   SwiftypeIndexWorker.perform_async('Repo', id, :update)
+  # end
 
-  def destroy_document
-    SwiftypeIndexWorker.perform_async('Repo', id, :destroy)
-  end
+  # def destroy_document
+  #   SwiftypeIndexWorker.perform_async('Repo', id, :destroy)
+  # end
 
   ##
   # Whitelisting attributes for mass assignment
