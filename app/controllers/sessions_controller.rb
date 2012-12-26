@@ -8,6 +8,6 @@ class SessionsController < ApplicationController
   def destroy
     logout
     flash[:notice] = 'Goodbye! Hope to see you again soon, Knight!'
-    redirect_to :back
+    redirect_to (request.env['HTTP_REFERER'] || root_url)
   end
 end

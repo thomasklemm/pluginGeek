@@ -3,8 +3,8 @@ Knight::Application.routes.draw do
   get 'login'   => 'sessions#login',   as: :login
   get 'logout'  => 'sessions#destroy', as: :logout
 
-  match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
   match 'oauth/callback'  => 'oauths#callback'
+  match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
   ##
   # Categories
