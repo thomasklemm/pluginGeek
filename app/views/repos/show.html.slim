@@ -35,8 +35,9 @@
 
   / Readme from Github, requested live in the browser
   / .header: span.primary Readme
-  #readme.readme
-    .readme_js data-owner=@repo.owner data-repo=@repo.name
+  .readme.readme-max-height
+    .readme-js data-owner=@repo.owner data-repo=@repo.name
+  = link_to 'Unfold Readme', 'javascript:', class: 'open-readme'
 
   / Associated categories
   .categories

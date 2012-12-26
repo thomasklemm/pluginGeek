@@ -100,12 +100,6 @@ $ ->
     $this.siblings('li').removeClass('active')
     update_view()
 
-  # Click on toggle children
-  # toggles the child list of a repo
-  $('.toggle_children').live 'click', (e) ->
-    $(this).parent().siblings('.child_list').toggle()
-    e.preventDefault()
-
   # Truncate Repo Descriptions
   $('.repo .js-description').trunk8(
     fill: '&hellip; <a class="js-read-more">read more</a>'
@@ -121,3 +115,21 @@ $ ->
     fill: '&hellip; <a class="js-read-more">read more</a>'
     lines: 3
   )
+
+  # Readme related stuff
+  # could certainly be shortened e.g. by using some kind of toggling
+  $readme = $('.readme')
+
+  open_readme = () ->
+    $readme.removeClass('readme-max-height').addClass('readme-auto-height')
+
+  close_readme = () ->
+    $readme.removeClass('readme-auto-height').addClass('readme-max-height')
+
+  $('.open-readme').live 'click', () ->
+    $(this).removeClass('open-readme').addClass('close-readme').text('Fold Readme')
+    open_readme()
+
+  $('.close-readme').live 'click', () ->
+    $(this).removeClass('close-readme').addClass('open-readme').text('Unfold Readme')
+    close_readme()
