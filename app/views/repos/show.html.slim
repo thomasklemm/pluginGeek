@@ -1,19 +1,25 @@
 / repos/show
 - cache [@repo, 'details'] do
   .repo-details
-    / Link to edit view
-    span.edit-link = link_to edit_repo_path(@repo) do
-      i.icon-edit
-      | Edit
-
     / Name and Owner
     span.name-and-owner = link_to @repo.github_url do
       i.icon-github
-      span.owner = @repo.owner
       span.name  = @repo.name
+      span.owner  by #{ @repo.owner }
 
-    / Github Star Button including Stars Count
-    iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"
+    span.details
+      / Stars on Github
+      span.stars
+        i.icon-star
+        = @repo.stars
+
+      / Github Star Button including Stars Count
+      iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="54" height="20"
+
+      / Link to edit view
+      span.edit-link = link_to edit_repo_path(@repo) do
+        i.icon-edit
+        | Edit
 
     / Description, primary custom one, with github description
     / as regular fallback
@@ -27,45 +33,47 @@
       i.icon-leaf
       abbr.timeago title=@repo.timestamp.iso8601 = @repo.timestamp.to_s(:long)
 
-    / Associated categories in a list
-    ul.category-list
-      - if @repo.has_categories?
-        - for category in @repo.categories
+  / Readme from Github, requested live in the browser
+  / .header: span.primary Readme
+  #readme.readme
+    .readme_js data-owner=@repo.owner data-repo=@repo.name
 
-          / list categories
-          li.category
-            span.name = link_to category.name, category
-            span.language-list = category.language_list
-            span.repos-count = pluralize(category.repos.size, 'repos')
-            span.stars-count
-              i.icon-star
-              = category.stars
+  / Associated categories
+  .categories
+    .header
+      span.primary Categories
+      span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
+    = render partial: 'categories/category', collection: @repo.categories
 
-      / link to edit view if repo has no categories yet
-      - else
-        = link_to 'Let me add the first category!', edit_repo_path(@repo), class: 'no-categories-yet'
+  / highest ranking repos in associated categories, ordered by knight_score
+  #js-repos-list.alternatives
+    .header
+      span.primary Alternatives
+      / span.small  via Categories
+      span.stars-range = @repo.alternatives_star_range
+      span.self-stars (#{ @repo.name } &rarr; <i class='icon-star'></i>#{ @repo.stars })
 
-    / Readme from Github, requested live in the browser
-    #readme.readme
-      .readme_js data-owner=@repo.owner data-repo=@repo.name
+      / Sort options and buttons for repos
+      / hide if there are only a few options
+      - if @repo.alternatives.size >= 8
+        = render 'repos/sort_repos'
 
-    / highest ranking repos in associated categories, ordered by knight_score
-    .alternatives
-      - if @repo.has_alternatives?
-        = render partial: 'repos/repo', collection: @repo.alternatives
-      - else
-        = link_to 'Let me add the first category!', edit_repo_path(@repo), class: 'no-categories-yet'
+    .repos.list data-page=6
+      = render partial: 'repos/repo', collection: @repo.alternatives
 
-    / parent/child structures between repos
-    .relationships
-      .parents
-        - if @repo.has_parents?
-          = render partial: 'repos/repo', collection: @repo.parents
-        - else
-          .no-relationships-yet No parents have been added yet.
+    / display all matches on click
+    .show-all.js-show-all Display all alternatives
 
-      .children
-        - if @repo.has_children?
-          = render partial: 'repos/repo', collection: @repo.children
-        - else
-          .no-relationships-yet No children have been added yet.
+  / / parent/child structures between repos
+  / .relationships
+  /   .parents
+  /     - if @repo.has_parents?
+  /       = render partial: 'repos/repo', collection: @repo.parents
+  /     - else
+  /       .no-relationships-yet No parents have been added yet.
+
+  /   .children
+  /     - if @repo.has_children?
+  /       = render partial: 'repos/repo', collection: @repo.children
+  /     - else
+  /       .no-relationships-yet No children have been added yet.

@@ -1,4 +1,4 @@
-/* 
+/*
   Readme.js
   by Thomas Klemm, Twitter: @thomasjklemm, Github: thomasklemm
   Last modified: 2012/07/07
@@ -9,13 +9,13 @@
   HOW TO USE:
 
   1) <div class='readme_js' data-owner='thomasklemm' data-repo='Readme.js'></div>
-  
+
   or
 
   2)  $('#Readme').readme({
         'owner': 'thomasklemm',
         'repo':  'Readme.js'
-      });  
+      });
 */
 
 ;(function( $ ) {
@@ -40,7 +40,7 @@
             styles =  $this.data('styles') || settings.styles;
 
         // Loading Message
-        var load_message = "<p>Loading Readme <b>" + owner + "/" + repo + "</b>...</p>"
+        var load_message = "Loading Readme for <b>" + owner + "/" + repo + "</b>..."
         $this.html(load_message)
 
         // Request & Render Readme
@@ -87,7 +87,7 @@
       return methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
-    }   
+    }
   };
 
   // Stylesheet (Source: Github)

@@ -7,7 +7,7 @@ javascript:
       valueNames: ['js-name', 'js-description', 'js-knight-score', 'js-repos', 'js-further-repos']
     };
 
-  categories_list_options['page'] = $('.list').data('page') || 8
+  categories_list_options['page'] = $('.list').data('page') || 1000
 javascript:
   var categoriesList = new List('js-categories-list', categories_list_options);
 
@@ -17,7 +17,7 @@ javascript:
       valueNames: ['js-name', 'js-owner', 'js-label', 'js-description', 'js-knight-score', 'js-timestamp']
     };
 
-  repos_list_options['page'] = $('.list').data('page') || 8
+  repos_list_options['page'] = $('.list').data('page') || 1000
 
 javascript:
   var reposList = new List('js-repos-list', repos_list_options);

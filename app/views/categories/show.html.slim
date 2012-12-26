@@ -22,20 +22,16 @@
     / or summing up the repos use cases among others
     span.description == @category.description
 
-    / List containing repos
-    #js-repos-list.repos
-      / Sort options and buttons for repos
-      / hide if there are only a few options
-      - if @repos.size >= 6
-        = render 'repos/sort_repos'
+  / List containing repos
+  #js-repos-list
+    / Sort options and buttons for repos
+    / hide if there are only a few options
+    - if @repos.size >= 8
+      = render 'repos/sort_repos'
 
-      .list data-page=100
-        = render partial: 'repos/repo', collection: @repos
+    .repos.list
+      = render partial: 'repos/repo', collection: @repos
 
-        / No repos are present, the category might be deleted soon
-        / - if @repos.blank?
-        /   p: em This category is no longer associated with any repos and might be cleared away soon.
-
-      / At first only a few repos will be shown, a click on this button will reveal
-      / all associated repos
-      .show-all.js-show-all Show all repos
+      / No repos are present, the category might be deleted soon
+      / - if @repos.blank?
+      /   p: em This category is no longer associated with any repos and might be cleared away soon.

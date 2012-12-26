@@ -200,14 +200,18 @@ class Repo < ActiveRecord::Base
   end
 
   def find_alternatives
-    categories.each_with_object([]) do |category, ary|
-      ary = ary | category.repos
-      ary = ary.sort_by(&:knight_score)
-    end
+    alternatives = categories.flat_map(&:repos).uniq.sort_by(&:knight_score).reverse
+    alternatives.delete(self)
+    alternatives
   end
 
   def has_alternatives?
     alternatives.size > 0
+  end
+
+  def alternatives_star_range
+    alt_stars = alternatives.map(&:stars)
+    "<i class='icon-star'></i>#{ alt_stars.max } &ndash; <i class='icon-star'></i>#{ alt_stars.min }".html_safe
   end
 
   ##
