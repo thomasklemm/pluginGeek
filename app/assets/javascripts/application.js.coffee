@@ -123,3 +123,13 @@ $ ->
   $('.close-readme').live 'click', () ->
     $(this).removeClass('close-readme').addClass('open-readme').text('Unfold Readme')
     close_readme()
+
+  ##
+  # Flash messages
+  # Close on click
+  $('.flash-message .close').click ->
+    $(this).parent().fadeOut()
+
+  $('.flash-message').click ->
+    $(this).fadeOut()
+

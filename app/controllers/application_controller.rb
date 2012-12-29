@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   # for oauth
   def not_authenticated
-    flash[:notice] = 'Draw, Knight!'
+    flash[:notice] = "Please login first (it's easy, just use your Github account)."
     redirect_to login_url
   end
 

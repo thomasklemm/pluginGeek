@@ -1,10 +1,10 @@
 / application/_flash_messages
 
 / flash messages
-- unless response.cache_control[:public]
+- unless public_caching?
   - if flash
     - flash.each do |type, message|
       div class="flash-message #{type}"
         span = message
-        / Todo: make flash message closable
-        / a href='' class='close' &times;
+        / close message
+        = link_to '&times'.html_safe, 'javascript:', class: 'close'

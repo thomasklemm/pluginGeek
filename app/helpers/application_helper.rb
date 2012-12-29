@@ -9,7 +9,7 @@ module ApplicationHelper
       end
   end
 
-  def public_caching
+  def public_caching?
     !!(response.cache_control[:public])
   end
 end
