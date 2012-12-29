@@ -8,4 +8,8 @@ module ApplicationHelper
       else "So you're looking <br />for some awesome <span class='type'>Webdevelopment Plugins?<span>"
       end
   end
+
+  def public_caching
+    !!(response.cache_control[:public])
+  end
 end

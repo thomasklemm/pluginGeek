@@ -1,12 +1,17 @@
 / application/login
-.login-page
-  .headline     Wow!
-  .sub-headline That's courageous, young Knight!
+- login_link = capture do
+  .github-login-link = link_to auth_at_provider_path(provider: :github) do
+    i.icon-github
+    | Login with Github
 
-  p.
-    Knight, as a Wiki, flourished by your contributions.
-    In order to participate, you can <b>sign up and login
-    through Github</b>. We don't request and store any
+
+.login-details
+  .headline Login with Github
+
+  markdown:
+    **Knight**, as a Wiki, flourishes by your contributions.
+    In order to participate, you can **sign up and login
+    through Github**. We don't retrieve and store any
     more information than nescessary to allow Knight
     to work smoothly and store individual contributions
     to Knight.
@@ -15,9 +20,9 @@
     Github page can be accessed and may be stored by
     Knight. This for sure excludes any information
     about private repos. We do not ask for any permission
-    to access these information, so Knight cannot access it.
+    to access any of your private information, so Knight cannot access it. If you have any further questions regarding the privacy of your data, please email me.
 
-  / sign up and login with one link
-  .github-login-link= link_to auth_at_provider_path(provider: :github), class: 'radius button' do
-      i.icon.icon-github-sign
-      span Login with Github
+    **Thanks for your time and contributions!**
+
+  / sign up and log in in one
+  = login_link

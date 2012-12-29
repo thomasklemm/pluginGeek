@@ -41,6 +41,11 @@ class User < ActiveRecord::Base
   # Validations
   validates_uniqueness_of :username
 
+  # Defaults
+  def name
+    self[:name] || login
+  end
+
   ##
   # Mass-assignment protection
   #

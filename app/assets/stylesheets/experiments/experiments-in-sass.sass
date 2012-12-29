@@ -363,6 +363,7 @@ ul.sort-list
     float: right
 
 // rows at repo-details
+// maybe convert to .row or .full, .half
 .readme,
 .categories,
 .alternatives,
@@ -383,3 +384,59 @@ ul.sort-list
 
 .toggle-readme
   cursor: pointer
+
+// current-user details for the logged in user, only displays then
+.current-user
+  @include span-columns(12)
+  margin-top: 4px
+  margin-bottom: -5px
+
+  font-size: 0.875rem
+  line-height: 32px // for avatar layouting
+
+  .happy-day
+    @include span-columns(5)
+    color: $middle
+
+  // wrapper for user details
+  .avatar-and-name
+    @include span-columns(5)
+
+    .name
+      margin-left: 6px
+
+    // gravatar, displayed with rounded corners
+    // source: www.bram.us/sandbox/roundedcorners/
+    .avatar
+      float: left // hack to make displaying work
+      $avatar-size: 28px
+      width: $avatar-size
+      height: $avatar-size
+      background-size: $avatar-size $avatar-size
+      background-repeat: no-repeat
+
+      border-radius: 3px
+
+  .logout
+    float: right
+    text-decoration: underline
+
+
+// login details
+.login-details
+  @include span-columns(6)
+
+  .github-login-link
+    font-size: 1.272rem
+    font-weight: 600
+    text-decoration: underline
+    i
+      margin-right: 7px
+
+// headline in all views
+.headline
+  display: block
+  margin-top: 4px
+  font-size: 2.058rem
+  font-weight: 600
+  line-height: 2rem
