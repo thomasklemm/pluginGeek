@@ -120,6 +120,9 @@ group :development do
   # Better Errors (REPL Debug)
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  # Meta Request (for RailsPanel Chrome Extension)
+  gem 'meta_request'
 end
 
 # Test Gems

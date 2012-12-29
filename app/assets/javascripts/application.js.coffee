@@ -1,17 +1,14 @@
 # application.js.coffee
 # insert after jQuery
 #
-# Requires
 //= require list
-# jQuery Rails adapter
 //= require jquery_ujs
 //= require jquery.timeago
 //= require jquery.trunk8
-# //= require jquery.swiftmate
+//= require jquery.autosize
 //= require readme
 //= require select2
 
-##
 # Knight
 $ ->
   ##
@@ -133,3 +130,6 @@ $ ->
   $('.flash-message').click ->
     $(this).fadeOut()
 
+  ##
+  # Autosize
+  $('textarea').autosize()

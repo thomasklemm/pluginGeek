@@ -462,3 +462,28 @@ ul.sort-list
     color: #999
     text-decoration: underline
 
+// edit repo
+.edit-repo
+  @extend .repo-details
+
+// formtastic changes
+.formtastic
+  label
+    font-weight: 600
+  input, textarea
+    font-family: $body-font-family
+    width: 75% !important
+    padding: 3px 6px
+    border-radius: 2px
+    border: 2px solid #ccc
+    &[disabled]
+      background: #eee
+    &:focus
+      outline: none
+      border-color: $color
+  .inline-hints
+    background: lighten($color, 50%)
+    padding: 4px 10px
+    font-size: 0.875rem
+    color: #555 !important
+    border-radius: $br
