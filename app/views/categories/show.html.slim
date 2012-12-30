@@ -29,7 +29,7 @@
     - if @repos.size >= 8
       = render 'repos/sort_repos'
 
-    .repos.list
+    .repos-wrapper.list
       = render partial: 'repos/repo', collection: @repos
 
       / No repos are present, the category might be deleted soon

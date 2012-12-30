@@ -35,12 +35,13 @@
 
   / Readme from Github, requested live in the browser
   / .header: span.primary Readme
-  .readme.readme-max-height
-    .readme-js data-owner=@repo.owner data-repo=@repo.name
-  = link_to 'Unfold Readme', 'javascript:', class: 'open-readme'
+  .readme-wrapper
+    .readme.readme-max-height
+      .readme-js data-owner=@repo.owner data-repo=@repo.name
+    span.toggle-readme.open-readme Unfold Readme
 
   / Associated categories
-  .categories
+  .categories-wrapper
     .header
       span.primary Categories
       span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
@@ -59,7 +60,7 @@
       - if @repo.alternatives.size >= 8
         = render 'repos/sort_repos'
 
-    .repos.list data-page=6
+    .repos-wrapper.list data-page=6
       = render partial: 'repos/repo', collection: @repo.alternatives
 
     / display all matches on click
@@ -71,7 +72,7 @@
       span.primary Parents and Children
       span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
 
-    .repos
+    .repos-wrapper
       = render partial: 'repos/repo', collection: @repo.parents_and_children
     - unless @repo.parents_and_children.present?
       p Neither parents nor children yet.

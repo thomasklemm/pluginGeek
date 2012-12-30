@@ -25,21 +25,21 @@ javascript:
 
 / Swiftype-powered Autocomplete
 / for landing page
-javascript:
-  var swiftype_engine_key = "#{ ENV['SWIFTYPE_ENGINE_KEY'] }"
+/ javascript:
+/   var swiftype_engine_key = "#{ ENV['SWIFTYPE_ENGINE_KEY'] }"
 
-coffee:
-  suggestionRender = (data, type) ->
-    console.log data
-    repo = data
-    "#{ repo.owner }/<b>#{ repo.name }</b> <em>(#{ repo.stars })</em>"
-
-  $('#search-input').swiftmate {
-    engineKey: swiftype_engine_key
-    renderCallback: suggestionRender
-    sortField: {repos: 'stars'}
-    sortDirection: {repos: 'desc'}
-    fetchFields: {
-      repos: ['owner', 'name', 'stars']
-    }
-  }
+/ coffee:
+/   suggestionRender = (data, type) ->
+/    console.log data
+/    repo = data
+/    "#{ repo.owner }/<b>#{ repo.name }</b> <em>(#{ repo.stars })</em>"
+/
+/  $('#search-input').swiftmate {
+/    engineKey: swiftype_engine_key
+/    renderCallback: suggestionRender
+/    sortField: {repos: 'stars'}
+/    sortDirection: {repos: 'desc'}
+/    fetchFields: {
+/      repos: ['owner', 'name', 'stars']
+/    }
+/  }

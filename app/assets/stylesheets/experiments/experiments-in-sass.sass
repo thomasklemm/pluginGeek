@@ -123,7 +123,7 @@ i
 
 // marketing text
 .marketing-text
-  padding: 0 0 1.618rem
+  padding: 0 0 1rem
 
   text-rendering: optimizeLegibility
   text-align: center
@@ -144,8 +144,11 @@ i
 
 // search
 .search
+  @extend .row
   width: 100%
   padding: 10px 14px
+  margin: 0.5rem 0
+
   font-size: 1.272rem
   color: #444
 
@@ -161,7 +164,8 @@ i
 
 // sort
 ul.sort-list
-  margin: 6px 0 8px
+  @extend .row
+  // padding: 4px 0 6px // a little more on the bottom for underlining
 
   list-style: none
   font-size: 0.875rem
@@ -188,13 +192,15 @@ ul.sort-list
 .box
   @include span-columns(6)
   padding: 0.725rem 0.875rem
-  margin-bottom: 8px
+  margin-top: 4px
+  margin-bottom: 4px
   @include nth-omega(2n)
 
   border: 3px solid $box-border-color
   border-radius: 4px
 
   font-size: 0.875rem
+  line-height: 20px
   color: #222
 
   @include box-shadow(inset 0 0 2px #777)
@@ -215,6 +221,12 @@ ul.sort-list
   @extend .box
   @include span-columns(12) // spans full size
 
+// show all link
+.show-all
+  @extend .full-box
+  margin-top: -4px // reset - 4px
+  margin-bottom: 4px
+
   line-height: 54px // vertical centering
   font-size: 1rem
   font-weight: 600
@@ -223,17 +235,13 @@ ul.sort-list
   color: $color
   cursor: pointer
 
-// show all link
-.show-all
-  @extend .full-box
-
 // truncation via trunk8
 .js-read-more,
 .js-read-less
   cursor: pointer
 
 // categories in overview
-.categories .category
+.categories-wrapper .category
   @extend .box
   min-height: 139px
 
@@ -255,8 +263,13 @@ ul.sort-list
   .description
     display: block
 
+.categories-wrapper,
+.repos-wrapper
+  @extend .row
+  padding: 0.5rem 0
+
 // repos in overview
-.repos .repo
+.repos-wrapper .repo
   @extend .box
   min-height: 119px
 
@@ -348,7 +361,7 @@ ul.sort-list
 
 // headers at repo-details
 .header
-  @include span-columns(12)
+  @extend .row
   margin-top: 1.618rem
   margin-bottom: 4px
 
@@ -368,29 +381,36 @@ ul.sort-list
 // rows at repo-details
 // maybe convert to .row or .full, .half
 .readme,
-.categories,
 .alternatives,
 .parents-and-children
-  @include span-columns(12)
+  @extend .row
 
 // readme at repo-details
+.readme-wrapper
+  @extend .full-box
+
 .readme
-  @extend .box
-  margin-top: 0.5rem
+  display: block
   overflow: hidden
 
 .readme-max-height
-  max-height: 402px
+  max-height: 380px
 
 .readme-auto-height
   height: auto
 
 .toggle-readme
+  @extend a
+  float: left
+  margin-top: 0.5rem
+  padding: 0.5rem
+  font-weight: 600
   cursor: pointer
+  text-decoration: underline
 
 // current-user details for the logged in user, only displays then
 .current-user
-  @include span-columns(12)
+  @extend .row
   margin-top: 4px
   margin-bottom: -5px
 
@@ -487,3 +507,23 @@ ul.sort-list
     font-size: 0.875rem
     color: #555 !important
     border-radius: $br
+
+// services
+.services-wrapper .service
+  @extend .box
+  background: #e4efc7
+  color: #151515
+
+  .name
+    display: block
+    font-size: 1rem
+    font-weight: 600
+
+  .url
+    display: block
+
+  .pitch
+    display: block
+
+.services-wrapper
+  @extend .row

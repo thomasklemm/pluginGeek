@@ -9,11 +9,15 @@
       / Instant client-side searching via list.js
       input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
 
+      / Render Services in development
+      - if Rails.env.development?
+        = render 'application/services'
+
       / Sort buttons for categories
       = render 'categories/sort_categories'
 
     / List for list.js
-    .categories.list data-page=10
+    .categories-wrapper.list data-page=10
       = render partial: 'category', collection: @categories
 
     / display all matches on click
