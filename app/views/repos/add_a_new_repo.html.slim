@@ -1,10 +1,12 @@
 / repos/add_a_new_repo
-.add-a-new-repo
-  p.
-    The repo <span class='name'>#{ @repo.full_name }</span>
-    is new to Knight. Would you like to add and tag it?!
+.add-repo-wrapper
+  / Name and Owner
+  span.name-and-owner = link_to @repo.github_url do
+    i.icon-github
+    span.name  = @repo.name
+    span.owner  by #{ @repo.owner }
+
+  p style='margin: 0.5rem 0 1.618rem;' This project is not listed on Knight yet. <br />Would you like to add and categorize it?
 
   / button to add repo to Knight
-  = button_to repo_path(@repo), class: 'submit-button' do
-    i.icon-plus-sign
-    | Add #{@repo.full_name}
+  = link_to "Add <b>#{ @repo.name }</b> by #{ @repo.owner }".html_safe, repo_path(@repo), method: :post, class: 'button'
