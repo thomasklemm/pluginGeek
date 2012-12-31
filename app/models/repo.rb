@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20121225201333
+# Schema version: 20121231103737
 #
 # Table name: repos
 #
@@ -16,7 +16,6 @@
 #  updated_at         :datetime         not null
 #  update_success     :boolean          default(FALSE)
 #  description        :text
-#  label              :text
 #
 # Indexes
 #

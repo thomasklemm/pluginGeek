@@ -11,26 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121225201333) do
-
-  create_table "ad_categorizations", :force => true do |t|
-    t.integer  "category_id"
-    t.integer  "ad_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "ad_categorizations", ["ad_id"], :name => "index_ad_categorizations_on_ad_id"
-  add_index "ad_categorizations", ["category_id"], :name => "index_ad_categorizations_on_category_id"
-
-  create_table "ads", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.string   "keyword"
-  end
+ActiveRecord::Schema.define(:version => 20121231103737) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -150,7 +131,6 @@ ActiveRecord::Schema.define(:version => 20121225201333) do
     t.datetime "updated_at",                            :null => false
     t.boolean  "update_success",     :default => false
     t.text     "description"
-    t.text     "label"
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
