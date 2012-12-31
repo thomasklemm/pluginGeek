@@ -429,7 +429,7 @@ ul.sort-list
 
 .toggle-readme
   float: left
-  margin-top: 1rem
+  margin-top: 0.5rem
 
 // current-user details for the logged in user, only displays then
 .current-user
@@ -571,3 +571,6 @@ ul.sort-list
   border: 1px solid lighten($color, 10%) !important
   border-radius: $br !important
   @include box-shadow(0 1px 4px rgba(0,0,0,.25))
+
+  &:hover
+    background: lighten($color, 5%)

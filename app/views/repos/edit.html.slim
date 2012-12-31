@@ -29,10 +29,10 @@
 
     / Parents as multiple select
     / to enter parent/child relationship
-    = f.input :parents, label: 'Parents', collection: Repo.all_without(@repo), hint: 'Is this repo a child of another one?', input_html: {placeholder: 'Related to another repo?'}
+    = f.input :parents, label: 'Parents', collection: Repo.all_without(@repo), hint: 'Does this project depend on another one or is it standalone?'
 
   = f.actions do
-    = f.action :submit, as: :button, button_html: {class: 'submit-button'}
+    = f.action :submit, as: :button, label: 'Save project', button_html: {class: 'button'}
 
 //
 // Javascripts to initialize select2 input enhancements on this page
