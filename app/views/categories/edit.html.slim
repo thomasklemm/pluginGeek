@@ -1,6 +1,19 @@
 / categories/edit
 .edit-category
-  .full-name = @category.full_name
+  / Name without languages (full_name is 'name (languages)')
+  span.name = @category.name
+
+  span.details
+    / Languages, seperated by a comma
+    span.language-list = @category.language_list
+
+    / Cummulative stars of all associated Github repos
+    span.stars
+      i.icon-star
+      = @category.stars
+
+  / Current description
+  span.description == @category.description
 
   / Form
   = semantic_form_for @category do |f|
@@ -9,19 +22,26 @@
     / Inputs
     = f.inputs do
       / Name including Languages, e.g. Text Editor Plugins (Web/Mobile)
-      = f.input :full_name, hint: 'Style: "ActiveRecord: Nested Records (Ruby), Texteditor Plugins (Web/Mobile)" <a href="#" target="_blank">Learn more about languages and categories &raquo;</a>'
-        / Todo: make link work, explain about languages and categories
+      = f.input :full_name, label: 'Name and Languages', hint: "ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby), Table View (iOS)"
 
       / description for the category that will be rendered in overviews and is searchable
-      = f.input :description, input_html: {rows: 3, class: 'autogrow', cols: 150}, hint: 'Describe this category in up to 360 characters. What is the purpose of the repos listed here?'
-
-      / display descriptions of associated repos, as a guide for writing
-      span.description-of-repos
-        span.title For some inspiration, here are the descriptions of the associated repos
-        - for repo in @category.repos
-          span.full-name   = repo.full_name
-          span.description = repo.description
+      = f.input :description, label: 'Description / Summary', hint: 'What is the purpose of the listed repos?', placeholder: 'What is the purpose of the listed repos?'
 
     / Submit button
     = f.actions do
-      = f.action :submit, as: :button, button_html: {class: 'submit-button'}
+      = f.action :submit, as: :button, button_html: {class: 'button', style: 'margin-bottom: 2rem'}, label: 'Save category'
+
+/ descriptions of associated repos, as a guide for writing
+.descriptions-of-repos
+  h3 style='margin-bottom: 0' Descriptions of Repos
+  p For some inspiration when drafting a summary for the category, <br /> here are the descriptions of the associated repos.
+  table
+    tr
+      th Name
+      th Score
+      th Description
+    - for repo in @category.repos
+      tr.repo
+        td.name = repo.name
+        td.score = repo.knight_score
+        td.description = repo.description
