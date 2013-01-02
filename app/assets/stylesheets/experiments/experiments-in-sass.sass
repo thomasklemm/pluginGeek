@@ -70,22 +70,25 @@ i
 // header
 .header-wrapper
   margin-top: 8px
-  padding-bottom: 8px
   border-bottom: 3px solid $border-color
   margin-bottom: 1rem
 
 // branding
+// .branding
+//   @include span-columns(5)
+//   font-size: 3.33rem
+//   font-weight: 600
+//   line-height: 1
+//   text-rendering: optimizeLegibility
+//   a
+//     color: inherit
 .branding
   @include span-columns(5)
-  font-size: 3.33rem
-  font-weight: 600
-  line-height: 1
-  text-rendering: optimizeLegibility
-  a
-    color: inherit
 
 // navigation
 .navigation
+  margin-top: 8px
+
   &.web-navigation
     @include span-columns(4)
     .top

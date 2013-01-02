@@ -12,9 +12,9 @@ link rel="dns-prefetch" href="https://github.com"
 / set title
 /   override defaults by calling content_for :title, "My new title"
 - title = yield :title
-- title ||= "#{ @category.full_name } &middot; Knight" if @category
-- title ||= "#{ @repo.full_name } &middot; Categories and Alternatives &middot; Knight" if @repo
-- title ||= "Noteable Plugins for Web and Mobile Development &middot Knight"
+- title = "#{ @category.full_name } &middot; Knight" if @category && title.empty?
+- title = "#{ @repo.full_name } &middot; Readme and Alternatives &middot; Knight" if @repo && title.empty?
+- title = "Noteable Plugins for Web and Mobile Development &middot Knight" if title.empty?
 
 / title and description
 title = title.html_safe
