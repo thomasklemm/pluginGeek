@@ -5,13 +5,17 @@ $christmas-blue: #2A8FBD
 $millenial-blue: #025D8C
 $millenial-blue-2: #136e9d
 
+// owl geek logo
 $blue: #126E9D
+$green: #93CF29
+
 $border-color: $blue
 $color: $border-color
 $vertical-border-color: #ccc
 $middle: #777
 
 $box-border-color: lighten($color, 50%)
+$services-bg: lighten($green, 32%)
 
 // color for a repo's activities
 $very-high-activity: #090
@@ -90,6 +94,8 @@ i
   @include span-columns(6)
   margin-top: 6px
 
+  cursor: pointer
+
 // navigation
 .navigation
   margin-top: 10px
@@ -107,11 +113,7 @@ i
     display: block
     font-weight: 800
     padding-bottom: 2px
-    border-bottom: 2px solid $border-color
-    a:hover
-      border-bottom: 2px dotted #bbb
-    &.active a
-      border-bottom: 2px dotted $border-color
+    border-bottom: 1px dashed $border-color
 
   // bottom
   .bottom
@@ -121,13 +123,15 @@ i
       display: inline
       margin: 0 8px 0 0
       padding: 0 8px 0 0
-      border-right: 2px dotted $vertical-border-color
+      border-right: 1px dashed #999
       &:last-child
         border-right: none
-      &.active a
-        border-bottom: 2px dotted $border-color
-      a:hover
-        border-bottom: 2px dotted #aaa
+
+  .top, .bottom li
+    &.active a
+      border-bottom: 2px solid $border-color
+    a:hover
+      border-bottom: 2px solid $border-color
 
 
 // marketing text
@@ -146,11 +150,11 @@ i
 
   .second
     display: inline
-    // border-bottom: 2px dotted $border-color
-
     font-size: 1.618rem
     font-weight: 600
     border-bottom: 1px solid $border-color
+    &:hover
+      border-bottom: 2px solid $border-color
 
 // search
 .search
@@ -183,6 +187,7 @@ ul.sort-list
   text-align: right
 
   li
+    @extend a
     display: inline
     padding: 0
     margin: 0 8px
@@ -190,9 +195,9 @@ ul.sort-list
     &:last-of-type
       margin-right: 0
     &.active
-      border-bottom: 2px dotted $border-color
+      border-bottom: 1px solid $border-color
     &:hover
-      border-bottom: 2px dotted #aaa
+      border-bottom: 2px solid $border-color
 
   // divider in sort-list
   .divider:before
@@ -206,14 +211,17 @@ ul.sort-list
   margin-bottom: 4px
   @include nth-omega(2n)
 
-  border: 3px solid $box-border-color
-  border-radius: 4px
+  border: 1px solid #d9d9d9
+  border-radius: $br
 
   font-size: 0.875rem
   line-height: 20px
   color: #222
 
-  @include box-shadow(inset 0 0 2px #777)
+  // @include box-shadow(0 1px 2px #aaa)
+  @include box-shadow(inset 0 -1px 3px #ccc)
+  &:hover
+  // @include box-shadow(0 1px 3px #777)
 
   // box header
   .header
@@ -445,19 +453,19 @@ ul.sort-list
 .current-user
   @extend .row
   margin-top: 4px
-  margin-bottom: -5px
+  margin-bottom: -10px
 
   font-size: 0.875rem
   line-height: 32px // for avatar layouting
 
+  @include span-columns(6)
+  @include shift(6)
+
   .happy-day
-    @include span-columns(5)
     color: $middle
 
   // wrapper for user details
   .avatar-and-name
-    @include span-columns(5)
-
     .name
       margin-left: 6px
 
@@ -475,10 +483,9 @@ ul.sort-list
 
   .logout
     float: right
-    text-decoration: underline
 
 
-// login details
+// login page prompting user to sign in via github
 .login-details
   @include span-columns(6)
 
@@ -545,7 +552,7 @@ ul.sort-list
 // services
 .services-wrapper .service
   @extend .box
-  background: #e4efc7
+  background: $services-bg
   color: #151515
 
   .name
