@@ -4,7 +4,9 @@ $dark-bluegreen: #1693A5
 $christmas-blue: #2A8FBD
 $millenial-blue: #025D8C
 $millenial-blue-2: #136e9d
-$border-color: $millenial-blue-2
+
+$blue: #126E9D
+$border-color: $blue
 $color: $border-color
 $vertical-border-color: #ccc
 $middle: #777
@@ -27,7 +29,7 @@ $br: 3px
 body
   font-size: 100%
   font-family: $body-font-family
-  color: #333332
+  color: #393939
   line-height: 1.618
 
   background: image-url('backgrounds/compressed/debut_light.png') // 5
@@ -70,8 +72,10 @@ i
 // header
 .header-wrapper
   margin-top: 8px
-  border-bottom: 3px solid $border-color
-  margin-bottom: 1rem
+  // padding-bottom: 6px
+  // border-bottom: 3px solid $border-color
+  // margin-bottom: 1rem
+  padding-bottom: 1rem
 
 // branding
 // .branding
@@ -83,26 +87,27 @@ i
 //   a
 //     color: inherit
 .branding
-  @include span-columns(5)
+  @include span-columns(6)
+  margin-top: 6px
 
 // navigation
 .navigation
-  margin-top: 8px
+  margin-top: 10px
 
   &.web-navigation
     @include span-columns(4)
     .top
-      width: 100%
+      width: 242px
   &.mobile-navigation
-    @include span-columns(3)
+    @include span-columns(2)
     .top
 
   // top
   .top
     display: block
-    font-weight: 600
-    padding: 0
-    border-bottom: 3px solid $border-color
+    font-weight: 800
+    padding-bottom: 2px
+    border-bottom: 2px solid $border-color
     a:hover
       border-bottom: 2px dotted #bbb
     &.active a
@@ -110,7 +115,7 @@ i
 
   // bottom
   .bottom
-    margin-top: 4px
+    margin-top: 2px
     list-style: none
     li
       display: inline
@@ -119,14 +124,15 @@ i
       border-right: 2px dotted $vertical-border-color
       &:last-child
         border-right: none
-      a:hover
-        border-bottom: 2px dotted #aaa
       &.active a
         border-bottom: 2px dotted $border-color
+      a:hover
+        border-bottom: 2px dotted #aaa
+
 
 // marketing text
 .marketing-text
-  padding: 0 0 1rem
+  padding: 0.5rem 0 1.75rem
 
   text-rendering: optimizeLegibility
   text-align: center
@@ -140,10 +146,11 @@ i
 
   .second
     display: inline
-    border-bottom: 3px solid $border-color
+    // border-bottom: 2px dotted $border-color
 
     font-size: 1.618rem
     font-weight: 600
+    border-bottom: 1px solid $border-color
 
 // search
 .search
