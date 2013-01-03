@@ -1,4 +1,6 @@
 module ApplicationHelper
+  # Deliver a custom EyeCatcher message
+  # to viewers of a certain language
   def eye_catcher_message
     case params[:language]
       when /ruby/ then "So you're looking <br />for some awesome <span class='type'>Ruby Gems?</span>"
@@ -9,7 +11,15 @@ module ApplicationHelper
       end
   end
 
+  # Hide certain content like user details
+  # when response is set to be cached in public caches
+  # (such as e.g. Rack Cache)
   def public_caching?
     !!(response.cache_control[:public])
+  end
+
+  # Hide links to edit-actions when already on edit pages
+  def edit_action?
+    !!(params[:action] == 'edit')
   end
 end

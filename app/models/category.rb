@@ -12,7 +12,7 @@
 #  updated_at       :datetime         not null
 #  full_name        :string(255)      not null
 #  stars            :integer          default(0)
-#  keywords         :string(255)
+#  keywords         :text
 #
 # Indexes
 #
@@ -171,6 +171,27 @@ class Category < ActiveRecord::Base
   # Autocomplete category full_names on repo#edit
   def self.full_names_for_autocomplete
     order_by_knight_score.pluck(:full_name).to_json
+  end
+
+  # Autocomplete keywords on category#edit
+  def self.keywords_for_autocomplete
+    find_keywords.try(:to_json) # zero memoization, needs to be reloaded anyway
+  end
+
+  # Returns all keywords downcased and in descending usage order
+  def self.find_keywords
+    words = pluck(:keywords).compact.flat_map {|s| s.split(',').map(&:strip).map(&:downcase) }
+    words = words.group_by { |w| w }.sort_by {|_, ws| ws.length}.reverse
+    words.map {|k, _| k}.uniq
+  end
+
+  def keywords
+    self[:keywords] || ''
+  end
+
+  def keywords=(list='')
+    list = list.split(',').map(&:strip).map(&:downcase).uniq.join(',')
+    write_attribute(:keywords, list)
   end
 
   ##

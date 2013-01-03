@@ -82,22 +82,23 @@ i
   @include row
 
 .category-details,
-.repo-details, .readme-wrapper, .alternatives, .parents-and-children
+.repo-details, .readme-wrapper, .alternatives, .parents-and-children,
+.formtastic
   @include span-columns(12)
 
 // header
 .header-wrapper
   margin-top: 8px
-  padding-bottom: 1rem
+  padding-bottom: 1.5rem
 
 .branding
   @include span-columns(6)
-  margin-top: 1px
+  margin-top: 2px
   cursor: pointer
 
 // navigation
 .navigation
-  margin-top: 7px
+  margin-top: 8px
   &.web-navigation
     @include span-columns(4)
   &.mobile-navigation
@@ -169,6 +170,7 @@ i
 
 // sorting
 ul.sort-list
+  padding: 0.25rem 0
   font-size: 0.875rem
   color: $text-secondary
   text-align: right
@@ -320,10 +322,6 @@ ul.sort-list
   .description
     display: block
 
-// edit category
-.edit-category
-  @extend .category-details // display similar header
-
 // Guides for drafting a category's descriptions
 // (displayed when editing category)
 .descriptions-of-repos
@@ -373,7 +371,7 @@ ul.sort-list
     margin-left: 1rem
 
 // headers at repo-details
-.header
+.section-header
   @include row
   margin-top: 1.618rem
   margin-bottom: 4px
@@ -483,13 +481,9 @@ ul.sort-list
     color: #999
     text-decoration: underline
 
-// edit repo
-.edit-repo
-  @extend .repo-details
-
 // formtastic changes
 .formtastic
-  margin: 1rem 0
+  padding: 0.75rem 0
   label
     font-weight: 600
   input, textarea

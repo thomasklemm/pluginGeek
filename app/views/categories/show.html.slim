@@ -1,26 +1,7 @@
 / categories/show
 - cache [@category, 'details'] do
-  .category-details
-    / Name without languages (full_name is 'name (languages)')
-    span.name = @category.name
-
-    span.details
-      / Languages, seperated by a comma
-      span.language-list = @category.language_list
-
-      / Cummulative stars of all associated Github repos
-      span.stars
-        i.icon-star
-        = @category.stars
-
-      / Link to edit view, where description is editable
-      span.edit-link = link_to edit_category_path(@category) do
-        i.icon-edit
-        | Edit
-
-    / Up to 360 characters describing the purpose of this category
-    / or summing up the repos use cases among others
-    span.description == @category.description
+  / Category details header
+  = render 'categories/category_details'
 
   / List containing repos
   #js-repos-list

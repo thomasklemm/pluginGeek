@@ -1,0 +1,35 @@
+/ repos/_repo_details
+/ Repo details header
+.repo-details
+  / Name and Owner
+  span.name-and-owner = link_to @repo.github_url do
+    i.icon-github
+    span.name  = @repo.name
+    span.owner  by #{ @repo.owner }
+
+  span.details
+    / Stars on Github
+    span.stars
+      i.icon-star
+      = @repo.stars
+
+    / Github Star Button including Stars Count
+    iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="54" height="20"
+
+    / Link to edit view
+    - unless edit_action?
+      span.edit-link = link_to edit_repo_path(@repo) do
+        i.icon-edit
+        | Edit
+
+  / Description, primary custom one, with github description
+  / as regular fallback
+  span.description = @repo.description
+
+  / Visible link to homepage, if given, or Github repo
+  span.homepage-url = link_to @repo.homepage_url, @repo.homepage_url
+
+  / Activity
+  span.activity class=activity_color(@repo.timestamp)
+    i.icon-leaf
+    abbr.timeago title=@repo.timestamp.iso8601 = @repo.timestamp.to_s(:long)
