@@ -7,6 +7,10 @@ Knight::Application.routes.draw do
   match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
 
   ##
+  # Submissions
+  get 'submit' => 'submissions#submit', as: :submit
+
+  ##
   # Categories
   resources :categories, only: [:show, :edit, :update]
 
