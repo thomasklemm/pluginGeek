@@ -1,5 +1,8 @@
+/ application/_user_details
+/ Display details for the current user, only if one is logged in
+
 - unless public_caching?
-  - if current_user
+  - if current_user?
     span.current-user
       / happy day :-D
       /! Heavily inspired by and stolen from 37signals. Thank you for your amazing work!

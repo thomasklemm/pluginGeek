@@ -74,22 +74,24 @@ i
 // same page => list them in one line
 .row,
 #navigation,
-#flash-messages,
 #content,
 .footer,
 .search,
-.categories-wrapper, .repos-wrapper
+.categories-wrapper, .repos-wrapper,
+#flash-messages
   @include row
 
 .category-details,
 .repo-details, .readme-wrapper, .alternatives, .parents-and-children,
-.formtastic
+.formtastic,
+.header-wrapper
   @include span-columns(12)
 
 // header
 .header-wrapper
-  margin-top: 8px
-  padding-bottom: 1.5rem
+  padding-top: 3px
+  border-bottom: 1px dashed $border-primary
+  margin-bottom: 10px
 
 .branding
   @include span-columns(6)
@@ -131,7 +133,6 @@ i
 
 // marketing text
 .marketing-text
-  padding: 0.5rem 0 1.75rem
   text-rendering: optimizeLegibility
   text-align: center
 
@@ -154,8 +155,6 @@ i
 .search
   width: 100%
   padding: 10px 14px
-  margin: 0.5rem 0
-
   font-size: 1.272rem
   color: #444
 
@@ -170,7 +169,6 @@ i
 
 // sorting
 ul.sort-list
-  padding: 0.25rem 0
   font-size: 0.875rem
   color: $text-secondary
   text-align: right
@@ -466,8 +464,7 @@ ul.sort-list
 // flash messages
 .flash-message
   padding: 0.4rem 0 0.35rem 1rem
-  margin-top: -0.25rem
-  margin-bottom: 0.875rem
+  margin-bottom: 0.5rem
   border-radius: $radius
   background: lighten($primary, 50%)
   @include box-shadow(0 2px 3px rgba(0,0,0,0.22))
@@ -552,13 +549,13 @@ ul.sort-list
 @include sticky-footer(248px, "#root", "#root_footer", "#footer")
 
 $footer-spacing: 8px
-$footer-borders: 1px solid #999
+$footer-borders: 1px dashed #999
 
 .footer
   @include span-columns(12)
-  margin-top: 2.618rem
+  margin-top: 12px
   border-top: $footer-borders
-  padding-top: 0.875rem
+  padding-top: 12px
 
   font-size: 0.875rem
 
