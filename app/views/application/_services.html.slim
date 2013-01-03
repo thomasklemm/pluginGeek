@@ -1,12 +1,13 @@
 / services
 
-/ .services-wrapper
-/   .service
-/     = link_to 'Heroku <i class="icon-star" style="float: right"></i>'.html_safe, 'http://www.heroku.com', class: 'name'
-/     = link_to 'www.heroku.com', 'http://www.heroku.com', class: 'url'
-/     span.pitch Heroku is the leading open language cloud application platform and supports Ruby, Java, Python, Clojure, Scala, Node.js. and custom language buildpacks.
+- if params[:services]
+  .services-wrapper
+    .service
+      = link_to 'Heroku <i class="icon-star" style="float: right"></i>'.html_safe, 'http://www.heroku.com', class: 'name'
+      = link_to 'www.heroku.com', 'http://www.heroku.com', class: 'url'
+      span.pitch Heroku is the leading open language cloud application platform and supports Ruby, Java, Python, Clojure, Scala, Node.js. and custom language buildpacks.
 
-/   .service
-/     = link_to 'Heroku <i class="icon-star" style="float: right"></i>'.html_safe, 'http://www.heroku.com', class: 'name'
-/     = link_to 'www.heroku.com', 'http://www.heroku.com', class: 'url'
-/     span.pitch Heroku is the leading open language cloud application platform and supports Ruby, Java, Python, Clojure, Scala, Node.js. and custom language buildpacks.
+    .service
+      = link_to 'Engine Yard <i class="icon-star" style="float: right"></i>'.html_safe, 'http://www.heroku.com', class: 'name'
+      = link_to 'www.engineyard.com', 'http://www.engineyard.com', class: 'url'
+      span.pitch EngineYard is the leading open language cloud application platform and supports Ruby, Java, Python, Clojure, Scala, Node.js. and custom language buildpacks.
