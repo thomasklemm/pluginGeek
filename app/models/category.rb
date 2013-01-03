@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20121225145414
+# Schema version: 20130103095124
 #
 # Table name: categories
 #
@@ -12,6 +12,7 @@
 #  updated_at       :datetime         not null
 #  full_name        :string(255)      not null
 #  stars            :integer          default(0)
+#  keywords         :string(255)
 #
 # Indexes
 #
@@ -193,5 +194,5 @@ class Category < ActiveRecord::Base
   # end
 
   # Mass Assignment Whitelist
-  attr_accessible :full_name, :description, :label
+  attr_accessible :full_name, :description, :keywords
 end

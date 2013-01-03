@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231103737) do
+ActiveRecord::Schema.define(:version => 20130103095124) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20121231103737) do
     t.datetime "updated_at",                      :null => false
     t.string   "full_name",                       :null => false
     t.integer  "stars",            :default => 0
+    t.text     "keywords"
   end
 
   add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
