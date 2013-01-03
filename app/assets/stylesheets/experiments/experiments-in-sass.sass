@@ -1,143 +1,136 @@
 // Experiments in SASS
-$dark-yellow: #F0D800
-$dark-bluegreen: #1693A5
-$christmas-blue: #2A8FBD
-$millenial-blue: #025D8C
-$millenial-blue-2: #136e9d
+//
+// Our very own variables
+$body-fonts: 'proxima-nova', Arial, 'Helvetica Neue', Helvetica, sans-serif
+$text: #393939            // primary text
+$text-secondary: #7f7f7f  // muted, secondary text
+$radius: 3px              // border radii
 
-// owl geek logo
+// Colors from the Owl Geek
 $blue: #126E9D
 $green: #93CF29
 
-$border-color: $blue
-$color: $border-color
-$vertical-border-color: #ccc
-$middle: #777
+// Color assignments
+$primary: $blue
+$secondary: $green
 
-$box-border-color: lighten($color, 50%)
-$services-bg: lighten($green, 32%)
+$border-primary: $primary
+$border-secondary: $secondary
+$border-tertiary: #ccc
 
-// color for a repo's activities
-$very-high-activity: #090
-$high-activity: #777
-$medium-activity: #777
-$low-activity: #777
-$very-low-activity: #777
+$services-background: lighten($secondary, 32%)
 
-$body-font-family: 'proxima-nova', Arial, 'Helvetica Neue', Helvetica, sans-serif
-
-// border radius
-$br: 3px
+// Colors hightlighting a project's last updated at activity
+$very-high-activity: darken($green, 8%)
+$high-activity: $text-secondary
+$medium-activity: $text-secondary
+$low-activity: $text-secondary
+$very-low-activity: $text-secondary
 
 // general
 body
+  font-family: $body-fonts
   font-size: 100%
-  font-family: $body-font-family
-  color: #393939
   line-height: 1.618
+  color: $text
 
   background: image-url('backgrounds/compressed/debut_light.png') // 5
 
-  // background: image-url('backgrounds/compressed/clean_textile.png') // 1
-  // background: image-url('backgrounds/compressed/diagonal-noise.png') // 1, pretty dark
-  // background: image-url('backgrounds/compressed/grilled.png') // 0, fishbone
-  // background: image-url('backgrounds/compressed/light_wool.png') // 2, a little too light
+  // Additional backgrounds
+  // background: image-url('backgrounds/compressed/subtle_freckles.png') // 4
   // background: image-url('backgrounds/compressed/light_alu.png') // 3, darker
+  // background: image-url('backgrounds/compressed/light_wool.png') // 2, a little too light
   // background: image-url('backgrounds/compressed/snow.png') // 2, very light, almost no structure
   // background: image-url('backgrounds/compressed/subtle_dots.png') // 2, like millimeterpapier
-  // background: image-url('backgrounds/compressed/subtle_freckles.png') // 4
   // background: image-url('backgrounds/compressed/white_brick_wall.png') // 1, building blocks, a little to extreme
-
+  // background: image-url('backgrounds/compressed/clean_textile.png') // 1
+  // background: image-url('backgrounds/compressed/diagonal-noise.png') // 1, pretty dark
+  // background: image-url('backgrounds/compressed/grilled.png') // -1, fishbone
 
 // unordered lists
 ul
+  list-style: none
   padding: 0
   margin: 0
 
 // links
 a
   text-decoration: none
-  color: $color
+  color: $primary
+  cursor: pointer
   &:link, &:hover, &:active, &:visited
-    color: $color
+    color: $primary
 
 // Icon / Webfont Icons
 i
   margin-right: 4px
-.stars i
-  margin-right: 3px
 
-#root
+// Containers and Rows
+#root,
+#footer
   @include outer-container
 
-.row
+// Independent rows
+// same page => list them in one line
+.row,
+#navigation,
+#flash-messages,
+#content,
+.footer,
+.search,
+.categories-wrapper, .repos-wrapper
+  @include row
+
+.category-details,
+.repo-details, .readme-wrapper, .alternatives, .parents-and-children
   @include span-columns(12)
 
 // header
 .header-wrapper
   margin-top: 8px
-  // padding-bottom: 6px
-  // border-bottom: 3px solid $border-color
-  // margin-bottom: 1rem
   padding-bottom: 1rem
 
-// branding
-// .branding
-//   @include span-columns(5)
-//   font-size: 3.33rem
-//   font-weight: 600
-//   line-height: 1
-//   text-rendering: optimizeLegibility
-//   a
-//     color: inherit
 .branding
   @include span-columns(6)
-  margin-top: 6px
-
+  margin-top: 1px
   cursor: pointer
 
 // navigation
 .navigation
-  margin-top: 10px
-
+  margin-top: 7px
   &.web-navigation
     @include span-columns(4)
-    .top
-      width: 242px
   &.mobile-navigation
     @include span-columns(2)
-    .top
 
-  // top
-  .top
+  // primary languages (web, mobile)
+  .primary
     display: block
     font-weight: 800
     padding-bottom: 2px
-    border-bottom: 1px dashed $border-color
+    border-bottom: 1px dashed $border-primary
 
-  // bottom
-  .bottom
+  // secondary languages (javascript, ruby, webdesign, ios, android)
+  ul.secondary
     margin-top: 2px
-    list-style: none
     li
       display: inline
-      margin: 0 8px 0 0
-      padding: 0 8px 0 0
-      border-right: 1px dashed #999
+      margin: 0 10px 0 0
+      padding: 0 10px 0 0
+      border-right: 1px dashed $text-secondary
       &:last-child
         border-right: none
 
-  .top, .bottom li
+  // borders applying to both
+  .primary, .secondary li
     &.active a
-      border-bottom: 2px solid $border-color
+      border-bottom: 2px solid $border-primary
     a:hover
-      border-bottom: 2px solid $border-color
-
+      border-bottom: 2px solid $border-primary
 
 // marketing text
 .marketing-text
   padding: 0.5rem 0 1.75rem
-
   text-rendering: optimizeLegibility
   text-align: center
 
@@ -152,13 +145,12 @@ i
     display: inline
     font-size: 1.618rem
     font-weight: 600
-    border-bottom: 1px solid $border-color
+    border-bottom: 1px solid $border-primary
     &:hover
-      border-bottom: 2px solid $border-color
+      border-bottom: 2px solid $border-primary
 
-// search
+// search field spanning entire page
 .search
-  @extend .row
   width: 100%
   padding: 10px 14px
   margin: 0.5rem 0
@@ -166,24 +158,19 @@ i
   font-size: 1.272rem
   color: #444
 
-  // background: #fafafa
   border: 3px solid #ccc
   @include box-shadow(inset 0 2px 3px rgba(0,0,0,.05))
-  border-radius: 4px
+  border-radius: $radius
 
   &:focus
     outline: none
     background: #fff
-    border-color: $border-color
+    border-color: $border-primary
 
-// sort
+// sorting
 ul.sort-list
-  @extend .row
-  // padding: 4px 0 6px // a little more on the bottom for underlining
-
-  list-style: none
   font-size: 0.875rem
-  color: #777
+  color: $text-secondary
   text-align: right
 
   li
@@ -195,9 +182,9 @@ ul.sort-list
     &:last-of-type
       margin-right: 0
     &.active
-      border-bottom: 1px solid $border-color
+      border-bottom: 1px solid $border-primary
     &:hover
-      border-bottom: 2px solid $border-color
+      border-bottom: 2px solid $border-primary
 
   // divider in sort-list
   .divider:before
@@ -205,39 +192,32 @@ ul.sort-list
 
 // box
 .box
-  @include span-columns(6)
   padding: 0.725rem 0.875rem
-  margin-top: 4px
-  margin-bottom: 4px
-  @include nth-omega(2n)
-
-  border: 1px solid #d9d9d9
-  border-radius: $br
 
   font-size: 0.875rem
-  line-height: 20px
-  color: #222
+  line-height: 20px // all lines same height, regardless of font-size
+  color: $text
 
-  // @include box-shadow(0 1px 2px #aaa)
-  @include box-shadow(inset 0 -1px 3px #ccc)
-  &:hover
-  // @include box-shadow(0 1px 3px #777)
+  border-radius: $radius
 
-  // box header
-  .header
-    display: block
-    padding: 0
-    margin: 0 0 0.5rem 0
+  background-color: rgba(255,255,255,0.75) // lighten background
+  //                                       // (sync with primary and secondary text colors)
 
-    font-size: 1.272rem
-    font-weight: 600
+  @include box-shadow(0 1px 3px rgba(0,0,0,0.25))
 
-    border-bottom: 1px solid $border-color
+// box spanning six columns
+.half-box
+  @extend .box
 
-// full-box
+  @include span-columns(6)
+  @include nth-omega(2n)
+
+  margin-bottom: 10px // spacing between rows of half boxes
+
+// box spanning twelve columns
 .full-box
   @extend .box
-  @include span-columns(12) // spans full size
+  @include row
 
 // show all link
 .show-all
@@ -250,7 +230,7 @@ ul.sort-list
   font-weight: 600
 
   text-align: center
-  color: $color
+  color: $primary
   cursor: pointer
 
 // truncation via trunk8
@@ -260,7 +240,7 @@ ul.sort-list
 
 // categories in overview
 .categories-wrapper .category
-  @extend .box
+  @extend .half-box
   min-height: 139px
 
   .full-name
@@ -269,40 +249,36 @@ ul.sort-list
     font-size: 1rem
     line-height: 20px // like language-list and stars
     font-weight: 600
-  .language-list
-    float: right
-    color: #777
+  .language-list,
   .stars
     float: right
-    color: #777
+    color: $text-secondary
+    line-height: 20px
     margin-left: 6px
   .popular-repos
-    color: #777
+    display: block
+    color: $text-secondary
   .description
     display: block
 
-.categories-wrapper,
-.repos-wrapper
-  @extend .row
-  padding: 0.5rem 0
-
 // repos in overview
 .repos-wrapper .repo
-  @extend .box
+  @extend .half-box
   min-height: 119px
 
   .full-name
     display: block
   .name
     font-size: 1rem
-    line-height: 20px // like language-list and stars
+    line-height: 20px // like stars
     font-weight: 600
   .owner
-    color: #777
+    color: $text-secondary
   .stars
     float: right
     margin-left: 6px
-    color: #777
+    line-height: 20px
+    color: $text-secondary
   .description
     display: block
     min-height: 44px
@@ -311,13 +287,12 @@ ul.sort-list
   .activity
     &:before
       content: 'Updated \2192 \a0'
-      color: #777
+      color: $text-secondary
 
-// activity colors
+// colors hightlighting a project's most recent timestamp on Github
 .activity
   abbr
     border-bottom: none
-  // colors
   &.very-high
     color: $very-high-activity
   &.high
@@ -331,40 +306,36 @@ ul.sort-list
 
 // category details
 .category-details
-  @include span-columns(12)
   font-size: 0.9375rem
   .name
     font-size: 1.618rem
     font-weight: 600
   .details
-    > *
-      margin-left: 1rem
     .language-list,
     .stars
-      color: $middle
+      margin-left: 1rem
+      color: $text-secondary
     .edit-link
+      margin-left: 1rem
   .description
     display: block
-    // some additional padding or stuff
 
 // edit category
 .edit-category
-  @extend .category-details
+  @extend .category-details // display similar header
 
-// description of each associated repo in edit category; guides for writing summary
+// Guides for drafting a category's descriptions
+// (displayed when editing category)
 .descriptions-of-repos
-
   table
-    border: 1px solid #ccc
-
+    border: 1px solid $border-tertiary
     th, td
-      text-align: left
-      border-right: 1px solid #ccc
       padding: 0.2em 0.4rem
-
+      border-right: 1px solid $border-tertiary
+      text-align: left
     tr:nth-child(odd)
       background: #e9e9e9
-
+  // Table cells
   .repo
     .name
       font-weight: 600
@@ -376,7 +347,6 @@ ul.sort-list
 
 // repo details
 .repo-details
-  @include span-columns(12)
   font-size: 0.9375rem
   .name-and-owner
     font-size: 1.618rem
@@ -386,18 +356,16 @@ ul.sort-list
     .name
     .owner
       font-weight: 300
-
   .details
     > *
       margin-left: 1rem // settled after careful experimentation :-D
     .stars
-      color: $middle
+      color: $text-secondary
     .star-on-github-link
       position: relative
       top: 4px
       padding-left: 1px // right one added by iframe width
     .edit-link
-
   .description
     display: block
   .homepage-url
@@ -406,12 +374,12 @@ ul.sort-list
 
 // headers at repo-details
 .header
-  @extend .row
+  @include row
   margin-top: 1.618rem
   margin-bottom: 4px
 
   font-size: 0.875rem
-  color: $middle
+  color: $text-secondary
 
   .primary
     font-size: 1.272rem
@@ -422,13 +390,6 @@ ul.sort-list
   .sort-list
     display: inline
     float: right
-
-// rows at repo-details
-// maybe convert to .row or .full, .half
-.readme,
-.alternatives,
-.parents-and-children
-  @extend .row
 
 // readme at repo-details
 .readme-wrapper
@@ -462,7 +423,7 @@ ul.sort-list
   @include shift(6)
 
   .happy-day
-    color: $middle
+    color: $text-secondary
 
   // wrapper for user details
   .avatar-and-name
@@ -509,8 +470,8 @@ ul.sort-list
   padding: 0.4rem 0 0.35rem 1rem
   margin-top: -0.25rem
   margin-bottom: 0.875rem
-  border-radius: $br
-  background: lighten($color, 50%)
+  border-radius: $radius
+  background: lighten($primary, 50%)
   @include box-shadow(0 2px 3px rgba(0,0,0,0.22))
 
   cursor: pointer // close on click
@@ -532,7 +493,7 @@ ul.sort-list
   label
     font-weight: 600
   input, textarea
-    font-family: $body-font-family
+    font-family: $body-fonts
     width: 75% !important
     padding: 3px 6px
     border-radius: 2px
@@ -541,18 +502,18 @@ ul.sort-list
       background: #eee
     &:focus
       outline: none
-      border-color: $color
+      border-color: $border-primary
   .inline-hints
-    background: lighten($color, 50%)
+    background: lighten($primary, 50%)
     padding: 4px 10px
     font-size: 0.875rem
     color: #555 !important
-    border-radius: $br
+    border-radius: $radius
 
 // services
 .services-wrapper .service
-  @extend .box
-  background: $services-bg
+  @extend .half-box
+  background: $services-background
   color: #151515
 
   .name
@@ -580,14 +541,50 @@ ul.sort-list
 // buttons
 .button
   padding: 0.5rem 1rem !important
-  background: $color
+  background: $primary
   color: #f9f9f9 !important
   cursor: pointer
   font-weight: 400 !important
 
-  border: 1px solid lighten($color, 10%) !important
-  border-radius: $br !important
+  border: 1px solid lighten($border-primary, 10%) !important
+  border-radius: $radius !important
   @include box-shadow(0 1px 4px rgba(0,0,0,.25))
 
   &:hover
-    background: lighten($color, 5%)
+    background: lighten($primary, 5%)
+
+// secondary footer
+@import "compass/layout/sticky-footer"
+@include sticky-footer(248px, "#root", "#root_footer", "#footer")
+
+$footer-spacing: 8px
+$footer-borders: 1px solid #999
+
+.footer
+  @include span-columns(12)
+  margin-top: 2.618rem
+  border-top: $footer-borders
+  padding-top: 0.875rem
+
+  font-size: 0.875rem
+
+  // links in footer
+  ul.links
+    float: left
+    li
+      display: inline
+      padding-right: $footer-spacing
+      margin-right: $footer-spacing
+      border-right: $footer-borders
+      &:last-of-type
+        border-right: none
+
+  // greeting and maker's name in footer
+  .greeting
+    float: right
+    span
+      padding-left: $footer-spacing
+      margin-left: $footer-spacing
+      border-left: $footer-borders
+      &:first-of-type
+        border-left: none

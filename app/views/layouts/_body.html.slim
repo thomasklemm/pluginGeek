@@ -1,15 +1,15 @@
 / layouts/_body
 #root
-  .row#navigation
+  #navigation
     = render 'navigation'
 
   / .row#user-login
   /  = render 'user_login'
 
-  .row#flash-messages
+  #flash-messages
     = render 'flash_messages'
 
-  .row#content
+  #content
     = yield
 
   / sticky footer that stays at the bottom of the page
