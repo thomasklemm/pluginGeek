@@ -1,21 +1,23 @@
 / layouts/_body
-#root
-  #user-details
-    = render 'user_details'
+#root.row
+  / details for the user if logged in
+  = render 'user_details'
 
-  #navigation
-    = render 'navigation'
+  / navigigation bar including branding
+  = render 'navigation'
 
-  #flash-messages
-    = render 'flash_messages'
+  / any flash messages
+  = render 'flash_messages'
 
-  #content
-    = yield
+  / main content
+  #content.row
+    .twelve.columns
+      = yield
 
   / sticky footer that stays at the bottom of the page
   #root_footer
 
-#footer
+#footer.row
   = render 'footer'
 
 / async javascript snippets at the end of the body

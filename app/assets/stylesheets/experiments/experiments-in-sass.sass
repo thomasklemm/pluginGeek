@@ -65,55 +65,20 @@ a
 i
   margin-right: 4px
 
-// Headlines
-h1, h2, h3, h4, h5, h6
-  margin: 0.5rem 0
-
-p
-  margin: 0.5rem 0
-
-// Containers and Rows
-#root,
-#footer
-  @include outer-container
-
-// Independent rows
-// same page => list them in one line
-.row,
-#navigation,
-#content,
-.footer,
-.search,
-.categories-wrapper, .repos-wrapper,
-#flash-messages
-  @include row
-
-.category-details,
-.repo-details, .readme-wrapper, .alternatives, .parents-and-children,
-.formtastic,
-.header-wrapper,
-.marketing-text
-  @include span-columns(12)
-
 // header
 .header-wrapper
-  padding-top: 3px
+  margin-top: 3px
   border-bottom: 1px dashed $border-primary
+  padding-bottom: 3px
   margin-bottom: 10px
 
 .branding
-  @include span-columns(6)
   margin-top: 2px
   cursor: pointer
 
 // navigation
 .navigation
   margin-top: 8px
-  &.web-navigation
-    @include span-columns(4)
-  &.mobile-navigation
-    @include span-columns(2)
-
   // primary languages (web, mobile)
   .primary
     display: block
@@ -182,6 +147,7 @@ ul.sort-list
   font-size: 0.875rem
   color: $text-secondary
   text-align: right
+  margin: 0.2rem 0 0.4rem
 
   li
     @extend a
@@ -219,29 +185,18 @@ ul.sort-list
 .half-box
   @extend .box
 
-  @include span-columns(6)
+  // @include span-columns(6)
+  display: block
+  float: left
+  margin-right: 0.79999%
+  width: 49.60000%
+  margin-bottom: 6px
   @include nth-omega(2n)
 
-  margin-bottom: 10px // spacing between rows of half boxes
-
-// box spanning twelve columns
-.full-box
-  @extend .box
-  @include row
-
-// show all link
+// display all matches link / button
 .show-all
-  @extend .full-box
-  margin-top: -4px // reset - 4px
-  margin-bottom: 4px
-
-  line-height: 54px // vertical centering
-  font-size: 1rem
-  font-weight: 600
-
-  text-align: center
-  color: $primary
-  cursor: pointer
+  display: inline-block
+  @extend .button
 
 // truncation via trunk8
 .js-read-more,
@@ -396,7 +351,6 @@ ul.sort-list
 
 // headers at repo-details
 .section-header
-  @include row
   margin-top: 1.618rem
   margin-bottom: 4px
 
@@ -415,7 +369,7 @@ ul.sort-list
 
 // readme at repo-details
 .readme-wrapper
-  @extend .full-box
+  @extend .box
   margin-top: 1rem
 
 .readme
@@ -434,15 +388,11 @@ ul.sort-list
 
 // current-user details for the logged in user, only displays then
 .current-user
-  @extend .row
   margin-top: 4px
   margin-bottom: -10px
 
   font-size: 0.875rem
   line-height: 32px // for avatar layouting
-
-  @include span-columns(6)
-  @include shift(6)
 
   .happy-day
     color: $text-secondary
@@ -450,7 +400,7 @@ ul.sort-list
   // wrapper for user details
   .avatar-and-name
     .name
-      margin-left: 6px
+      margin: 0 6px
 
     // gravatar, displayed with rounded corners
     // source: www.bram.us/sandbox/roundedcorners/
@@ -466,18 +416,6 @@ ul.sort-list
 
   .logout
     float: right
-
-
-// login page prompting user to sign in via github
-.login-details
-  @include span-columns(6)
-
-  .github-login-link
-    font-size: 1.272rem
-    font-weight: 600
-    text-decoration: underline
-    i
-      margin-right: 7px
 
 // headline in all views
 .headline
@@ -521,9 +459,6 @@ ul.sort-list
   .pitch
     display: block
 
-.services-wrapper
-  @extend .row
-
 // add new repo
 .add-repo-wrapper
   .name-and-owner
@@ -534,18 +469,22 @@ ul.sort-list
 
 // buttons
 .button
-  padding: 0.5rem 1rem !important
+  padding: 0.4rem 1rem !important // imp to override button
   background: $primary
-  color: #f9f9f9 !important
+  color: #f9f9f9 !important // overrides link color
   cursor: pointer
-  font-weight: 400 !important
+  font-weight: 400
 
-  border: 1px solid lighten($border-primary, 10%) !important
-  border-radius: $radius !important
-  @include box-shadow(0 1px 4px rgba(0,0,0,.25))
+  border: none !important // override 'button' element border
+  border-radius: $radius
+  @include box-shadow(0 1px 2px rgba(0,0,0,.2))
 
   &:hover
     background: lighten($primary, 5%)
+
+  &.large
+    padding: 0.6rem 1.2rem !important // imp to override button
+    font-size: 1.272rem
 
 // secondary footer
 @import "compass/layout/sticky-footer"
@@ -555,7 +494,6 @@ $footer-spacing: 8px
 $footer-borders: 1px dashed #999
 
 .footer
-  @include span-columns(12)
   margin-top: 24px
   border-top: $footer-borders
   padding-top: 12px
@@ -582,10 +520,6 @@ $footer-borders: 1px dashed #999
       border-left: $footer-borders
       &:first-of-type
         border-left: none
-
-// new link
-.new-link-wrapper
-  @include span-columns(8)
 
 // decorative text left line
 .left-line

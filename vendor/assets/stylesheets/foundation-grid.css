@@ -1,7 +1,7 @@
 /*
 * The Grid from Zurb's Foundation Framework
 */
-.row { width: 940px; max-width: 100%; min-width: 768px; margin: 0 auto; }
+.row { width: 812px; margin: 0 auto; }
 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
 .row.collapse .column, .row.collapse .columns { padding: 0; }
 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }

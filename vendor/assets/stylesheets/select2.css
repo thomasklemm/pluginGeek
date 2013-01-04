@@ -4,7 +4,7 @@ Version: @@ver@@ Timestamp: @@timestamp@@
 .select2-container {
     position: relative;
     display: inline-block;
-    width: 75%
+    width: 100%
 }
 
 .select2-container,

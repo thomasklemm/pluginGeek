@@ -3,8 +3,11 @@
 / flash messages
 - unless public_caching?
   - if flash
-    - flash.each do |type, message|
-      div class="flash-message #{type}"
-        span = message
-        / close message
-        = link_to '&times'.html_safe, 'javascript:;', class: 'close'
+    #flash-messages.row
+      .twelve.columns
+
+        - flash.each do |type, message|
+          div class="flash-message #{type}"
+            span = message
+            / close message
+            = link_to '&times'.html_safe, 'javascript:;', class: 'close'
