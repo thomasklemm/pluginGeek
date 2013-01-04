@@ -1,23 +1,24 @@
 / repos/show
 - cache [@repo, 'details'] do
   / Repo details header
-  = render 'repos/repo_details'
+  .twelve.columns = render 'repos/repo_details'
 
   / Readme from Github, requested live in the browser
-  .readme-wrapper
-    .readme.readme-max-height
-      .readme-js data-owner=@repo.owner data-repo=@repo.name
-    span.toggle-readme.open-readme.button Unfold Readme
+  .twelve.columns
+    .readme-wrapper.twelve.columns
+      .readme.readme-max-height
+        .readme-js data-owner=@repo.owner data-repo=@repo.name
+      .toggle-readme.open-readme.button Unfold Readme
 
   / Associated categories
-  .categories-wrapper
+  .categories-wrapper.twelve.columns
     .section-header
       span.primary Categories
       span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
     = render partial: 'categories/category', collection: @repo.categories
 
   / highest ranking repos in associated categories, ordered by knight_score
-  #js-repos-list.alternatives
+  #js-repos-list.alternatives.twelve.columns
     .section-header
       span.primary Alternatives
       / span.small  via Categories
@@ -36,7 +37,7 @@
     .show-all.js-show-all Display all alternatives
 
   / parent/child structures between repos
-  .parents-and-children
+  .parents-and-children.twelve.columns
     .section-header
       span.primary Parents and Children
       span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)

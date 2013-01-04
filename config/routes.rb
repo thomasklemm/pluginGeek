@@ -11,6 +11,10 @@ Knight::Application.routes.draw do
   get 'submit' => 'submissions#submit', as: :submit
 
   ##
+  # Links
+  resources :links, only: [:index, :new, :create, :edit, :update] # TODO: index can be removed
+
+  ##
   # Categories
   resources :categories, only: [:show, :edit, :update]
 

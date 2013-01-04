@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Url:
+  = @link.url
+p
+  strong Title:
+  = @link.title
+p
+  strong Author:
+  = @link.author
+p
+  strong Author url:
+  = @link.author_url
+p
+  strong Published at:
+  = @link.published_at
+
+= link_to 'Edit', edit_link_path(@link)
+'|
+= link_to 'Back', links_path

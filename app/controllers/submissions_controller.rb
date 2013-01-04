@@ -2,6 +2,7 @@ class SubmissionsController < ApplicationController
   GITHUB_BASE = 'https://github.com/'
 
   # Handle submission of links and repos
+  # GET /submit?url=...&title=...
   def submit
     # return redirect to root unless url present
     @url = params[:url].try(:strip)
@@ -10,7 +11,11 @@ class SubmissionsController < ApplicationController
     # return redirect to repo if url starts with Github base url
     @url.scan(GITHUB_BASE).present? and return redirect_to_repo
 
-    raise @url.inspect
+    # TODO: see if thomasklemm.github.com/knight is the submitted link,
+    # give user option to add or see repo then or add the link (maybe in flash message)
+
+    # redirect to links controller otherwise
+    redirect_to new_link_url(params: params.slice(:url, :title))
   end
 
 protected

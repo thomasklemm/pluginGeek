@@ -1,7 +1,6 @@
 / application/login
 - login_link = capture do
-  .github-login-link = link_to auth_at_provider_path(provider: :github) do
-    i.icon-github
+  .github-login-link = link_to auth_at_provider_path(provider: :github), class: 'large button' do
     | Login with Github
 
 .login-details
