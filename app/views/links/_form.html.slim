@@ -1,0 +1,14 @@
+= semantic_form_for @link do |f|
+  = f.inputs do
+    = f.input :title, label: "Link's Title", hint: "The link's title. Make it short and concise."
+    = f.input :url, label: "Link's Url"
+    = f.input :author, label: "Author's Name", input_html: {autofocus: true}, hint: 'Who is the author?'
+    = f.input :author_url, label: "Author's Url", hint: 'Can we link back to the author (e.g. his blog or twitter)?'
+    = f.input :published_at, as: :string, label: "Publication Date", hint: "Can you estimate when the linked resource was published?<br />Defaults to 'today', please change if it was published some time ago.".html_safe
+
+  = f.actions do
+    = f.action :submit
+
+/ date input with pickadate.js
+javascript:
+  $('#link_published_at').pickadate();

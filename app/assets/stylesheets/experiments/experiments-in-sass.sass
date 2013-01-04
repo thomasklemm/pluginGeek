@@ -65,6 +65,13 @@ a
 i
   margin-right: 4px
 
+// Headlines
+h1, h2, h3, h4, h5, h6
+  margin: 0.5rem 0
+
+p
+  margin: 0.5rem 0
+
 // Containers and Rows
 #root,
 #footer
@@ -240,6 +247,22 @@ ul.sort-list
 .js-read-more,
 .js-read-less
   cursor: pointer
+
+// pickadate
+.pickadate__button--clear::before
+  content: 'x'
+
+// formtastic changes
+.formtastic
+  input, textarea
+    font-family: $body-fonts
+
+  .inline-hints
+    font-size: 0.875rem
+    color: #555
+
+    &:before
+      content: '\2192 \a0'
 
 // categories in overview
 .categories-wrapper .category
@@ -481,29 +504,6 @@ ul.sort-list
     color: #999
     text-decoration: underline
 
-// formtastic changes
-.formtastic
-  padding: 0.75rem 0
-  label
-    font-weight: 600
-  input, textarea
-    font-family: $body-fonts
-    width: 75% !important
-    padding: 3px 6px
-    border-radius: 2px
-    border: 2px solid #ccc
-    &[disabled]
-      background: #eee
-    &:focus
-      outline: none
-      border-color: $border-primary
-  .inline-hints
-    background: lighten($primary, 50%)
-    padding: 4px 10px
-    font-size: 0.875rem
-    color: #555 !important
-    border-radius: $radius
-
 // services
 .services-wrapper .service
   @extend .half-box
@@ -556,7 +556,7 @@ $footer-borders: 1px dashed #999
 
 .footer
   @include span-columns(12)
-  margin-top: 12px
+  margin-top: 24px
   border-top: $footer-borders
   padding-top: 12px
 
@@ -582,3 +582,14 @@ $footer-borders: 1px dashed #999
       border-left: $footer-borders
       &:first-of-type
         border-left: none
+
+// new link
+.new-link-wrapper
+  @include span-columns(8)
+
+// decorative text left line
+.left-line
+  margin-left: -1rem
+  padding-left: 1rem
+  border-left: 2px solid $primary
+  line-height: 1.45

@@ -6,6 +6,7 @@
 //= require jquery.timeago
 //= require jquery.trunk8
 //= require jquery.autosize
+//= require pickadate
 //= require readme
 //= require select2
 
