@@ -24,15 +24,15 @@ class Link < ActiveRecord::Base
     through: :link_relationships,
     source: :linkable,
     source_type: 'Repo',
-    uniq: true,
-    order: 'repos.knight_score DESC'
+    uniq: true
+    # order: 'repos.knight_score DESC'
 
   has_many :categories,
     through: :link_relationships,
     source: :linkable,
     source_type: 'Category',
-    uniq: true,
-    order: 'categories.knight_score DESC'
+    uniq: true
+    # order: 'categories.knight_score DESC'
 
-  attr_accessible :author, :author_url, :published_at, :title, :url
+  attr_accessible :author, :author_url, :published_at, :title, :url, :repo_ids, :category_ids
 end

@@ -22,6 +22,7 @@
 
       / Parents as multiple select
       / to enter parent/child relationship
+      / TODO: Optimize fetch call
       = f.input :parents, label: 'Parents', collection: Repo.all_without(@repo), hint: 'Does this project depend on another one or is it standalone?'
 
     = f.actions do

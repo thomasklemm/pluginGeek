@@ -12,7 +12,7 @@ Knight::Application.routes.draw do
 
   ##
   # Links
-  resources :links, only: [:index, :new, :create, :edit, :update] # TODO: index can be removed
+  resources :links, only: [:new, :create, :edit, :update]
 
   ##
   # Categories
