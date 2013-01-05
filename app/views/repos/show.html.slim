@@ -46,3 +46,14 @@
       = render partial: 'repos/repo', collection: @repo.parents_and_children
     - unless @repo.parents_and_children.present?
       p Neither parents nor children yet.
+
+  / links
+  .links.twelve.columns
+    .section-header
+      span.primary Links
+      span = link_to 'Add one &raquo;'.html_safe, 'javascript:;'
+    - if @repo.links.present?
+      .links-wrapper = render partial: 'links/link', collection: @repo.links
+    - else
+      p None yet.
+

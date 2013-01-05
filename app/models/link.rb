@@ -34,5 +34,11 @@ class Link < ActiveRecord::Base
     uniq: true
     # order: 'categories.knight_score DESC'
 
+  # Convert '@mperham' to 'https://twitter.com/mperham'
+  def author_url
+    url = self[:author_url] || ''
+    url.start_with?('@') and url = "https://twitter.com/#{ url.gsub('@', '') }"
+  end
+
   attr_accessible :author, :author_url, :published_at, :title, :url, :repo_ids, :category_ids
 end

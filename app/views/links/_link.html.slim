@@ -1,0 +1,23 @@
+/ links/_link
+.link
+  / title and url
+  = link_to link.title, link.url, class: 'title'
+
+  / author if present?
+  span.author
+    - if link.author.present?
+      '  by
+      - if link.author_url.present?
+        = link_to link.author, link.author_url
+      - else
+        = link.author
+
+  span.right
+    / publication date
+    span.date = link.published_at.to_s(:long)
+
+    / edit link
+    span.edit-link = link_to edit_link_path(link) do
+      i.icon-edit
+
+/ TODO: dns prefetch of link's url
