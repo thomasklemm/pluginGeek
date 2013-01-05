@@ -9,12 +9,12 @@
       / Instant client-side searching via list.js
       input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
 
+      / Sort buttons for categories
+      = render 'categories/sort_categories'
+
       / Render Services in development
       - if Rails.env.development?
         = render 'application/services'
-
-      / Sort buttons for categories
-      = render 'categories/sort_categories'
 
     / List for list.js
     .categories-wrapper.list data-page=10
