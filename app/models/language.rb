@@ -34,18 +34,18 @@ class Language < ActiveRecord::Base
   has_many :language_classifications
 
   has_many :categories,
-           through: :language_classifications,
-           source: :classifier,
-           source_type: 'Category',
-           uniq: true,
-           order: 'categories.knight_score DESC'
+    through: :language_classifications,
+    source: :classifier,
+    source_type: 'Category',
+    uniq: true,
+    order: 'categories.knight_score DESC'
 
   has_many :repos,
-           through: :language_classifications,
-           source: :classifier,
-           source_type: 'Repo',
-           uniq: true,
-           order: 'repos.knight_score DESC'
+    through: :language_classifications,
+    source: :classifier,
+    source_type: 'Repo',
+    uniq: true,
+    order: 'repos.knight_score DESC'
 
   attr_accessible :name
 end

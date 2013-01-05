@@ -31,23 +31,32 @@ class Category < ActiveRecord::Base
   # Repos
   has_many  :categorizations
   has_many  :repos,
-            through: :categorizations,
-            uniq: true,
-            order: 'repos.knight_score DESC'
+    through: :categorizations,
+    uniq: true,
+    order: 'repos.knight_score DESC'
 
   # Ads
   has_many  :ad_categorizations
   has_many  :ads,
-            through: :ad_categorizations,
-            uniq: true
+    through: :ad_categorizations,
+    uniq: true
 
   ##
   # Languages
   has_many  :language_classifications,
-            as: :classifier
+    as: :classifier
   has_many  :languages,
-            through: :language_classifications,
-            uniq: true
+    through: :language_classifications,
+    uniq: true
+
+  ##
+  # Links
+  has_many :link_relationships,
+    as: :linkable
+  has_many :links,
+    through: :link_relationships,
+    uniq: true,
+    order: 'links.published_at DESC'
 
   ##
   # Scopes

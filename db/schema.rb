@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104093506) do
+ActiveRecord::Schema.define(:version => 20130105004808) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -108,6 +108,17 @@ ActiveRecord::Schema.define(:version => 20130104093506) do
   end
 
   add_index "languages", ["slug"], :name => "index_languages_on_slug", :unique => true
+
+  create_table "link_relationships", :force => true do |t|
+    t.integer  "link_id",       :null => false
+    t.integer  "linkable_id",   :null => false
+    t.string   "linkable_type", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "link_relationships", ["link_id"], :name => "index_link_relationships_on_link_id"
+  add_index "link_relationships", ["linkable_id", "linkable_type"], :name => "index_link_relationships_on_linkable"
 
   create_table "links", :force => true do |t|
     t.string   "url"

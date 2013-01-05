@@ -15,5 +15,24 @@
 
 class Link < ActiveRecord::Base
   validates :url, :title, presence: true
+
+  ##
+  # Repos and categories
+  has_many :link_relationships
+
+  has_many :repos,
+    through: :link_relationships,
+    source: :linkable,
+    source_type: 'Repo',
+    uniq: true,
+    order: 'repos.knight_score DESC'
+
+  has_many :categories,
+    through: :link_relationships,
+    source: :linkable,
+    source_type: 'Category',
+    uniq: true,
+    order: 'categories.knight_score DESC'
+
   attr_accessible :author, :author_url, :published_at, :title, :url
 end

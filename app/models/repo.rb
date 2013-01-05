@@ -35,14 +35,14 @@ class Repo < ActiveRecord::Base
   ##
   # Parents
   has_many  :parent_child_relationships,
-            class_name:   'RepoRelationship',
-            foreign_key:  :child_id,
-            dependent:    :destroy
+    class_name:   'RepoRelationship',
+    foreign_key:  :child_id,
+    dependent:    :destroy
 
   has_many  :parents,
-            through:      :parent_child_relationships,
-            source:       :parent,
-            uniq:         true
+    through:      :parent_child_relationships,
+    source:       :parent,
+    uniq:         true
 
   def has_parents?
     parents.size > 0
@@ -51,14 +51,14 @@ class Repo < ActiveRecord::Base
   ##
   # Children
   has_many  :child_parent_relationships,
-            class_name:   'RepoRelationship',
-            foreign_key:  :parent_id,
-            dependent:    :destroy
+    class_name:   'RepoRelationship',
+    foreign_key:  :parent_id,
+    dependent:    :destroy
 
   has_many  :children,
-            through:      :child_parent_relationships,
-            source:       :child,
-            uniq:         true
+    through:      :child_parent_relationships,
+    source:       :child,
+    uniq:         true
 
   # Review: Add counter cache?
   def has_children?
@@ -73,9 +73,9 @@ class Repo < ActiveRecord::Base
   # Categories
   has_many  :categorizations
   has_many  :categories,
-            through: :categorizations,
-            uniq: true,
-            order: 'categories.knight_score DESC'
+    through: :categorizations,
+    uniq: true,
+    order: 'categories.knight_score DESC'
 
   def has_categories?
     categories.size > 0
@@ -125,10 +125,19 @@ class Repo < ActiveRecord::Base
   ##
   # Languages
   has_many  :language_classifications,
-            as: :classifier
+    as: :classifier
   has_many  :languages,
-            through: :language_classifications,
-            uniq: true
+    through: :language_classifications,
+    uniq: true
+
+  ##
+  # Links
+  has_many :link_relationships,
+    as: :linkable
+  has_many :links,
+    through: :link_relationships,
+    uniq: true,
+    order: 'links.published_at DESC'
 
   ##
   # Scopes
