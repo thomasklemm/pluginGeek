@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20121217114014
 #
 # Table name: repo_relationships
 #
-#  id         :integer          not null, primary key
-#  parent_id  :integer
 #  child_id   :integer
 #  created_at :datetime         not null
+#  id         :integer          not null, primary key
+#  parent_id  :integer
 #  updated_at :datetime         not null
 #
 # Indexes

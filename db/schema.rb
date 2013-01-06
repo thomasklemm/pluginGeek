@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105004808) do
+ActiveRecord::Schema.define(:version => 20130106072356) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -141,12 +141,12 @@ ActiveRecord::Schema.define(:version => 20130105004808) do
   add_index "repo_relationships", ["parent_id"], :name => "index_repo_relationships_on_parent_id"
 
   create_table "repos", :force => true do |t|
-    t.string   "full_name",                             :null => false
-    t.string   "owner"
-    t.string   "name"
+    t.text     "full_name",                             :null => false
+    t.text     "owner"
+    t.text     "name"
     t.integer  "stars",              :default => 0
     t.text     "github_description"
-    t.string   "homepage_url"
+    t.text     "homepage_url"
     t.integer  "knight_score",       :default => 0
     t.datetime "github_updated_at"
     t.datetime "created_at",                            :null => false
