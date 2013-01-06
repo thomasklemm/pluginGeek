@@ -1,13 +1,12 @@
 # == Schema Information
-# Schema version: 20130105004808
 #
 # Table name: link_relationships
 #
+#  created_at    :datetime         not null
 #  id            :integer          not null, primary key
 #  link_id       :integer          not null
 #  linkable_id   :integer          not null
 #  linkable_type :string(255)      not null
-#  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
 # Indexes

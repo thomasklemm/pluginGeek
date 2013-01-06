@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20121217114014
 #
 # Table name: categorizations
 #
+#  category_id :integer
 #  id          :integer          not null, primary key
 #  repo_id     :integer
-#  category_id :integer
 #
 # Indexes
 #

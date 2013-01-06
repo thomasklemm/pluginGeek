@@ -30,5 +30,26 @@ if(Rails.env.development?)
     })
   end
 
-  Annotate.load_tasks
+  # Comes with the current master when running `rails g annotate:install`
+  # But somehow won't annotate my models correctly (only one)
+  # Thus commented out
+  # Annotate.load_tasks
+
+  # Annotate models
+  task :annotate do
+    puts 'Annotating models...'
+    system 'bundle exec annotate'
+  end
+
+  # Run annotate task after db:migrate
+  #  and db:rollback tasks
+  Rake::Task['db:migrate'].enhance do
+    Rake::Task['annotate'].invoke
+  end
+
+  Rake::Task['db:rollback'].enhance do
+    Rake::Task['annotate'].invoke
+  end
 end
+
+

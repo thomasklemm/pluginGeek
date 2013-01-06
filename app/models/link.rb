@@ -1,16 +1,15 @@
 # == Schema Information
-# Schema version: 20130104093506
 #
 # Table name: links
 #
-#  id           :integer          not null, primary key
-#  url          :string(255)
-#  title        :string(255)
 #  author       :string(255)
 #  author_url   :string(255)
-#  published_at :date
 #  created_at   :datetime         not null
+#  id           :integer          not null, primary key
+#  published_at :date
+#  title        :string(255)
 #  updated_at   :datetime         not null
+#  url          :string(255)
 #
 
 class Link < ActiveRecord::Base

@@ -1,13 +1,12 @@
 # == Schema Information
-# Schema version: 20121217114014
 #
 # Table name: languages
 #
+#  created_at :datetime         not null
 #  id         :integer          not null, primary key
 #  name       :string(255)
-#  slug       :string(255)
 #  parent_id  :integer
-#  created_at :datetime         not null
+#  slug       :string(255)
 #  updated_at :datetime         not null
 #
 # Indexes

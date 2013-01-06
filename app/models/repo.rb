@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20130106072356
 #
 # Table name: repos
 #

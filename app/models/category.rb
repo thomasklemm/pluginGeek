@@ -1,18 +1,17 @@
 # == Schema Information
-# Schema version: 20130103095124
 #
 # Table name: categories
 #
-#  id               :integer          not null, primary key
-#  slug             :string(255)      not null
-#  knight_score     :integer          default(0)
-#  description      :text
-#  long_description :text
 #  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  description      :text
 #  full_name        :string(255)      not null
-#  stars            :integer          default(0)
+#  id               :integer          not null, primary key
 #  keywords         :text
+#  knight_score     :integer          default(0)
+#  long_description :text
+#  slug             :string(255)      not null
+#  stars            :integer          default(0)
+#  updated_at       :datetime         not null
 #
 # Indexes
 #

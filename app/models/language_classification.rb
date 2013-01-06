@@ -1,13 +1,12 @@
 # == Schema Information
-# Schema version: 20121217150850
 #
 # Table name: language_classifications
 #
-#  id              :integer          not null, primary key
-#  language_id     :integer          not null
 #  classifier_id   :integer          not null
 #  classifier_type :string(255)      not null
 #  created_at      :datetime         not null
+#  id              :integer          not null, primary key
+#  language_id     :integer          not null
 #  updated_at      :datetime         not null
 #
 # Indexes
