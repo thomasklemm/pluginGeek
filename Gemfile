@@ -99,7 +99,7 @@ group :development do
   # gem 'sqlite3' # for rake production:pull_db, has outdated dependencies
 
   # Annotate Models (Schema Info for Models and Routes)
-  gem 'annotate', '>=2.5.0'
+  gem 'annotate', github: 'ctran/annotate_models'
 
   # Pry (IRB Replacement)
   gem 'pry-rails'
