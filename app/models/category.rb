@@ -58,6 +58,13 @@ class Category < ActiveRecord::Base
     uniq: true,
     order: 'links.published_at DESC'
 
+  # All links including the ones from the repos associated with this category
+  def deep_links
+    # nil.to_a => []
+    dls = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
+    dls.sort_by(&:published_at).reverse
+  end
+
   ##
   # Scopes
   scope :order_by_knight_score, order('categories.knight_score DESC')
