@@ -1,21 +1,21 @@
 # == Schema Information
-# Schema version: 20121231103737
+# Schema version: 20130106072356
 #
 # Table name: repos
 #
-#  id                 :integer          not null, primary key
-#  full_name          :string(255)      not null
-#  owner              :string(255)
-#  name               :string(255)
-#  stars              :integer          default(0)
-#  github_description :text
-#  homepage_url       :string(255)
-#  knight_score       :integer          default(0)
-#  github_updated_at  :datetime
 #  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  update_success     :boolean          default(FALSE)
 #  description        :text
+#  full_name          :text             not null
+#  github_description :text
+#  github_updated_at  :datetime
+#  homepage_url       :text
+#  id                 :integer          not null, primary key
+#  knight_score       :integer          default(0)
+#  name               :text
+#  owner              :text
+#  stars              :integer          default(0)
+#  update_success     :boolean          default(FALSE)
+#  updated_at         :datetime         not null
 #
 # Indexes
 #

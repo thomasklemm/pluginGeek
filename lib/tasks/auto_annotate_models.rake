@@ -14,8 +14,8 @@ if(Rails.env.development?)
     ENV['skip_on_db_migrate']   = "false"
     ENV['format_rdoc']          = "false"
     ENV['format_markdown']      = "false"
-    ENV['no_sort']              = "false"
     ENV['force']                = "false"
+    ENV['sort']                 = "true"  # sort by name instead of creation date
   end
 
   # Annotate models on running rake db:migrate
