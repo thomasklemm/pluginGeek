@@ -3,7 +3,7 @@
 # Table name: language_classifications
 #
 #  classifier_id   :integer          not null
-#  classifier_type :string(255)      not null
+#  classifier_type :text             not null
 #  created_at      :datetime         not null
 #  id              :integer          not null, primary key
 #  language_id     :integer          not null

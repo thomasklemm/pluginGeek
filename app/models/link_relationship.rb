@@ -6,7 +6,7 @@
 #  id            :integer          not null, primary key
 #  link_id       :integer          not null
 #  linkable_id   :integer          not null
-#  linkable_type :string(255)      not null
+#  linkable_type :text             not null
 #  updated_at    :datetime         not null
 #
 # Indexes

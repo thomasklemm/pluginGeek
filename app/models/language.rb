@@ -4,9 +4,9 @@
 #
 #  created_at :datetime         not null
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :text
 #  parent_id  :integer
-#  slug       :string(255)
+#  slug       :text
 #  updated_at :datetime         not null
 #
 # Indexes

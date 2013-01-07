@@ -2,10 +2,10 @@
 #
 # Table name: repo_relationships
 #
-#  child_id   :integer
+#  child_id   :integer          not null
 #  created_at :datetime         not null
 #  id         :integer          not null, primary key
-#  parent_id  :integer
+#  parent_id  :integer          not null
 #  updated_at :datetime         not null
 #
 # Indexes

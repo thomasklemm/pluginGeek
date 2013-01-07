@@ -2,9 +2,9 @@
 #
 # Table name: categorizations
 #
-#  category_id :integer
+#  category_id :integer          not null
 #  id          :integer          not null, primary key
-#  repo_id     :integer
+#  repo_id     :integer          not null
 #
 # Indexes
 #

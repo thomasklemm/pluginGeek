@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106072356) do
+ActiveRecord::Schema.define(:version => 20130107092340) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -45,13 +45,13 @@ ActiveRecord::Schema.define(:version => 20130106072356) do
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "categories", :force => true do |t|
-    t.string   "slug",                            :null => false
+    t.text     "slug",                            :null => false
     t.integer  "knight_score",     :default => 0
     t.text     "description"
     t.text     "long_description"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.string   "full_name",                       :null => false
+    t.text     "full_name",                       :null => false
     t.integer  "stars",            :default => 0
     t.text     "keywords"
   end
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(:version => 20130106072356) do
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "categorizations", :force => true do |t|
-    t.integer "repo_id"
-    t.integer "category_id"
+    t.integer "repo_id",     :null => false
+    t.integer "category_id", :null => false
   end
 
   add_index "categorizations", ["category_id"], :name => "index_categories_repos_on_category_id"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20130106072356) do
   create_table "language_classifications", :force => true do |t|
     t.integer  "language_id",     :null => false
     t.integer  "classifier_id",   :null => false
-    t.string   "classifier_type", :null => false
+    t.text     "classifier_type", :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(:version => 20130106072356) do
   add_index "language_hierarchies", ["descendant_id"], :name => "index_language_hierarchies_on_descendant_id"
 
   create_table "languages", :force => true do |t|
-    t.string   "name"
-    t.string   "slug"
+    t.text     "name"
+    t.text     "slug"
     t.integer  "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20130106072356) do
   create_table "link_relationships", :force => true do |t|
     t.integer  "link_id",       :null => false
     t.integer  "linkable_id",   :null => false
-    t.string   "linkable_type", :null => false
+    t.text     "linkable_type", :null => false
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -121,18 +121,18 @@ ActiveRecord::Schema.define(:version => 20130106072356) do
   add_index "link_relationships", ["linkable_id", "linkable_type"], :name => "index_link_relationships_on_linkable"
 
   create_table "links", :force => true do |t|
-    t.string   "url"
-    t.string   "title"
-    t.string   "author"
-    t.string   "author_url"
-    t.date     "published_at"
+    t.text     "url",          :null => false
+    t.text     "title",        :null => false
+    t.text     "author"
+    t.text     "author_url"
+    t.date     "published_at", :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
   create_table "repo_relationships", :force => true do |t|
-    t.integer  "parent_id"
-    t.integer  "child_id"
+    t.integer  "parent_id",  :null => false
+    t.integer  "child_id",   :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

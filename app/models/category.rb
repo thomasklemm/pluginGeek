@@ -4,12 +4,12 @@
 #
 #  created_at       :datetime         not null
 #  description      :text
-#  full_name        :string(255)      not null
+#  full_name        :text             not null
 #  id               :integer          not null, primary key
 #  keywords         :text
 #  knight_score     :integer          default(0)
 #  long_description :text
-#  slug             :string(255)      not null
+#  slug             :text             not null
 #  stars            :integer          default(0)
 #  updated_at       :datetime         not null
 #

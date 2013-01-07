@@ -2,14 +2,14 @@
 #
 # Table name: links
 #
-#  author       :string(255)
-#  author_url   :string(255)
+#  author       :text
+#  author_url   :text
 #  created_at   :datetime         not null
 #  id           :integer          not null, primary key
-#  published_at :date
-#  title        :string(255)
+#  published_at :date             not null
+#  title        :text             not null
 #  updated_at   :datetime         not null
-#  url          :string(255)
+#  url          :text             not null
 #
 
 class Link < ActiveRecord::Base
