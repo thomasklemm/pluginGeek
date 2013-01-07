@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107092340) do
+ActiveRecord::Schema.define(:version => 20130107104522) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20130107092340) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
-    t.string   "provider",   :null => false
-    t.string   "uid",        :null => false
+    t.text     "provider",   :null => false
+    t.text     "uid",        :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -159,20 +159,15 @@ ActiveRecord::Schema.define(:version => 20130107092340) do
   add_index "repos", ["knight_score"], :name => "index_repos_on_knight_score"
 
   create_table "users", :force => true do |t|
-    t.string   "login",                        :null => false
-    t.string   "email"
-    t.string   "name"
-    t.string   "avatar_url"
-    t.string   "github_url"
-    t.string   "location"
-    t.string   "company"
+    t.text     "login",      :null => false
+    t.text     "email"
+    t.text     "name"
+    t.text     "avatar_url"
+    t.text     "location"
+    t.text     "company"
     t.integer  "followers"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.string   "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
-
-  add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
 
 end

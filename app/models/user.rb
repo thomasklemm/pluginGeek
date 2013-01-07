@@ -2,52 +2,37 @@
 #
 # Table name: users
 #
-#  avatar_url                   :string(255)
-#  company                      :string(255)
-#  created_at                   :datetime         not null
-#  email                        :string(255)
-#  followers                    :integer
-#  github_url                   :string(255)
-#  id                           :integer          not null, primary key
-#  location                     :string(255)
-#  login                        :string(255)      not null
-#  name                         :string(255)
-#  remember_me_token            :string(255)
-#  remember_me_token_expires_at :datetime
-#  updated_at                   :datetime         not null
-#
-# Indexes
-#
-#  index_users_on_remember_me_token  (remember_me_token)
+#  avatar_url :text
+#  company    :text
+#  created_at :datetime         not null
+#  email      :text
+#  followers  :integer
+#  id         :integer          not null, primary key
+#  location   :text
+#  login      :text             not null
+#  name       :text
+#  updated_at :datetime         not null
 #
 
 class User < ActiveRecord::Base
-  ##
-  # Modules
-  #
-  # Authenticates with sorcery!
-  authenticates_with_sorcery! do |config|
-    config.authetications_class = Authentication
-  end
 
   ##
-  # Relations & Validations
-  #
-  # Authentications
-  has_many :authentications, dependent: :destroy
-  accepts_nested_attributes_for :authentications
-
-  # Validations
-  validates_uniqueness_of :username
-
-  # Defaults
+  # Defaults and virtual attributes
   def name
     self[:name] || login
   end
 
-  ##
-  # Mass-assignment protection
-  #
-  # REVIEW: does :username have to be whitelisted, try!
-  attr_accessible :username, :authentications_attributes
+  def github_url
+    "https://github.com/#{ login }"
+  end
+
+  # default grey github avatar
+  def avatar_url
+    self[:avatar_url] || 'https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png'
+  end
+
+  def email;      self[:email] || ''     ; end
+  def company;    self[:company] || ''   ; end
+  def location;   self[:location] || ''  ; end
+  def followers;  self[:followers] || 0  ; end
 end
