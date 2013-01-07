@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_filter :find_language, only: :index
 
   before_filter :find_category_and_repos, except: :index
-  before_filter :require_login, only: [:edit, :update]
+  before_filter :authenticate_user!, only: [:edit, :update]
 
   # GET '/:language'
   def index

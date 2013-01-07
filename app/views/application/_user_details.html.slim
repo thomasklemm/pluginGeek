@@ -2,7 +2,7 @@
 / Display details for the current user, only if one is logged in
 
 - unless public_caching?
-  - if current_user?
+  - if user_signed_in?
     #user_details.row
       .current-user.six.columns.offset-by-six
         / current user details
@@ -21,6 +21,6 @@
             document.write("Happy " + dayNames[now.getDay()] + ".")
 
         / logout
-        = link_to 'Logout', logout_path, class: 'logout'
+        = link_to 'Logout', destroy_user_session_path, class: 'logout'
 
 

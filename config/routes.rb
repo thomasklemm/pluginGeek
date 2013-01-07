@@ -1,10 +1,14 @@
 Knight::Application.routes.draw do
-  # Oauth
-  get 'login'   => 'sessions#login',   as: :login
-  get 'logout'  => 'sessions#destroy', as: :logout
+  ##
+  # User authentication
+  devise_for :users,
+    path_names: {sign_in: 'login', sign_out: 'logout'},
+    controllers: {omniauth_callbacks: 'omniauth'}
 
-  match 'oauth/callback'  => 'oauths#callback'
-  match 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
+  devise_scope :user do
+    get 'login',  to: 'devise/sessions#new',     as: :new_user_session
+    get 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
+  end
 
   ##
   # Submissions
@@ -52,7 +56,7 @@ Knight::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web, at: 'admin/sidekiq', as: :sidekiq
 
-  # Blitz.io Authentication
+  # Blitz.io load testing authentication
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
 
   # Remove unknown subdomains on root

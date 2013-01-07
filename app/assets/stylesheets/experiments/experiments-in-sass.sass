@@ -486,6 +486,10 @@ ul.sort-list
     padding: 0.6rem 1.2rem !important // imp to override button
     font-size: 1.272rem
 
+  // button while loading
+  &[disabled], &.disabled
+    background: #c5c5c5
+
 // secondary footer
 @import "compass/layout/sticky-footer"
 @include sticky-footer(248px, "#root", "#root_footer", "#footer")

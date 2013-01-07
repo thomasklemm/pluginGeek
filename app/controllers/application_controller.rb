@@ -21,12 +21,6 @@ class ApplicationController < ActionController::Base
     render text: '42'
   end
 
-  # for oauth
-  def not_authenticated
-    flash[:notice] = "Please login first (it's easy, just use your Github account)."
-    redirect_to login_url
-  end
-
   # Filters
   before_filter :set_language_or_default
   def set_language_or_default

@@ -27,17 +27,22 @@ gem 'friendly_id'
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
 
-# Sorcery (User Authentication)
-gem 'sorcery', '~> 0.7.12'
-
 # Redcarpet (Markdown Parser)
 gem 'redcarpet'
+
+# Devise (User Authentication)
+gem 'devise'
+
+# Omniauth for Github (oAuth Authentication)
+gem 'omniauth'
+gem 'omniauth-github', github: 'intridea/omniauth-github'
 
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
 gem 'sinatra', :require => false
 
 # Autoscaler (Scales Sidekiq on Heroku)
+# TODO: Remove, absolute premature optimization :-D
 # gem 'autoscaler'
 
 # Cache Digests (Watch Progress of this gem!)
@@ -50,6 +55,7 @@ gem 'formtastic'
 gem 'audited-activerecord', '~> 3.0'
 
 # Swiftype (Search Engine and Autocompletion)
+# TODO: Remove, no full-text searching right now, and breaks with certain records anyway
 gem 'swiftype'
 
 # Figaro (Managing credentials)
@@ -71,21 +77,17 @@ end
 # Gems used only for assets and not required
 #   in production environments by default.
 group :assets do
-  ##
   # Stylesheets
-  #
   # Sass
   gem 'sass', '>= 3.2.1'
   gem 'sass-rails'
-
   # Compass
   gem 'compass-rails'
-
   # Bourbon and Neat (SASS Mixins and Grid)
   gem 'bourbon'
+  # TODO: Remove neat, find some other grid
   gem 'neat'
 
-  ##
   # Javascripts
   gem 'coffee-rails'
   gem 'uglifier'
@@ -99,6 +101,7 @@ group :development do
   # gem 'sqlite3' # for rake production:pull_db, has outdated dependencies
 
   # Annotate Models (Schema Info for Models and Routes)
+  # master is currently 2.6.0.beta1; gem has not received updates in a while
   gem 'annotate', github: 'ctran/annotate_models'
 
   # Pry (IRB Replacement)
