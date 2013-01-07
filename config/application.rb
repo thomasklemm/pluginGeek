@@ -69,6 +69,7 @@ module Knight
     config.assets.version = '1.14'
 
     # Heroku setting
+    # required for Heroku and devise
     config.assets.initialize_on_precompile = false
     # Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
   end
