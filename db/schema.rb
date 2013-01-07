@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107104522) do
+ActiveRecord::Schema.define(:version => 20130107124915) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -159,15 +159,25 @@ ActiveRecord::Schema.define(:version => 20130107104522) do
   add_index "repos", ["knight_score"], :name => "index_repos_on_knight_score"
 
   create_table "users", :force => true do |t|
-    t.text     "login",      :null => false
+    t.text     "login",                              :null => false
     t.text     "email"
     t.text     "name"
     t.text     "avatar_url"
     t.text     "location"
     t.text     "company"
     t.integer  "followers"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.text     "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
+
+  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

@@ -22,9 +22,4 @@ module ApplicationHelper
   def edit_action?
     !!(params[:action] == 'edit')
   end
-
-  # Only display user details if current_user is present
-  def current_user?
-    current_user.present?
-  end
 end

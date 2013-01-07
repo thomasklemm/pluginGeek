@@ -33,6 +33,10 @@ gem 'redcarpet'
 # Devise (User Authentication)
 gem 'devise'
 
+# Omniauth for Github (oAuth Authentication)
+gem 'omniauth'
+gem 'omniauth-github', github: 'intridea/omniauth-github'
+
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
 gem 'sinatra', :require => false

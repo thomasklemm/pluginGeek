@@ -3,7 +3,7 @@ class ReposController < ApplicationController
   before_filter :find_language, only: :index
 
   before_filter :find_or_initialize_repo, only: [:show, :create, :edit, :update]
-  before_filter :require_login, only: [:edit, :update]
+  before_filter :authenticate_user!, only: [:edit, :update]
 
   # NOTE: not mapped in routing currently
   def index

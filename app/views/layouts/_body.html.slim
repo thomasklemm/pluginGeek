@@ -19,7 +19,11 @@
 
 #footer.row
   = render 'footer'
+  = link_to 'Login with Github', user_omniauth_authorize_path(:github)
+  = link_to 'test', user_omniauth_callback_path(:github)
 
 / async javascript snippets at the end of the body
 / to improve overall load times
 = render 'inline_javascripts/body'
+
+
