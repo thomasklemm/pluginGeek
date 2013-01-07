@@ -30,6 +30,9 @@ gem 'httpclient'
 # Redcarpet (Markdown Parser)
 gem 'redcarpet'
 
+# Devise (User Authentication)
+gem 'devise'
+
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
 gem 'sinatra', :require => false
