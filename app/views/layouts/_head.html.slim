@@ -3,18 +3,17 @@ meta charset='utf-8'
 
 / dns prefetch
 /   (via http://html5boilerplate.com/docs/DNS-Prefetching/)
-link rel="dns-prefetch" href="//ajax.googleapis.com"
-link rel="dns-prefetch" href="//www.google-analytics.com"
-link rel="dns-prefetch" href="//google-analytics.com"
-link rel="dns-prefetch" href="//github.com"
-link rel="dns-prefetch" href="https://github.com"
+= dns_prefetch('//ajax.googleapis.com')
+= dns_prefetch('//www.google-analytics.com')
+= dns_prefetch('//google-analytics.com')
+= dns_prefetch('//github.com')
 
 / set title
 /   override defaults by calling content_for :title, "My new title"
 - title = yield :title
-- title = "#{ @category.full_name } &middot; Knight" if @category && title.empty?
-- title = "#{ @repo.full_name } &middot; Readme and Alternatives &middot; Knight" if @repo && title.empty?
-- title = "Noteable Plugins for Web and Mobile Development &middot Knight" if title.empty?
+- title = "#{ @category.full_name } &middot; pluginGeek" if @category && title.empty?
+- title = "#{ @repo.full_name } &middot; Readme and Alternatives &middot; pluginGeek" if @repo && title.empty?
+- title = "Noteable Plugins for Web and Mobile Development &middot pluginGeek" if title.empty?
 
 / title and description
 title = title.html_safe
@@ -23,7 +22,7 @@ meta name='description' content='Notable Plugins for Web and Mobile Development.
 meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'
 meta name='viewport' content='width=device-width'
 meta name='robots' content='index, follow'
-meta name='keywords' content='find ruby gems, rubygems, ruby, gem, javascript, ios, cocoapods, wiki, find, search, alternative, alternatives, rails, jquery, node.js, web development, mobile, plugin'
+meta name='keywords' content='find ruby gems, rubygems, ruby, gem, javascript, ios, cocoapods, wiki, find, search, alternative, alternatives, rails, jquery, node.js, web development, mobile, plugin, plugin geek, geek'
 
 / TODO: exclude certain paths (like tos etc.) from indexing
 / using robots.txt
@@ -49,4 +48,4 @@ link rel='author' href='/humans.txt'
 = javascript_include_tag 'application'
 
 / csrf meta tags
-= csrf_meta_tags unless response.cache_control[:public]
+= csrf_meta_tags unless publicly_cached?

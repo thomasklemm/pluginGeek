@@ -88,8 +88,8 @@ group :assets do
   # Bourbon (SASS Mixins)
   gem 'bourbon'
 
-  # Susy (Semantic Grid)
-  gem 'susy'
+  # Neat (Semantic Grids)
+  gem 'neat'
 
   # Javascripts
   gem 'coffee-rails'

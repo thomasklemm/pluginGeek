@@ -4,10 +4,10 @@
   = render 'application/eye_catcher'
 
   / Categories List
-  #js-categories-list
+  #js-categories-list.container
     .find-categories
       / Instant client-side searching via list.js
-      input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
+      input.search.js-search.container type='text' autocomplete='off' placeholder='Background Jobs...'
 
       / Sort buttons for categories
       = render 'categories/sort_categories'
@@ -17,7 +17,7 @@
         = render 'application/services'
 
     / List for list.js
-    .categories-wrapper.list data-page=10
+    .categories-wrapper.list.container data-page=10
       = render partial: 'category', collection: @categories
 
     / display all matches on click

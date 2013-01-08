@@ -1,24 +1,24 @@
 / repos/show
 - cache [@repo, 'details'] do
   / Repo details header
-  .twelve.columns = render 'repos/repo_details'
+  = render 'repos/repo_details'
 
   / Readme from Github, requested live in the browser
-  .twelve.columns
-    .readme-wrapper.twelve.columns
-      .readme.readme-max-height
-        .readme-js data-owner=@repo.owner data-repo=@repo.name
-      .toggle-readme.open-readme.button Unfold Readme
+  .readme-wrapper.container
+    .readme.readme-max-height
+      .readme-js data-owner=@repo.owner data-repo=@repo.name
+    .toggle-readme.open-readme.button Unfold Readme
 
   / Associated categories
-  .categories-wrapper.twelve.columns
+  .categories-wrapper.container
     .section-header
       span.primary Categories
       span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
-    = render partial: 'categories/category', collection: @repo.categories
+    .container
+      = render partial: 'categories/category', collection: @repo.categories
 
   / highest ranking repos in associated categories, ordered by knight_score
-  #js-repos-list.alternatives.twelve.columns
+  #js-repos-list.alternatives.container
     .section-header
       span.primary Alternatives
       / span.small  via Categories
@@ -30,30 +30,30 @@
       - if @repo.alternatives.size >= 8
         = render 'repos/sort_repos'
 
-    .repos-wrapper.list data-page=6
+    .repos-wrapper.list.container data-page=6
       = render partial: 'repos/repo', collection: @repo.alternatives
 
     / display all matches on click
     .show-all.js-show-all Display all alternatives
 
   / parent/child structures between repos
-  .parents-and-children.twelve.columns
+  .parents-and-children.container
     .section-header
       span.primary Parents and Children
       span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
 
-    .repos-wrapper
+    .repos-wrapper.container
       = render partial: 'repos/repo', collection: @repo.parents_and_children
     - unless @repo.parents_and_children.present?
       p Neither parents nor children yet.
 
   / links
-  .links.twelve.columns
+  .links.container
     .section-header
       span.primary Links
       span = link_to 'Add one &raquo;'.html_safe, 'javascript:;'
     - if @repo.links.present?
-      .links-wrapper = render partial: 'links/link', collection: @repo.links
+      .links-wrapper.container = render partial: 'links/link', collection: @repo.links
     - else
       p None yet.
 

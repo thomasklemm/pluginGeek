@@ -87,6 +87,7 @@ $ ->
   # Truncate Repo Descriptions
   $('.repo .js-description').trunk8(
     fill: '&hellip; <a class="js-read-more">read more</a>'
+    lines: 2
   )
 
   # Display entire description on click on 'read more'

@@ -27,8 +27,34 @@ $medium-activity: $text-secondary
 $low-activity: $text-secondary
 $very-low-activity: $text-secondary
 
+// Grid settings
+//
+// $column: 90px        // The width of a single column in px or em.
+// $gutter: 30px        // Space between each two columns in px or em.
+// $grid-columns: 12    // Total number of columns in the base grid. Defaults to 12.
+$max-width: 940px    // The maximum width of the outer container in px or em.
+
+// Visual grid settings
+//
+// By setting $visual-grid to true, you can display the base grid in the background (default)
+// or as an overlay. You can even change the color and opacity of the gridlines by overriding
+// the default settings as detailed in the section below. Keep in mind that on Webkit, rounding
+// errors in the fluid grid might result in the overlay being few pixels off.
+//
+// The visual grid reflects the changes applied to the grid via the new-breakpoint() mixin,
+// as long as the media contexts are defined before importing Neat.
+//
+// $visual-grid: true            // Show the base grid when set to true. Defaults to false.
+$visual-grid-color: #e9e9e9   // Visual grid color. Defaults to #EEEEEE.
+// $visual-grid-index: 'front'   // If set to front, the grid is overlaid on the content.
+$visual-grid-opacity: 0.4     // Visual grid opacity.
+
+// Import grid helpers
+@import 'neat'
+
 // general
 body
+  padding: 0 16px // make body stay way from bowser edges
   font-family: $body-fonts
   font-size: 100%
   line-height: 1.618
@@ -47,6 +73,7 @@ body
   // background: image-url('backgrounds/compressed/diagonal-noise.png') // 1, pretty dark
   // background: image-url('backgrounds/compressed/grilled.png') // -1, fishbone
 
+
 // unordered lists
 ul
   list-style: none
@@ -61,31 +88,56 @@ a
   &:link, &:hover, &:active, &:visited
     color: $primary
 
-// Icon / Webfont Icons
-i
-  margin-right: 4px
+// for easily extendin
+.link
+  @extend a
 
 // link with border on hover, and bold with active class
+// TODO: Maybe Transform into a mixin
 .hover-link
   border-bottom: 1px solid transparent
   &:hover
     border-color: $border-primary
     @include transition(border-color 0.1s ease-in)
 
-// header
-.header-wrapper
+// Icon / Webfont Icons
+i
+  margin-right: 4px
+
+// Layout
+//
+// container
+.container
+  @include outer-container
+
+// full twelve column span
+.all-columns
+  @include span-columns(12)
+
+// Navigation
+.header.container
   margin-top: 3px
-  border-bottom: 1px dashed $border-primary
-  padding-bottom: 3px
-  margin-bottom: 10px
+  img.branding
+    float: left
+    width: 290px
+
+  ul.navigation
+    float: right
+    position: relative
+    top: 6px
+    li
+      display: inline-block
+
+  .web-navigation
+    margin-right: 2rem
+
+  .mobile-navigation
 
 .branding
-  margin-top: 2px
   cursor: pointer
 
 // navigation
 .navigation
-  margin-top: 8px
   // primary languages (web, mobile)
   .primary
     display: block
@@ -97,11 +149,14 @@ i
     margin-top: 3px
     li
       display: inline
-      margin: 0 10px 0 0
-      padding: 0 10px 0 0
-      border-right: 1px dashed $text-secondary
+      margin: 0 16px 0 0
+      padding: 0 16px 0 0
+      border-right: 1px solid $border-tertiary
+      line-height: 1
       &:last-child
         border-right: none
+        padding-right: 0
+        margin-right: 0
 
   // link behavior
   .primary, .secondary li
@@ -110,20 +165,18 @@ i
     &.active a
       font-weight: 600
 
-// marketing text
-.marketing-text
+// eye-catcher on landing page
+.eye-catcher
   text-rendering: optimizeLegibility
   text-align: center
-  margin-top: 0.25rem
-  margin-bottom: 1.5rem // quick fix
-
-  .first
+  // language pitch
+  .primary
     font-size: 2.058rem
     .type
       font-size: 2.058rem
       font-weight: 600
-
-  .second
+  // learn more
+  .secondary
     display: inline
     font-size: 1.618rem
     font-weight: 600
@@ -137,7 +190,7 @@ i
   color: #444
 
   border: 3px solid #ccc
-  @include box-shadow(inset 0 2px 3px rgba(0,0,0,.05))
+  @include box-shadow(inset 0 2px 3px black(0.05))
   border-radius: $radius
 
   &:focus
@@ -150,53 +203,47 @@ i
   font-size: 0.875rem
   color: $text-secondary
   text-align: right
-  margin: 0.2rem 0 0.4rem
 
   // items
   a
     padding: 0
-    margin: 0 8px
-    &:last-of-type
-      margin-right: 0
+    margin: 0
     @extend .hover-link
     &.active
       font-weight: 600
 
   // divider in sort-list
   .divider:before
-    content: "or"
+    content: "\a0or\a0"
 
 // box
 .box
-  padding: 0.725rem 0.875rem
+  min-height: 166px
 
   font-size: 0.875rem
-  line-height: 20px // all lines same height, regardless of font-size
+  line-height: 24px !important // all lines same height, regardless of font-size
   color: $text
 
   border-radius: $radius
 
-  background-color: rgba(255,255,255,0.75) // lighten background
-  //                                       // (sync with primary and secondary text colors)
+  background-color: white(0.6) // lighten background
+  //                            // (sync with primary and secondary text colors)
 
-  @include box-shadow(0 1px 3px rgba(0,0,0,0.25))
+  @include box-shadow(0 0px 3px black(0.3))
 
 // box spanning six columns
 .half-box
   @extend .box
 
-  // @include span-columns(6)
-  display: block
-  float: left
-  margin-right: 0.79999%
-  width: 49.60000%
-  margin-bottom: 6px
+  // two element block grid
+  @include span-columns(6)
   @include nth-omega(2n)
+  @include pad()
 
 // display all matches link / button
 .show-all
-  display: inline-block
   @extend .button
+  text-align: center
 
 // truncation via trunk8
 .js-read-more,
@@ -222,19 +269,18 @@ i
 // categories in overview
 .categories-wrapper .category
   @extend .half-box
-  min-height: 139px
+  // background-color: black(0.04) // a little darker than background
+  background-color: rgba($primary, 0.04)
 
   .full-name
     display: block
   .name
     font-size: 1rem
-    line-height: 20px // like language-list and stars
     font-weight: 600
   .language-list,
   .stars
     float: right
     color: $text-secondary
-    line-height: 20px
     margin-left: 6px
   .popular-repos
     display: block
@@ -245,24 +291,20 @@ i
 // repos in overview
 .repos-wrapper .repo
   @extend .half-box
-  min-height: 119px
 
   .full-name
     display: block
   .name
     font-size: 1rem
-    line-height: 20px // like stars
     font-weight: 600
   .owner
     color: $text-secondary
   .stars
     float: right
     margin-left: 6px
-    line-height: 20px
     color: $text-secondary
   .description
     display: block
-    min-height: 44px
   .homepage-link
     display: block
   .activity
@@ -370,7 +412,7 @@ i
 // readme at repo-details
 .readme-wrapper
   @extend .box
-  margin-top: 1rem
+  @include pad()
 
 .readme
   display: block
@@ -388,31 +430,25 @@ i
 
 // current-user details for the logged in user, only displays then
 .current-user
-  margin-top: 4px
-  margin-bottom: -10px
-
   font-size: 0.875rem
-  line-height: 32px // for avatar layouting
+  line-height: 32px
 
   .happy-day
+    float: left
     color: $text-secondary
 
   // wrapper for user details
   .avatar-and-name
-    .name
-      margin: 0 6px
-
-    // gravatar, displayed with rounded corners
-    // source: www.bram.us/sandbox/roundedcorners/
-    .avatar
-      float: left // hack to make displaying work
-      $avatar-size: 28px
+    float: right
+    img.avatar
+      $avatar-size: 32px
       width: $avatar-size
       height: $avatar-size
-      background-size: $avatar-size $avatar-size
-      background-repeat: no-repeat
+      border-radius: 100px
+      vertical-align: middle
 
-      border-radius: 3px
+    .name
+      margin: 0 12px 0 6px
 
   .logout
     float: right
@@ -431,7 +467,7 @@ i
   margin-bottom: 0.5rem
   border-radius: $radius
   background: lighten($primary, 50%)
-  @include box-shadow(0 2px 3px rgba(0,0,0,0.22))
+  @include box-shadow(0 2px 3px black(0.22))
 
   cursor: pointer // close on click
   .close
@@ -477,7 +513,7 @@ i
 
   border: none !important // override 'button' element border
   border-radius: $radius
-  @include box-shadow(0 1px 2px rgba(0,0,0,.2))
+  @include box-shadow(0 1px 2px black(0.2))
 
   &:hover
     background: lighten($primary, 5%)

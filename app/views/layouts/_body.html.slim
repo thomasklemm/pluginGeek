@@ -1,5 +1,5 @@
 / layouts/_body
-#root.row
+#root
   / details for the user if logged in
   = render 'user_details'
 
@@ -10,14 +10,13 @@
   = render 'flash_messages'
 
   / main content
-  #content.row
-    .twelve.columns
-      = yield
+  #content.container
+    = yield
 
   / sticky footer that stays at the bottom of the page
   #root_footer
 
-#footer.row
+#footer
   = render 'footer'
 
 / async javascript snippets at the end of the body

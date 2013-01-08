@@ -1,13 +1,13 @@
 / application/_flash_messages
 
 / flash messages
-- unless public_caching?
+- unless publicly_cached?
   - if flash
-    #flash-messages.row
-      .twelve.columns
+    #flash-messages.grater
 
-        - flash.each do |type, message|
-          div class="flash-message #{type}"
-            span = message
-            / close message
-            = link_to '&times'.html_safe, 'javascript:;', class: 'close'
+      / render each flash
+      - flash.each do |type, message|
+        div class="flash-message #{type}"
+          span = message
+          / close message
+          = link_to '&times'.html_safe, 'javascript:;', class: 'close'
