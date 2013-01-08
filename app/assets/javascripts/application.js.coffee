@@ -78,7 +78,7 @@ $ ->
   # Click on sort button marks it as active and
   # removes active class from sibling further sort buttons
   $('.sort').click ->
-    $(this).addClass('active').siblings('li').removeClass('active')
+    $(this).addClass('active').siblings('a').removeClass('active')
     update_list_view() # update timestamps
 
   ##

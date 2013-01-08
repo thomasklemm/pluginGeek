@@ -3,9 +3,9 @@
 / Sort repos in list.js
 ul.sort-list
   span <i class='icon-sort'></i> Sort by
-  li.sort.active  data-sort='js-knight-score' Knight Score
+  = link_to 'Score', 'javascript:;', class: 'sort active', :'data-sort' => 'js-knight-score'
   span.divider
-  li.sort         data-sort='js-name' Name
+  = link_to 'Name', 'javascript:;', class: 'sort', :'data-sort' => 'js-name'
   span.divider
-  li.sort         data-sort='js-timestamp' Last updated
+  = link_to 'Last updated', 'javascript:;', class: 'sort', :'data-sort' => 'js-timestamp'
 

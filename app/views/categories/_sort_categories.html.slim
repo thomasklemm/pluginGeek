@@ -1,7 +1,7 @@
 / categories/_sort_categories
 
 / Sort Categories in List.js
-ul.sort-list
-  li.sort.active  data-sort='js-knight-score' Sort by Knight Score
+.sort-list
+  = link_to 'Sort by Score', 'javascript:;', class: 'sort active', :'data-sort' => 'js-knight-score'
   span.divider
-  li.sort         data-sort='js-name' Sort by Name
+  = link_to 'Sort by Name', 'javascript:;', class: 'sort', :'data-sort' => 'js-name'

@@ -65,6 +65,13 @@ a
 i
   margin-right: 4px
 
+// link with border on hover, and bold with active class
+.hover-link
+  border-bottom: 1px solid transparent
+  &:hover
+    border-color: $border-primary
+    @include transition(border-color 0.1s ease-in)
+
 // header
 .header-wrapper
   margin-top: 3px
@@ -82,13 +89,12 @@ i
   // primary languages (web, mobile)
   .primary
     display: block
-    font-weight: 800
-    padding-bottom: 2px
+    padding-bottom: 3px
     border-bottom: 1px dashed $border-primary
 
   // secondary languages (javascript, ruby, webdesign, ios, android)
   ul.secondary
-    margin-top: 2px
+    margin-top: 3px
     li
       display: inline
       margin: 0 10px 0 0
@@ -97,12 +103,12 @@ i
       &:last-child
         border-right: none
 
-  // borders applying to both
+  // link behavior
   .primary, .secondary li
+    a
+      @extend .hover-link
     &.active a
-      border-bottom: 2px solid $border-primary
-    a:hover
-      border-bottom: 2px solid $border-primary
+      font-weight: 600
 
 // marketing text
 .marketing-text
@@ -113,7 +119,6 @@ i
 
   .first
     font-size: 2.058rem
-    font-weight: 300
     .type
       font-size: 2.058rem
       font-weight: 600
@@ -122,9 +127,7 @@ i
     display: inline
     font-size: 1.618rem
     font-weight: 600
-    border-bottom: 1px solid $border-primary
-    &:hover
-      border-bottom: 2px solid $border-primary
+    @extend .hover-link
 
 // search field spanning entire page
 .search
@@ -143,24 +146,21 @@ i
     border-color: $border-primary
 
 // sorting
-ul.sort-list
+.sort-list
   font-size: 0.875rem
   color: $text-secondary
   text-align: right
   margin: 0.2rem 0 0.4rem
 
-  li
-    @extend a
-    display: inline
+  // items
+  a
     padding: 0
     margin: 0 8px
-    cursor: pointer
     &:last-of-type
       margin-right: 0
+    @extend .hover-link
     &.active
-      border-bottom: 1px solid $border-primary
-    &:hover
-      border-bottom: 2px solid $border-primary
+      font-weight: 600
 
   // divider in sort-list
   .divider:before
@@ -332,7 +332,7 @@ ul.sort-list
       margin-right: 9px
     .name
     .owner
-      font-weight: 300
+      font-weight: 400
   .details
     > *
       margin-left: 1rem // settled after careful experimentation :-D
