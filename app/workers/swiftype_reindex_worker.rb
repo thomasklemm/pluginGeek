@@ -69,13 +69,6 @@ private
       documents = categories.map do |category|
         url = Rails.application.routes.url_helpers.category_url(category)
 
-        puts 'out: ' + category.full_name.inspect
-        puts 'out: ' + category.name.inspect
-        puts 'out: ' + category.knight_score.inspect
-        puts 'out: ' + category.short_description.inspect
-        puts 'out: ' + url.inspect
-        puts 'out: ' + category.languages.inspect
-
         {
           external_id: category.id,
           fields: [
