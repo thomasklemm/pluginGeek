@@ -1,23 +1,15 @@
 / footer
-/ .footer
-/   ul.footer-list
-/     li = link_to '<b>About & Help</b>'.html_safe, static_path(:about)
-/     li = link_to '<b>Contribute a Repo</b>'.html_safe, static_path(:about)
-/     li = link_to '<b>Terms of Service</b>'.html_safe, static_path(:about)
-/     li
-/       ' Copyright &copy; 2013
-/       = link_to '<b>Space Monkeys</b>'.html_safe, 'http://tklemm.eu'
-/       ' . All rights reserved.
-
-/ footer
-.footer
+.footer.container
   ul.links
     li = link_to 'About & Score', 'javascript:'
     li = link_to 'Explore & Newsletter', 'javascript:'
     li = link_to 'Suggest', 'javascript:'
-    li = link_to 'Privacy', 'javascript:'
-    li = link_to 'Terms', 'javascript:'
+    li = link_to 'Privacy & Terms', 'javascript:'
 
   span.greeting
-    span &copy; 2013 Thomas Klemm
+    span
+      ' &copy; 2013
+      = link_to 'Thomas Klemm', 'https://twitter.com/thomasjklemm'
+      = dns_prefetch('//twitter.com/thomasjklemm')
+
     span = link_to 'Made with &hearts; in Germany'.html_safe, 'javascript:'

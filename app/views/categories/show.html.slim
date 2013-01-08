@@ -4,13 +4,13 @@
   = render 'categories/category_details'
 
   / List containing repos
-  #js-repos-list
+  #js-repos-list.container
     / Sort options and buttons for repos
     / hide if there are only a few options
     - if @repos.size >= 8
       = render 'repos/sort_repos'
 
-    .repos-wrapper.list
+    .repos-wrapper.list.container
       = render partial: 'repos/repo', collection: @repos
 
       / No repos are present, the category might be deleted soon
@@ -18,11 +18,12 @@
       /   p: em This category is no longer associated with any repos and might be cleared away soon.
 
   / links
-  .links.twelve.columns
+  .links.container
     .section-header
       span.primary Links
       span = link_to 'Add one &raquo;'.html_safe, 'javascript:;'
+    / links including repos' links
     - if @category.deep_links.present?
-      .links-wrapper = render partial: 'links/link', collection: @category.deep_links
+      .links-wrapper.container = render partial: 'links/link', collection: @category.deep_links
     - else
       p None yet.

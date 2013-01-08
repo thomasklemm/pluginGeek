@@ -81,11 +81,14 @@ group :assets do
   # Sass
   gem 'sass', '>= 3.2.1'
   gem 'sass-rails'
+
   # Compass
   gem 'compass-rails'
-  # Bourbon and Neat (SASS Mixins and Grid)
+
+  # Bourbon (SASS Mixins)
   gem 'bourbon'
-  # TODO: Remove neat, find some other grid
+
+  # Neat (Semantic Grids)
   gem 'neat'
 
   # Javascripts

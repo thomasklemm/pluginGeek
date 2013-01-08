@@ -1,0 +1,21 @@
+// sass functions
+@function black($opacity)
+  @return rgba(black, $opacity)
+
+@function white($opacity)
+  @return rgba(white, $opacity)
+
+// mixins
+// @include box-emboss(0.8, 0.05)
+@mixin box-emboss($opacity, $opacity2)
+  box-shadow: white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0
+
+@mixin letterpress($opacity)
+  text-shadow: white($opacity) 0 1px 0
+
+@mixin hide-text
+  font: 0/0 a
+  text-shadow: none
+  color: transparent
+
+// Source: Sacha Greif - http://sachagreif.com/useful-sass-mixins/

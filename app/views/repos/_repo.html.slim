@@ -26,7 +26,7 @@
     / will be truncated
     span.homepage-link.js-homepage-link = link_to repo.homepage_url, repo.homepage_url
     / DNS Prefetch for quicker subsequent browsing
-    link rel="dns-prefetch" href="#{ repo.homepage_url }"
+    = dns_prefetch repo.homepage_url
 
     / Most recent activity timestamp on the repo
     / .js-timestamp for list.js is rendered seperately below

@@ -1,17 +1,10 @@
 / application/_user_details
 / Display details for the current user, only if one is logged in
 
-- unless public_caching?
+- unless publicly_cached?
   - if user_signed_in?
-    #user_details.row
-      .current-user.six.columns.offset-by-six
-        / current user details
-        span.avatar-and-name
-          / rounded avatar
-          span.avatar style="background-image: url('#{ current_user.avatar_url }')"
-          / name or login
-          span.name = current_user.name
-
+    #user_details.container
+      .current-user
         / happy day :-D
         /! Heavily inspired by and stolen from 37signals. Thank you for your amazing work!
         span.happy-day
@@ -22,5 +15,17 @@
 
         / logout
         = link_to 'Logout', destroy_user_session_path, class: 'logout'
+
+        / current user details
+        span.avatar-and-name
+          / rounded avatar
+          / span.avatar style="background-image: url('#{ current_user.avatar_url }')"
+          = image_tag(current_user.avatar_url, class: 'avatar', width: '32px', height: '32px')
+          / name or login
+          span.name = current_user.name
+
+
+
+
 
 
