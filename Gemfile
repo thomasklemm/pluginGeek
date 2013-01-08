@@ -35,7 +35,7 @@ gem 'devise'
 
 # Omniauth for Github (oAuth Authentication)
 gem 'omniauth'
-gem 'omniauth-github', github: 'intridea/omniauth-github'
+gem 'omniauth-github' #, github: 'intridea/omniauth-github' # use gem version instead
 
 # Sidekiq & Sinatra (for Sidekiq Web Interface)
 gem 'sidekiq'
