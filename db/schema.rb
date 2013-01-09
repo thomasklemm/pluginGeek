@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130109165036) do
+ActiveRecord::Schema.define(:version => 20130109172427) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20130109165036) do
     t.datetime "updated_at",                            :null => false
     t.boolean  "update_success",     :default => false
     t.text     "description"
+    t.boolean  "staff_pick",         :default => false
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true

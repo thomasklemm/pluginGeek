@@ -8,6 +8,10 @@
     span.owner  by #{ @repo.owner }
 
   span.details
+    / Is the repo a staff pick?
+    - if @repo.staff_pick?
+      span.staff-pick <i class='icon-star'></i>Staff pick
+
     / Stars on Github
     span.stars
       i.icon-star

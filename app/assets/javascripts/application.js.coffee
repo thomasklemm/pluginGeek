@@ -105,23 +105,15 @@ $ ->
   ##
   # Readme.js
   #
-  # Unfold and fold Readme on user inputs
-  # could certainly be shortened e.g. by using some kind of toggling
-  $readme = $('.readme')
+  # Unfold readme on user input
+  $readme = $('.readme-target')
+  $toggle_readme = $('.toggle-readme')
 
-  open_readme = () ->
-    $readme.removeClass('readme-max-height').addClass('readme-auto-height')
-
-  close_readme = () ->
-    $readme.removeClass('readme-auto-height').addClass('readme-max-height')
-
-  $('.open-readme').live 'click', () ->
-    $(this).removeClass('open-readme').addClass('close-readme').text('Fold Readme')
-    open_readme()
-
-  $('.close-readme').live 'click', () ->
-    $(this).removeClass('close-readme').addClass('open-readme').text('Unfold Readme')
-    close_readme()
+  $toggle_readme.click ->
+    height = $readme.removeClass('max-height').addClass('auto-height').height()
+    $readme.removeClass('auto-height').addClass('max-height')
+    $readme.animate({ height: height }, 350)
+    $(this).hide()
 
   ##
   # Flash messages

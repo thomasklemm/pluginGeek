@@ -12,6 +12,7 @@
 #  knight_score       :integer          default(0)
 #  name               :text
 #  owner              :text
+#  staff_pick         :boolean          default(FALSE)
 #  stars              :integer          default(0)
 #  update_success     :boolean          default(FALSE)
 #  updated_at         :datetime         not null
@@ -189,10 +190,6 @@ class Repo < ActiveRecord::Base
     languages.map(&:name).join(', ')
   end
 
-  def label
-    self[:label] || ''
-  end
-
   # for relative timestamp using jquery timeago
   def timestamp
     github_updated_at.utc
@@ -253,5 +250,5 @@ class Repo < ActiveRecord::Base
 
   ##
   # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :description, :label, :category_list, :parent_ids
+  attr_accessible :full_name, :description, :category_list, :parent_ids, :staff_pick
 end

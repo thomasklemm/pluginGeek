@@ -84,6 +84,10 @@ class Category < ActiveRecord::Base
     self[:description] || ''
   end
 
+  def description_with_fallback
+    description.present? ? description : '<em>Please add a description to this category.</em>'
+  end
+
   def stars
     self[:stars] || 0
   end
@@ -117,11 +121,6 @@ class Category < ActiveRecord::Base
       match = full_name.match %r{(?<name>.*)[[:space:]]\(}
       match.present? ? match[:name].strip : full_name
     end
-  end
-
-  # to ease transition, replace all instance though
-  def short_description
-    self[:description] || ''
   end
 
   ##
