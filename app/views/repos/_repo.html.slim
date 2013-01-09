@@ -7,16 +7,14 @@
       span.name.js-name   = repo.name
       span.owner.js-owner  by #{ repo.owner }
 
+      / Staff pick flag set?
+      - if repo.staff_pick?
+        span.staff-pick <i class='icon-star'></i>Staff pick
+
       / Github star count to help evaluate awesomeness quickly
       span.stars
         i.icon-star
         = repo.stars
-
-    / Label highlighting the repo's uniquenesses
-    / span.label
-    /   - if repo.label.present?
-    /     i.icon-tag
-    /   span.js-label = repo.label
 
     / Custom description or Github one
     / will be truncated
@@ -36,14 +34,3 @@
     / Hidden stats for searching and sorting
     span.js-knight-score style='display: none' = repo.knight_score
     span.js-timestamp style='display: none' = repo.timestamp.iso8601
-
-    / Toggle children link
-    / - if repo.has_children?
-    /   = link_to 'javascript:;', class: 'toggle-children-link' do
-    /     i.icon-star
-    /     = "#{ pluralize(repo.children.size, 'child') }".html_safe
-
-    / Children
-    / span.child-list style='display: none'
-    /   - if repo.has_children?
-    /     = render partial: 'repos/child', collection: repo.children, as: :repo

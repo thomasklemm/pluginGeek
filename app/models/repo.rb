@@ -12,6 +12,7 @@
 #  knight_score       :integer          default(0)
 #  name               :text
 #  owner              :text
+#  staff_pick         :boolean          default(FALSE)
 #  stars              :integer          default(0)
 #  update_success     :boolean          default(FALSE)
 #  updated_at         :datetime         not null
@@ -187,10 +188,6 @@ class Repo < ActiveRecord::Base
 
   def language_list
     languages.map(&:name).join(', ')
-  end
-
-  def label
-    self[:label] || ''
   end
 
   # for relative timestamp using jquery timeago

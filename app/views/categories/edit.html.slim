@@ -1,42 +1,43 @@
 / categories/edit
-/ Category details header
-= render 'categories/category_details'
+.edit-category-container
+  / Category details header
+  = render 'categories/category_details'
 
-/ Form
-= semantic_form_for @category do |f|
-  = f.semantic_errors
+  / Form
+  = semantic_form_for @category, class: '' do |f|
+    = f.semantic_errors
 
-  / Inputs
-  = f.inputs do
-    / Name including Languages, e.g. Text Editor Plugins (Web/Mobile)
-    - if admin?
-      = f.input :full_name, as: :string, label: 'Name and Languages', hint: "ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby), Table View (iOS)"
+    / Inputs
+    = f.inputs do
+      / Name including Languages, e.g. Text Editor Plugins (Web/Mobile)
+      - if admin?
+        = f.input :full_name, as: :string, label: 'Name and Languages (Admin)', hint: "ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby), Table View (iOS)"
 
-    / description for the category that will be rendered in overviews and is searchable
-    = f.input :description, label: 'Description / Summary', hint: 'What is the purpose of the listed repos?', placeholder: 'Description: What is the purpose of the listed repos?'
+      / description for the category that will be rendered in overviews and is searchable
+      = f.input :description, label: 'Description / Summary', hint: 'What is the purpose of the listed repos?', placeholder: 'Description: What is the purpose of the listed repos?'
 
-    / keywords for finding category
-    - if admin?
-      = f.input :keywords, as: :string, label: 'Keywords', hint: 'Keywords make finding a category a breeze, e.g. "hosting, deployment, caching".'.html_safe, placeholder: 'Keywords'
+      / keywords for finding category
+      - if admin?
+        = f.input :keywords, as: :string, label: 'Keywords (Admin)', hint: 'Keywords make finding a category a breeze, e.g. "hosting, deployment, caching".'.html_safe, placeholder: 'Keywords'
 
-  / Submit button
-  = f.actions do
-    = f.action :submit, as: :button, button_html: {class: 'button', style: 'margin-bottom: 2rem'}, label: 'Save category'
+    / Submit button
+    = f.actions do
+      = f.action :submit, as: :button, button_html: {class: 'button', style: 'margin-bottom: 2rem'}
 
-/ descriptions of associated repos, as a guide for writing
-.descriptions-of-repos
-  p Here are the descriptions of the associated repos as some kind of inspiration for the summary.
+  / descriptions of associated repos, as a guide for writing
+  .descriptions-of-repos
+    p Here are the descriptions of the associated repos as some inspiration.
 
-  table
-    tr
-      th Name
-      th Score
-      th Description
-    - for repo in @category.repos
-      tr.repo
-        td.name = repo.name
-        td.score = repo.knight_score
-        td.description = repo.description
+    table
+      tr
+        th Name
+        th Score
+        th Description
+      - for repo in @category.repos
+        tr.repo
+          td.name = repo.name
+          td.score = repo.knight_score
+          td.description = repo.description
 
 / Autocomplete keywords
 - keywords = Category.keywords_for_autocomplete.html_safe

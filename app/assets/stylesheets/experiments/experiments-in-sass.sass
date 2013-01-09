@@ -4,7 +4,7 @@
 $body-fonts: 'proxima-nova', Arial, 'Helvetica Neue', Helvetica, sans-serif
 $text: #393939            // primary text
 $text-secondary: #7f7f7f  // muted, secondary text
-$radius: 3px              // border radii
+$radius: 2px              // border radii
 
 // Colors from the Owl Geek
 $blue: #126E9D
@@ -113,6 +113,11 @@ i
 // full twelve column span
 .all-columns
   @include span-columns(12)
+
+// categories#edit
+.edit-category-container, .edit-repo-container
+  @include span-columns(8)
+  @include shift(2)
 
 // Navigation
 .header.container
@@ -299,6 +304,15 @@ i
     font-weight: 600
   .owner
     color: $text-secondary
+  // highlight staff picks
+  .staff-pick
+    padding: 2px 5px
+    margin-left: 0.45rem
+    background: rgba($blue, 0.15)
+    border-radius: $radius
+    font-size: 12px
+    font-weight: bold
+    color: $primary
   .stars
     float: right
     margin-left: 6px
@@ -513,7 +527,6 @@ i
 
   border: none !important // override 'button' element border
   border-radius: $radius
-  @include box-shadow(0 1px 2px black(0.2))
 
   &:hover
     background: lighten($primary, 5%)
