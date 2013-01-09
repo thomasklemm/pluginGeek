@@ -17,13 +17,15 @@
       / - if @repos.blank?
       /   p: em This category is no longer associated with any repos and might be cleared away soon.
 
+  .space-one-and-a-half
+
   / links
   .links.container
     .section-header
       span.primary Links
-      span = link_to 'Add one &raquo;'.html_safe, 'javascript:;'
+      span = link_to 'Add a link'.html_safe, 'javascript:;'
     / links including repos' links
     - if @category.deep_links.present?
       .links-wrapper.container = render partial: 'links/link', collection: @category.deep_links
     - else
-      p None yet.
+      .none-yet None yet.

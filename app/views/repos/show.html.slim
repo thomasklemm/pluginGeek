@@ -3,57 +3,68 @@
   / Repo details header
   = render 'repos/repo_details'
 
-  / Readme from Github, requested live in the browser
-  .readme-wrapper.container
-    .readme.readme-max-height
-      .readme-js data-owner=@repo.owner data-repo=@repo.name
-    .toggle-readme.open-readme.button Unfold Readme
+  .space-one
 
   / Associated categories
   .categories-wrapper.container
     .section-header
       span.primary Categories
-      span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
+      span.edit-link = link_to "<i class='icon-edit'></i>Add or edit".html_safe, edit_repo_path(@repo)
     .container
-      = render partial: 'categories/category', collection: @repo.categories
+      - if @repo.categories.present?
+        = render partial: 'categories/category', collection: @repo.categories
+      - else
+        .none-yet None yet.
 
-  / highest ranking repos in associated categories, ordered by knight_score
-  #js-repos-list.alternatives.container
-    .section-header
-      span.primary Alternatives
-      / span.small  via Categories
-      span.stars-range = @repo.alternatives_star_range
-      span.self-stars (#{ @repo.name } &rarr; <i class='icon-star'></i>#{ @repo.stars })
+  .space-two-and-a-half
 
-      / Sort options and buttons for repos
-      / hide if there are only a few options
-      - if @repo.alternatives.size >= 8
-        = render 'repos/sort_repos'
+  / Readme from Github, requested live in the browser
+  .readme-container.container
+    .readme-target.max-height
+      .readme-js data-owner=@repo.owner data-repo=@repo.name
+      .toggle-readme: span.button Unfold Readme
 
-    .repos-wrapper.list.container data-page=6
-      = render partial: 'repos/repo', collection: @repo.alternatives
-
-    / display all matches on click
-    .show-all.js-show-all Display all alternatives
-
-  / parent/child structures between repos
-  .parents-and-children.container
-    .section-header
-      span.primary Parents and Children
-      span.edit-link = link_to "<i class='icon-edit'></i>Add or Edit".html_safe, edit_repo_path(@repo)
-
-    .repos-wrapper.container
-      = render partial: 'repos/repo', collection: @repo.parents_and_children
-    - unless @repo.parents_and_children.present?
-      p Neither parents nor children yet.
+  .space-two
 
   / links
   .links.container
     .section-header
       span.primary Links
-      span = link_to 'Add one &raquo;'.html_safe, 'javascript:;'
+      span = link_to 'Add a link', 'javascript:;'
     - if @repo.links.present?
       .links-wrapper.container = render partial: 'links/link', collection: @repo.links
     - else
-      p None yet.
+      .none-yet None yet.
 
+  .space-one-and-a-half
+
+  / parent/child structures between repos
+  .parents-and-children.container
+    .section-header
+      span.primary Parents and Children
+      span.edit-link = link_to "<i class='icon-edit'></i>Add or edit".html_safe, edit_repo_path(@repo)
+
+    .repos-wrapper.container
+      - if @repo.parents_and_children.present?
+        = render partial: 'repos/repo', collection: @repo.parents_and_children
+      - else
+        .none-yet None yet.
+
+  / highest ranking repos in associated categories, ordered by knight_score
+  / #js-repos-list.alternatives.container
+  /   .section-header
+  /     span.primary Alternatives
+  /     / span.small  via Categories
+  /     span.stars-range = @repo.alternatives_star_range
+  /     span.self-stars (#{ @repo.name } &rarr; <i class='icon-star'></i>#{ @repo.stars })
+
+  /     / Sort options and buttons for repos
+  /     / hide if there are only a few options
+  /     - if @repo.alternatives.size >= 8
+  /       = render 'repos/sort_repos'
+
+  /   .repos-wrapper.list.container data-page=6
+  /     = render partial: 'repos/repo', collection: @repo.alternatives
+
+  /   / display all matches on click
+  /   .show-all.js-show-all Display all alternatives

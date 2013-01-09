@@ -19,6 +19,8 @@ $border-secondary: $secondary
 $border-tertiary: #ccc
 
 $services-background: lighten($secondary, 32%)
+$label-bg: rgba($blue, 0.15)
+$flash-message-bg: rgba($blue, 0.15)
 
 // Colors hightlighting a project's last updated at activity
 $very-high-activity: darken($green, 8%)
@@ -26,6 +28,8 @@ $high-activity: $text-secondary
 $medium-activity: $text-secondary
 $low-activity: $text-secondary
 $very-low-activity: $text-secondary
+
+
 
 // Grid settings
 //
@@ -117,11 +121,12 @@ i
 // categories#edit
 .edit-category-container, .edit-repo-container
   @include span-columns(8)
-  @include shift(2)
 
 // Navigation
 .header.container
   margin-top: 3px
+  padding-bottom: 1.75rem
+
   img.branding
     float: left
     width: 290px
@@ -205,6 +210,7 @@ i
 
 // sorting
 .sort-list
+  margin: 0.5rem 0
   font-size: 0.875rem
   color: $text-secondary
   text-align: right
@@ -259,6 +265,19 @@ i
 .pickadate__button--clear::before
   content: 'x'
 
+// muted, secondary text
+.muted
+  color: $text-secondary
+
+// labels
+.label-element
+  padding: 2px 5px
+  background: $label-bg
+  border-radius: $radius
+  font-size: 12px
+  font-weight: bold
+  color: $primary
+
 // formtastic changes
 .formtastic
   input, textarea
@@ -270,6 +289,38 @@ i
 
     &:before
       content: '\2192 \a0'
+
+  .label
+    @extend .label-element
+    font-size: 14px
+
+  .button
+    line-height: 2
+
+// select2 changes
+.select2-container
+  .select2-search-choice
+    padding: 4px 8px 4px 16px!important
+    background: rgba($blue, 0.25) !important
+    border: none !important
+    font-size: 14px
+    font-weight: bold
+
+// spaces
+.space-quarter
+  height: 0.25rem
+.space-half
+  height: 0.5rem
+.space-one
+  height: 1rem
+.space-one-and-a-half
+  height: 1.5rem
+.space-two
+  height: 2rem
+.space-two-and-a-half
+  height: 2.5rem
+.space-three
+  height: 3rem
 
 // categories in overview
 .categories-wrapper .category
@@ -304,15 +355,9 @@ i
     font-weight: 600
   .owner
     color: $text-secondary
-  // highlight staff picks
   .staff-pick
-    padding: 2px 5px
+    @extend .label-element
     margin-left: 0.45rem
-    background: rgba($blue, 0.15)
-    border-radius: $radius
-    font-size: 12px
-    font-weight: bold
-    color: $primary
   .stars
     float: right
     margin-left: 6px
@@ -398,7 +443,14 @@ i
       position: relative
       top: 4px
       padding-left: 1px // right one added by iframe width
+    .staff-pick
+      @extend .label-element
+      padding-top: 3px
+      padding-bottom: 3px
+      position: relative
+      bottom: 2px
     .edit-link
+
   .description
     display: block
   .homepage-url
@@ -407,9 +459,6 @@ i
 
 // headers at repo-details
 .section-header
-  margin-top: 1.618rem
-  margin-bottom: 4px
-
   font-size: 0.875rem
   color: $text-secondary
 
@@ -423,24 +472,40 @@ i
     display: inline
     float: right
 
-// readme at repo-details
-.readme-wrapper
-  @extend .box
-  @include pad()
+// no X (links, parents, children) to display yet
+.none-yet
+  font-size: 0.875rem
+  color: $text-secondary
 
-.readme
-  display: block
+// readme at repo-details
+// outer box
+.readme-container
+  @extend .box
+  padding: 12px 2.35765%
+  background: white(1) // white background
+
+// where readme is inserted
+.readme-target
+  position: relative
   overflow: hidden
 
-.readme-max-height
-  max-height: 380px
+  // height classes set via js
+  &.max-height
+    height: 425px
+  &.auto-height
+    height: auto
 
-.readme-auto-height
-  height: auto
+  // toggle readme
+  .toggle-readme
+    position: absolute
+    bottom: -12px // to offset parents padding-bottom
+    left: 0
+    width: 100%
+    text-align: center
+    margin: 0
+    padding: 80px 0 20px
 
-.toggle-readme
-  float: left
-  margin-top: 0.5rem
+    @include background-image(linear-gradient(white(0) 0%, white(1) 80%, white(1) 100%))
 
 // current-user details for the logged in user, only displays then
 .current-user
@@ -478,9 +543,9 @@ i
 // flash messages
 .flash-message
   padding: 0.4rem 0 0.35rem 1rem
-  margin-bottom: 0.5rem
+  margin-bottom: 1.5rem
   border-radius: $radius
-  background: lighten($primary, 50%)
+  background: $flash-message-bg
   @include box-shadow(0 2px 3px black(0.22))
 
   cursor: pointer // close on click
@@ -519,11 +584,12 @@ i
 
 // buttons
 .button
-  padding: 0.4rem 1rem !important // imp to override button
+  padding: 0.6rem 1.2rem !important // width
   background: $primary
-  color: #f9f9f9 !important // overrides link color
+  color: #eee !important // overrides link color
   cursor: pointer
-  font-weight: 400
+  font-size: 0.9375rem
+  font-weight: 600 !important
 
   border: none !important // override 'button' element border
   border-radius: $radius
