@@ -23,6 +23,13 @@ module ApplicationHelper
     !!(params[:action] == 'edit')
   end
 
+  # Check if current user is admin
+  # then display certain fields
+  # no real protection, just hiding a few fields
+  def admin?
+    current_user && current_user.admin?
+  end
+
   # Set a DNS Prefetch tag
   def dns_prefetch(url)
     "<link rel='dns-prefetch' href='#{ url }'>".html_safe

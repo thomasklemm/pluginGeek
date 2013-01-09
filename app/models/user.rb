@@ -2,6 +2,7 @@
 #
 # Table name: users
 #
+#  admin               :boolean          default(FALSE)
 #  avatar_url          :text
 #  company             :text
 #  created_at          :datetime         not null

@@ -9,13 +9,15 @@
   / Inputs
   = f.inputs do
     / Name including Languages, e.g. Text Editor Plugins (Web/Mobile)
-    = f.input :full_name, label: 'Name and Languages', hint: "ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby), Table View (iOS)"
+    - if admin?
+      = f.input :full_name, as: :string, label: 'Name and Languages', hint: "ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby), Table View (iOS)"
 
     / description for the category that will be rendered in overviews and is searchable
     = f.input :description, label: 'Description / Summary', hint: 'What is the purpose of the listed repos?', placeholder: 'Description: What is the purpose of the listed repos?'
 
     / keywords for finding category
-    = f.input :keywords, as: :string, label: 'Keywords', hint: 'Keywords make finding a category a breeze, e.g. "hosting, deployment, caching".'.html_safe, placeholder: 'Keywords'
+    - if admin?
+      = f.input :keywords, as: :string, label: 'Keywords', hint: 'Keywords make finding a category a breeze, e.g. "hosting, deployment, caching".'.html_safe, placeholder: 'Keywords'
 
   / Submit button
   = f.actions do
@@ -23,8 +25,8 @@
 
 / descriptions of associated repos, as a guide for writing
 .descriptions-of-repos
-  h3 style='margin-bottom: 0' Descriptions of Repos
-  p For some inspiration when drafting a summary for the category, <br /> here are the descriptions of the associated repos.
+  p Here are the descriptions of the associated repos as some kind of inspiration for the summary.
+
   table
     tr
       th Name
