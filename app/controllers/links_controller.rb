@@ -1,21 +1,10 @@
 class LinksController < ApplicationController
-  # GET /links
-  def index
-    @links = Link.all
-  end
-
   # GET /links/new
   def new
-    begin
-      @link = Link.find_by_url!(params[:url])
-      flash[:notice] = "This link has already been submitted. You can edit it's associations below."
-      render action: :edit
-    rescue ActiveRecord::RecordNotFound
-      @link ||= Link.new(
-        url: params[:url],
-        title: params[:title],
-        published_at: Date.current
-      )
+    @link = Link.where(url: params[:url]).first_or_initialize
+    # Set title and default published_at if link has just been initialized
+    if @link.new_record?
+      @link.title, @link.published_at = params[:title], Date.current
     end
   end
 
@@ -29,7 +18,7 @@ class LinksController < ApplicationController
     @link = Link.new(params[:link])
 
     if @link.save
-      redirect_to edit_link_path(@link), notice: 'Link was successfully created. You may add additional repos and categories.'
+      redirect_to edit_link_path(@link), notice: 'Saved link successfully.'
     else
       render action: :new
     end
@@ -40,9 +29,15 @@ class LinksController < ApplicationController
     @link = Link.find(params[:id])
 
     if @link.update_attributes(params[:link])
-      redirect_to root_url, notice: 'Link was successfully updated.'
+      redirect_to edit_link_path(@link), notice: 'Saved link successfully.'
     else
       render action: :edit
     end
+  end
+
+  def destroy
+    @link = Link.find(params[:id])
+    @link.destroy
+    redirect_to root_url, notice: 'Destroyed link.'
   end
 end

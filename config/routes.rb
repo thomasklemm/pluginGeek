@@ -16,7 +16,7 @@ Knight::Application.routes.draw do
 
   ##
   # Links
-  resources :links, only: [:new, :create, :edit, :update]
+  resources :links, only: [:new, :create, :edit, :update, :destroy]
 
   ##
   # Categories

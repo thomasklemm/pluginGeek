@@ -63,6 +63,9 @@ gem 'newrelic_rpm'
 # Closure Tree (Nesting Structures)
 gem 'closure_tree'
 
+# Dynamic Form (Display validation error messages)
+gem 'dynamic_form'
+
 # Production Gems
 group :production do
   # Memcached on Heroku

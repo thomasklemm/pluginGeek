@@ -1,7 +1,39 @@
 .new-link-wrapper
-  h2 Edit your link
+  .page-title Edit link
 
-  p.left-line Please add projects and categories now, so your link will be found. <br /> Thanks for your contributions.
+  p.left-line You can submit noteworthy blog posts, webpages, and other links to pluginGeek. <br />Thanks for your contributions.
 
-  == render 'form'
+  / Form
+  .container
+    .eight.columns
+      = render 'form'
 
+  .space-two
+
+  / Associated categories
+  .categories-wrapper.container
+    .section-header
+      span.primary Associated categories
+    .container
+      - categories = @link.categories | @link.repos.flat_map(&:categories).uniq
+      - if categories.present?
+        = render partial: 'categories/category', collection: categories
+      - else
+        .none-yet None yet.
+
+  .space-one
+
+  / Associated repos
+  .repos-wrapper.container
+    .section-header
+      span.primary Associated repos
+    .container
+      - if @link.repos.any?
+        = render partial: 'repos/repo', collection: @link.repos
+      - else
+        .none-yet None yet.
+
+  .space-one
+
+  / Delete link
+  = link_to "<i class='icon-remove-circle'></i>Destroy this link entirely, it's just crap".html_safe, @link, method: :delete, confirm: 'Are you sure?'

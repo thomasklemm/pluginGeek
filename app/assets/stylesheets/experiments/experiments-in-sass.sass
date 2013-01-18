@@ -596,13 +596,25 @@ i
 
   border: none !important // override 'button' element border
   border-radius: $radius
+  @include transition(all 0.2s ease-in)
 
   &:hover
-    background: lighten($primary, 5%)
+    background: lighten($primary, 7%)
+
+  &.medium
+    padding: 0.6rem 1.2rem !important // imp to override button
+    font-size: 1rem
+    font-weight: 400 !important
 
   &.large
     padding: 0.6rem 1.2rem !important // imp to override button
-    font-size: 1.272rem
+    font-size: 1.15rem
+    font-weight: 400 !important
+
+  &.secondary
+    background: #999
+    &:hover
+      background: $primary
 
   // button while loading
   &[disabled], &.disabled
@@ -650,6 +662,9 @@ $footer-borders: 1px dashed #999
   border-left: 2px solid $primary
   line-height: 1.45
 
+// floats
+.left
+  float: left
 .right
   float: right
 
@@ -663,5 +678,77 @@ $footer-borders: 1px dashed #999
     line-height: 1rem
     margin-left: 0.5rem
 
-.text-right
-  float: right
+// forms
+form
+  .field
+    margin-bottom: 1rem
+    label
+      display: block
+      font-weight: 600
+    input
+      width: 100%
+    .hint
+      background: $label-bg
+      padding: 0 0.35rem
+
+// form errors
+// Style for the form fields and labels with errors.
+.field_with_errors
+  padding: 0.2rem 0.8rem
+  background: rgba(red, 0.2)
+
+// Style for the div element with the error messages.
+.errorExplanation
+  margin-bottom: 0.5rem
+  padding: 0.8rem 1rem
+  background: rgba(red, 0.2)
+  // Style for the header of the div element.
+  h2
+    font-size: 1.272rem
+  // Style for the paragraph holding the message that appears right below the header of the div element.
+  p
+  // Style for the list items with individual error messages.
+  ul
+    list-style: square
+    padding-left: 30px
+    li
+
+// Column sizes
+// e.g. for sizing forms
+.one.column, .one.columns
+  @include span-columns(1)
+.two.columns
+  @include span-columns(2)
+.three.columns
+  @include span-columns(3)
+.four.columns
+  @include span-columns(4)
+.five.columns
+  @include span-columns(5)
+.six.columns
+  @include span-columns(6)
+.seven.columns
+  @include span-columns(7)
+.eight.columns
+  @include span-columns(8)
+.nine.columns
+  @include span-columns(9)
+.ten.columns
+  @include span-columns(10)
+.eleven.columns
+  @include span-columns(11)
+.twelve.columns
+  @include span-columns(12)
+
+// page titles
+.page-title
+  font-size: 1.618rem
+  font-weight: 600
+
+h1, h2, h3, h4, h5, h6
+  margin: 0
+  padding: 0
+p
+  margin: 0
+
+

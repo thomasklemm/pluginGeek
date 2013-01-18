@@ -1,21 +1,53 @@
-= semantic_form_for @link do |f|
-  = f.inputs do
-    = f.input :title, label: "Link's Title", hint: "The link's title. Make it short and concise."
-    = f.input :url, label: "Link's Url"
-    = f.input :author, label: "Author's Name", input_html: {autofocus: true}, hint: 'Who is the author?'
-    = f.input :author_url, label: "Author's Url", hint: 'Can we link back to the author (e.g. his blog or twitter)? <br /> Tip: Twitter handle will be converted automatically and is thus preferred, e.g. "@jasonfried", "@dhh", "@mperham"'.html_safe
-    = f.input :published_at, as: :string, label: "Publication Date", hint: "Can you estimate when the linked resource was published?<br />Defaults to 'today', please change if it was published some time ago.".html_safe
+/ links/_form
+= form_for @link do |f|
+  = f.error_messages header_message: 'Invalid fields!', message: "You'll need to fix the following fields:"
 
-    / repos and categories
-    = f.input :repos, collection: Repo.order_by_knight_score.select([:id, :full_name]), label: 'Repos'
-    = f.input :categories, collection: Category.order_by_knight_score.select([:id, :full_name]), label: 'Categories'
+  .field
+    = f.label :title, "Link's title"
+    = f.text_field :title
 
-  = f.actions do
-    = f.action :submit
+  .field
+    = f.label :url, "Link's url"
+    = f.text_field :url
 
-/ date input with pickadate.js
-javascript:
-  $('#link_published_at').pickadate();
+    / Give an option to click the link
+    .result
+      = link_to 'You can open the link in a new tab.', @link.url, target: :blank
+
+  .field
+    = f.label :author, "Author's name"
+    = f.text_field :author, autofocus: true, placeholder: "Who's the author?"
+
+  .field
+    = f.label :author_url, "Author's twitter or blog"
+    = f.text_field :author_url, placeholder: "@mperham or http://www.mikeperham.com"
+
+    / Expand link or show preference hint
+    - if @link[:author_url].present? && @link[:author_url].start_with?('@')
+      .result
+        ' Resulting url &rarr;
+        = link_to @link.author_url, @link.author_url, target: :blank
+    - else
+      .hint Prefer the author's @twitter. It will be automatically expanded.
+
+  .field
+    = f.label :published_at, "Publication date"
+    = f.date_select :published_at, start_year: Date.current.year, end_year: Date.current.year - 15, discard_day: true, prompt: true
+    .hint We sort links by publication date, therefore this field is required.
+
+  .field
+    = f.label :repo_ids, "Associated projects"
+    - repo_select_options = options_from_collection_for_select(Repo.order_by_knight_score, :id, :full_name, @link.repo_ids)
+    = f.select(:repo_ids, repo_select_options, {}, { include_blank: true, multiple: true })
+    .hint The link will automatically be associated with the repos' categories. Save to see results below.
+
+  .field
+    = f.label :category_ids, "Associated categories"
+    - category_select_options = options_from_collection_for_select(Category.order_by_knight_score, :id, :full_name, @link.category_ids)
+    = f.select(:category_ids, category_select_options, {}, { include_blank: true, multiple: true })
+
+  .action
+    = f.submit class: 'medium button'
 
 / Repos and categories associations
 / improved by select2

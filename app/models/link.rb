@@ -13,7 +13,7 @@
 #
 
 class Link < ActiveRecord::Base
-  validates :url, :title, presence: true
+  validates :url, :title, :published_at, presence: true
 
   ##
   # Repos and categories
