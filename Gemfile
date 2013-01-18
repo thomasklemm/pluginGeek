@@ -41,10 +41,6 @@ gem 'omniauth-github' #, github: 'intridea/omniauth-github' # use gem version in
 gem 'sidekiq'
 gem 'sinatra', :require => false
 
-# Autoscaler (Scales Sidekiq on Heroku)
-# TODO: Remove, absolute premature optimization :-D
-# gem 'autoscaler'
-
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
 
@@ -138,7 +134,7 @@ group :test do
   gem 'capybara'
 
   # Turn for nice test output
-  # gem 'turn'
+  gem 'turn'
 
   # Guard for watching file changes
   # and running tests automatically

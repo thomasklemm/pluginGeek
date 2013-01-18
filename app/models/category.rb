@@ -209,6 +209,14 @@ class Category < ActiveRecord::Base
   end
 
   ##
+  # Callbacks
+  #
+  # Expire repos on category changes
+  after_commit :expire_repos, if: :persisted?
+  def expire_repos
+    repos.each(&:touch)
+  end
+  ##
   # Swiftype Full-Text Searching
   #
   # Update search index after each transaction

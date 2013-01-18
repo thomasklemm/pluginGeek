@@ -227,6 +227,13 @@ class Repo < ActiveRecord::Base
     self.languages = categories.flat_map(&:languages).uniq
   end
 
+  # Changes in repo (e.g. adding staff pick flag) need
+  # to expire associated categories
+  after_commit :expire_categories, if: :persisted?
+  def expire_categories
+    categories.each(&:touch)
+  end
+
   ##
   # Swiftype Full-Text Searching
   #

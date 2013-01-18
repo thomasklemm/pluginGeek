@@ -29,7 +29,7 @@ namespace :staging do
 
     # Restore most current backup to database in staging
     puts    'Transfering production database to STAGING...'
-    system  'heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging --confirm knight-staging'
+    system  'heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging --confirm plugingeek-staging'
     puts    'Transferred production database to staging'
 
     system  'heroku restart --remote staging'
@@ -83,7 +83,7 @@ namespace :production do
   desc 'Pull the production DB to the local env'
   task :pull_db do
     puts   'Pulling PRODUCTION db to local...'
-    system 'heroku db:pull --remote production --confirm knight-production'
+    system 'heroku db:pull --remote production --confirm plugingeek-production'
     puts   'PUlled production db to local'
   end
 

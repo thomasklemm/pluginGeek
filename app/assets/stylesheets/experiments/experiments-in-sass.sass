@@ -179,6 +179,7 @@ i
 .eye-catcher
   text-rendering: optimizeLegibility
   text-align: center
+  padding-bottom: 1.5rem
   // language pitch
   .primary
     font-size: 2.058rem
@@ -229,7 +230,7 @@ i
 
 // box
 .box
-  min-height: 166px
+  min-height: 152px
 
   font-size: 0.875rem
   line-height: 24px !important // all lines same height, regardless of font-size
@@ -249,7 +250,7 @@ i
   // two element block grid
   @include span-columns(6)
   @include nth-omega(2n)
-  @include pad()
+  padding: 0.9rem 1.2rem
 
 // display all matches link / button
 .show-all
@@ -389,6 +390,7 @@ i
 // category details
 .category-details
   font-size: 0.9375rem
+  margin-bottom: 1rem
   .name
     font-size: 1.618rem
     font-weight: 600
@@ -509,6 +511,7 @@ i
 
 // current-user details for the logged in user, only displays then
 .current-user
+  margin-top: 2px
   font-size: 0.875rem
   line-height: 32px
 

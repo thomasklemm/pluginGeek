@@ -5,7 +5,7 @@
 #
 development:
   adapter: postgresql
-  database: knight_development
+  database: plugingeek_development
   host: localhost
   encoding: unicode
   pool: 20
@@ -32,7 +32,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   adapter: postgresql
-  database: knight_test
+  database: plugingeek_test
   host: localhost
   encoding: unicode
   pool: 20

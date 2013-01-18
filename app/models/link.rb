@@ -39,5 +39,16 @@ class Link < ActiveRecord::Base
     url.start_with?('@') and url = "https://twitter.com/#{ url.gsub('@', '') }"
   end
 
+  ##
+  # Callbacks
+  #
+  # Changes in link (e.g. changing date) need
+  # to expire associated categories and repos
+  after_commit :expire_categories_and_repos, if: :persisted?
+  def expire_categories_and_repos
+    repos.each(&:touch)
+    categories.each(&:touch)
+  end
+
   attr_accessible :author, :author_url, :published_at, :title, :url, :repo_ids, :category_ids
 end

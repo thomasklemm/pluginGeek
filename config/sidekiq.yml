@@ -5,6 +5,4 @@
 :namespace: sidekiq
 :concurrency: 25
 :queues:
-  - [often, 7]
   - [default, 5]
-  - [seldom, 3]
