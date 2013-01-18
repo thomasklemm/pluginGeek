@@ -44,7 +44,7 @@
   .field
     = f.label :category_ids, "Associated categories"
     - category_select_options = options_from_collection_for_select(Category.order_by_knight_score, :id, :full_name, @link.category_ids)
-    = f.select(:category_ids, category_select_options, {}, { include_blank: true, multiple: true })
+    = f.select(:category_ids, category_select_options, {}, { multiple: true })
 
   .action
     = f.submit class: 'medium button'

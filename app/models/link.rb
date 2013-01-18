@@ -39,6 +39,11 @@ class Link < ActiveRecord::Base
     url.start_with?('@') and url = "https://twitter.com/#{ url.gsub('@', '') }"
   end
 
+  # Categories including repos' categories
+  def deep_categories
+    categories | repos.flat_map(&:categories).uniq
+  end
+
   ##
   # Callbacks
   #
@@ -47,7 +52,7 @@ class Link < ActiveRecord::Base
   after_commit :expire_categories_and_repos, if: :persisted?
   def expire_categories_and_repos
     repos.each(&:touch)
-    categories.each(&:touch)
+    deep_categories.each(&:touch) # includes categories through repos
   end
 
   attr_accessible :author, :author_url, :published_at, :title, :url, :repo_ids, :category_ids

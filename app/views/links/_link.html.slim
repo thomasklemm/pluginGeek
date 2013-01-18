@@ -8,16 +8,16 @@
   / author if present?
   span.author
     - if link.author.present?
-      span style='color: #555' &nbsp;by&nbsp;
+      '  by
       - if link.author_url.present?
         = link_to link.author, link.author_url
       - else
         = link.author
 
-  span.text-right
-    / publication date
-    span.date = link.published_at.strftime("%B %Y")
+  '  ||
+  / publication date
+  span.date = link.published_at.strftime("%B %Y")
 
-    / edit link
-    span.edit-link = link_to edit_link_path(link) do
-      i.icon-edit
+  / edit link
+  span.edit-link = link_to edit_link_path(link) do
+    i.icon-edit

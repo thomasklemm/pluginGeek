@@ -2,10 +2,10 @@ class LinksController < ApplicationController
   # GET /links/new
   def new
     @link = Link.where(url: params[:url]).first_or_initialize
-    # Set title and default published_at if link has just been initialized
-    if @link.new_record?
-      @link.title, @link.published_at = params[:title], Date.current
-    end
+    # Early return if persisted
+    @link.persisted? and return redirect_to edit_link_path(@link)
+    # Set title and default published_at
+    @link.title, @link.published_at = params[:title], Date.current
   end
 
   # GET /links/1/edit
