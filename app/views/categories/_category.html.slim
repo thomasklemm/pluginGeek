@@ -14,6 +14,10 @@
     / A category's full_name includes 'name (languages)'
     span.full-name
       span.name.js-name = link_to category.name, category
+      / Draft notice
+      - if category.draft?
+        span.draft Draft
+
       / Cummulative stars count from Github of all associated repos
       span.stars
         i.icon-star

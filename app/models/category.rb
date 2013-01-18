@@ -4,6 +4,7 @@
 #
 #  created_at       :datetime         not null
 #  description      :text
+#  draft            :boolean          default(TRUE)
 #  full_name        :text             not null
 #  id               :integer          not null, primary key
 #  keywords         :text
@@ -210,32 +211,12 @@ class Category < ActiveRecord::Base
 
   ##
   # Callbacks
-  #
   # Expire repos on category changes
   after_commit :expire_repos, if: :persisted?
   def expire_repos
     repos.each(&:touch)
   end
-  ##
-  # Swiftype Full-Text Searching
-  #
-  # Update search index after each transaction
-  # after_commit :create_document, on: :create
-  # after_commit :update_document, on: :update
-  # after_commit :destroy_document, on: :destroy
-
-  # def create_document
-  #   SwiftypeIndexWorker.perform_async('Category', id, :create)
-  # end
-
-  # def update_document
-  #   SwiftypeIndexWorker.perform_async('Category', id, :update)
-  # end
-
-  # def destroy_document
-  #   SwiftypeIndexWorker.perform_async('Category', id, :destroy)
-  # end
 
   # Mass Assignment Whitelist
-  attr_accessible :full_name, :description, :keywords
+  attr_accessible :full_name, :description, :keywords, :draft
 end

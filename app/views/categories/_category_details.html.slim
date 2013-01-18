@@ -5,6 +5,10 @@
   span.name = @category.name
 
   span.details
+    / Draft notice
+    - if @category.draft?
+      span.draft <i class='icon-edit'></i>Draft
+
     / Languages, seperated by a comma
     span.language-list = @category.language_list
 

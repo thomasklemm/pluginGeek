@@ -37,7 +37,7 @@ class Language < ActiveRecord::Base
     source: :classifier,
     source_type: 'Category',
     uniq: true,
-    order: 'categories.knight_score DESC'
+    order: 'draft ASC, categories.knight_score DESC'
 
   has_many :repos,
     through: :language_classifications,

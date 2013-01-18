@@ -326,14 +326,16 @@ i
 // categories in overview
 .categories-wrapper .category
   @extend .half-box
-  // background-color: black(0.04) // a little darker than background
-  background-color: rgba($primary, 0.04)
+  background-color: rgba($primary, 0.07)
 
   .full-name
     display: block
   .name
     font-size: 1rem
     font-weight: 600
+  .draft
+    @extend .label-element
+    margin-left: 0.45rem
   .language-list,
   .stars
     float: right
@@ -395,6 +397,13 @@ i
     font-size: 1.618rem
     font-weight: 600
   .details
+    .draft
+      @extend .label-element
+      padding-top: 3px
+      padding-bottom: 3px
+      position: relative
+      bottom: 2px
+      margin-left: 1rem
     .language-list,
     .stars
       margin-left: 1rem

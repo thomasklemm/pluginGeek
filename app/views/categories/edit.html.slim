@@ -20,6 +20,9 @@
       - if admin?
         = f.input :keywords, as: :string, label: 'Keywords (Admin)', hint: 'Keywords make finding a category a breeze, e.g. "hosting, deployment, caching".'.html_safe, placeholder: 'Keywords'
 
+      / draft status
+      = f.input :draft, label: 'Still in draft mode?'
+
     / Submit button
     = f.actions do
       = f.action :submit, as: :button, button_html: {class: 'button', style: 'margin-bottom: 2rem'}
