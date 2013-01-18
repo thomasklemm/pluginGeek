@@ -23,6 +23,7 @@
   .links.container
     .section-header
       span.primary Links
+      span Belonging to this category or one of its repos
       span = link_to 'Add a link'.html_safe, 'javascript:;'
     / links including repos' links
     - if @category.deep_links.present?
