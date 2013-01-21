@@ -234,6 +234,14 @@ class Repo < ActiveRecord::Base
     categories.each(&:touch)
   end
 
+  # Retrieve record from Github if the full name changed
+  # to handle renaming of repos and movements between owners
+  after_save :retrieve_from_github, if: :full_name_changed?
+  # Update record from Github
+  def retrieve_from_github
+    RepoUpdater.new.perform(full_name)
+  end
+
   ##
   # Swiftype Full-Text Searching
   #

@@ -16,9 +16,6 @@
       / by select2
       = f.input :category_list, label: 'Categories', hint: 'Tagging (Javascript), ActiveRecord: Nested Records (Ruby).<br />You can add new categories. Please give them a concise summary thereafter.'.html_safe, placeholder:  'Categories'
 
-      / Display Github description as a guideline
-      / = f.input :github_description, label: 'Description from Github', hint: "The project's description from Github. We display this description unless a custom one is written below to override it. Extend it below at your discretion.", input_html: {disabled: true}
-
       / Custom description will override Github description
       = f.input :description, label: 'Customized description'.html_safe, placeholder: 'Sum up the project to override the description retrieved from Github.', hint: 'A customized description replaces the default description retrieved from Github. <br /> Be precise, and within 360 characters.'.html_safe
 
@@ -26,6 +23,10 @@
       / to enter parent/child relationship
       / TODO: Optimize fetch call
       = f.input :parents, label: 'Parents', collection: Repo.all_without(@repo), hint: 'Is this project depending on another repo?'
+
+      / Full name for admin
+      - if admin?
+        = f.input :full_name, as: :string, label: 'Owner and Name (Full Name), for Admin'
 
       / Staff pick
       = f.input :staff_pick, label: 'Staff pick'

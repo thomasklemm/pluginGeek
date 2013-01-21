@@ -43,7 +43,7 @@ class ReposController < ApplicationController
 
     if @repo.update_attributes(params[:repo])
       flash[:notice] = 'Repo saved.'
-      redirect_to action: :show
+      redirect_to @repo
     else
       flash.now.alert = 'Some validation errors occured.'
       render action: :edit
