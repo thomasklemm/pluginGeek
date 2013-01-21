@@ -7,7 +7,6 @@
 #  draft            :boolean          default(TRUE)
 #  full_name        :text             not null
 #  id               :integer          not null, primary key
-#  keywords         :text
 #  knight_score     :integer          default(0)
 #  long_description :text
 #  slug             :text             not null
@@ -53,6 +52,18 @@ class Category < ActiveRecord::Base
     through: :language_classifications,
     uniq: true
 
+  def language_list
+    @languages ||= calculate_language_list
+  end
+
+  # only display web and mobile without subcategories
+  def calculate_language_list
+    langs = languages.map(&:name)
+    langs.delete_if {|lang| Language::Web.include?(lang.downcase)} if langs.include? 'Web'
+    langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}  if langs.include? 'Mobile'
+    langs.join(', ')
+  end
+
   # Links
   has_many :link_relationships,
     as: :linkable
@@ -92,24 +103,14 @@ class Category < ActiveRecord::Base
     self[:knight_score] || 0
   end
 
-  def language_list
-    @languages ||= calculate_language_list
-  end
-
-  # only display web and mobile without subcategories
-  def calculate_language_list
-    langs = languages.map(&:name)
-    langs.delete_if {|lang| Language::Web.include?(lang.downcase)} if langs.include? 'Web'
-    langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}  if langs.include? 'Mobile'
-    langs.join(', ')
-  end
 
   def popular_repos
-    (repos[0..2] && repos[0..2].map(&:name).join(', ')) || ''
+    repos[0..2].to_a.map(&:name).join(', ') || ''
   end
 
+  # nil.to_a => []
   def further_repos
-    (repos[3..100] && repos[0..3].map(&:name).join(', ')) || ''
+    repos[3..1000].to_a.map(&:name).join(', ') || ''
   end
 
   def name
@@ -181,27 +182,6 @@ class Category < ActiveRecord::Base
   # Autocomplete category full_names on repo#edit
   def self.full_names_for_autocomplete
     order_by_score.pluck(:full_name).to_json
-  end
-
-  # Autocomplete keywords on category#edit
-  def self.keywords_for_autocomplete
-    find_keywords.try(:to_json) # zero memoization, needs to be reloaded anyway
-  end
-
-  # Returns all keywords downcased and in descending usage order
-  def self.find_keywords
-    words = pluck(:keywords).compact.flat_map {|s| s.split(',').map(&:strip).map(&:downcase) }
-    words = words.group_by { |w| w }.sort_by {|_, ws| ws.length}.reverse
-    words.map {|k, _| k}.uniq
-  end
-
-  def keywords
-    self[:keywords] || ''
-  end
-
-  def keywords=(list='')
-    list = list.split(',').map(&:strip).map(&:downcase).uniq.join(',')
-    write_attribute(:keywords, list)
   end
 
   ##
