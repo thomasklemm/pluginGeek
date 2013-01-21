@@ -21,13 +21,18 @@
 #
 
 class Category < ActiveRecord::Base
-  # Friendly Id
-  #   using history module (redirecting to new slug if slug changed)
+  # Friendly Id using history module (redirecting to new slug if slug changed)
   extend FriendlyId
   friendly_id :full_name, use: [:slugged, :history]
 
-  ##
-  # Associations
+  # Audits
+  audited only: [:full_name, :description]
+
+  # Validations
+  validates :full_name, uniqueness: true
+  validates :slug, uniqueness: true
+  validates :description, length: {maximum: 360}
+
   # Repos
   has_many  :categorizations
   has_many  :repos,
@@ -41,7 +46,6 @@ class Category < ActiveRecord::Base
     through: :ad_categorizations,
     uniq: true
 
-  ##
   # Languages
   has_many  :language_classifications,
     as: :classifier
@@ -49,7 +53,6 @@ class Category < ActiveRecord::Base
     through: :language_classifications,
     uniq: true
 
-  ##
   # Links
   has_many :link_relationships,
     as: :linkable
@@ -59,25 +62,17 @@ class Category < ActiveRecord::Base
     order: 'links.published_at DESC'
 
   # All links including the ones from the repos associated with this category
+  # nil.to_a => []
   def deep_links
-    # nil.to_a => []
-    dls = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
+    links = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
     dls.sort_by(&:published_at).reverse
   end
 
-  ##
   # Scopes
-  scope :order_by_knight_score, order('categories.knight_score DESC')
+  # Ordering by score
+  scope :order_by_score, order('categories.knight_score DESC')
 
-  ##
-  # Validations
-  validates :full_name, uniqueness: true
-  validates :slug, uniqueness: true
-  validates :description, length: {maximum: 360}
 
-  ##
-  # Audits
-  audited only: [:full_name, :description]
 
   ##
   # Getters and defaults
@@ -185,7 +180,7 @@ class Category < ActiveRecord::Base
 
   # Autocomplete category full_names on repo#edit
   def self.full_names_for_autocomplete
-    order_by_knight_score.pluck(:full_name).to_json
+    order_by_score.pluck(:full_name).to_json
   end
 
   # Autocomplete keywords on category#edit
@@ -215,6 +210,11 @@ class Category < ActiveRecord::Base
   after_commit :expire_repos, if: :persisted?
   def expire_repos
     repos.each(&:touch)
+  end
+
+  # Save categories when expiring to update statistics
+  def self.expire(categories)
+    categories.each(&:save)
   end
 
   # Mass Assignment Whitelist

@@ -37,13 +37,13 @@
 
   .field
     = f.label :repo_ids, "Associated projects"
-    - repo_select_options = options_from_collection_for_select(Repo.order_by_knight_score, :id, :full_name, @link.repo_ids)
+    - repo_select_options = options_from_collection_for_select(Repo.order_by_score, :id, :full_name, @link.repo_ids)
     = f.select(:repo_ids, repo_select_options, {}, { include_blank: true, multiple: true })
     .hint The link will automatically be associated with the repos' categories. Save to see results below.
 
   .field
     = f.label :category_ids, "Associated categories"
-    - category_select_options = options_from_collection_for_select(Category.order_by_knight_score, :id, :full_name, @link.category_ids)
+    - category_select_options = options_from_collection_for_select(Category.order_by_score, :id, :full_name, @link.category_ids)
     = f.select(:category_ids, category_select_options, {}, { multiple: true })
 
   .action

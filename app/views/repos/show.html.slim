@@ -49,22 +49,3 @@
         = render partial: 'repos/repo', collection: @repo.parents_and_children
       - else
         .none-yet None yet.
-
-  / highest ranking repos in associated categories, ordered by knight_score
-  / #js-repos-list.alternatives.container
-  /   .section-header
-  /     span.primary Alternatives
-  /     / span.small  via Categories
-  /     span.stars-range = @repo.alternatives_star_range
-  /     span.self-stars (#{ @repo.name } &rarr; <i class='icon-star'></i>#{ @repo.stars })
-
-  /     / Sort options and buttons for repos
-  /     / hide if there are only a few options
-  /     - if @repo.alternatives.size >= 8
-  /       = render 'repos/sort_repos'
-
-  /   .repos-wrapper.list.container data-page=6
-  /     = render partial: 'repos/repo', collection: @repo.alternatives
-
-  /   / display all matches on click
-  /   .show-all.js-show-all Display all alternatives

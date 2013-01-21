@@ -22,7 +22,7 @@
       / Parents as multiple select
       / to enter parent/child relationship
       / TODO: Optimize fetch call
-      = f.input :parents, label: 'Parents', collection: Repo.all_without(@repo), hint: 'Is this project depending on another repo?'
+      = f.input :parents, label: 'Parents', collection: Repo.all_except(@repo), hint: 'Is this project depending on another repo?'
 
       / Full name for admin
       - if admin?
