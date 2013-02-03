@@ -1,4 +1,4 @@
-# [Knight](http://www.knight.io)
+# [Plugingeek](http://www.knight.io)
 
 Knight is the single point of entry in the internet for any developer looking for a great open source plugin. Whether it be a Ruby gem, a jQuery or Javascript Plugin, or something else, Knight lists it and helps you select a great choice.
 
