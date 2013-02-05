@@ -16,10 +16,6 @@
       / description for the category that will be rendered in overviews and is searchable
       = f.input :description, label: 'Description / Summary', hint: 'What is the purpose of the listed repos?', placeholder: 'Description: What is the purpose of the listed repos?'
 
-      / keywords for finding category
-      - if admin?
-        = f.input :keywords, as: :string, label: 'Keywords (Admin)', hint: 'Keywords make finding a category a breeze, e.g. "hosting, deployment, caching".'.html_safe, placeholder: 'Keywords'
-
       / draft status
       = f.input :draft, label: 'Still in draft mode?'
 
@@ -41,10 +37,3 @@
           td.name = repo.name
           td.score = repo.knight_score
           td.description = repo.description
-
-/ Autocomplete keywords
-- keywords = Category.keywords_for_autocomplete.html_safe
-javascript:
-  $('#category_keywords').select2({
-    tags: #{keywords}
-  });

@@ -76,7 +76,7 @@ class Category < ActiveRecord::Base
   # nil.to_a => []
   def deep_links
     links = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
-    dls.sort_by(&:published_at).reverse
+    links.sort_by(&:published_at).reverse
   end
 
   # Scopes
@@ -198,5 +198,5 @@ class Category < ActiveRecord::Base
   end
 
   # Mass Assignment Whitelist
-  attr_accessible :full_name, :description, :keywords, :draft
+  attr_accessible :full_name, :description, :draft
 end
