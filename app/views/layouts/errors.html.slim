@@ -3,7 +3,10 @@ doctype 5
 html lang='en'
   head
     meta charset='utf-8'
-    title Error at PluginGeek
+
+    / Title
+    - title = yield :title
+    title = title.present? ? title : 'PluginGeek'
 
     / Errors stylesheet
     = stylesheet_link_tag 'application'
