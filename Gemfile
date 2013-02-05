@@ -50,10 +50,6 @@ gem 'formtastic'
 # Audited (Model Versioning and Auditing)
 gem 'audited-activerecord', '~> 3.0'
 
-# Swiftype (Search Engine and Autocompletion)
-# TODO: Remove, no full-text searching right now, and breaks with certain records anyway
-gem 'swiftype'
-
 # Figaro (Managing credentials)
 gem 'figaro'
 
@@ -117,7 +113,7 @@ group :development do
   gem 'quiet_assets'
 
   # Lol DBA (Find missing indexes)
-  gem 'lol_dba'
+  # gem 'lol_dba'
 
   # Bullet (Eager Loading Notification)
   gem 'bullet'
@@ -125,24 +121,4 @@ group :development do
   # Better Errors (REPL Debug)
   gem 'better_errors'
   gem 'binding_of_caller'
-end
-
-# Test Gems
-# Source: http://stackoverflow.com/questions/7628654/using-minitest-in-rails#comment12068363_9221625
-group :test do
-  # Minitest (latest gem version)
-  gem 'minitest'
-
-  # Capybara for integration test
-  gem 'capybara'
-
-  # Turn for nice test output
-  gem 'turn'
-
-  # Guard for watching file changes
-  # and running tests automatically
-  gem 'guard-minitest'
-
-  # Factory Girl for fabricating object instances
-  gem 'factory_girl_rails'
 end
