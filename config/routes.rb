@@ -51,11 +51,6 @@ Knight::Application.routes.draw do
     end
   end
 
-  # Sidekiq Web Interface
-  # TODO: Authentication
-  require 'sidekiq/web'
-  mount Sidekiq::Web, at: 'admin/sidekiq', as: :sidekiq
-
   # Blitz.io load testing authentication
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
 
@@ -64,9 +59,9 @@ Knight::Application.routes.draw do
     get '' =>  'application#remove_subdomain'
   end
 
-  # Static Pages
-  get ':id' => 'high_voltage/pages#show', as: :static
-
   # Root
   root to: 'categories#index'
+
+  # HighVoltage adds a page_path(:id) route
+  # page     GET    /pages/*id    high_voltage/pages#show
 end
