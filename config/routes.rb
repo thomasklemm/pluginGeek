@@ -62,6 +62,9 @@ Knight::Application.routes.draw do
   # Root
   root to: 'categories#index'
 
+  # Error pages
+  get ':id', to: 'pages#show', as: :static
+
   # HighVoltage adds a page_path(:id) route
   # page     GET    /pages/*id    high_voltage/pages#show
 end

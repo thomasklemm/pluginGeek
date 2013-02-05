@@ -1,0 +1,29 @@
+/ layouts/errors
+doctype 5
+html lang='en'
+  head
+    meta charset='utf-8'
+    title Error at PluginGeek
+
+    / Errors stylesheet
+    = stylesheet_link_tag 'application'
+
+  body
+    #root
+      .container
+        .error-page-header
+          = link_to root_path do
+            = image_tag 'Geeky/Combination.png', width: 290
+
+      / any flash messages
+      = render 'flash_messages'
+
+      / main content
+      #content.container
+        = yield
+
+      / sticky footer that stays at the bottom of the page
+      #root_footer
+
+    #footer
+      = render 'footer'

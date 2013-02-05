@@ -1,0 +1,13 @@
+.error-page-details
+  .title Whoops!
+  .subtitle Some internal server error occurred on our side (500).
+
+  .message
+    ' We've tracked the error, but if it keeps showing, please send
+    br
+    ' me a quick mail explaining what made it happen
+    = mail_to 'thomas@plugingeek.com', 'here.'
+
+  .cheers
+    ' Thanks for your patience and help!
+    .signature = mail_to 'thomas@plugingeek.com', 'Thomas'
