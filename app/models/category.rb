@@ -193,7 +193,8 @@ class Category < ActiveRecord::Base
   end
 
   # Save categories when expiring to update statistics
-  def self.expire(categories)
+  def self.expire(category_names)
+    categories = self.where(full_name: category_names)
     categories.each(&:save)
   end
 
