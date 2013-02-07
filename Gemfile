@@ -62,6 +62,9 @@ gem 'closure_tree'
 # Dynamic Form (Display validation error messages)
 gem 'dynamic_form'
 
+# HoneyBadger (Error catching in production)
+gem 'honeybadger'
+
 # Production Gems
 group :production do
   # Memcached on Heroku
