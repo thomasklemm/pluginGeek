@@ -248,6 +248,11 @@ i
   @include nth-omega(2n)
   padding: 0.9rem 1.2rem
 
+@include media(max-width 630px)
+  .half-box
+    @include span-columns(12)
+    min-height: 0 !important
+
 // display all matches link / button
 .show-all
   @extend .button
