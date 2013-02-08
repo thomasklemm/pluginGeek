@@ -73,17 +73,16 @@ Knight::Application.configure do
   config.consider_all_requests_local = false
 
   # The underlying cache store to use.
-  config.cache_store = :dalli_store
-  # The session store is completely different from the normal data cache
-  config.session_store = :dalli_store
+  config.cache_store = :dalli_store, compress: true
 
   # HTTP Caching
   config.action_dispatch.rack_cache = {
-    :metastore    => Dalli::Client.new,
+    :metastore    => :dalli_store, compress: true,
     :entitystore  => 'file:tmp/cache/rack/body',
     :allow_reload => false
   }
 
+  ##
   # Static Assets
   public_path = config.paths['public'].first
   config.middleware.delete ActionDispatch::Static
@@ -95,6 +94,7 @@ Knight::Application.configure do
     [:all,   {'Cache-Control' => 'public, max-age=31536000'}],
     [:fonts, {'Access-Control-Allow-Origin' => '*'}]
   ]
-  require 'rack_headers'
+
+  require 'rack/headers'
   config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers'
 end

@@ -243,15 +243,20 @@ i
 .half-box
   @extend .box
 
-  // two element block grid
-  @include span-columns(6)
-  @include nth-omega(2n)
-  padding: 0.9rem 1.2rem
+@include media(min-width 631px)
+  .half-box
+    // two element block grid
+    @include span-columns(6)
+    @include nth-omega(2n)
+    padding: 0.9rem 1.2rem
+
 
 @include media(max-width 630px)
   .half-box
     @include span-columns(12)
     min-height: 0 !important
+    padding: 0.5rem 0.7rem
+
 
 // display all matches link / button
 .show-all
