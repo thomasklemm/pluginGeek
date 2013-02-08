@@ -1,4 +1,4 @@
-Knight::Application.configure do
+Plugingeek::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Default actiomailer url host

@@ -1,4 +1,4 @@
-Knight::Application.routes.draw do
+Plugingeek::Application.routes.draw do
   ##
   # User authentication
   devise_for :users,

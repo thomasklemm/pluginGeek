@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Knight::Application.load_tasks
+Plugingeek::Application.load_tasks

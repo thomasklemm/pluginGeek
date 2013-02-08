@@ -10,7 +10,7 @@
 //= require readme
 //= require select2
 
-# Knight
+# Plugingeek
 $ ->
   ##
   # Timeago
