@@ -73,11 +73,11 @@ Knight::Application.configure do
   config.consider_all_requests_local = false
 
   # The underlying cache store to use.
-  config.cache_store = :dalli_store, compress: true
+  config.cache_store = :dalli_store, { :compress => true }
 
   # HTTP Caching
   config.action_dispatch.rack_cache = {
-    :metastore    => :dalli_store,
+    :metastore    => Dalli::Client.new,
     :entitystore  => 'file:tmp/cache/rack/body',
     :allow_reload => false
   }
