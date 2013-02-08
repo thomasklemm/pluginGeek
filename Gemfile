@@ -3,11 +3,8 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby '1.9.3'
 
-# Unicorn (App Server)
-gem 'unicorn'
-
 # Puma (App Server)
-# gem 'puma', '>= 2.0.0.b4'
+gem 'puma', '>= 2.0.0.b6'
 
 # Rails
 gem 'rails', '3.2.11'
