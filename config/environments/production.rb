@@ -77,7 +77,7 @@ Knight::Application.configure do
 
   # HTTP Caching
   config.action_dispatch.rack_cache = {
-    :metastore    => :dalli_store, compress: true,
+    :metastore    => :dalli_store,
     :entitystore  => 'file:tmp/cache/rack/body',
     :allow_reload => false
   }
