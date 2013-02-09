@@ -77,7 +77,7 @@ Plugingeek::Application.configure do
 
   # HTTP Caching
   config.action_dispatch.rack_cache = {
-    :metastore    => Dalli::Client.new,
+    :metastore    => Dalli::Client.new(compress: true),
     :entitystore  => 'file:tmp/cache/rack/body',
     :allow_reload => false
   }
