@@ -1,5 +1,8 @@
 / categories/index
-- cache [@language, @categories] do
+- cache [@language, 'categories_index'] do
+  / REVIEW: Are Rails associations lazy-loaded?
+  / Right now expiration is handled by touching language when categories change
+  - @categories = @language.categories
   / Eye catcher
   = render 'application/eye_catcher'
 

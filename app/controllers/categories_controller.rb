@@ -7,7 +7,6 @@ class CategoriesController < ApplicationController
 
   # GET '/:language'
   def index
-    @categories = @language.categories.includes(:languages)
   end
 
   # GET /categories/:id
