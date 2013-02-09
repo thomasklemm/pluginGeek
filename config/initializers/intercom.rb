@@ -52,12 +52,12 @@ IntercomRails.config do |config|
   #             id of #Intercom.
   #
   # config.inbox.style = :default
-  # config.inbox.style = :custom
+  config.inbox.style = :custom
 
   # == Inbox Counter
   # If you're using the custom inbox style, you can request that Intercom
   # insert an `em` element into your anchor with the count of unread messages
   #
-  # config.inbox.counter = true
+  config.inbox.counter = true
 
 end
