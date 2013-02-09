@@ -68,9 +68,6 @@ gem 'honeybadger'
 # Intercom (Communicating with users)
 gem 'intercom-rails', '~> 0.2.14'
 
-# Virtus (Ruby objects on steroids)
-gem 'virtus'
-
 # Production Gems
 group :production do
   # Memcached on Heroku
