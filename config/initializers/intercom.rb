@@ -35,6 +35,12 @@ IntercomRails.config do |config|
   #   :plan => Proc.new { |current_user| current_user.plan.name },
   #   :favorite_color => :favorite_color
   # }
+  config.user.custom_data = {
+    :github_login => :login,
+    :github_location => :location,
+    :github_company => :company,
+    :github_followers => :followers
+  }
 
 
   # == Inbox Style
