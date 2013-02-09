@@ -1,0 +1,7 @@
+<%= @body %>
+
+<% if @user.present? %>
+By <%= @user.name %>(<%= @user.login %>) (logged in while sending, authenticated via Github)
+<% else %>
+By a guest user.
+<% end %>

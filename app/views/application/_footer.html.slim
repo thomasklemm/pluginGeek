@@ -1,15 +1,31 @@
 / footer
 .footer.container
   ul.links
-    li = link_to 'About & Score', 'javascript:'
-    li = link_to 'Explore & Newsletter', 'javascript:'
-    li = link_to 'Suggest Projects', 'javascript:'
-    li = link_to 'Privacy & Terms', 'javascript:'
+    li = link_to 'Plugingeek?', 'javascript:'
+    li = link_to 'Suggest a project', 'javascript:'
 
   span.greeting
-    span
-      ' &copy; 2013
-      = link_to 'Thomas Klemm', 'https://twitter.com/thomasjklemm'
-      = dns_prefetch('https://twitter.com/thomasjklemm')
-
+    span = link_to 'Privacy and terms', 'javascript:'
     span = link_to 'Made with &hearts; in Germany'.html_safe, 'https://twitter.com/thomasjklemm'
+    = dns_prefetch('https://twitter.com/thomasjklemm')
+
+  // Feedback form
+  .container
+    .twelve.columns
+      - if user_signed_in?
+        .feedback-form-intercom
+          / intercom inbox link
+          a id="Intercom" href="mailto:itqf7qlv@incoming.intercom.io" class='button'
+            i.icon-envelope-alt
+            '  Talk with me
+            // an em element will be inserted for the inbox counter message
+          .subscript
+            ' Suggest a new project or leave feedback.
+            br
+            ' I read every message! - Thanks, Thomas
+
+      - else
+        .feedback-form
+          = form_tag(feedback_path) do
+            = text_area_tag :feedback_body, nil, placeholder: "Suggest projects or leave feedback. I read every message! - Thanks, Thomas", required: true
+            = submit_tag 'Send it'

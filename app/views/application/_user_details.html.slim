@@ -18,19 +18,7 @@
 
         / current user details
         span.avatar-and-name
-          / intercom inbox link
-          a id="Intercom" href="mailto:itqf7qlv@incoming.intercom.io"
-            i.icon-envelope-alt
-            ' Talk with the founder
-            // an em element will be inserted for the inbox counter message
-
           / rounded avatar
           = image_tag(current_user.avatar_url, class: 'avatar', width: '32px', height: '32px')
           / name or login
           span.name = current_user.name
-
-
-
-
-
-

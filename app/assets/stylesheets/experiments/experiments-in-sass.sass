@@ -64,7 +64,8 @@ body
   line-height: 1.618
   color: $text
 
-  background: image-url('backgrounds/compressed/debut_light.png') // 5
+  // background: image-url('backgrounds/compressed/debut_light.png') // 5
+  background: image-url('backgrounds/compressed/pw_maze_white.png') // 5
 
   // Additional backgrounds
   // background: image-url('backgrounds/compressed/subtle_freckles.png') // 4
@@ -549,19 +550,6 @@ i
   .logout
     float: right
 
-// intercom inbox link
-#Intercom
-  display: inline-block
-  margin-right: 1rem
-  // counter
-  em
-    font-style: normal
-    font-weight: 600
-    background: $primary
-    color: #f9f9f9
-    padding: 3px 8px
-    border-radius: 99px
-
 // headline in all views
 .headline
   display: block
@@ -649,7 +637,7 @@ i
 
 // secondary footer
 @import "compass/layout/sticky-footer"
-@include sticky-footer(248px, "#root", "#root_footer", "#footer")
+@include sticky-footer(180px, "#root", "#root_footer", "#footer")
 
 $footer-spacing: 8px
 $footer-borders: 1px dashed #999
@@ -777,4 +765,45 @@ h1, h2, h3, h4, h5, h6
 p
   margin: 0
 
+// feedback form in footer
+.feedback-form
+  width: 300px
+  margin: 0 auto
+  margin-top: 0.5rem
+  form
+    textarea
+      width: 100%
+      border: 1px solid #ccc
+      outline: 0
+      padding: 1rem
+      line-height: 1.4
+      &:focus
+        border-color: $primary
+    input[type=submit]
+      display: block
+      margin: 0 auto
+      margin-top: 0.5rem
+      margin-bottom: 1rem
+      @extend .button
 
+// intercom inbox link in footer
+#Intercom
+  display: inline-block
+  // counter
+  em
+    margin-left: 0.25rem
+    font-style: normal
+    background: #912
+    color: #f9f9f9
+    padding: 4px 10px
+    border-radius: 99px
+    margin-right: -0.25rem
+
+.feedback-form-intercom
+  width: 300px
+  margin: 0 auto
+  margin-top: 0.5rem
+  text-align: center
+  .subscript
+    margin-top: 0.25rem
+    @extend .muted

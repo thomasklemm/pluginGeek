@@ -1,4 +1,6 @@
 Plugingeek::Application.routes.draw do
+  get "mailers/feedback"
+
   ##
   # User authentication
   devise_for :users,
@@ -50,6 +52,10 @@ Plugingeek::Application.routes.draw do
       end
     end
   end
+
+  ##
+  # Feedback
+  post 'feedback' => 'mailers#feedback', as: :feedback
 
   # Blitz.io load testing authentication
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
