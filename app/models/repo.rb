@@ -170,11 +170,10 @@ class Repo < ActiveRecord::Base
   end
 
   # Find all repos with no categories associated
-  def self.all_with_no_categories
-    # REVIEW: Will be handled better with SQL
+  def self.all_without_associations
     names = []
     Repo.find_each do |repo|
-      if repo.categories.count == 0
+      if repo.categories.count == 0 && repo.parents.count == 0 && repo.children.count == 0
         names << repo.full_name
       end
     end
