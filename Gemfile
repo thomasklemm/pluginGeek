@@ -68,6 +68,9 @@ gem 'honeybadger'
 # Intercom (Communicating with users)
 gem 'intercom-rails', '~> 0.2.14'
 
+# Lograge
+gem 'lograge'
+
 # Production Gems
 group :production do
   # Memcached on Heroku

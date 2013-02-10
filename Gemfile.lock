@@ -127,6 +127,9 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.1.0)
       launchy (~> 2.2.0)
+    lograge (0.2.0)
+      actionpack
+      activesupport
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -279,6 +282,7 @@ DEPENDENCIES
   intercom-rails (~> 0.2.14)
   jquery-rails
   letter_opener
+  lograge
   memcachier
   neat
   newrelic_rpm
