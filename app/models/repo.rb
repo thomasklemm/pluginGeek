@@ -169,6 +169,19 @@ class Repo < ActiveRecord::Base
     order_by_score - [repo]
   end
 
+  # Find all repos with no categories associated
+  def self.all_with_no_categories
+    # REVIEW: Will be handled better with SQL
+    names = []
+    Repo.find_each do |repo|
+      if repo.categories.count == 0
+        names << repo.full_name
+      end
+    end
+
+    repos = Repo.where(full_name: names)
+  end
+
   # Callbacks
   # Deduce languages from categories' languages
   before_save :set_languages
