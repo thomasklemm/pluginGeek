@@ -169,7 +169,8 @@ class Repo < ActiveRecord::Base
     order_by_score - [repo]
   end
 
-  # Find all repos with no categories associated
+  # Find all repos without any associated categories,
+  # parents or children, to probably clean them up
   def self.all_without_associations
     names = []
     Repo.find_each do |repo|
