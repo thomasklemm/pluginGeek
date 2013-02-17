@@ -75,8 +75,8 @@ class Category < ActiveRecord::Base
   # All links including the ones from the repos associated with this category
   # nil.to_a => []
   def deep_links
-    links = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
-    links.sort_by(&:published_at).reverse
+    l = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
+    l.sort_by(&:published_at).reverse
   end
 
   # Scopes

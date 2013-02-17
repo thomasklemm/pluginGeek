@@ -81,6 +81,9 @@ Plugingeek::Application.configure do
   # The underlying cache store to use.
   config.cache_store = :dalli_store, { :compress => true }
 
+  # The session store is completely different from the normal data cache
+  config.session_store = :dalli_store # REVIEW: Does this imply infinite sessions?
+
   # HTTP Caching
   config.action_dispatch.rack_cache = {
     :metastore    => Dalli::Client.new, # passing a :compress => :true causes some Dalli init error
