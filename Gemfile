@@ -62,9 +62,6 @@ gem 'closure_tree'
 # Dynamic Form (Display validation error messages)
 gem 'dynamic_form'
 
-# HoneyBadger (Error catching in production)
-gem 'honeybadger'
-
 # Intercom (Communicating with users)
 gem 'intercom-rails', '~> 0.2.14'
 
@@ -76,6 +73,9 @@ group :production do
   # Memcached on Heroku
   gem 'memcachier'
   gem 'dalli'
+
+  # Sentry (Error reporting in production)
+  gem 'sentry-raven', github: 'getsentry/raven-ruby'
 end
 
 # Gems used only for assets and not required
