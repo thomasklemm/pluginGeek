@@ -7,7 +7,7 @@ ruby '1.9.3'
 gem 'puma', '2.0.0.b6'
 
 # Rails
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 # Postgres Database Connector
 gem 'pg'
@@ -102,18 +102,12 @@ end
 
 # Development Gems
 group :development do
-  # Heroku (Custom Deployment Rake Tasks)
-  gem 'heroku'
-  # gem 'taps'    # for rake production:pull_db, has outdated dependencies
-  # gem 'sqlite3' # for rake production:pull_db, has outdated dependencies
-
   # Annotate Models (Schema Info for Models and Routes)
   # master is currently 2.6.0.beta1; gem has not received updates in a while
   gem 'annotate', github: 'ctran/annotate_models'
 
   # Pry (IRB Replacement)
   gem 'pry-rails'
-  gem 'pry-remote'
 
   # Letter Opener (Preview ActionMailer Emails in Development)
   gem 'letter_opener'
