@@ -2,6 +2,7 @@ class MailersController < ApplicationController
   # Send a feedback email from the field in the footer
   def feedback
     unless params[:honeypot].strip == '42'
+      logger.info "Filtered out a spam comment: Honeypot content: #{params[:honeypot]}"
       flash.alert = "Please resubmit your message with answer 42."
       return redirect_to root_path(feedback: params[:feedback])
     end
