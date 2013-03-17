@@ -115,9 +115,6 @@ group :development do
   # Quiet Assets (Mute Asset Log Messages in Development)
   gem 'quiet_assets'
 
-  # Lol DBA (Find missing indexes)
-  # gem 'lol_dba'
-
   # Bullet (Eager Loading Notification)
   gem 'bullet'
 
