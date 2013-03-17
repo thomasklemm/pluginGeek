@@ -4,9 +4,9 @@ class Mailer < ActionMailer::Base
           subject: "New message on Plugingeek"
 
   # Send feedback emails from the footer
-  def feedback(body, user)
+  def feedback(body, request)
     @body = body
-    @user = user
+    @request = request
     mail
   end
 end
