@@ -27,6 +27,8 @@
       - else
         .feedback-form
           = form_tag(feedback_path) do
-            = text_area_tag :feedback_body, nil, placeholder: "Suggest projects or leave feedback. I read every message! - Thanks, Thomas", required: true
-            = hidden_field_tag :honeypot
+            = text_area_tag :feedback, params[:feedback], placeholder: "Suggest projects or leave feedback. I read every message! - Thanks, Thomas", required: true
+            .space-one
+            = label_tag :honeypot, "Human: What's the <a href='http://www.independent.co.uk/life-style/history/42-the-answer-to-life-the-universe-and-everything-2205734.html' target='_blank'>answer to life and stuff</a>?".html_safe
+            = text_field_tag :honeypot, nil, placeholder: 'How about 42?', required: true, autocomplete: 'off'
             = submit_tag 'Send it'

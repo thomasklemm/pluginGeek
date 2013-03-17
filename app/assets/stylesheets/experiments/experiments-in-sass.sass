@@ -771,7 +771,8 @@ p
   margin: 0 auto
   margin-top: 0.5rem
   form
-    textarea
+    text-align: center
+    textarea, input[type=text]
       width: 100%
       border: 1px solid #ccc
       outline: 0
@@ -779,6 +780,10 @@ p
       line-height: 1.4
       &:focus
         border-color: $primary
+    input[type=text]
+      padding: 0.5rem 1rem
+    label
+      color: #999
     input[type=submit]
       display: block
       margin: 0 auto
