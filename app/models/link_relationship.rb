@@ -16,11 +16,9 @@
 #
 
 class LinkRelationship < ActiveRecord::Base
-  belongs_to :link,
-    touch: true
+  belongs_to :link
   belongs_to :linkable,
-    polymorphic: true,
-    touch: true
+    polymorphic: true
 
-  # TODO: Find way how to touch categories through repos where link is displayed
+  validates :link, :linkable_id, :linkable_type, presence: true
 end

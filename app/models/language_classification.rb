@@ -16,9 +16,9 @@
 #
 
 class LanguageClassification < ActiveRecord::Base
-  belongs_to :language,
-    touch: true
-  belongs_to :classifier, # category or repo
-    polymorphic: true,
-    touch: true
+  belongs_to :language
+  # Category or repo can be a classifier
+  belongs_to :classifier,
+    polymorphic: true
+  validates :language_id, :classifier_id, :classifier_type, presence: true
 end

@@ -79,11 +79,32 @@ class Category < ActiveRecord::Base
     l.sort_by(&:published_at).reverse
   end
 
+  # Category Relationships
+  has_many :category_relationships,
+    class_name: 'CategoryRelationship',
+    foreign_key: :other_category_id
+
+  has_many :reverse_category_relationships,
+    class_name: 'CategoryRelationship',
+    foreign_key: :category_id
+
+  has_many :related_categories,
+    through: :category_relationships,
+    source: :category,
+    uniq: true
+
+  has_many :reverse_related_categories,
+    through: :reverse_category_relationships,
+    source: :other_category,
+    uniq: true
+
+  def similar_categories
+    (related_categories | reverse_related_categories).uniq
+  end
+
   # Scopes
   # Ordering by score
   scope :order_by_score, order('categories.knight_score DESC')
-
-
 
   ##
   # Getters and defaults

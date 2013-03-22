@@ -36,27 +36,33 @@ class Repo < ActiveRecord::Base
   validates :description, length: {maximum: 360}
 
   # Parents
-  has_many  :parent_child_relationships,
+  has_many :parent_child_relationships,
     class_name:   'RepoRelationship',
     foreign_key:  :child_id,
-    dependent:    :destroy
-  has_many  :parents,
+    dependent:    :destroy # REVIEW: Really?
+  has_many :parents,
     through:      :parent_child_relationships,
     source:       :parent,
     uniq:         true
 
   # Children
-  has_many  :child_parent_relationships,
+  has_many :child_parent_relationships,
     class_name:   'RepoRelationship',
     foreign_key:  :parent_id,
-    dependent:    :destroy
-  has_many  :children,
+    dependent:    :destroy # TODO: Really?
+  has_many :children,
     through:      :child_parent_relationships,
     source:       :child,
     uniq:         true
 
-  def has_parents?; parents.size > 0; end
-  def has_children?; children.size > 0; end
+  # NOTE: Move to decorator
+  def has_parents?
+    !parents.empty?
+  end
+
+  def has_children?
+    !children.empty?
+  end
 
   def child_list
     children.pluck(:full_name).join(', ')
@@ -67,8 +73,8 @@ class Repo < ActiveRecord::Base
   end
 
   # Categories
-  has_many  :categorizations
-  has_many  :categories,
+  has_many :categorizations
+  has_many :categories,
     through: :categorizations,
     uniq: true,
     order: 'categories.knight_score DESC'
@@ -88,12 +94,14 @@ class Repo < ActiveRecord::Base
       # Review: more efficient 'pluck' breaks
       old_ones = categories.map(&:full_name)
 
-      full_names = new_list.split(', ')
-      full_names.delete('')
-      full_names = full_names.compact.map(&:strip)
+      full_names = new_list.
+                    split(', ').
+                    select(&:present?).
+                    compact.
+                    map(&:strip)
 
       self.categories = full_names.map do |full_name|
-        Category.find_or_create_by_full_name(full_name)
+        Category.where(full_name: full_name).first_or_create!
       end
 
       new_ones = categories.map(&:full_name)
@@ -105,9 +113,9 @@ class Repo < ActiveRecord::Base
   end
 
   # Languages
-  has_many  :language_classifications,
+  has_many :language_classifications,
     as: :classifier
-  has_many  :languages,
+  has_many :languages,
     through: :language_classifications,
     uniq: true
 
@@ -126,11 +134,11 @@ class Repo < ActiveRecord::Base
   # Field defaults and virtual attributes
   # Owner and name
   def name
-    self[:name] || self[:full_name].split('/')[1]
+    self[:name] || full_name.split('/')[1]
   end
 
   def owner
-    self[:owner] || self[:full_name].split('/')[0]
+    self[:owner] || full_name.split('/')[0]
   end
 
   # Urls
@@ -156,6 +164,7 @@ class Repo < ActiveRecord::Base
     self[:github_updated_at].present? ? self[:github_updated_at].utc : 2.years.ago.utc
   end
 
+  # NOTE: Move to Decorator
   def timestamp
     github_updated_at.utc # jQuery timeago input format
   end
@@ -166,20 +175,19 @@ class Repo < ActiveRecord::Base
 
   # All repos except the given one, so that parent cannot be set to self in repo#edit
   def self.all_except(repo)
-    order_by_score - [repo]
+    order_by_score - [repo] # REVIEW: There's a method for that
   end
 
   # Find all repos without any associated categories,
   # parents or children, to probably clean them up
   def self.all_without_associations
-    names = []
+    full_names = []
     Repo.find_each do |repo|
-      if repo.categories.count == 0 && repo.parents.count == 0 && repo.children.count == 0
-        names << repo.full_name
-      end
+      full_names << repo.full_name if
+        repo.categories.empty? && repo.parents.empty? && repo.children.empty?
     end
 
-    repos = Repo.where(full_name: names)
+    Repo.where(full_name: full_names)
   end
 
   # Callbacks
@@ -191,15 +199,18 @@ class Repo < ActiveRecord::Base
 
   # Changes in repo (e.g. adding staff pick flag) need
   # to expire associated categories
-  # REVIEW: Why isn't this handled through belongs_to touch: true?
   after_commit :expire_categories, if: :persisted?
-  def expire_categories
-    categories.each(&:touch)
-  end
 
   # Retrieve record from Github if the full name changed
   # to handle renaming of repos and movements between owners
   after_save :update_from_github, if: :full_name_changed?
+
+  private
+
+  def expire_categories
+    categories.each(&:touch)
+  end
+
   # Update record from Github
   def update_from_github
     RepoUpdater.new.perform(full_name)
