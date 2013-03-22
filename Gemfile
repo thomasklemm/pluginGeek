@@ -68,6 +68,9 @@ gem 'lograge'
 # Rack Timeout
 gem 'rack-timeout'
 
+# Draper (Decorators)
+gem 'draper'
+
 # Gems used only for assets and not required
 #   in production environments by default.
 group :assets do

@@ -35,6 +35,15 @@ class Repo < ActiveRecord::Base
   # Audits
   audited only: [:description]
 
+  # Order repos by score
+  scope :order_by_score, order('repos.knight_score DESC')
+
+  # All repos except the given one,
+  # so that parent cannot be set to self in repo#edit
+  def self.all_except(repo)
+    order_by_score.to_a - [repo]
+  end
+
   # Callbacks
   # Assign a repo's languages from its' categories' languages
   # on every save
@@ -124,53 +133,6 @@ class Repo < ActiveRecord::Base
 
     # Expire new categories and self
     categories.each(&:touch) and self.touch
-  end
-
-  # Field defaults and virtual attributes
-  # Owner and name
-  def owner
-    self[:owner].present? ? self[:owner] : full_name.split('/')[0]
-  end
-
-  def name
-    self[:name].present? ? self[:name] : full_name.split('/')[1]
-  end
-
-  # URLs
-  def github_url
-    "https://github.com/#{full_name}"
-  end
-
-  def homepage_url
-    self[:homepage_url].present? ? self[:homepage_url] : github_url
-  end
-
-  # Descriptions
-  def github_description
-    self[:github_description].present? ? self[:github_description] : ''
-  end
-
-  def description
-    self[:description].present? ? self[:description] : github_description
-  end
-
-  # Timestamps
-  def github_updated_at
-    self[:github_updated_at].present? ? self[:github_updated_at].utc : 2.years.ago.utc
-  end
-
-  # NOTE: Move to Decorator
-  def timestamp
-    github_updated_at.utc # jQuery timeago input format
-  end
-
-  # Scopes
-  # Ordering by score
-  scope :order_by_score, order('repos.knight_score DESC')
-
-  # All repos except the given one, so that parent cannot be set to self in repo#edit
-  def self.all_except(repo)
-    order_by_score - [repo] # REVIEW: There's a method for that
   end
 
   # Update this very record from Github,
