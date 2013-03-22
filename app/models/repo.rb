@@ -28,18 +28,32 @@ class Repo < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name
 
-  # Audits
-  audited only: [:description]
-
   # Validations
   validates :full_name, presence: true, uniqueness: true
   validates :description, length: {maximum: 360}
+
+  # Audits
+  audited only: [:description]
+
+  # Callbacks
+  # Assign a repo's languages from its' categories' languages
+  # on every save
+  before_save :assign_languages
+
+  # Changes in repo (e.g. adding staff pick flag) need
+  # to expire associated categories
+  after_save :expire_categories
+  after_save :expire_parents_and_children
+
+  # Retrieve record from Github if the full name changed
+  # to handle renaming of repos and movements between owners
+  after_save :update_from_github, if: :full_name_changed?
 
   # Parents
   has_many :parent_child_relationships,
     class_name:   'RepoRelationship',
     foreign_key:  :child_id,
-    dependent:    :destroy # REVIEW: Really?
+    dependent:    :destroy
   has_many :parents,
     through:      :parent_child_relationships,
     source:       :parent,
@@ -49,24 +63,11 @@ class Repo < ActiveRecord::Base
   has_many :child_parent_relationships,
     class_name:   'RepoRelationship',
     foreign_key:  :parent_id,
-    dependent:    :destroy # TODO: Really?
+    dependent:    :destroy
   has_many :children,
     through:      :child_parent_relationships,
     source:       :child,
     uniq:         true
-
-  # NOTE: Move to decorator
-  def has_parents?
-    !parents.empty?
-  end
-
-  def has_children?
-    !children.empty?
-  end
-
-  def child_list
-    children.pluck(:full_name).join(', ')
-  end
 
   def parents_and_children
     parents | children
@@ -79,49 +80,12 @@ class Repo < ActiveRecord::Base
     uniq: true,
     order: 'categories.knight_score DESC'
 
-  def has_categories?
-    categories.size > 0
-  end
-
-  # To create a tag-like input
-  def category_list
-    categories.map(&:full_name).join(', ')
-  end
-
-  # handle tag-input shpanges
-  def category_list=(new_list)
-    if new_list != category_list
-      # Review: more efficient 'pluck' breaks
-      old_ones = categories.map(&:full_name)
-
-      full_names = new_list.
-                    split(', ').
-                    select(&:present?).
-                    compact.
-                    map(&:strip)
-
-      self.categories = full_names.map do |full_name|
-        Category.where(full_name: full_name).first_or_create!
-      end
-
-      new_ones = categories.map(&:full_name)
-
-      # Expire caches
-      Category.expire(old_ones | new_ones)
-      self.touch # expire self
-    end
-  end
-
   # Languages
   has_many :language_classifications,
     as: :classifier
   has_many :languages,
     through: :language_classifications,
     uniq: true
-
-  def language_list
-    languages.map(&:name).join(', ')
-  end
 
   # Links
   has_many :link_relationships,
@@ -131,17 +95,48 @@ class Repo < ActiveRecord::Base
     uniq: true,
     order: 'links.published_at DESC'
 
+ # Lists for tag inputs
+  def child_list
+    children.pluck(:full_name).join(', ')
+  end
+
+  def language_list
+    languages.pluck(&:name).join(', ')
+  end
+
+  def category_list
+    categories.pluck(&:full_name).join(', ')
+  end
+
+  # Handle tag input changes
+  def category_list=(new_list)
+    # Early return if category assignments don't change
+    return unless new_list != category_list
+
+    # Expire old categories
+    categories.each(&:touch)
+
+    full_names = new_list.split(', ').select(&:present?).map(&:strip)
+
+    self.categories = full_names.map do |full_name|
+      Category.where(full_name: full_name).first_or_create!
+    end
+
+    # Expire new categories and self
+    categories.each(&:touch) and self.touch
+  end
+
   # Field defaults and virtual attributes
   # Owner and name
-  def name
-    self[:name] || full_name.split('/')[1]
-  end
-
   def owner
-    self[:owner] || full_name.split('/')[0]
+    self[:owner].present? ? self[:owner] : full_name.split('/')[0]
   end
 
-  # Urls
+  def name
+    self[:name].present? ? self[:name] : full_name.split('/')[1]
+  end
+
+  # URLs
   def github_url
     "https://github.com/#{full_name}"
   end
@@ -178,42 +173,25 @@ class Repo < ActiveRecord::Base
     order_by_score - [repo] # REVIEW: There's a method for that
   end
 
-  # Find all repos without any associated categories,
-  # parents or children, to probably clean them up
-  def self.all_without_associations
-    full_names = []
-    Repo.find_each do |repo|
-      full_names << repo.full_name if
-        repo.categories.empty? && repo.parents.empty? && repo.children.empty?
-    end
-
-    Repo.where(full_name: full_names)
+  # Update this very record from Github,
+  #   live and in color
+  def update_from_github
+    RepoUpdater.new.perform(full_name)
   end
-
-  # Callbacks
-  # Deduce languages from categories' languages
-  before_save :set_languages
-  def set_languages
-    self.languages = categories.flat_map(&:languages).uniq
-  end
-
-  # Changes in repo (e.g. adding staff pick flag) need
-  # to expire associated categories
-  after_commit :expire_categories, if: :persisted?
-
-  # Retrieve record from Github if the full name changed
-  # to handle renaming of repos and movements between owners
-  after_save :update_from_github, if: :full_name_changed?
 
   private
+
+  # Deduce languages from categories' languages
+  def assign_languages
+    self.languages = categories.flat_map(&:languages).uniq
+  end
 
   def expire_categories
     categories.each(&:touch)
   end
 
-  # Update record from Github
-  def update_from_github
-    RepoUpdater.new.perform(full_name)
+  def expire_parents_and_children
+    parents_and_children.each(&:touch)
   end
 
   # Whitelisting attributes for mass assignment
