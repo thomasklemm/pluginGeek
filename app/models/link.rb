@@ -19,33 +19,24 @@ class Link < ActiveRecord::Base
   # Repos and categories
   has_many :link_relationships
 
-  has_many :repos,
-    through: :link_relationships,
-    source: :linkable,
-    source_type: 'Repo',
-    uniq: true
-
   has_many :categories,
     through: :link_relationships,
     source: :linkable,
     source_type: 'Category',
     uniq: true
 
-  # Convert '@mperham' to 'https://twitter.com/mperham'
-  # NOTE: Move to decorator.
-  def author_url
-    url = self[:author_url] || ''
-    url.start_with?('@') and url = "https://twitter.com/#{ url.gsub('@', '') }"
+  has_many :repos,
+    through: :link_relationships,
+    source: :linkable,
+    source_type: 'Repo',
+    uniq: true
+
+  # Enhance categories to include repos' categories
+  alias_method :plain_categories, :categories
+  def categories
+    (plain_categories | repos.flat_map(&:categories)).uniq
   end
 
-  # Categories including repos' categories
-  def deep_categories
-    (categories | repos.flat_map(&:categories)).uniq
-  end
-
-  ##
-  # Callbacks
-  #
   # Changes in link (e.g. changing date) need
   # to expire associated categories and repos
   after_commit :expire_categories_and_repos, if: :persisted?
