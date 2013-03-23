@@ -138,6 +138,7 @@ class Repo < ActiveRecord::Base
   # Update this very record from Github,
   #   live and in color
   def update_from_github
+    return if Rails.env.test?
     RepoUpdater.new.perform(full_name)
   end
 

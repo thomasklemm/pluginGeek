@@ -25,7 +25,7 @@ class Category < ActiveRecord::Base
   friendly_id :full_name, use: [:slugged, :history]
 
   # Validations
-  validates :full_name, :slug, uniqueness: true
+  validates :full_name, presence: true
   validates :description, length: {maximum: 360}
 
   # Audits
@@ -66,12 +66,7 @@ class Category < ActiveRecord::Base
     through: :link_relationships,
     order: 'links.published_at DESC'
 
-  # Ads
-  has_many :ad_categorizations
-  has_many :ads,
-    through: :ad_categorizations
-
-  # Similar categories
+  # Related categories
   has_many :category_relationships,
     foreign_key: :other_category_id
 
@@ -105,7 +100,8 @@ class Category < ActiveRecord::Base
 
   # Assign languages from full_name
   def assign_languages
-    return unless full_name.changed?
+    # FIXME: Lookup dirty tracking
+    # return unless full_name.changed?
 
     # Extract languages from full_name string
     match_data = full_name.match %r{\((?<languages>.*)\)}
@@ -123,7 +119,7 @@ class Category < ActiveRecord::Base
       self.languages << language if language
     end
 
-    #  Assign sublanguages if appropriate
+    # Assign sublanguages if appropriate
     assign_web_languages if langs.include?('web')
     assign_mobile_languages if langs.include?('mobile')
   end
