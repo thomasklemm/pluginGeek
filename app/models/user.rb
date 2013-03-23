@@ -31,26 +31,9 @@ class User < ActiveRecord::Base
   # Selected Devise modules
   devise :rememberable, :trackable, :omniauthable
 
-  # Defaults and virtual attributes
-  def name
-    self[:name] || login
-  end
+  # Validations
+  validates :login, presence: true, uniqueness: true
 
-  def github_url
-    "https://github.com/#{ login }"
-  end
-
-  # default grey github avatar
-  def avatar_url
-    self[:avatar_url] || 'https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png'
-  end
-
-  def email;      self[:email] || ''     ; end
-  def company;    self[:company] || ''   ; end
-  def location;   self[:location] || ''  ; end
-  def followers;  self[:followers] || 0  ; end
-
-  ##
   # Authentication through Github
   has_many :authentications, dependent: :destroy
 

@@ -13,7 +13,9 @@ describe Repo do
   it { should validate_presence_of(:full_name) }
   it { should validate_uniqueness_of(:full_name) }
 
-  it "uses the full_name as a friendly id"
+  it "uses the full_name as a friendly id" do
+    expect(repo.to_param).to eq(repo.full_name)
+  end
 
   it { should ensure_length_of(:description).is_at_most(360) }
 
@@ -48,6 +50,10 @@ describe Repo do
   it { should have_many(:link_relationships) }
   it { should have_many(:links).through(:link_relationships) }
 
+  it { should respond_to(:child_list) }
+  it { should respond_to(:language_list) }
+  it { should respond_to(:category_list) }
+  it { should respond_to(:category_list=) }
 
   describe "#child_list" do
     before do
@@ -61,6 +67,8 @@ describe Repo do
     end
   end
 
-
+  describe "#update_from_github" do
+    it "updates the repo with the current Github data"
+  end
 
 end
