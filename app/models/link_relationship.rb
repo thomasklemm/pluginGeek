@@ -20,5 +20,5 @@ class LinkRelationship < ActiveRecord::Base
   belongs_to :linkable,
     polymorphic: true
 
-  validates :link, :linkable_id, :linkable_type, presence: true
+  validates :link, :linkable, presence: true
 end

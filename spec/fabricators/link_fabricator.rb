@@ -1,0 +1,3 @@
+Fabricator(:link) do
+
+end
