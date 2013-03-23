@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121141731) do
+ActiveRecord::Schema.define(:version => 20130322095531) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -64,9 +64,19 @@ ActiveRecord::Schema.define(:version => 20130121141731) do
     t.integer "category_id", :null => false
   end
 
-  add_index "categorizations", ["category_id"], :name => "index_categories_repos_on_category_id"
-  add_index "categorizations", ["repo_id", "category_id"], :name => "index_categories_repos_on_repo_id_and_category_id"
-  add_index "categorizations", ["repo_id"], :name => "index_categories_repos_on_repo_id"
+  add_index "categorizations", ["category_id"], :name => "index_categorizations_on_category_id"
+  add_index "categorizations", ["repo_id", "category_id"], :name => "index_categorizations_on_repo_id_and_category_id"
+  add_index "categorizations", ["repo_id"], :name => "index_categorizations_on_repo_id"
+
+  create_table "category_relationships", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "other_category_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "category_relationships", ["category_id"], :name => "index_category_relationships_on_category_id"
+  add_index "category_relationships", ["other_category_id"], :name => "index_category_relationships_on_other_category_id"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -138,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20130121141731) do
   end
 
   add_index "repo_relationships", ["child_id"], :name => "index_repo_relationships_on_child_id"
+  add_index "repo_relationships", ["parent_id", "child_id"], :name => "index_repo_relationships_on_parent_id_and_child_id", :unique => true
   add_index "repo_relationships", ["parent_id"], :name => "index_repo_relationships_on_parent_id"
 
   create_table "repos", :force => true do |t|

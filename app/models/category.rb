@@ -24,178 +24,124 @@ class Category < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name, use: [:slugged, :history]
 
+  # Validations
+  validates :full_name, presence: true
+  validates :description, length: {maximum: 360}
+
   # Audits
   audited only: [:full_name, :description]
 
-  # Validations
-  validates :full_name, uniqueness: true
-  validates :slug, uniqueness: true
-  validates :description, length: {maximum: 360}
+  # Order categories by score
+  scope :order_by_score, order('categories.knight_score DESC')
+
+  # Assign aggregate stars of repos as category stars
+  before_save :assign_stars
+
+  # Assign aggregate scores of repos as category score
+  before_save :assign_score
+
+  # Assign languages from full_name
+  before_save :assign_languages
+
+  # Update the languages of the associated repos
+  # and expire the repos
+  after_commit :update_repo_languages
 
   # Repos
-  has_many  :categorizations
-  has_many  :repos,
+  has_many :categorizations
+  has_many :repos,
     through: :categorizations,
-    uniq: true,
     order: 'repos.knight_score DESC'
 
-  # Ads
-  has_many  :ad_categorizations
-  has_many  :ads,
-    through: :ad_categorizations,
-    uniq: true
-
   # Languages
-  has_many  :language_classifications,
+  has_many :language_classifications,
     as: :classifier
-  has_many  :languages,
-    through: :language_classifications,
-    uniq: true
-
-  def language_list
-    @languages ||= calculate_language_list
-  end
-
-  # only display web and mobile without subcategories
-  def calculate_language_list
-    langs = languages.map(&:name)
-    langs.delete_if {|lang| Language::Web.include?(lang.downcase)} if langs.include? 'Web'
-    langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}  if langs.include? 'Mobile'
-    langs.join(', ')
-  end
+  has_many :languages,
+    through: :language_classifications
 
   # Links
   has_many :link_relationships,
     as: :linkable
   has_many :links,
     through: :link_relationships,
-    uniq: true,
     order: 'links.published_at DESC'
 
-  # All links including the ones from the repos associated with this category
-  # nil.to_a => []
-  def deep_links
-    l = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
-    l.sort_by(&:published_at).reverse
+  # Related categories
+  has_many :category_relationships,
+    foreign_key: :other_category_id
+
+  has_many :reverse_category_relationships,
+    class_name: 'CategoryRelationship',
+    foreign_key: :category_id
+
+  has_many :related_categories,
+    through: :category_relationships,
+    source: :category
+
+  has_many :reverse_related_categories,
+    through: :reverse_category_relationships,
+    source: :other_category
+
+  def similar_categories
+    (related_categories | reverse_related_categories).uniq
   end
 
-  # Scopes
-  # Ordering by score
-  scope :order_by_score, order('categories.knight_score DESC')
+  private
 
-
-
-  ##
-  # Getters and defaults
-  def description
-    self[:description] || ''
-  end
-
-  def description_with_fallback
-    description.present? ? description : '<em>Please add a description to this category.</em>'
-  end
-
-  def stars
-    self[:stars] || 0
-  end
-
-  def knight_score
-    self[:knight_score] || 0
-  end
-
-
-  def popular_repos
-    repos[0..2].to_a.map(&:name).join(', ') || ''
-  end
-
-  # nil.to_a => []
-  def further_repos
-    repos[3..1000].to_a.map(&:name).join(', ') || ''
-  end
-
-  def name
-    @name ||= begin
-      match = full_name.match %r{(?<name>.*)[[:space:]]\(}
-      match.present? ? match[:name].strip : full_name
-    end
-  end
-
-  ##
-  # Callbacks
-  # Set stats before saving
-  before_save :set_stars
-  before_save :set_knight_score
-
-  def set_stars
-    # load whole record as knight_score will be set as well
+  # Assign aggregate stars of repos as category stars
+  def assign_stars
     self.stars = repos.map(&:stars).reduce(:+) || 0
   end
 
-  def set_knight_score
+  # Assign aggregate scores of repos as category score
+  def assign_score
     self.knight_score = repos.map(&:knight_score).reduce(:+) || 0
   end
 
-  # Update languages of each associated repo after commit
-  # and expire repos
-  after_commit :update_repo_languages
-  def update_repo_languages
-    repos(true).each { |repo| repo.save }
-  end
+  # Assign languages from full_name
+  def assign_languages
+    # FIXME: Lookup dirty tracking
+    # return unless full_name.changed?
 
-  # Set languages
-  before_save :set_languages
-  def set_languages
-    match = full_name.match %r{\((?<languages>.*)\)}
-    if match.present?
-      langs = match[:languages].downcase.split('/')
-      langs = langs.map(&:strip)
+    # Extract languages from full_name string
+    match_data = full_name.match %r{\((?<languages>.*)\)}
+    return unless match_data.present?
 
-      # reset languages
-      self.languages = []
+    langs = match_data[:languages].downcase.split('/').map(&:strip)
+    return unless langs.present?
 
-      # set provided languages
-      langs.each do |lang|
-        language = Language.find_by_slug(lang)
-        self.languages << language if language
-      end
+    # Reset languages
+    self.languages = []
 
-      # add sublanguages if appropriate
-      add_web_languages if langs.include?('web')
-      add_mobile_languages if langs.include?('mobile')
+    # Set provided languages if they are known
+    langs.each do |lang|
+      language = Language.find_by_slug(lang)
+      self.languages << language if language
     end
+
+    # Assign sublanguages if appropriate
+    assign_web_languages if langs.include?('web')
+    assign_mobile_languages if langs.include?('mobile')
   end
 
-  def add_web_languages
+  def assign_web_languages
     Language::Web.each do |lang|
       language = Language.find_by_slug(lang)
       self.languages << language if language
     end
   end
 
-  def add_mobile_languages
+  def assign_mobile_languages
     Language::Mobile.each do |lang|
       language = Language.find_by_slug(lang)
       self.languages << language if language
     end
   end
 
-  # Autocomplete category full_names on repo#edit
-  def self.full_names_for_autocomplete
-    order_by_score.pluck(:full_name).to_json
-  end
-
-  ##
-  # Callbacks
-  # Expire repos on category changes
-  after_commit :expire_repos, if: :persisted?
-  def expire_repos
-    repos.each(&:touch)
-  end
-
-  # Save categories when expiring to update statistics
-  def self.expire(category_names)
-    categories = self.where(full_name: category_names)
-    categories.each(&:save)
+  # Update languages of each associated repo
+  # and expire repos
+  def update_repo_languages
+    repos(true).each { |repo| repo.save }
   end
 
   # Mass Assignment Whitelist

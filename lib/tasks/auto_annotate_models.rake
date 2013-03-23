@@ -47,9 +47,9 @@ if(Rails.env.development?)
     Rake::Task['annotate'].invoke
   end
 
-  Rake::Task['db:rollback'].enhance do
-    Rake::Task['annotate'].invoke
-  end
+  # Rake::Task['db:rollback'].enhance do
+  #   Rake::Task['annotate'].invoke
+  # end
 end
 
 
