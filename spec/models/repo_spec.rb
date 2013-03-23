@@ -13,7 +13,7 @@ describe Repo do
   it { should validate_presence_of(:full_name) }
   it { should validate_uniqueness_of(:full_name) }
 
-  it "uses the full_name as a friendly id" do
+  it "has a friendly id using the full_name" do
     expect(repo.to_param).to eq(repo.full_name)
   end
 

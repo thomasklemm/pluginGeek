@@ -15,8 +15,7 @@
 #
 
 class CategoryRelationship < ActiveRecord::Base
-  belongs_to :category,
-    class_name: 'Category'
+  belongs_to :category
   belongs_to :other_category,
     class_name: 'Category'
   validates :category, :other_category, presence: true

@@ -25,13 +25,16 @@ class Language < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  # Validations
+  validates :name, presence: true
+
   # Hierarchy
   acts_as_tree
 
-  ##
-  # Categories and Repos
+  # Classifications
   has_many :language_classifications
 
+  # Categories
   has_many :categories,
     through: :language_classifications,
     source: :classifier,
@@ -39,6 +42,7 @@ class Language < ActiveRecord::Base
     uniq: true,
     order: 'draft ASC, categories.knight_score DESC'
 
+  # Repos
   has_many :repos,
     through: :language_classifications,
     source: :classifier,

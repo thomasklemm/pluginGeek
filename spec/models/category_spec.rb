@@ -7,8 +7,9 @@ describe Category do
   it { should validate_presence_of(:full_name) }
   it { should ensure_length_of(:description).is_at_most(360) }
 
-  it "has a friendly id" do
-    expect(category.to_param).to eq(category.slug)
+  it "has a friendly id using the full_name" do
+    category.save
+    expect(category.to_param).to eq(category.full_name.parameterize)
   end
 
   it "audits changes on full_name"
