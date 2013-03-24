@@ -1,9 +1,7 @@
 class CategoriesController < ApplicationController
-  # Filters
-  before_filter :find_language, only: :index
-
-  before_filter :find_category_and_repos, except: :index
   before_filter :authenticate_user!, only: [:edit, :update]
+  before_filter :load_language, only: :index
+  before_filter :load_category_and_repos, except: :index
 
   # GET '/:language'
   def index
@@ -33,15 +31,13 @@ class CategoriesController < ApplicationController
 
 protected
 
-  def find_language
+  def load_language
     @language = Language.find(params[:language])
   end
 
-  def find_category_and_repos
-    # params[:id] brings friendly_id's slug
-    @category = Category.find(params[:id])
-
-    @repos = @category.repos.includes(:children)
+  def load_category_and_repos
+    @category = Category.find(params[:id]).includes(:repos)
+    @repos = @category.repos
   end
 
   # If an old id or a numeric id was used to find the record, then

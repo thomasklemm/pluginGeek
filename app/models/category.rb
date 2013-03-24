@@ -9,6 +9,7 @@
 #  id               :integer          not null, primary key
 #  knight_score     :integer          default(0)
 #  long_description :text
+#  repo_names       :text
 #  slug             :text             not null
 #  stars            :integer          default(0)
 #  updated_at       :datetime         not null
@@ -42,6 +43,9 @@ class Category < ActiveRecord::Base
 
   # Assign languages from full_name
   before_save :assign_languages
+
+  # Cache repo names
+  before_save :cache_repo_names
 
   # Update the languages of the associated repos
   # and expire the repos
@@ -136,6 +140,10 @@ class Category < ActiveRecord::Base
       language = Language.find_by_slug(lang)
       self.languages << language if language
     end
+  end
+
+  def cache_repo_names
+    self.repo_names = repos.map(&:full_name).join(', ')
   end
 
   # Update languages of each associated repo

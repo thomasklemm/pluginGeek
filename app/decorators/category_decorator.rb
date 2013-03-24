@@ -1,16 +1,13 @@
 class CategoryDecorator < Draper::Decorator
   delegate_all
 
-
   # Autocomplete category full_names on repo#edit
-  def self.full_names_for_autocomplete
+  def full_names_for_autocomplete
     order_by_score.pluck(:full_name).to_json
   end
 
-  ##
-  # Getters and defaults
   def description
-    self[:description] || ''
+    model[:description] || ""
   end
 
   def description_with_fallback
@@ -18,13 +15,12 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def stars
-    self[:stars] || 0
+    model[:stars] || 0
   end
 
   def knight_score
-    self[:knight_score] || 0
+    model[:knight_score] || 0
   end
-
 
   def popular_repos
     repos[0..2].to_a.map(&:name).join(', ') || ''

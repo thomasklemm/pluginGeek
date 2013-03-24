@@ -58,6 +58,15 @@ class Repo < ActiveRecord::Base
   # to handle renaming of repos and movements between owners
   after_save :update_from_github, if: :full_name_changed?
 
+  # Defaults
+  def stars
+    self[:stars] || 0
+  end
+
+  def knight_score
+    self[:knight_score] || 0
+  end
+
   # Parents
   has_many :parent_child_relationships,
     class_name:   'RepoRelationship',

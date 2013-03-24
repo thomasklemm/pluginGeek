@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: links
+#
+#  author       :text
+#  author_url   :text
+#  created_at   :datetime         not null
+#  id           :integer          not null, primary key
+#  published_at :date             not null
+#  title        :text             not null
+#  updated_at   :datetime         not null
+#  url          :text             not null
+#
+
 require 'spec_helper'
 
 describe Link do
