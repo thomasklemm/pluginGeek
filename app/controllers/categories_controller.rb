@@ -33,7 +33,7 @@ class CategoriesController < ApplicationController
 protected
 
   def load_category_and_repos
-    @category = Category.find(params[:id]).includes(:repos)
+    @category = Category.find(params[:id]).decorate
     @repos = @category.repos
   end
 

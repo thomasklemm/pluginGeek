@@ -115,15 +115,15 @@ class Repo < ActiveRecord::Base
 
  # Lists for tag inputs
   def child_list
-    children.pluck(:full_name).join(', ')
+    children.map(:full_name).join(', ')
   end
 
   def language_list
-    languages.pluck(&:name).join(', ')
+    languages.map(&:name).join(', ')
   end
 
   def category_list
-    categories.pluck(&:full_name).join(', ')
+    categories.map(&:full_name).join(', ')
   end
 
   # Handle tag input changes

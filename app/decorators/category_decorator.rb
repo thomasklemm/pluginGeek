@@ -1,10 +1,6 @@
 class CategoryDecorator < Draper::Decorator
   delegate_all
-
-  # Autocomplete category full_names on repo#edit
-  def full_names_for_autocomplete
-    order_by_score.pluck(:full_name).to_json
-  end
+  decorates_association :repos
 
   def description
     model[:description] || ""
@@ -24,6 +20,10 @@ class CategoryDecorator < Draper::Decorator
 
   def knight_score
     score
+  end
+
+  def language_list
+    language_names
   end
 
   def repo_names
@@ -49,7 +49,8 @@ class CategoryDecorator < Draper::Decorator
   # All links including the ones from the repos associated with this category
   # nil.to_a => []
   def deep_links
-    l = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
+    # REVIEW: This results in two ugly queries
+    l = (links.to_a | model.repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
     l.sort_by(&:published_at).reverse
   end
 

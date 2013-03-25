@@ -36,6 +36,11 @@ class Category < ActiveRecord::Base
   # Order categories by score
   scope :order_by_score, order('categories.knight_score DESC')
 
+  # Autocomplete category full_names on repo#edit
+  def self.full_names_for_autocomplete
+    order_by_score.pluck(:full_name).to_json
+  end
+
   # Assign aggregate stars of repos as category stars
   before_save :assign_stars
 
