@@ -1,10 +1,11 @@
 class CategoriesController < ApplicationController
   before_filter :authenticate_user!, only: [:edit, :update]
-  before_filter :load_language, only: :index
   before_filter :load_category_and_repos, except: :index
 
   # GET '/:language'
   def index
+    @language = Language.find(params[:language])
+    @categories = @language.categories.decorate
   end
 
   # GET /categories/:id
@@ -30,10 +31,6 @@ class CategoriesController < ApplicationController
   end
 
 protected
-
-  def load_language
-    @language = Language.find(params[:language])
-  end
 
   def load_category_and_repos
     @category = Category.find(params[:id]).includes(:repos)

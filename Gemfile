@@ -135,5 +135,4 @@ group :staging, :production do
 
   # Sentry (Error reporting in production)
   gem 'sentry-raven', github: 'getsentry/raven-ruby'
-
 end

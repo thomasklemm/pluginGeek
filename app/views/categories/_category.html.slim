@@ -6,7 +6,7 @@
   - category_link = capture do
     = link_to " &raquo;".html_safe, category
   - category_repo_link = capture do
-    '  and #{ category.repos.size - 3 } more
+    '  and #{ category.repo_names.size - 3 } more
     = link_to " &raquo;".html_safe, category
 
   / Category partial in lists
@@ -23,13 +23,13 @@
         i.icon-star
         = category.stars
       / Languages
-      span.language-list = category.language_list
+      span.language-list = category.language_names
 
     / Up to three of the most popular repos
     span.popular-repos
       span.repos.js-repos = category.popular_repos
       / Deeplink into category to see more repos
-      == (category.repos.size > 3) ? category_repo_link : category_link
+      == (category.repo_names.size > 3) ? category_repo_link : category_link
 
     / Description, either a custom one, or the one from Github
     span.description.js-description == category.description

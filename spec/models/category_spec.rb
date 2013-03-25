@@ -8,6 +8,7 @@
 #  full_name        :text             not null
 #  id               :integer          not null, primary key
 #  knight_score     :integer          default(0)
+#  language_names   :text
 #  long_description :text
 #  repo_names       :text
 #  slug             :text             not null

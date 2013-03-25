@@ -18,17 +18,25 @@ class CategoryDecorator < Draper::Decorator
     model[:stars] || 0
   end
 
-  def knight_score
+  def score
     model[:knight_score] || 0
   end
 
+  def knight_score
+    score
+  end
+
+  def repo_names
+    model[:repo_names].to_s.split(', ') || []
+  end
+
   def popular_repos
-    repos[0..2].to_a.map(&:name).join(', ') || ''
+    repo_names[0..1].to_a.join(', ') || ""
   end
 
   # nil.to_a => []
   def further_repos
-    repos[3..1000].to_a.map(&:name).join(', ') || ''
+    repo_names[2..1000].to_a.join(', ') || ""
   end
 
   def name
@@ -44,20 +52,6 @@ class CategoryDecorator < Draper::Decorator
     l = (links.to_a | repos.joins(:links).includes(:links).flat_map(&:links).to_a).uniq
     l.sort_by(&:published_at).reverse
   end
-
-  def language_list
-    @languages ||= plain_language_list
-  end
-
-  # Sublanguages important internally for searching et al.,
-  # but externally only the main languages should be displayed when assigned
-  def plain_language_list
-    langs = languages.map(&:name)
-    langs.include? 'Web'    and langs.delete_if {|lang| Language::Web.include?(lang.downcase)}
-    langs.include? 'Mobile' and langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}
-    langs.join(', ')
-  end
-
 
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:

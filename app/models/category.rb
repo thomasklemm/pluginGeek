@@ -8,6 +8,7 @@
 #  full_name        :text             not null
 #  id               :integer          not null, primary key
 #  knight_score     :integer          default(0)
+#  language_names   :text
 #  long_description :text
 #  repo_names       :text
 #  slug             :text             not null
@@ -47,9 +48,15 @@ class Category < ActiveRecord::Base
   # Cache repo names
   before_save :cache_repo_names
 
+  # Cache language names
+  before_save :cache_language_names
+
   # Update the languages of the associated repos
   # and expire the repos
   after_commit :update_repo_languages
+
+  # Expire languages
+  after_commit :expire_languages
 
   # Repos
   has_many :categorizations
@@ -146,10 +153,22 @@ class Category < ActiveRecord::Base
     self.repo_names = repos.map(&:full_name).join(', ')
   end
 
+  # Cache only Web and Mobile if those main languages are present, don't display any sublanguages then
+  def cache_language_names
+    langs = languages.map(&:name)
+    langs.include? 'Web'    and langs.delete_if {|lang| Language::Web.include?(lang.downcase)}
+    langs.include? 'Mobile' and langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}
+    self.language_names = langs.join(', ')
+  end
+
   # Update languages of each associated repo
   # and expire repos
   def update_repo_languages
     repos(true).each { |repo| repo.save }
+  end
+
+  def expire_languages
+    languages.each(&:touch)
   end
 
   # Mass Assignment Whitelist
