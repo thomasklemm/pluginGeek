@@ -74,8 +74,7 @@ class Repo < ActiveRecord::Base
     dependent:    :destroy
   has_many :parents,
     through:      :parent_child_relationships,
-    source:       :parent,
-    uniq:         true
+    source:       :parent
 
   # Children
   has_many :child_parent_relationships,
@@ -84,8 +83,7 @@ class Repo < ActiveRecord::Base
     dependent:    :destroy
   has_many :children,
     through:      :child_parent_relationships,
-    source:       :child,
-    uniq:         true
+    source:       :child
 
   def parents_and_children
     parents | children
@@ -95,35 +93,32 @@ class Repo < ActiveRecord::Base
   has_many :categorizations
   has_many :categories,
     through: :categorizations,
-    uniq: true,
     order: 'categories.knight_score DESC'
 
   # Languages
   has_many :language_classifications,
     as: :classifier
   has_many :languages,
-    through: :language_classifications,
-    uniq: true
+    through: :language_classifications
 
   # Links
   has_many :link_relationships,
     as: :linkable
   has_many :links,
     through: :link_relationships,
-    uniq: true,
-    order: 'links.published_at DESC'
+    uniq: true
 
  # Lists for tag inputs
   def child_list
-    children.pluck(:full_name).join(', ')
+    children.map(&:full_name).join(', ')
   end
 
   def language_list
-    languages.pluck(&:name).join(', ')
+    languages.map(&:name).join(', ')
   end
 
   def category_list
-    categories.pluck(&:full_name).join(', ')
+    categories.map(&:full_name).join(', ')
   end
 
   # Handle tag input changes

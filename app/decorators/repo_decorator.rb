@@ -1,5 +1,7 @@
 class RepoDecorator < Draper::Decorator
   delegate_all
+  decorates_association :categories
+  decorates_association :parents_and_children
 
   def owner
     model[:owner].present? ? model[:owner] : full_name.split('/')[0]
@@ -9,8 +11,8 @@ class RepoDecorator < Draper::Decorator
     model[:name].present? ? model[:name] : full_name.split('/')[1]
   end
 
-  def knight_score
-    score || 0
+  def score
+    knight_score
   end
 
   def description
@@ -37,5 +39,11 @@ class RepoDecorator < Draper::Decorator
   def timestamp
     # jQuery timeago compatible
     github_updated_at.utc
+  end
+
+  # Somehow there are ActiveRecord errors when using order clauses for this
+  # and using .includes(:links) queries a few levels deep, thus sorting is right now done in Ruby
+  def sorted_links
+    links.sort_by(&:published_at).reverse
   end
 end

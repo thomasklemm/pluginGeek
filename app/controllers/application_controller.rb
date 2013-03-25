@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :set_language
 
   # Helper methods
   include MarkdownHelper
@@ -16,19 +17,19 @@ class ApplicationController < ActionController::Base
     redirect_to root_url(subdomain: false)
   end
 
-  # authorize load testing on blitz.io
+  # Authorize load testing on blitz.io
   def blitz
     render text: '42'
   end
 
-  # Filters
-  before_filter :set_language_or_default
-  def set_language_or_default
-    # format language
+  private
+
+  def set_language
+    # Format language
     params[:language] &&= params[:language].downcase.strip
-    # make 'web' default language if none is set
-    params[:language] ||= 'ruby' # Set to web later
-    # force 'web' default language if the one that is present is not whitelisted
+    # Make 'ruby' default language if none is set
+    params[:language] ||= 'ruby'
+    # Force 'web' default language if the one that is present is not whitelisted
     params[:language] = 'web' unless Language::All.include?(params[:language])
   end
 end

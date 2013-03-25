@@ -4,8 +4,8 @@ class CategoriesController < ApplicationController
 
   # GET '/:language'
   def index
-    @language = Language.find(params[:language])
-    @categories = @language.categories.decorate
+    @language = Language.find(params[:language]).decorate
+    @categories = @language.categories
   end
 
   # GET /categories/:id
@@ -33,7 +33,7 @@ class CategoriesController < ApplicationController
 protected
 
   def load_category_and_repos
-    @category = Category.find(params[:id]).includes(:repos)
+    @category = Category.find(params[:id]).decorate
     @repos = @category.repos
   end
 

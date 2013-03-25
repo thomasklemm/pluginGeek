@@ -11,7 +11,7 @@
       span.primary Categories
       span.edit-link = link_to "<i class='icon-edit'></i>Add or edit".html_safe, edit_repo_path(@repo)
     .container
-      - if @repo.categories.present?
+      - if @repo.categories.any?
         = render partial: 'categories/category', collection: @repo.categories
       - else
         .none-yet None yet.
