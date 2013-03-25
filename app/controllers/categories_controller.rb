@@ -4,8 +4,8 @@ class CategoriesController < ApplicationController
 
   # GET '/:language'
   def index
-    @language = Language.find(params[:language])
-    @categories = @language.categories.decorate
+    @language = Language.find(params[:language]).decorate
+    @categories = @language.categories
   end
 
   # GET /categories/:id

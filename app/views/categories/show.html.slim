@@ -26,7 +26,7 @@
       span Belonging to this category or one of its repos
       span = link_to 'Add a link'.html_safe, 'javascript:;'
     / links including repos' links
-    - if @category.deep_links.present?
-      .links-wrapper.container = render partial: 'links/link', collection: @category.deep_links
+    - if @category.sorted_links.any?
+      .links-wrapper.container = render partial: 'links/link', collection: @category.sorted_links
     - else
       .none-yet None yet.

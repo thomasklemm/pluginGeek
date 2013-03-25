@@ -80,7 +80,7 @@ class Category < ActiveRecord::Base
     as: :linkable
   has_many :links,
     through: :link_relationships,
-    order: 'links.published_at DESC'
+    uniq: true
 
   # Related categories
   has_many :category_relationships,

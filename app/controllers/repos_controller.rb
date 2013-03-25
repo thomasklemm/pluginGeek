@@ -45,7 +45,10 @@ class ReposController < ApplicationController
 protected
 
   def load_or_initialize_repo
-    @repo = Repo.where(full_name: full_name_from_params).first_or_initialize.decorate
+    @repo = Repo.
+      where(full_name: full_name_from_params).
+      first_or_initialize.
+      decorate
   end
 
   def full_name_from_params(owner = params[:owner], name = params[:name])
