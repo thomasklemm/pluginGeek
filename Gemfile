@@ -71,6 +71,9 @@ gem 'draper'
 # Sanitize (User input HTML sanitizer)
 gem 'sanitize'
 
+# Formtastic (Forms)
+gem 'formtastic'
+
 # Gems used only for assets and not required
 #   in production environments by default.
 group :assets do

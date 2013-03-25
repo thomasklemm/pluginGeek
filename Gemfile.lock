@@ -127,6 +127,8 @@ GEM
     figaro (0.6.3)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
     friendly_id (4.0.9)
     fssm (0.2.10)
     hashie (1.2.0)
@@ -329,6 +331,7 @@ DEPENDENCIES
   dynamic_form
   fabrication
   figaro
+  formtastic
   friendly_id
   high_voltage
   httpclient

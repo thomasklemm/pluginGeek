@@ -80,7 +80,7 @@ describe Repo do
   it { should respond_to(:category_list) }
   it { should respond_to(:category_list=) }
 
-  describe "#child_list" do
+  describe "#child_list", :focus do
     before do
       repo.save
       repo.children = [first_child, second_child]

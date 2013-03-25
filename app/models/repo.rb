@@ -110,7 +110,7 @@ class Repo < ActiveRecord::Base
 
  # Lists for tag inputs
   def child_list
-    children.map(:full_name).join(', ')
+    children.map(&:full_name).join(', ')
   end
 
   def language_list
