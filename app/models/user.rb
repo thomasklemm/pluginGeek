@@ -2,7 +2,6 @@
 #
 # Table name: users
 #
-#  admin               :boolean          default(FALSE)
 #  avatar_url          :text
 #  company             :text
 #  created_at          :datetime         not null
@@ -19,6 +18,7 @@
 #  remember_created_at :datetime
 #  remember_token      :text
 #  sign_in_count       :integer          default(0)
+#  staff               :boolean          default(FALSE)
 #  updated_at          :datetime         not null
 #
 # Indexes

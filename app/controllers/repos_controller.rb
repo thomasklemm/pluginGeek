@@ -3,17 +3,12 @@ class ReposController < ApplicationController
   before_filter :load_repo,          only: [:edit, :update, :destroy]
   after_filter :verify_authorized,   only: [:edit, :update, :destroy]
 
-  # GET /repos/:owner/:name(/*remains)
+  # GET /repos/:owner/:name
   def show
-    @repo = Repo.where(full_name: full_name).first
-
-    # Retrieve the repo from Github
-    @repo.present? or return redirect_to_new_repo
-
-    # Strip additional url remains
-    params[:remains] and return redirect_to @repo
+    @repo = Repo.where(full_name: full_name).first!
   end
 
+  # GET /repos/new?owner=thomasklemm&name=Plugingeek
   def new
     @repo = Repo.new(full_name: full_name)
   end
@@ -22,9 +17,11 @@ class ReposController < ApplicationController
     @repo = Repo.new(full_name: full_name)
 
     if retrieve_from_github(@repo.full_name)
-      redirect_to @repo, notice: "Repo has been added."
+      redirect_to @repo, notice: 'Repo has been added.'
     else
-      redirect_to root_path, alert: "Repo could not be added. Please email me if this error persists."
+      # flash.alert = 'Repo could not be found on Github. \
+      #   This might be a temporary error only, please try again later.'
+      redirect_to root_path
     end
   end
 
@@ -49,22 +46,17 @@ class ReposController < ApplicationController
     redirect_to root_path, notice: 'Repo has been destroyed.'
   end
 
-protected
+  private
 
   # GET /repos/:owner/:name
   def full_name
     owner = params.fetch(:owner)
     name = params.fetch(:name)
-
     "#{ owner }/#{ name }"
   end
 
-  def load_or_initialize_repo
-
-  end
-
-  def redirect_to_new_repo
-    redirect_to new_repo_path(owner: full_name.split('/')[0], name: full_name.split('/')[1])
+  def load_repo
+    @repo = Repo.where(full_name: full_name)
   end
 
   def retrieve_from_github(repo_full_name)
@@ -72,14 +64,14 @@ protected
   end
 
   def repo_params
-    current_user.admin? ? admin_repo_params : user_repo_params
+    current_user.staff? ? staff_repo_params : user_repo_params
   end
 
-  def admin_repo_params
-    params.require(:repo).permit(:full_name, :description, :category_list, parent_ids: [], :staff_pick)
+  def staff_repo_params
+    params.require(:repo).permit(:full_name, :description, :category_list, :staff_pick, {parent_ids: []})
   end
 
   def user_repo_params
-    params.require(:repo).permit(:description, :category_list, parent_ids: [])
+    params.require(:repo).permit(:description, :category_list, {parent_ids: []})
   end
 end

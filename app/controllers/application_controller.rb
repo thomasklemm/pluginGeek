@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery
-  before_filter :set_language
+
+  # Ensure the :language param is set to a valid option
+  before_filter :set_language_param
 
   # Remove unknown subdomains
   def remove_subdomain
@@ -20,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_language
+  def set_language_param
     # Format language
     params[:language] &&= params[:language].downcase.strip
     # Make 'ruby' default language if none is set

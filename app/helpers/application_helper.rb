@@ -23,11 +23,9 @@ module ApplicationHelper
     !!(params[:action] == 'edit')
   end
 
-  # Check if current user is admin
-  # then display certain fields
-  # no real protection, just hiding a few fields
-  def admin?
-    current_user && current_user.admin?
+  # Hide a few fields for users that are not staff in the views
+  def staff?
+    current_user && current_user.staff?
   end
 
   # Set a DNS Prefetch tag

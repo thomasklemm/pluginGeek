@@ -10,8 +10,8 @@
     / Inputs
     = f.inputs do
       / Name including Languages, e.g. Text Editor Plugins (Web/Mobile)
-      - if admin?
-        = f.input :full_name, as: :string, label: 'Name and Languages (Admin)', hint: "ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby), Table View (iOS)"
+      - if staff?
+        = f.input :full_name, as: :string, label: 'Name and Languages (Staff)', hint: "ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby), Table View (iOS)"
 
       / description for the category that will be rendered in overviews and is searchable
       = f.input :description, label: 'Description / Summary', hint: 'What is the purpose of the listed repos?', placeholder: 'Description: What is the purpose of the listed repos?'

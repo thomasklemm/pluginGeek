@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
     redirect_to root_path, notice: 'Category has been destroyed.'
   end
 
-protected
+  private
 
   # If an old id or a numeric id was used to find the record, then
   # the request path will not match the category_path, and we should do
@@ -53,10 +53,10 @@ protected
   end
 
   def category_params
-    current_user.admin? ? admin_category_params : user_category_params
+    current_user.staff? ? staff_category_params : user_category_params
   end
 
-  def admin_category_params
+  def staff_category_params
     params.require(:category).permit(:full_name, :description, :draft)
   end
 
@@ -68,4 +68,4 @@ end
 # CategoryPolicy
 #  index? show? true
 #  edit? update? require login
-#  destroy? admin only (and only if there are no more repos associated)
+#  destroy? staff only (and only if there are no more repos associated)

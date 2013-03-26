@@ -24,9 +24,9 @@
       / TODO: Optimize fetch call
       = f.input :parents, label: 'Parents', collection: Repo.all_except(@repo), hint: 'Is this project depending on another repo?'
 
-      / Full name for admin
-      - if admin?
-        = f.input :full_name, as: :string, label: 'Owner and Name (Full Name), for Admin'
+      / Full name for staff
+      - if staff?
+        = f.input :full_name, as: :string, label: 'Owner and Name (Full Name), for Staff'
 
       / Staff pick
       = f.input :staff_pick, label: 'Staff pick'

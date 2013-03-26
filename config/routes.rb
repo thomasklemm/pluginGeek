@@ -20,7 +20,7 @@ Plugingeek::Application.routes.draw do
   resources :links, only: [:new, :create, :edit, :update, :destroy]
 
   # Categories
-  resources :categories, only: [:show, :edit, :update]
+  resources :categories, only: [:show, :edit, :update, :destroy]
 
   get ':language' => 'categories#index', as: :categories,
     constraints: { language: /#{ Language::All.join('|') }/i }
@@ -38,13 +38,13 @@ Plugingeek::Application.routes.draw do
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
   #     while matching incoming requests is being done through seperate routes
   #     (as friendly_id contains slashes)
-  resources :repos, only: [:show, :edit] do
+  resources :repos, only: [:show, :new, :create, :edit] do
     collection do
-      constraints name: /[^\/]+(?=\.html\z)|[^\/]+/ do
-        get ':owner/:name/edit'        => 'repos#edit'
-        get ':owner/:name(/*remains)'  => 'repos#show'
-        post ':owner/:name'            => 'repos#create'
-        put ':owner/:name'             => 'repos#update'
+      constraints name: %r{[^\/]+(?=\.html\z)|[^\/]+} do
+        get    ':owner/:name'      => 'repos#show'
+        get    ':owner/:name/edit' => 'repos#edit'
+        put    ':owner/:name'      => 'repos#update'
+        delete ':owner/:name'      => 'repos#destroy'
       end
     end
   end

@@ -74,6 +74,9 @@ gem 'formtastic'
 # Strong parameters (Form parameter filtering)
 gem 'strong_parameters'
 
+# Pundit (Authorization)
+gem 'pundit'
+
 # Gems used only for assets and not required
 #   in production environments by default.
 group :assets do
