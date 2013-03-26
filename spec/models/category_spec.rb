@@ -35,6 +35,8 @@ describe Category do
     expect(category.to_param).to eq(category.full_name.parameterize)
   end
 
+  it "preserves a history of slugs"
+
   it "audits changes on full_name"
   it "audits changes on description"
 
@@ -68,8 +70,26 @@ describe Category do
   end
 
   describe "#save" do
-    it "assigns stars from repos"
-    it "assigns score from repos"
-    it "assigns languages from categories"
+    let(:category) { Fabricate.build(:category, full_name: "Category (Ruby/Javascript)") }
+    let(:repo)     { Fabricate.build(:repo, stars: 100, knight_score: 200) }
+
+    before do
+      Fabricate(:language, name: 'Ruby')
+
+      category.repos << repo
+      category.save
+    end
+
+    it "assigns stars from repos" do
+      expect(category.stars).to eq 100
+    end
+
+    it "assigns score from repos" do
+      expect(category.knight_score).to eq 200
+    end
+
+    it "assigns languages from full_name" do
+      expect(category.languages.map(&:name)).to match_array %w(Ruby)
+    end
   end
 end

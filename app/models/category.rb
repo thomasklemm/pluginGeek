@@ -116,8 +116,7 @@ class Category < ActiveRecord::Base
 
   # Assign languages from full_name
   def assign_languages
-    # FIXME: Lookup dirty tracking
-    # return unless full_name.changed?
+    return unless full_name_changed?
 
     # Extract languages from full_name string
     match_data = full_name.match %r{\((?<languages>.*)\)}
