@@ -6,6 +6,7 @@
 #  author_url   :text
 #  created_at   :datetime         not null
 #  id           :integer          not null, primary key
+#  maker_id     :integer
 #  published_at :date             not null
 #  title        :text             not null
 #  updated_at   :datetime         not null
@@ -15,6 +16,10 @@
 class Link < ActiveRecord::Base
   # Validations
   validates :url, :title, :published_at, presence: true
+
+  # Maker, the person who submits the link
+  belongs_to :maker, class_name: 'User'
+  validates :maker, presence: true
 
   # Repos and categories
   has_many :link_relationships

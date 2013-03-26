@@ -1,4 +1,8 @@
 class RepoPolicy < ApplicationPolicy
+  def index?
+    guest
+  end
+
   def show?
     guest
   end

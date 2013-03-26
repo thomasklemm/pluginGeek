@@ -7,7 +7,7 @@ class ApplicationPolicy
   end
 
   def staff
-    user.staff?
+    user && user.staff?
   end
 
   def guest
