@@ -76,13 +76,13 @@ private
 
     @repo.github_description &&= @repo.github_description.truncate(360)
 
-    @repo.knight_score = knight_score
+    @repo.score = score
 
     @repo.update_success = true
   end
 
-  # A repo's knight_score depends on it's stars counter and github_updated_at timestamp
-  def knight_score
+  # A repo's score depends on it's stars counter and github_updated_at timestamp
+  def score
     score = (@repo.stars + 1) * activity_multiplier(@repo.github_updated_at)
     score.ceil
   end

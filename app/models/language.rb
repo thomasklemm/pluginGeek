@@ -40,7 +40,7 @@ class Language < ActiveRecord::Base
     source: :classifier,
     source_type: 'Category',
     uniq: true,
-    order: 'draft ASC, categories.knight_score DESC'
+    order: 'draft ASC, categories.score DESC'
 
   # Repos
   has_many :repos,
@@ -48,7 +48,7 @@ class Language < ActiveRecord::Base
     source: :classifier,
     source_type: 'Repo',
     uniq: true,
-    order: 'repos.knight_score DESC'
+    order: 'repos.score DESC'
 
   attr_accessible :name
 end

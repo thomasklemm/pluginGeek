@@ -9,9 +9,9 @@
 #  github_updated_at  :datetime
 #  homepage_url       :text
 #  id                 :integer          not null, primary key
-#  knight_score       :integer          default(0)
 #  name               :text
 #  owner              :text
+#  score              :integer          default(0)
 #  staff_pick         :boolean          default(FALSE)
 #  stars              :integer          default(0)
 #  update_success     :boolean          default(FALSE)
@@ -19,8 +19,8 @@
 #
 # Indexes
 #
-#  index_repos_on_full_name     (full_name) UNIQUE
-#  index_repos_on_knight_score  (knight_score)
+#  index_repos_on_full_name  (full_name) UNIQUE
+#  index_repos_on_score      (score)
 #
 
 Fabricator(:repo) do

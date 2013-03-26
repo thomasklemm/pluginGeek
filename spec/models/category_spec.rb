@@ -7,17 +7,17 @@
 #  draft          :boolean          default(TRUE)
 #  full_name      :text             not null
 #  id             :integer          not null, primary key
-#  knight_score   :integer          default(0)
 #  language_names :text
 #  repo_names     :text
+#  score          :integer          default(0)
 #  slug           :text             not null
 #  stars          :integer          default(0)
 #  updated_at     :datetime         not null
 #
 # Indexes
 #
-#  index_categories_on_knight_score  (knight_score)
-#  index_categories_on_slug          (slug) UNIQUE
+#  index_categories_on_score  (score)
+#  index_categories_on_slug   (slug) UNIQUE
 #
 
 require 'spec_helper'
@@ -70,7 +70,7 @@ describe Category do
 
   describe "#save" do
     let(:category) { Fabricate.build(:category, full_name: "Category (Ruby/Javascript)") }
-    let(:repo)     { Fabricate.build(:repo, stars: 100, knight_score: 200) }
+    let(:repo)     { Fabricate.build(:repo, stars: 100, score: 200) }
 
     before do
       Fabricate(:language, name: 'Ruby')
@@ -84,7 +84,7 @@ describe Category do
     end
 
     it "assigns score from repos" do
-      expect(category.knight_score).to eq 200
+      expect(category.score).to eq 200
     end
 
     it "assigns languages from full_name" do

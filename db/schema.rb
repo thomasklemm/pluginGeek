@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326223152) do
+ActiveRecord::Schema.define(:version => 20130326223506) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20130326223152) do
 
   create_table "categories", :force => true do |t|
     t.text     "slug",                             :null => false
-    t.integer  "knight_score",   :default => 0
+    t.integer  "score",          :default => 0
     t.text     "description"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20130326223152) do
     t.text     "language_names"
   end
 
-  add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
+  add_index "categories", ["score"], :name => "index_categories_on_score"
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "categorizations", :force => true do |t|
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(:version => 20130326223152) do
     t.integer  "stars",              :default => 0
     t.text     "github_description"
     t.text     "homepage_url"
-    t.integer  "knight_score",       :default => 0
+    t.integer  "score",              :default => 0
     t.datetime "github_updated_at"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
@@ -170,7 +170,7 @@ ActiveRecord::Schema.define(:version => 20130326223152) do
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
-  add_index "repos", ["knight_score"], :name => "index_repos_on_knight_score"
+  add_index "repos", ["score"], :name => "index_repos_on_score"
 
   create_table "users", :force => true do |t|
     t.text     "login",                                  :null => false
