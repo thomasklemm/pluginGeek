@@ -14,7 +14,7 @@
             document.write("Happy " + dayNames[now.getDay()] + ".")
 
         / logout
-        = link_to 'Logout', destroy_user_session_path, class: 'logout'
+        = link_to 'Logout', logout_path, method: :delete, class: 'logout'
 
         / current user details
         span.avatar-and-name
