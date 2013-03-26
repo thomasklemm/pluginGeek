@@ -47,6 +47,4 @@ class Link < ActiveRecord::Base
     repos.each(&:touch)
     deep_categories.each(&:touch) # includes categories through repos
   end
-
-  attr_accessible :author, :author_url, :published_at, :title, :url, :repo_ids, :category_ids
 end

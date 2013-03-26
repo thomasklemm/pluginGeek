@@ -129,8 +129,10 @@ class Repo < ActiveRecord::Base
     # Expire old categories
     categories.each(&:touch)
 
-    full_names = new_list.split(', ').select(&:present?).map(&:strip)
+    # Prepare list
+    full_names = new_list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
 
+    # Assign categories
     self.categories = full_names.map do |full_name|
       Category.where(full_name: full_name).first_or_create!
     end
@@ -160,7 +162,4 @@ class Repo < ActiveRecord::Base
   def expire_parents_and_children
     parents_and_children.each(&:touch)
   end
-
-  # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :description, :category_list, :parent_ids, :staff_pick
 end

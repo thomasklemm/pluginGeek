@@ -175,7 +175,4 @@ class Category < ActiveRecord::Base
   def expire_languages
     languages.each(&:touch)
   end
-
-  # Mass Assignment Whitelist
-  attr_accessible :full_name, :description, :draft
 end

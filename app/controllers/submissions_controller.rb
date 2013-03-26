@@ -1,33 +1,42 @@
 class SubmissionsController < ApplicationController
-  GITHUB_BASE = 'https://github.com/'
+  GITHUB_BASE_URL = 'https://github.com/'
 
   # Handle submission of links and repos
   # GET /submit?url=...&title=...
   def submit
-    # return redirect to root unless url present
-    @url = params[:url].try(:strip)
-    @url.present? or return redirect_to_root
+    # Redirect if :url is missing
+    url_provided? or return redirect_to_root_path
 
-    # return redirect to repo if url starts with Github base url
-    @url.scan(GITHUB_BASE).present? and return redirect_to_repo
+    # If a repo is submitted, redirect there
+    github_repo? and return redirect_to_repo_path
 
-    # TODO: see if thomasklemm.github.com/knight is the submitted link,
-    # give user option to add or see repo then or add the link (maybe in flash message)
-
-    # redirect to links controller otherwise
+    # Otherwise create a new link
     redirect_to new_link_url(params: params.slice(:url, :title))
   end
 
 protected
 
-  def redirect_to_root
-    flash.alert = 'Error: Submission request string malformed, must contain a "url=" parameter.'
+  # Is the :url param present?
+  def url_provided?
+    @url = params[:url]
+    @url.present? && @url.strip
+  end
+
+  # Does this URL belong to a Github repo?
+  def github_repo?
+    @url.scan(GITHUB_BASE_URL).present?
+  end
+
+  def redirect_to_root_path
+    flash.alert = "Please provide a URL on your submission request ('?url=...' missing)."
     redirect_to root_url
   end
 
-  def redirect_to_repo
-    parts = @url.gsub(GITHUB_BASE, '').split('/').compact.map(&:strip)
+  def redirect_to_repo_path
+    parts = @url.gsub(GITHUB_BASE_URL, '').split('/').compact.map(&:strip)
     full_name = "#{ parts[0] }/#{ parts[1] }"
-    redirect_to "/repos/#{ full_name }"
+
+    @repo = Repo.where(full_name: full_name).first_or_initialize
+    redirect_to @repo
   end
 end

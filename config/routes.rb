@@ -1,42 +1,38 @@
 Plugingeek::Application.routes.draw do
-  get "mailers/feedback"
-
-  ##
   # User authentication
   devise_for :users,
     path_names: {sign_in: 'login', sign_out: 'logout'},
     controllers: {omniauth_callbacks: 'omniauth'}
 
   devise_scope :user do
-    get 'login',  to: 'devise/sessions#new',     as: :new_user_session
-    get 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
+    get 'login',     to: 'devise/sessions#new',     as: :new_user_session
+    delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  ##
+  # Shorthand named login and logout paths
+  get 'login', to: 'devise/sessions#new', as: :login
+  delete 'logout', to: 'devise/sessions#destroy', as: :logout
+
   # Submissions
   get 'submit' => 'submissions#submit', as: :submit
 
-  ##
   # Links
   resources :links, only: [:new, :create, :edit, :update, :destroy]
 
-  ##
   # Categories
   resources :categories, only: [:show, :edit, :update]
 
-  get ':language' => 'categories#index',
-    as: :categories,
+  get ':language' => 'categories#index', as: :categories,
     constraints: { language: /#{ Language::All.join('|') }/i }
 
   # language shortcut redirection
   get 'js' => redirect('/javascript')
 
-  # language subdomain redirection
+  # Redirect people entering via a language subdomain
   constraints(Subdomain) do
     get '/' => 'application#redirect_subdomain'
   end
 
-  ##
   # Repos
   #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
@@ -53,7 +49,6 @@ Plugingeek::Application.routes.draw do
     end
   end
 
-  ##
   # Feedback
   post 'feedback' => 'mailers#feedback', as: :feedback
 

@@ -2,9 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_language
 
-  # Helper methods
-  include MarkdownHelper
-  helper_method :markdown
+  # Remove unknown subdomains
+  def remove_subdomain
+    redirect_to root_url(subdomain: false)
+  end
 
   # Redirect subdomains to namespaced path using 301 redirect
   def redirect_subdomain
@@ -12,12 +13,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url(subdomain: false) + subdomain, status: :moved_permanently
   end
 
-  # Remove unknown subdomains
-  def remove_subdomain
-    redirect_to root_url(subdomain: false)
-  end
-
-  # Authorize load testing on blitz.io
+  # Authorize load testing with Blitz.io
   def blitz
     render text: '42'
   end

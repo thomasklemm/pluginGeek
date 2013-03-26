@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
-  before_filter :authenticate_user!, only: [:edit, :update]
-  before_filter :load_category_and_repos, except: :index
+  before_filter :authenticate_user!, only: [:edit, :update, :destroy]
+  before_filter :load_category_and_repos, only: [:show, :edit, :update, :destroy]
+  after_filter :verify_authorized, only: [:edit, :update, :destroy]
 
   # GET '/:language'
   def index
@@ -8,34 +9,34 @@ class CategoriesController < ApplicationController
     @categories = @language.categories
   end
 
-  # GET /categories/:id
   def show
     redirect_on_request_to_outdated_path
   end
 
-  # GET /categories/:id/edit
   def edit
+    authorize @category
   end
 
-  # PUT /categories/:id
   def update
-    # escape description attribute
-    params[:category][:description] &&= view_context.strip_tags(params[:category][:description])
+    authorize @category
 
-    if @category.update_attributes(params[:category])
-      redirect_to @category, notice: 'Thanks! Your update is saved.'
+    if @category.update_attributes(category_params)
+      redirect_to @category, notice: 'Category has been updated.'
     else
-      flash.now.alert = 'AARRGH! Please let me know by mail how you got this error! Thanks in advance.'
+      flash.now.alert = 'An error has happened while updating the category. \
+                         Please reach out to me by email if this error persists.'
       render action: :edit
     end
   end
 
-protected
+  def destroy
+    authorize @category
 
-  def load_category_and_repos
-    @category = Category.find(params[:id]).decorate
-    @repos = @category.repos
+    @category.destroy
+    redirect_to root_path, notice: 'Category has been destroyed.'
   end
+
+protected
 
   # If an old id or a numeric id was used to find the record, then
   # the request path will not match the category_path, and we should do
@@ -46,4 +47,25 @@ protected
     end
   end
 
+  def load_category_and_repos
+    @category = Category.find(params[:id]).decorate
+    @repos = @category.repos
+  end
+
+  def category_params
+    current_user.admin? ? admin_category_params : user_category_params
+  end
+
+  def admin_category_params
+    params.require(:category).permit(:full_name, :description, :draft)
+  end
+
+  def user_category_params
+    params.require(:category).permit(:description)
+  end
 end
+
+# CategoryPolicy
+#  index? show? true
+#  edit? update? require login
+#  destroy? admin only (and only if there are no more repos associated)

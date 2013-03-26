@@ -68,11 +68,11 @@ gem 'rack-timeout'
 # Draper (Decorators)
 gem 'draper'
 
-# Sanitize (User input HTML sanitizer)
-gem 'sanitize'
-
 # Formtastic (Forms)
 gem 'formtastic'
+
+# Strong parameters (Form parameter filtering)
+gem 'strong_parameters'
 
 # Gems used only for assets and not required
 #   in production environments by default.
