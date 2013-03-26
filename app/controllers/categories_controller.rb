@@ -32,6 +32,8 @@ class CategoriesController < ApplicationController
   def destroy
     authorize @category
 
+    # TODO: Ensure repos are empty
+
     @category.destroy
     redirect_to root_path, notice: 'Category has been destroyed.'
   end
@@ -64,8 +66,3 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:description)
   end
 end
-
-# CategoryPolicy
-#  index? show? true
-#  edit? update? require login
-#  destroy? staff only (and only if there are no more repos associated)

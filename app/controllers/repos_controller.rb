@@ -1,5 +1,5 @@
 class ReposController < ApplicationController
-  before_filter :authenticate_user!, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_filter :load_repo,          only: [:edit, :update, :destroy]
   after_filter :verify_authorized,   only: [:edit, :update, :destroy]
 
@@ -19,8 +19,8 @@ class ReposController < ApplicationController
     if retrieve_from_github(@repo.full_name)
       redirect_to @repo, notice: 'Repo has been added.'
     else
-      # flash.alert = 'Repo could not be found on Github. \
-      #   This might be a temporary error only, please try again later.'
+      flash.alert = 'Repo could not be found on Github. \
+        This might be a temporary error only, please try again later.'
       redirect_to root_path
     end
   end

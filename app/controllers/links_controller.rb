@@ -16,6 +16,7 @@ class LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
+    @link.submitter = current_user
     authorize @link
 
     if @link.save
@@ -55,8 +56,3 @@ class LinksController < ApplicationController
     params.require(:link).permit(:title, :url, :author, :author_url, :published_at, repo_ids: [], category_ids: [])
   end
 end
-
-# link_policy
-#    new, create, edit, update => every registered user, require login
-#    destory => staff + submitter if tracked
-#   track submitter
