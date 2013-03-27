@@ -7,7 +7,7 @@ ruby '1.9.3'
 gem 'puma', '2.0.0.b6'
 
 # Rails
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Postgres Database Connector
 gem 'pg'
