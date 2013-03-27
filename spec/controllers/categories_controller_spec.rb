@@ -50,7 +50,7 @@ describe CategoriesController do
       end
 
       it "permits draft" do
-        expect(params[:draft]).to_not be_nil
+        expect(params[:draft]).to_not be_nil # boolean FALSE is expected
       end
     end
 
@@ -98,7 +98,7 @@ describe CategoriesController, "GET #index" do
     include_examples "categories#index for guest, user and staff"
   end
 
-  context "user" do
+  contextname "user" do
     before { sign_in user }
     include_examples "categories#index for guest, user and staff"
   end

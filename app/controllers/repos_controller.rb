@@ -1,11 +1,11 @@
 class ReposController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_filter :load_repo,          only: [:edit, :update, :destroy]
   after_filter :verify_authorized,   only: [:edit, :update, :destroy]
 
   # GET /repos/:owner/:name
   def show
-    @repo = Repo.where(full_name: full_name).first!
+    @repo = Repo.where(full_name: full_name).first!.decorate
   end
 
   # GET /repos/new?owner=thomasklemm&name=Plugingeek

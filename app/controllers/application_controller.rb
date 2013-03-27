@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   # Ensure the :language param is set to a valid option
   before_filter :set_language_param
 
+  # Rescue ActiveRecord RecordNotFound errors
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   # Rescue Pundit authorization errors
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
@@ -33,6 +36,10 @@ class ApplicationController < ActionController::Base
     params[:language] ||= 'ruby'
     # Force 'web' default language if the one that is present is not whitelisted
     params[:language] = 'web' unless Language::All.include?(params[:language])
+  end
+
+  def record_not_found
+    redirect_to root_url, alert: "Record could not be found."
   end
 
   def not_authorized
