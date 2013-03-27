@@ -32,8 +32,6 @@ class CategoriesController < ApplicationController
   def destroy
     authorize @category
 
-    # TODO: Ensure repos are empty
-
     @category.destroy
     redirect_to root_path, notice: 'Category has been destroyed.'
   end

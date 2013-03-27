@@ -129,7 +129,14 @@ describe CategoriesController, "GET #show" do
       expect(assigns(:repos).first).to be_decorated
     end
 
-    it "redirects to the updated path if called with outdated path"
+    it "redirects to the updated path if called with outdated path" do
+      old_slug = category.slug
+      category.full_name = "new_full_name"
+      category.save
+
+      get :show, id: old_slug
+      expect(response).to redirect_to(assigns(:category))
+    end
   end
 
   context "guest" do
@@ -156,6 +163,7 @@ describe CategoriesController, "GET #edit" do
     it { should respond_with(:success) }
     it { should render_template(:edit) }
     it { should_not set_the_flash }
+    it { should authorize_resource }
   end
 
   context "user" do
@@ -199,3 +207,37 @@ describe CategoriesController, "PUT #update" do
   end
 end
 
+describe CategoriesController, "DELETE #destroy" do
+  include_context "category"
+
+  context "user" do
+    before do
+      sign_in user
+      request.env["HTTP_REFERER"] = "where_i_came_from" unless request.nil? or request.env.nil?
+      delete :destroy, id: category
+    end
+
+    it { should authorize_resource }
+    it { should redirect_to('where_i_came_from') }
+    it { should set_the_flash.to(/not authorized/) }
+
+    it "doesn't destroy the category" do
+      expect(assigns(:category)).to_not be_destroyed
+    end
+  end
+
+  context "staff" do
+    before do
+      sign_in staff
+      delete :destroy, id: category
+    end
+
+    it { should authorize_resource }
+    it { should redirect_to(root_path) }
+    it { should set_the_flash.to('Category has been destroyed.') }
+
+    it "destroys the category" do
+      expect(assigns(:category)).to be_destroyed
+    end
+  end
+end

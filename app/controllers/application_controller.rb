@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   # Ensure the :language param is set to a valid option
   before_filter :set_language_param
 
+  # Rescue Pundit authorization errors
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+
   # Remove unknown subdomains
   def remove_subdomain
     redirect_to root_url(subdomain: false)
@@ -30,5 +33,9 @@ class ApplicationController < ActionController::Base
     params[:language] ||= 'ruby'
     # Force 'web' default language if the one that is present is not whitelisted
     params[:language] = 'web' unless Language::All.include?(params[:language])
+  end
+
+  def not_authorized
+    redirect_to :back, alert: "You're not authorized to perform this action."
   end
 end
