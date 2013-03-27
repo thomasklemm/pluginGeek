@@ -7,7 +7,7 @@ class OmniauthController < Devise::OmniauthCallbacksController
 
     # Did our user just authenticate successfully?
     if @user.persisted?
-      flash.notice = "Hello #{ @user.name }. Enjoy pluginGeek!"
+      flash.notice = "Hi, #{ @user.name }. Enjoy pluginGeek!"
       sign_in_and_redirect_user
     else
       # Authentication failed!
