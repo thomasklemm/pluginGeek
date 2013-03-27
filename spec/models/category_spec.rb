@@ -2,23 +2,22 @@
 #
 # Table name: categories
 #
-#  created_at       :datetime         not null
-#  description      :text
-#  draft            :boolean          default(TRUE)
-#  full_name        :text             not null
-#  id               :integer          not null, primary key
-#  knight_score     :integer          default(0)
-#  language_names   :text
-#  long_description :text
-#  repo_names       :text
-#  slug             :text             not null
-#  stars            :integer          default(0)
-#  updated_at       :datetime         not null
+#  created_at     :datetime         not null
+#  description    :text
+#  draft          :boolean          default(TRUE)
+#  full_name      :text             not null
+#  id             :integer          not null, primary key
+#  language_names :text
+#  repo_names     :text
+#  score          :integer          default(0)
+#  slug           :text             not null
+#  stars          :integer          default(0)
+#  updated_at     :datetime         not null
 #
 # Indexes
 #
-#  index_categories_on_knight_score  (knight_score)
-#  index_categories_on_slug          (slug) UNIQUE
+#  index_categories_on_score  (score)
+#  index_categories_on_slug   (slug) UNIQUE
 #
 
 require 'spec_helper'
@@ -34,6 +33,8 @@ describe Category do
     category.save
     expect(category.to_param).to eq(category.full_name.parameterize)
   end
+
+  it "preserves a history of slugs"
 
   it "audits changes on full_name"
   it "audits changes on description"
@@ -68,8 +69,26 @@ describe Category do
   end
 
   describe "#save" do
-    it "assigns stars from repos"
-    it "assigns score from repos"
-    it "assigns languages from categories"
+    let(:category) { Fabricate(:category, full_name: "Category (Ruby/Javascript)") }
+    let(:repo)     { Fabricate(:repo, stars: 100, score: 200) }
+
+    before do
+      Fabricate(:language, name: 'Ruby')
+
+      category.repos << repo
+      category.save
+    end
+
+    it "assigns stars from repos" do
+      expect(category.stars).to eq 100
+    end
+
+    it "assigns score from repos" do
+      expect(category.score).to eq 200
+    end
+
+    it "assigns languages from full_name" do
+      expect(category.languages.map(&:name)).to match_array %w(Ruby)
+    end
   end
 end

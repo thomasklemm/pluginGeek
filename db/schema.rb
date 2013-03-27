@@ -11,28 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324133515) do
-
-  create_table "audits", :force => true do |t|
-    t.integer  "auditable_id"
-    t.string   "auditable_type"
-    t.integer  "associated_id"
-    t.string   "associated_type"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "username"
-    t.string   "action"
-    t.text     "audited_changes"
-    t.integer  "version",         :default => 0
-    t.string   "comment"
-    t.string   "remote_address"
-    t.datetime "created_at"
-  end
-
-  add_index "audits", ["associated_id", "associated_type"], :name => "associated_index"
-  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
-  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
-  add_index "audits", ["user_id", "user_type"], :name => "user_index"
+ActiveRecord::Schema.define(:version => 20130327181650) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -45,20 +24,19 @@ ActiveRecord::Schema.define(:version => 20130324133515) do
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "categories", :force => true do |t|
-    t.text     "slug",                               :null => false
-    t.integer  "knight_score",     :default => 0
+    t.text     "slug",                             :null => false
+    t.integer  "score",          :default => 0
     t.text     "description"
-    t.text     "long_description"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.text     "full_name",                          :null => false
-    t.integer  "stars",            :default => 0
-    t.boolean  "draft",            :default => true
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.text     "full_name",                        :null => false
+    t.integer  "stars",          :default => 0
+    t.boolean  "draft",          :default => true
     t.text     "repo_names"
     t.text     "language_names"
   end
 
-  add_index "categories", ["knight_score"], :name => "index_categories_on_knight_score"
+  add_index "categories", ["score"], :name => "index_categories_on_score"
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "categorizations", :force => true do |t|
@@ -140,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20130324133515) do
     t.date     "published_at", :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "submitter_id"
   end
 
   create_table "repo_relationships", :force => true do |t|
@@ -160,7 +139,7 @@ ActiveRecord::Schema.define(:version => 20130324133515) do
     t.integer  "stars",              :default => 0
     t.text     "github_description"
     t.text     "homepage_url"
-    t.integer  "knight_score",       :default => 0
+    t.integer  "score",              :default => 0
     t.datetime "github_updated_at"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
@@ -170,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20130324133515) do
   end
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
-  add_index "repos", ["knight_score"], :name => "index_repos_on_knight_score"
+  add_index "repos", ["score"], :name => "index_repos_on_score"
 
   create_table "users", :force => true do |t|
     t.text     "login",                                  :null => false
@@ -189,7 +168,7 @@ ActiveRecord::Schema.define(:version => 20130324133515) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.boolean  "admin",               :default => false
+    t.boolean  "staff",               :default => false
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

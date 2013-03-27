@@ -55,7 +55,7 @@ module Plugingeek
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
+    config.active_record.whitelist_attributes = false
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -72,5 +72,18 @@ module Plugingeek
     # required for Heroku and devise
     config.assets.initialize_on_precompile = false
     # Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
+
+    # Generator options
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :fabrication
+      g.helper false
+      g.stylesheets false
+      g.javascript_engine false
+      g.view_specs false
+    end
+
+    # Default timezone
+    config.active_record.default_timezone = :utc
   end
 end

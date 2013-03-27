@@ -42,7 +42,6 @@ IntercomRails.config do |config|
     :github_followers => :followers
   }
 
-
   # == Inbox Style
   # This enables the Intercom inbox which allows your users to read their
   # past conversations with your app, as well as start new ones. It is

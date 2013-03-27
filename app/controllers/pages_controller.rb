@@ -4,7 +4,7 @@ class PagesController < HighVoltage::PagesController
 private
 
   def layout_for_page
-    case params[:id]
+    case params[:id].to_s
     when /404|422|500/
       'errors'
     else

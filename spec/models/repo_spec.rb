@@ -9,9 +9,9 @@
 #  github_updated_at  :datetime
 #  homepage_url       :text
 #  id                 :integer          not null, primary key
-#  knight_score       :integer          default(0)
 #  name               :text
 #  owner              :text
+#  score              :integer          default(0)
 #  staff_pick         :boolean          default(FALSE)
 #  stars              :integer          default(0)
 #  update_success     :boolean          default(FALSE)
@@ -19,8 +19,8 @@
 #
 # Indexes
 #
-#  index_repos_on_full_name     (full_name) UNIQUE
-#  index_repos_on_knight_score  (knight_score)
+#  index_repos_on_full_name  (full_name) UNIQUE
+#  index_repos_on_score      (score)
 #
 
 require 'spec_helper'
@@ -80,7 +80,7 @@ describe Repo do
   it { should respond_to(:category_list) }
   it { should respond_to(:category_list=) }
 
-  describe "#child_list", :focus do
+  describe "#child_list" do
     before do
       repo.save
       repo.children = [first_child, second_child]

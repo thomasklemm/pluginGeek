@@ -15,11 +15,7 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def score
-    model[:knight_score] || 0
-  end
-
-  def knight_score
-    score
+    model[:score] || 0
   end
 
   def language_list

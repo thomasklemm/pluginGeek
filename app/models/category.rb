@@ -2,23 +2,22 @@
 #
 # Table name: categories
 #
-#  created_at       :datetime         not null
-#  description      :text
-#  draft            :boolean          default(TRUE)
-#  full_name        :text             not null
-#  id               :integer          not null, primary key
-#  knight_score     :integer          default(0)
-#  language_names   :text
-#  long_description :text
-#  repo_names       :text
-#  slug             :text             not null
-#  stars            :integer          default(0)
-#  updated_at       :datetime         not null
+#  created_at     :datetime         not null
+#  description    :text
+#  draft          :boolean          default(TRUE)
+#  full_name      :text             not null
+#  id             :integer          not null, primary key
+#  language_names :text
+#  repo_names     :text
+#  score          :integer          default(0)
+#  slug           :text             not null
+#  stars          :integer          default(0)
+#  updated_at     :datetime         not null
 #
 # Indexes
 #
-#  index_categories_on_knight_score  (knight_score)
-#  index_categories_on_slug          (slug) UNIQUE
+#  index_categories_on_score  (score)
+#  index_categories_on_slug   (slug) UNIQUE
 #
 
 class Category < ActiveRecord::Base
@@ -30,11 +29,8 @@ class Category < ActiveRecord::Base
   validates :full_name, presence: true
   validates :description, length: {maximum: 360}
 
-  # Audits
-  audited only: [:full_name, :description]
-
   # Order categories by score
-  scope :order_by_score, order('categories.knight_score DESC')
+  scope :order_by_score, order('categories.score DESC')
 
   # Autocomplete category full_names on repo#edit
   def self.full_names_for_autocomplete
@@ -67,7 +63,7 @@ class Category < ActiveRecord::Base
   has_many :categorizations
   has_many :repos,
     through: :categorizations,
-    order: 'repos.knight_score DESC'
+    order: 'repos.score DESC'
 
   # Languages
   has_many :language_classifications,
@@ -111,13 +107,12 @@ class Category < ActiveRecord::Base
 
   # Assign aggregate scores of repos as category score
   def assign_score
-    self.knight_score = repos.map(&:knight_score).reduce(:+) || 0
+    self.score = repos.map(&:score).reduce(:+) || 0
   end
 
   # Assign languages from full_name
   def assign_languages
-    # FIXME: Lookup dirty tracking
-    # return unless full_name.changed?
+    return unless full_name_changed?
 
     # Extract languages from full_name string
     match_data = full_name.match %r{\((?<languages>.*)\)}
@@ -175,7 +170,4 @@ class Category < ActiveRecord::Base
   def expire_languages
     languages.each(&:touch)
   end
-
-  # Mass Assignment Whitelist
-  attr_accessible :full_name, :description, :draft
 end

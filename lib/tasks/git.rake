@@ -5,8 +5,15 @@ namespace :git do
     system "git add ."
     puts 'Git status...'
     system "git status"
+
     puts 'Removing deleted files...'
     system "for i in `git status | grep deleted | awk '{print $3}'`; do git rm $i; done"
+
+    puts 'Adding files...'
+    system "git add ."
+    puts 'Git status...'
+    system "git status"
+
     puts 'Deleted files have been removed.'
   end
 end

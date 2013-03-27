@@ -7,6 +7,7 @@
 #  created_at   :datetime         not null
 #  id           :integer          not null, primary key
 #  published_at :date             not null
+#  submitter_id :integer
 #  title        :text             not null
 #  updated_at   :datetime         not null
 #  url          :text             not null
@@ -15,6 +16,10 @@
 class Link < ActiveRecord::Base
   # Validations
   validates :url, :title, :published_at, presence: true
+
+  # Maker, the person who submits the link
+  belongs_to :submitter, class_name: 'User'
+  validates :submitter, presence: true
 
   # Repos and categories
   has_many :link_relationships
@@ -47,6 +52,4 @@ class Link < ActiveRecord::Base
     repos.each(&:touch)
     deep_categories.each(&:touch) # includes categories through repos
   end
-
-  attr_accessible :author, :author_url, :published_at, :title, :url, :repo_ids, :category_ids
 end

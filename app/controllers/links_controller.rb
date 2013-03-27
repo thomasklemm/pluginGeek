@@ -1,43 +1,58 @@
 class LinksController < ApplicationController
-  # GET /links/new
+  before_filter :authenticate_user!
+  before_filter :load_link, only: [:edit, :update, :destroy]
+  after_filter :verify_authorized
+
   def new
     @link = Link.where(url: params[:url]).first_or_initialize
-    # Early return if persisted
-    @link.persisted? and return redirect_to edit_link_path(@link)
+
+    # Redirect to edit path if link is already known
+    @link.persisted? and redirect_to edit_link_path(@link)
+
     # Set title and default published_at
     @link.title, @link.published_at = params[:title], Date.current
+    authorize @link
   end
 
-  # GET /links/1/edit
-  def edit
-    @link = Link.find(params[:id])
-  end
-
-  # POST /links
   def create
-    @link = Link.new(params[:link])
+    @link = Link.new(link_params)
+    @link.submitter = current_user
+    authorize @link
 
     if @link.save
-      redirect_to edit_link_path(@link), notice: 'Saved link successfully.'
+      redirect_to edit_link_path(@link), notice: 'Link has been saved.'
     else
       render action: :new
     end
   end
 
-  # PUT /links/1
-  def update
-    @link = Link.find(params[:id])
+  def edit
+    authorize @link
+  end
 
-    if @link.update_attributes(params[:link])
-      redirect_to edit_link_path(@link), notice: 'Saved link successfully.'
+  def update
+    authorize @link
+    if @link.update_attributes(link_params)
+      redirect_to edit_link_path(@link), notice: 'Link has been saved.'
     else
       render action: :edit
     end
   end
 
   def destroy
-    @link = Link.find(params[:id])
+    authorize @link
+
     @link.destroy
-    redirect_to root_url, notice: 'Destroyed link.'
+    redirect_to root_url, notice: 'Link has been destroyed.'
+  end
+
+  private
+
+  def load_link
+    @link = Link.find(params[:id])
+  end
+
+  def link_params
+    params.require(:link).permit(:title, :url, :author, :author_url, :published_at, { repo_ids: [] }, { category_ids: [] })
   end
 end

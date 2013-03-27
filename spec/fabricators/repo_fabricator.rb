@@ -9,9 +9,9 @@
 #  github_updated_at  :datetime
 #  homepage_url       :text
 #  id                 :integer          not null, primary key
-#  knight_score       :integer          default(0)
 #  name               :text
 #  owner              :text
+#  score              :integer          default(0)
 #  staff_pick         :boolean          default(FALSE)
 #  stars              :integer          default(0)
 #  update_success     :boolean          default(FALSE)
@@ -19,10 +19,12 @@
 #
 # Indexes
 #
-#  index_repos_on_full_name     (full_name) UNIQUE
-#  index_repos_on_knight_score  (knight_score)
+#  index_repos_on_full_name  (full_name) UNIQUE
+#  index_repos_on_score      (score)
 #
 
 Fabricator(:repo) do
-  full_name { sequence(:full_name) { |n| "owner#{ n }/repo#{ n }" } }
+  owner { sequence(:owner) { |n| "repo_owner_#{ n }" } }
+  name  { sequence(:name)  { |n| "repo_name_#{ n }" } }
+  full_name { |attrs| "#{ attrs[:owner] }/#{ attrs[:name] }" }
 end

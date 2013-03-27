@@ -9,9 +9,9 @@
 #  github_updated_at  :datetime
 #  homepage_url       :text
 #  id                 :integer          not null, primary key
-#  knight_score       :integer          default(0)
 #  name               :text
 #  owner              :text
+#  score              :integer          default(0)
 #  staff_pick         :boolean          default(FALSE)
 #  stars              :integer          default(0)
 #  update_success     :boolean          default(FALSE)
@@ -19,8 +19,8 @@
 #
 # Indexes
 #
-#  index_repos_on_full_name     (full_name) UNIQUE
-#  index_repos_on_knight_score  (knight_score)
+#  index_repos_on_full_name  (full_name) UNIQUE
+#  index_repos_on_score      (score)
 #
 
 class Repo < ActiveRecord::Base
@@ -32,11 +32,8 @@ class Repo < ActiveRecord::Base
   validates :full_name, presence: true, uniqueness: true
   validates :description, length: {maximum: 360}
 
-  # Audits
-  audited only: [:description]
-
   # Order repos by score
-  scope :order_by_score, order('repos.knight_score DESC')
+  scope :order_by_score, order('repos.score DESC')
 
   # All repos except the given one,
   # so that parent cannot be set to self in repo#edit
@@ -63,8 +60,8 @@ class Repo < ActiveRecord::Base
     self[:stars] || 0
   end
 
-  def knight_score
-    self[:knight_score] || 0
+  def score
+    self[:score] || 0
   end
 
   # Parents
@@ -93,7 +90,7 @@ class Repo < ActiveRecord::Base
   has_many :categorizations
   has_many :categories,
     through: :categorizations,
-    order: 'categories.knight_score DESC'
+    order: 'categories.score DESC'
 
   # Languages
   has_many :language_classifications,
@@ -129,8 +126,10 @@ class Repo < ActiveRecord::Base
     # Expire old categories
     categories.each(&:touch)
 
-    full_names = new_list.split(', ').select(&:present?).map(&:strip)
+    # Prepare list
+    full_names = new_list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
 
+    # Assign categories
     self.categories = full_names.map do |full_name|
       Category.where(full_name: full_name).first_or_create!
     end
@@ -160,7 +159,4 @@ class Repo < ActiveRecord::Base
   def expire_parents_and_children
     parents_and_children.each(&:touch)
   end
-
-  # Whitelisting attributes for mass assignment
-  attr_accessible :full_name, :description, :category_list, :parent_ids, :staff_pick
 end

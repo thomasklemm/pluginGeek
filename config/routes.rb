@@ -1,59 +1,54 @@
 Plugingeek::Application.routes.draw do
-  get "mailers/feedback"
-
-  ##
   # User authentication
   devise_for :users,
     path_names: {sign_in: 'login', sign_out: 'logout'},
     controllers: {omniauth_callbacks: 'omniauth'}
 
   devise_scope :user do
-    get 'login',  to: 'devise/sessions#new',     as: :new_user_session
-    get 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
+    get 'login',     to: 'devise/sessions#new',     as: :new_user_session
+    delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  ##
+  # Shorthand named login and logout paths
+  get 'login', to: 'devise/sessions#new', as: :login
+  delete 'logout', to: 'devise/sessions#destroy', as: :logout
+
   # Submissions
   get 'submit' => 'submissions#submit', as: :submit
 
-  ##
   # Links
   resources :links, only: [:new, :create, :edit, :update, :destroy]
 
-  ##
   # Categories
-  resources :categories, only: [:show, :edit, :update]
+  resources :categories, only: [:show, :edit, :update, :destroy]
 
-  get ':language' => 'categories#index',
-    as: :categories,
+  get ':language' => 'categories#index', as: :categories,
     constraints: { language: /#{ Language::All.join('|') }/i }
 
   # language shortcut redirection
   get 'js' => redirect('/javascript')
 
-  # language subdomain redirection
+  # Redirect people entering via a language subdomain
   constraints(Subdomain) do
     get '/' => 'application#redirect_subdomain'
   end
 
-  ##
   # Repos
   #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
   #     while matching incoming requests is being done through seperate routes
   #     (as friendly_id contains slashes)
-  resources :repos, only: [:show, :edit] do
+  resources :repos, only: [:show, :new, :create, :edit] do
     collection do
-      constraints name: /[^\/]+(?=\.html\z)|[^\/]+/ do
-        get ':owner/:name/edit'        => 'repos#edit'
-        get ':owner/:name(/*remains)'  => 'repos#show'
-        post ':owner/:name'            => 'repos#create'
-        put ':owner/:name'             => 'repos#update'
+      constraints name: %r{[^\/]+(?=\.html\z)|[^\/]+} do
+        get    ':owner/:name'      => 'repos#show'
+        get    ':owner/:name/edit' => 'repos#edit'
+        put    ':owner/:name'      => 'repos#update'
+        delete ':owner/:name'      => 'repos#destroy'
       end
     end
   end
 
-  ##
   # Feedback
   post 'feedback' => 'mailers#feedback', as: :feedback
 

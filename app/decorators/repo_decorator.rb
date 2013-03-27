@@ -11,10 +11,6 @@ class RepoDecorator < Draper::Decorator
     model[:name].present? ? model[:name] : full_name.split('/')[1]
   end
 
-  def score
-    knight_score
-  end
-
   def description
     model[:description].present? ? model[:description] : github_description
   end
