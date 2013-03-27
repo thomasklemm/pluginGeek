@@ -139,6 +139,10 @@ describe ReposController, "GET #new" do
       expect(assigns(:repo)).to be_present
       expect(assigns(:repo)).to be_new_record
     end
+
+    it "decorates @repo" do
+      expect(assigns(:repo)).to be_decorated
+    end
   end
 
   context "user" do
@@ -202,6 +206,10 @@ describe ReposController, "GET #edit" do
 
     it "assigns @repo" do
       expect(assigns(:repo)).to be_present
+    end
+
+    it "decorates @repo" do
+      expect(assigns(:repo)).to be_decorated
     end
   end
 

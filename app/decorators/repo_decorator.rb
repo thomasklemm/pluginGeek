@@ -37,6 +37,18 @@ class RepoDecorator < Draper::Decorator
     github_updated_at.utc
   end
 
+  # Assign classes based on color
+  def activity_color_class
+    diff = Time.zone.now - timestamp
+    klass = case diff
+            when (-10000)..2.months        then 'very-high'
+            when (2.months+1)..6.months    then 'high'
+            when (6.months+1)..12.months   then 'medium'
+            when (12.months+1)..24.months  then 'low'
+            else                                'very-low'
+            end
+  end
+
   # Somehow there are ActiveRecord errors when using order clauses for this
   # and using .includes(:links) queries a few levels deep, thus sorting is right now done in Ruby
   def sorted_links

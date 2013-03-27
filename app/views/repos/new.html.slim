@@ -9,4 +9,8 @@
   p style='margin: 0.5rem 0 1.618rem;' This project is not listed on Plugingeek yet. <br />Would you like to add and categorize it?
 
   / button to add repo to Plugingeek
-  = link_to "Add <b>#{ @repo.name }</b> by #{ @repo.owner }".html_safe, repo_path(@repo), method: :post, class: 'button'
+  = form_for @repo do |f|
+    / transmit owner and name to the create action
+    = f.hidden_field :full_name
+
+    = f.submit "Add #{ @repo.name } by #{ @repo.owner }", class: 'button'

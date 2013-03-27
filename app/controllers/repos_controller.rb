@@ -10,7 +10,7 @@ class ReposController < ApplicationController
 
   # GET /repos/new?owner=thomasklemm&name=Plugingeek
   def new
-    @repo = Repo.new(full_name: full_name)
+    @repo = Repo.new(full_name: full_name).decorate
     authorize @repo
   end
 
@@ -21,7 +21,7 @@ class ReposController < ApplicationController
     if retrieve_from_github(@repo.full_name)
       redirect_to repo_path(@repo), notice: 'Repo has been added.'
     else
-      flash.alert = 'Repo could not be found on Github. \
+      flash.alert = 'Repo could not be found on Github.
         This might be a temporary error only, please try again later.'
       redirect_to root_path
     end
@@ -52,13 +52,15 @@ class ReposController < ApplicationController
 
   # GET /repos/:owner/:name
   def full_name
+    full_name = params[:full_name] || (params[:repo] && params[:repo][:full_name])
+
     owner = params[:owner] || (params[:repo] && params[:repo][:owner])
     name  = params[:name]  || (params[:repo] && params[:repo][:name])
-    "#{ owner }/#{ name }"
+    full_name ||= "#{ owner }/#{ name }"
   end
 
   def load_repo
-    @repo = Repo.where(full_name: full_name).first!
+    @repo = Repo.where(full_name: full_name).first!.decorate
   end
 
   def retrieve_from_github(repo_full_name)

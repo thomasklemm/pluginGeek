@@ -28,7 +28,7 @@
 
     / Most recent activity timestamp on the repo
     / .js-timestamp for list.js is rendered seperately below
-    span.activity class=activity_color(repo.timestamp)
+    span.activity class=repo.activity_color_class
       abbr.timeago title=repo.timestamp.iso8601 = repo.timestamp.to_s(:long)
 
     / Hidden stats for searching and sorting
