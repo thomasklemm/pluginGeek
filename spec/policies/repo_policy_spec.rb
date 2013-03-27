@@ -31,7 +31,7 @@ describe RepoPolicy do
   context "guest" do
     it { should permit_policy(guest, repo, :index?) }
     it { should permit_policy(guest, repo, :show?) }
-    it { should permit_policy(guest, repo, :new?) }
+    it { should_not permit_policy(guest, repo, :new?) }
     it { should_not permit_policy(guest, repo, :create?) }
     it { should_not permit_policy(guest, repo, :edit?) }
     it { should_not permit_policy(guest, repo, :update?) }

@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 shared_context "repo" do
-  let!(:category) { Fabricate(:category) }
-  let!(:repo)     { Fabricate(:repo, categories: [category]) }
+  let!(:repo)     { Fabricate(:repo) }
 
   let(:user)  { Fabricate(:user) }
   let(:staff) { Fabricate(:user, staff: true) }
@@ -103,7 +102,7 @@ describe ReposController, "GET #show" do
     end
 
     context "repo not found" do
-      before { get :show, owner: repo.owner, name: 'any_name' }
+      before { get :show, owner: 'any_owner', name: 'any_name' }
 
       it { should redirect_to(root_path) }
       it { should set_the_flash.to("Record could not be found.") }
@@ -113,4 +112,122 @@ describe ReposController, "GET #show" do
   context "guest" do
     include_examples "repos#show for guest, user and staff"
   end
+
+  context "user" do
+    before { sign_in user }
+    include_examples "repos#show for guest, user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "repos#show for guest, user and staff"
+  end
+end
+
+describe ReposController, "GET #new" do
+  include_context "repo"
+
+  shared_examples "repos#new for user and staff" do
+    before { get :new, owner: 'owner', name: 'name' }
+
+    it { should authorize_resource }
+    it { should respond_with(:success) }
+    it { should render_template(:new) }
+    it { should_not set_the_flash }
+
+    it "assigns a new repo to @repo" do
+      expect(assigns(:repo)).to be_present
+      expect(assigns(:repo)).to be_new_record
+    end
+  end
+
+  context "user" do
+    before { sign_in user }
+    include_examples "repos#new for user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "repos#new for user and staff"
+  end
+end
+
+describe ReposController, "POST #create" do
+  include_context "repo"
+
+  shared_examples "repos#create for user and staff" do
+    context "with valid repo full_name" do
+      before { post :create, repo: { owner: 'rails', name: 'rails' } }
+
+      it { should authorize_resource }
+      it { should redirect_to(repo_path(assigns(:repo))) }
+      it { should set_the_flash.to('Repo has been added.') }
+
+      it "retrieves the repo's details from Github"
+    end
+
+    context "with invalid repo full_name" do
+      before { post :create, repo: { owner: 'none', name: 'none' }  }
+
+      it { should authorize_resource }
+      it { should redirect_to(root_path) }
+      it { should set_the_flash.to(/Repo could not be found on Github/) }
+    end
+  end
+
+  context "user" do
+    before { sign_in user }
+    include_examples "repos#create for user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "repos#create for user and staff"
+  end
+end
+
+describe ReposController, "GET #edit" do
+  include_context "repo"
+
+  shared_examples "repos#edit for user and staff" do
+    before { get :edit, owner: repo.owner, name: repo.name }
+
+    it { should authorize_resource }
+    it { should respond_with(:success) }
+    it { should render_template(:edit) }
+    it { should_not set_the_flash }
+
+    it "assigns @repo" do
+      expect(assigns(:repo)).to be_present
+    end
+  end
+
+  context "user" do
+    before { sign_in user }
+    include_examples "repos#edit for user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "repos#edit for user and staff"
+  end
+end
+
+describe ReposController, "PUT #update", :focus do
+  include_context "repo"
+
+  context "user" do
+    before { sign_in user }
+    include_examples "repos#edit for user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "repos#edit for user and staff"
+  end
+end
+
+describe ReposController, "DELETE #destroy" do
+  include_context "repo"
+
 end

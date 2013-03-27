@@ -7,10 +7,6 @@ class RepoPolicy < ApplicationPolicy
     guest
   end
 
-  def new?
-    guest
-  end
-
   def create?
     user
   end

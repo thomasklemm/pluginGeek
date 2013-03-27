@@ -98,7 +98,7 @@ describe CategoriesController, "GET #index" do
     include_examples "categories#index for guest, user and staff"
   end
 
-  contextname "user" do
+  context "user" do
     before { sign_in user }
     include_examples "categories#index for guest, user and staff"
   end
