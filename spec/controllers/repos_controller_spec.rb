@@ -246,4 +246,34 @@ end
 describe ReposController, "DELETE #destroy" do
   include_context "repo"
 
+  context "staff" do
+    before do
+      sign_in staff
+      delete :destroy, owner: repo.owner, name: repo.name
+    end
+
+    it { should authorize_resource }
+    it { should redirect_to(root_path) }
+    it { should set_the_flash.to('Repo has been destroyed.') }
+
+    it "destroys the repo" do
+      expect(assigns(:repo)).to be_destroyed
+    end
+  end
+
+  context "user" do
+    before do
+      sign_in user
+      request.env["HTTP_REFERER"] = "where_i_came_from" unless request.nil? or request.env.nil?
+      delete :destroy, owner: repo.owner, name: repo.name
+    end
+
+    it { should authorize_resource }
+    it { should redirect_to('where_i_came_from') }
+    it { should set_the_flash.to(/not authorized/) }
+
+    it "doesn't destroy the repo" do
+      expect(assigns(:repo)).to_not be_destroyed
+    end
+  end
 end

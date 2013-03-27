@@ -209,6 +209,21 @@ end
 describe CategoriesController, "DELETE #destroy" do
   include_context "category"
 
+  context "staff" do
+    before do
+      sign_in staff
+      delete :destroy, id: category
+    end
+
+    it { should authorize_resource }
+    it { should redirect_to(root_path) }
+    it { should set_the_flash.to('Category has been destroyed.') }
+
+    it "destroys the category" do
+      expect(assigns(:category)).to be_destroyed
+    end
+  end
+
   context "user" do
     before do
       sign_in user
@@ -222,21 +237,6 @@ describe CategoriesController, "DELETE #destroy" do
 
     it "doesn't destroy the category" do
       expect(assigns(:category)).to_not be_destroyed
-    end
-  end
-
-  context "staff" do
-    before do
-      sign_in staff
-      delete :destroy, id: category
-    end
-
-    it { should authorize_resource }
-    it { should redirect_to(root_path) }
-    it { should set_the_flash.to('Category has been destroyed.') }
-
-    it "destroys the category" do
-      expect(assigns(:category)).to be_destroyed
     end
   end
 end
