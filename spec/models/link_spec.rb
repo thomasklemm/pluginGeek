@@ -6,8 +6,8 @@
 #  author_url   :text
 #  created_at   :datetime         not null
 #  id           :integer          not null, primary key
-#  maker_id     :integer
 #  published_at :date             not null
+#  submitter_id :integer
 #  title        :text             not null
 #  updated_at   :datetime         not null
 #  url          :text             not null
@@ -23,8 +23,8 @@ describe Link do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:published_at) }
 
-  it { should belong_to(:maker).class_name('User') }
-  it { should validate_presence_of(:maker) }
+  it { should belong_to(:submitter).class_name('User') }
+  it { should validate_presence_of(:submitter) }
 
   it { should have_many(:link_relationships) }
   it { should have_many(:repos).through(:link_relationships) }

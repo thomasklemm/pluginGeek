@@ -1,9 +1,9 @@
 class LinkPolicy < ApplicationPolicy
   alias_method :link, :record
 
-  def maker
-    maker = link && link.maker
-    maker == user
+  def submitter
+    submitter = link && link.submitter
+    submitter == user
   end
 
   def create?
@@ -15,6 +15,6 @@ class LinkPolicy < ApplicationPolicy
   end
 
   def destroy?
-    maker || staff
+    submitter || staff
   end
 end

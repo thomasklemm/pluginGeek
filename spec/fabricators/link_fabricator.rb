@@ -6,8 +6,8 @@
 #  author_url   :text
 #  created_at   :datetime         not null
 #  id           :integer          not null, primary key
-#  maker_id     :integer
 #  published_at :date             not null
+#  submitter_id :integer
 #  title        :text             not null
 #  updated_at   :datetime         not null
 #  url          :text             not null
@@ -18,5 +18,5 @@ Fabricator(:link) do
   title          "link title"
   published_at   Date.current
 
-  maker          { Fabricate(:user) }
+  submitter      { Fabricate(:user) }
 end

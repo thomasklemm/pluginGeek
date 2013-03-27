@@ -4,7 +4,7 @@ describe LinkPolicy do
   subject { LinkPolicy }
 
   let(:link)     { Fabricate.build(:link) }
-  let(:submitted_link) { Fabricate.build(:link, maker: user) }
+  let(:submitted_link) { Fabricate.build(:link, submitter: user) }
 
   let(:staff)    { Fabricate.build(:user, staff: true) }
   let(:user)     { Fabricate.build(:user) }
