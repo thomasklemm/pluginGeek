@@ -7,7 +7,7 @@ ruby '1.9.3'
 gem 'puma', '2.0.0.b6'
 
 # Rails
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.12'
 
 # Postgres Database Connector
 gem 'pg'
@@ -43,9 +43,6 @@ gem 'sinatra', :require => false
 
 # Cache Digests (Watch Progress of this gem!)
 gem 'cache_digests'
-
-# Audited (Model Versioning and Auditing)
-gem 'audited-activerecord', '~> 3.0'
 
 # Figaro (Managing credentials)
 gem 'figaro'

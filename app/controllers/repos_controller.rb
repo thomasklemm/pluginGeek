@@ -10,14 +10,12 @@ class ReposController < ApplicationController
 
   # GET /repos/new?owner=thomasklemm&name=Plugingeek
   def new
-    @repo = Repo.new
-    @repo.full_name = full_name
+    @repo = Repo.new(full_name: full_name)
     authorize @repo
   end
 
   def create
-    @repo = Repo.new
-    @repo.full_name = full_name
+    @repo = Repo.new(full_name: full_name)
     authorize @repo
 
     if retrieve_from_github(@repo.full_name)

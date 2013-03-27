@@ -181,19 +181,14 @@ describe CategoriesController, "PUT #update" do
   include_context "category"
 
   shared_examples "categories#update for user and staff" do
-    let(:valid_category_attributes) do
-      { full_name: 'new_category_name',
-      description: 'new_category_description',
-      draft: false }
-    end
+    before { put :update, id: category, category: { description: 'new_description' } }
 
-    before { put :update, id: category, category: valid_category_attributes }
+    it { should authorize_resource }
+    it { should set_the_flash.to('Category has been updated.') }
 
     it "redirects to the category" do
       expect(response).to redirect_to(category)
     end
-
-    it { should set_the_flash.to('Category has been updated.') }
   end
 
   context "user" do

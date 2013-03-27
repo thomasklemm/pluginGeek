@@ -72,5 +72,18 @@ module Plugingeek
     # required for Heroku and devise
     config.assets.initialize_on_precompile = false
     # Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
+
+    # Generator options
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :fabrication
+      g.helper false
+      g.stylesheets false
+      g.javascript_engine false
+      g.view_specs false
+    end
+
+    # Default timezone
+    config.active_record.default_timezone = :utc
   end
 end

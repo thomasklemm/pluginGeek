@@ -160,10 +160,13 @@ describe ReposController, "POST #create" do
       before { post :create, repo: { owner: 'rails', name: 'rails' } }
 
       it { should authorize_resource }
-      it { should redirect_to(repo_path(assigns(:repo))) }
       it { should set_the_flash.to('Repo has been added.') }
 
-      it "retrieves the repo's details from Github"
+      it "redirects to the repo" do
+        expect(response).to redirect_to(repo_path(assigns(:repo)))
+      end
+
+      pending "retrieves the repo's details from Github"
     end
 
     context "with invalid repo full_name" do
@@ -213,17 +216,30 @@ describe ReposController, "GET #edit" do
   end
 end
 
-describe ReposController, "PUT #update", :focus do
+describe ReposController, "PUT #update" do
   include_context "repo"
+
+  shared_examples "repos#update for user and staff" do
+    before do
+      put :update, owner: repo.owner, name: repo.name, repo: { description: 'new_one' }
+    end
+
+    it { should authorize_resource }
+    it { should set_the_flash.to('Repo has been updated.') }
+
+    it "redirects to the repo" do
+      expect(response).to redirect_to(assigns(:repo))
+    end
+  end
 
   context "user" do
     before { sign_in user }
-    include_examples "repos#edit for user and staff"
+    include_examples "repos#update for user and staff"
   end
 
   context "staff" do
     before { sign_in staff }
-    include_examples "repos#edit for user and staff"
+    include_examples "repos#update for user and staff"
   end
 end
 

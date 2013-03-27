@@ -29,9 +29,6 @@ class Category < ActiveRecord::Base
   validates :full_name, presence: true
   validates :description, length: {maximum: 360}
 
-  # Audits
-  audited only: [:full_name, :description]
-
   # Order categories by score
   scope :order_by_score, order('categories.score DESC')
 

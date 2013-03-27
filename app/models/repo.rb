@@ -32,9 +32,6 @@ class Repo < ActiveRecord::Base
   validates :full_name, presence: true, uniqueness: true
   validates :description, length: {maximum: 360}
 
-  # Audits
-  audited only: [:description]
-
   # Order repos by score
   scope :order_by_score, order('repos.score DESC')
 
