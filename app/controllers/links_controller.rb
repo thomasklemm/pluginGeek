@@ -7,7 +7,7 @@ class LinksController < ApplicationController
     @link = Link.where(url: params[:url]).first_or_initialize
 
     # Redirect to edit path if link is already known
-    @link.persisted? and return redirect_to edit_link_path(@link)
+    @link.persisted? and redirect_to edit_link_path(@link)
 
     # Set title and default published_at
     @link.title, @link.published_at = params[:title], Date.current
@@ -53,6 +53,6 @@ class LinksController < ApplicationController
   end
 
   def link_params
-    params.require(:link).permit(:title, :url, :author, :author_url, :published_at, repo_ids: [], category_ids: [])
+    params.require(:link).permit(:title, :url, :author, :author_url, :published_at, { repo_ids: [] }, { category_ids: [] })
   end
 end
