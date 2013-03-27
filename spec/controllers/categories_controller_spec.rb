@@ -2,7 +2,9 @@ require 'spec_helper'
 
 shared_context "categories" do
   let!(:language) { Fabricate(:language) }
-  let!(:category) { Fabricate(:category, languages: [language]) }
+  let!(:category) { Fabricate(:category) }
+
+  before { category.languages << language }
 
   let(:user)  { Fabricate(:user) }
   let(:staff) { Fabricate(:user, staff: true) }
@@ -10,7 +12,9 @@ end
 
 shared_context "category" do
   let!(:category) { Fabricate(:category) }
-  let!(:repo)     { Fabricate(:repo, categories: [category]) }
+  let!(:repo)     { Fabricate(:repo) }
+
+  before { repo.categories << category }
 
   let(:user)  { Fabricate(:user) }
   let(:staff) { Fabricate(:user, staff: true) }

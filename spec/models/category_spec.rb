@@ -69,8 +69,8 @@ describe Category do
   end
 
   describe "#save" do
-    let(:category) { Fabricate.build(:category, full_name: "Category (Ruby/Javascript)") }
-    let(:repo)     { Fabricate.build(:repo, stars: 100, score: 200) }
+    let(:category) { Fabricate(:category, full_name: "Category (Ruby/Javascript)") }
+    let(:repo)     { Fabricate(:repo, stars: 100, score: 200) }
 
     before do
       Fabricate(:language, name: 'Ruby')
