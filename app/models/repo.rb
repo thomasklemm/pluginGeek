@@ -35,10 +35,9 @@ class Repo < ActiveRecord::Base
   # Order repos by score
   scope :order_by_score, order('repos.score DESC')
 
-  # All repos except the given one,
-  # so that parent cannot be set to self in repo#edit
-  def self.all_except(repo)
-    order_by_score.to_a - [repo]
+  # FIXME: Improve performance, only select full_names
+  def self.all_without(repo)
+    order_by_score.select { |r| r.id != repo.id }
   end
 
   # Callbacks
