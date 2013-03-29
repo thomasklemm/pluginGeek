@@ -76,6 +76,10 @@ gem 'pundit'
 
 # Peek (Stats and insights into a Rails app)
 gem 'peek'
+gem 'peek-pg'
+gem 'peek-git'
+gem 'peek-performance_bar'
+gem 'peek-dalli'
 
 # Gems used only for assets and not required
 #   in production environments by default.

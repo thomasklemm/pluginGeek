@@ -1,4 +1,8 @@
 / layouts/_body
+
+/ Peek bar
+= render 'peek/bar'
+
 #root
   / details for the user if logged in
   = render 'user_details'
@@ -23,4 +27,6 @@
 / to improve overall load times
 = render 'inline_javascripts/body'
 
-
+/ Peek results
+= render 'peek/results'
+= render 'peek/results/performance_bar'

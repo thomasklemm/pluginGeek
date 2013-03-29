@@ -48,6 +48,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.3)
     arel (3.0.2)
+    atomic (1.0.2)
     bcrypt-ruby (3.0.1)
     better_errors (0.7.2)
       coderay (>= 1.0.0)
@@ -184,6 +185,18 @@ GEM
     orm_adapter (0.4.0)
     peek (0.0.5)
       rails (>= 3)
+    peek-dalli (1.1.1)
+      atomic (>= 1.0.0)
+      dalli
+      peek
+    peek-git (1.0.2)
+      peek
+    peek-performance_bar (1.1.2)
+      peek (>= 0.0.5)
+    peek-pg (1.1.0)
+      atomic (>= 1.0.0)
+      peek
+      pg
     pg (0.15.0)
     polyglot (0.3.3)
     pry (0.9.12)
@@ -346,6 +359,10 @@ DEPENDENCIES
   omniauth
   omniauth-github
   peek
+  peek-dalli
+  peek-git
+  peek-performance_bar
+  peek-pg
   pg
   pry-rails
   puma (= 2.0.0.b6)

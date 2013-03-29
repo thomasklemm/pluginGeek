@@ -27,6 +27,13 @@ class ApplicationController < ActionController::Base
     render text: '42'
   end
 
+  # Enable peek in production for staff
+  def peek_enabled?
+    Rails.env.development? or
+    Rails.env.staging? or
+    current_user && current_user.staff?
+  end
+
   private
 
   def set_language_param

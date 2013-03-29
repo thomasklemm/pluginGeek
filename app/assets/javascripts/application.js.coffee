@@ -9,6 +9,8 @@
 //= require pickadate
 //= require readme
 //= require select2
+//= require peek
+//= require 'peek/views/performance_bar'
 
 # Plugingeek
 $ ->
