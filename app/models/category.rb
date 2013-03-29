@@ -37,6 +37,10 @@ class Category < ActiveRecord::Base
     order_by_score.pluck(:full_name).to_json
   end
 
+  def self.all_without(category)
+    order_by_score.select { |c| c.id != category.id }
+  end
+
   # Assign aggregate stars of repos as category stars
   before_save :assign_stars
 

@@ -26,10 +26,11 @@
 
       / Full name for staff
       - if staff?
-        = f.input :full_name, as: :string, label: 'Owner and Name (Full Name), for Staff'
+        = f.input :full_name, as: :string, label: 'Owner and Name (Full Name), (Staff)'
 
       / Staff pick
-      = f.input :staff_pick, label: 'Staff pick'
+      - if staff?
+        = f.input :staff_pick, label: 'Staff pick (Staff)'
 
     = f.actions do
       = f.action :submit, as: :button, label: 'Save project', button_html: {class: 'button'}

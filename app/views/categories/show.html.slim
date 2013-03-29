@@ -19,6 +19,14 @@
 
   .space-one-and-a-half
 
+  - if @category.similar_categories.any?
+    .categories-wrapper.container
+      .section-header
+        span.primary Similar categories
+      .container
+        = render partial: 'categories/category', collection: @category.similar_categories
+    .space-one-and-a-half
+
   / links
   .links.container
     .section-header

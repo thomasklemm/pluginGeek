@@ -16,8 +16,12 @@
       / description for the category that will be rendered in overviews and is searchable
       = f.input :description, label: 'Description / Summary', hint: 'What is the purpose of the listed repos?', placeholder: 'Description: What is the purpose of the listed repos?'
 
-      / draft status
-      = f.input :draft, label: 'Still in draft mode?'
+      - if staff?
+        = f.input :related_categories, label: 'Related categories (Staff)', collection: Category.all_without(@category), hint: 'Are there any related categories? If you cannot find a relationship that is displayed in the show view here, check on the other side of the force.'
+
+      - if staff?
+        / draft status
+        = f.input :draft, label: 'Still in draft mode? (Staff)'
 
     / Submit button
     = f.actions do
@@ -41,3 +45,9 @@
           td.name = repo.name
           td.score = repo.score
           td.description = repo.description
+
+
+javascript:
+  $('#category_related_category_ids').select2({
+    placeholder: "Related categories"
+  })

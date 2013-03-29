@@ -2,6 +2,7 @@ class CategoryDecorator < Draper::Decorator
   delegate_all
 
   decorates_association :repos
+  decorates_association :similar_categories
   decorates_association :extended_links
 
   def description
