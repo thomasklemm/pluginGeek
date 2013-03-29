@@ -52,11 +52,17 @@ class ReposController < ApplicationController
 
   # GET /repos/:owner/:name
   def full_name
-    full_name = params[:full_name] || (params[:repo] && params[:repo][:full_name])
+    full_name_from_params || owner_and_name_from_params
+  end
 
+  def full_name_from_params
+    params[:full_name] || (params[:repo] && params[:repo][:full_name])
+  end
+
+  def owner_and_name_from_params
     owner = params[:owner] || (params[:repo] && params[:repo][:owner])
     name  = params[:name]  || (params[:repo] && params[:repo][:name])
-    full_name ||= "#{ owner }/#{ name }"
+    "#{ owner }/#{ name }"
   end
 
   def load_repo
