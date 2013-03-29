@@ -100,7 +100,8 @@ class Category < ActiveRecord::Base
     source: :other_category
 
   def similar_categories
-    (related_categories | reverse_related_categories).uniq.sort_by(&:score).reverse
+    sc = (related_categories | reverse_related_categories).uniq
+    sc.sort_by(&:stars).reverse
   end
 
   private

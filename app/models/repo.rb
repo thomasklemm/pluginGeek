@@ -118,22 +118,15 @@ class Repo < ActiveRecord::Base
 
   # Handle tag input changes
   def category_list=(new_list)
-    # Early return if category assignments don't change
+    # Return early if category assignments don't change
     return unless new_list != category_list
 
-    # Expire old categories
-    categories.each(&:touch)
+    expire_categories_and_self # expire old categories
 
-    # Prepare list
-    full_names = new_list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
+    full_category_names = prepare_category_list(new_list)
+    assign_categories(full_category_names)
 
-    # Assign categories
-    self.categories = full_names.map do |full_name|
-      Category.where(full_name: full_name).first_or_create!
-    end
-
-    # Expire new categories and self
-    categories.each(&:touch) and self.touch
+    expire_categories_and_self # expire new categories
   end
 
   # Update this very record from Github,
@@ -148,5 +141,20 @@ class Repo < ActiveRecord::Base
   # Deduce languages from categories' languages
   def assign_languages
     self.languages = categories.flat_map(&:languages).uniq
+  end
+
+  # Assign categories from a list of category names
+  def assign_categories(full_category_names)
+    self.categories = full_category_names.map do |full_name|
+      Category.where(full_name: full_name).first_or_create!
+    end
+  end
+
+  def prepare_category_list(list)
+    list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
+  end
+
+  def expire_categories_and_self
+    categories.each(&:touch) and self.touch
   end
 end

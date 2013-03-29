@@ -35,6 +35,8 @@ describe Repo do
   let(:first_parent)  { Fabricate.build(:repo) }
   let(:second_parent) { Fabricate.build(:repo) }
 
+  let(:first_language) { Fabricate.build(:language) }
+
   it { should validate_presence_of(:full_name) }
   it { should validate_uniqueness_of(:full_name) }
 
@@ -73,25 +75,36 @@ describe Repo do
   it { should have_many(:link_relationships).dependent(:destroy) }
   it { should have_many(:links).through(:link_relationships) }
 
-  it { should respond_to(:child_list) }
-  it { should respond_to(:language_list) }
-  it { should respond_to(:category_list) }
-  it { should respond_to(:category_list=) }
-
   describe "#child_list" do
-    before do
-      repo.save
-      repo.children = [first_child, second_child]
-    end
+    before { repo.children = [first_child, second_child] }
 
     it "returns a list of children" do
+      expect(repo.child_list).to be_present
       expect(repo.child_list).to be_a String
       expect(repo.child_list.split(", ")).to match_array([first_child.full_name, second_child.full_name])
     end
   end
 
+  describe "#language_list" do
+    before { repo.languages = [first_language] }
+
+    it "returns a list of languages" do
+      expect(repo.language_list).to be_present
+      expect(repo.language_list).to be_a String
+      expect(repo.language_list.split(", ")).to match_array([first_language.name])
+    end
+  end
+
+  pending "#category_list"
+  pending "#category_list="
+
+  it { should respond_to(:category_list) }
+  it { should respond_to(:category_list=) }
+
   describe "#update_from_github" do
     it "updates the repo with the current Github data"
   end
 
+  pending "#assign_languages"
+  pending "#assign_categories"
 end
