@@ -17,7 +17,7 @@ Plugingeek::Application.routes.draw do
   get 'submit' => 'submissions#submit', as: :submit
 
   # Links
-  resources :links
+  resources :links, except: :show
 
   # Categories
   resources :categories, only: [:show, :edit, :update, :destroy]

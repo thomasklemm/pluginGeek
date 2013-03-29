@@ -1,7 +1,7 @@
 class LinksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_link, only: [:show, :edit, :update, :destroy]
-  after_filter :verify_authorized, expect: :index
+  before_filter :load_link, only: [:edit, :update, :destroy]
+  after_filter :verify_authorized, except: :index
 
   def index
     # TODO: Pagination

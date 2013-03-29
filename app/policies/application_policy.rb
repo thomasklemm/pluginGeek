@@ -14,6 +14,10 @@ class ApplicationPolicy
     true
   end
 
+  def staff_action?
+    staff
+  end
+
   def index?
     false
   end

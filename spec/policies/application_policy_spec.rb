@@ -14,6 +14,7 @@ describe ApplicationPolicy do
     it { should_not permit_policy(staff, record, :edit?) }
     it { should_not permit_policy(staff, record, :update?) }
     it { should_not permit_policy(staff, record, :destroy?) }
+    it { should permit_policy(staff, record, :staff_action?) }
   end
 
   context "user" do
@@ -24,6 +25,7 @@ describe ApplicationPolicy do
     it { should_not permit_policy(user, record, :edit?) }
     it { should_not permit_policy(user, record, :update?) }
     it { should_not permit_policy(user, record, :destroy?) }
+    it { should_not permit_policy(user, record, :staff_action?) }
   end
 
   context "guest" do
@@ -34,5 +36,6 @@ describe ApplicationPolicy do
     it { should_not permit_policy(guest, record, :edit?) }
     it { should_not permit_policy(guest, record, :update?) }
     it { should_not permit_policy(guest, record, :destroy?) }
+    it { should_not permit_policy(guest, record, :staff_action?) }
   end
 end
