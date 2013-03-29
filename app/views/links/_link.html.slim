@@ -5,15 +5,6 @@
   / dns prefetching of url
   = dns_prefetch(link.url)
 
-  / author if present?
-  span.author
-    - if link.author.present?
-      '  by
-      - if link.author_url.present?
-        = link_to link.author, link.author_url
-      - else
-        = link.author
-
   '  ||
   / publication date
   span.date = link.published_at.strftime("%B %Y")

@@ -6,6 +6,14 @@ class LinkPolicy < ApplicationPolicy
     submitter == user
   end
 
+  def index?
+    guest
+  end
+
+  def show?
+    guest
+  end
+
   def create?
     user
   end

@@ -11,6 +11,8 @@ describe LinkPolicy do
   let(:guest)    { nil }
 
   context "staff" do
+    it { should permit_policy(staff, link, :index?) }
+    it { should permit_policy(staff, link, :show?) }
     it { should permit_policy(staff, link, :new?) }
     it { should permit_policy(staff, link, :create?) }
     it { should permit_policy(staff, link, :edit?) }
@@ -19,6 +21,8 @@ describe LinkPolicy do
   end
 
   context "user" do
+    it { should permit_policy(user, link, :index?) }
+    it { should permit_policy(user, link, :show?) }
     it { should permit_policy(user, link, :new?) }
     it { should permit_policy(user, link, :create?) }
     it { should permit_policy(user, link, :edit?) }
@@ -28,8 +32,8 @@ describe LinkPolicy do
   end
 
   context "guest" do
-    it { should_not permit_policy(guest, link, :index?) }
-    it { should_not permit_policy(guest, link, :show?) }
+    it { should permit_policy(guest, link, :index?) }
+    it { should permit_policy(guest, link, :show?) }
     it { should_not permit_policy(guest, link, :new?) }
     it { should_not permit_policy(guest, link, :create?) }
     it { should_not permit_policy(guest, link, :edit?) }

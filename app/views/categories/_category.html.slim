@@ -3,10 +3,11 @@
 - cache [category, 'partial'] do
 
   / Link Builders
+  - repos_count = category.repo_names.try(:size) || 0
   - category_link = capture do
     = link_to " &raquo;".html_safe, category
   - category_repo_link = capture do
-    '  and #{ category.repo_names.size - 3 } more
+    '  and #{ repos_count - 3 } more
     = link_to " &raquo;".html_safe, category
 
   / Category partial in lists
@@ -29,7 +30,7 @@
     span.popular-repos
       span.repos.js-repos = category.popular_repos
       / Deeplink into category to see more repos
-      == (category.repo_names.size > 3) ? category_repo_link : category_link
+      == (repos_count > 3) ? category_repo_link : category_link
 
     / Description, either a custom one, or the one from Github
     span.description.js-description == category.description

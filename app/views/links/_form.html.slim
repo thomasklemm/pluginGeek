@@ -15,22 +15,6 @@
       = link_to 'You can open the link in a new tab.', @link.url, target: :blank
 
   .field
-    = f.label :author, "Author's name"
-    = f.text_field :author, autofocus: true, placeholder: "Who's the author?"
-
-  .field
-    = f.label :author_url, "Author's twitter or blog"
-    = f.text_field :author_url, placeholder: "@mperham or http://www.mikeperham.com"
-
-    / Expand link or show preference hint
-    - if @link[:author_url].present? && @link[:author_url].start_with?('@')
-      .result
-        ' Resulting url &rarr;
-        = link_to @link.author_url, @link.author_url, target: :blank
-    - else
-      .hint Prefer the author's @twitter. It will be automatically expanded.
-
-  .field
     = f.label :published_at, "Publication date"
     = f.date_select :published_at, start_year: Date.current.year, end_year: Date.current.year - 15, discard_day: true, prompt: true
     .hint We sort links by publication date, therefore this field is required.

@@ -15,9 +15,8 @@
     .section-header
       span.primary Associated categories
     .container
-      - categories = @link.categories | @link.repos.flat_map(&:categories).uniq
-      - if categories.present?
-        = render partial: 'categories/category', collection: categories
+      - if @link.extended_categories.present?
+        = render partial: 'categories/category', collection: @link.extended_categories
       - else
         .none-yet None yet.
 
@@ -36,4 +35,4 @@
   .space-one
 
   / Delete link
-  = link_to "<i class='icon-remove-circle'></i>Destroy this link entirely, it's just crap".html_safe, @link, method: :delete, confirm: 'Are you sure?'
+  = link_to "<i class='icon-remove-circle'></i>Destroy this link".html_safe, @link, method: :delete, confirm: 'Are you sure?'

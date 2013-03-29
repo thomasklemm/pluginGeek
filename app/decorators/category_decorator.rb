@@ -1,6 +1,7 @@
 class CategoryDecorator < Draper::Decorator
   delegate_all
   decorates_association :repos
+  decorates_association :extended_links
 
   def description
     model[:description] || ""
@@ -23,8 +24,8 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def repo_names
-    # NOTE: nil.to_s => ""
-    model[:repo_names].to_s.split(', ') || []
+    # NOTE: nil.to_s => "", "".split(', ') => []
+    model[:repo_names].to_s.split(', ')
   end
 
   def popular_repos
@@ -43,11 +44,12 @@ class CategoryDecorator < Draper::Decorator
     end
   end
 
-  # All links including the ones from the repos associated with this category
-  def sorted_links
-    @sorted_links ||= begin
-      l = (links.to_a | model.repos.includes(:links).flat_map(&:links).to_a).uniq
-      l.sort_by(&:published_at).reverse
-    end
+  def extended_links
+    @extended_links ||= (links | links_of_repos).uniq.sort_by(&:published_at).reverse
+  end
+
+  def links_of_repos
+    # call on model required for direct call instead of call on decorator
+    model.repos.includes(:links).flat_map(&:links)
   end
 end

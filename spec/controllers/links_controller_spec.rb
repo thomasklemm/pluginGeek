@@ -20,6 +20,14 @@ describe LinksController do
   pending "#link_params"
 end
 
+describe LinksController, "GET #index" do
+  pending
+end
+
+describe LinksController, "GET #show" do
+  pending
+end
+
 describe LinksController, "GET #new" do
   include_context "link"
 
@@ -85,6 +93,11 @@ describe LinksController, "GET #edit" do
     it { should render_template(:edit) }
     it { should_not set_the_flash }
     it { should authorize_resource }
+
+    it "assigns and decorates @link" do
+      expect(assigns(:link)).to be_present
+      expect(assigns(:link)).to be_decorated
+    end
   end
 
   context "user" do

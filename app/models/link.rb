@@ -36,10 +36,12 @@ class Link < ActiveRecord::Base
     source_type: 'Repo',
     uniq: true
 
-  # Enhance categories to include repos' categories
-  alias_method :plain_categories, :categories
-  def categories
-    (plain_categories | repos.flat_map(&:categories)).uniq
+  def extended_categories
+    categories | categories_of_repos
+  end
+
+  def categories_of_repos
+    repos.flat_map(&:categories).uniq
   end
 
   # Changes in link (e.g. changing date) need
@@ -50,6 +52,6 @@ class Link < ActiveRecord::Base
 
   def expire_categories_and_repos
     repos.each(&:touch)
-    deep_categories.each(&:touch) # includes categories through repos
+    extended_categories.each(&:touch) # includes categories through repos
   end
 end
