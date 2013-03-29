@@ -71,7 +71,9 @@ class ReposController < ApplicationController
 
   def retrieve_from_github(repo_full_name)
     Rails.env.test? and return repo_full_name == 'rails/rails'
-    RepoUpdater.new.perform(repo_full_name)
+
+    updater = RepoUpdater.new
+    updater.perform(repo_full_name)
   end
 
   def repo_params

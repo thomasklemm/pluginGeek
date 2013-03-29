@@ -30,6 +30,8 @@ class Repo < ActiveRecord::Base
 
   # Validations
   validates :full_name, presence: true, uniqueness: true
+  # TODO: Some Github repos won't save, maybe a custom writer
+  # that truncates descriptions would be worthwile
   validates :description, length: {maximum: 360}
 
   # Order repos by score
@@ -136,6 +138,20 @@ class Repo < ActiveRecord::Base
     RepoUpdater.new.perform(full_name)
   end
 
+  def assign_fields_from_github(github)
+    self.name                = github['name']
+    self.owner               = github['owner']['login']
+    self.github_description  = github['description']
+    self.stars               = github['watchers']
+    self.homepage_url        = github['homepage']
+    self.github_updated_at   = github['pushed_at']
+  end
+
+  def perform_calculations
+    assign_score
+    update_succeeded
+  end
+
   private
 
   # Deduce languages from categories' languages
@@ -152,6 +168,27 @@ class Repo < ActiveRecord::Base
 
   def prepare_category_list(list)
     list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
+  end
+
+  def last_updated
+    Time.current - github_updated_at
+  end
+
+  def assign_score
+    self.score = ((stars + 1) * activity).ceil
+  end
+
+  def activity
+    2.0 - (last_updated / 12.months)
+  end
+
+  def update_succeeded
+    self.update_success = true
+  end
+
+  def update_failed
+    persisted? and self.update_column(:update_success, false)
+    return false
   end
 
   def expire_categories_and_self

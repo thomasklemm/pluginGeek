@@ -20,8 +20,16 @@ class RepoDecorator < Draper::Decorator
     model[:github_description].present? ? model[:github_description] : ""
   end
 
+  # Returns either homepage url as an absolute path if only a relative one is given
+  # or the github_url
   def homepage_url
-    model[:homepage_url].present? ? model[:homepage_url] : github_url
+    url = model[:homepage_url]
+
+    if url.present?
+      url.start_with?('http') or "http://#{ url }"
+    else
+      github_url
+    end
   end
 
   def github_url
@@ -51,11 +59,5 @@ class RepoDecorator < Draper::Decorator
       when (12.months+1)..24.months  then 'low'
       else                                'very-low'
       end
-  end
-
-  private
-
-  def last_updated
-    Time.current - github_updated_at
   end
 end
