@@ -138,6 +138,49 @@ class Repo < ActiveRecord::Base
     RepoUpdater.new.perform(full_name)
   end
 
+  def update_from_github(github)
+    assign_fields_from_github(github)
+    assign_score
+    update_succeeded
+    self.save
+  end
+
+  def update_succeeded!
+    update_success? or self.update_column(:update_success, true)
+    puts "Repo #{ full_name } has been updated successfully."
+    true
+  end
+
+  def update_failed!(opts = {})
+    persisted? and update_success? and self.update_column(:update_success, false)
+
+    message = case opts[:reason]
+      when :not_found_on_github
+        "Repo #{ full_name } could not be found on Github."
+      when :not_saved
+        "Repo #{ full_name } could not be saved while updating from Github."
+      else
+        "Repo #{ full_name } could not be updated."
+      end
+
+    puts message
+    false
+  end
+
+  private
+
+  # Assign categories from a list of category names
+  def assign_categories(full_category_names)
+    self.categories = full_category_names.map do |full_name|
+      Category.where(full_name: full_name).first_or_create!
+    end
+  end
+
+  # Deduce languages from categories' languages
+  def assign_languages
+    self.languages = categories.flat_map(&:languages).uniq
+  end
+
   def assign_fields_from_github(github)
     self.name                = github['name']
     self.owner               = github['owner']['login']
@@ -145,25 +188,6 @@ class Repo < ActiveRecord::Base
     self.stars               = github['watchers']
     self.homepage_url        = github['homepage']
     self.github_updated_at   = github['pushed_at']
-  end
-
-  def perform_calculations
-    assign_score
-    update_succeeded
-  end
-
-  private
-
-  # Deduce languages from categories' languages
-  def assign_languages
-    self.languages = categories.flat_map(&:languages).uniq
-  end
-
-  # Assign categories from a list of category names
-  def assign_categories(full_category_names)
-    self.categories = full_category_names.map do |full_name|
-      Category.where(full_name: full_name).first_or_create!
-    end
   end
 
   def prepare_category_list(list)
@@ -184,11 +208,6 @@ class Repo < ActiveRecord::Base
 
   def update_succeeded
     self.update_success = true
-  end
-
-  def update_failed
-    persisted? and self.update_column(:update_success, false)
-    return false
   end
 
   def expire_categories_and_self
