@@ -1,5 +1,6 @@
 class CategoryDecorator < Draper::Decorator
   delegate_all
+
   decorates_association :repos
   decorates_association :extended_links
 
@@ -38,15 +39,20 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def name
-    @name ||= begin
-      match = full_name.match %r{(?<name>.*)[[:space:]]\(}
-      match.present? ? match[:name].strip : full_name
-    end
+    match = full_name.match %r{(?<name>.*)[[:space:]]\(}
+    match.present? ? match[:name].strip : full_name
   end
 
   def extended_links
-    @extended_links ||= (links | links_of_repos).uniq.sort_by(&:published_at).reverse
+    @extended_links ||= extended_links!
   end
+
+  def extended_links!
+    l = (links | links_of_repos).uniq
+    l.sort_by(&:published_at).reverse
+  end
+
+  private
 
   def links_of_repos
     # call on model required for direct call instead of call on decorator

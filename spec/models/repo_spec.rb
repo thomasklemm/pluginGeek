@@ -44,8 +44,6 @@ describe Repo do
 
   it { should ensure_length_of(:description).is_at_most(360) }
 
-  it "audits changes on description"
-
   it { should have_many(:parent_child_relationships).class_name('RepoRelationship').dependent(:destroy) }
   it { should have_many(:parents).through(:parent_child_relationships) }
 
@@ -66,13 +64,13 @@ describe Repo do
     end
   end
 
-  it { should have_many(:categorizations) }
+  it { should have_many(:categorizations).dependent(:destroy) }
   it { should have_many(:categories).through(:categorizations) }
 
-  it { should have_many(:language_classifications) }
+  it { should have_many(:language_classifications).dependent(:destroy) }
   it { should have_many(:languages).through(:language_classifications) }
 
-  it { should have_many(:link_relationships) }
+  it { should have_many(:link_relationships).dependent(:destroy) }
   it { should have_many(:links).through(:link_relationships) }
 
   it { should respond_to(:child_list) }

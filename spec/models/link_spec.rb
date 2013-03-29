@@ -26,15 +26,22 @@ describe Link do
   it { should belong_to(:submitter).class_name('User') }
   it { should validate_presence_of(:submitter) }
 
-  it { should have_many(:link_relationships) }
+  it { should have_many(:link_relationships).dependent(:destroy) }
   it { should have_many(:repos).through(:link_relationships) }
   it { should have_many(:categories).through(:link_relationships) }
 
-  let(:category) { Fabricate.build(:category) }
-  let(:repo)     { Fabricate.build(:repo, categories: [category]) }
+  describe "#extended_categories" do
+    let(:category) { Fabricate.build(:category) }
+    let(:repo_category) { Fabricate.build(:category) }
+    let(:repo) { Fabricate.build(:repo, categories: [repo_category]) }
 
-  it "includes the repos' categories into categories" do
-    link.repos << repo
-    expect(link.categories).to match_array([category])
+    before do
+      link.categories << category
+      link.repos << repo
+    end
+
+    it "returns categories and categories of repos" do
+      expect(link.extended_categories).to match_array([category, repo_category])
+    end
   end
 end

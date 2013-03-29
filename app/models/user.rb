@@ -90,6 +90,4 @@ class User < ActiveRecord::Base
       a.uid = omniauth.uid
     end
   end
-
-  attr_accessible :login, :name, :email, :company, :location, :followers, :avatar_url, :remember_me
 end

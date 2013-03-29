@@ -1,6 +1,10 @@
 class UserDecorator < Draper::Decorator
   delegate_all
 
+  # Grey avatar
+  DEFAULT_AVATAR_URL =
+    "https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png"
+
   def name
     model[:name] || login
   end
@@ -25,8 +29,7 @@ class UserDecorator < Draper::Decorator
     "https://github.com/#{ login }"
   end
 
-  # Avatar defaults to default grey one
   def avatar_url
-    model[:avatar_url] || "https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png"
+    model[:avatar_url] || DEFAULT_AVATAR_URL
   end
 end

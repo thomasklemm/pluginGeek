@@ -32,7 +32,8 @@ class Language < ActiveRecord::Base
   acts_as_tree
 
   # Classifications
-  has_many :language_classifications
+  has_many :language_classifications,
+    dependent: :destroy
 
   # Categories
   has_many :categories,
@@ -49,6 +50,4 @@ class Language < ActiveRecord::Base
     source_type: 'Repo',
     uniq: true,
     order: 'repos.score DESC'
-
-  attr_accessible :name
 end

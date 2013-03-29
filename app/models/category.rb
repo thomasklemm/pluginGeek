@@ -53,38 +53,39 @@ class Category < ActiveRecord::Base
   before_save :cache_language_names
 
   # Update the languages of the associated repos
-  # and expire the repos
   after_commit :update_repo_languages
 
-  # Expire languages
-  after_commit :expire_languages
-
   # Repos
-  has_many :categorizations
+  has_many :categorizations,
+    dependent: :destroy
   has_many :repos,
     through: :categorizations,
     order: 'repos.score DESC'
 
   # Languages
   has_many :language_classifications,
-    as: :classifier
+    as: :classifier,
+    dependent: :destroy
   has_many :languages,
     through: :language_classifications
 
   # Links
   has_many :link_relationships,
-    as: :linkable
+    as: :linkable,
+    dependent: :destroy
   has_many :links,
     through: :link_relationships,
     uniq: true
 
   # Related categories
   has_many :category_relationships,
-    foreign_key: :other_category_id
+    foreign_key: :other_category_id,
+    dependent: :destroy
 
   has_many :reverse_category_relationships,
     class_name: 'CategoryRelationship',
-    foreign_key: :category_id
+    foreign_key: :category_id,
+    dependent: :destroy
 
   has_many :related_categories,
     through: :category_relationships,
@@ -125,10 +126,7 @@ class Category < ActiveRecord::Base
     self.languages = []
 
     # Set provided languages if they are known
-    langs.each do |lang|
-      language = Language.find_by_slug(lang)
-      self.languages << language if language
-    end
+    langs.each { |lang| assign_single_language(lang) }
 
     # Assign sublanguages if appropriate
     assign_web_languages if langs.include?('web')
@@ -136,17 +134,16 @@ class Category < ActiveRecord::Base
   end
 
   def assign_web_languages
-    Language::Web.each do |lang|
-      language = Language.find_by_slug(lang)
-      self.languages << language if language
-    end
+    Language::Web.each { |lang| assign_single_language(lang) }
   end
 
   def assign_mobile_languages
-    Language::Mobile.each do |lang|
-      language = Language.find_by_slug(lang)
-      self.languages << language if language
-    end
+    Language::Mobile.each { |lang| assign_single_language(lang) }
+  end
+
+  def assign_single_language(lang)
+    language = Language.find_by_slug(lang)
+    self.languages << language if language
   end
 
   def cache_repo_names
@@ -162,12 +159,7 @@ class Category < ActiveRecord::Base
   end
 
   # Update languages of each associated repo
-  # and expire repos
   def update_repo_languages
     repos(true).each { |repo| repo.save }
-  end
-
-  def expire_languages
-    languages.each(&:touch)
   end
 end

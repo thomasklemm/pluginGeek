@@ -28,9 +28,9 @@
 
     / Most recent activity timestamp on the repo
     / .js-timestamp for list.js is rendered seperately below
-    span.activity class=repo.activity_color_class
-      abbr.timeago title=repo.timestamp.iso8601 = repo.timestamp.to_s(:long)
+    span.activity class=repo.activity_class
+      abbr.timeago title=repo.timestamp = repo.written_timestamp
 
     / Hidden stats for searching and sorting
     span.js-score style='display: none' = repo.score
-    span.js-timestamp style='display: none' = repo.timestamp.iso8601
+    span.js-timestamp style='display: none' = repo.timestamp

@@ -36,22 +36,19 @@ describe Category do
 
   it "preserves a history of slugs"
 
-  it "audits changes on full_name"
-  it "audits changes on description"
-
-  it { should have_many(:categorizations) }
+  it { should have_many(:categorizations).dependent(:destroy) }
   it { should have_many(:repos).through(:categorizations) }
 
-  it { should have_many(:language_classifications) }
+  it { should have_many(:language_classifications).dependent(:destroy) }
   it { should have_many(:languages).through(:language_classifications) }
 
-  it { should have_many(:link_relationships) }
+  it { should have_many(:link_relationships).dependent(:destroy) }
   it { should have_many(:links).through(:link_relationships) }
 
-  it { should have_many(:category_relationships) }
+  it { should have_many(:category_relationships).dependent(:destroy) }
   it { should have_many(:related_categories).through(:category_relationships) }
 
-  it { should have_many(:reverse_category_relationships) }
+  it { should have_many(:reverse_category_relationships).dependent(:destroy) }
   it { should have_many(:reverse_related_categories).through(:reverse_category_relationships) }
 
   context "with related categories" do

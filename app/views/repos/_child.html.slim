@@ -17,8 +17,8 @@
   / Url, Activity
   span.homepage-link = link_to repo.homepage_url, repo.homepage_url
 
-  span.activity class=repo.activity_color_class
+  span.activity class=repo.activity_class
     i.icon-leaf
-    abbr.timeago title=repo.timestamp.iso8601 = repo.timestamp.to_s(:long)
+    abbr.timeago title=repo.timestamp = repo.written_timestamp
 
 

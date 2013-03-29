@@ -22,7 +22,8 @@ class Link < ActiveRecord::Base
   validates :submitter, presence: true
 
   # Repos and categories
-  has_many :link_relationships
+  has_many :link_relationships,
+    dependent: :destroy
 
   has_many :categories,
     through: :link_relationships,
@@ -40,18 +41,9 @@ class Link < ActiveRecord::Base
     categories | categories_of_repos
   end
 
-  def categories_of_repos
-    repos.flat_map(&:categories).uniq
-  end
-
-  # Changes in link (e.g. changing date) need
-  # to expire associated categories and repos
-  after_commit :expire_categories_and_repos, if: :persisted?
-
   private
 
-  def expire_categories_and_repos
-    repos.each(&:touch)
-    extended_categories.each(&:touch) # includes categories through repos
+  def categories_of_repos
+    repos.flat_map(&:categories).uniq
   end
 end

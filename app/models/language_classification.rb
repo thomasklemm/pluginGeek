@@ -16,9 +16,13 @@
 #
 
 class LanguageClassification < ActiveRecord::Base
-  belongs_to :language
+  belongs_to :language,
+    touch: true
+
   # Category or repo
   belongs_to :classifier,
-    polymorphic: true
+    polymorphic: true,
+    touch: true
+
   validates :language, :classifier, presence: true
 end

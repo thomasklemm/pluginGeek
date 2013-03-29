@@ -1,16 +1,11 @@
 class LinksController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!
   before_filter :load_link, only: [:show, :edit, :update, :destroy]
-  after_filter :verify_authorized
+  after_filter :verify_authorized, expect: :index
 
   def index
     # TODO: Pagination
     @links = Link.order('published_at DESC').limit(100)
-    @links.each { |link| authorize link, :index? }
-  end
-
-  def show
-    authorize @link
   end
 
   def new
@@ -42,7 +37,6 @@ class LinksController < ApplicationController
 
   def update
     authorize @link
-    @link.submitter ||= current_user
 
     if @link.update_attributes(link_params)
       redirect_to edit_link_path(@link), notice: 'Link has been saved.'

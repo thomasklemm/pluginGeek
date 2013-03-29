@@ -10,10 +10,11 @@ end
 
 describe LinksController do
   it_should_behave_like "an authenticated controller", {
-    new: [:get],
-    create: [:post],
-    edit: [:get, id: 1],
-    update: [:put, id: 1],
+    index:   [:get],
+    new:     [:get],
+    create:  [:post],
+    edit:    [:get, id: 1],
+    update:  [:put, id: 1],
     destroy: [:delete, id: 1]
   }
 
@@ -21,10 +22,6 @@ describe LinksController do
 end
 
 describe LinksController, "GET #index" do
-  pending
-end
-
-describe LinksController, "GET #show" do
   pending
 end
 

@@ -34,6 +34,9 @@
     = f.actions do
       = f.action :submit, as: :button, label: 'Save project', button_html: {class: 'button'}
 
+  - if policy(@repo).destroy?
+    = link_to 'Destroy repo', repo_path(@repo), method: :delete, confirm: 'Are you sure?'
+
 / Javascripts to initialize select2 input enhancements on this page
 /
 / Autocomplete the category names input

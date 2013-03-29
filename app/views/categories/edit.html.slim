@@ -23,6 +23,10 @@
     = f.actions do
       = f.action :submit, as: :button, button_html: {class: 'button', style: 'margin-bottom: 2rem'}
 
+  - if policy(@category).destroy?
+    = link_to 'Destroy category', category_path(@category), method: :delete, confirm: 'Are you sure?'
+
+
   / descriptions of associated repos, as a guide for writing
   .descriptions-of-repos
     p Here are the descriptions of the associated repos as some inspiration.

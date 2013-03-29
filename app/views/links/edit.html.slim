@@ -35,4 +35,5 @@
   .space-one
 
   / Delete link
-  = link_to "<i class='icon-remove-circle'></i>Destroy this link".html_safe, @link, method: :delete, confirm: 'Are you sure?'
+  - if policy(@link).destroy?
+    = link_to "<i class='icon-remove-circle'></i>Destroy this link".html_safe, @link, method: :delete, confirm: 'Are you sure?'

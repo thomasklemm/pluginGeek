@@ -37,7 +37,7 @@ describe Language do
     expect(sublanguage.parent).to eq(language)
   end
 
-  it { should have_many(:language_classifications) }
+  it { should have_many(:language_classifications).dependent(:destroy) }
   it { should have_many(:categories).through(:language_classifications) }
   it { should have_many(:repos).through(:language_classifications) }
 end

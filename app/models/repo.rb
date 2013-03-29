@@ -46,11 +46,6 @@ class Repo < ActiveRecord::Base
   # on every save
   before_save :assign_languages
 
-  # Changes in repo (e.g. adding staff pick flag) need
-  # to expire associated categories
-  after_save :expire_categories
-  after_save :expire_parents_and_children
-
   # Retrieve record from Github if the full name changed
   # to handle renaming of repos and movements between owners
   after_save :update_from_github, if: :full_name_changed?
@@ -87,20 +82,24 @@ class Repo < ActiveRecord::Base
   end
 
   # Categories
-  has_many :categorizations
+  # FIXME: Console shows this setup leaves orphan join records behind. Why? What's better to do?
+  has_many :categorizations,
+    dependent: :destroy
   has_many :categories,
     through: :categorizations,
     order: 'categories.score DESC'
 
   # Languages
   has_many :language_classifications,
-    as: :classifier
+    as: :classifier,
+    dependent: :destroy
   has_many :languages,
     through: :language_classifications
 
   # Links
   has_many :link_relationships,
-    as: :linkable
+    as: :linkable,
+    dependent: :destroy
   has_many :links,
     through: :link_relationships,
     uniq: true
@@ -150,13 +149,5 @@ class Repo < ActiveRecord::Base
   # Deduce languages from categories' languages
   def assign_languages
     self.languages = categories.flat_map(&:languages).uniq
-  end
-
-  def expire_categories
-    categories.each(&:touch)
-  end
-
-  def expire_parents_and_children
-    parents_and_children.each(&:touch)
   end
 end

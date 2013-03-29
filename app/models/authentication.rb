@@ -19,6 +19,4 @@ class Authentication < ActiveRecord::Base
   validates :user, presence: true
 
   validates :provider, :uid, presence: true
-
-  attr_accessible :provider, :uid
 end

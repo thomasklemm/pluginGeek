@@ -1,5 +1,6 @@
 class RepoDecorator < Draper::Decorator
   delegate_all
+
   decorates_association :categories
   decorates_association :parents_and_children
 
@@ -32,26 +33,29 @@ class RepoDecorator < Draper::Decorator
     time.utc
   end
 
+  # jQuery timeago compatible timestamp
   def timestamp
-    # jQuery timeago compatible
-    github_updated_at.utc
+    github_updated_at.iso8601
   end
 
-  # Assign classes based on color
-  def activity_color_class
-    diff = Time.zone.now - timestamp
-    klass = case diff
-            when (-10000)..2.months        then 'very-high'
-            when (2.months+1)..6.months    then 'high'
-            when (6.months+1)..12.months   then 'medium'
-            when (12.months+1)..24.months  then 'low'
-            else                                'very-low'
-            end
+  def written_timestamp
+    github_updated_at.to_s(:long)
   end
 
-  # Somehow there are ActiveRecord errors when using order clauses for this
-  # and using .includes(:links) queries a few levels deep, thus sorting is right now done in Ruby
-  def sorted_links
-    links.sort_by(&:published_at).reverse
+  # CSS classes marking activity
+  def activity_class
+    case last_updated
+      when (-10000)..2.months        then 'very-high'
+      when (2.months+1)..6.months    then 'high'
+      when (6.months+1)..12.months   then 'medium'
+      when (12.months+1)..24.months  then 'low'
+      else                                'very-low'
+      end
+  end
+
+  private
+
+  def last_updated
+    Time.current - github_updated_at
   end
 end

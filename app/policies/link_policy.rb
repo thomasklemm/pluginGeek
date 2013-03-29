@@ -7,11 +7,7 @@ class LinkPolicy < ApplicationPolicy
   end
 
   def index?
-    guest
-  end
-
-  def show?
-    guest
+    user
   end
 
   def create?
