@@ -80,8 +80,8 @@ describe Category do
       expect(category.stars).to eq 100
     end
 
-    it "assigns score from repos" do
-      expect(category.score).to eq 200
+    it "assigns score from repos", :focus do
+      expect(category.score).to eq(repo.score)
     end
 
     it "assigns languages from full_name" do

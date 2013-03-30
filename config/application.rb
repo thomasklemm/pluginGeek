@@ -21,6 +21,9 @@ module Plugingeek
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Default timezone
+    config.active_record.default_timezone = :utc
+
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += Dir["#{config.root}/app/**/", "#{config.root}/lib", "#{config.root}/lib/**/"]
@@ -63,27 +66,27 @@ module Plugingeek
     # Serve fonts via Asset Pipeline
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += %w( .svg .eot .woff .ttf )
-    #   Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
+    # Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.15'
 
-    # Heroku setting
-    # required for Heroku and devise
+    # Don't initialize app when precompiling on Heroku (required by Devise and Heroku)
     config.assets.initialize_on_precompile = false
-    # Source: https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
 
     # Generator options
     config.generators do |g|
-      g.test_framework :rspec, fixture: true
+      g.test_framework :rspec,
+        fixtures: true,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false,
+        controller_specs: true,
+        request_specs: true
       g.fixture_replacement :fabrication
       g.helper false
       g.stylesheets false
       g.javascript_engine false
-      g.view_specs false
     end
-
-    # Default timezone
-    config.active_record.default_timezone = :utc
   end
 end

@@ -135,6 +135,16 @@ class Repo < ActiveRecord::Base
     expire_categories_and_self # expire new categories
   end
 
+  # Times
+  def last_updated
+    Time.current - github_updated_at
+  end
+
+  def github_updated_at
+    time = self[:github_updated_at].present? ? self[:github_updated_at] : 2.years.ago
+    time.utc
+  end
+
   # Update this very record from Github,
   #   live and in color
   def retrieve_from_github
@@ -170,10 +180,6 @@ class Repo < ActiveRecord::Base
 
     puts message
     false
-  end
-
-  def last_updated
-    Time.current - github_updated_at
   end
 
   private

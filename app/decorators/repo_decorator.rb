@@ -33,11 +33,6 @@ class RepoDecorator < Draper::Decorator
     "https://github.com/#{ full_name }"
   end
 
-  def github_updated_at
-    time = model[:github_updated_at].present? ? model[:github_updated_at] : 2.years.ago
-    time.utc
-  end
-
   # jQuery timeago compatible timestamp
   def timestamp
     github_updated_at.iso8601

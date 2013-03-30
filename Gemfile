@@ -129,13 +129,15 @@ group :development, :test do
 end
 
 group :test do
-  gem 'bourne', require: false
-  gem 'capybara-webkit', '>= 0.14.1'
-  gem 'database_cleaner'
-  gem 'fabrication'
   gem 'shoulda-matchers'
-  gem 'simplecov', require: false
+  gem 'fabrication'
+  gem 'database_cleaner'
+  gem 'bourne', require: false
   gem 'timecop'
+  gem 'simplecov', require: false
+  gem 'coveralls', require: false
+  gem 'capybara-webkit'
+  gem 'launchy'
 end
 
 group :staging, :production do
