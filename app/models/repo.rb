@@ -167,6 +167,10 @@ class Repo < ActiveRecord::Base
     false
   end
 
+  def last_updated
+    Time.current - github_updated_at
+  end
+
   private
 
   # Assign categories from a list of category names
@@ -192,10 +196,6 @@ class Repo < ActiveRecord::Base
 
   def prepare_category_list(list)
     list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
-  end
-
-  def last_updated
-    Time.current - github_updated_at
   end
 
   def assign_score

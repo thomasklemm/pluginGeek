@@ -63,7 +63,7 @@ gem 'lograge'
 gem 'rack-timeout'
 
 # Draper (Decorators)
-gem 'draper'
+gem 'draper', github: 'drapergem/draper'
 
 # Formtastic (Forms)
 gem 'formtastic'
