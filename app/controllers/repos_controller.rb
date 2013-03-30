@@ -18,7 +18,7 @@ class ReposController < ApplicationController
     @repo = Repo.new(full_name: full_name)
     authorize @repo
 
-    if retrieve_from_github(@repo.full_name)
+    if @repo.retrieve_from_github
       redirect_to repo_path(@repo), notice: 'Repo has been added.'
     else
       flash.alert = 'Repo could not be found on Github.
@@ -67,13 +67,6 @@ class ReposController < ApplicationController
 
   def load_repo
     @repo = Repo.where(full_name: full_name).first!.decorate
-  end
-
-  def retrieve_from_github(repo_full_name)
-    Rails.env.test? and return repo_full_name == 'rails/rails'
-
-    updater = RepoUpdater.new
-    updater.perform(repo_full_name)
   end
 
   def repo_params

@@ -23,7 +23,7 @@ class RepoUpdater
     json_repo = response.content
     github_repo = JSON.parse(json_repo)
 
-    if repo.update_from_github(github_repo)
+    if repo.update_repo_from_github(github_repo)
       repo.update_succeeded! and true
     else
       repo.update_failed!(reason: :not_saved) and false

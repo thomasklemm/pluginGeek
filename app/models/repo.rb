@@ -47,6 +47,9 @@ class Repo < ActiveRecord::Base
   # on every save
   before_save :assign_languages
 
+  # Calculate a repo's score on each save
+  before_save :assign_score
+
   # Retrieve record from Github if the full name changed
   # to handle renaming of repos and movements between owners
   after_save :update_from_github, if: :full_name_changed?
@@ -133,14 +136,15 @@ class Repo < ActiveRecord::Base
 
   # Update this very record from Github,
   #   live and in color
-  def update_from_github
-    return if Rails.env.test?
-    RepoUpdater.new.perform(full_name)
+  def retrieve_from_github
+    Rails.env.test? and return full_name == 'rails/rails'
+
+    updater = RepoUpdater.new
+    updater.perform(full_name)
   end
 
-  def update_from_github(github)
+  def update_repo_from_github(github)
     assign_fields_from_github(github)
-    assign_score
     update_succeeded
     self.save
   end
@@ -199,11 +203,15 @@ class Repo < ActiveRecord::Base
   end
 
   def assign_score
-    self.score = ((stars + 1) * activity).ceil
+    self.score = ((stars + 1) * activity_bonus * staff_pick_bonus).ceil
   end
 
-  def activity
+  def activity_bonus
     2.0 - (last_updated / 12.months)
+  end
+
+  def staff_pick_bonus
+    staff_pick? ? 1.25 : 1
   end
 
   def update_succeeded
