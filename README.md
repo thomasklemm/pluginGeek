@@ -16,7 +16,7 @@ pluginGeek is certainly not the first of its kind. I've drawn inspiration from a
 
 ### Care about technology?
 
-pluginGeek is Rails app fueled by a lot of [amazing gems](). The [production app](http://www.plugingeek.com) is deployed on [Heroku](http://www.heroku.com), one of my favorites services for developers.
+pluginGeek is Rails app fueled by a lot of [amazing gems](https://github.com/thomasklemm/pluginGeek/blob/master/Gemfile). The [production app](http://www.plugingeek.com) is deployed on [Heroku](http://www.heroku.com), one of my favorites services for developers.
 
 It's certainly not the most complex app ever, and a variety of annotations should help people just starting with web development - as I about one and a half years ago - find their way around and learn from some existing code really quickly. Modeling an existing app on my own alongside the original author's source has been fruitful for me in picking up new skills, best practices and general coding techniques.
 
