@@ -2,17 +2,17 @@
 #
 # Table name: categories
 #
-#  created_at     :datetime         not null
-#  description    :text
-#  draft          :boolean          default(TRUE)
-#  full_name      :text             not null
-#  id             :integer          not null, primary key
-#  language_names :text
-#  repo_names     :text
-#  score          :integer          default(0)
-#  slug           :text             not null
-#  stars          :integer          default(0)
-#  updated_at     :datetime         not null
+#  created_at    :datetime         not null
+#  description   :text
+#  draft         :boolean          default(TRUE)
+#  full_name     :text             not null
+#  id            :integer          not null, primary key
+#  language_list :text
+#  repo_list     :text
+#  score         :integer          default(0)
+#  slug          :text             not null
+#  stars         :integer          default(0)
+#  updated_at    :datetime         not null
 #
 # Indexes
 #
@@ -50,11 +50,9 @@ class Category < ActiveRecord::Base
   # Assign languages from full_name
   before_save :assign_languages
 
-  # Cache repo names
-  before_save :cache_repo_names
-
-  # Cache language names
-  before_save :cache_language_names
+  # Cache repo and language list
+  before_save :cache_repo_list
+  before_save :cache_language_list
 
   # Update the languages of the associated repos
   after_commit :update_repo_languages
@@ -102,6 +100,11 @@ class Category < ActiveRecord::Base
   def similar_categories
     sc = (related_categories | reverse_related_categories).uniq
     sc.sort_by(&:stars).reverse
+  end
+
+  def name
+    match = full_name.match %r{(?<name>.*)[[:space:]]\(}
+    match.present? ? match[:name].strip : full_name
   end
 
   def self.expire_all
@@ -156,16 +159,16 @@ class Category < ActiveRecord::Base
     self.languages << language if language
   end
 
-  def cache_repo_names
-    self.repo_names = repos.map(&:full_name).join(', ')
+  def cache_repo_list
+    self.repo_list = repos.map(&:full_name).join(', ')
   end
 
   # Cache only Web and Mobile if those main languages are present, don't display any sublanguages then
-  def cache_language_names
+  def cache_language_list
     langs = languages.map(&:name)
     langs.include? 'Web'    and langs.delete_if {|lang| Language::Web.include?(lang.downcase)}
     langs.include? 'Mobile' and langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}
-    self.language_names = langs.join(', ')
+    self.language_list = langs.join(', ')
   end
 
   # Update languages of each associated repo

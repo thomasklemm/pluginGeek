@@ -2,17 +2,17 @@
 #
 # Table name: categories
 #
-#  created_at     :datetime         not null
-#  description    :text
-#  draft          :boolean          default(TRUE)
-#  full_name      :text             not null
-#  id             :integer          not null, primary key
-#  language_names :text
-#  repo_names     :text
-#  score          :integer          default(0)
-#  slug           :text             not null
-#  stars          :integer          default(0)
-#  updated_at     :datetime         not null
+#  created_at    :datetime         not null
+#  description   :text
+#  draft         :boolean          default(TRUE)
+#  full_name     :text             not null
+#  id            :integer          not null, primary key
+#  language_list :text
+#  repo_list     :text
+#  score         :integer          default(0)
+#  slug          :text             not null
+#  stars         :integer          default(0)
+#  updated_at    :datetime         not null
 #
 # Indexes
 #

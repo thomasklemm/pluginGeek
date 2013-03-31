@@ -17,39 +17,31 @@ class CategoryDecorator < Draper::Decorator
     model[:score].presence || 0
   end
 
-  def language_list
-    language_names
-  end
-
-  def repo_names
-    # NOTE: nil.to_s => "", "".split(', ') => []
-    model[:repo_names].to_s.split(', ')
-  end
-
-  def popular_repos
-    repo_names[0..1].to_a.join(', ') || ""
-  end
-
-  def further_repos
-    # NOTE: nil.to_a => []
-    repo_names[2..1000].to_a.join(', ') || ""
-  end
-
-  def name
-    match = full_name.match %r{(?<name>.*)[[:space:]]\(}
-    match.present? ? match[:name].strip : full_name
-  end
-
   def extended_links
     @extended_links ||= extended_links!
+  end
+
+  def popular_repo_names
+    ary = repo_names[0..1].presence || []
+    ary.join(", ")
+  end
+
+  def further_repo_names
+    ary = repo_names[2..100].presence || []
+    ary.join(", ")
+  end
+
+  private
+
+  def repo_names
+    list = model[:repo_list].presence || ""
+    list.split(", ")
   end
 
   def extended_links!
     l = (links | links_of_repos).uniq
     l.sort_by(&:published_at).reverse
   end
-
-  private
 
   def links_of_repos
     # call on model required for direct call instead of call on decorator

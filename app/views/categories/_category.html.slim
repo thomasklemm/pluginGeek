@@ -3,7 +3,7 @@
 - cache [category, 'partial'] do
 
   / Link Builders
-  - repos_count = category.repo_names.try(:size) || 0
+  - repos_count = category.repo_list.try(:size) || 0
   - category_link = capture do
     = link_to " &raquo;".html_safe, category
   - category_repo_link = capture do
@@ -24,11 +24,11 @@
         i.icon-star
         = category.stars
       / Languages
-      span.language-list = category.language_names
+      span.language-list = category.language_list
 
     / Up to three of the most popular repos
     span.popular-repos
-      span.repos.js-repos = category.popular_repos
+      span.repos.js-repos = category.popular_repo_names
       / Deeplink into category to see more repos
       == (repos_count > 3) ? category_repo_link : category_link
 
@@ -36,5 +36,5 @@
     span.description.js-description == category.description
 
     / Hidden statistics that can be searched and sorted with list.js nonetheless
-    span.js-further-repos style='display: none' = category.further_repos
+    span.js-further-repos style='display: none' = category.further_repo_names
     span.js-score style='display: none' = category.score
