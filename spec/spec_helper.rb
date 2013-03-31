@@ -1,6 +1,8 @@
+# SimpleCov settings
 # require 'simplecov'
 # SimpleCov.start 'rails'
 
+# Coveralls settings
 require 'simplecov'
 require 'coveralls'
 Coveralls.wear!('rails')
@@ -10,6 +12,8 @@ ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 # require 'rspec/autorun' # remove for Zeus
+require 'capybara/rspec'
+require 'capybara/rails'
 
 # Requires namespaced models and controllers
 Dir[Rails.root.join("app/controllers/**/*.rb")].each {|f| require f}
@@ -23,6 +27,9 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  # Render views globally
+  config.render_views
 
   # ## Mock Framework
   #
@@ -56,7 +63,7 @@ RSpec.configure do |config|
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
 
-  # Devise test helpers
+  # Devise test helpers in controllers
   config.include Devise::TestHelpers, type: :controller
 end
 

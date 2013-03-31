@@ -5,19 +5,19 @@ class RepoDecorator < Draper::Decorator
   decorates_association :parents_and_children
 
   def owner
-    model[:owner].present? ? model[:owner] : full_name.split('/')[0]
+    model[:owner].presence || full_name.split('/')[0]
   end
 
   def name
-    model[:name].present? ? model[:name] : full_name.split('/')[1]
+    model[:name].presence || full_name.split('/')[1]
   end
 
   def description
-    model[:description].present? ? model[:description] : github_description
+    model[:description] || github_description
   end
 
   def github_description
-    model[:github_description].present? ? model[:github_description] : ""
+    model[:github_description].presence || ""
   end
 
   # Returns either homepage url as an absolute path if only a relative one is given

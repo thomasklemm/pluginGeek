@@ -6,19 +6,19 @@ class CategoryDecorator < Draper::Decorator
   decorates_association :extended_links
 
   def description
-    model[:description] || ""
+    model[:description].presence || ""
   end
 
   def description_with_fallback
-    description.present? ? description : '<em>Please add a description to this category.</em>'
+    description.presence || '<em>Please add a description to this category.</em>'
   end
 
   def stars
-    model[:stars] || 0
+    model[:stars].presence || 0
   end
 
   def score
-    model[:score] || 0
+    model[:score].presence || 0
   end
 
   def language_list
