@@ -33,7 +33,7 @@ class RepoUpdater
   def update_all
     repo_names = Repo.pluck(:full_name).shuffle
     repo_names.each { |full_name| perform(full_name) }
-    expire_categories
+    Category.expire_all
   end
 
 private
@@ -41,9 +41,5 @@ private
   def fetch_repo_from_github(repo)
     url = "https://api.github.com/repos/#{ repo.full_name }"
     response = HTTPClient.get(url, GITHUB_AUTHENTICATION_HASH)
-  end
-
-  def expire_categories
-    Category.find_each {|category| category.touch}
   end
 end

@@ -88,4 +88,14 @@ describe Category do
       expect(category.languages.map(&:name)).to match_array %w(Ruby)
     end
   end
+
+  describe ".expire_all" do
+    it "expires all categories" do
+      Timecop.freeze
+      category = Fabricate(:category, created_at: 1.day.ago, updated_at: 1.day.ago)
+      Category.expire_all
+      expect(category.reload.updated_at).to eq(Time.current)
+      Timecop.return
+    end
+  end
 end

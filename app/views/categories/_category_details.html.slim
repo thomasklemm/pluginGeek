@@ -25,4 +25,4 @@
 
   / Up to 360 characters describing the purpose of this category
   / or summing up the repos use cases among others
-  span.description == @category.description_with_fallback
+  span.description == @category.description || "<em>Please add a description for this project.</em>".html_safe

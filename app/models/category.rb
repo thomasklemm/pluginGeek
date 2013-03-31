@@ -104,6 +104,11 @@ class Category < ActiveRecord::Base
     sc.sort_by(&:stars).reverse
   end
 
+  def self.expire_all
+    # FIXME: Find a more efficient call (maybe with update_all)
+    find_each {|category| category.touch}
+  end
+
   private
 
   # Assign aggregate stars of repos as category stars
