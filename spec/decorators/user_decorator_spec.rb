@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe UserDecorator do
-  subject(:user) { Fabricate.build(:user).decorate }
+  subject(:user) do
+    user = Fabricate.build(:user)
+    user.decorate
+  end
 
   describe "#name" do
     it "returns user's name when given" do

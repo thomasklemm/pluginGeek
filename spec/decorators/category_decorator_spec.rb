@@ -1,16 +1,21 @@
 require 'spec_helper'
 
 describe CategoryDecorator do
-  subject(:category) { Fabricate.build(:category).decorate }
+  subject(:category) do
+    category = Fabricate.build(:category)
+    category.decorate
+  end
 
   it "decorates associated repos" do
-    category.repos << Fabricate.build(:repo)
     expect(category.repos).to be_decorated
   end
 
-  it "decorated associated similar_categories" do
-    category.related_categories << Fabricate.build(:category)
+  it "decorates associated similar_categories" do
     expect(category.similar_categories).to be_decorated
+  end
+
+  it "decorates associated extended_links" do
+    expect(category.extended_links).to be_decorated
   end
 
   describe "#description" do
@@ -43,25 +48,6 @@ describe CategoryDecorator do
 
     it "returns zero if missing" do
       expect(category.score).to eq(0)
-    end
-  end
-
-  describe "#extended_links" do
-    let(:repo) { Fabricate(:repo) }
-    let(:link) { Fabricate(:link) }
-    let(:link_via_repo) { Fabricate(:link) }
-
-    before do
-      category.save
-      # FIXME: This only seems to work when called with category.model.repos << repo.
-      # FIXME: Does this have any effects on the way of adding repo relationships usually?
-      category.model.repos << repo
-      category.links << link
-      repo.links << link_via_repo
-    end
-
-    it "returns links of the category and it's associated repos" do
-      expect(category.extended_links).to match_array([link, link_via_repo])
     end
   end
 

@@ -112,7 +112,23 @@ class Category < ActiveRecord::Base
     find_each {|category| category.touch}
   end
 
+  def extended_links
+    @extended_links ||= extended_links!
+  end
+
   private
+
+  # Extended links include the links associated with repos of this category
+  # in addition to the ones associated with the category itself,
+  # all sorted by reverse published_at date
+  def extended_links!
+    l = (links | links_of_repos).uniq
+    l.sort_by(&:published_at).reverse
+  end
+
+  def links_of_repos
+    repos.includes(:links).flat_map(&:links)
+  end
 
   # Assign aggregate stars of repos as category stars
   def assign_stars

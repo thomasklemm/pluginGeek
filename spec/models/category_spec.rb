@@ -89,6 +89,23 @@ describe Category do
     end
   end
 
+  describe "#extended_links" do
+    let(:repo) { Fabricate(:repo) }
+    let(:link) { Fabricate(:link) }
+    let(:link_via_repo) { Fabricate(:link) }
+
+    before do
+      category.repos << repo
+      category.links << link
+      repo.links     << link_via_repo
+      category.save
+    end
+
+    it "returns links of the category and it's associated repos" do
+      expect(category.extended_links).to match_array([link, link_via_repo])
+    end
+  end
+
   describe ".expire_all" do
     it "expires all categories" do
       Timecop.freeze

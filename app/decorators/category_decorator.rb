@@ -17,10 +17,6 @@ class CategoryDecorator < Draper::Decorator
     model[:score].presence || 0
   end
 
-  def extended_links
-    @extended_links ||= extended_links!
-  end
-
   def repo_names
     list = model[:repo_list]
     (list.presence && list.split(", ")) || []
@@ -34,17 +30,5 @@ class CategoryDecorator < Draper::Decorator
   def further_repo_names
     names = repo_names[2..100]
     (names.presence && names.join(", ")) || ""
-  end
-
-  private
-
-  def extended_links!
-    l = (links | links_of_repos).uniq
-    l.sort_by(&:published_at).reverse
-  end
-
-  def links_of_repos
-    # call on model required for direct call instead of call on decorator
-    model.repos.includes(:links).flat_map(&:links)
   end
 end
