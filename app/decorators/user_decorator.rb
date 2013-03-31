@@ -25,11 +25,11 @@ class UserDecorator < Draper::Decorator
     model[:followers].presence || 0
   end
 
-  def github_url
-    "https://github.com/#{ login }"
-  end
-
   def avatar_url
     model[:avatar_url].presence || DEFAULT_AVATAR_URL
+  end
+
+  def github_url
+    "https://github.com/#{ login }"
   end
 end
