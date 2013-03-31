@@ -21,22 +21,22 @@ class CategoryDecorator < Draper::Decorator
     @extended_links ||= extended_links!
   end
 
+  def repo_names
+    list = model[:repo_list]
+    (list.presence && list.split(", ")) || []
+  end
+
   def popular_repo_names
-    ary = repo_names[0..1].presence || []
-    ary.join(", ")
+    names = repo_names[0..1]
+    (names.presence && names.join(", ")) || ""
   end
 
   def further_repo_names
-    ary = repo_names[2..100].presence || []
-    ary.join(", ")
+    names = repo_names[2..100]
+    (names.presence && names.join(", ")) || ""
   end
 
   private
-
-  def repo_names
-    list = model[:repo_list].presence || ""
-    list.split(", ")
-  end
 
   def extended_links!
     l = (links | links_of_repos).uniq

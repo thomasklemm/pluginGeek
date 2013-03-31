@@ -45,4 +45,61 @@ describe CategoryDecorator do
       expect(category.score).to eq(0)
     end
   end
+
+  describe "#extended_links" do
+    let(:repo) { Fabricate(:repo) }
+    let(:link) { Fabricate(:link) }
+    let(:link_via_repo) { Fabricate(:link) }
+
+    before do
+      category.save
+      # FIXME: This only seems to work when called with category.model.repos << repo.
+      # FIXME: Does this have any effects on the way of adding repo relationships usually?
+      category.model.repos << repo
+      category.links << link
+      repo.links << link_via_repo
+    end
+
+    it "returns links of the category and it's associated repos" do
+      expect(category.extended_links).to match_array([link, link_via_repo])
+    end
+  end
+
+  describe "cached repo list accessors" do
+    describe "#repo_names" do
+      it "returns an array of all the repos' names" do
+        category.repo_list = "rails/rails, sinatra/sinatra"
+        expect(category.repo_names).to eq(%w(rails/rails sinatra/sinatra))
+      end
+
+      it "returns an empty array when cached repo_list is empty" do
+        category.repo_list = ""
+        expect(category.repo_names).to eq([])
+      end
+    end
+
+    describe "#popular_repo_names" do
+      it "returns a string with the two highest scoring repos' names" do
+        category.repo_list = "rails/rails, sinatra/sinatra, espresso/espresso"
+        expect(category.popular_repo_names).to eq("rails/rails, sinatra/sinatra")
+      end
+
+      it "returns an empty string when cached repo_list is empty" do
+        category.repo_list = ""
+        expect(category.popular_repo_names).to eq("")
+      end
+    end
+
+    describe "#further_repo_names" do
+      it "returns a string with the all except the two highest scoring repos' names" do
+        category.repo_list = "rails/rails, sinatra/sinatra, espresso/espresso, twitter/bootstrap"
+        expect(category.further_repo_names).to eq("espresso/espresso, twitter/bootstrap")
+      end
+
+      it "returns an empty string when cached repo_list is empty" do
+        category.repo_list = ""
+        expect(category.further_repo_names).to eq("")
+      end
+    end
+  end
 end
