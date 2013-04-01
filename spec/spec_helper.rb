@@ -68,3 +68,6 @@ RSpec.configure do |config|
 end
 
 Capybara.javascript_driver = :webkit
+# Capybara.register_driver :rack_test do |app|
+#   Capybara::RackTest::Driver.new(app, :respect_data_method => true, :redirect_limit => 20)
+# end

@@ -1,0 +1,45 @@
+--- !ruby/hash:OmniAuth::AuthHash
+provider: github
+uid: '1100176'
+info: !ruby/hash:OmniAuth::AuthHash::InfoHash
+  nickname: thomasklemm
+  email: github@tklemm.eu
+  name: Thomas Klemm
+  image: https://secure.gravatar.com/avatar/f27f3cb5efa4481b71db7f28dae9ac64?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+  urls: !ruby/hash:Hashie::Mash
+    GitHub: https://github.com/thomasklemm
+    Blog:
+credentials: !ruby/hash:Hashie::Mash
+  token: abc1111111111111111111111111111111111
+  expires: false
+extra: !ruby/hash:Hashie::Mash
+  raw_info: !ruby/hash:Hashie::Mash
+    login: thomasklemm
+    id: 1100176
+    avatar_url: https://secure.gravatar.com/avatar/f27f3cb5efa4481b71db7f28dae9ac64?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    gravatar_id: f27f3cb5efa4481b71db7f28dae9ac64
+    url: https://api.github.com/users/thomasklemm
+    html_url: https://github.com/thomasklemm
+    followers_url: https://api.github.com/users/thomasklemm/followers
+    following_url: https://api.github.com/users/thomasklemm/following
+    gists_url: https://api.github.com/users/thomasklemm/gists{/gist_id}
+    starred_url: https://api.github.com/users/thomasklemm/starred{/owner}{/repo}
+    subscriptions_url: https://api.github.com/users/thomasklemm/subscriptions
+    organizations_url: https://api.github.com/users/thomasklemm/orgs
+    repos_url: https://api.github.com/users/thomasklemm/repos
+    events_url: https://api.github.com/users/thomasklemm/events{/privacy}
+    received_events_url: https://api.github.com/users/thomasklemm/received_events
+    type: User
+    name: Thomas Klemm
+    company: ''
+    blog:
+    location: Berlin, Germany
+    email: github@tklemm.eu
+    hireable: true
+    bio: ''
+    public_repos: 50
+    followers: 12
+    following: 9
+    created_at: '2011-10-03T22:03:18Z'
+    updated_at: '2013-04-01T13:36:18Z'
+    public_gists: 7

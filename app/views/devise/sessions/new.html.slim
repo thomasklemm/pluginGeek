@@ -20,4 +20,4 @@
 
   / sign up and log in in one
   .github-login-link
-    = button_to 'Login with Github', user_omniauth_authorize_path(:github), disable_with: 'Connecting to Github...', class: 'large button'
+    = link_to 'Login with Github', user_omniauth_authorize_path(:github), disable_with: 'Connecting to Github...', class: 'large button'

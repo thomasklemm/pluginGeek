@@ -4,7 +4,6 @@ class OmniauthController < Devise::OmniauthCallbacksController
     # Login or create user from github
     omniauth = request.env['omniauth.auth']
     @user = User.find_or_create_user_from_github(omniauth)
-
     # Did our user just authenticate successfully?
     if @user.persisted?
       flash.notice = "Hi, #{ @user.name }. Enjoy pluginGeek!"

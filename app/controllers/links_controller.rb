@@ -4,7 +4,7 @@ class LinksController < ApplicationController
   after_filter :verify_authorized, except: :index
 
   def index
-    # TODO: Pagination
+    # TODO: Create a better interface it nescessary
     @links = Link.order('published_at DESC').limit(100)
   end
 

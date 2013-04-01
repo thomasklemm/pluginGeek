@@ -3,7 +3,7 @@ Plugingeek::Application.configure do
 
   # Default actiomailer url host
   # required by devise
-  config.action_mailer.default_url_options = { host: 'www.example.com' }
+  config.action_mailer.default_url_options = { host: 'http://www.example.com/' }
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

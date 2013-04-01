@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
     render text: '42'
   end
 
+def after_sign_in_path_for(resource)
+    Rails.env.test? ? repo_path(Repo.first) : super
+  end
+
   # Enable peek in production for staff
   def peek_enabled?
     Rails.env.development? and return true

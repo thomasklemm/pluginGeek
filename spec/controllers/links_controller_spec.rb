@@ -21,7 +21,7 @@ describe LinksController do
   pending "#link_params"
 end
 
-describe LinksController, "GET #index", :focus do
+describe LinksController, "GET #index" do
   include_context "link"
   let!(:another_link) { Fabricate(:link) }
 
