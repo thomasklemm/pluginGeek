@@ -59,6 +59,6 @@ class LinksController < ApplicationController
   end
 
   def link_params
-    params.require(:link).permit(:title, :url, :author, :author_url, :published_at, { repo_ids: [] }, { category_ids: [] })
+    params.require(:link).permit(:title, :url, :published_at, { repo_ids: [] }, { category_ids: [] })
   end
 end

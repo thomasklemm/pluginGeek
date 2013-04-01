@@ -21,8 +21,27 @@ describe LinksController do
   pending "#link_params"
 end
 
-describe LinksController, "GET #index" do
-  pending
+describe LinksController, "GET #index", :focus do
+  include_context "link"
+  let!(:another_link) { Fabricate(:link) }
+
+  shared_examples "links#index for user and staff" do
+    before { get :index }
+
+    it { should respond_with(:success) }
+    it { should render_template(:index) }
+    it { should_not set_the_flash }
+  end
+
+  context "user" do
+    before { sign_in user }
+    include_examples "links#index for user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "links#index for user and staff"
+  end
 end
 
 describe LinksController, "GET #new" do
@@ -110,7 +129,7 @@ end
 
 describe LinksController, "PUT #update" do
   include_context "link"
-  pending "entirely"
+  pending
 end
 
 describe LinksController, "DELETE #destroy" do
