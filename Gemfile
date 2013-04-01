@@ -138,6 +138,8 @@ group :test do
   gem 'coveralls', require: false
   gem 'capybara-webkit'
   gem 'launchy'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :staging, :production do
