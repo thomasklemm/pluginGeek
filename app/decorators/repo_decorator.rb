@@ -13,7 +13,7 @@ class RepoDecorator < Draper::Decorator
   end
 
   def description
-    model[:description] || github_description
+    model[:description].presence || github_description
   end
 
   def github_description

@@ -40,10 +40,95 @@ describe RepoDecorator do
     end
   end
 
-  describe "#description"
-  describe "#github_description"
-  describe "#homepage_url"
-  describe "#timestamp"
-  describe "#written_timestamp"
-  describe "#activity_class"
+  describe "#description" do
+    it "returns the description when given" do
+      repo.description = "description"
+      expect(repo.description).to eq("description")
+    end
+
+    it "returns the github_description when missing" do
+      repo.github_description = "description on github"
+      repo.description = ""
+      expect(repo.description).to eq("description on github")
+    end
+  end
+
+  describe "#github_description" do
+    it "returns the github_description when given" do
+      repo.github_description = "Description on Github"
+      expect(repo.github_description).to eq("Description on Github")
+    end
+
+    it "returns an empty string when repo has no description on Github" do
+      expect(repo.github_description).to eq("")
+    end
+  end
+
+  describe "#homepage_url" do
+    it "returns the homepage_url when given" do
+      repo.homepage_url = "http://rubyonrails.org/"
+      expect(repo.homepage_url).to eq("http://rubyonrails.org/")
+    end
+
+    it "returns urls prefixed with http://" do
+      repo.homepage_url = "activeadmin.info"
+      expect(repo.homepage_url).to eq("http://activeadmin.info")
+    end
+
+    it "returns the github_url if no homepage is missing" do
+      repo.full_name = "rails/rails"
+      repo.homepage_url = ""
+      expect(repo.github_url).to eq("https://github.com/rails/rails")
+    end
+  end
+
+  describe "#github_url" do
+    it "returns the url of the repo on github" do
+      repo.full_name = "rails/rails"
+      expect(repo.github_url).to eq("https://github.com/rails/rails")
+    end
+  end
+
+  describe "#timestamp" do
+    it "returns the github_updated_at as an iso8601 timestamp" do
+      Timecop.freeze
+      repo.github_updated_at = 1.day.ago
+      expect(repo.timestamp).to eq(1.day.ago.iso8601)
+      Timecop.return
+    end
+  end
+
+  describe "#written_timestamp" do
+    it "returns the github_updated_at in words" do
+      Timecop.freeze
+      repo.github_updated_at = 1.day.ago
+      expect(repo.written_timestamp).to eq(1.day.ago.to_s(:long))
+      Timecop.return
+    end
+  end
+
+  describe "#activity_class" do
+    it "returns a CSS class name based on the last update on Github" do
+      repo.github_updated_at = 1.second.ago
+      expect(repo.activity_class).to eq('very-high')
+
+      repo.github_updated_at = 2.months.ago
+      expect(repo.activity_class).to eq('very-high')
+
+      repo.github_updated_at = 4.months.ago
+      expect(repo.activity_class).to eq('high')
+
+      repo.github_updated_at = 9.months.ago
+      expect(repo.activity_class).to eq('medium')
+
+      repo.github_updated_at = 18.months.ago
+      expect(repo.activity_class).to eq('low')
+
+      repo.github_updated_at = 36.months.ago
+      expect(repo.activity_class).to eq('very-low')
+
+      repo.github_updated_at = nil
+      expect(repo.activity_class).to eq('very-low')
+    end
+  end
 end
