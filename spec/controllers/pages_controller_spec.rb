@@ -24,5 +24,12 @@ describe PagesController do
         expect(controller.send(:layout_for_page)).to eq('errors')
       end
     end
+
+    context "any page" do
+      it "selects application layout" do
+        subject.params[:id] = 'pricing'
+        expect(controller.send(:layout_for_page)).to eq('application')
+      end
+    end
   end
 end

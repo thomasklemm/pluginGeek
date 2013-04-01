@@ -78,10 +78,10 @@ describe RepoUpdater do
       Fabricate(:repo, full_name: "rails/rails")
       Fabricate(:repo, full_name: "twitter/bootstrap")
 
-      updater.expects(:perform).with("rails/rails").returns(true)
-      updater.expects(:perform).with("twitter/bootstrap").returns(true)
+      updater.expects(:update).with("rails/rails")
+      updater.expects(:update).with("twitter/bootstrap")
 
-      Category.expects(:expire_all).returns(true)
+      Category.expects(:expire_all)
 
       updater.update_all
     end
