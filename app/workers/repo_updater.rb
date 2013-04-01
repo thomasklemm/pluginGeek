@@ -14,7 +14,7 @@ class RepoUpdater
     client_secret: ENV['GITHUB_API_SECRET']
   }
 
-  def perform(full_name)
+  def update(full_name)
     repo = Repo.where(full_name: full_name).first_or_initialize
     response = fetch_repo_from_github(repo)
 
@@ -30,9 +30,15 @@ class RepoUpdater
     end
   end
 
+  alias_method :perform, :update
+
   def update_all
     repo_names = Repo.pluck(:full_name).shuffle
-    repo_names.each { |full_name| perform(full_name) }
+
+    repo_names.each do |full_name|
+      update(full_name)
+    end
+
     Category.expire_all
   end
 

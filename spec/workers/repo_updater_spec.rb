@@ -4,14 +4,72 @@ describe RepoUpdater do
   subject(:updater) { RepoUpdater.new }
 
   it { should be_kind_of(Sidekiq::Worker) }
+  it { should respond_to(:perform) }
 
-  describe "#perform(full_name)" do
-    context "with valid repo full_name" do
-      pending
+  describe "#update" do
+    context "given a valid repo's full_name" do
+      let(:repo) { Fabricate(:repo, full_name: 'rails/rails') }
+
+      before do
+        VCR.use_cassette('github/repos/rails', record: :new_episodes) do
+          @result = updater.update(repo.full_name)
+        end
+      end
+
+      it "updates the repo from Github" do
+        repo.reload
+        expect(repo.github_description).to be_present
+        expect(repo.stars).to_not be_zero
+      end
+
+      it "marks the repo as successfully updated" do
+        expect(repo.reload.update_success).to be_true
+      end
+
+      it "returns true" do
+        expect(@result).to be_true
+      end
     end
 
-    context "with non-existent repo full_name" do
-      pending
+    context "given a non-existing repo's full_name" do
+      context "existing repo where owner or name changes" do
+      let(:repo) { Fabricate(:repo, full_name: 'unknown/unknown') }
+
+      before do
+        VCR.use_cassette('github/repos/unknown', record: :once) do
+          @result = updater.update(repo.full_name)
+        end
+      end
+
+        it "marks the repo as update failed" do
+          repo.reload
+          expect(repo).to be_persisted
+          expect(repo.update_success).to be_false
+        end
+
+        it "returns false" do
+          expect(@result).to be_false
+        end
+      end
+
+      context "new repo that does not exist" do
+        let(:repo) { Fabricate.build(:repo, full_name: 'unknown/unknown') }
+
+        before do
+          VCR.use_cassette('github/repos/unknown', record: :once) do
+            @result = updater.update(repo.full_name)
+          end
+        end
+
+        it "doesn't persist a repo" do
+          expect { repo.reload }.to raise_error
+          expect(repo).to be_new_record
+        end
+
+        it "returns false" do
+          expect(@result).to be_false
+        end
+      end
     end
   end
 
