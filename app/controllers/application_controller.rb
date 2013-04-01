@@ -11,30 +11,28 @@ class ApplicationController < ActionController::Base
   # Rescue Pundit authorization errors
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
-  # Remove unknown subdomains
-  def remove_subdomain
-    redirect_to root_url(subdomain: false)
-  end
-
-  # Redirect subdomains to namespaced path using 301 redirect
-  def redirect_subdomain
-    subdomain = request.subdomain.downcase.strip
-    redirect_to root_url(subdomain: false) + subdomain, status: :moved_permanently
-  end
-
-  # Authorize load testing with Blitz.io
-  def blitz
+  # Blitz.io authorization
+  def authorize_load_testing
     render text: '42'
   end
 
   # Enable peek in production for staff
   def peek_enabled?
-    Rails.env.development? or
-    Rails.env.staging? or
-    current_user && current_user.staff?
+    Rails.env.development? and return true
+    Rails.env.test?        and return false
+    Rails.env.staging?     and return staff?
+    Rails.env.production?  and return staff?
   end
 
   private
+
+  # Hide a few fields for users that are not staff in the views
+  # and decide whether peek bar with application stats is shown
+  def staff?
+    current_user && current_user.staff?
+  end
+
+  helper_method :staff?
 
   def set_language_param
     # Format language

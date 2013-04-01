@@ -145,13 +145,10 @@ class Repo < ActiveRecord::Base
     time.utc
   end
 
-  # Update this very record from Github,
-  #   live and in color
+  # Update this very record from Github, live and in color
   def retrieve_from_github
-    Rails.env.test? and return full_name == 'rails/rails'
-
     updater = RepoUpdater.new
-    updater.perform(full_name)
+    updater.update(full_name)
   end
 
   def update_repo_from_github(github)

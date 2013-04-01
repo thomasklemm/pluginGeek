@@ -161,20 +161,28 @@ describe ReposController, "POST #create" do
 
   shared_examples "repos#create for user and staff" do
     context "with valid repo full_name" do
-      before { post :create, repo: { owner: 'rails', name: 'rails' } }
+      before do
+        VCR.use_cassette('github/repos/rails', record: :new_episodes) do
+          post :create, repo: { owner: 'rails', name: 'rails' }
+        end
+      end
 
       it { should authorize_resource }
       it { should set_the_flash.to('Repo has been added.') }
 
+      pending "saves the repo in the database"
+
       it "redirects to the repo" do
         expect(response).to redirect_to(repo_path(assigns(:repo)))
       end
-
-      pending "retrieves the repo's details from Github"
     end
 
     context "with invalid repo full_name" do
-      before { post :create, repo: { owner: 'none', name: 'none' }  }
+      before do
+        VCR.use_cassette('github/repos/unknown', record: :once) do
+          post :create, repo: { owner: 'unknown', name: 'unknown' }
+        end
+      end
 
       it { should authorize_resource }
       it { should redirect_to(root_path) }

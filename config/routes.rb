@@ -28,11 +28,6 @@ Plugingeek::Application.routes.draw do
   # language shortcut redirection
   get 'js' => redirect('/javascript')
 
-  # Redirect people entering via a language subdomain
-  constraints(Subdomain) do
-    get '/' => 'application#redirect_subdomain'
-  end
-
   # Repos
   #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
@@ -49,13 +44,8 @@ Plugingeek::Application.routes.draw do
     end
   end
 
-  # Blitz.io load testing authentication
-  get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#blitz'
-
-  # Remove unknown subdomains on root
-  constraints(SubdomainPresence) do
-    get '' =>  'application#remove_subdomain'
-  end
+  # Authorize Blitz.io load testing
+  get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#authorize_load_testing'
 
   # Root
   root to: 'categories#index'

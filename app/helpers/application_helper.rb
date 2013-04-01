@@ -1,9 +1,4 @@
 module ApplicationHelper
-  # Hide a few fields for users that are not staff in the views
-  def staff?
-    current_user && current_user.staff?
-  end
-
   # Hide certain content like user details
   # when response is set to be cached in public caches
   # (such as e.g. Rack Cache)
