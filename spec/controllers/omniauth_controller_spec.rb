@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 describe OmniauthController, "#github" do
+  let(:auth_hash) { OmniAuth.config.mock_auth[:github] }
+
   before do
     request.env["devise.mapping"] = Devise.mappings[:user]
-    request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
+    request.env["omniauth.auth"] = auth_hash
   end
 
   context "new user" do
@@ -27,6 +29,28 @@ describe OmniauthController, "#github" do
   end
 
   context "returning user" do
+    before do
+      Fabricate(:authentication, uid: auth_hash.uid)
+
+      get :github
+    end
+
+    let(:user) { assigns(:user) }
+
+    it "updates the user" do
+      expect(user.name).to eq("Thomas Klemm")
+    end
+
+    it "signs the user in" do
+      expect(controller.current_user).to eq(user)
+    end
+
+    it "creates a remember token for the user to keep him signed in" do
+      expect(user.remember_token).to be_present
+    end
+  end
+
+  context "user creation fails" do
     before do
       user = Fabricate.build(:user)
       User.expects(:find_or_create_user_from_github).returns(user)
