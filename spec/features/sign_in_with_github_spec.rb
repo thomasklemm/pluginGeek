@@ -1,12 +1,15 @@
 require 'spec_helper'
 
 feature "Sign in with Github" do
-  let!(:repo) { Fabricate(:repo) }
+  before do
+    Fabricate(:language, name: 'Ruby')
+  end
 
-  scenario "Guest signs in with Github" do
+  scenario "guest signs in with Github" do
     visit login_path
     click_on "Login with Github"
-    expect(current_path).to eq(repo_path(repo))
+
+    expect(current_path).to eq(root_path)
     expect(page).to have_content(/Thomas Klemm/)
   end
 end

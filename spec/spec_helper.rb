@@ -12,8 +12,8 @@ ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 # require 'rspec/autorun' # remove for Zeus
-require 'capybara/rspec'
-require 'capybara/rails'
+# require 'capybara/rspec'
+# require 'capybara/rails'
 
 # Requires namespaced models and controllers
 Dir[Rails.root.join("app/controllers/**/*.rb")].each {|f| require f}
@@ -68,6 +68,3 @@ RSpec.configure do |config|
 end
 
 Capybara.javascript_driver = :webkit
-# Capybara.register_driver :rack_test do |app|
-#   Capybara::RackTest::Driver.new(app, :respect_data_method => true, :redirect_limit => 20)
-# end

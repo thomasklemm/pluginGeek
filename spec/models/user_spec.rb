@@ -49,7 +49,9 @@ describe User do
     end
   end
 
-  describe ".find_or_create_user_from_github(omniauth)" do
+  describe ".find_or_create_user_from_github" do
+    let(:omniauth) { OmniAuth.config.mock_auth[:github] }
+
     context "with an already existing user" do
       it "finds the user by the authentication"
       it "updates the user's fields from Github"

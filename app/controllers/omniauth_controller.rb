@@ -10,7 +10,7 @@ class OmniauthController < Devise::OmniauthCallbacksController
       sign_in_and_redirect_user
     else
       # Authentication failed!
-      flash.alert = "Authentication failed. Please email me at thomas@plugingeek.com."
+      flash.alert = "Login from Github failed. Please email me at thomas@plugingeek.com."
       redirect_to root_url
     end
   end
