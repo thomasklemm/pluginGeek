@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 shared_context "repo" do
-  let!(:repo)     { Fabricate(:repo) }
+  let(:repo)     { Fabricate(:repo) }
 
   let(:user)  { Fabricate(:user) }
   let(:staff) { Fabricate(:user, staff: true) }
+
+  let(:valid_repo_attributes) { { description: 'new_description' } }
+  let(:long_string) { "0" * 361 }
+  let(:invalid_repo_attributes) { { description: long_string } }
 end
 
 describe ReposController do
@@ -236,15 +240,37 @@ describe ReposController, "PUT #update" do
   include_context "repo"
 
   shared_examples "repos#update for user and staff" do
-    before do
-      put :update, owner: repo.owner, name: repo.name, repo: { description: 'new_one' }
+    context "valid repo attributes" do
+      before do
+        put :update, owner: repo.owner, name: repo.name, repo: valid_repo_attributes
+      end
+
+      it { should authorize_resource }
+      it { should set_the_flash.to('Repo has been updated.') }
+
+      it "redirects to the repo" do
+        expect(response).to redirect_to(assigns(:repo))
+      end
+
+      it "saves the changes in the database" do
+        assigns(:repo).reload
+        expect(assigns(:repo).description).to eq(valid_repo_attributes[:description])
+      end
     end
 
-    it { should authorize_resource }
-    it { should set_the_flash.to('Repo has been updated.') }
+    context "invalid repo attributes" do
+      before do
+        put :update, owner: repo.owner, name: repo.name, repo: invalid_repo_attributes
+      end
 
-    it "redirects to the repo" do
-      expect(response).to redirect_to(assigns(:repo))
+      it { should render_template(:edit) }
+      it { should_not set_the_flash }
+      it { should authorize_resource }
+
+      it "doesn't save the changes in the database" do
+        assigns(:repo).reload
+        expect(assigns(:repo).description).to eq(repo.description)
+      end
     end
   end
 

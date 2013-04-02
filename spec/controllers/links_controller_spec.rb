@@ -246,6 +246,7 @@ describe LinksController, "PUT #update" do
       it { should authorize_resource }
 
       it "saves the changes in the database" do
+        assigns(:link).reload
         expect(assigns(:link).url).to eq(valid_link_attributes[:url])
       end
     end
