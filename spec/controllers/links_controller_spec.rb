@@ -159,7 +159,51 @@ end
 
 describe LinksController, "POST #create" do
   include_context "link"
-  pending "entirely"
+
+  let(:valid_link_attributes)   { Fabricate.attributes_for(:link)  }
+  let(:invalid_link_attributes) { Fabricate.attributes_for(:link, url: "")  }
+
+  shared_examples "links#create for user and staff" do
+    context "valid link attributes" do
+      before { post :create, link: valid_link_attributes }
+      let(:link) { assigns(:link) }
+
+      it { should redirect_to(edit_link_path(link)) }
+      it { should set_the_flash.to('Link has been created.') }
+      it { should authorize_resource }
+
+      it "assigns the current user as the link's submitter" do
+        expect(link.submitter).to eq(controller.current_user)
+      end
+
+      it "saves the link in the database" do
+        expect(link).to be_persisted
+      end
+    end
+
+    context "invalid link attributes" do
+      before { post :create, link: invalid_link_attributes }
+      let(:link) { assigns(:link) }
+
+      it { should render_template(:new) }
+      it { should_not set_the_flash }
+      it { should authorize_resource }
+
+      it "doesn't save the link in the database" do
+        expect(link).to be_new_record
+      end
+    end
+  end
+
+  context "user" do
+    before { sign_in user }
+    include_examples "links#create for user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "links#create for user and staff"
+  end
 end
 
 describe LinksController, "GET #edit" do

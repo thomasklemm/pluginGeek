@@ -25,7 +25,7 @@ class LinksController < ApplicationController
     authorize @link
 
     if @link.save
-      redirect_to edit_link_path(@link), notice: 'Link has been saved.'
+      redirect_to edit_link_path(@link), notice: 'Link has been created.'
     else
       render action: :new
     end
