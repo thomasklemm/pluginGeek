@@ -18,6 +18,10 @@ shared_context "category" do
 
   let(:user)  { Fabricate(:user) }
   let(:staff) { Fabricate(:user, staff: true) }
+
+  let(:valid_category_attributes) { { description: 'new_description' } }
+  let(:long_string) { "0" * 361 }
+  let(:invalid_category_attributes) { { description: long_string } }
 end
 
 describe CategoriesController do
@@ -194,13 +198,33 @@ describe CategoriesController, "PUT #update" do
   include_context "category"
 
   shared_examples "categories#update for user and staff" do
-    before { put :update, id: category, category: { description: 'new_description' } }
+    context "valid category attributes" do
+      before { put :update, id: category, category: valid_category_attributes }
 
-    it { should authorize_resource }
-    it { should set_the_flash.to('Category has been updated.') }
+      it { should authorize_resource }
+      it { should set_the_flash.to('Category has been updated.') }
 
-    it "redirects to the category" do
-      expect(response).to redirect_to(category)
+      it "redirects to the category" do
+        expect(response).to redirect_to(category)
+      end
+
+      it "saves the changes in the database" do
+        assigns(:category).reload
+        expect(assigns(:category).description).to eq(valid_category_attributes[:description])
+      end
+    end
+
+    context "invalid category attributes" do
+      before { put :update, id: category, category: invalid_category_attributes }
+
+      it { should render_template(:edit) }
+      it { should authorize_resource }
+      it { should_not set_the_flash }
+
+      it "doesn't save the changes in the database" do
+        assigns(:category).reload
+        expect(assigns(:category).description).to_not eq(invalid_category_attributes[:description])
+      end
     end
   end
 

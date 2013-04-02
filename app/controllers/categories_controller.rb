@@ -23,8 +23,6 @@ class CategoriesController < ApplicationController
     if @category.update_attributes(category_params)
       redirect_to @category, notice: 'Category has been updated.'
     else
-      flash.now.alert = 'An error has happened while updating the category. \
-                         Please reach out to me by email if this error persists.'
       render action: :edit
     end
   end

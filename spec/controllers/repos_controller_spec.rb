@@ -269,7 +269,7 @@ describe ReposController, "PUT #update" do
 
       it "doesn't save the changes in the database" do
         assigns(:repo).reload
-        expect(assigns(:repo).description).to eq(repo.description)
+        expect(assigns(:repo).description).to_not eq(invalid_repo_attributes[:description])
       end
     end
   end
