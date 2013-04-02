@@ -6,6 +6,9 @@ shared_context "link" do
 
   let(:link)  { Fabricate(:link) }
   let(:submitted_link) { Fabricate(:link, submitter: user) }
+
+  let(:valid_link_attributes)   { Fabricate.attributes_for(:link)  }
+  let(:invalid_link_attributes) { Fabricate.attributes_for(:link, url: "")  }
 end
 
 describe LinksController do
@@ -160,9 +163,6 @@ end
 describe LinksController, "POST #create" do
   include_context "link"
 
-  let(:valid_link_attributes)   { Fabricate.attributes_for(:link)  }
-  let(:invalid_link_attributes) { Fabricate.attributes_for(:link, url: "")  }
-
   shared_examples "links#create for user and staff" do
     context "valid link attributes" do
       before { post :create, link: valid_link_attributes }
@@ -236,9 +236,6 @@ end
 
 describe LinksController, "PUT #update" do
   include_context "link"
-
-  let(:valid_link_attributes)   { Fabricate.attributes_for(:link)  }
-  let(:invalid_link_attributes) { Fabricate.attributes_for(:link, url: "")  }
 
   shared_examples "links#update for user and staff" do
     context "valid link attributes" do
