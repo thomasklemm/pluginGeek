@@ -1,7 +1,7 @@
 / application/_flash_messages
 
 / flash messages
-- unless publicly_cached?
+- unless response_publicly_cached?
   - if flash
     #flash-messages.container
 

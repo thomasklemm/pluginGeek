@@ -1,7 +1,7 @@
 / application/_user_details
 / Display details for the current user, only if one is logged in
 
-- unless publicly_cached?
+- unless response_publicly_cached?
   - if user_signed_in?
     #user_details.container
       .current-user
