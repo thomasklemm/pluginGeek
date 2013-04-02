@@ -21,10 +21,9 @@
     iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="54" height="20"
 
     / Link to edit view
-    - unless edit_action?
-      span.edit-link = link_to edit_repo_path(@repo) do
-        i.icon-edit
-        | Edit
+    span.edit-link = link_to edit_repo_path(@repo) do
+      i.icon-edit
+      | Edit
 
   / Description, primary custom one, with github description
   / as regular fallback
