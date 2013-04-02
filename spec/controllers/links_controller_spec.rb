@@ -236,7 +236,47 @@ end
 
 describe LinksController, "PUT #update" do
   include_context "link"
-  pending
+
+  let(:valid_link_attributes)   { Fabricate.attributes_for(:link)  }
+  let(:invalid_link_attributes) { Fabricate.attributes_for(:link, url: "")  }
+
+  shared_examples "links#update for user and staff" do
+    context "valid link attributes" do
+      before { put :update, id: link, link: valid_link_attributes }
+
+      it { should redirect_to(edit_link_path(link)) }
+      it { should set_the_flash.to('Link has been updated.') }
+      it { should authorize_resource }
+
+      it "saves the changes in the database" do
+        expect(assigns(:link).url).to eq(valid_link_attributes[:url])
+      end
+    end
+
+    context "invalid link attributes" do
+      before { put :update, id: link, link: invalid_link_attributes }
+
+      it { should render_template(:edit) }
+      it { should_not set_the_flash }
+      it { should authorize_resource }
+
+      it "doesn't save the changes in the database" do
+        assigns(:link).reload
+        expect(assigns(:link).url).to eq(link.url)
+        expect(assigns(:link).url).to_not eq(invalid_link_attributes[:url])
+      end
+    end
+  end
+
+  context "user" do
+    before { sign_in user }
+    include_examples "links#update for user and staff"
+  end
+
+  context "staff" do
+    before { sign_in staff }
+    include_examples "links#update for user and staff"
+  end
 end
 
 describe LinksController, "DELETE #destroy" do

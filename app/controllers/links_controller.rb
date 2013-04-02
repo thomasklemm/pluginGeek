@@ -39,7 +39,7 @@ class LinksController < ApplicationController
     authorize @link
 
     if @link.update_attributes(link_params)
-      redirect_to edit_link_path(@link), notice: 'Link has been saved.'
+      redirect_to edit_link_path(@link), notice: 'Link has been updated.'
     else
       render action: :edit
     end
