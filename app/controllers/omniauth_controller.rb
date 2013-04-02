@@ -2,8 +2,8 @@ class OmniauthController < Devise::OmniauthCallbacksController
   # Handle omniauth callbacks from github
   def github
     # Login or create user from github
-    omniauth = request.env['omniauth.auth']
-    @user = User.find_or_create_user_from_github(omniauth)
+    @user = User.find_or_create_user_from_github(auth_hash)
+
     # Did our user just authenticate successfully?
     if @user.persisted?
       flash.notice = "Hi, #{ @user.name }. Enjoy pluginGeek!"
@@ -15,7 +15,17 @@ class OmniauthController < Devise::OmniauthCallbacksController
     end
   end
 
+  # User clicked deny on authorization screen with Github
+  def failure
+    flash.alert = "Authenticating with Github failed."
+    redirect_to root_path
+  end
+
   private
+
+  def auth_hash
+    request.env['omniauth.auth']
+  end
 
   def sign_in_and_redirect_user
     # Persist login

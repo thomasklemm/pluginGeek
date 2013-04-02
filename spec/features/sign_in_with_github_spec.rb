@@ -5,11 +5,21 @@ feature "Sign in with Github" do
     Fabricate(:language, name: 'Ruby')
   end
 
-  scenario "guest signs in with Github" do
+  scenario "guest grants access" do
     visit login_path
     click_on "Login with Github"
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content(/Thomas Klemm/)
+  end
+
+  scenario "guest denies access" do
+    OmniAuth.config.mock_auth[:github] = :access_denied
+
+    visit login_path
+    click_on "Login with Github"
+
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content("Authenticating with Github failed.")
   end
 end

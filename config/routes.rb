@@ -53,6 +53,6 @@ Plugingeek::Application.routes.draw do
   # Error pages
   get ':id', to: 'pages#show', as: :static
 
-  # HighVoltage adds a page_path(:id) route
+  # HighVoltage adds the page_path(:id) route
   # page     GET    /pages/*id    high_voltage/pages#show
 end
