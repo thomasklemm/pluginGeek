@@ -18,7 +18,70 @@ describe LinksController do
     destroy: [:delete, id: 1]
   }
 
-  pending "#link_params"
+  describe "#link_params" do
+    let(:user)  { Fabricate(:user) }
+    let(:staff) { Fabricate(:user, staff: true) }
+
+    before do
+      subject.params[:link] = {
+        title: 'new_title',
+        url: 'new_url',
+        published_at: Date.current,
+        repo_ids: [1, 2, 3],
+        category_ids: [1, 2, 3]
+      }
+    end
+
+    context "staff" do
+      before { sign_in staff }
+      let(:params) { controller.send(:link_params) }
+
+      it "permits title" do
+        expect(params[:title]).to be_present
+      end
+
+      it "permits url" do
+        expect(params[:url]).to be_present
+      end
+
+      it "permits published_at" do
+        expect(params[:published_at]).to be_present
+      end
+
+      it "permits repo_ids" do
+        expect(params[:repo_ids]).to be_present
+      end
+
+      it "permits category_ids" do
+        expect(params[:category_ids]).to be_present
+      end
+    end
+
+    context "user" do
+      before { sign_in user }
+      let(:params) { controller.send(:link_params) }
+
+      it "permits title" do
+        expect(params[:title]).to be_present
+      end
+
+      it "permits url" do
+        expect(params[:url]).to be_present
+      end
+
+      it "permits published_at" do
+        expect(params[:published_at]).to be_present
+      end
+
+      it "permits repo_ids" do
+        expect(params[:repo_ids]).to be_present
+      end
+
+      it "permits category_ids" do
+        expect(params[:category_ids]).to be_present
+      end
+    end
+  end
 end
 
 describe LinksController, "GET #index" do
