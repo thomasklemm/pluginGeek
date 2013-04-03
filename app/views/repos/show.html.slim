@@ -1,25 +1,24 @@
 / repos/show
 - cache [@repo, 'details'] do
-  / Repo details header
   = render 'repos/repo_details'
 
-  .space-one
+  .space-half
 
-  / Associated categories
-  .categories-wrapper.container
-    .section-header
-      span.primary Categories
-      span.edit-link = link_to "<i class='icon-edit'></i>Add or edit".html_safe, edit_repo_path(@repo)
-    .container
-      - if @repo.categories.any?
-        = render partial: 'categories/category', collection: @repo.categories
-      - else
-        .none-yet None yet.
+  / categories
+  .section-header
+    span.primary Categories
+    span = link_to '<i class="icon-plus"></i>Add'.html_safe, 'javascript:;'
 
-  .space-two-and-a-half
+  - if @repo.categories.any?
+    .categories-wrapper
+      = render partial: 'categories/category', collection: @repo.categories
+  - else
+    .none-yet No categories yet. Just add one :-D
+
+  .space-one-and-a-half
 
   / Readme from Github, requested live in the browser
-  .readme-container.container
+  .readme-container
     .readme-target.max-height
       .readme-js data-owner=@repo.owner data-repo=@repo.name
       .toggle-readme: span.button Unfold Readme
@@ -27,25 +26,22 @@
   .space-two
 
   / links
-  .links.container
-    .section-header
-      span.primary Links
-      span = link_to 'Add a link', 'javascript:;'
-    - if @repo.links.present?
-      .links-wrapper.container = render partial: 'links/link', collection: @repo.links
-    - else
-      .none-yet None yet.
+  .section-header
+    span.primary Around the web
+    span = link_to '<i class="icon-plus"></i>Add'.html_safe, 'javascript:;'
+
+  - if @repo.links.any?
+    .links-wrapper
+      = render partial: 'links/link', collection: @repo.links
+  - else
+    .none-yet No links yet, just add one :-D
 
   .space-one-and-a-half
 
-  / parent/child structures between repos
-  .parents-and-children.container
+  / parent/child associations between repos
+  - if @repo.parents_and_children.present?
     .section-header
-      span.primary Parents and Children
-      span.edit-link = link_to "<i class='icon-edit'></i>Add or edit".html_safe, edit_repo_path(@repo)
+      span.primary Parents and children
 
-    .repos-wrapper.container
-      - if @repo.parents_and_children.present?
-        = render partial: 'repos/repo', collection: @repo.parents_and_children
-      - else
-        .none-yet None yet.
+    .repos-wrapper
+      = render partial: 'repos/repo', collection: @repo.parents_and_children

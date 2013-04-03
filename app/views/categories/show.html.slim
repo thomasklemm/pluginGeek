@@ -36,6 +36,7 @@
     span = link_to '<i class="icon-plus"></i>Add'.html_safe, 'javascript:;'
 
   - if @category.extended_links.any?
-    .links-wrapper = render partial: 'links/link', collection: @category.extended_links
+    .links-wrapper
+      = render partial: 'links/link', collection: @category.extended_links
   - else
     .none-yet No links yet, just add one :-D

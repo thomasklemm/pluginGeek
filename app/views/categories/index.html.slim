@@ -1,18 +1,24 @@
 / categories/index
 - cache ['categories_index', @language] do
 
-  / Categories List
-  #js-categories-list.container
+  h1 Looking for a great Ruby gem?
+
+  .space-half
+
+  / Categories list
+  #js-categories-list
     .find-categories
       / Instant client-side searching via list.js
-      input.search.js-search.container type='text' autocomplete='off' placeholder='Background Jobs...'
+      input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
 
       / Sort buttons for categories
       = render 'categories/sort_categories'
 
     / List for list.js
-    .categories-wrapper.list.container data-page=10
+    .categories-wrapper.list data-page=4
       = render partial: 'category', collection: @categories
 
-    / display all matches on click
-    .show-all.js-show-all Display all categories
+    .space-half
+
+    / Show all matches on click
+    .show-all.js-show-all: b = link_to 'Show all (matching) categories', 'javascript:;'

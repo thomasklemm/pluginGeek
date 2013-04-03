@@ -1,5 +1,37 @@
 // categories
 
+// categories in overview
+.categories-wrapper .category
+  margin-left: -16px
+  border-left: 2px solid #ddd
+  padding-left: 14px
+
+  font-size: 14px
+  .full-name
+    display: block
+  .name
+    font-size: 16px
+    font-weight: 600
+  .draft
+    @extend .label-element
+    margin-left: 0.45rem
+  .stars
+    margin-left: 12px
+  .language-list
+    color: $text-secondary
+    margin-left: 12px
+  .popular-repos
+    display: block
+    color: $text-secondary
+  .description
+    display: block
+
+  &:not(:first-child)
+    margin-top: 10px
+  &:not(:last-child)
+    margin-bottom: 10px
+
+
 // category details
 .category-details
   font-size: 0.9375rem
@@ -26,32 +58,3 @@
   .description
     display: block
 
-// repos in overview
-.repos-wrapper .repo
-  // @extend .half-box
-  font-size: 14px
-
-  .full-name
-    display: block
-  .name
-    font-size: 18px
-    font-weight: 600
-  .owner
-    color: $text-secondary
-  .staff-pick
-    @extend .label-element
-    margin-left: 0.45rem
-  .stars
-    margin-left: 6px
-  .activity
-    margin-left: 6px
-    &:before
-      content: 'Pushed\a0'
-  .description
-    display: block
-  .homepage-link
-
-  &:not(:first-child)
-    margin-top: 10px
-  &:not(:last-child)
-    margin-bottom: 10px

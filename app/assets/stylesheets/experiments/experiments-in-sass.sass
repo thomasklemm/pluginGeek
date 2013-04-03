@@ -4,7 +4,7 @@
 .search
   width: 100%
   padding: 10px 14px
-  font-size: 1.272rem
+  font-size: 16px
   color: #444
 
   border: 3px solid #ccc
@@ -21,7 +21,6 @@
   margin: 0.5rem 0
   font-size: 0.875rem
   color: $text-secondary
-  text-align: right
 
   // items
   a
@@ -34,54 +33,6 @@
   // divider in sort-list
   .divider:before
     content: "\a0or\a0"
-
-// box
-.box
-  min-height: 152px
-
-  font-size: 0.875rem
-  line-height: 24px !important // all lines same height, regardless of font-size
-  color: $text
-
-  border-radius: $radius
-
-  background-color: white(0.6) // lighten background
-  //                            // (sync with primary and secondary text colors)
-
-  @include box-shadow(0 0px 3px black(0.3))
-
-// box spanning six columns
-.half-box
-  @extend .box
-
-@include media(min-width 631px)
-  .half-box
-    // two element block grid
-    @include span-columns(6)
-    @include nth-omega(2n)
-    padding: 0.9rem 1.2rem
-
-
-@include media(max-width 630px)
-  .half-box
-    @include span-columns(12)
-    min-height: 0 !important
-    padding: 0.5rem 0.7rem
-
-
-// display all matches link / button
-.show-all
-  @extend .button
-  text-align: center
-
-// truncation via trunk8
-.js-read-more,
-.js-read-less
-  cursor: pointer
-
-// pickadate
-.pickadate__button--clear::before
-  content: 'x'
 
 // muted, secondary text
 .muted
@@ -140,32 +91,6 @@
 .space-three
   height: 3rem
 
-// categories in overview
-.categories-wrapper .category
-  @extend .half-box
-  background-color: rgba($primary, 0.07)
-
-  .full-name
-    display: block
-  .name
-    font-size: 1rem
-    font-weight: 600
-  .draft
-    @extend .label-element
-    margin-left: 0.45rem
-  .language-list,
-  .stars
-    float: right
-    color: $text-secondary
-    margin-left: 6px
-  .popular-repos
-    display: block
-    color: $text-secondary
-  .description
-    display: block
-
-
-
 // colors hightlighting a project's most recent timestamp on Github
 .activity
   abbr
@@ -202,39 +127,7 @@
       font-size: 1rem
     .description
 
-// repo details
-.repo-details
-  font-size: 0.9375rem
-  .name-and-owner
-    font-size: 1.618rem
-    font-weight: 600
-    i
-      margin-right: 9px
-    .name
-    .owner
-      font-weight: 400
-  .details
-    > *
-      margin-left: 1rem // settled after careful experimentation :-D
-    .stars
-      color: $text-secondary
-    .star-on-github-link
-      position: relative
-      top: 4px
-      padding-left: 1px // right one added by iframe width
-    .staff-pick
-      @extend .label-element
-      padding-top: 3px
-      padding-bottom: 3px
-      position: relative
-      bottom: 2px
-    .edit-link
 
-  .description
-    display: block
-  .homepage-url
-  .activity
-    margin-left: 1rem
 
 // headers at repo-details
 .section-header
@@ -256,36 +149,6 @@
   font-size: 0.875rem
   color: $text-secondary
 
-// readme at repo-details
-// outer box
-.readme-container
-  @extend .box
-  padding: 12px 2.35765%
-  background: white(1) // white background
-
-// where readme is inserted
-.readme-target
-  position: relative
-  overflow: hidden
-
-  // height classes set via js
-  &.max-height
-    height: 425px
-  &.auto-height
-    height: auto
-
-  // toggle readme
-  .toggle-readme
-    position: absolute
-    bottom: -12px // to offset parents padding-bottom
-    left: 0
-    width: 100%
-    text-align: center
-    margin: 0
-    padding: 80px 0 20px
-
-    @include background-image(linear-gradient(white(0) 0%, white(1) 80%, white(1) 100%))
-
 
 
 // headline in all views
@@ -296,41 +159,6 @@
   font-weight: 600
   line-height: 2rem
 
-// flash messages
-.flash-message
-  padding: 0.4rem 0 0.35rem 1rem
-  margin-bottom: 1.5rem
-  border-radius: $radius
-  background: $flash-message-bg
-  @include box-shadow(0 2px 3px black(0.22))
-
-  cursor: pointer // close on click
-  .close
-    float: right
-    padding: 0.85rem 1rem
-    line-height: 0 // adjust height
-    font-size: 1.272rem
-    color: #999
-    text-decoration: underline
-
-// services
-.services-wrapper .service
-  @extend .half-box
-  background: $services-background
-  color: #151515
-
-  .name
-    display: block
-    font-size: 1rem
-    font-weight: 600
-
-  .url
-    display: block
-
-  .pitch
-    display: block
-
-// add new repo
 .add-repo-wrapper
   .name-and-owner
     font-size: 1.618rem
@@ -443,38 +271,11 @@ form
       background: $label-bg
       padding: 0 0.35rem
 
-// form errors
-// Style for the form fields and labels with errors.
-.field_with_errors
-  padding: 0.2rem 0.8rem
-  background: rgba(red, 0.2)
-
-// Style for the div element with the error messages.
-.errorExplanation
-  margin-bottom: 0.5rem
-  padding: 0.8rem 1rem
-  background: rgba(red, 0.2)
-  // Style for the header of the div element.
-  h2
-    font-size: 1.272rem
-  // Style for the paragraph holding the message that appears right below the header of the div element.
-  p
-  // Style for the list items with individual error messages.
-  ul
-    list-style: square
-    padding-left: 30px
-    li
 
 // page titles
 .page-title
   font-size: 1.618rem
   font-weight: 600
-
-h1, h2, h3, h4, h5, h6
-  margin: 0
-  padding: 0
-p
-  margin: 0
 
 // intercom inbox link in footer
 #Intercom

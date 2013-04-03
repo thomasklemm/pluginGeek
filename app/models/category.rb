@@ -38,7 +38,9 @@ class Category < ActiveRecord::Base
   end
 
   def self.all_without(category)
-    order_by_score.select { |c| c.id != category.id }
+    where('id != ?', category.id).
+      order_by_score.
+      select([:id, :full_name])
   end
 
   # Assign aggregate stars of repos as category stars
