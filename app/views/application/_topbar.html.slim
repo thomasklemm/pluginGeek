@@ -1,25 +1,26 @@
 .topbar
-  span.brand
-    = link_to 'pluginGeek', root_path
+  .container
+    span.brand
+      = link_to 'pluginGeek', root_path
 
-  span.happy-day
-    /! This part is inspired by 37signals. You guys are amazing, your work rocks! Thanks for Rails and your way of doing business!
-    coffee:
-      days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
-      today = new Date()
-      document.write('Happy' + days[today.getDay()] + '.')
+    span.happy-day
+      /! This part is inspired by 37signals. You guys are amazing, your work rocks! Thanks for Rails and your way of doing business!
+      coffee:
+        days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+        today = new Date()
+        document.write('Happy' + days[today.getDay()] + '.')
 
-  span.user-details
-    - if user_signed_in?
-      span.user-signed-in
-        / rounded avatar
-        = image_tag(current_user.avatar_url, class: 'avatar', width: '32px', height: '32px')
-        / name or login
-        span.name = current_user.name
-        / logout link
-        = link_to 'Logout', logout_path, method: :delete, class: 'logout'
+    span.user-details
+      - if user_signed_in?
+        span.user-signed-in
+          / rounded avatar
+          = image_tag(current_user.avatar_url, class: 'avatar', width: '32px', height: '32px')
+          / name or login
+          span.name = current_user.name
+          / logout link
+          = link_to 'Logout', logout_path, method: :delete, class: 'logout'
 
-    - else
-      span.user-signed-out
-        / login link
-        = link_to 'Login', login_path, class: 'login'
+      - else
+        span.user-signed-out
+          / login link
+          = link_to 'Login', login_path, class: 'login'

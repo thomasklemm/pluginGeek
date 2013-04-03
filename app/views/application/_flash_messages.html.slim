@@ -1,7 +1,7 @@
 / application/_flash_messages
 
 / flash messages
-- flash.present? and !response_publicly_cached?
+- if flash.present? and not response_publicly_cached?
   .flash-messages
     - flash.each do |type, message|
       div class="flash-message"

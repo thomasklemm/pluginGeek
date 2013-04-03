@@ -100,6 +100,9 @@ group :assets do
   # Javascripts
   gem 'coffee-rails'
   gem 'uglifier'
+
+  # Font Awesome (Icon font)
+  gem 'font-awesome-rails'
 end
 
 group :development do

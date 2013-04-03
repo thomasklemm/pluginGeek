@@ -6,17 +6,18 @@
 / topbar including user details
 = render 'topbar'
 
-/ language navigation
-= render 'navigation'
+.container
+  / language navigation
+  = render 'navigation'
 
-/ flashes
-/ = render 'flash_messages'
+  / flashes
+  = render 'flash_messages'
 
-/ main content
-/ = yield
+  / main content
+  = yield
 
-/ footer
-/ = render 'footer'
+  / footer
+  / = render 'footer'
 
 / async javascripts
 / = render 'javascripts/javascripts_in_body'

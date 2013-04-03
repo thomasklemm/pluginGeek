@@ -1,22 +1,18 @@
-/ / categories/index
-/ - cache ['categories_index', @language] do
+/ categories/index
+- cache ['categories_index', @language] do
 
-/   / Categories List
-/   #js-categories-list.container
-/     .find-categories
-/       / Instant client-side searching via list.js
-/       input.search.js-search.container type='text' autocomplete='off' placeholder='Background Jobs...'
+  / Categories List
+  #js-categories-list.container
+    .find-categories
+      / Instant client-side searching via list.js
+      input.search.js-search.container type='text' autocomplete='off' placeholder='Background Jobs...'
 
-/       / Sort buttons for categories
-/       = render 'categories/sort_categories'
+      / Sort buttons for categories
+      = render 'categories/sort_categories'
 
-/       / Render Services in development
-/       - if Rails.env.development?
-/         = render 'application/services'
+    / List for list.js
+    .categories-wrapper.list.container data-page=10
+      = render partial: 'category', collection: @categories
 
-/     / List for list.js
-/     .categories-wrapper.list.container data-page=10
-/       = render partial: 'category', collection: @categories
-
-/     / display all matches on click
-/     .show-all.js-show-all Display all categories
+    / display all matches on click
+    .show-all.js-show-all Display all categories
