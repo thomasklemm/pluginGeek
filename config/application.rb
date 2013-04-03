@@ -21,9 +21,6 @@ module Plugingeek
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Default timezone
-    config.active_record.default_timezone = :utc
-
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += Dir["#{config.root}/app/**/", "#{config.root}/lib", "#{config.root}/lib/**/"]
@@ -38,6 +35,9 @@ module Plugingeek
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
+
+    # Default timezone
+    config.active_record.default_timezone = :utc
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -63,16 +63,16 @@ module Plugingeek
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    # Serve fonts via Asset Pipeline
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
-    config.assets.precompile += %w( .svg .eot .woff .ttf )
-    # Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
-
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.15'
 
     # Don't initialize app when precompiling on Heroku (required by Devise and Heroku)
     config.assets.initialize_on_precompile = false
+
+    # Serve fonts via Asset Pipeline
+    # config.assets.paths << Rails.root.join("vendor", "assets", "fonts")
+    # config.assets.precompile += %w( .svg .eot .woff .ttf )
+    # Source: http://stackoverflow.com/questions/11261805/rails-3-font-face-failing-in-production-with-firefox
 
     # Generator options
     config.generators do |g|
