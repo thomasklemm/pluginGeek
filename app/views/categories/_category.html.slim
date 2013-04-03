@@ -3,11 +3,11 @@
 - cache [category, 'partial'] do
 
   / Link Builders
-  - repos_count = category.repo_list.try(:size) || 0
+  - repos_count = category.repo_names.try(:size) || 0
   - category_link = capture do
     = link_to " &raquo;".html_safe, category
   - category_repo_link = capture do
-    '  and #{ repos_count - 3 } more
+    '  and #{ repos_count - 2 } more
     = link_to " &raquo;".html_safe, category
 
   / Category partial in lists

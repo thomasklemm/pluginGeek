@@ -3,7 +3,7 @@
   / title and url
   = link_to link.title, link.url, class: 'title'
   / dns prefetching of url
-  = dns_prefetch(link.url)
+  = dns_prefetch_tag(link.url)
 
   '  ||
   / publication date
