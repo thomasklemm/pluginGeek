@@ -3,38 +3,39 @@
   / Category details header
   = render 'categories/category_details'
 
-  / List containing repos
-  #js-repos-list.container
+  / Repos in a list.js list
+  #js-repos-list
     / Sort options and buttons for repos
-    / hide if there are only a few options
-    - if @repos.size >= 8
-      = render 'repos/sort_repos'
+    / - if @repos.try(:size) >= 8
+    /   = render 'repos/sort_repos'
 
-    .repos-wrapper.list.container
-      = render partial: 'repos/repo', collection: @repos
-
-      / No repos are present, the category might be deleted soon
-      / - if @repos.blank?
-      /   p: em This category is no longer associated with any repos and might be cleared away soon.
+    - if @repos.any?
+      .repos-wrapper.list
+        = render partial: 'repos/repo', collection: @repos
+    - else
+      .section-header
+        span.primary Repos
+      .none-yet No repos yet, just add one :-D
 
   .space-one-and-a-half
 
+  / similar categories
   - if @category.similar_categories.any?
-    .categories-wrapper.container
-      .section-header
-        span.primary Similar categories
-      .container
-        = render partial: 'categories/category', collection: @category.similar_categories
+    .section-header
+      span.primary Similar categories
+
+    .categories-wrapper
+      = render partial: 'categories/category', collection: @category.similar_categories
+
     .space-one-and-a-half
 
-  / links
-  .links.container
-    .section-header
-      span.primary Links
-      span Belonging to this category or one of its repos
-      span = link_to 'Add a link'.html_safe, 'javascript:;'
-    / links including repos' links
-    - if @category.extended_links.any?
-      .links-wrapper.container = render partial: 'links/link', collection: @category.extended_links
-    - else
-      .none-yet None yet.
+  / extended links
+  / including the links associated with one of the category's repos
+  .section-header
+    span.primary Around the web
+    span = link_to '<i class="icon-plus"></i>Add'.html_safe, 'javascript:;'
+
+  - if @category.extended_links.any?
+    .links-wrapper = render partial: 'links/link', collection: @category.extended_links
+  - else
+    .none-yet No links yet, just add one :-D

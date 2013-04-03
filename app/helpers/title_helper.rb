@@ -21,15 +21,15 @@ module TitleHelper
   end
 
   def categories_title
-    @categories.present? and @language.present? and "#{ @language.name } &middot; pluginGeek".html_safe
+    @categories.present? and @language.present? and "#{ @language.name } on pluginGeek".html_safe
   end
 
   def category_title
-    @category.present? and "#{ @category.full_name }" + " awesomeness &middot; pluginGeek".html_safe
+    @category.present? and "#{ @category.full_name }" + " awesomeness on pluginGeek".html_safe
   end
 
   def repo_title
-    @repo.present? and "#{ @repo.full_name }" + " &middot; pluginGeek".html_safe
+    @repo.present? and "#{ @repo.full_name }" + " on pluginGeek"
   end
 
   def default_title

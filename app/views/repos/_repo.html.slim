@@ -1,35 +1,30 @@
 / repos/_repo
-/ Repo Partial
 - cache [repo, 'repo_partial'] do
   .repo
-    / Name and Owner is Full Name, like rails by rails
+    / full_name is owner/name => e.g. rails/rails
     = link_to repo, class: 'full-name' do
-      span.name.js-name   = repo.name
+      span.name.js-name = repo.name
       span.owner.js-owner  by #{ repo.owner }
+
+      / Github star count to help evaluate awesomeness quickly
+      span.stars <i class='icon-star'></i>#{ number_with_delimiter(repo.stars) }
+
+      / Most recent activity timestamp on the repo
+      / .js-timestamp for list.js is rendered seperately below
+      span.activity class=repo.activity_class
+        abbr.timeago title=repo.timestamp = repo.written_timestamp
 
       / Is the repo a staff pick?
       - if repo.staff_pick?
         span.staff-pick <i class='icon-star'></i>Staff pick
 
-      / Github star count to help evaluate awesomeness quickly
-      span.stars
-        i.icon-star
-        = repo.stars
-
     / Custom description or Github one
-    / will be truncated
     span.description.js-description = repo.description
 
     / Url to the homepage or to Github repo
-    / will be truncated
     span.homepage-link.js-homepage-link = link_to repo.homepage_url, repo.homepage_url
     / DNS Prefetch for quicker subsequent browsing
     = dns_prefetch_tag repo.homepage_url
-
-    / Most recent activity timestamp on the repo
-    / .js-timestamp for list.js is rendered seperately below
-    span.activity class=repo.activity_class
-      abbr.timeago title=repo.timestamp = repo.written_timestamp
 
     / Hidden stats for searching and sorting
     span.js-score style='display: none' = repo.score

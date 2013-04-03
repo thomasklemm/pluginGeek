@@ -1,0 +1,57 @@
+// categories
+
+// category details
+.category-details
+  font-size: 0.9375rem
+  margin-bottom: 8px
+
+  .name
+    font-size: 1.618rem
+    font-weight: 600
+
+  .details
+    .draft
+      @extend .label-element
+      padding-top: 3px
+      padding-bottom: 3px
+      position: relative
+      bottom: 2px
+      margin-left: 1rem
+    .language-list,
+    .stars
+      margin-left: 1rem
+    .edit-link
+      margin-left: 1rem
+
+  .description
+    display: block
+
+// repos in overview
+.repos-wrapper .repo
+  // @extend .half-box
+  font-size: 14px
+
+  .full-name
+    display: block
+  .name
+    font-size: 18px
+    font-weight: 600
+  .owner
+    color: $text-secondary
+  .staff-pick
+    @extend .label-element
+    margin-left: 0.45rem
+  .stars
+    margin-left: 6px
+  .activity
+    margin-left: 6px
+    &:before
+      content: 'Pushed\a0'
+  .description
+    display: block
+  .homepage-link
+
+  &:not(:first-child)
+    margin-top: 10px
+  &:not(:last-child)
+    margin-bottom: 10px

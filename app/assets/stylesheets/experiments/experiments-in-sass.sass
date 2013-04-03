@@ -164,32 +164,7 @@
   .description
     display: block
 
-// repos in overview
-.repos-wrapper .repo
-  @extend .half-box
 
-  .full-name
-    display: block
-  .name
-    font-size: 1rem
-    font-weight: 600
-  .owner
-    color: $text-secondary
-  .staff-pick
-    @extend .label-element
-    margin-left: 0.45rem
-  .stars
-    float: right
-    margin-left: 6px
-    color: $text-secondary
-  .description
-    display: block
-  .homepage-link
-    display: block
-  .activity
-    &:before
-      content: 'Updated \2192 \a0'
-      color: $text-secondary
 
 // colors hightlighting a project's most recent timestamp on Github
 .activity
@@ -205,30 +180,6 @@
     color: $low-activity
   &.very-low
     color: $very-low-activity
-
-// category details
-.category-details
-  font-size: 0.9375rem
-  margin-bottom: 1rem
-  .name
-    font-size: 1.618rem
-    font-weight: 600
-  .details
-    .draft
-      @extend .label-element
-      padding-top: 3px
-      padding-bottom: 3px
-      position: relative
-      bottom: 2px
-      margin-left: 1rem
-    .language-list,
-    .stars
-      margin-left: 1rem
-      color: $text-secondary
-    .edit-link
-      margin-left: 1rem
-  .description
-    display: block
 
 // Guides for drafting a category's descriptions
 // (displayed when editing category)
