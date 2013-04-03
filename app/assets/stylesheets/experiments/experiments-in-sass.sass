@@ -1,115 +1,5 @@
 // experiments-in-sass
 
-// general
-body
-  padding: 0 16px // make body stay way from bowser edges
-  font-family: $body-fonts
-  font-size: 100%
-  line-height: 1.618
-  color: $text
-
-  // background: image-url('backgrounds/debut_light.png') // 3
-  // background: image-url('backgrounds/pw_maze_white.png') // 3
-  // background: image-url('backgrounds/subtle_freckles.png') // 2
-  // background: image-url('backgrounds/light_alu.png') // 1, darker
-
-// unordered lists
-ul
-  list-style: none
-  padding: 0
-  margin: 0
-
-// links
-a
-  text-decoration: none
-  color: $primary
-  cursor: pointer
-  &:link, &:hover, &:active, &:visited
-    color: $primary
-
-// link with border on hover, and bold with active class
-// TODO: Maybe Transform into a mixin
-.hover-link
-  border-bottom: 1px solid transparent
-  &:hover
-    border-color: $border-primary
-    @include transition(border-color 0.1s ease-in)
-
-// Icon / Webfont Icons
-i
-  margin-right: 4px
-
-// Navigation
-.header.container
-  margin-top: 3px
-  padding-bottom: 1.75rem
-
-  img.branding
-    float: left
-    width: 290px
-
-  ul.navigation
-    float: right
-    position: relative
-    top: 6px
-    li
-      display: inline-block
-
-  .web-navigation
-    margin-right: 2rem
-
-  .mobile-navigation
-
-.branding
-  cursor: pointer
-
-// navigation
-.navigation
-  // primary languages (web, mobile)
-  .primary
-    display: block
-    padding-bottom: 3px
-    border-bottom: 1px dashed $border-primary
-
-  // secondary languages (javascript, ruby, webdesign, ios, android)
-  ul.secondary
-    margin-top: 3px
-    li
-      display: inline
-      margin: 0 16px 0 0
-      padding: 0 16px 0 0
-      border-right: 1px solid $border-tertiary
-      line-height: 1
-      &:last-child
-        border-right: none
-        padding-right: 0
-        margin-right: 0
-
-  // link behavior
-  .primary, .secondary li
-    a
-      @extend .hover-link
-    &.active a
-      font-weight: 600
-
-// eye-catcher on landing page
-.eye-catcher
-  text-rendering: optimizeLegibility
-  text-align: center
-  padding-bottom: 1.5rem
-  // language pitch
-  .primary
-    font-size: 2.058rem
-    .type
-      font-size: 2.058rem
-      font-weight: 600
-  // learn more
-  .secondary
-    display: inline
-    font-size: 1.618rem
-    font-weight: 600
-    @extend .hover-link
-
 // search field spanning entire page
 .search
   width: 100%
@@ -624,33 +514,6 @@ form
     padding-left: 30px
     li
 
-// Column sizes
-// e.g. for sizing forms
-.one.column, .one.columns
-  @include span-columns(1)
-.two.columns
-  @include span-columns(2)
-.three.columns
-  @include span-columns(3)
-.four.columns
-  @include span-columns(4)
-.five.columns
-  @include span-columns(5)
-.six.columns
-  @include span-columns(6)
-.seven.columns
-  @include span-columns(7)
-.eight.columns
-  @include span-columns(8)
-.nine.columns
-  @include span-columns(9)
-.ten.columns
-  @include span-columns(10)
-.eleven.columns
-  @include span-columns(11)
-.twelve.columns
-  @include span-columns(12)
-
 // page titles
 .page-title
   font-size: 1.618rem
@@ -661,32 +524,6 @@ h1, h2, h3, h4, h5, h6
   padding: 0
 p
   margin: 0
-
-// feedback form in footer
-.feedback-form
-  width: 300px
-  margin: 0 auto
-  margin-top: 0.5rem
-  form
-    text-align: center
-    textarea, input[type=text]
-      width: 100%
-      border: 1px solid #ccc
-      outline: 0
-      padding: 1rem
-      line-height: 1.4
-      &:focus
-        border-color: $primary
-    input[type=text]
-      padding: 0.5rem 1rem
-    label
-      color: #999
-    input[type=submit]
-      display: block
-      margin: 0 auto
-      margin-top: 0.5rem
-      margin-bottom: 1rem
-      @extend .button
 
 // intercom inbox link in footer
 #Intercom

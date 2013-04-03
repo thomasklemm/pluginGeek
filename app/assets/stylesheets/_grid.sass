@@ -2,10 +2,29 @@
 .container
   @include outer-container
 
-// full twelve column span
-.all-columns
-  @include span-columns(12)
-
-// categories#edit
-.edit-category-container, .edit-repo-container
+// column sizes
+// e.g. for sizing forms
+.one.column, .one.columns
+  @include span-columns(1)
+.two.columns
+  @include span-columns(2)
+.three.columns
+  @include span-columns(3)
+.four.columns
+  @include span-columns(4)
+.five.columns
+  @include span-columns(5)
+.six.columns
+  @include span-columns(6)
+.seven.columns
+  @include span-columns(7)
+.eight.columns
   @include span-columns(8)
+.nine.columns
+  @include span-columns(9)
+.ten.columns
+  @include span-columns(10)
+.eleven.columns
+  @include span-columns(11)
+.twelve.columns
+  @include span-columns(12)
