@@ -1,32 +1,26 @@
 / layouts/_body
 
-/ Peek bar
-= render 'peek/bar'
+/ peek bar
+/ = render 'peek/bar'
 
-#root
-  / details for the user if logged in
-  = render 'user_details'
+/ topbar including user details
+= render 'topbar'
 
-  / navigigation bar including branding
-  = render 'navigation'
+/ language navigation
+/ = render 'navigation'
 
-  / any flash messages
-  = render 'flash_messages'
+/ flashes
+/ = render 'flash_messages'
 
-  / main content
-  #content.container
-    = yield
+/ main content
+/ = yield
 
-  / sticky footer that stays at the bottom of the page
-  #root_footer
+/ footer
+/ = render 'footer'
 
-#footer
-  = render 'footer'
+/ async javascripts
+/ = render 'javascripts/javascripts_in_body'
 
-/ async javascript snippets at the end of the body
-/ to improve overall load times
-= render 'inline_javascripts/body'
-
-/ Peek results
-= render 'peek/results'
-= render 'peek/results/performance_bar'
+/ peek results
+/ = render 'peek/results'
+/ = render 'peek/results/performance_bar'

@@ -1,13 +1,10 @@
 / application/_flash_messages
 
 / flash messages
-- unless response_publicly_cached?
-  - if flash
-    #flash-messages.container
-
-      / render each flash
-      - flash.each do |type, message|
-        div class="flash-message #{type}"
-          span = message
-          / close message
-          = link_to '&times'.html_safe, 'javascript:;', class: 'close'
+- flash.present? and !response_publicly_cached?
+  .flash-messages
+    - flash.each do |type, message|
+      div class="flash-message"
+        span = message
+        / close message
+        = link_to '&times'.html_safe, 'javascript:;', class: 'close'

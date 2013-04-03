@@ -29,6 +29,7 @@ Plugingeek::Application.routes.draw do
   get 'js' => redirect('/javascript')
 
   # Repos
+  # TODO: Rework these routes
   #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
   #     while matching incoming requests is being done through seperate routes
