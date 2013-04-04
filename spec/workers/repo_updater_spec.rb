@@ -16,10 +16,14 @@ describe RepoUpdater do
         end
       end
 
-      it "updates the repo from Github" do
+      it "updates the repo's fields from Github" do
         repo.reload
+        expect(repo.name).to  be_present
+        expect(repo.owner).to be_present
         expect(repo.github_description).to be_present
         expect(repo.stars).to_not be_zero
+        expect(repo.homepage_url).to   be_present
+        expect(repo.github_updated_at).to be_present
       end
 
       it "marks the repo as successfully updated" do

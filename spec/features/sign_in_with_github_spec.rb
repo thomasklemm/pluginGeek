@@ -13,6 +13,7 @@ feature "Sign in with Github" do
     expect(page).to have_content(/Thomas Klemm/)
   end
 
+
   scenario "guest denies access" do
     OmniAuth.config.mock_auth[:github] = :access_denied
 
