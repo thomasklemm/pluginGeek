@@ -1,200 +1,10 @@
-// Experiments in SASS
-//
-// Our very own variables
-$body-fonts: 'proxima-nova', Arial, 'Helvetica Neue', Helvetica, sans-serif
-$text: #393939            // primary text
-$text-secondary: #7f7f7f  // muted, secondary text
-$radius: 2px              // border radii
-
-// Colors from the Owl Geek
-$blue: #126E9D
-$green: #93CF29
-
-// Color assignments
-$primary: $blue
-$secondary: $green
-
-$border-primary: $primary
-$border-secondary: $secondary
-$border-tertiary: #ccc
-
-$services-background: lighten($secondary, 32%)
-$label-bg: rgba($blue, 0.15)
-$flash-message-bg: rgba($blue, 0.15)
-
-// Colors hightlighting a project's last updated at activity
-$very-high-activity: darken($green, 8%)
-$high-activity: $text-secondary
-$medium-activity: $text-secondary
-$low-activity: $text-secondary
-$very-low-activity: $text-secondary
-
-
-
-// Grid settings
-//
-// $column: 90px        // The width of a single column in px or em.
-// $gutter: 30px        // Space between each two columns in px or em.
-// $grid-columns: 12    // Total number of columns in the base grid. Defaults to 12.
-$max-width: 940px    // The maximum width of the outer container in px or em.
-
-// Visual grid settings
-//
-// By setting $visual-grid to true, you can display the base grid in the background (default)
-// or as an overlay. You can even change the color and opacity of the gridlines by overriding
-// the default settings as detailed in the section below. Keep in mind that on Webkit, rounding
-// errors in the fluid grid might result in the overlay being few pixels off.
-//
-// The visual grid reflects the changes applied to the grid via the new-breakpoint() mixin,
-// as long as the media contexts are defined before importing Neat.
-//
-// $visual-grid: true            // Show the base grid when set to true. Defaults to false.
-$visual-grid-color: #e9e9e9   // Visual grid color. Defaults to #EEEEEE.
-// $visual-grid-index: 'front'   // If set to front, the grid is overlaid on the content.
-$visual-grid-opacity: 0.4     // Visual grid opacity.
-
-// Import grid helpers
-@import 'neat'
-
-// general
-body
-  padding: 0 16px // make body stay way from bowser edges
-  font-family: $body-fonts
-  font-size: 100%
-  line-height: 1.618
-  color: $text
-
-  // background: image-url('backgrounds/compressed/debut_light.png') // 5
-  background: image-url('backgrounds/compressed/pw_maze_white.png') // 5
-
-  // Additional backgrounds
-  // background: image-url('backgrounds/compressed/subtle_freckles.png') // 4
-  // background: image-url('backgrounds/compressed/light_alu.png') // 3, darker
-  // background: image-url('backgrounds/compressed/light_wool.png') // 2, a little too light
-  // background: image-url('backgrounds/compressed/snow.png') // 2, very light, almost no structure
-  // background: image-url('backgrounds/compressed/subtle_dots.png') // 2, like millimeterpapier
-  // background: image-url('backgrounds/compressed/white_brick_wall.png') // 1, building blocks, a little to extreme
-  // background: image-url('backgrounds/compressed/clean_textile.png') // 1
-  // background: image-url('backgrounds/compressed/diagonal-noise.png') // 1, pretty dark
-  // background: image-url('backgrounds/compressed/grilled.png') // -1, fishbone
-
-
-// unordered lists
-ul
-  list-style: none
-  padding: 0
-  margin: 0
-
-// links
-a
-  text-decoration: none
-  color: $primary
-  cursor: pointer
-  &:link, &:hover, &:active, &:visited
-    color: $primary
-
-// link with border on hover, and bold with active class
-// TODO: Maybe Transform into a mixin
-.hover-link
-  border-bottom: 1px solid transparent
-  &:hover
-    border-color: $border-primary
-    @include transition(border-color 0.1s ease-in)
-
-// Icon / Webfont Icons
-i
-  margin-right: 4px
-
-// Layout
-//
-// container
-.container
-  @include outer-container
-
-// full twelve column span
-.all-columns
-  @include span-columns(12)
-
-// categories#edit
-.edit-category-container, .edit-repo-container
-  @include span-columns(8)
-
-// Navigation
-.header.container
-  margin-top: 3px
-  padding-bottom: 1.75rem
-
-  img.branding
-    float: left
-    width: 290px
-
-  ul.navigation
-    float: right
-    position: relative
-    top: 6px
-    li
-      display: inline-block
-
-  .web-navigation
-    margin-right: 2rem
-
-  .mobile-navigation
-
-.branding
-  cursor: pointer
-
-// navigation
-.navigation
-  // primary languages (web, mobile)
-  .primary
-    display: block
-    padding-bottom: 3px
-    border-bottom: 1px dashed $border-primary
-
-  // secondary languages (javascript, ruby, webdesign, ios, android)
-  ul.secondary
-    margin-top: 3px
-    li
-      display: inline
-      margin: 0 16px 0 0
-      padding: 0 16px 0 0
-      border-right: 1px solid $border-tertiary
-      line-height: 1
-      &:last-child
-        border-right: none
-        padding-right: 0
-        margin-right: 0
-
-  // link behavior
-  .primary, .secondary li
-    a
-      @extend .hover-link
-    &.active a
-      font-weight: 600
-
-// eye-catcher on landing page
-.eye-catcher
-  text-rendering: optimizeLegibility
-  text-align: center
-  padding-bottom: 1.5rem
-  // language pitch
-  .primary
-    font-size: 2.058rem
-    .type
-      font-size: 2.058rem
-      font-weight: 600
-  // learn more
-  .secondary
-    display: inline
-    font-size: 1.618rem
-    font-weight: 600
-    @extend .hover-link
+// experiments-in-sass
 
 // search field spanning entire page
 .search
   width: 100%
   padding: 10px 14px
-  font-size: 1.272rem
+  font-size: 16px
   color: #444
 
   border: 3px solid #ccc
@@ -211,7 +21,6 @@ i
   margin: 0.5rem 0
   font-size: 0.875rem
   color: $text-secondary
-  text-align: right
 
   // items
   a
@@ -224,54 +33,6 @@ i
   // divider in sort-list
   .divider:before
     content: "\a0or\a0"
-
-// box
-.box
-  min-height: 152px
-
-  font-size: 0.875rem
-  line-height: 24px !important // all lines same height, regardless of font-size
-  color: $text
-
-  border-radius: $radius
-
-  background-color: white(0.6) // lighten background
-  //                            // (sync with primary and secondary text colors)
-
-  @include box-shadow(0 0px 3px black(0.3))
-
-// box spanning six columns
-.half-box
-  @extend .box
-
-@include media(min-width 631px)
-  .half-box
-    // two element block grid
-    @include span-columns(6)
-    @include nth-omega(2n)
-    padding: 0.9rem 1.2rem
-
-
-@include media(max-width 630px)
-  .half-box
-    @include span-columns(12)
-    min-height: 0 !important
-    padding: 0.5rem 0.7rem
-
-
-// display all matches link / button
-.show-all
-  @extend .button
-  text-align: center
-
-// truncation via trunk8
-.js-read-more,
-.js-read-less
-  cursor: pointer
-
-// pickadate
-.pickadate__button--clear::before
-  content: 'x'
 
 // muted, secondary text
 .muted
@@ -330,57 +91,6 @@ i
 .space-three
   height: 3rem
 
-// categories in overview
-.categories-wrapper .category
-  @extend .half-box
-  background-color: rgba($primary, 0.07)
-
-  .full-name
-    display: block
-  .name
-    font-size: 1rem
-    font-weight: 600
-  .draft
-    @extend .label-element
-    margin-left: 0.45rem
-  .language-list,
-  .stars
-    float: right
-    color: $text-secondary
-    margin-left: 6px
-  .popular-repos
-    display: block
-    color: $text-secondary
-  .description
-    display: block
-
-// repos in overview
-.repos-wrapper .repo
-  @extend .half-box
-
-  .full-name
-    display: block
-  .name
-    font-size: 1rem
-    font-weight: 600
-  .owner
-    color: $text-secondary
-  .staff-pick
-    @extend .label-element
-    margin-left: 0.45rem
-  .stars
-    float: right
-    margin-left: 6px
-    color: $text-secondary
-  .description
-    display: block
-  .homepage-link
-    display: block
-  .activity
-    &:before
-      content: 'Updated \2192 \a0'
-      color: $text-secondary
-
 // colors hightlighting a project's most recent timestamp on Github
 .activity
   abbr
@@ -395,30 +105,6 @@ i
     color: $low-activity
   &.very-low
     color: $very-low-activity
-
-// category details
-.category-details
-  font-size: 0.9375rem
-  margin-bottom: 1rem
-  .name
-    font-size: 1.618rem
-    font-weight: 600
-  .details
-    .draft
-      @extend .label-element
-      padding-top: 3px
-      padding-bottom: 3px
-      position: relative
-      bottom: 2px
-      margin-left: 1rem
-    .language-list,
-    .stars
-      margin-left: 1rem
-      color: $text-secondary
-    .edit-link
-      margin-left: 1rem
-  .description
-    display: block
 
 // Guides for drafting a category's descriptions
 // (displayed when editing category)
@@ -441,39 +127,7 @@ i
       font-size: 1rem
     .description
 
-// repo details
-.repo-details
-  font-size: 0.9375rem
-  .name-and-owner
-    font-size: 1.618rem
-    font-weight: 600
-    i
-      margin-right: 9px
-    .name
-    .owner
-      font-weight: 400
-  .details
-    > *
-      margin-left: 1rem // settled after careful experimentation :-D
-    .stars
-      color: $text-secondary
-    .star-on-github-link
-      position: relative
-      top: 4px
-      padding-left: 1px // right one added by iframe width
-    .staff-pick
-      @extend .label-element
-      padding-top: 3px
-      padding-bottom: 3px
-      position: relative
-      bottom: 2px
-    .edit-link
 
-  .description
-    display: block
-  .homepage-url
-  .activity
-    margin-left: 1rem
 
 // headers at repo-details
 .section-header
@@ -495,60 +149,7 @@ i
   font-size: 0.875rem
   color: $text-secondary
 
-// readme at repo-details
-// outer box
-.readme-container
-  @extend .box
-  padding: 12px 2.35765%
-  background: white(1) // white background
 
-// where readme is inserted
-.readme-target
-  position: relative
-  overflow: hidden
-
-  // height classes set via js
-  &.max-height
-    height: 425px
-  &.auto-height
-    height: auto
-
-  // toggle readme
-  .toggle-readme
-    position: absolute
-    bottom: -12px // to offset parents padding-bottom
-    left: 0
-    width: 100%
-    text-align: center
-    margin: 0
-    padding: 80px 0 20px
-
-    @include background-image(linear-gradient(white(0) 0%, white(1) 80%, white(1) 100%))
-
-// current-user details for the logged in user, only displays then
-.current-user
-  margin-top: 2px
-  font-size: 0.875rem
-  line-height: 32px
-
-  .happy-day
-    float: left
-    color: $text-secondary
-
-  // wrapper for user details
-  .avatar-and-name
-    float: right
-    img.avatar
-      $avatar-size: 32px
-      width: $avatar-size
-      height: $avatar-size
-      border-radius: 100px
-      vertical-align: middle
-    .name
-      margin: 0 12px 0 6px
-
-  .logout
-    float: right
 
 // headline in all views
 .headline
@@ -558,41 +159,6 @@ i
   font-weight: 600
   line-height: 2rem
 
-// flash messages
-.flash-message
-  padding: 0.4rem 0 0.35rem 1rem
-  margin-bottom: 1.5rem
-  border-radius: $radius
-  background: $flash-message-bg
-  @include box-shadow(0 2px 3px black(0.22))
-
-  cursor: pointer // close on click
-  .close
-    float: right
-    padding: 0.85rem 1rem
-    line-height: 0 // adjust height
-    font-size: 1.272rem
-    color: #999
-    text-decoration: underline
-
-// services
-.services-wrapper .service
-  @extend .half-box
-  background: $services-background
-  color: #151515
-
-  .name
-    display: block
-    font-size: 1rem
-    font-weight: 600
-
-  .url
-    display: block
-
-  .pitch
-    display: block
-
-// add new repo
 .add-repo-wrapper
   .name-and-owner
     font-size: 1.618rem
@@ -705,91 +271,11 @@ form
       background: $label-bg
       padding: 0 0.35rem
 
-// form errors
-// Style for the form fields and labels with errors.
-.field_with_errors
-  padding: 0.2rem 0.8rem
-  background: rgba(red, 0.2)
-
-// Style for the div element with the error messages.
-.errorExplanation
-  margin-bottom: 0.5rem
-  padding: 0.8rem 1rem
-  background: rgba(red, 0.2)
-  // Style for the header of the div element.
-  h2
-    font-size: 1.272rem
-  // Style for the paragraph holding the message that appears right below the header of the div element.
-  p
-  // Style for the list items with individual error messages.
-  ul
-    list-style: square
-    padding-left: 30px
-    li
-
-// Column sizes
-// e.g. for sizing forms
-.one.column, .one.columns
-  @include span-columns(1)
-.two.columns
-  @include span-columns(2)
-.three.columns
-  @include span-columns(3)
-.four.columns
-  @include span-columns(4)
-.five.columns
-  @include span-columns(5)
-.six.columns
-  @include span-columns(6)
-.seven.columns
-  @include span-columns(7)
-.eight.columns
-  @include span-columns(8)
-.nine.columns
-  @include span-columns(9)
-.ten.columns
-  @include span-columns(10)
-.eleven.columns
-  @include span-columns(11)
-.twelve.columns
-  @include span-columns(12)
 
 // page titles
 .page-title
   font-size: 1.618rem
   font-weight: 600
-
-h1, h2, h3, h4, h5, h6
-  margin: 0
-  padding: 0
-p
-  margin: 0
-
-// feedback form in footer
-.feedback-form
-  width: 300px
-  margin: 0 auto
-  margin-top: 0.5rem
-  form
-    text-align: center
-    textarea, input[type=text]
-      width: 100%
-      border: 1px solid #ccc
-      outline: 0
-      padding: 1rem
-      line-height: 1.4
-      &:focus
-        border-color: $primary
-    input[type=text]
-      padding: 0.5rem 1rem
-    label
-      color: #999
-    input[type=submit]
-      display: block
-      margin: 0 auto
-      margin-top: 0.5rem
-      margin-bottom: 1rem
-      @extend .button
 
 // intercom inbox link in footer
 #Intercom

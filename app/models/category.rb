@@ -38,7 +38,9 @@ class Category < ActiveRecord::Base
   end
 
   def self.all_without(category)
-    order_by_score.select { |c| c.id != category.id }
+    where('id != ?', category.id).
+      order_by_score.
+      select([:id, :full_name])
   end
 
   # Assign aggregate stars of repos as category stars
@@ -55,7 +57,7 @@ class Category < ActiveRecord::Base
   before_save :cache_language_list
 
   # Update the languages of the associated repos
-  after_commit :update_repo_languages
+  after_save :update_repo_languages
 
   # Repos
   has_many :categorizations,

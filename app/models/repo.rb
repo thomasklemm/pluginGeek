@@ -37,9 +37,14 @@ class Repo < ActiveRecord::Base
   # Order repos by score
   scope :order_by_score, order('repos.score DESC')
 
-  # FIXME: Improve performance, only select full_names
+  # Select all repos without the given one,
+  # in order to prevent people from setting parents to self
+  # TODO: Prevent in a more sophisticated way, maybe while assigning
+  # or check what happens then
   def self.all_without(repo)
-    order_by_score.select { |r| r.id != repo.id }
+    where('id != ?', repo.id).
+      order_by_score.
+      select([:id, :full_name])
   end
 
   # Callbacks
@@ -145,26 +150,26 @@ class Repo < ActiveRecord::Base
     time.utc
   end
 
-  # Update this very record from Github, live and in color
-  def retrieve_from_github
-    updater = RepoUpdater.new
-    updater.update(full_name)
-  end
-
+  # Assign updated fields from Git
   def update_repo_from_github(github)
     assign_fields_from_github(github)
-    update_succeeded
     self.save
   end
 
+  # Flag repo as successfully retrieved
   def update_succeeded!
     update_success? or self.update_column(:update_success, true)
     puts "Repo #{ full_name } has been updated successfully."
     true
   end
 
+  # Flag repo as failing to update
   def update_failed!(opts = {})
-    persisted? and update_success? and self.update_column(:update_success, false)
+    if persisted?
+      update_success? and self.update_column(:update_success, false)
+    else
+      update_success? and self.update_success = false
+    end
 
     message = case opts[:reason]
       when :not_found_on_github
@@ -177,6 +182,12 @@ class Repo < ActiveRecord::Base
 
     puts message
     false
+  end
+
+  # Update this very record from Github, live and in color
+  def retrieve_from_github
+    updater = RepoUpdater.new
+    updater.update(full_name)
   end
 
   private
@@ -202,6 +213,7 @@ class Repo < ActiveRecord::Base
     self.github_updated_at   = github['pushed_at']
   end
 
+  # NOTE: Select2 sends strings separated by ',' in some versions by default
   def prepare_category_list(list)
     list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
   end
@@ -216,10 +228,6 @@ class Repo < ActiveRecord::Base
 
   def staff_pick_bonus
     staff_pick? ? 1.25 : 1
-  end
-
-  def update_succeeded
-    self.update_success = true
   end
 
   def expire_categories_and_self

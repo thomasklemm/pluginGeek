@@ -29,6 +29,7 @@ Plugingeek::Application.routes.draw do
   get 'js' => redirect('/javascript')
 
   # Repos
+  # TODO: Rework these routes
   #   Note: Routes for generating url differ from routes reading url, some duplication here
   #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
   #     while matching incoming requests is being done through seperate routes
@@ -47,12 +48,9 @@ Plugingeek::Application.routes.draw do
   # Authorize Blitz.io load testing
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#authorize_load_testing'
 
+  # Static pages
+  get ':id', to: 'high_voltage/pages#show', as: :static
+
   # Root
   root to: 'categories#index'
-
-  # Error pages
-  get ':id', to: 'pages#show', as: :static
-
-  # HighVoltage adds the page_path(:id) route
-  # page     GET    /pages/*id    high_voltage/pages#show
 end

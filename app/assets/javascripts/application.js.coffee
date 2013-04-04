@@ -1,12 +1,10 @@
 # application.js.coffee
-# insert after jQuery
 #
+# Load jQuery from CDN beforehand
 //= require list
 //= require jquery_ujs
 //= require jquery.timeago
-//= require jquery.trunk8
 //= require jquery.autosize
-//= require pickadate
 //= require readme
 //= require select2
 //= require peek
@@ -14,6 +12,10 @@
 
 # Plugingeek
 $ ->
+  ##
+  # Autosize
+  $('textarea').autosize()
+
   ##
   # Timeago
   # Update relative timestamps
@@ -84,27 +86,6 @@ $ ->
     update_list_view() # update timestamps
 
   ##
-  # Truncation via trunk8
-  #
-  # Truncate Repo Descriptions
-  $('.repo .js-description').trunk8(
-    fill: '&hellip; <a class="js-read-more">read more</a>'
-    lines: 2
-  )
-
-  # Display entire description on click on 'read more'
-  $('.js-read-more').live 'click', (event) ->
-    $(this).parent().trunk8('revert')
-    return false
-
-  # Truncate category descriptions
-  # Note: Only trucates when category is being displayed among the first visible ones!
-  $('.category .description').trunk8(
-    fill: '&hellip; <a class="js-read-more">read more</a>'
-    lines: 3
-  )
-
-  ##
   # Readme.js
   #
   # Unfold readme on user input
@@ -125,7 +106,3 @@ $ ->
 
   $('.flash-message').click ->
     $(this).fadeOut()
-
-  ##
-  # Autosize
-  $('textarea').autosize()

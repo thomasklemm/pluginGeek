@@ -17,7 +17,11 @@ class RepoDecorator < Draper::Decorator
   end
 
   def github_description
-    model[:github_description].presence || ""
+    model[:github_description].presence || default_description
+  end
+
+  def default_description
+    "<em>Add a description for this repo on pluginGeek or Github.</em>".html_safe
   end
 
   # Returns either homepage url as an absolute path if only a relative one is given

@@ -1,0 +1,48 @@
+// topbar
+.topbar
+  background: #2980B9
+  color: #f9f9f9
+  height: 40px
+  line-height: 40px
+
+  .container > *
+    font-size: 14px
+
+  // links
+  a.login, a.logout, .brand a
+    background: darken(#2980B9, 8%)
+    padding: 20px 20px
+
+    color: #f9f9f9
+    &:hover
+      background: darken(#2980B9, 12%)
+
+  // brand
+  .brand
+    float: left
+    font-size: 16px
+    font-weight: 600
+    text-rendering: optimizeLegibility
+    a
+      margin-right: 20px
+
+  // friendly greeting
+  .happy-day
+    color: #e9e9e9
+
+  // logged in or logged out user
+  .user-details
+    float: right
+    .user-signed-in
+      .avatar
+        $avatar-size: 32px
+        width: $avatar-size
+        height: $avatar-size
+        border-radius: 4px
+        vertical-align: middle
+      .name
+        margin-left: 0.5rem
+      .logout
+        margin-left: 20px
+    .user-signed-out
+      .login

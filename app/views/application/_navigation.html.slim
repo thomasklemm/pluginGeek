@@ -1,24 +1,19 @@
-/ Navigation
-.header.container
-  / My first brand
-  = link_to root_path do
-    = image_tag 'Geeky/Combination.png', width: 290, class: 'branding'
+/ navigation
 
-  / Navigation
-  ul.navigation
-    / Web Navigation
-    li.web-navigation
-      span.primary class=current_path?(:web) = link_to 'Web', path(:web)
+/ TODO: Cache later
+.primary-navigation
+  ul
+    = link_to categories_path('ruby') do
+      li Ruby
 
-      ul.secondary
-        li class=current_path?(:javascript)  = link_to 'Javascript', path(:javascript)
-        li class=current_path?(:ruby)        = link_to 'Ruby', path(:ruby)
-        li class=current_path?(:webdesign)   = link_to 'Webdesign', path(:webdesign)
+    = link_to categories_path('javascript') do
+      li Javascript
 
-    / Mobile Navigation
-    li.mobile-navigation
-      span.primary class=current_path?(:mobile) = link_to 'Mobile', path(:mobile)
+    = link_to categories_path('webdesign') do
+      li Webdesign
 
-      ul.secondary
-        li class=current_path?(:ios)     = link_to 'iOS', path(:ios)
-        li class=current_path?(:android) = link_to 'Android', path(:android)
+    = link_to categories_path('ios') do
+      li iOS
+
+    = link_to categories_path('android') do
+      li Android

@@ -19,6 +19,7 @@ class ReposController < ApplicationController
     authorize @repo
 
     if @repo.retrieve_from_github
+      @repo.reload
       redirect_to repo_path(@repo), notice: 'Repo has been added.'
     else
       flash.alert = 'Repo could not be found on Github.

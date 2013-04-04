@@ -1,55 +1,26 @@
-/ application/_topbar
+.topbar
+  .container
+    span.brand
+      = link_to 'pluginGeek', root_path
 
-/ brand
-span.left
-  = link_to root_path do
-    = link_to 'toolz', root_path, class: 'brand'
+    span.happy-day
+      /! This part is inspired by 37signals. You guys are amazing, your work rocks! Thanks for Rails and your way of doing business!
+      coffee:
+        days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+        today = new Date()
+        document.write('Happy ' + days[today.getDay()] + '.')
 
-/ login
-span.right.user-section
-  / The login section of the topbar
-  - unless response.cache_control[:public]
-    / Developer logged in
-    - if current_user
-      span.right
-        / logout
-        span.logout = link_to logout_path do
-          i.topbar-icon.icon-signout
-          ' Logout
+    span.user-details
+      - if user_signed_in?
+        span.user-signed-in
+          / rounded avatar
+          = image_tag(current_user.avatar_url, class: 'avatar', width: '32px', height: '32px')
+          / name or login
+          span.name = current_user.name
+          / logout link
+          = link_to 'Logout', logout_path, method: :delete, class: 'logout'
 
-      span.current-user
-        / avatar
-        span.avatar style="background-image: url('#{ current_user.avatar_url }')"
-
-        / happy day
-        span.happyday
-          i.topbar-icon.icon-star style='visibility: hidden'
-          coffee:
-            dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
-            now = new Date()
-            document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
-        / name or login
-        span.name = current_user.name || current_user.login
-        | .
-
-    / Generic greeting message
-    / Plugingeek not logged in
-    - else
-      span.greeting
-        / happy day
-        span.happyday
-          /! Heavily influenced and inspired by 37signals. Thanks guys for your great work!
-          coffee:
-            dayNames = new Array("Sunday","Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday")
-            now = new Date()
-            document.write("Happy " + dayNames[now.getDay()] + ",&nbsp;")
-
-        / name
-        span.name Plugingeek
-        | .
-
-      / login
-      span.login
-        = link_to login_path, class: 'active' do
-          i.topbar-icon.icon-github-sign
-          ' Login
+      - else
+        span.user-signed-out
+          / login link
+          = link_to 'Login', login_path, class: 'login'

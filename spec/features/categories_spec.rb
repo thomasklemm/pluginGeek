@@ -144,7 +144,7 @@ feature "Categories#edit and categories#update" do
       visit edit_category_path(category)
 
       expect(current_path).to eq(login_path)
-      expect(page).to have_content(/login/)
+      expect(page).to have_content(/login with github/i)
     end
   end
 end

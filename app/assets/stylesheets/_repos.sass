@@ -1,0 +1,100 @@
+// repos
+
+// repos in overview
+.repos-wrapper .repo
+  margin-left: -16px
+  border-left: 2px solid #ddd
+  padding-left: 14px
+
+  font-size: 14px
+  .full-name
+    display: block
+  .name
+    font-size: 18px
+    font-weight: 600
+  .owner
+    color: $text-secondary
+  .staff-pick
+    @extend .label-element
+    margin-left: 0.45rem
+  .stars
+    margin-left: 6px
+  .activity
+    margin-left: 6px
+    &:before
+      content: 'Pushed\a0'
+  .description
+    display: block
+  .homepage-link
+
+  &:not(:first-child)
+    margin-top: 10px
+  &:not(:last-child)
+    margin-bottom: 10px
+
+
+// repo details
+.repo-details
+  font-size: 0.9375rem
+  .name-and-owner
+    font-size: 1.618rem
+    font-weight: 600
+    i
+      margin-right: 9px
+    .name
+    .owner
+      font-weight: 400
+  .details
+    > *
+      margin-left: 1rem // settled after careful experimentation :-D
+    .stars
+      color: $text-secondary
+    .star-on-github-link
+      position: relative
+      top: 4px
+      padding-left: 1px // right one added by iframe width
+    .staff-pick
+      @extend .label-element
+      padding-top: 3px
+      padding-bottom: 3px
+      position: relative
+      bottom: 2px
+    .edit-link
+
+  .description
+    display: block
+  .homepage-url
+  .activity
+    margin-left: 1rem
+
+// readme at repos#show
+// outer box
+.readme-container
+  background: #fff
+  padding: 1rem
+  border: 2px solid #ddd
+  border-radius: 4px
+
+// where readme is inserted
+.readme-target
+  position: relative
+  overflow: hidden
+
+  // height classes set via js
+  &.max-height
+    height: 425px
+  &.auto-height
+    height: auto
+
+  // toggle readme
+  .toggle-readme
+    position: absolute
+    bottom: -12px // to offset parents padding-bottom
+    left: 0
+    width: 100%
+    text-align: center
+    margin: 0
+    padding: 80px 0 20px
+
+    @include background-image(linear-gradient(white(0) 0%, white(1) 80%, white(1) 100%))
+

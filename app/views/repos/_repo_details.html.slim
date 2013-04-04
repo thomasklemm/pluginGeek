@@ -1,39 +1,35 @@
 / repos/_repo_details
-/ Repo details header
-.repo-details.container
-  / Name and Owner
+.repo-details
+  / name and owner
   span.name-and-owner = link_to @repo.github_url do
     i.icon-github
     span.name  = @repo.name
     span.owner  by #{ @repo.owner }
 
   span.details
+    / stars
+    span.stars <i class='icon-star'></i>#{ number_with_delimiter(@repo.stars) }
+
+    / github star button
+    iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="54" height="20"
+
     / Is the repo a staff pick?
     - if @repo.staff_pick?
       span.staff-pick <i class='icon-star'></i>Staff pick
 
-    / Stars on Github
-    span.stars
-      i.icon-star
-      = @repo.stars
+    / edit repo
+    span.edit-link = link_to edit_repo_path(@repo) do
+      i.icon-check
+      | Edit
 
-    / Github Star Button including Stars Count
-    iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="54" height="20"
-
-    / Link to edit view
-    - unless edit_action?
-      span.edit-link = link_to edit_repo_path(@repo) do
-        i.icon-edit
-        | Edit
-
-  / Description, primary custom one, with github description
-  / as regular fallback
+  / custom description or Github description
   span.description = @repo.description
 
-  / Visible link to homepage, if given, or Github repo
+  / link to homepage or github
   span.homepage-url = link_to @repo.homepage_url, @repo.homepage_url
 
-  / Activity
+  / activity
   span.activity class=@repo.activity_class
     i.icon-leaf
+    ' Updated
     abbr.timeago title=@repo.timestamp = @repo.written_timestamp

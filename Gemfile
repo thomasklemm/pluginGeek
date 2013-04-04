@@ -12,11 +12,11 @@ gem 'rails', '3.2.13'
 # Postgres Database Connector
 gem 'pg'
 
-# jQuery Rails (jQuery Adapter for Rails)
-gem 'jquery-rails'
-
 # High Voltage (Static Pages)
 gem 'high_voltage'
+
+# jQuery Rails (jQuery Adapter for Rails)
+gem 'jquery-rails'
 
 # Slim (Templating)
 gem 'slim-rails'
@@ -26,9 +26,6 @@ gem 'friendly_id'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
-
-# Redcarpet (Markdown Parser)
-gem 'redcarpet'
 
 # Devise (User Authentication)
 gem 'devise'
@@ -41,7 +38,7 @@ gem 'omniauth-github'
 gem 'sidekiq'
 gem 'sinatra', :require => false
 
-# Cache Digests (Watch Progress of this gem!)
+# Cache Digests (Russian-Doll caching)
 gem 'cache_digests'
 
 # Figaro (Managing credentials)
@@ -50,14 +47,8 @@ gem 'figaro'
 # Closure Tree (Nesting Structures)
 gem 'closure_tree'
 
-# Dynamic Form (Display validation error messages)
-gem 'dynamic_form'
-
 # Intercom (Communicating with users)
 gem 'intercom-rails', '~> 0.2.14'
-
-# Lograge (Logging)
-gem 'lograge'
 
 # Rack Timeout
 gem 'rack-timeout'
@@ -65,14 +56,14 @@ gem 'rack-timeout'
 # Draper (Decorators)
 gem 'draper', github: 'drapergem/draper'
 
-# Formtastic (Forms)
-gem 'formtastic'
-
 # Strong parameters (Form parameter filtering)
 gem 'strong_parameters'
 
 # Pundit (Authorization)
 gem 'pundit'
+
+# Redcarpet (Markdown parser)
+gem 'redcarpet'
 
 # Peek (Stats and insights into a Rails app)
 gem 'peek'
@@ -80,9 +71,6 @@ gem 'peek-pg'
 gem 'peek-git'
 gem 'peek-performance_bar'
 gem 'peek-dalli'
-
-# Turbolinks
-gem 'turbolinks'
 
 # Gems used only for assets and not required
 #   in production environments by default.
@@ -100,6 +88,9 @@ group :assets do
   # Javascripts
   gem 'coffee-rails'
   gem 'uglifier'
+
+  # Font Awesome (Icon font)
+  gem 'font-awesome-rails'
 end
 
 group :development do
@@ -150,6 +141,9 @@ group :staging, :production do
   # New Relic (Server monitoring)
   gem 'newrelic_rpm'
 
-  # Sentry (Error reporting in production)
+  # Sentry (Error notifications)
   gem 'sentry-raven', github: 'getsentry/raven-ruby'
+
+  # Lograge (Logging)
+  gem 'lograge'
 end

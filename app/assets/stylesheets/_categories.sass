@@ -1,0 +1,60 @@
+// categories
+
+// categories in overview
+.categories-wrapper .category
+  margin-left: -16px
+  border-left: 2px solid #ddd
+  padding-left: 14px
+
+  font-size: 14px
+  .full-name
+    display: block
+  .name
+    font-size: 16px
+    font-weight: 600
+  .draft
+    @extend .label-element
+    margin-left: 0.45rem
+  .stars
+    margin-left: 12px
+  .language-list
+    color: $text-secondary
+    margin-left: 12px
+  .popular-repos
+    display: block
+    color: $text-secondary
+  .description
+    display: block
+
+  &:not(:first-child)
+    margin-top: 10px
+  &:not(:last-child)
+    margin-bottom: 10px
+
+
+// category details
+.category-details
+  font-size: 0.9375rem
+  margin-bottom: 8px
+
+  .name
+    font-size: 1.618rem
+    font-weight: 600
+
+  .details
+    .draft
+      @extend .label-element
+      padding-top: 3px
+      padding-bottom: 3px
+      position: relative
+      bottom: 2px
+      margin-left: 1rem
+    .language-list,
+    .stars
+      margin-left: 1rem
+    .edit-link
+      margin-left: 1rem
+
+  .description
+    display: block
+

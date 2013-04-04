@@ -58,10 +58,10 @@ RSpec.configure do |config|
   #     --seed 1234
   # config.order = "random"
 
-  # Focus on specs with focus: true metadata
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  # Focus on specs with focus: true and :focus metadata
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
+  config.treat_symbols_as_metadata_keys_with_true_values = true
 
   # Devise test helpers in controllers
   config.include Devise::TestHelpers, type: :controller

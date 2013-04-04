@@ -1,42 +1,43 @@
 / repos/edit
 .edit-repo-container
-  / Repo details header
   = render 'repos/repo_details'
 
-  .space-one-and-a-half
+  = form_for @repo do |f|
+    / full_name
+    - if staff?
+      = f.label :full_name, "Owner and name (full_name, for staff)"
+      = f.text_field :full_name, autocomplete: 'off'
 
-  / Edit repo form
-  = semantic_form_for @repo do |f|
-    / Validation errors
-    = f.semantic_errors
+    / staff pick
+    - if staff?
+      = f.check_box :staff_pick
+      = f.label :staff_pick, "Staff pick"
 
-    = f.inputs do
-      / Categories
-      / Text field transformed to multiple select with ability to add new tags
-      / by select2
-      = f.input :category_list, label: 'Categories', hint: 'Tagging (Javascript), ActiveRecord: Nested Records (Ruby).<br />You can add new categories. Please give them a concise summary thereafter.'.html_safe, placeholder:  'Categories'
+    / category list
+    = f.label :category_list, 'Categories'
+    = f.text_field :category_list, placeholder: 'Categories'
+    p E.g. Tagging (Ruby). Add new categories at will, please give them a concise description afterwards.
 
-      / Custom description will override Github description
-      = f.input :description, label: 'Customized description'.html_safe, placeholder: 'Sum up the project to override the description retrieved from Github.', hint: 'A customized description replaces the default description retrieved from Github. <br /> Be precise, and within 360 characters.'.html_safe
+    / parents
+    / to input parent/child relationships
+    = f.label :parent_ids, 'Parents'
+    = f.collection_select :parent_ids, Repo.all_without(@repo), :id, :full_name, {}, { multiple: true }
+    p Is #{ @repo.full_name } based further open-source projects?
 
-      / Parents as multiple select
-      / to enter parent/child relationship
-      / TODO: Optimize fetch call
-      = f.input :parents, label: 'Parents', collection: Repo.all_without(@repo), hint: 'Is this project depending on another repo?'
+    / github_description
+    = label_tag 'Description from Github'
+    p = @repo.github_description
 
-      / Full name for staff
-      - if staff?
-        = f.input :full_name, as: :string, label: 'Owner and Name (Full Name), (Staff)'
+    / description (will be prefered over the github_description)
+    = f.label :description, 'Custom description'
+    = f.text_area :description, placeholder: 'The custom description will be prefered over the description of the project fetched from Github. Keep it short and concise.'
 
-      / Staff pick
-      - if staff?
-        = f.input :staff_pick, label: 'Staff pick (Staff)'
+    / submit button
+    = f.submit "Update repo", class: 'button'
 
-    = f.actions do
-      = f.action :submit, as: :button, label: 'Save project', button_html: {class: 'button'}
-
+  / destroy button
   - if policy(@repo).destroy?
-    = link_to 'Destroy repo', repo_path(@repo), method: :delete, confirm: 'Are you sure?'
+    = link_to 'Destroy repo', repo_path(@repo), method: :delete, confirm: 'Are you sure?', class: 'danger button'
 
 / Javascripts to initialize select2 input enhancements on this page
 /

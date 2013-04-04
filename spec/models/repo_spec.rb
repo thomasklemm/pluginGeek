@@ -36,6 +36,10 @@ describe Repo do
   let(:second_parent) { Fabricate.build(:repo) }
 
   let(:first_language) { Fabricate.build(:language) }
+  let(:second_language) { Fabricate.build(:language) }
+
+  let(:first_category)  { Fabricate.build(:category, full_name: "Testing (Ruby)") }
+  let(:second_category) { Fabricate.build(:category, full_name: "Testing (Javascript)") }
 
   it { should validate_presence_of(:full_name) }
   it { should validate_uniqueness_of(:full_name) }
@@ -45,6 +49,28 @@ describe Repo do
   end
 
   it { should ensure_length_of(:description).is_at_most(360) }
+
+  describe "#stars" do
+    it "returns the stars count" do
+      repo.stars = 100
+      expect(repo.stars).to eq(100)
+    end
+
+    it "returns 0 when missing" do
+      expect(repo.stars).to eq(0)
+    end
+  end
+
+  describe "#score" do
+    it "returns the score" do
+      repo.score = 100
+      expect(repo.score).to eq(100)
+    end
+
+    it "returns 0 when missing" do
+      expect(repo.score).to eq(0)
+    end
+  end
 
   it { should have_many(:parent_child_relationships).class_name('RepoRelationship').dependent(:destroy) }
   it { should have_many(:parents).through(:parent_child_relationships) }
@@ -86,25 +112,156 @@ describe Repo do
   end
 
   describe "#language_list" do
-    before { repo.languages = [first_language] }
+    before { repo.languages = [first_language, second_language] }
 
     it "returns a list of languages" do
       expect(repo.language_list).to be_present
       expect(repo.language_list).to be_a String
-      expect(repo.language_list.split(", ")).to match_array([first_language.name])
+      expect(repo.language_list.split(", ")).to match_array([first_language.name, second_language.name])
     end
   end
 
-  pending "#category_list"
-  pending "#category_list="
+  describe "#category_list" do
+    before { repo.categories = [first_category, second_category] }
 
-  it { should respond_to(:category_list) }
-  it { should respond_to(:category_list=) }
-
-  describe "#update_from_github" do
-    it "updates the repo with the current Github data"
+    it "returns a list of categories" do
+      expect(repo.category_list).to be_present
+      expect(repo.category_list).to be_a String
+      expect(repo.category_list.split(", ")).to match_array([first_category.full_name, second_category.full_name])
+    end
   end
 
-  pending "#assign_languages"
-  pending "#assign_categories"
+  describe "#category_list=" do
+      let!(:category) { Fabricate(:category, full_name: "Testing (Ruby)") }
+
+      it "assigns existing categories when given" do
+        repo.category_list = "Testing (Ruby)"
+        expect(repo.categories).to eq([category])
+      end
+
+      it "creates new categories when nescessary" do
+        repo.category_list = "News (Ruby)"
+        expect(repo.category_list).to eq("News (Ruby)")
+      end
+
+      it "takes a mix of both existing and new categories" do
+        repo.category_list = "Testing (Ruby), News (Ruby)"
+        expect(repo.category_list.split(", ")).to match_array(["Testing (Ruby)", "News (Ruby)"])
+      end
+  end
+
+  describe "#last_updated" do
+    it "returns the time span that has passed since the current github_updated_at" do
+      Timecop.freeze
+      repo.github_updated_at = 1.day.ago
+      expect(repo.last_updated).to eq(1.day)
+      Timecop.return
+    end
+  end
+
+  describe "#github_updated_at" do
+    it "returns the last time the repo was updated on Github" do
+      Timecop.freeze
+      repo.github_updated_at = 1.day.ago
+      expect(repo.github_updated_at).to eq(1.day.ago.utc)
+      expect(repo.github_updated_at).to be_utc
+      Timecop.return
+    end
+
+    it "returns a default fallback of a few years ago" do
+      Timecop.freeze
+      expect(repo.github_updated_at).to eq(2.years.ago.utc)
+      expect(repo.github_updated_at).to be_utc
+      Timecop.return
+    end
+  end
+
+  describe "#update_succeeded!" do
+    before do
+      repo.save
+      @result = repo.update_succeeded!
+    end
+
+    it "flags the repo as successfully updated" do
+      expect(repo).to be_update_success
+    end
+
+    it "returns true" do
+      expect(@result).to be_true
+    end
+  end
+
+  describe "#update_failed!" do
+    context "repo is a new record" do
+      before { @result = repo.update_failed! }
+
+      it "assigns a false value to update_success" do
+        expect(repo).to be_new_record
+        expect(repo).to_not be_update_success
+      end
+
+      it "returns false" do
+        expect(@result).to be_false
+      end
+    end
+
+    context "repo is a persisted record" do
+      before do
+        repo.save
+        @result = repo.update_failed!
+      end
+
+      it "sets the update_success field in the database" do
+        repo.reload
+        expect(repo).to_not be_update_success
+      end
+
+      it "returns false" do
+        expect(@result).to be_false
+      end
+    end
+  end
+
+  describe "#retrieve_from_github" do
+    it "updates the repo with the current Github data" do
+      updater = RepoUpdater.new
+      RepoUpdater.expects(:new).returns(updater)
+      updater.expects(:update).with(repo.full_name)
+
+      repo.retrieve_from_github
+    end
+  end
+
+  describe "#save" do
+    describe "assigns score before save" do
+      before do
+        Timecop.freeze
+        repo.stars = 99
+        repo.staff_pick = true
+        repo.github_updated_at = Time.current
+        repo.save
+        @score = repo.score
+        Timecop.return
+      end
+
+      it "assigns score" do
+        expect(@score).to eq(250)
+      end
+    end
+
+    describe "assigns languages from categories before save" do
+      before do
+        Fabricate(:language, name: "Ruby")
+        Fabricate(:language, name: "Javascript")
+        first_category.save
+        second_category.save
+        repo.categories = [first_category, second_category]
+        repo.save
+      end
+
+      it "assigns languages" do
+        expect(repo.language_list.split(", ")).to match_array(%w(Ruby Javascript))
+      end
+    end
+  end
 end

@@ -31,7 +31,7 @@ extra: !ruby/hash:Hashie::Mash
     received_events_url: https://api.github.com/users/thomasklemm/received_events
     type: User
     name: Thomas Klemm
-    company: ''
+    company: Space Monkeys
     blog:
     location: Berlin, Germany
     email: github@tklemm.eu

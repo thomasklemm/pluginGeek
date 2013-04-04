@@ -3,28 +3,28 @@
 - cache [category, 'partial'] do
 
   / Link Builders
-  - repos_count = category.repo_list.try(:size) || 0
+  - repos_count = category.repo_names.try(:size) || 0
   - category_link = capture do
     = link_to " &raquo;".html_safe, category
   - category_repo_link = capture do
-    '  and #{ repos_count - 3 } more
+    '  and #{ repos_count - 2 } more
     = link_to " &raquo;".html_safe, category
 
   / Category partial in lists
   .category
     / A category's full_name includes 'name (languages)'
-    span.full-name
-      span.name.js-name = link_to category.name, category
+    span.full-name = link_to category do
+      span.name.js-name = category.name
+
+      / Cummulative stars count from Github of all associated repos
+      span.stars <i class="icon-star"></i>#{ number_with_delimiter(category.stars) }
+
+      / Languages
+      span.language-list = category.language_list
+
       / Draft notice
       - if category.draft?
         span.draft Draft
-
-      / Cummulative stars count from Github of all associated repos
-      span.stars
-        i.icon-star
-        = category.stars
-      / Languages
-      span.language-list = category.language_list
 
     / Up to three of the most popular repos
     span.popular-repos

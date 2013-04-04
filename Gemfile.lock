@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/drapergem/draper.git
-  revision: dc430b3e82de0d9cae86f7297f816e5b69d9ca58
+  revision: f9ef1f3a92f25d31a6a976ee42d72dd94d80b89d
   specs:
-    draper (1.1.0)
+    draper (1.2.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0.3)
@@ -57,7 +57,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.3)
     arel (3.0.2)
-    atomic (1.0.2)
+    atomic (1.1.0)
     bcrypt-ruby (3.0.1)
     better_errors (0.7.2)
       coderay (>= 1.0.0)
@@ -109,7 +109,7 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     connection_pool (1.0.0)
-    coveralls (0.6.3)
+    coveralls (0.6.4)
       colorize
       multi_json (~> 1.3)
       rest-client
@@ -124,8 +124,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    diff-lcs (1.2.1)
-    dynamic_form (1.1.4)
+    diff-lcs (1.2.2)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -137,8 +136,8 @@ GEM
     figaro (0.6.3)
       bundler (~> 1.0)
       rails (>= 3, < 5)
-    formtastic (2.2.1)
-      actionpack (>= 3.0)
+    font-awesome-rails (3.0.2.0)
+      railties (>= 3.1)
     friendly_id (4.0.9)
     fssm (0.2.10)
     hashie (1.2.0)
@@ -170,7 +169,7 @@ GEM
     memcachier (0.0.2)
     metaclass (0.0.1)
     method_source (0.8.1)
-    mime-types (1.21)
+    mime-types (1.22)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
     multi_json (1.7.2)
@@ -324,8 +323,6 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.1.0)
-      coffee-rails
     tzinfo (0.3.37)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -364,10 +361,9 @@ DEPENDENCIES
   database_cleaner
   devise
   draper!
-  dynamic_form
   fabrication
   figaro
-  formtastic
+  font-awesome-rails
   friendly_id
   high_voltage
   httpclient
@@ -404,7 +400,6 @@ DEPENDENCIES
   slim-rails
   strong_parameters
   timecop
-  turbolinks
   uglifier
   vcr
   webmock
