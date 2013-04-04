@@ -42,6 +42,46 @@ i
     margin-right: 3px
 
 //
+// forms
+//
+
+form
+  margin-top: 1rem
+
+  input[type="text"], input[type="email"], input[type="search"]
+    width: 100%
+    margin-bottom: 0
+  textarea
+    width: 100%
+    height: 4rem
+    margin-bottom: 0
+  label
+  input[type="checkbox"]
+    margin-right: 5px
+
+  .field
+    margin-bottom: 8px
+    label
+    .hint
+      background: #eee
+      font-size: 14px
+      padding: 1px 6px
+
+  .actions
+
+
+//
+// form error messages
+//
+form
+  .error-messages
+    padding: 0.75rem 1rem
+    background: lighten(#924727, 50%)
+
+    .error-message
+      font-weight: bold
+
+//
 // flash messages
 //
 
@@ -62,3 +102,22 @@ i
       line-height: 0 // adjust height
       font-size: 1.272rem
       color: #999
+
+//
+// spaces
+//
+
+.space-quarter
+  height: 0.25rem
+.space-half
+  height: 0.5rem
+.space-one
+  height: 1rem
+.space-one-and-a-half
+  height: 1.5rem
+.space-two
+  height: 2rem
+.space-two-and-a-half
+  height: 2.5rem
+.space-three
+  height: 3rem

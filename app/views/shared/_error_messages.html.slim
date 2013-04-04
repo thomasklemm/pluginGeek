@@ -1,0 +1,9 @@
+/ shared/_error_messages
+/ render form errors using <%= render 'shared/error_messages', target: @model %>
+- if target.errors.any?
+  .error-messages
+    h3 Not quite yet!
+    div #{ pluralize(target.errors.count, 'error') } needs to be fixed before saving.
+
+    - for message in target.errors.full_messages
+      .error-message = message

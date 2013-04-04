@@ -32,15 +32,23 @@ class Category < ActiveRecord::Base
   # Order categories by score
   scope :order_by_score, order('categories.score DESC')
 
-  # Autocomplete category full_names on repo#edit
-  def self.full_names_for_autocomplete
-    order_by_score.pluck(:full_name).to_json
+  # TODO: Specs
+  def self.ids_and_full_names
+    select([:id, :full_name]).
+      order_by_score
   end
 
-  def self.all_without(category)
-    where('id != ?', category.id).
-      order_by_score.
-      select([:id, :full_name])
+  # TODO: Specs
+  def self.ids_and_full_names_without(repo)
+    where('id != ?', repo.id).
+      ids_and_full_names
+  end
+
+  # Autocomplete repo parents for select2
+  def self.full_names_for_autocomplete
+    order_by_score.
+      pluck(:full_name).
+      to_json
   end
 
   # Assign aggregate stars of repos as category stars

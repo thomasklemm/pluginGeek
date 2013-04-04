@@ -1,28 +1,44 @@
 / links/_form
 = form_for @link do |f|
+  = render 'shared/error_messages', target: @link
 
-  = f.label :title, "Link's title"
-  = f.text_field :title
+  / title
+  .field
+    = f.label :title, "Link's title"
+    = f.text_field :title, autocomplete: 'off'
 
-  = f.label :url, "Link's url"
-  = f.text_field :url
+  / url
+  .field
+    = f.label :url, "Link's url"
+    = f.text_field :url
 
-  = f.label :published_at, "Publication date"
-  = f.date_select :published_at, start_year: Date.current.year, end_year: Date.current.year - 15, discard_day: true, prompt: true
-  .hint We sort links by publication date, therefore this field is required.
+  / published_at
+  .field
+    = f.label :published_at, "Publication date"
+    div = f.date_select :published_at, start_year: Date.current.year, end_year: Date.current.year - 15, discard_day: true, prompt: true
+    .hint We sort links by publication date, therefore this field is required.
+    .hint
+      ' You could
+      = link_to 'open the link in a new tab', @link.url, target: :blank
+      '  to find out.
 
-  .hint = link_to 'You can open this link in a new tab to find out the publication date.', @link.url, target: :blank
+  / repos
+  .field
+    = f.label :repo_ids, "Associated projects"
+    - repo_select_options = options_from_collection_for_select(Repo.ids_and_full_names, :id, :full_name, @link.repo_ids)
+    = f.select(:repo_ids, repo_select_options, {}, { include_blank: true, multiple: true })
+    .hint The link will automatically be associated with each repo's categories. Save to see results below.
 
-  = f.label :repo_ids, "Associated projects"
-  - repo_select_options = options_from_collection_for_select(Repo.order_by_score, :id, :full_name, @link.repo_ids)
-  = f.select(:repo_ids, repo_select_options, {}, { include_blank: true, multiple: true })
-  .hint The link will automatically be associated with the repos' categories. Save to see results below.
+  / categories
+  .field
+    = f.label :category_ids, "Associated categories"
+    - category_select_options = options_from_collection_for_select(Category.ids_and_full_names, :id, :full_name, @link.category_ids)
+    = f.select(:category_ids, category_select_options, {}, { multiple: true })
+    .hint See hint above. :-D
 
-  = f.label :category_ids, "Associated categories"
-  - category_select_options = options_from_collection_for_select(Category.order_by_score, :id, :full_name, @link.category_ids)
-  = f.select(:category_ids, category_select_options, {}, { multiple: true })
-
-  = f.submit class: 'medium button'
+  / submit button
+  .actions
+    = f.submit class: 'button'
 
 / Repos and categories associations
 / improved by select2

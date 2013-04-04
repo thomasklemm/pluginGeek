@@ -1,53 +1,22 @@
 / categories/edit
-.edit-category-container
-  = render 'categories/category_details'
+= render 'categories/category_details'
+= render 'form'
 
-  = form_for @category do |f|
-    / full_name (including languages, e.g. "ActiveRecord Tagging (Ruby/Javascript)"")
-    - if staff?
-      = f.label :full_name, "Name and languages (staff)"
-      = f.text_field :full_name, autocomplete: 'off'
-      p ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby)
+/ destroy button
+- if policy(@category).destroy?
+  = link_to "<i class='icon-remove-sign'></i>Destroy category".html_safe, category_path(@category), method: :delete, confirm: 'Are you sure?', class: 'danger button'
 
-    / description for category, rendered in overviews and details views and is being searched
-    = f.label :description, "How would you describe these repos?"
-    = f.text_area :description, placeholder: "What do these repos help people with?"
+/ descriptions of associated repos, as a guide for writing
+.descriptions-of-repos
+  p Some inspiration for the description of use? Here are the repos' descriptions.
 
-    / related categories
-    - if staff?
-      = f.label :related_category_ids, "Related categories (staff)"
-      = f.collection_select :related_category_ids, Category.all_without(@category), :id, :full_name, {}, { multiple: true }
-      p Are there any related categories? If an existing relationship does not show here, please check on the other side of the relationship.
-
-    / draft vs. published status
-    - if staff?
-      = f.check_box :draft
-      = f.label :draft, "Draft mode (staff)"
-
-    / submit button
-    = f.submit "Update category", class: 'button'
-
-  / destroy button
-  - if policy(@category).destroy?
-    = link_to "<i class='icon-remove-sign'></i>Destroy category".html_safe, category_path(@category), method: :delete, confirm: 'Are you sure?', class: 'danger button'
-
-  / descriptions of associated repos, as a guide for writing
-  .descriptions-of-repos
-    p Some inspiration for the description of use? Here are the repos' descriptions.
-
-    table
-      tr
-        th Name
-        th Score
-        th Description
-      - for repo in @category.repos
-        tr.repo
-          td.name = repo.name
-          td.score = repo.score
-          td.description = repo.description
-
-/ multiple select for the related categories with select2
-javascript:
-  $('#category_related_category_ids').select2({
-    placeholder: "Related categories"
-  })
+  table
+    tr
+      th Name
+      th Score
+      th Description
+    - for repo in @category.repos
+      tr.repo
+        td.name = repo.name
+        td.score = repo.score
+        td.description = repo.description

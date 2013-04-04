@@ -37,14 +37,16 @@ class Repo < ActiveRecord::Base
   # Order repos by score
   scope :order_by_score, order('repos.score DESC')
 
-  # Select all repos without the given one,
-  # in order to prevent people from setting parents to self
-  # TODO: Prevent in a more sophisticated way, maybe while assigning
-  # or check what happens then
-  def self.all_without(repo)
+  # TODO: Specs
+  def self.ids_and_full_names
+    select([:id, :full_name]).
+      order_by_score
+  end
+
+  # TODO: Specs
+  def self.ids_and_full_names_without(repo)
     where('id != ?', repo.id).
-      order_by_score.
-      select([:id, :full_name])
+      ids_and_full_names
   end
 
   # Callbacks

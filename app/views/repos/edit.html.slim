@@ -1,55 +1,8 @@
 / repos/edit
-.edit-repo-container
-  = render 'repos/repo_details'
+= render 'repos/repo_details'
+= render 'form'
 
-  = form_for @repo do |f|
-    / full_name
-    - if staff?
-      = f.label :full_name, "Owner and name (full_name, for staff)"
-      = f.text_field :full_name, autocomplete: 'off'
+/ destroy button
+- if policy(@repo).destroy?
+  = link_to 'Destroy repo', repo_path(@repo), method: :delete, confirm: 'Are you sure?', class: 'danger button'
 
-    / staff pick
-    - if staff?
-      = f.check_box :staff_pick
-      = f.label :staff_pick, "Staff pick"
-
-    / category list
-    = f.label :category_list, 'Categories'
-    = f.text_field :category_list, placeholder: 'Categories'
-    p E.g. Tagging (Ruby). Add new categories at will, please give them a concise description afterwards.
-
-    / parents
-    / to input parent/child relationships
-    = f.label :parent_ids, 'Parents'
-    = f.collection_select :parent_ids, Repo.all_without(@repo), :id, :full_name, {}, { multiple: true }
-    p Is #{ @repo.full_name } based further open-source projects?
-
-    / github_description
-    = label_tag 'Description from Github'
-    p = @repo.github_description
-
-    / description (will be prefered over the github_description)
-    = f.label :description, 'Custom description'
-    = f.text_area :description, placeholder: 'The custom description will be prefered over the description of the project fetched from Github. Keep it short and concise.'
-
-    / submit button
-    = f.submit "Update repo", class: 'button'
-
-  / destroy button
-  - if policy(@repo).destroy?
-    = link_to 'Destroy repo', repo_path(@repo), method: :delete, confirm: 'Are you sure?', class: 'danger button'
-
-/ Javascripts to initialize select2 input enhancements on this page
-/
-/ Autocomplete the category names input
-- category_full_names = Category.full_names_for_autocomplete.html_safe
-javascript:
-  $('#repo_category_list').select2({
-    tags: #{ category_full_names }
-  });
-
-/ Multiple select on the parents_list
-javascript:
-  $('#repo_parent_ids').select2({
-    placeholder: "Parents"
-  });
