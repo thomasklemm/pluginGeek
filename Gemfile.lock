@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/drapergem/draper.git
-  revision: c0837b390fbf038c93999150135b29ea95d3c71d
+  revision: f9ef1f3a92f25d31a6a976ee42d72dd94d80b89d
   specs:
     draper (1.2.0)
       actionpack (>= 3.0)
@@ -57,7 +57,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.3)
     arel (3.0.2)
-    atomic (1.0.2)
+    atomic (1.1.0)
     bcrypt-ruby (3.0.1)
     better_errors (0.7.2)
       coderay (>= 1.0.0)

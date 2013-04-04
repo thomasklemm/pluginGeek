@@ -8,30 +8,57 @@ describe RepoUpdater do
 
   describe "#update" do
     context "given a valid repo's full_name" do
-      let(:repo) { Fabricate(:repo, full_name: 'rails/rails') }
+      context "saves successfully" do
+        let(:repo) { Fabricate(:repo, full_name: 'rails/rails') }
 
-      before do
-        VCR.use_cassette('github/repos/rails', record: :new_episodes) do
-          @result = updater.update(repo.full_name)
+        before do
+          VCR.use_cassette('github/repos/rails', record: :new_episodes) do
+            @result = updater.update(repo.full_name)
+          end
+        end
+
+        it "updates the repo's fields from Github" do
+          repo.reload
+          expect(repo.name).to  be_present
+          expect(repo.owner).to be_present
+          expect(repo.github_description).to be_present
+          expect(repo.stars).to_not be_zero
+          expect(repo.homepage_url).to   be_present
+          expect(repo.github_updated_at).to be_present
+        end
+
+        it "marks the repo as successfully updated" do
+          repo.reload
+          expect(repo).to be_update_success
+        end
+
+        it "returns true" do
+          expect(@result).to be_true
         end
       end
 
-      it "updates the repo's fields from Github" do
-        repo.reload
-        expect(repo.name).to  be_present
-        expect(repo.owner).to be_present
-        expect(repo.github_description).to be_present
-        expect(repo.stars).to_not be_zero
-        expect(repo.homepage_url).to   be_present
-        expect(repo.github_updated_at).to be_present
-      end
+      context "fails to save" do
+        let(:repo) { Fabricate.build(:repo, full_name: 'rails/rails') }
 
-      it "marks the repo as successfully updated" do
-        expect(repo.reload.update_success).to be_true
-      end
+        before do
+          VCR.use_cassette('github/repos/rails_failing_to_save', record: :new_episodes) do
+            relation = mock
+            Repo.expects(:where).returns(relation)
+            relation.expects(:first_or_initialize).returns(repo)
+            repo.expects(:update_repo_from_github).returns(false)
 
-      it "returns true" do
-        expect(@result).to be_true
+            @result = updater.update(repo.full_name)
+          end
+        end
+
+        it "marks the repo as not successfully updated" do
+          expect { repo.reload }.to raise_error
+          expect(repo).to_not be_update_success
+        end
+
+        it "returns false" do
+          expect(@result).to be_false
+        end
       end
     end
 
@@ -48,7 +75,7 @@ describe RepoUpdater do
         it "marks the repo as update failed" do
           repo.reload
           expect(repo).to be_persisted
-          expect(repo.update_success).to be_false
+          expect(repo).to_not be_update_success
         end
 
         it "returns false" do

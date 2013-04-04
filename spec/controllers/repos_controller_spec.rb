@@ -167,14 +167,25 @@ describe ReposController, "POST #create" do
     context "with valid repo full_name" do
       before do
         VCR.use_cassette('github/repos/rails', record: :new_episodes) do
-          post :create, repo: { owner: 'rails', name: 'rails' }
+          repo = Fabricate.build(:repo, full_name: 'rails/rails')
+          Repo.expects(:new).returns(repo).twice
+
+          post :create, owner: 'rails', name: 'rails'
         end
       end
 
       it { should authorize_resource }
       it { should set_the_flash.to('Repo has been added.') }
 
-      pending "saves the repo in the database"
+      it "retrieves the repo's fields from Github" do
+        expect(assigns(:repo).github_description).to be_present
+        expect(assigns(:repo).stars).to_not be_zero
+        expect(assigns(:repo)).to be_update_success
+      end
+
+      it "saves the repo in the database" do
+        expect(assigns(:repo)).to be_persisted
+      end
 
       it "redirects to the repo" do
         expect(response).to redirect_to(repo_path(assigns(:repo)))

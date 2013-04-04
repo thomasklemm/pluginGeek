@@ -34,7 +34,19 @@ describe Category do
     expect(category.to_param).to eq(category.full_name.parameterize)
   end
 
-  it "preserves a history of slugs"
+  it "preserves a history of slugs" do
+    category.full_name = "Old name (Ruby)"
+    category.save
+    old_slug = category.slug
+
+    category.full_name = "New name (Ruby)"
+    category.save
+    new_slug = category.slug
+
+    expect(new_slug).to_not eq(old_slug)
+    expect(Category.find(old_slug)).to eq(category)
+    expect(Category.find(new_slug)).to eq(category)
+  end
 
   it { should have_many(:categorizations).dependent(:destroy) }
   it { should have_many(:repos).through(:categorizations) }
@@ -66,7 +78,7 @@ describe Category do
   end
 
   describe "#save" do
-    let(:category) { Fabricate(:category, full_name: "Category (Ruby/Javascript)") }
+    let(:category) { Fabricate(:category, full_name: "Category (Ruby/UnknownLanguage)") }
     let(:repo)     { Fabricate(:repo, stars: 100, score: 200) }
 
     before do
@@ -84,8 +96,28 @@ describe Category do
       expect(category.score).to eq(repo.score)
     end
 
-    it "assigns languages from full_name" do
+    it "assigns known languages from full_name" do
       expect(category.languages.map(&:name)).to match_array %w(Ruby)
+    end
+  end
+
+  describe "#assign_languages before saving" do
+    before do
+      web = Fabricate(:language, name: 'Web')
+      Fabricate(:language, name: 'Ruby', parent: web )
+
+      mobile = Fabricate(:language, name: 'Mobile')
+      Fabricate(:language, name: 'iOS', parent: mobile)
+    end
+
+    let!(:category) { Fabricate(:category, full_name: "Category(Web/Mobile)") }
+
+    it "assigns additional web languages if language 'Web' is assigned" do
+      expect(category.languages.map(&:name)).to include('Ruby')
+    end
+
+    it "assigns additional mobile languages if language 'Mobile' is assigned" do
+      expect(category.languages.map(&:name)).to include('iOS')
     end
   end
 
