@@ -10,12 +10,9 @@
 
   // links
   a.login, a.logout, .brand a
-    background: darken(#2980B9, 8%)
-    padding: 20px 20px
-
     color: #f9f9f9
     &:hover
-      background: darken(#2980B9, 12%)
+      text-decoration: underline
 
   // brand
   .brand
@@ -24,7 +21,8 @@
     font-weight: 600
     text-rendering: optimizeLegibility
     a
-      margin-right: 20px
+      padding: 1rem
+      margin-left: -1rem
 
   // friendly greeting
   .happy-day
@@ -43,6 +41,10 @@
       .name
         margin-left: 0.5rem
       .logout
-        margin-left: 20px
     .user-signed-out
       .login
+
+  // login / logout padding
+  a.login, a.logout
+    padding: 1rem
+    margin-right: -1rem

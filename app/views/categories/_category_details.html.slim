@@ -7,21 +7,16 @@
   span.details
     / Draft notice
     - if @category.draft?
-      span.draft <i class='icon-edit'></i>Draft
+      span.draft = icon_tag(:edit, "Draft")
 
     / Languages, seperated by a comma
     span.language-list = @category.language_list
 
     / Cummulative stars of all associated Github repos
-    span.stars
-      i.icon-star
-      = number_with_delimiter(@category.stars)
+    span.stars = @category.stars
 
-
-    span.edit-link = link_to edit_category_path(@category) do
-      i.icon-check
-      | Edit
+    span.edit-link = link_to icon_tag(:check, "Edit"), edit_category_path(@category)
 
   / Up to 360 characters describing the purpose of this category
   / or summing up the repos use cases among others
-  span.description == @category.description || "<em>Please add a description for this project.</em>".html_safe
+  span.description = @category.description || "<em>Please add a description for this project.</em>".html_safe

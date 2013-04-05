@@ -39,4 +39,4 @@
 
   / Delete link
   - if policy(@link).destroy?
-    = link_to "<i class='icon-remove-circle'></i>Destroy this link".html_safe, @link, method: :delete, confirm: 'Are you sure?'
+    = link_to icon_tag('remove-circle', 'Destroy this link'), @link, method: :delete, confirm: 'Are you sure?'

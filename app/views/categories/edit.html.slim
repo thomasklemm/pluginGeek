@@ -4,7 +4,7 @@
 
 / destroy button
 - if policy(@category).destroy?
-  = link_to "<i class='icon-remove-sign'></i>Destroy category".html_safe, category_path(@category), method: :delete, confirm: 'Are you sure?', class: 'danger button'
+  = link_to icon_tag('remove-sign', 'Destroy category'), category_path(@category), method: :delete, confirm: 'Are you sure?', class: 'danger button'
 
 / descriptions of associated repos, as a guide for writing
 .descriptions-of-repos

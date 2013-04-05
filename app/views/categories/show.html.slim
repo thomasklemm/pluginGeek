@@ -5,10 +5,6 @@
 
   / Repos in a list.js list
   #js-repos-list
-    / Sort options and buttons for repos
-    / - if @repos.try(:size) >= 8
-    /   = render 'repos/sort_repos'
-
     - if @repos.any?
       .repos-wrapper.list
         = render partial: 'repos/repo', collection: @repos
@@ -33,7 +29,7 @@
   / including the links associated with one of the category's repos
   .section-header
     span.primary Around the web
-    span = link_to '<i class="icon-plus"></i>Add'.html_safe, 'javascript:;'
+    span = link_to icon_tag(:plus, 'Add'), 'javascript:;'
 
   - if @category.extended_links.any?
     .links-wrapper

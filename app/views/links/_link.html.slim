@@ -10,5 +10,4 @@
   span.date = link.published_at.strftime("%B %Y")
 
   / edit link
-  span.edit-link = link_to edit_link_path(link) do
-    i.icon-edit
+  span.edit-link = link_to icon_tag(:edit), edit_link_path(link)

@@ -31,7 +31,7 @@ feature "Categories#index" do
       expect(current_path).to eq("/#{language.slug}")
 
       expect(page).to have_content(category.full_name)
-      expect(page).to have_content(repo.full_name)
+      expect(page).to have_content(repo.name)
       expect(page).to have_content(language.name)
     end
   end

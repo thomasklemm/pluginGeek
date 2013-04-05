@@ -2,25 +2,23 @@
 .repo-details
   / name and owner
   span.name-and-owner = link_to @repo.github_url do
-    i.icon-github
-    span.name  = @repo.name
+    = icon_tag(:github)
+    span.name = @repo.name
     span.owner  by #{ @repo.owner }
 
   span.details
     / stars
-    span.stars <i class='icon-star'></i>#{ number_with_delimiter(@repo.stars) }
+    span.stars = @repo.stars
 
     / github star button
     iframe.star-on-github-link src="http://ghbtns.com/github-btn.html?user=#{ @repo.owner }&repo=#{ @repo.name }&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="54" height="20"
 
     / Is the repo a staff pick?
     - if @repo.staff_pick?
-      span.staff-pick <i class='icon-star'></i>Staff pick
+      span.staff-pick = icon_tag(:star, "Staff pick")
 
     / edit repo
-    span.edit-link = link_to edit_repo_path(@repo) do
-      i.icon-check
-      | Edit
+    span.edit-link = link_to icon_tag(:check, "Edit"), edit_repo_path(@repo)
 
   / custom description or Github description
   span.description = @repo.description
@@ -30,6 +28,6 @@
 
   / activity
   span.activity class=@repo.activity_class
-    i.icon-leaf
+    = icon_tag(:leaf)
     ' Updated
     abbr.timeago title=@repo.timestamp = @repo.written_timestamp

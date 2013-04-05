@@ -7,7 +7,7 @@
       span.owner.js-owner  by #{ repo.owner }
 
       / Github star count to help evaluate awesomeness quickly
-      span.stars <i class='icon-star'></i>#{ number_with_delimiter(repo.stars) }
+      span.stars = repo.stars
 
       / Most recent activity timestamp on the repo
       / .js-timestamp for list.js is rendered seperately below
@@ -16,7 +16,7 @@
 
       / Is the repo a staff pick?
       - if repo.staff_pick?
-        span.staff-pick <i class='icon-star'></i>Staff pick
+        span.staff-pick = icon_tag(:star, 'Staff pick')
 
     / Custom description or Github one
     span.description.js-description = repo.description
