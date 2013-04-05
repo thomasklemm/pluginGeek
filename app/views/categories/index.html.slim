@@ -11,8 +11,11 @@
       / Instant client-side searching via list.js
       input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
 
-      / Sort buttons for categories
-      = render 'categories/sort_categories'
+      / Sort categories in list.js
+      .sort-list
+        = link_to 'Sort by Name', 'javascript:;', class: 'sort active', :'data-sort' => 'js-name'
+        span.divider
+        = link_to 'Sort by Score', 'javascript:;', class: 'sort', :'data-sort' => 'js-score'
 
     / List for list.js
     .categories-wrapper.list data-page=50

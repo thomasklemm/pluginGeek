@@ -5,10 +5,6 @@
 
   / Repos in a list.js list
   #js-repos-list
-    / Sort options and buttons for repos
-    / - if @repos.try(:size) >= 8
-    /   = render 'repos/sort_repos'
-
     - if @repos.any?
       .repos-wrapper.list
         = render partial: 'repos/repo', collection: @repos
@@ -22,7 +18,7 @@
   / similar categories
   - if @category.similar_categories.any?
     .section-header
-      span.primary Similar categories
+      span.primary Related categories
 
     .categories-wrapper
       = render partial: 'categories/category', collection: @category.similar_categories
