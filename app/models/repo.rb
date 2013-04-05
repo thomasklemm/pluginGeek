@@ -65,8 +65,9 @@ class Repo < ActiveRecord::Base
 
   # Retrieve record from Github if the full name changed
   # to handle renaming of repos and movements between owners
-  # TODO: Do this in a write accessor, otherwise repo will be retrieved twice when adding.
-  # after_save :retrieve_from_github, if: :full_name_changed?
+  after_save :retrieve_from_github,
+    on: :update,
+    if: :full_name_changed?
 
   # Defaults
   def stars

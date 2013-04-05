@@ -34,6 +34,7 @@ class ReposController < ApplicationController
   def update
     authorize @repo
 
+    # TODO: Add specs for full_name_changed case
     if @repo.update_attributes(repo_params)
       redirect_to repo_path(@repo), notice: 'Repo has been updated.'
     else
@@ -52,7 +53,7 @@ class ReposController < ApplicationController
 
   # GET /repos/:owner/:name
   def full_name
-    full_name_from_params || owner_and_name_from_params
+    owner_and_name_from_params || full_name_from_params
   end
 
   def full_name_from_params
