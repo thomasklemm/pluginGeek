@@ -19,10 +19,10 @@
         span.draft Draft
 
     / Up to three of the most popular repos
-    span.popular-repos
+    span.popular-repos = link_to category do
       span.repos.js-repos = category.popular_repo_names
-      / Deeplink into category to see more repos
-      = category.deep_link
+      / Additional link text, i.e. ">>" or " and 5 more repos >>"
+      span.show-repos = category.show_repos_link_text
 
     / Description, either a custom one, or the one from Github
     span.description.js-description = category.description

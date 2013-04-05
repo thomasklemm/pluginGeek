@@ -35,18 +35,12 @@ class CategoryDecorator < Draper::Decorator
     (names.presence && names.join(", ")) || ""
   end
 
-  #TODO: Specs
-  def deep_link
-    repo_names.size > 3 ? deep_link_with_count : deep_link_without_count
-  end
-
-  private
-
-  def deep_link_with_count
-    h.link_to " and #{ further_repo_names.count } more &raquo;".html_safe, self
-  end
-
-  def deep_link_without_count
-    h.link_to " &raquo;".html_safe, self
+  # TODO: Specs
+  def show_repos_link_text
+    if repo_names.size > 3
+      " and #{ repo_names.size - 2 } more &raquo;".html_safe
+    else
+      " &raquo;".html_safe
+    end
   end
 end
