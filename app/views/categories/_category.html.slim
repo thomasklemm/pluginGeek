@@ -17,7 +17,7 @@
       span.name.js-name = category.name
 
       / Cummulative stars count from Github of all associated repos
-      span.stars <i class="icon-star"></i>#{ number_with_delimiter(category.stars) }
+      span.stars = category.stars
 
       / Languages
       span.language-list = category.language_list
@@ -30,10 +30,10 @@
     span.popular-repos
       span.repos.js-repos = category.popular_repo_names
       / Deeplink into category to see more repos
-      == (repos_count > 3) ? category_repo_link : category_link
+      = (repos_count > 3) ? category_repo_link : category_link
 
     / Description, either a custom one, or the one from Github
-    span.description.js-description == category.description
+    span.description.js-description = category.description
 
     / Hidden statistics that can be searched and sorted with list.js nonetheless
     span.js-further-repos style='display: none' = category.further_repo_names

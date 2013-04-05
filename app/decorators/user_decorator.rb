@@ -6,27 +6,27 @@ class UserDecorator < Draper::Decorator
     "https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png"
 
   def name
-    model[:name].presence || login
+    model.name.presence || login
   end
 
   def email
-    model[:email].presence || ""
+    model.email.presence || ""
   end
 
   def company
-    model[:company].presence || ""
+    model.company.presence || ""
   end
 
   def location
-    model[:location].presence || ""
+    model.location.presence || ""
   end
 
   def followers
-    model[:followers].presence || 0
+    model.followers.presence || 0
   end
 
   def avatar_url
-    model[:avatar_url].presence || DEFAULT_AVATAR_URL
+    model.avatar_url.presence || DEFAULT_AVATAR_URL
   end
 
   def github_url

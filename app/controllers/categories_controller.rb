@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   # GET '/:language'
   def index
     @language = Language.find(params[:language]).decorate
-    @categories = @language.categories
+    @categories = @language.categories.sort_by(&:full_name)
   end
 
   def show

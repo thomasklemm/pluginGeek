@@ -34,8 +34,14 @@ class Repo < ActiveRecord::Base
   # that truncates descriptions would be worthwile
   validates :description, length: {maximum: 360}
 
-  # Order repos by score
-  scope :order_by_score, order('repos.score DESC')
+  # Named scopes
+  def self.order_by_score
+    order('repos.score DESC')
+  end
+
+  def self.order_by_name
+    order('repos.full_name DESC')
+  end
 
   # TODO: Specs
   def self.ids_and_full_names

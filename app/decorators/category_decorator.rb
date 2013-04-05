@@ -6,19 +6,22 @@ class CategoryDecorator < Draper::Decorator
   decorates_association :extended_links
 
   def description
-    model[:description].presence || ""
+    description = model.description.presence || ""
+    h.word_wrap(description)
   end
 
   def stars
-    model[:stars].presence || 0
+    stars = model.stars.presence || 0
+    text = h.number_with_delimiter(stars)
+    h.icon_tag(:star, text)
   end
 
   def score
-    model[:score].presence || 0
+    model.score.presence || 0
   end
 
   def repo_names
-    list = model[:repo_list]
+    list = model.repo_list
     (list.presence && list.split(", ")) || []
   end
 

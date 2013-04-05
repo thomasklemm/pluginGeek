@@ -29,8 +29,14 @@ class Category < ActiveRecord::Base
   validates :full_name, presence: true
   validates :description, length: {maximum: 360}
 
-  # Order categories by score
-  scope :order_by_score, order('categories.score DESC')
+  # Scopes
+  def self.order_by_score
+    order('categories.score DESC')
+  end
+
+  def self.order_by_name
+    order('categories.full_name DESC')
+  end
 
   # TODO: Specs
   def self.ids_and_full_names
@@ -186,7 +192,7 @@ class Category < ActiveRecord::Base
   end
 
   def cache_repo_list
-    self.repo_list = repos.map(&:full_name).join(', ')
+    self.repo_list = repos.map(&:name).join(', ')
   end
 
   # Cache only Web and Mobile if those main languages are present, don't display any sublanguages then

@@ -7,7 +7,7 @@
   / categories
   .section-header
     span.primary Categories
-    span = link_to '<i class="icon-plus"></i>Add'.html_safe, 'javascript:;'
+    span = link_to icon_tag(:add, 'Add'), edit_repo_path(@repo)
 
   - if @repo.categories.any?
     .categories-wrapper
@@ -28,7 +28,7 @@
   / links
   .section-header
     span.primary Around the web
-    span = link_to '<i class="icon-plus"></i>Add'.html_safe, 'javascript:;'
+    span = link_to icon_tag(:plus, 'Add'), 'javascript:;'
 
   - if @repo.links.any?
     .links-wrapper

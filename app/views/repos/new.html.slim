@@ -2,7 +2,7 @@
 .add-repo-wrapper
   / Name and Owner
   span.name-and-owner = link_to @repo.github_url do
-    i.icon-github
+    = icon_tag(:github)
     span.name  = @repo.name
     span.owner  by #{ @repo.owner }
 

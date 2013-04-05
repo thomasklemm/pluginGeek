@@ -7,9 +7,7 @@
     span.owner by #{ repo.owner }
 
   / Github stars counter
-  span.stars
-    i.icon-star
-    = repo.stars
+  span.stars = repo.stars
 
   / Custom or Github description
   span.description = repo.description
@@ -18,7 +16,7 @@
   span.homepage-link = link_to repo.homepage_url, repo.homepage_url
 
   span.activity class=repo.activity_class
-    i.icon-leaf
+    = icon_tag(:leaf)
     abbr.timeago title=repo.timestamp = repo.written_timestamp
 
 
