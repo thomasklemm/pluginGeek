@@ -155,6 +155,7 @@ class Repo < ActiveRecord::Base
   # Assign updated fields from Git
   def update_repo_from_github(github)
     assign_fields_from_github(github)
+    self.update_success = true
     self.save
   end
 
