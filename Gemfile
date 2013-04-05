@@ -54,7 +54,7 @@ gem 'intercom-rails', '~> 0.2.14'
 gem 'rack-timeout'
 
 # Draper (Decorators)
-gem 'draper', github: 'drapergem/draper'
+gem 'draper'
 
 # Strong parameters (Form parameter filtering)
 gem 'strong_parameters'

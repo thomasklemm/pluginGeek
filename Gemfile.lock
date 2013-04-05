@@ -7,15 +7,6 @@ GIT
       rake (>= 0.8.7)
 
 GIT
-  remote: git://github.com/drapergem/draper.git
-  revision: f9ef1f3a92f25d31a6a976ee42d72dd94d80b89d
-  specs:
-    draper (1.2.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      request_store (~> 1.0.3)
-
-GIT
   remote: git://github.com/getsentry/raven-ruby.git
   revision: ead49c8d8a6ff99260827f9267bd3bda33a5993e
   specs:
@@ -59,7 +50,7 @@ GEM
     arel (3.0.2)
     atomic (1.1.0)
     bcrypt-ruby (3.0.1)
-    better_errors (0.7.2)
+    better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.1)
@@ -125,6 +116,10 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.2)
+    draper (1.2.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0.3)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -174,7 +169,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.7.2)
     multipart-post (1.2.0)
-    neat (1.2.0)
+    neat (1.2.1)
       bourbon (>= 2.1)
       sass (>= 3.2)
     newrelic_rpm (3.6.0.78)
@@ -280,9 +275,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    shoulda-matchers (1.5.6)
+    shoulda-matchers (2.0.0)
       activesupport (>= 3.0.0)
-      bourne (~> 1.3)
     sidekiq (2.9.0)
       celluloid (~> 0.12.0)
       connection_pool (~> 1.0)
@@ -360,7 +354,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   devise
-  draper!
+  draper
   fabrication
   figaro
   font-awesome-rails

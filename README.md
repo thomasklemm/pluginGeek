@@ -1,5 +1,5 @@
 # pluginGeek [ ![Code Climate](https://codeclimate.com/github/thomasklemm/pluginGeek.png)](https://codeclimate.com/github/thomasklemm/pluginGeek)[ ![Coverage Status](https://coveralls.io/repos/thomasklemm/pluginGeek/badge.png?branch=master)](https://coveralls.io/r/thomasklemm/pluginGeek)
-[ ![Codeship Status for thomasklemm/pluginGeek](https://www.codeship.io/projects/6959eef0-7f57-0130-2f2c-12313d1a025f/status?branch=master)](https://www.codeship.io/projects/2354)
+
 [pluginGeek](http://www.plugingeek.com) is your web development toolbox, reimagined.
 
 ### Why?
