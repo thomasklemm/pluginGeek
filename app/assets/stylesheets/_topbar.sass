@@ -9,7 +9,7 @@
     font-size: 14px
 
   // links
-  a.login, a.logout, .brand a
+  a.login, a.logout, .brand a, a#Intercom
     color: #f9f9f9
     &:hover
       text-decoration: underline
@@ -40,6 +40,9 @@
         vertical-align: middle
       .name
         margin-left: 0.5rem
+      .intercom
+        margin-left: 1.25rem
+        margin-right: 0.25rem
       .logout
     .user-signed-out
       .login
@@ -48,3 +51,16 @@
   a.login, a.logout
     padding: 1rem
     margin-right: -1rem
+
+  // intercom messages
+  .intercom
+    // new messages in inbox count
+    em
+      padding: 11px 10px 12px
+      background: #fff
+      color: #900 !important
+      &:after
+        content: "\a0 new"
+      // position: relative
+      // left: -5px
+      // top: -5px

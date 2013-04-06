@@ -17,6 +17,10 @@
           = image_tag(current_user.avatar_url, class: 'avatar', width: '32px', height: '32px')
           / name or login
           span.name = current_user.name
+          / intercom messages
+          span.intercom
+            = icon_tag('envelope-alt')
+            a#Intercom Messages
           / logout link
           = link_to 'Logout', logout_path, method: :delete, class: 'logout'
 
