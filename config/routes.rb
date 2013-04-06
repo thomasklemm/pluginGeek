@@ -20,7 +20,9 @@ Plugingeek::Application.routes.draw do
   resources :links, except: :show
 
   # Categories
-  resources :categories, only: [:show, :edit, :update, :destroy]
+  resources :categories, only: [:show, :edit, :update, :destroy] do
+    put 'refresh', on: :member
+  end
 
   get ':language' => 'categories#index', as: :categories,
     constraints: { language: /#{ Language::All.join('|') }/i }
@@ -39,12 +41,15 @@ Plugingeek::Application.routes.draw do
       get ':owner/:name/edit' => 'repos#edit'
       put ':owner/:name' => 'repos#update'
       delete ':owner/:name' => 'repos#destroy'
+      put ':owner/:name/refresh' => 'repos#refresh'
     end
   end
 
   # Routes for generating urls with friendly_id
   # plus new and create paths on repos resource
-  resources :repos, only: [:show, :new, :create, :edit]
+  resources :repos, only: [:show, :new, :create, :edit] do
+    put 'refresh', on: :member
+  end
 
   # Authorize Blitz.io load testing
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#authorize_load_testing'

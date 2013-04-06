@@ -1,7 +1,7 @@
 class ReposController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :load_repo,          only: [:edit, :update, :destroy]
-  after_filter :verify_authorized,   only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :refresh]
+  before_filter :load_repo,          only: [:edit, :update, :destroy, :refresh]
+  after_filter :verify_authorized,   only: [:edit, :update, :destroy, :refresh]
 
   # GET /repos/:owner/:name
   def show
@@ -36,6 +36,7 @@ class ReposController < ApplicationController
 
     # TODO: Add specs for full_name_changed case
     if @repo.update_attributes(repo_params)
+      @repo.retrieve_from_github if @repo.full_name_changed?
       redirect_to repo_path(@repo), notice: 'Repo has been updated.'
     else
       render action: :edit
@@ -47,6 +48,15 @@ class ReposController < ApplicationController
 
     @repo.destroy
     redirect_to root_path, notice: 'Repo has been destroyed.'
+  end
+
+  # TODO: Specs
+  def refresh
+    authorize @repo, :staff_action?
+
+    @repo.retrieve_from_github
+    @repo.touch
+    redirect_to repo_path(@repo), notice: 'Category has been refreshed.'
   end
 
   private

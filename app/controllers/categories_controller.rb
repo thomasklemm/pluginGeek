@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
-  before_filter :authenticate_user!, only: [:edit, :update, :destroy]
-  before_filter :load_category_and_repos, only: [:show, :edit, :update, :destroy]
-  after_filter :verify_authorized, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:edit, :update, :destroy, :refresh]
+  before_filter :load_category_and_repos, only: [:show, :edit, :update, :destroy, :refresh]
+  after_filter :verify_authorized, only: [:edit, :update, :destroy, :refresh]
 
   # GET '/:language'
   def index
@@ -32,6 +32,14 @@ class CategoriesController < ApplicationController
 
     @category.destroy
     redirect_to root_path, notice: 'Category has been destroyed.'
+  end
+
+  # TODO: Specs
+  def refresh
+    authorize @category, :staff_action?
+
+    @category.touch
+    redirect_to @category, notice: 'Category has been refreshed.'
   end
 
   private
