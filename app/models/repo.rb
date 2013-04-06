@@ -63,12 +63,6 @@ class Repo < ActiveRecord::Base
   # Calculate a repo's score on each save
   before_save :assign_score
 
-  # Retrieve record from Github if the full name changed
-  # to handle renaming of repos and movements between owners
-  after_save :retrieve_from_github,
-    on: :update,
-    if: :full_name_changed?
-
   # Defaults
   def stars
     self[:stars] || 0

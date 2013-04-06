@@ -25,25 +25,26 @@ Plugingeek::Application.routes.draw do
   get ':language' => 'categories#index', as: :categories,
     constraints: { language: /#{ Language::All.join('|') }/i }
 
-  # language shortcut redirection
+  # Language shortcut redirection
   get 'js' => redirect('/javascript')
 
   # Repos
-  # TODO: Rework these routes
-  #   Note: Routes for generating url differ from routes reading url, some duplication here
-  #   Cause: FriendlyId uses /repos/:id to generate route when using link_to
-  #     while matching incoming requests is being done through seperate routes
-  #     (as friendly_id contains slashes)
-  resources :repos, only: [:show, :new, :create, :edit] do
-    collection do
-      constraints name: %r{[^\/]+(?=\.html\z)|[^\/]+} do
-        get    ':owner/:name'      => 'repos#show'
-        get    ':owner/:name/edit' => 'repos#edit'
-        put    ':owner/:name'      => 'repos#update'
-        delete ':owner/:name'      => 'repos#destroy'
-      end
+  # split into routes for generating urls and matching requests
+  # to allow for ':owner/:name' path segments.
+
+  # Routes for matching the incoming requests and routing them
+  scope :repos, path: 'repos' do
+    constraints(owner: /[^\/]+/, name: /[^\/]+/) do
+      get ':owner/:name' => 'repos#show'
+      get ':owner/:name/edit' => 'repos#edit'
+      put ':owner/:name' => 'repos#update'
+      delete ':owner/:name' => 'repos#destroy'
     end
   end
+
+  # Routes for generating urls with friendly_id
+  # plus new and create paths on repos resource
+  resources :repos, only: [:show, :new, :create, :edit]
 
   # Authorize Blitz.io load testing
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#authorize_load_testing'
