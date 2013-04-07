@@ -1,13 +1,16 @@
 / links/_link
 .link
   / title and url
-  = link_to link.title, link.url, class: 'title'
+  = link_to icon_tag('external-link', link.title), link.url, class: 'title'
+
+  span.divider &nbsp;||&nbsp;
+
+  / publication date
+  span.publication-date = link.published_at.strftime("%B %Y")
+
+  / edit link
+  = link_to icon_tag(:check), edit_link_path(link)
+
   / dns prefetching of url
   = dns_prefetch_tag(link.url)
 
-  '  ||
-  / publication date
-  span.date = link.published_at.strftime("%B %Y")
-
-  / edit link
-  span.edit-link = link_to icon_tag(:edit), edit_link_path(link)

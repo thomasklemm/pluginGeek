@@ -3,7 +3,7 @@
 - cache [category, 'partial'] do
 
   / Category partial in lists
-  .category
+  .category class="#{ 'non-draft' unless category.draft? }"
     / A category's full_name includes 'name (languages)'
     span.full-name = link_to category do
       span.name.js-name = category.name
@@ -16,7 +16,7 @@
 
       / Draft notice
       - if category.draft?
-        span.draft Draft
+        span.draft = icon_tag(:pencil, 'Draft')
 
     / Up to three of the most popular repos
     span.popular-repos = link_to category do

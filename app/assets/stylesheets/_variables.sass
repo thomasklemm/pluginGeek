@@ -1,30 +1,37 @@
 // variables
+$fonts: 'proxima-nova', 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif
 
-// basic variables
-$body-fonts: 'proxima-nova', Arial, 'Helvetica Neue', Helvetica, sans-serif
-$text: #393939            // primary text
-$text-secondary: #959595  // muted, secondary text
-$radius: 2px              // border radii
+$primary-text-color:   #393939
+$secondary-text-color: #959595
+$light-text-on-dark-background-color: #f9f9f9
 
-// colors
-$blue: #126E9D
-$green: #93CF29
+$darker-blue:       #2980B9
+$even-darker-blue:  darken($darker-blue, 2.5%)
+$lighter-blue:      lighten($darker-blue, 10%)
+$even-lighter-blue: lighten($darker-blue, 20%)
 
-// color assignments
-$primary: $blue
-$secondary: $green
+$darker-green:  #27AE60
+$darker-orange: #f1c40f
+$darker-red:    #e74c3c
 
-$border-primary: $primary
-$border-secondary: $secondary
-$border-tertiary: #ccc
+$primary-color: $darker-blue
 
-$services-background: lighten($secondary, 32%)
-$label-bg: rgba($blue, 0.15)
-$flash-message-bg: rgba($blue, 0.15)
+$topbar-font-color:       $light-text-on-dark-background-color
+$topbar-background-color: $darker-blue
 
-// Colors hightlighting a project's last updated at activity
-$very-high-activity: darken($green, 8%)
-$high-activity: $text-secondary
-$medium-activity: $text-secondary
-$low-activity: $text-secondary
-$very-low-activity: $text-secondary
+$navigation-bar-font-color:       $light-text-on-dark-background-color
+$navigation-bar-background-color: $lighter-blue
+$navigation-bar-hover-color:      $darker-blue
+
+$button-color:       $lighter-blue
+$button-hover-color: $darker-blue
+
+$button-danger-color:       $darker-red
+$button-danger-hover-color: darken($button-danger-color, 10%)
+
+$label-background-color:         $lighter-blue
+$flash-message-background-color: rgba($primary-color, 0.25)
+
+$high-repo-activity-color:   $darker-green
+$medium-repo-activity-color: $darker-orange
+$low-repo-activity-color:    $darker-red

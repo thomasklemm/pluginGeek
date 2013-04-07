@@ -7,7 +7,7 @@
   span.details
     / Draft notice
     - if @category.draft?
-      span.draft = icon_tag(:edit, "Draft")
+      span.draft = icon_tag(:pencil, "Draft")
 
     / Languages, seperated by a comma
     span.language-list = @category.language_list

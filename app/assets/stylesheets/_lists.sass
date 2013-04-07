@@ -1,0 +1,33 @@
+// lists
+
+// search field
+.search
+  width: 100%
+  padding: 10px 14px
+  font-size: 16px
+  color: #444
+
+  border: 2px solid #ccc
+  @include box-shadow(inset 0 2px 3px black(0.05))
+
+  &:focus
+    outline: none
+    background: #fff
+    border-color: $lighter-blue
+
+// sorting
+.sort-list
+  margin: 0.5rem 0
+  font-size: 0.875rem
+  color: $secondary-text-color
+
+  // items
+  a
+    padding: 0
+    margin: 0
+    &.active
+      font-weight: 600
+
+  // divider in sort-list
+  .divider:before
+    content: "\a0or\a0"

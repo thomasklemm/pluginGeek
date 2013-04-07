@@ -6,6 +6,9 @@ class ReposController < ApplicationController
   # GET /repos/:owner/:name
   def show
     @repo = Repo.where(full_name: full_name).first!.decorate
+    # TODO: Specs
+  rescue ActiveRecord::RecordNotFound
+    redirect_to new_repo_path(full_name: full_name)
   end
 
   # GET /repos/new?owner=thomasklemm&name=Plugingeek
@@ -55,7 +58,6 @@ class ReposController < ApplicationController
     authorize @repo, :staff_action?
 
     @repo.retrieve_from_github
-    @repo.touch
     redirect_to repo_path(@repo), notice: 'Category has been refreshed.'
   end
 
@@ -73,7 +75,7 @@ class ReposController < ApplicationController
   def owner_and_name_from_params
     owner = params[:owner] || (params[:repo] && params[:repo][:owner])
     name  = params[:name]  || (params[:repo] && params[:repo][:name])
-    "#{ owner }/#{ name }"
+    (owner && name) ? "#{ owner }/#{ name }" : nil
   end
 
   def load_repo

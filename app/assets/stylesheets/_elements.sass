@@ -1,0 +1,110 @@
+// elements
+
+// labels
+.label-element
+  padding: 2px 5px
+  background: $label-background-color
+  font-size: 12px
+  color: #fff
+  text-rendering: optimizeLegibility
+  border-radius: 1px
+  @include box-shadow(1px 1px 3px black(0.1))
+
+// decorative text left line
+.left-line
+  margin-left: -16px
+  border-left: 2px solid $lighter-blue
+  padding-left: 14px
+
+// page titles
+.page-title
+  font-size: 1.618rem
+  font-weight: 600
+
+
+//
+// buttons
+//
+
+.button
+  &:hover
+
+  &.danger
+    &:hover
+
+// buttons
+
+// .button
+//   padding: 0.6rem 1.2rem !important // width
+//   background: $primary
+//   color: #eee !important // overrides link color
+//   cursor: pointer
+//   font-size: 0.9375rem
+//   font-weight: 600 !important
+
+//   border: none !important // override 'button' element border
+//   border-radius: $radius
+//   @include transition(all 0.2s ease-in)
+
+//   &:hover
+//     background: lighten($primary, 7%)
+
+//   &.medium
+//     padding: 0.6rem 1.2rem !important // imp to override button
+//     font-size: 1rem
+//     font-weight: 400 !important
+
+//   &.large
+//     padding: 0.6rem 1.2rem !important // imp to override button
+//     font-size: 1.15rem
+//     font-weight: 400 !important
+
+//   &.secondary
+//     background: #999
+//     &:hover
+//       background: $primary
+
+//   // button while loading
+//   &[disabled], &.disabled
+//     background: #c5c5c5
+
+//
+// flash messages
+//
+
+// flash messages container
+.flash-messages
+  margin-bottom: 10px
+
+  // individual flash message
+  .flash-message
+    padding: 0.4rem 0 0.35rem 1rem
+    background: $flash-message-background-color
+    cursor: pointer // close on click
+
+    // close button
+    .close
+      float: right
+      padding: 0.85rem 1rem
+      line-height: 0 // adjust height
+      font-size: 1.272rem
+      color: #999
+
+//
+// spaces
+//
+
+.space-quarter
+  height: 0.25rem
+.space-half
+  height: 0.5rem
+.space-one
+  height: 1rem
+.space-one-and-a-half
+  height: 1.5rem
+.space-two
+  height: 2rem
+.space-two-and-a-half
+  height: 2.5rem
+.space-three
+  height: 3rem

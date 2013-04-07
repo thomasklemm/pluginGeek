@@ -2,18 +2,16 @@
 .primary-navigation
   padding-bottom: 8px
 
-  ul
-    li
-      display: inline-block
-      width: 20%
-      text-align: center
-      line-height: 40px
+  ul li
+    display: inline-block
+    width: 20%
+    line-height: 40px
+    text-align: center
 
-      background: lighten(#2980B9, 10%)
-      color: #f9f9f9
-      font-weight: 600
-      text-rendering: optimizeLegibility
+    font-weight: 600
+    text-rendering: optimizeLegibility
+    color: $navigation-bar-font-color
 
-      &:hover
-        background: #2980B9
-        color: #fff
+    background: $navigation-bar-background-color
+    &:hover
+      background: $navigation-bar-hover-color

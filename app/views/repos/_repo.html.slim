@@ -1,22 +1,25 @@
 / repos/_repo
 - cache [repo, 'repo_partial'] do
-  .repo
+  .repo class="#{ "staff-pick" if repo.staff_pick? }"
     / full_name is owner/name => e.g. rails/rails
     = link_to repo, class: 'full-name' do
       span.name.js-name = repo.name
-      span.owner.js-owner  by #{ repo.owner }
+      span.owner.js-owner   by #{ repo.owner }
 
+
+      / Is the repo a staff pick?
+      - if repo.staff_pick?
+        span.staff-pick = icon_tag(:star, 'Staff pick')
+    = link_to repo, class: 'stats' do
       / Github star count to help evaluate awesomeness quickly
       span.stars = repo.stars
 
       / Most recent activity timestamp on the repo
       / .js-timestamp for list.js is rendered seperately below
       span.activity class=repo.activity_class
+        = icon_tag(:leaf)
         abbr.timeago title=repo.timestamp = repo.written_timestamp
 
-      / Is the repo a staff pick?
-      - if repo.staff_pick?
-        span.staff-pick = icon_tag(:star, 'Staff pick')
 
     / Custom description or Github one
     span.description.js-description = repo.description

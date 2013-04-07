@@ -55,14 +55,6 @@ class Repo < ActiveRecord::Base
       ids_and_full_names
   end
 
-  # Callbacks
-  # Assign a repo's languages from its' categories' languages
-  # on every save
-  before_save :assign_languages
-
-  # Calculate a repo's score on each save
-  before_save :assign_score
-
   # Defaults
   def stars
     self[:stars] || 0
@@ -133,14 +125,14 @@ class Repo < ActiveRecord::Base
   # Handle tag input changes
   def category_list=(new_list)
     # Return early if category assignments don't change
-    return unless new_list != category_list
+    return if new_list == category_list
 
-    expire_categories_and_self # expire old categories
+    expire_categories # expire old categories
 
     full_category_names = prepare_category_list(new_list)
     assign_categories(full_category_names)
 
-    expire_categories_and_self # expire new categories
+    expire_categories # expire new categories
   end
 
   # Times
@@ -194,6 +186,17 @@ class Repo < ActiveRecord::Base
     updater.update(full_name)
   end
 
+  # Callbacks
+  # Assign a repo's languages from its' categories' languages
+  # on every save
+  before_save :assign_languages
+
+  # Calculate a repo's score on each save
+  before_save :assign_score
+
+  # Update category caches and more
+  after_commit :update_and_expire_categories
+
   private
 
   # Assign categories from a list of category names
@@ -234,7 +237,12 @@ class Repo < ActiveRecord::Base
     staff_pick? ? 1.25 : 1
   end
 
-  def expire_categories_and_self
-    categories.each(&:touch) and self.touch
+  def update_and_expire_categories
+    categories.each(&:save)
+  end
+
+  # TODO: Specs
+  def expire_categories
+    categories.update_all(updated_at: Time.current)
   end
 end

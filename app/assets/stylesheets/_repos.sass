@@ -1,39 +1,40 @@
 // repos
 
-// repos in overview
+//
+// repo
+//
 .repos-wrapper .repo
-  margin-left: -16px
-  border-left: 2px solid #ddd
-  padding-left: 14px
-
-  font-size: 14px
+  font-size:  14px
   .full-name
     display: block
-  .name
-    font-size: 18px
-    font-weight: 600
-  .owner
-    color: $text-secondary
-  .staff-pick
-    @extend .label-element
-    margin-left: 0.45rem
-  .stars
-    margin-left: 6px
-  .activity
-    margin-left: 6px
-    &:before
-      content: 'Pushed\a0'
+    .name
+      font-size: 18px
+      font-weight: 600
+    .owner
+      // color: $secondary-text-color
+    .staff-pick
+      @extend .label-element
+      margin-left: 12px
+  .stats
+    display: block
+    color: $primary-color
+    .activity
+      margin-left: 12px
   .description
     display: block
   .homepage-link
 
   &:not(:first-child)
-    margin-top: 10px
+    margin-top: 16px
   &:not(:last-child)
-    margin-bottom: 10px
+    margin-bottom: 16px
 
+  &.staff-pick
+    @extend .left-line
 
-// repo details
+//
+// repo details header
+//
 .repo-details
   font-size: 0.9375rem
   .name-and-owner
@@ -48,18 +49,13 @@
     > *
       margin-left: 1rem // settled after careful experimentation :-D
     .stars
-      color: $text-secondary
+      color: $secondary-text-color
     .star-on-github-link
       position: relative
       top: 4px
       padding-left: 1px // right one added by iframe width
     .staff-pick
-      @extend .label-element
-      padding-top: 3px
-      padding-bottom: 3px
-      position: relative
-      bottom: 2px
-    .edit-link
+    .edit-link, .refresh-link
 
   .description
     display: block
@@ -67,7 +63,10 @@
   .activity
     margin-left: 1rem
 
-// readme at repos#show
+//
+// readme
+//
+
 // outer box
 .readme-container
   background: #fff
@@ -75,7 +74,7 @@
   border: 2px solid #ddd
   border-radius: 4px
 
-// where readme is inserted
+// readme insertion place
 .readme-target
   position: relative
   overflow: hidden
@@ -96,5 +95,23 @@
     margin: 0
     padding: 80px 0 20px
 
+    // fadeout effect
     @include background-image(linear-gradient(white(0) 0%, white(1) 80%, white(1) 100%))
 
+// colors hightlighting a project's most recent timestamp on Github
+.activity
+  abbr
+    border-bottom: none
+  &.high
+    color: $high-repo-activity-color
+  &.medium
+    color: $medium-repo-activity-color
+  &.low
+    color: $low-repo-activity-color
+
+.add-repo-wrapper
+  .name-and-owner
+    font-size: 1.618rem
+    font-weight: 600
+    i
+      margin-right: 9px

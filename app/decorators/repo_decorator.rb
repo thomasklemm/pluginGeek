@@ -54,12 +54,12 @@ class RepoDecorator < Draper::Decorator
 
   # CSS classes marking activity
   def activity_class
-    case last_updated
-      when (-10000)..2.months        then 'very-high'
-      when (2.months+1)..6.months    then 'high'
-      when (6.months+1)..12.months   then 'medium'
-      when (12.months+1)..24.months  then 'low'
-      else                                'very-low'
-      end
+    if last_updated < 4.months
+      'high'
+    elsif last_updated < 12.months
+      'medium'
+    else
+      'low'
+    end
   end
 end

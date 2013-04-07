@@ -57,22 +57,6 @@ class Category < ActiveRecord::Base
       to_json
   end
 
-  # Assign aggregate stars of repos as category stars
-  before_save :assign_stars
-
-  # Assign aggregate scores of repos as category score
-  before_save :assign_score
-
-  # Assign languages from full_name
-  before_save :assign_languages
-
-  # Cache repo and language list
-  before_save :cache_repo_list
-  before_save :cache_language_list
-
-  # Update the languages of the associated repos
-  after_save :update_repo_languages
-
   # Repos
   has_many :categorizations,
     dependent: :destroy
@@ -124,13 +108,29 @@ class Category < ActiveRecord::Base
   end
 
   def self.expire_all
-    # FIXME: Find a more efficient call (maybe with update_all)
-    find_each {|category| category.touch}
+    update_all(updated_at: Time.current)
   end
 
   def extended_links
     @extended_links ||= extended_links!
   end
+
+  # Assign aggregate stars of repos as category stars
+  before_save :assign_stars
+
+  # Assign aggregate scores of repos as category score
+  before_save :assign_score
+
+  # Assign languages from full_name
+  before_save :assign_languages
+
+  # Cache repo and language list
+  before_save :cache_repo_list
+  before_save :cache_language_list
+
+  # Update the languages of the associated repos
+  after_commit :update_and_expire_repos
+  after_commit :expire_languages
 
   private
 
@@ -204,7 +204,11 @@ class Category < ActiveRecord::Base
   end
 
   # Update languages of each associated repo
-  def update_repo_languages
-    repos(true).each { |repo| repo.save }
+  def update_and_expire_repos
+    repos.each(&:save)
+  end
+
+  def expire_languages
+    languages.update_all(updated_at: Time.current)
   end
 end

@@ -1,10 +1,10 @@
 // basics
 body
   // padding: 0 16px // make body stay way from bowser edges
-  font-family: $body-fonts
+  font-family: $fonts
   font-size: 100%
   line-height: 1.618
-  color: $text
+  color: $primary-text-color
 
   // backgrounds
   // background: image-url('backgrounds/debut_light.png') // 3
@@ -30,94 +30,11 @@ ul
 // links
 a
   text-decoration: none
-  color: $primary
+  color: $even-darker-blue
   cursor: pointer
   &:link, &:hover, &:active, &:visited
-    color: $primary
+    color: $even-darker-blue
 
 // webfont icons
 i
   margin-right: 4px
-  &.icon-star
-    margin-right: 3px
-
-//
-// forms
-//
-
-form
-  margin-top: 1rem
-
-  input[type="text"], input[type="email"], input[type="search"]
-    width: 100%
-    margin-bottom: 0
-  textarea
-    width: 100%
-    height: 4rem
-    margin-bottom: 0
-  label
-  input[type="checkbox"]
-    margin-right: 5px
-
-  .field
-    margin-bottom: 8px
-    label
-    .hint
-      background: #eee
-      font-size: 14px
-      padding: 1px 6px
-
-  .actions
-
-
-//
-// form error messages
-//
-form
-  .error-messages
-    padding: 0.75rem 1rem
-    background: lighten(#924727, 50%)
-
-    .error-message
-      font-weight: bold
-
-//
-// flash messages
-//
-
-// flash messages container
-.flash-messages
-  margin-bottom: 10px
-
-  // individual flash message
-  .flash-message
-    padding: 0.4rem 0 0.35rem 1rem
-    background: $flash-message-bg
-    cursor: pointer // close on click
-
-    // close button
-    .close
-      float: right
-      padding: 0.85rem 1rem
-      line-height: 0 // adjust height
-      font-size: 1.272rem
-      color: #999
-
-//
-// spaces
-//
-
-.space-quarter
-  height: 0.25rem
-.space-half
-  height: 0.5rem
-.space-one
-  height: 1rem
-.space-one-and-a-half
-  height: 1.5rem
-.space-two
-  height: 2rem
-.space-two-and-a-half
-  height: 2.5rem
-.space-three
-  height: 3rem
