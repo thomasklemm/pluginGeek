@@ -9,6 +9,7 @@
 #  id            :integer          not null, primary key
 #  language_list :text
 #  repo_list     :text
+#  repos_count   :integer          default(0)
 #  score         :integer          default(0)
 #  slug          :text             not null
 #  stars         :integer          default(0)

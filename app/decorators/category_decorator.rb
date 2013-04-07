@@ -31,14 +31,14 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def further_repo_names
-    names = repo_names[2..100]
+    names = repo_names[2..200]
     (names.presence && names.join(", ")) || ""
   end
 
   # TODO: Specs
   def show_repos_link_text
-    if repo_names.size > 3
-      " and #{ repo_names.size - 2 } more &raquo;".html_safe
+    if repos.size > 3
+      " and #{ repos.size - 2 } more &raquo;".html_safe
     else
       " &raquo;".html_safe
     end

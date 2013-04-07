@@ -9,6 +9,7 @@
 #  id            :integer          not null, primary key
 #  language_list :text
 #  repo_list     :text
+#  repos_count   :integer          default(0)
 #  score         :integer          default(0)
 #  slug          :text             not null
 #  stars         :integer          default(0)
@@ -125,11 +126,11 @@ class Category < ActiveRecord::Base
   before_save :assign_languages
 
   # Cache repo and language list
+  before_save :cache_repos_count
   before_save :cache_repo_list
   before_save :cache_language_list
 
-  # Update the languages of the associated repos
-  after_commit :update_and_expire_repos
+  after_commit :expire_repos
   after_commit :expire_languages
 
   private
@@ -195,6 +196,10 @@ class Category < ActiveRecord::Base
     self.repo_list = repos.map(&:name).join(', ')
   end
 
+  def cache_repos_count
+    self.repos_count = repos.length # uses the length of the already loaded array
+  end
+
   # Cache only Web and Mobile if those main languages are present, don't display any sublanguages then
   def cache_language_list
     langs = languages.map(&:name)
@@ -203,9 +208,9 @@ class Category < ActiveRecord::Base
     self.language_list = langs.join(', ')
   end
 
-  # Update languages of each associated repo
-  def update_and_expire_repos
-    repos.each(&:save)
+  # Expire categories
+  def expire_repos
+    repos.update_all(updated_at: Time.current)
   end
 
   def expire_languages

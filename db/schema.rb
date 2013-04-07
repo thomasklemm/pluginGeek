@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331165710) do
+ActiveRecord::Schema.define(:version => 20130407170505) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130331165710) do
     t.boolean  "draft",         :default => true
     t.text     "repo_list"
     t.text     "language_list"
+    t.integer  "repos_count",   :default => 0
   end
 
   add_index "categories", ["score"], :name => "index_categories_on_score"
