@@ -1,0 +1,9 @@
+/ pages/styles
+
+h1 Styles
+
+h2 Categories
+.categories-wrapper = render partial: 'categories/category', collection: Category.order_by_score.limit(10).decorate
+
+h2 Repos
+.repos-wrapper = render partial: 'repos/repo', collection: Repo.order_by_score.limit(10).decorate
