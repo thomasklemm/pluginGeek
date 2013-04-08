@@ -56,6 +56,8 @@ class ReposController < ApplicationController
     authorize @repo, :staff_action?
 
     @repo.retrieve_from_github
+    @repo.touch
+
     redirect_to repo_path(@repo), notice: 'Repo has been refreshed.'
   end
 

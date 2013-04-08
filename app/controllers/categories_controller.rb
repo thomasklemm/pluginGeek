@@ -37,7 +37,9 @@ class CategoriesController < ApplicationController
   def refresh
     authorize @category, :staff_action?
 
+    @category.save
     @category.touch
+
     redirect_to @category, notice: 'Category has been refreshed.'
   end
 

@@ -7,7 +7,7 @@
   / categories
   .section-header
     span.primary Categories
-    span = link_to icon_tag(:add, 'Add'), edit_repo_path(@repo)
+    span = link_to icon_tag(:plus, 'Add'), edit_repo_path(@repo)
 
   - if @repo.categories.any?
     .categories-wrapper
