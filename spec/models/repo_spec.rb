@@ -50,6 +50,46 @@ describe Repo do
 
   it { should ensure_length_of(:description).is_at_most(360) }
 
+  describe "named scopes" do
+    describe ".order_by_score" do
+      it "returns repos ordered by score" do
+        expect(Repo.order_by_score.to_sql).to match(/ORDER BY repos.score DESC/)
+      end
+    end
+
+    describe ".order_by_name" do
+      it "returns repos ordered by full_name" do
+        expect(Repo.order_by_name.to_sql).to match(/ORDER BY repos.full_name DESC/)
+      end
+    end
+
+    describe ".ids_and_full_names" do
+      it "selects only relevant fields" do
+        expect(Repo.ids_and_full_names.to_sql).to match(/SELECT id, full_name FROM \"repos\"/)
+      end
+
+      it "orders repos by score" do
+        expect(Repo.ids_and_full_names.to_sql).to match(/ORDER BY repos.score DESC/)
+      end
+    end
+
+    describe ".ids_and_full_names_without(repo)" do
+      before { repo.save }
+
+      it "selects only relevant fields" do
+        expect(Repo.ids_and_full_names_without(repo).to_sql).to match(/SELECT id, full_name FROM \"repos\"/)
+      end
+
+      it "orders repos by score" do
+        expect(Repo.ids_and_full_names_without(repo).to_sql).to match(/ORDER BY repos.score DESC/)
+      end
+
+      it "excludes the given repo" do
+        expect(Repo.ids_and_full_names_without(repo)).to_not include(repo)
+      end
+    end
+  end
+
   describe "#stars" do
     it "returns the stars count" do
       repo.stars = 100
@@ -262,6 +302,25 @@ describe Repo do
       it "assigns languages" do
         expect(repo.language_list.split(", ")).to match_array(%w(Ruby Javascript))
       end
+    end
+  end
+
+  describe "#expire_categories" do
+    it "expires associated categories" do
+      Timecop.freeze
+      repo.categories.expects(:update_all).with(updated_at: Time.current)
+      repo.send(:expire_categories)
+      Timecop.return
+    end
+  end
+
+  describe "#update_and_expire_categories" do
+    let(:category) { Fabricate(:category) }
+
+    it "updates and expires associated categories" do
+      repo.categories << category
+      category.expects(:save)
+      repo.send(:update_and_expire_categories)
     end
   end
 end

@@ -30,8 +30,6 @@ class Repo < ActiveRecord::Base
 
   # Validations
   validates :full_name, presence: true, uniqueness: true
-  # TODO: Some Github repos won't save, maybe a custom writer
-  # that truncates descriptions would be worthwile
   validates :description, length: {maximum: 360}
 
   # Named scopes
@@ -43,13 +41,11 @@ class Repo < ActiveRecord::Base
     order('repos.full_name DESC')
   end
 
-  # TODO: Specs
   def self.ids_and_full_names
     select([:id, :full_name]).
       order_by_score
   end
 
-  # TODO: Specs
   def self.ids_and_full_names_without(repo)
     where('id != ?', repo.id).
       ids_and_full_names
@@ -237,12 +233,12 @@ class Repo < ActiveRecord::Base
     staff_pick? ? 1.25 : 1
   end
 
-  def update_and_expire_categories
-    categories.each(&:save)
-  end
-
-  # TODO: Specs
   def expire_categories
     categories.update_all(updated_at: Time.current)
+  end
+
+  # Update categories' caches
+  def update_and_expire_categories
+    categories.each(&:save)
   end
 end
