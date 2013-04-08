@@ -1,10 +1,8 @@
 / categories/index
 - cache ['categories_index', @language] do
-
   h1 Looking for a great Ruby gem?
 
   .space-half
-
   / Categories list
   #js-categories-list
     .find-categories
@@ -17,11 +15,36 @@
         span.divider
         = link_to 'Sort by Score', 'javascript:;', class: 'sort', :'data-sort' => 'js-score'
 
-    / List for list.js
-    .categories-wrapper.list data-page=35
-      = render partial: 'category', collection: @categories
+    #main
+      / List for list.js
+      .categories-wrapper.list data-page=30
+        = render partial: 'category', collection: @categories
 
-    .space-half
+      .space-half
 
-    / Show all matches on click
-    .show-all.js-show-all: b = link_to 'Show all (matching) categories', 'javascript:;'
+      / Show all matches on click
+      .show-all.js-show-all: b = link_to 'Show all (matching) categories', 'javascript:;'
+
+  / Crude recent staff picks idea
+  #sidebar
+    .title Awesome developers' services
+    .services-wrapper
+      .service
+        .name = link_to 'Heroku', 'heroku.com'
+        .url = link_to 'www.heroku.com', 'heroku.com'
+        .description
+          ' Agile deployment for Ruby, Node.js, Clojure, Java, Python, and Scala.
+          ' Get up and running in minutes, and deploy instantly with git. Focus 100% on your code, and never think about servers, instances, or VMs again.
+
+      .service
+        .name = link_to 'Heroku', 'heroku.com'
+        .url = link_to 'www.heroku.com', 'heroku.com'
+        .description
+          ' Agile deployment for Ruby, Node.js, Clojure, Java, Python, and Scala.
+          ' Get up and running in minutes, and deploy instantly with git. Focus 100% on your code, and never think about servers, instances, or VMs again.
+
+    .space-one
+    .title New staff picks
+    .staff-picks
+      - @staff_picks = RepoDecorator.decorate_collection(Repo.where(staff_pick: true).order('repos.created_at DESC').limit(15).sample(3))
+      .repos-wrapper = render partial: 'repos/staff_pick', collection: @staff_picks, as: :repo

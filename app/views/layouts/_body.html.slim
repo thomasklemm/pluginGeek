@@ -13,8 +13,17 @@
   / flashes
   = render 'flash_messages'
 
-  / main content
-  = yield
+  / main content by yielding
+  - unless content_for?(:main)
+    = yield
+
+  / main content with capture helper
+  - if content_for?(:main)
+    #main = content_for(:main)
+
+  / sidebar content with capture helper
+  - if content_for?(:sidebar)
+    #sidebar = content_for(:sidebar)
 
   / footer
   / = render 'footer'

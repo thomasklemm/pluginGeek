@@ -1,1 +1,39 @@
 // experiments in SASS
+
+#main
+  @include span-columns(8)
+#sidebar
+  @include span-columns(4)
+  float: right
+
+#sidebar
+  .title
+    font-weight: bold
+    font-size: 1.125rem
+
+.category-services-wrapper
+  @include span-columns(4)
+  @include omega
+  margin-left: 2.35765%
+  float: right
+  margin-top: 14px
+
+.services-wrapper
+  font-size: 0.875rem
+  .service
+    background: #f5f5f5
+    padding: 0.75rem 1rem
+    margin-bottom: 8px
+    .name
+      font-size: 18px
+      font-weight: bold
+      line-height: 1.25
+    .url
+    .description
+
+.staff-picks
+  background: #f5f5f5
+  padding: 0.7rem 1rem
+  .repo
+    .name
+      font-size: 16px !important
