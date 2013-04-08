@@ -15,4 +15,17 @@ module ApplicationHelper
   def icon_tag(type, text=nil)
     "<i class='icon-#{ type.to_s }'></i>#{ text }".html_safe
   end
+
+  # TODO: Specs
+  def markdown(text)
+    options = {
+      autolink: true,
+      no_intra_emphasis: true,
+      fenced_code_blocks: true,
+      lax_html_blocks: true,
+      strikethrough: true,
+      superscript: true
+    }
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML, options).render(text).html_safe
+  end
 end

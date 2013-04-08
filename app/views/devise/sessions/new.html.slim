@@ -1,23 +1,14 @@
 / devise/sessions/new
-.login-details
-  .headline Login with Github
+h2 Login with Github
 
-  / markdown:
-  /   **Plugingeek**, as a Wiki, flourishes by your contributions.
-  /   In order to participate, you can **sign up and login
-  /   through Github**. We don't retrieve and store any
-  /   more information than nescessary to allow Plugingeek
-  /   to work smoothly and store individual contributions
-  /   to Plugingeek.
+.space-half
+.pre-wrap
+  markdown:
+    **pluginGeek** is a wiki, and you can make it awesome
+    by contributing your know-how. The only thing you need
+    to do beforehand is **signing in with Github**. <br />
+    We'll only ask for your public profile infos during
+    this process, and never have access to any repos,
+    especially none of your private repos.
 
-  /   Only information that is publicly displayed on your
-  /   Github page can be accessed and may be stored by
-  /   Plugingeek. This for sure excludes any information
-  /   about private repos. We do not ask for any permission
-  /   to access any of your private information, so Plugingeek cannot access it. If you have any further questions regarding the privacy of your data, please email me.
-
-  /   **Thanks for your time and contributions!**
-
-  / sign up and log in in one
-  .github-login-link
-    = link_to 'Login with Github', user_omniauth_authorize_path(:github), disable_with: 'Connecting to Github...', class: 'large button'
+= link_to 'Login with Github', user_omniauth_authorize_path(:github), disable_with: 'Connecting to Github...', class: 'button'

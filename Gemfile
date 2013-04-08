@@ -107,9 +107,6 @@ group :development do
   # Quiet Assets (Mutes asset pipeline logs in development)
   gem 'quiet_assets'
 
-  # Bullet (Finds N+1 queries and more in development)
-  gem 'bullet'
-
   # Better Errors (Debug pages in development)
   gem 'better_errors'
   gem 'binding_of_caller'

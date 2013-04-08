@@ -21,52 +21,33 @@
   font-size: 1.618rem
   font-weight: 600
 
+// pre-wrapped text
+.pre-wrap
+  white-space: pre-wrap
 
 //
 // buttons
 //
 
 .button
+  padding: 0.5rem 1rem !important
+  background: $button-color
+  border: none !important
+  cursor: pointer
+  color: $light-text-on-dark-background-color !important
+
+  @include transition(background 0.2s ease-in)
+
   &:hover
+    background: $button-hover-color
 
   &.danger
+    background: $button-danger-color
     &:hover
+      background: $button-danger-hover-color
 
-// buttons
-
-// .button
-//   padding: 0.6rem 1.2rem !important // width
-//   background: $primary
-//   color: #eee !important // overrides link color
-//   cursor: pointer
-//   font-size: 0.9375rem
-//   font-weight: 600 !important
-
-//   border: none !important // override 'button' element border
-//   border-radius: $radius
-//   @include transition(all 0.2s ease-in)
-
-//   &:hover
-//     background: lighten($primary, 7%)
-
-//   &.medium
-//     padding: 0.6rem 1.2rem !important // imp to override button
-//     font-size: 1rem
-//     font-weight: 400 !important
-
-//   &.large
-//     padding: 0.6rem 1.2rem !important // imp to override button
-//     font-size: 1.15rem
-//     font-weight: 400 !important
-
-//   &.secondary
-//     background: #999
-//     &:hover
-//       background: $primary
-
-//   // button while loading
-//   &[disabled], &.disabled
-//     background: #c5c5c5
+  &[disabled], &.disabled
+    background: $button-disabled-color
 
 //
 // flash messages

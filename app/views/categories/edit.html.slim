@@ -2,10 +2,12 @@
 = render 'categories/category_details'
 = render 'form'
 
+.space-half
 / destroy button
 - if policy(@category).destroy?
-  = link_to icon_tag('remove-sign', 'Destroy category'), category_path(@category), method: :delete, confirm: 'Are you sure?', class: 'danger button'
+  = link_to 'Destroy category', category_path(@category), method: :delete, confirm: 'Are you sure?', class: 'danger button'
 
+.space-one
 / descriptions of associated repos, as a guide for writing
 .descriptions-of-repos
   p Some inspiration for the description of use? Here are the repos' descriptions.
