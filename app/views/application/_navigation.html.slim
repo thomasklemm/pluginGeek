@@ -1,19 +1,18 @@
 / navigation
+- cache 'primary_navigation' do
+  .primary-navigation
+    ul
+      = link_to categories_path('ruby') do
+        li Ruby
 
-/ TODO: Cache later
-.primary-navigation
-  ul
-    = link_to categories_path('ruby') do
-      li Ruby
+      = link_to categories_path('javascript') do
+        li Javascript
 
-    = link_to categories_path('javascript') do
-      li Javascript
+      = link_to categories_path('webdesign') do
+        li Webdesign
 
-    = link_to categories_path('webdesign') do
-      li Webdesign
+      = link_to categories_path('ios') do
+        li iOS
 
-    = link_to categories_path('ios') do
-      li iOS
-
-    = link_to categories_path('android') do
-      li Android
+      = link_to categories_path('android') do
+        li Android

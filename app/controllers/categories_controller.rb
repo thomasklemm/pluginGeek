@@ -34,7 +34,6 @@ class CategoriesController < ApplicationController
     redirect_to root_path, notice: 'Category has been destroyed.'
   end
 
-  # TODO: Specs
   def refresh
     authorize @category, :staff_action?
 

@@ -11,12 +11,10 @@ module ApplicationHelper
     !!(response.cache_control[:public])
   end
 
-  # TODO: Specs
   def icon_tag(type, text=nil)
     "<i class='icon-#{ type.to_s }'></i>#{ text }".html_safe
   end
 
-  # TODO: Specs
   def markdown(text)
     options = {
       autolink: true,

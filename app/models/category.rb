@@ -30,7 +30,7 @@ class Category < ActiveRecord::Base
   validates :full_name, presence: true
   validates :description, length: {maximum: 360}
 
-  # Scopes
+  # Named scopes
   def self.order_by_score
     order('categories.score DESC')
   end
@@ -39,13 +39,11 @@ class Category < ActiveRecord::Base
     order('categories.full_name DESC')
   end
 
-  # TODO: Specs
   def self.ids_and_full_names
     select([:id, :full_name]).
       order_by_score
   end
 
-  # TODO: Specs
   def self.ids_and_full_names_without(repo)
     where('id != ?', repo.id).
       ids_and_full_names
@@ -98,14 +96,22 @@ class Category < ActiveRecord::Base
     through: :reverse_category_relationships,
     source: :other_category
 
-  def similar_categories
-    sc = (related_categories | reverse_related_categories).uniq
-    sc.sort_by(&:stars).reverse
+  def stars
+    self[:stars] || 0
+  end
+
+  def score
+    self[:score] || 0
   end
 
   def name
     match = full_name.match %r{(?<name>.*)[[:space:]]\(}
     match.present? ? match[:name].strip : full_name
+  end
+
+  def similar_categories
+    sc = (related_categories | reverse_related_categories).uniq
+    sc.sort_by(&:stars).reverse
   end
 
   def self.expire_all

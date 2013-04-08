@@ -64,3 +64,20 @@ feature "Repos#show" do
     include_examples "render repo"
   end
 end
+
+feature "Refresh repo" do
+  let(:repo) { Fabricate(:repo, full_name: 'rails/rails') }
+  let(:staff) { Fabricate(:user, staff: true) }
+  before { sign_in staff }
+
+  scenario "update repo from github with click on refresh" do
+    VCR.use_cassette('features/repos/refresh', record: :once) do
+      visit repo_path(repo)
+      click_on "Refresh"
+
+      expect(current_path).to eq(repo_path(repo))
+      expect(page).to have_content(/Repo has been refreshed/)
+      expect(page).to have_content('Ruby on Rails')
+    end
+  end
+end

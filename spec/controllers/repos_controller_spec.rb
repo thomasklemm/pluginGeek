@@ -86,6 +86,40 @@ describe ReposController do
       end
     end
   end
+
+  describe "#full_name" do
+    context "given params :owner and :name" do
+      it "returns the full_name" do
+        subject.params[:owner] = 'owner'
+        subject.params[:name] = 'name'
+        expect(controller.send(:full_name)).to eq('owner/name')
+      end
+    end
+
+    context "given params repo :owner and :name" do
+      it "returns the full_name" do
+        subject.params[:repo] = {}
+        subject.params[:repo][:owner] = 'owner'
+        subject.params[:repo][:name] = 'name'
+        expect(controller.send(:full_name)).to eq('owner/name')
+      end
+    end
+
+    context "given params :full_name" do
+      it "returns the full_name" do
+        subject.params[:full_name] = 'owner/name'
+        expect(controller.send(:full_name)).to eq('owner/name')
+      end
+    end
+
+    context "given params repo :full_name" do
+      it "returns the full_name" do
+        subject.params[:repo] = {}
+        subject.params[:repo][:full_name] = 'owner/name'
+        expect(controller.send(:full_name)).to eq('owner/name')
+      end
+    end
+  end
 end
 
 describe ReposController, "GET #show" do
@@ -105,11 +139,14 @@ describe ReposController, "GET #show" do
       end
     end
 
-    context "repo not found" do
-      before { get :show, owner: 'any_owner', name: 'any_name' }
+    context "repo not yet known" do
+      before { get :show, owner: 'owner', name: 'name' }
 
-      it { should redirect_to(root_path) }
-      it { should set_the_flash.to("Record could not be found.") }
+      it { should_not set_the_flash }
+
+      it "redirects to new_repo_path passing the full_name" do
+        expect(response).to redirect_to(new_repo_path(full_name: 'owner/name'))
+      end
     end
   end
 

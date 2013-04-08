@@ -40,6 +40,14 @@ describe RepoDecorator do
     end
   end
 
+  describe "#stars" do
+    before { repo.stars = 1000 }
+
+    it "returns the stars with as number with delimiter" do
+      expect(repo.stars).to match(/1,000/)
+    end
+  end
+
   describe "#description" do
     it "returns the description when given" do
       repo.description = "description"
@@ -110,25 +118,25 @@ describe RepoDecorator do
   describe "#activity_class" do
     it "returns a CSS class name based on the last update on Github" do
       repo.github_updated_at = 1.second.ago
-      expect(repo.activity_class).to eq('very-high')
-
-      repo.github_updated_at = 2.months.ago
-      expect(repo.activity_class).to eq('very-high')
-
-      repo.github_updated_at = 4.months.ago
       expect(repo.activity_class).to eq('high')
 
-      repo.github_updated_at = 9.months.ago
+      repo.github_updated_at = 3.months.ago
+      expect(repo.activity_class).to eq('high')
+
+      repo.github_updated_at = 4.months.ago
       expect(repo.activity_class).to eq('medium')
 
-      repo.github_updated_at = 18.months.ago
+      repo.github_updated_at = 11.months.ago
+      expect(repo.activity_class).to eq('medium')
+
+      repo.github_updated_at = 12.months.ago
       expect(repo.activity_class).to eq('low')
 
-      repo.github_updated_at = 36.months.ago
-      expect(repo.activity_class).to eq('very-low')
+      repo.github_updated_at = 24.months.ago
+      expect(repo.activity_class).to eq('low')
 
       repo.github_updated_at = nil
-      expect(repo.activity_class).to eq('very-low')
+      expect(repo.activity_class).to eq('low')
     end
   end
 end

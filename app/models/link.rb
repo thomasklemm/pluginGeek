@@ -62,6 +62,6 @@ class Link < ActiveRecord::Base
   end
 
   def expire_categories_of_repos
-    categories_of_repos.update_all(updated_at: Time.current)
+    categories_of_repos.each { |category| category.update_column(:updated_at, Time.current) }
   end
 end

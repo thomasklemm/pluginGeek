@@ -6,7 +6,6 @@ class ReposController < ApplicationController
   # GET /repos/:owner/:name
   def show
     @repo = Repo.where(full_name: full_name).first!.decorate
-    # TODO: Specs
   rescue ActiveRecord::RecordNotFound
     redirect_to new_repo_path(full_name: full_name)
   end
@@ -53,12 +52,11 @@ class ReposController < ApplicationController
     redirect_to root_path, notice: 'Repo has been destroyed.'
   end
 
-  # TODO: Specs
   def refresh
     authorize @repo, :staff_action?
 
     @repo.retrieve_from_github
-    redirect_to repo_path(@repo), notice: 'Category has been refreshed.'
+    redirect_to repo_path(@repo), notice: 'Repo has been refreshed.'
   end
 
   private

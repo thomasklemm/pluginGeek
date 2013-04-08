@@ -11,13 +11,8 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def stars
-    stars = model.stars.presence || 0
-    text = h.number_with_delimiter(stars)
+    text = h.number_with_delimiter(model.stars)
     h.icon_tag(:star, text)
-  end
-
-  def score
-    model.score.presence || 0
   end
 
   def repo_names
@@ -35,7 +30,6 @@ class CategoryDecorator < Draper::Decorator
     (names.presence && names.join(", ")) || ""
   end
 
-  # TODO: Specs
   def show_repos_link_text
     if repos_count > 3
       " and #{ repos_count - 2 } more &raquo;".html_safe

@@ -148,3 +148,17 @@ feature "Categories#edit and categories#update" do
     end
   end
 end
+
+feature "Refresh category" do
+  let(:category) { Fabricate(:category) }
+  let(:staff) { Fabricate(:user, staff: true) }
+  before { sign_in staff }
+
+  scenario "expire category with click on refresh" do
+    visit category_path(category)
+    click_on "Refresh"
+
+    expect(current_path).to eq(category_path(category))
+    expect(page).to have_content(/Category has been refreshed/)
+  end
+end

@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/rails/rails?client_id=<GITHUB_API_KEY>&client_secret=<GITHUB_API_SECRET>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Mon, 08 Apr 2013 10:30:25 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4996'
+      Vary:
+      - Accept
+      Cache-Control:
+      - public, max-age=60, s-maxage=60
+      Last-Modified:
+      - Mon, 08 Apr 2013 10:06:03 GMT
+      Etag:
+      - ! '"24ac25c8c0177a97196bd083070c10bc"'
+      X-Github-Media-Type:
+      - github.beta
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '5246'
+    body:
+      encoding: US-ASCII
+      string: ! '{"id":8514,"name":"rails","full_name":"rails/rails","owner":{"login":"rails","id":4223,"avatar_url":"https://secure.gravatar.com/avatar/30f39a09e233e8369dddf6feb4be0308?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png","gravatar_id":"30f39a09e233e8369dddf6feb4be0308","url":"https://api.github.com/users/rails","html_url":"https://github.com/rails","followers_url":"https://api.github.com/users/rails/followers","following_url":"https://api.github.com/users/rails/following","gists_url":"https://api.github.com/users/rails/gists{/gist_id}","starred_url":"https://api.github.com/users/rails/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/rails/subscriptions","organizations_url":"https://api.github.com/users/rails/orgs","repos_url":"https://api.github.com/users/rails/repos","events_url":"https://api.github.com/users/rails/events{/privacy}","received_events_url":"https://api.github.com/users/rails/received_events","type":"Organization"},"private":false,"html_url":"https://github.com/rails/rails","description":"Ruby
+        on Rails","fork":false,"url":"https://api.github.com/repos/rails/rails","forks_url":"https://api.github.com/repos/rails/rails/forks","keys_url":"https://api.github.com/repos/rails/rails/keys{/key_id}","collaborators_url":"https://api.github.com/repos/rails/rails/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/rails/rails/teams","hooks_url":"https://api.github.com/repos/rails/rails/hooks","issue_events_url":"https://api.github.com/repos/rails/rails/issues/events{/number}","events_url":"https://api.github.com/repos/rails/rails/events","assignees_url":"https://api.github.com/repos/rails/rails/assignees{/user}","branches_url":"https://api.github.com/repos/rails/rails/branches{/branch}","tags_url":"https://api.github.com/repos/rails/rails/tags{/tag}","blobs_url":"https://api.github.com/repos/rails/rails/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/rails/rails/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/rails/rails/git/refs{/sha}","trees_url":"https://api.github.com/repos/rails/rails/git/trees{/sha}","statuses_url":"https://api.github.com/repos/rails/rails/statuses/{sha}","languages_url":"https://api.github.com/repos/rails/rails/languages","stargazers_url":"https://api.github.com/repos/rails/rails/stargazers","contributors_url":"https://api.github.com/repos/rails/rails/contributors","subscribers_url":"https://api.github.com/repos/rails/rails/subscribers","subscription_url":"https://api.github.com/repos/rails/rails/subscription","commits_url":"https://api.github.com/repos/rails/rails/commits{/sha}","git_commits_url":"https://api.github.com/repos/rails/rails/git/commits{/sha}","comments_url":"https://api.github.com/repos/rails/rails/comments{/number}","issue_comment_url":"https://api.github.com/repos/rails/rails/issues/comments/{number}","contents_url":"https://api.github.com/repos/rails/rails/contents/{+path}","compare_url":"https://api.github.com/repos/rails/rails/compare/{base}...{head}","merges_url":"https://api.github.com/repos/rails/rails/merges","archive_url":"https://api.github.com/repos/rails/rails/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/rails/rails/downloads","issues_url":"https://api.github.com/repos/rails/rails/issues{/number}","pulls_url":"https://api.github.com/repos/rails/rails/pulls{/number}","milestones_url":"https://api.github.com/repos/rails/rails/milestones{/number}","notifications_url":"https://api.github.com/repos/rails/rails/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/rails/rails/labels{/name}","created_at":"2008-04-11T02:19:47Z","updated_at":"2013-04-08T10:06:03Z","pushed_at":"2013-04-07T16:57:24Z","git_url":"git://github.com/rails/rails.git","ssh_url":"git@github.com:rails/rails.git","clone_url":"https://github.com/rails/rails.git","svn_url":"https://github.com/rails/rails","homepage":"http://rubyonrails.org","size":95920,"watchers_count":18062,"language":"Ruby","has_issues":true,"has_downloads":true,"has_wiki":false,"forks_count":5396,"mirror_url":null,"open_issues_count":481,"forks":5396,"open_issues":481,"watchers":18062,"master_branch":"master","default_branch":"master","network_count":5396,"organization":{"login":"rails","id":4223,"avatar_url":"https://secure.gravatar.com/avatar/30f39a09e233e8369dddf6feb4be0308?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png","gravatar_id":"30f39a09e233e8369dddf6feb4be0308","url":"https://api.github.com/users/rails","html_url":"https://github.com/rails","followers_url":"https://api.github.com/users/rails/followers","following_url":"https://api.github.com/users/rails/following","gists_url":"https://api.github.com/users/rails/gists{/gist_id}","starred_url":"https://api.github.com/users/rails/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/rails/subscriptions","organizations_url":"https://api.github.com/users/rails/orgs","repos_url":"https://api.github.com/users/rails/repos","events_url":"https://api.github.com/users/rails/events{/privacy}","received_events_url":"https://api.github.com/users/rails/received_events","type":"Organization"}}'
+    http_version: 
+  recorded_at: Mon, 08 Apr 2013 10:30:25 GMT
+recorded_with: VCR 2.4.0

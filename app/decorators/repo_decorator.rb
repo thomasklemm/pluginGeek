@@ -12,7 +12,6 @@ class RepoDecorator < Draper::Decorator
     model.name.presence || full_name.split('/')[1]
   end
 
-  # TODO: Specs
   def stars
     text = h.number_with_delimiter(model.stars)
     h.icon_tag(:star, text)

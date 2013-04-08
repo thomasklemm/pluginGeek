@@ -130,29 +130,38 @@ describe CategoriesController, "GET #show" do
   include_context "category"
 
   shared_examples "categories#show for guest, user and staff" do
-    before { get :show, id: category }
+    context "category found" do
+      before { get :show, id: category }
 
-    it { should respond_with(:success) }
-    it { should render_template(:show) }
-    it { should_not set_the_flash }
+      it { should respond_with(:success) }
+      it { should render_template(:show) }
+      it { should_not set_the_flash }
 
-    it "assigns and decorates @category" do
-      expect(assigns(:category)).to be_present
-      expect(assigns(:category)).to be_decorated
+      it "assigns and decorates @category" do
+        expect(assigns(:category)).to be_present
+        expect(assigns(:category)).to be_decorated
+      end
+
+      it "assigns and decorates @repos" do
+        expect(assigns(:repos)).to be_present
+        expect(assigns(:repos).first).to be_decorated
+      end
+
+      it "redirects to the updated path if called with outdated path" do
+        old_slug = category.slug
+        category.full_name = "new_full_name"
+        category.save
+
+        get :show, id: old_slug
+        expect(response).to redirect_to(assigns(:category))
+      end
     end
 
-    it "assigns and decorates @repos" do
-      expect(assigns(:repos)).to be_present
-      expect(assigns(:repos).first).to be_decorated
-    end
+    context "category not found" do
+      before { get :show, id: "unknown_category" }
 
-    it "redirects to the updated path if called with outdated path" do
-      old_slug = category.slug
-      category.full_name = "new_full_name"
-      category.save
-
-      get :show, id: old_slug
-      expect(response).to redirect_to(assigns(:category))
+      it { should redirect_to(root_path) }
+      it { should set_the_flash.to("Record could not be found.") }
     end
   end
 

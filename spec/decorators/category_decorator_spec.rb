@@ -29,15 +29,10 @@ describe CategoryDecorator do
     end
   end
 
-  # TODO: Make more useful
   describe "#stars" do
-    it "returns the category's stars when given" do
-      category.stars = 100
-      expect(category.stars).to match(/100/)
-    end
-
-    it "returns zero if missing" do
-      expect(category.stars).to match(/0/)
+    it "returns the category's stars with a delimiter" do
+      category.stars = 1000
+      expect(category.stars).to match(/1,000/)
     end
   end
 
@@ -86,6 +81,18 @@ describe CategoryDecorator do
       it "returns an empty string when cached repo_list is empty" do
         category.repo_list = ""
         expect(category.further_repo_names).to eq("")
+      end
+    end
+
+    describe "#show_repos_link_text" do
+      it "returns a count and an arrow if more than three repos" do
+        category.repos_count = 10
+        expect(category.show_repos_link_text).to eq(" and 8 more &raquo;")
+      end
+
+      it "returns an arraw if up to two repos" do
+        category.repos_count = 2
+        expect(category.show_repos_link_text).to eq(" &raquo;")
       end
     end
   end
