@@ -36,7 +36,7 @@ class Category < ActiveRecord::Base
   end
 
   def self.order_by_name
-    order('categories.full_name DESC')
+    order('categories.full_name ASC')
   end
 
   def self.ids_and_full_names
@@ -96,6 +96,13 @@ class Category < ActiveRecord::Base
     through: :reverse_category_relationships,
     source: :other_category
 
+  # Services
+  has_many :service_categorizations,
+    dependent: :destroy
+  has_many :services,
+    through: :service_categorizations
+
+  # Defaults
   def stars
     self[:stars] || 0
   end

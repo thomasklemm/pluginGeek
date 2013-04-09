@@ -1,1 +1,55 @@
 // experiments in SASS
+
+// floated sidenotes
+.sidenotes
+  @include span-columns(4)
+  @include omega
+  margin-left: 2.35765%
+  float: right
+
+  .title
+    font-weight: bold
+    font-size: 1.125rem
+    color: #777
+    margin: 0
+    padding: 0
+
+.services-wrapper
+  font-size: 0.875rem
+  .service
+    background: rgba(#B3CC57, 0.4)
+    background: #e7ffe7
+    background: #fff9e7
+    background: rgba(#D1E751, 0.275)
+    padding: 0.75rem 1rem
+    margin-bottom: 8px
+    .name
+      font-size: 18px
+      font-weight: bold
+      line-height: 1.25
+    .url
+    .description
+
+.staff-picks-wrapper
+  background: #fff9e7
+  padding: 0.75rem 1rem
+
+.staff-picks-wrapper .staff-pick
+  font-size:  14px
+  .full-name
+    display: block
+    .name
+      font-weight: 600
+    .owner
+    .stars
+      margin-left: 5px
+  .description
+    display: block
+  .homepage-link
+    display: block
+  .category
+
+  &:not(:first-of-type)
+    margin-top: 12px
+  &:not(:last-of-type)
+    margin-bottom: 12px

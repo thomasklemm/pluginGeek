@@ -59,7 +59,7 @@ describe Repo do
 
     describe ".order_by_name" do
       it "returns repos ordered by full_name" do
-        expect(Repo.order_by_name.to_sql).to match(/ORDER BY repos.full_name DESC/)
+        expect(Repo.order_by_name.to_sql).to match(/ORDER BY repos.full_name ASC/)
       end
     end
 

@@ -1,25 +1,41 @@
 / categories/index
-- cache ['categories_index', @language] do
+h1 Looking for a great Ruby gem?
 
-  h1 Looking for a great Ruby gem?
+.space-half
+/ Categories list
+#js-categories-list
+  .find-categories
+    / Instant client-side searching via list.js
+    input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
 
-  .space-half
+    / Sort categories in list.js
+    .sort-list
+      = link_to 'Sort by Name', 'javascript:;', class: 'sort active', :'data-sort' => 'js-name'
+      span.divider
+      = link_to 'Sort by Score', 'javascript:;', class: 'sort', :'data-sort' => 'js-score'
 
-  / Categories list
-  #js-categories-list
-    .find-categories
-      / Instant client-side searching via list.js
-      input.search.js-search type='text' autocomplete='off' placeholder='Background Jobs...'
+    .space-half
+    / sidenotes
+    .sidenotes
+      / services
+      - @services = Service.random(2)
+      .services-wrapper
+        = render partial: 'services/service', collection: @services
 
-      / Sort categories in list.js
-      .sort-list
-        = link_to 'Sort by Name', 'javascript:;', class: 'sort active', :'data-sort' => 'js-name'
-        span.divider
-        = link_to 'Sort by Score', 'javascript:;', class: 'sort', :'data-sort' => 'js-score'
+      / .space-one
+
+      / / staff picks
+      / - staff_pick_ids = Repo.where(staff_pick: true).order('created_at DESC').pluck(:id)
+      / - staff_picks = Repo.find(staff_pick_ids.sample(3)).shuffle
+      / - staff_picks = RepoDecorator.decorate_collection(staff_picks)
+      / .staff-picks-wrapper
+      /   span.title Recent staff picks
+      /   = render partial: 'repos/staff_pick', collection: staff_picks, as: :repo
 
     / List for list.js
-    .categories-wrapper.list data-page=35
-      = render partial: 'category', collection: @categories
+    - cache ['categories_list', @language] do
+      .categories-wrapper.list data-page=30
+        = render partial: 'category', collection: @categories
 
     .space-half
 

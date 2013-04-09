@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407170505) do
+ActiveRecord::Schema.define(:version => 20130409064806) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -151,6 +151,25 @@ ActiveRecord::Schema.define(:version => 20130407170505) do
 
   add_index "repos", ["full_name"], :name => "index_repos_on_full_name", :unique => true
   add_index "repos", ["score"], :name => "index_repos_on_score"
+
+  create_table "service_categorizations", :force => true do |t|
+    t.integer  "service_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "service_categorizations", ["category_id"], :name => "index_service_categorizations_on_category_id"
+  add_index "service_categorizations", ["service_id"], :name => "index_service_categorizations_on_service_id"
+
+  create_table "services", :force => true do |t|
+    t.text     "name"
+    t.text     "display_url"
+    t.text     "target_url"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.text     "login",                                  :null => false
