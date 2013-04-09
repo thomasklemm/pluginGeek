@@ -1,22 +1,10 @@
 / categories/show
+.sidenotes
+  - @services = @category.services.shuffle
+  .services-wrapper
+    = render partial: 'services/service', collection: @services
+
 - cache [@category, 'details'] do
-  .category-services-wrapper
-    .services-wrapper
-      .service
-        .name = link_to 'Heroku', 'heroku.com'
-        .url = link_to 'www.heroku.com', 'heroku.com'
-        .description
-          ' Agile deployment for Ruby, Node.js, Clojure, Java, Python, and Scala.
-          ' Get up and running in minutes, and deploy instantly with git. Focus 100% on your code, and never think about servers, instances, or VMs again.
-
-      - if [true, false].sample == true
-        .service
-          .name = link_to 'Heroku', 'heroku.com'
-          .url = link_to 'www.heroku.com', 'heroku.com'
-          .description
-            ' Agile deployment for Ruby, Node.js, Clojure, Java, Python, and Scala.
-            ' Get up and running in minutes, and deploy instantly with git. Focus 100% on your code, and never think about servers, instances, or VMs again.
-
   / Category details header
   = render 'categories/category_details'
 

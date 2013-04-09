@@ -45,6 +45,9 @@ describe Category do
   it { should have_many(:reverse_category_relationships).dependent(:destroy) }
   it { should have_many(:reverse_related_categories).through(:reverse_category_relationships) }
 
+  it { should have_many(:service_categorizations).dependent(:destroy) }
+  it { should have_many(:services).through(:service_categorizations) }
+
   it "has a friendly id using the full_name" do
     category.save
     expect(category.to_param).to eq(category.full_name.parameterize)
@@ -73,7 +76,7 @@ describe Category do
 
     describe ".order_by_name" do
       it "returns categories ordered by full_name" do
-        expect(Category.order_by_name.to_sql).to match(/ORDER BY categories.full_name DESC/)
+        expect(Category.order_by_name.to_sql).to match(/ORDER BY categories.full_name ASC/)
       end
     end
 

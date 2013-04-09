@@ -38,7 +38,7 @@ class Repo < ActiveRecord::Base
   end
 
   def self.order_by_name
-    order('repos.full_name DESC')
+    order('repos.full_name ASC')
   end
 
   def self.ids_and_full_names
