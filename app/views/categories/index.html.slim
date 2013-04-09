@@ -18,19 +18,19 @@ h1 Looking for a great Ruby gem?
     / sidenotes
     .sidenotes
       / services
-      - @services = Service.all.sample(2).shuffle
+      - @services = Service.random(2)
       .services-wrapper
         = render partial: 'services/service', collection: @services
 
-      .space-one
+      / .space-one
 
-      / staff picks
-      - staff_pick_ids = Repo.where(staff_pick: true).order('created_at DESC').pluck(:id)
-      - staff_picks = Repo.find(staff_pick_ids.sample(3)).shuffle
-      - staff_picks = RepoDecorator.decorate_collection(staff_picks)
-      .staff-picks-wrapper
-        span.title Recent staff picks
-        = render partial: 'repos/staff_pick', collection: staff_picks, as: :repo
+      / / staff picks
+      / - staff_pick_ids = Repo.where(staff_pick: true).order('created_at DESC').pluck(:id)
+      / - staff_picks = Repo.find(staff_pick_ids.sample(3)).shuffle
+      / - staff_picks = RepoDecorator.decorate_collection(staff_picks)
+      / .staff-picks-wrapper
+      /   span.title Recent staff picks
+      /   = render partial: 'repos/staff_pick', collection: staff_picks, as: :repo
 
     / List for list.js
     - cache ['categories_list', @language] do

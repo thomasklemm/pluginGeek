@@ -1,6 +1,6 @@
 / categories/show
 .sidenotes
-  - @services = @category.services.shuffle
+  - @services = Service.for_category(@category)
   .services-wrapper
     = render partial: 'services/service', collection: @services
 

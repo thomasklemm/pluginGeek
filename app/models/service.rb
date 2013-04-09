@@ -20,4 +20,15 @@ class Service < ActiveRecord::Base
     dependent: :destroy
   has_many :categories,
     through: :service_categorizations
+
+  # Retrieve a random set of services
+  def self.random(count=1)
+    ids = self.pluck(:id).sample(count).shuffle
+    where(id: ids)
+  end
+
+  # Fetch and shuffle the services associated with a category
+  def self.for_category(category)
+    category.services.shuffle || []
+  end
 end
