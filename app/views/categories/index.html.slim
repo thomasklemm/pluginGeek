@@ -1,4 +1,5 @@
 / categories/index
+/ website header
 = image_tag('headers/website_header.png', height: 200, style: 'margin: 10px 0 5px')
 
 .space-half
@@ -34,7 +35,7 @@
 
     / List for list.js
     - cache ['categories_list', @language] do
-      .categories-wrapper.list data-page=30
+      .categories-wrapper.list data-page=24
         = render partial: 'category', collection: @categories
 
     .space-half
