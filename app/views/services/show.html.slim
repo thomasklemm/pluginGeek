@@ -1,2 +1,14 @@
-h1 Services#show
-p Find me in app/views/services/show.html.slim
+/ services/show
+/ Breadcrums
+= link_to '&laquo; All services'.html_safe, services_path
+'  /
+= link_to @service.name, service_path(@service)
+
+h1 #{ @service.name } (awesome service!)
+
+.services-index
+  .services-wrapper
+    = render partial: 'services/detailed_service', locals: { service: @service }
+= link_to "Unfortunately remove #{ @service.name }", service_path(@service), method: :delete, confirm: 'Are your sure?'
+
+br

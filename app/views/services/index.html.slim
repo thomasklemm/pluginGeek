@@ -1,2 +1,11 @@
-h1 Services#index
-p Find me in app/views/services/index.html.slim
+h1 #{ @services.length } awesome services for developers
+
+= link_to icon_tag(:plus, 'New service'), new_service_path
+br
+br
+
+.services-index
+  .services-wrapper
+    = render partial: 'services/detailed_service', collection: @services, as: :service
+
+= link_to icon_tag(:plus, 'New service'), new_service_path

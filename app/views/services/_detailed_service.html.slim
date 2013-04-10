@@ -1,0 +1,13 @@
+/ services/_detailed_service
+.service-wrapper
+  .service
+    .name = link_to service.name, service.target_url
+    .url = link_to service.display_url, service.target_url
+    .description = service.description
+
+  .staff-actions
+    = link_to 'Details', service_path(service)
+    '  |
+    = link_to icon_tag(:check, 'Edit'), edit_service_path(service)
+    / '  |
+    / = link_to 'Remove', service_path(service), method: :delete, confirm: 'Are your sure?'

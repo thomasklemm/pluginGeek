@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   after_filter :verify_authorized
 
   def index
-    @services = Service.scoped
+    @services = Service.order('created_at DESC')
     authorize @services.first
   end
 
