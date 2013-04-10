@@ -1,4 +1,18 @@
 Plugingeek::Application.routes.draw do
+  get "services/index"
+
+  get "services/show"
+
+  get "services/new"
+
+  get "services/create"
+
+  get "services/edit"
+
+  get "services/update"
+
+  get "services/destroy"
+
   # User authentication
   devise_for :users,
     path_names: {sign_in: 'login', sign_out: 'logout'},
