@@ -1,0 +1,24 @@
+/ services/_form
+= form_for @service do |f|
+  = render 'shared/error_messages', target: @service
+
+  = f.label :name, 'Name'
+  = f.text_field :name, autofocus: true, autocomplete: 'off'
+
+  = f.label :display_url, 'Display URL'
+  = f.text_field :display_url, autocomplete: 'off'
+
+  = f.label :target_url, 'Target URL'
+  = f.text_field :target_url, autocomplete: 'off'
+
+  = f.label :description, 'Description'
+  = f.text_area :description
+
+  = f.label :category_ids, 'Categories'
+  = f.collection_select :category_ids, Category.ids_and_full_names, :id, :full_name, {}, { multiple: true }
+
+  = f.submit 'Submit', class: 'button', style: 'margin-top: 1rem'
+
+/ select2
+javascript:
+  $('#service_category_ids').select2()

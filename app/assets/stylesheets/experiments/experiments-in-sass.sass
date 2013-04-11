@@ -53,3 +53,13 @@
     margin-top: 12px
   &:not(:last-of-type)
     margin-bottom: 12px
+
+.services-index
+  .services-wrapper
+    .service-wrapper
+      @include row
+      .service
+        @include span-columns(4)
+      .staff-actions
+        @include span-columns(8)
+        @include omega

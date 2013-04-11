@@ -1,5 +1,6 @@
 / categories/index
-h1 Looking for a great Ruby gem?
+/ website header
+= image_tag('headers/website_header.png', height: 200, style: 'margin: 10px 0 5px')
 
 .space-half
 / Categories list
@@ -34,7 +35,7 @@ h1 Looking for a great Ruby gem?
 
     / List for list.js
     - cache ['categories_list', @language] do
-      .categories-wrapper.list data-page=30
+      .categories-wrapper.list data-page=24
         = render partial: 'category', collection: @categories
 
     .space-half

@@ -13,12 +13,6 @@ Plugingeek::Application.routes.draw do
   get 'login', to: 'devise/sessions#new', as: :login
   delete 'logout', to: 'devise/sessions#destroy', as: :logout
 
-  # Submissions
-  get 'submit' => 'submissions#submit', as: :submit
-
-  # Links
-  resources :links, except: :show
-
   # Categories
   resources :categories, only: [:show, :edit, :update, :destroy] do
     put 'refresh', on: :member
@@ -50,6 +44,15 @@ Plugingeek::Application.routes.draw do
   resources :repos, only: [:show, :new, :create, :edit] do
     put 'refresh', on: :member
   end
+
+  # Services
+  resources :services
+
+  # Links
+  resources :links, except: :show
+
+  # Submissions
+  get 'submit' => 'submissions#submit', as: :submit
 
   # Authorize Blitz.io load testing
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#authorize_load_testing'
