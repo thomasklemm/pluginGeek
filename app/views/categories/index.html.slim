@@ -19,9 +19,17 @@
     / sidenotes
     .sidenotes
       / services
-      - @services = Service.random(2)
+      - services = Service.random(2)
       .services-wrapper
-        = render partial: 'services/service', collection: @services
+        = render partial: 'services/service', collection: services
+      .space-half
+
+      / featured categories
+      - featured_categories = Category.featured(3)
+      - featured_categories &&= CategoryDecorator.decorate_collection(featured_categories)
+      .featured-categories-wrapper
+        h3 Featured categories
+        = render partial: 'categories/category', collection: featured_categories
 
       / .space-one
 

@@ -5,6 +5,7 @@
 #  created_at    :datetime         not null
 #  description   :text
 #  draft         :boolean          default(TRUE)
+#  featured      :boolean          default(FALSE)
 #  full_name     :text             not null
 #  id            :integer          not null, primary key
 #  language_list :text

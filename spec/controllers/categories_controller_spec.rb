@@ -42,6 +42,7 @@ describe CategoriesController do
         full_name: 'new_category_name',
         description: 'new_category_description',
         draft: false,
+        featured: true,
         related_category_ids: [1, 2, 3]
       }
     end
@@ -60,6 +61,10 @@ describe CategoriesController do
 
       it "permits draft" do
         expect(params[:draft]).to_not be_nil # boolean FALSE is expected
+      end
+
+      it "permits featured" do
+        expect(params[:featured]).to be_present
       end
 
       it "permits related_category_ids" do
@@ -81,6 +86,10 @@ describe CategoriesController do
 
       it "doesn't permit draft" do
         expect(params[:draft]).to be_nil
+      end
+
+      it "doesn't permit featured" do
+        expect(params[:featured]).to be_nil
       end
 
       it "doesn't permit related_category_ids" do

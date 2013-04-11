@@ -64,7 +64,7 @@ class CategoriesController < ApplicationController
   end
 
   def staff_category_params
-    params.require(:category).permit(:full_name, :description, :draft, { related_category_ids: [] })
+    params.require(:category).permit(:full_name, :description, :draft, :featured, { related_category_ids: [] })
   end
 
   def user_category_params

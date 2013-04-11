@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409064806) do
+ActiveRecord::Schema.define(:version => 20130411133349) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -24,17 +24,18 @@ ActiveRecord::Schema.define(:version => 20130409064806) do
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "categories", :force => true do |t|
-    t.text     "slug",                            :null => false
+    t.text     "slug",                             :null => false
     t.integer  "score",         :default => 0
     t.text     "description"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.text     "full_name",                       :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.text     "full_name",                        :null => false
     t.integer  "stars",         :default => 0
     t.boolean  "draft",         :default => true
     t.text     "repo_list"
     t.text     "language_list"
     t.integer  "repos_count",   :default => 0
+    t.boolean  "featured",      :default => false
   end
 
   add_index "categories", ["score"], :name => "index_categories_on_score"

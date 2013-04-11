@@ -21,9 +21,10 @@ class Service < ActiveRecord::Base
   has_many :categories,
     through: :service_categorizations
 
-  # Retrieve a random set of services
+  # Retrieve a number of services in random order
   def self.random(count=1)
-    ids = self.pluck(:id).sample(count).shuffle
+    ids = pluck(:id)
+    ids &&= ids.sample(count).shuffle
     where(id: ids)
   end
 

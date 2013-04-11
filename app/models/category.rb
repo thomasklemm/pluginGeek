@@ -5,6 +5,7 @@
 #  created_at    :datetime         not null
 #  description   :text
 #  draft         :boolean          default(TRUE)
+#  featured      :boolean          default(FALSE)
 #  full_name     :text             not null
 #  id            :integer          not null, primary key
 #  language_list :text
@@ -47,6 +48,13 @@ class Category < ActiveRecord::Base
   def self.ids_and_full_names_without(repo)
     where('id != ?', repo.id).
       ids_and_full_names
+  end
+
+  # Retrieve a number of featured repos in random order
+  def self.featured(count=1)
+    ids = where(featured: true).pluck(:id)
+    ids &&= ids.sample(count).shuffle
+    where(id: ids)
   end
 
   # Autocomplete repo parents for select2

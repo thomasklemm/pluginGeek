@@ -26,39 +26,36 @@ describe Service do
   it { should have_many(:categories).through(:service_categorizations) }
 
   describe ".random(count)" do
-    before do
-      4.times { Fabricate(:service) }
-    end
-
-    it "returns a set of records of given count" do
-      services = Service.random(2).to_a
-      expect(services).to be_an Array
-      expect(services).to have(2).items
-      expect(services.first).to be_a Service
+    it "returns a set of records of the given number" do
+      2.times { Fabricate(:service) }
+      expect(Service.random(1)).to have(1).item
     end
 
     it "returns a random set of records" do
-      expect(Service.random(2).to_a).to_not eq(Service.random(2).to_a)
+      5.times { Fabricate(:service) }
+      random_one = Service.random(3)
+      random_two = Service.random(3)
+      expect(random_one).to_not eq(random_two)
     end
   end
 
   describe ".for_category(category)" do
     let(:category) { Fabricate(:category) }
 
-    before do
-      4.times { service = Fabricate(:service, categories: [category]) }
-      Fabricate(:service)
-    end
-
     it "returns the category's services" do
+      service = Fabricate(:service, categories: [category])
+      Fabricate(:service)
+
       services = Service.for_category(category)
-      expect(services).to be_an Array
-      expect(services).to have(4).items
-      expect(services.first).to be_a Service
+      expect(services).to eq([service])
     end
 
-    it "shuffles the results" do
-      expect(Service.for_category(category).to_a).to_not eq(Service.for_category(category).to_a)
+    it "randomizes the services' order" do
+      5.times { Fabricate(:service, categories: [category]) }
+
+      services_one = Service.for_category(category)
+      services_two = Service.for_category(category)
+      expect(services_one).to_not eq(services_two)
     end
   end
 end

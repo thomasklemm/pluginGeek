@@ -5,6 +5,7 @@
 #  created_at    :datetime         not null
 #  description   :text
 #  draft         :boolean          default(TRUE)
+#  featured      :boolean          default(FALSE)
 #  full_name     :text             not null
 #  id            :integer          not null, primary key
 #  language_list :text
@@ -103,6 +104,26 @@ describe Category do
 
       it "excludes the given category" do
         expect(Category.ids_and_full_names_without(category)).to_not include(category)
+      end
+    end
+
+    describe ".featured(count)" do
+      it "returns only featured categories" do
+        category = Fabricate(:category, featured: true)
+        Fabricate(:category)
+        expect(Category.featured(2)).to eq([category])
+      end
+
+      it "returns the specified number of categories" do
+        2.times { Fabricate(:category, featured: true) }
+        expect(Category.featured(1)).to have(1).item
+      end
+
+      it "randomizes the categories and order" do
+        5.times { Fabricate(:category, featured: true) }
+        featured_one = Category.featured(3)
+        featured_two = Category.featured(3)
+        expect(featured_one).to_not eq(featured_two)
       end
     end
   end

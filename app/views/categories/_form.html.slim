@@ -28,6 +28,12 @@
       = f.check_box :draft
       = f.label :draft, "Draft mode (staff)"
 
+  / featured
+  - if staff?
+    .field
+      = f.check_box :featured
+      = f.label :featured, "Featured category"
+
   / submit button
   .actions
     = f.submit "Update category", class: 'button'
