@@ -31,7 +31,7 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def show_repos_link_text
-    if repos_count > 3
+    if repos_count > 2
       " and #{ repos_count - 2 } more &raquo;".html_safe
     else
       " &raquo;".html_safe

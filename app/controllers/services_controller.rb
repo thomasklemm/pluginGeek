@@ -5,7 +5,7 @@ class ServicesController < ApplicationController
 
   def index
     @services = Service.order('created_at DESC')
-    authorize @services.first
+    authorize @services.first if @services.any?
   end
 
   def show

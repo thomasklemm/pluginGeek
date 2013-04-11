@@ -86,8 +86,8 @@ describe CategoryDecorator do
 
     describe "#show_repos_link_text" do
       it "returns a count and an arrow if more than three repos" do
-        category.repos_count = 10
-        expect(category.show_repos_link_text).to eq(" and 8 more &raquo;")
+        category.repos_count = 3
+        expect(category.show_repos_link_text).to eq(" and 1 more &raquo;")
       end
 
       it "returns an arraw if up to two repos" do
