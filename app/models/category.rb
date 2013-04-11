@@ -53,8 +53,8 @@ class Category < ActiveRecord::Base
   # Retrieve a number of featured repos in random order
   def self.featured(count=1)
     ids = where(featured: true).pluck(:id)
-    ids &&= ids.sample(count).shuffle
-    where(id: ids)
+    ids &&= ids.sample(count)
+    where(id: ids).shuffle
   end
 
   # Autocomplete repo parents for select2

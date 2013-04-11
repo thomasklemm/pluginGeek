@@ -1,0 +1,4 @@
+/ services/_featured_services
+- services = Service.random(2)
+.services-wrapper
+  = render partial: 'services/service', collection: services

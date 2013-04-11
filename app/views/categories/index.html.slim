@@ -16,30 +16,14 @@
       = link_to 'Sort by Score', 'javascript:;', class: 'sort', :'data-sort' => 'js-score'
 
     .space-half
+
     / sidenotes
     .sidenotes
       / services
-      - services = Service.random(2)
-      .services-wrapper
-        = render partial: 'services/service', collection: services
+      = render 'services/featured_services'
       .space-half
-
       / featured categories
-      - featured_categories = Category.featured(3)
-      - featured_categories &&= CategoryDecorator.decorate_collection(featured_categories)
-      .featured-categories-wrapper
-        h3 Featured categories
-        = render partial: 'categories/category', collection: featured_categories
-
-      / .space-one
-
-      / / staff picks
-      / - staff_pick_ids = Repo.where(staff_pick: true).order('created_at DESC').pluck(:id)
-      / - staff_picks = Repo.find(staff_pick_ids.sample(3)).shuffle
-      / - staff_picks = RepoDecorator.decorate_collection(staff_picks)
-      / .staff-picks-wrapper
-      /   span.title Recent staff picks
-      /   = render partial: 'repos/staff_pick', collection: staff_picks, as: :repo
+      = render 'categories/featured_categories'
 
     / List for list.js
     - cache ['categories_list', @language] do
