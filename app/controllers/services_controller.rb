@@ -54,6 +54,6 @@ class ServicesController < ApplicationController
   end
 
   def service_params
-    params.require(:service).permit(:name, :display_url, :target_url, :description)
+    params.require(:service).permit(:name, :display_url, :target_url, :description, { category_ids: [] })
   end
 end

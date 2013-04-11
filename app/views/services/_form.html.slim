@@ -14,4 +14,11 @@
   = f.label :description, 'Description'
   = f.text_area :description
 
+  = f.label :category_ids, 'Categories'
+  = f.collection_select :category_ids, Category.ids_and_full_names, :id, :full_name, {}, { multiple: true }
+
   = f.submit 'Submit', class: 'button', style: 'margin-top: 1rem'
+
+/ select2
+javascript:
+  $('#service_category_ids').select2()

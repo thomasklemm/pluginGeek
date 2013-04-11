@@ -4,7 +4,7 @@ describe ServicePolicy do
   subject { ServicePolicy }
 
   let(:service) { Fabricate.build(:service) }
-  let(:staff)   { Fabricate.build(:user, stff: true) }
+  let(:staff)   { Fabricate.build(:user, staff: true) }
   let(:user)    { Fabricate.build(:user) }
   let(:guest)   { nil }
 
