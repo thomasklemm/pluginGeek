@@ -45,7 +45,7 @@
 
 
 / Autocomplete the category names input
-- category_full_names = Category.full_names_for_autocomplete.html_safe
+- category_full_names = Category.ids_and_full_names.map(&:full_name).to_json.html_safe
 javascript:
   $('#repo_category_list').select2({
     tags: #{ category_full_names }

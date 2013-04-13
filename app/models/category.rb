@@ -52,15 +52,7 @@ class Category < ActiveRecord::Base
 
   # Retrieve a number of featured repos in random order
   def self.featured(count=1)
-    ids = where(featured: true).pluck(:id).sample(count)
-    where(id: ids).shuffle
-  end
-
-  # Autocomplete repo parents for select2
-  def self.full_names_for_autocomplete
-    order_by_score.
-      pluck(:full_name).
-      to_json
+    where(featured: true).sample(count).shuffle
   end
 
   # Repos
@@ -128,12 +120,12 @@ class Category < ActiveRecord::Base
     sc.sort_by(&:stars).reverse
   end
 
-  def self.expire_all
-    update_all(updated_at: Time.current)
-  end
-
   def extended_links
     @extended_links ||= extended_links!
+  end
+
+  def self.expire_all
+    update_all(updated_at: Time.current)
   end
 
   # Assign aggregate stars of repos as category stars
@@ -217,7 +209,7 @@ class Category < ActiveRecord::Base
   end
 
   def cache_repos_count
-    self.repos_count = repos.length # uses the length of the already loaded array
+    self.repos_count = repos.size
   end
 
   # Cache only Web and Mobile if those main languages are present, don't display any sublanguages then
@@ -228,7 +220,7 @@ class Category < ActiveRecord::Base
     self.language_list = langs.join(', ')
   end
 
-  # Expire categories
+  # Expire repos and languages
   def expire_repos
     repos.update_all(updated_at: Time.current)
   end
