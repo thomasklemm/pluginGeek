@@ -23,9 +23,8 @@ class Service < ActiveRecord::Base
 
   # Retrieve a number of services in random order
   def self.random(count=1)
-    ids = pluck(:id)
-    ids &&= ids.sample(count).shuffle
-    where(id: ids)
+    ids = pluck(:id).sample(count)
+    where(id: ids).shuffle
   end
 
   # Fetch and shuffle the services associated with a category

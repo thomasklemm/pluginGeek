@@ -52,8 +52,7 @@ class Category < ActiveRecord::Base
 
   # Retrieve a number of featured repos in random order
   def self.featured(count=1)
-    ids = where(featured: true).pluck(:id)
-    ids &&= ids.sample(count)
+    ids = where(featured: true).pluck(:id).sample(count)
     where(id: ids).shuffle
   end
 

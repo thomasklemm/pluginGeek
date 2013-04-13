@@ -223,6 +223,7 @@ class Repo < ActiveRecord::Base
 
   def assign_score
     self.score = ((stars + 1) * activity_bonus * staff_pick_bonus).ceil
+    self.score = 0 if score < 0
   end
 
   def activity_bonus
