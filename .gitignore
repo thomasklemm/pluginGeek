@@ -7,6 +7,11 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore CTags
+.tags
+.tags_sorted_by_file
+.gemtags
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
