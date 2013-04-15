@@ -16,6 +16,6 @@ class RobotsController < ApplicationController
   private
 
   def canonical_host?
-    request.host == 'plugingeek.com'
+    request.host =~ /plugingeek\.com/
   end
 end

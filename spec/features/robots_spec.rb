@@ -3,7 +3,7 @@ require 'spec_helper'
 feature "Robots" do
   context "canonical host" do
     scenario "allow robots to index the site" do
-      Capybara.app_host = 'http://plugingeek.com'
+      Capybara.app_host = 'http://www.plugingeek.com'
       visit '/robots.txt'
       Capybara.app_host = nil
 
