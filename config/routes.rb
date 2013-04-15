@@ -54,6 +54,9 @@ Plugingeek::Application.routes.draw do
   # Submissions
   get 'submit' => 'submissions#submit', as: :submit
 
+  # Dynamic robots.txt
+  get 'robots.:format' => 'robots#index'
+
   # Authorize Blitz.io load testing
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#authorize_load_testing'
 

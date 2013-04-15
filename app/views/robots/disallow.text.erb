@@ -1,0 +1,9 @@
+# Disallow robots to index any page on the site
+# rendered when robot is visiting the site
+# via the Cloudfront CDN URL
+# to prevent duplicate indexing
+# and search results referencing the Cloudfront URL
+
+# DISALLOW ROBOTS
+User-agent: *
+Disallow: /
