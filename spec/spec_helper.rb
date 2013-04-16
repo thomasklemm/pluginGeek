@@ -3,6 +3,7 @@
 # SimpleCov.start 'rails'
 
 # Coveralls settings
+require 'simplecov'
 require 'coveralls'
 Coveralls.wear!('rails')
 

@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# TODO: Extract
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -55,7 +56,7 @@ describe Category, "show category" do
   end
 end
 
-describe Category, "edit category" do
+describe Category, "edit and update category" do
   include_context "category"
 
   it "updates the category" do
