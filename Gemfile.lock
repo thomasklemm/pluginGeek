@@ -16,6 +16,14 @@ GIT
       multi_json (~> 1.0)
       uuidtools
 
+GIT
+  remote: git://github.com/thoughtbot/capybara-webkit.git
+  revision: 0abc7e139f902e2ca1fcd2c145f688bb321f5cbe
+  specs:
+    capybara-webkit (0.14.1)
+      capybara (~> 2.0, >= 2.0.2)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -46,7 +54,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    addressable (2.3.3)
+    addressable (2.3.4)
     arel (3.0.2)
     atomic (1.1.7)
     bcrypt-ruby (3.0.1)
@@ -69,9 +77,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (0.14.2)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     celluloid (0.12.4)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
@@ -119,7 +124,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     fabrication (2.6.4)
-    facter (1.6.18)
+    facter (1.7.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     figaro (0.6.3)
@@ -334,7 +339,7 @@ DEPENDENCIES
   bourbon
   bourne
   cache_digests
-  capybara-webkit
+  capybara-webkit!
   closure_tree
   coffee-rails
   compass-rails

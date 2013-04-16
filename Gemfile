@@ -124,7 +124,7 @@ group :test do
   gem 'timecop'
   gem 'simplecov', require: false
   gem 'coveralls', require: false
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit'
   gem 'launchy'
   gem 'webmock'
   gem 'vcr'
