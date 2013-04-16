@@ -12,7 +12,7 @@ def sign_out
   logout(:user)
 end
 
-shared_context "repo" do
+shared_context "repo features" do
   let!(:language) { Fabricate(:language, name: "Ruby") }
   let!(:category) { Fabricate(:category, languages: [language], repos: [repo]) }
   let!(:repo)     { Fabricate(:repo, full_name: 'rails/rails', stars: 42) }
@@ -22,7 +22,7 @@ shared_context "repo" do
 end
 
 describe Repo, "show repo" do
-  include_context "repo"
+  include_context "repo features"
   let!(:parent)   { Fabricate(:repo, children: [repo]) }
   let!(:child)    { Fabricate(:repo, parents: [repo]) }
   let!(:link)     { Fabricate(:link, repos: [repo]) }
@@ -46,7 +46,7 @@ describe Repo, "show repo" do
 end
 
 describe Repo, "edit and update repo" do
-  include_context "repo"
+  include_context "repo features"
   let(:parent)   { Fabricate(:repo) }
 
   it "updates the repo" do
@@ -70,7 +70,7 @@ describe Repo, "edit and update repo" do
 end
 
 describe Repo, "refresh repo" do
-  include_context "repo"
+  include_context "repo features"
 
   it "refreshes the repo" do
     VCR.use_cassette('features/repos/refresh', record: :new_episodes) do
@@ -86,7 +86,7 @@ describe Repo, "refresh repo" do
 end
 
 describe Repo, "destroy repo" do
-  include_context "repo"
+  include_context "repo features"
 
   it "destroys the repo" do
     sign_in staff

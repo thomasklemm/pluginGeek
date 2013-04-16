@@ -31,7 +31,7 @@ describe Array do
     end
 
     context "array of ActiveRecord objects" do
-      let(:categories) { (1..2).map { Fabricate(:category) } }
+      let(:categories) { [Fabricate(:category)] }
 
       it "generates a collection cache_key based on the items' cache keys" do
         key = ActiveSupport::Cache.expand_cache_key(categories)
@@ -40,7 +40,7 @@ describe Array do
     end
 
     context "array with lots of ActiveRecord objects" do
-      let(:categories) { (1..4).map { Fabricate(:category) } }
+      let(:categories) { (1..2).map { Fabricate(:category) } }
 
       it "generates a collection cache_key by digesting the items' cache keys" do
         key = ActiveSupport::Cache.expand_cache_key(categories)

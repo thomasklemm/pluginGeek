@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   # Hide a few fields for users that are not staff in the views
   # and decide whether peek bar with application stats is shown
   def staff?
-    current_user && current_user.staff?
+    !!(current_user && current_user.staff?)
   end
 
   helper_method :staff?

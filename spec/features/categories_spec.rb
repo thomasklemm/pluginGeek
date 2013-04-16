@@ -12,7 +12,7 @@ def sign_out
   logout(:user)
 end
 
-shared_context "category" do
+shared_context "category features" do
   let!(:language) { Fabricate(:language, name: "Ruby") }
   let!(:category) { Fabricate(:category, languages: [language], repos: [repo]) }
   let!(:repo)     { Fabricate(:repo) }
@@ -22,7 +22,7 @@ shared_context "category" do
 end
 
 describe Category, "list categories" do
-  include_context "category"
+  include_context "category features"
 
   it "lists categories" do
     visit categories_path(language.slug)
@@ -35,7 +35,7 @@ describe Category, "list categories" do
 end
 
 describe Category, "show category" do
-  include_context "category"
+  include_context "category features"
   let!(:link)     { Fabricate(:link, categories: [category]) }
   let!(:link_via_repo)    { Fabricate(:link, repos: [repo]) }
   let!(:similar_category) { Fabricate(:category, related_categories: [category]) }
@@ -57,7 +57,7 @@ describe Category, "show category" do
 end
 
 describe Category, "edit and update category" do
-  include_context "category"
+  include_context "category features"
 
   it "updates the category" do
     sign_in user
@@ -76,7 +76,7 @@ describe Category, "edit and update category" do
 end
 
 describe Category, "refresh category" do
-  include_context "category"
+  include_context "category features"
 
   it "refreshes the category" do
     sign_in staff
@@ -90,7 +90,7 @@ describe Category, "refresh category" do
 end
 
 describe Category, "destroy category" do
-  include_context "category"
+  include_context "category features"
 
   it "destroys the category" do
     sign_in staff

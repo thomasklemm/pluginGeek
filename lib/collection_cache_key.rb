@@ -5,7 +5,7 @@ class Array
   def cache_key
     key = map { |item| item.respond_to?(:cache_key) ? item.cache_key : item }.to_param
 
-    key = Digest::MD5.hexdigest(key) if key.length > 100
+    key = Digest::MD5.hexdigest(key) if key.length > 40
     key = 'empty' if key == ''
 
     key

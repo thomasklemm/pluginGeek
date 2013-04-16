@@ -26,7 +26,7 @@
       = render 'categories/featured_categories'
 
     / List for list.js
-    - cache ['categories_list', @language] do
+    - cache [@language.name, 'categories', @categories] do
       .categories-wrapper.list data-page=24
         = render partial: 'category', collection: @categories
 

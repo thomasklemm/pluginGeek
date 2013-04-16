@@ -1,5 +1,5 @@
 / categories/_featured_categories
-- cache(['featured_categories'], expires_in: 15.minutes) do
+- cache 'featured_categories', expires_in: 15.minutes do
   - featured_categories = Category.featured(3)
   - featured_categories &&= CategoryDecorator.decorate_collection(featured_categories)
 
