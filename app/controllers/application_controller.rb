@@ -11,9 +11,12 @@ class ApplicationController < ActionController::Base
   # Rescue Pundit authorization errors
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
-  # Blitz.io authorization
-  def authorize_load_testing
+  def authorize_blitz_io
     render text: '42'
+  end
+
+  def authorize_loader_io
+    render text: 'loaderio-ca7d285a7cea4be8e79cecd78013aee6'
   end
 
   # Enable peek in production for staff
