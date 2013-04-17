@@ -48,7 +48,7 @@ gem 'figaro'
 gem 'closure_tree'
 
 # Intercom (Communicating with users)
-gem 'intercom-rails', '~> 0.2.14'
+gem 'intercom-rails', '~> 0.2.17'
 
 # Rack Timeout
 gem 'rack-timeout'
@@ -137,6 +137,9 @@ group :staging, :production do
 
   # New Relic (Server monitoring)
   gem 'newrelic_rpm'
+
+  # Libratio metrics
+  gem 'librato-rails'
 
   # Sentry (Error notifications)
   gem 'sentry-raven', github: 'getsentry/raven-ruby'
