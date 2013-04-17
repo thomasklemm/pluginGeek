@@ -1,5 +1,21 @@
 // footer
 
+$footer-spacing: 8px
+$footer-borders: 1px solid #ccc
+
+.footer
+  padding: 1rem 0
+  font-size: 14px
+
+  ul li
+    display: inline
+    padding-right: $footer-spacing
+    margin-right: $footer-spacing
+    &:not(:last-of-type)
+      border-right: $footer-borders
+
+// footer
+
 // $footer-spacing: 8px
 // $footer-borders: 1px dashed #999
 

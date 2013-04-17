@@ -14,19 +14,10 @@
   = render 'flash_messages'
 
   / main content by yielding
-  - unless content_for?(:main)
-    = yield
-
-  / main content with capture helper
-  - if content_for?(:main)
-    #main = content_for(:main)
-
-  / sidebar content with capture helper
-  - if content_for?(:sidebar)
-    #sidebar = content_for(:sidebar)
+  = yield
 
   / footer
-  / = render 'footer'
+  = render 'footer'
 
 / async javascripts
 = render 'javascripts/javascripts_in_body'
