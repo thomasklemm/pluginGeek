@@ -1,6 +1,7 @@
 / inline javascripts in head
 
 / fonts from typekit
+/ TODO: Extract env vars
 script type="text/javascript" src="//use.typekit.net/ugc8yyw.js"
 javascript:
   try{Typekit.load();}catch(e){}
@@ -12,6 +13,7 @@ javascript:
   });
 
 / google analytics in production
+/ TODO: Extract env vars
 - if Rails.env.production?
   javascript:
     var _gaq = _gaq || [];
@@ -22,6 +24,22 @@ javascript:
       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+/ gauges in production
+/ TODO: Extract env vars
+- if Rails.env.production?
+  javascript:
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '516e8de5108d7b0e3b000005');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
     })();
 
 / LiveReload (in development only)
