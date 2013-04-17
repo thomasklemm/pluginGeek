@@ -138,9 +138,6 @@ group :staging, :production do
   # New Relic (Server monitoring)
   gem 'newrelic_rpm'
 
-  # Libratio metrics
-  gem 'librato-rails'
-
   # Sentry (Error notifications)
   gem 'sentry-raven', github: 'getsentry/raven-ruby'
 
