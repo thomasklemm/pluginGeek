@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 # Puma (App Server)
-gem 'puma', '2.0.0.b6'
+gem 'puma', '2.0.0.b7'
 
 # Rails
 gem 'rails', '3.2.13'

@@ -2,6 +2,5 @@
 
 require ::File.expand_path('../config/environment',  __FILE__)
 # Middleware to gzip responses
-use Rack::Timeout
 use Rack::Deflater
 run Plugingeek::Application
