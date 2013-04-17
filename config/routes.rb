@@ -59,6 +59,7 @@ Plugingeek::Application.routes.draw do
 
   # Authorize Blitz.io load testing
   get 'mu-a4ca81c6-8526fed8-0bc25966-0b2cc605' => 'application#authorize_load_testing'
+  get 'mu-943299b6-11bc48bc-a8df1760-5139a504' => 'application#authorize_load_testing' # heroku addon
 
   # Static pages
   get ':id', to: 'high_voltage/pages#show', as: :static
