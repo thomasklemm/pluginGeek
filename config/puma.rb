@@ -4,7 +4,7 @@ ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEsta
 
 database_url = ENV['DATABASE_URL']
 if(database_url)
-  ENV['DATABASE_URL'] = "#{database_url}?pool=10"
+  ENV['DATABASE_URL'] = "#{database_url}?pool=20"
   ActiveRecord::Base.establish_connection
 end
 
