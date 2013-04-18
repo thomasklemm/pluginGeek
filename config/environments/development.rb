@@ -20,6 +20,9 @@ Plugingeek::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
 
+  # Raise if unpermitted params have been passed to strong_parameters
+  config.action_controller.action_on_unpermitted_parameters = :raise
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
