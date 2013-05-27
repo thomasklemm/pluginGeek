@@ -12,11 +12,27 @@ pluginGeek is an open-source Rails wiki on the state of the art gems and plugins
 
 ### Inspirations and alternatives
 
-pluginGeek is certainly not the first of its kind. I've drawn inspiration from a lot of great sites including the [Ruby Toolbox](https://www.ruby-toolbox.com/), the phenomenal [Unheap](http://www.unheap.com/), and many more sites. Occasionally I cross-reference the inventory to make sure you'll always find the latest gems and plugins right at your hand.
+pluginGeek is certainly not the first of its kind. I've drawn a lot of inspiration from great sites including the [Ruby Toolbox](https://www.ruby-toolbox.com/), the phenomenal [Unheap](http://www.unheap.com/), and many more sites. Occasionally I cross-reference the inventory to make sure you'll always find the latest gems and plugins right at your hand.
 
-### Care about technology?
+### Technology
 
-pluginGeek is Rails app fueled by a lot of [amazing gems](https://github.com/thomasklemm/pluginGeek/blob/master/Gemfile). The [production app](http://www.plugingeek.com) is deployed on [Heroku](http://www.heroku.com), one of my favorites services for developers.
+pluginGeek is Rails app fueled by a lot of [amazing gems](https://github.com/thomasklemm/pluginGeek/blob/master/Gemfile). The staging and [production apps](http://www.plugingeek.com) are deployed to [Heroku](http://www.heroku.com), one of my favorites services for developers.
+
+### Testing
+
+pluginGeek uses [RSpec](https://github.com/rspec/rspec-rails) flavored with [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers). [Fabrication](http://www.fabricationgem.org/) helps with replacing fixtures and generating test objects. [Timecop](https://github.com/travisjeffery/timecop) makes time-related testing easy. [VCR](https://github.com/vcr/vcr) helps with recording and replaying external HTTP requests.  [Capybara](https://github.com/jnicklas/capybara) powers the feature specs.
+
+In all the current test suite holds more than 700 examples and runs in about 35 seconds on a standard MacBook Pro of 2010.
+
+![Test output](http://i.imgur.com/OCdit8N.png) [ ![Coverage Status](https://coveralls.io/repos/thomasklemm/pluginGeek/badge.png?branch=master)](https://coveralls.io/r/thomasklemm/pluginGeek)
+
+### Stats
+
+![Rake stats](http://i.imgur.com/iQt9F7X.png)
+
+### Learning
+
+pluginGeek's source is intended to be nicely readable and comprehensible even if you are just getting started with Ruby on Rails development. There's a variety of annotations guiding you around.
 
 It's certainly not the most complex app ever, and a variety of annotations should help people just starting with web development - as myself about one and a half years ago - find their way around and learn from some existing code really quickly. Modeling an existing app on my own alongside the original authors' source has been fruitful for me in picking up new skills and styles, general coding techniques and best practices.
 
