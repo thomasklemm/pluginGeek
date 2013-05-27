@@ -3,8 +3,15 @@
 $footer-spacing: 8px
 $footer-borders: 1px solid #ccc
 
-.footer
-  padding: 1rem 0
+@import "compass/layout/sticky-footer"
+@include sticky-footer(90px)
+
+#footer
+  margin-top: 18px
+  padding-top: 24px
+  height: 72px
+  background: #f5f5f5
+  border-top: 1px solid #ccc
   font-size: 14px
 
   ul li

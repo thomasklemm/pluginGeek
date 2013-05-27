@@ -1,6 +1,15 @@
 / application/_footer
-.footer
+.container.footer
   ul.left
-    li: b = link_to 'About pluginGeek'
-    li: b = link_to 'Ask and follow @plugingeek', 'https://twitter.com/intent/user?screen_name=plugingeek'
-    li = link_to 'Privacy and Terms'
+    li
+      ' Still looking?
+      = link_to 'Ask @plugingeek', 'https://twitter.com/intent/user?screen_name=plugingeek'
+
+    li = link_to 'Source on Github', 'https://github.com/thomasklemm/pluginGeek'
+
+
+  ul.right
+    li
+      ' Started by
+      = link_to 'Thomas Klemm', 'http://about.me/thomasklemm'
+    li Made with &hearts; in Germany
