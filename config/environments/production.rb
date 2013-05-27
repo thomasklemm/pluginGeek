@@ -96,17 +96,8 @@ Plugingeek::Application.configure do
 
   ##
   # Static Assets
+  # Don't cache static assets in Rack Cache, cache them on the CDN
   public_path = config.paths['public'].first
   config.middleware.delete ActionDispatch::Static
   config.middleware.insert_before ::Rack::Cache, ::ActionDispatch::Static, public_path
-
-  # Rack Headers
-  # Set HTTP Headers on static assets
-  config.assets.header_rules = [
-    [:all,   {'Cache-Control' => 'public, max-age=31536000'}],
-    [:fonts, {'Access-Control-Allow-Origin' => '*'}]
-  ]
-
-  require 'rack/headers'
-  config.middleware.insert_before '::ActionDispatch::Static', '::Rack::Headers'
 end
