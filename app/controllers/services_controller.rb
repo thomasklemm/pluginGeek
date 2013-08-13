@@ -24,7 +24,7 @@ class ServicesController < ApplicationController
     if @service.save
       redirect_to service_path(@service), notice: 'Service has been created.'
     else
-      render action: :new
+      render :new
     end
   end
 
@@ -37,7 +37,7 @@ class ServicesController < ApplicationController
     if @service.update_attributes(service_params)
       redirect_to service_path(@service), notice: 'Service has been updated.'
     else
-      render action: :edit
+      render :edit
     end
   end
 

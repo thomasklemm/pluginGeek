@@ -41,7 +41,7 @@ class ReposController < ApplicationController
       @repo.retrieve_from_github if @repo.full_name_changed?
       redirect_to repo_path(@repo), notice: 'Repo has been updated.'
     else
-      render action: :edit
+      render :edit
     end
   end
 

@@ -27,7 +27,7 @@ class LinksController < ApplicationController
     if @link.save
       redirect_to edit_link_path(@link), notice: 'Link has been created.'
     else
-      render action: :new
+      render :new
     end
   end
 
@@ -41,7 +41,7 @@ class LinksController < ApplicationController
     if @link.update_attributes(link_params)
       redirect_to edit_link_path(@link), notice: 'Link has been updated.'
     else
-      render action: :edit
+      render :edit
     end
   end
 

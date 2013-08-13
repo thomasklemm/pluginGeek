@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
     if @category.update_attributes(category_params)
       redirect_to @category, notice: 'Category has been updated.'
     else
-      render action: :edit
+      render :edit
     end
   end
 
