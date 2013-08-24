@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Ruby Version on Heroku
-ruby '1.9.3'
+ruby '2.0.0'
 
 # Puma (App Server)
 gem 'puma', '>= 2.0.0'
