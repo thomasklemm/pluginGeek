@@ -18,9 +18,10 @@ describe Link do
   describe "#extended_categories" do
     let(:category) { Fabricate.build(:category) }
     let(:repo_category) { Fabricate.build(:category) }
-    let(:repo) { Fabricate.build(:repo, categories: [repo_category]) }
+    let(:repo) { Fabricate.build(:repo) }
 
     before do
+      repo.categories |= [repo_category]
       link.categories << category
       link.repos << repo
     end
@@ -50,9 +51,10 @@ describe Link do
 
   describe "#expire_categories_of_repos" do
     let(:repo_category) { Fabricate(:category) }
-    let(:repo) { Fabricate(:repo, categories: [repo_category]) }
+    let(:repo) { Fabricate(:repo) }
 
     before do
+      repo.categories |= [repo_category]
       link.repos << repo
       link.save
     end

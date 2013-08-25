@@ -14,11 +14,17 @@ end
 
 shared_context "category features" do
   let!(:language) { Fabricate(:language, name: "Ruby") }
-  let!(:category) { Fabricate(:category, languages: [language], repos: [repo]) }
   let!(:repo)     { Fabricate(:repo) }
+  let!(:category) { Fabricate(:category) }
 
   let(:user)  { Fabricate(:user) }
   let(:staff) { Fabricate(:user, staff: true) }
+
+  before do
+    category.languages |= [language]
+    category.repos |= [repo]
+    category.save
+  end
 end
 
 describe Category, "list categories" do
@@ -36,9 +42,15 @@ end
 
 describe Category, "show category" do
   include_context "category features"
-  let!(:link)     { Fabricate(:link, categories: [category]) }
-  let!(:link_via_repo)    { Fabricate(:link, repos: [repo]) }
-  let!(:similar_category) { Fabricate(:category, related_categories: [category]) }
+  let!(:link)             { Fabricate(:link) }
+  let!(:link_via_repo)    { Fabricate(:link) }
+  let!(:similar_category) { Fabricate(:category) }
+
+  before do
+    link.categories |= [category]
+    link_via_repo.repos |= [repo]
+    similar_category.related_categories |= [category]
+  end
 
   it "shows the category" do
     path = category_path(category)
