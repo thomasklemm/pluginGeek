@@ -9,6 +9,6 @@ h1 #{ @service.name } (awesome service!)
 .services-index
   .services-wrapper
     = render partial: 'services/detailed_service', locals: { service: @service }
-= link_to "Unfortunately remove #{ @service.name }", service_path(@service), method: :delete, confirm: 'Are your sure?'
+= link_to "Unfortunately remove #{ @service.name }", service_path(@service), method: :delete, data: { confirm: 'Are your sure?' }
 
 br

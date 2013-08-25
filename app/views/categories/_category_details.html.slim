@@ -18,7 +18,7 @@
     span.edit-link = link_to icon_tag(:check, "Edit"), edit_category_path(@category)
 
     - if policy(@category).staff_action?
-      span.refresh-link = link_to icon_tag(:leaf, "Refresh"), refresh_category_path(@category), method: :put
+      span.refresh-link = link_to icon_tag(:leaf, "Refresh"), refresh_category_path(@category), method: :post
 
   / Up to 360 characters describing the purpose of this category
   / or summing up the repos use cases among others
