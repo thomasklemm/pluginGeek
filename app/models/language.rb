@@ -21,17 +21,15 @@ class Language < ActiveRecord::Base
 
   # Categories
   has_many :categories,
+    -> { order('draft ASC, categories.score DESC').uniq },
     through: :language_classifications,
     source: :classifier,
-    source_type: 'Category',
-    uniq: true,
-    order: 'draft ASC, categories.score DESC'
+    source_type: 'Category'
 
   # Repos
   has_many :repos,
+    -> { order('repos.score DESC').uniq },
     through: :language_classifications,
     source: :classifier,
-    source_type: 'Repo',
-    uniq: true,
-    order: 'repos.score DESC'
+    source_type: 'Repo'
 end

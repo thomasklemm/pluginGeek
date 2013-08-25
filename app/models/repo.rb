@@ -62,8 +62,8 @@ class Repo < ActiveRecord::Base
   has_many :categorizations,
     dependent: :destroy
   has_many :categories,
-    through: :categorizations,
-    order: 'categories.score DESC'
+    -> { order(score: :desc) },
+    through: :categorizations
 
   # Languages
   has_many :language_classifications,
@@ -77,8 +77,8 @@ class Repo < ActiveRecord::Base
     as: :linkable,
     dependent: :destroy
   has_many :links,
-    through: :link_relationships,
-    uniq: true
+    -> { uniq },
+    through: :link_relationships
 
  # Lists for tag inputs
   def child_list

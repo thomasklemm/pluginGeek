@@ -35,8 +35,8 @@ class Category < ActiveRecord::Base
   has_many :categorizations,
     dependent: :destroy
   has_many :repos,
-    through: :categorizations,
-    order: 'repos.score DESC'
+    -> { order(score: :desc) },
+    through: :categorizations
 
   # Languages
   has_many :language_classifications,
@@ -50,8 +50,8 @@ class Category < ActiveRecord::Base
     as: :linkable,
     dependent: :destroy
   has_many :links,
-    through: :link_relationships,
-    uniq: true
+    -> { uniq },
+    through: :link_relationships
 
   # Related categories
   has_many :category_relationships,

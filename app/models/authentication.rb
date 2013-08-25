@@ -1,8 +1,8 @@
 class Authentication < ActiveRecord::Base
   belongs_to :user
-  validates :user,
 
-  validates :provider,
+  validates :user,
+            :provider,
             :uid,
             presence: true
 end
