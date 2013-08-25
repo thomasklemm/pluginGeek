@@ -34,7 +34,7 @@ gem 'jquery-rails'
 gem 'slim-rails'
 
 # Friendly Id (Human-Readable IDs for ActiveRecord Models)
-gem 'friendly_id'
+gem 'friendly_id', github: 'norman/friendly_id'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'

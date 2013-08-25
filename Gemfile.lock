@@ -8,6 +8,13 @@ GIT
       uuidtools
 
 GIT
+  remote: git://github.com/norman/friendly_id.git
+  revision: 7a2b86664d359658b54da343894a01da5f0ddf68
+  specs:
+    friendly_id (5.0.0.beta4)
+      activerecord (~> 4.0.0)
+
+GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
   revision: da22d329067416ff851744a315197c6a44595dc2
   branch: dp-rails-four
@@ -115,7 +122,6 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
-    friendly_id (4.0.10)
     hashie (2.0.5)
     high_voltage (1.2.4)
     hike (1.2.3)
@@ -326,7 +332,7 @@ DEPENDENCIES
   draper
   fabrication
   figaro
-  friendly_id
+  friendly_id!
   high_voltage
   httpclient
   intercom-rails (~> 0.2.17)
