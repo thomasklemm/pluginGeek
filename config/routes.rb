@@ -64,6 +64,9 @@ Plugingeek::Application.routes.draw do
   # Authorize loader.io load testing
   get 'loaderio-ca7d285a7cea4be8e79cecd78013aee6' => 'application#authorize_loader_io' # loader.io heroku addon
 
+  # Peek
+  mount Peek::Railtie => '/peek'
+
   # Static pages
   get ':id', to: 'high_voltage/pages#show', as: :static
 

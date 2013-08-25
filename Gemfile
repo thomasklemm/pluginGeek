@@ -82,7 +82,6 @@ gem 'redcarpet'
 # Peek (Stats and insights into a Rails app)
 gem 'peek'
 gem 'peek-pg'
-gem 'peek-git'
 gem 'peek-performance_bar'
 gem 'peek-dalli'
 
@@ -114,11 +113,11 @@ group :development do
   gem 'binding_of_caller'
 
   # LiveReload
-  # gem 'guard-livereload'
-  # gem 'rack-livereload'
+  gem 'guard-livereload'
+  gem 'rack-livereload'
 
   # RailsPanel
-  # gem 'meta_request'
+  gem 'meta_request'
 
   # Optimize database queries
   # gem 'bullet'
