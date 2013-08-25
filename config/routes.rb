@@ -15,7 +15,7 @@ Plugingeek::Application.routes.draw do
 
   # Categories
   resources :categories, only: [:show, :edit, :update, :destroy] do
-    put 'refresh', on: :member
+    post 'refresh', on: :member
   end
 
   get ':language' => 'categories#index', as: :categories,
@@ -31,11 +31,11 @@ Plugingeek::Application.routes.draw do
   # Routes for matching the incoming requests and routing them
   scope :repos, path: 'repos' do
     constraints(owner: /[^\/]+/, name: /[^\/]+/) do
-      get ':owner/:name' => 'repos#show'
-      get ':owner/:name/edit' => 'repos#edit'
-      put ':owner/:name' => 'repos#update'
-      delete ':owner/:name' => 'repos#destroy'
-      put ':owner/:name/refresh' => 'repos#refresh'
+      get ':owner/:name'            => 'repos#show'
+      get ':owner/:name/edit'       => 'repos#edit'
+      patch  ':owner/:name'         => 'repos#update'
+      delete ':owner/:name'         => 'repos#destroy'
+      post   ':owner/:name/refresh' => 'repos#refresh'
     end
   end
 
@@ -63,6 +63,9 @@ Plugingeek::Application.routes.draw do
 
   # Authorize loader.io load testing
   get 'loaderio-ca7d285a7cea4be8e79cecd78013aee6' => 'application#authorize_loader_io' # loader.io heroku addon
+
+  # Peek
+  mount Peek::Railtie => '/peek'
 
   # Static pages
   get ':id', to: 'high_voltage/pages#show', as: :static

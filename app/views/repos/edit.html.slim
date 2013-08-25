@@ -5,5 +5,5 @@
 .space-half
 / destroy button
 - if policy(@repo).destroy?
-  = link_to 'Destroy repo', repo_path(@repo), method: :delete, confirm: 'Are you sure?', class: 'danger button'
+  = link_to 'Destroy repo', repo_path(@repo), method: :delete, data: { confirm: 'Are you sure?' }, class: 'danger button'
 

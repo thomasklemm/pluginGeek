@@ -1,14 +1,15 @@
 # application.js.coffee
 #
 # Load jQuery from CDN beforehand
-//= require list
-//= require jquery_ujs
-//= require jquery.timeago
-//= require jquery.autosize
-//= require readme
-//= require select2
-//= require peek
-//= require peek/views/performance_bar
+#= require list
+#= require jquery_ujs
+#= require jquery.timeago
+#= require jquery.autosize
+#= require readme
+#= require select2
+#= require peek
+#= require peek/views/performance_bar
+#= require peek/views/dalli
 
 # Plugingeek
 $ ->

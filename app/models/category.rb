@@ -1,27 +1,3 @@
-# == Schema Information
-#
-# Table name: categories
-#
-#  created_at    :datetime         not null
-#  description   :text
-#  draft         :boolean          default(TRUE)
-#  featured      :boolean          default(FALSE)
-#  full_name     :text             not null
-#  id            :integer          not null, primary key
-#  language_list :text
-#  repo_list     :text
-#  repos_count   :integer          default(0)
-#  score         :integer          default(0)
-#  slug          :text             not null
-#  stars         :integer          default(0)
-#  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_categories_on_score  (score)
-#  index_categories_on_slug   (slug) UNIQUE
-#
-
 class Category < ActiveRecord::Base
   # Friendly Id using history module (redirecting to new slug if slug changed)
   extend FriendlyId
@@ -59,8 +35,8 @@ class Category < ActiveRecord::Base
   has_many :categorizations,
     dependent: :destroy
   has_many :repos,
-    through: :categorizations,
-    order: 'repos.score DESC'
+    -> { order(score: :desc) },
+    through: :categorizations
 
   # Languages
   has_many :language_classifications,
@@ -74,8 +50,8 @@ class Category < ActiveRecord::Base
     as: :linkable,
     dependent: :destroy
   has_many :links,
-    through: :link_relationships,
-    uniq: true
+    -> { uniq },
+    through: :link_relationships
 
   # Related categories
   has_many :category_relationships,

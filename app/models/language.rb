@@ -1,19 +1,3 @@
-# == Schema Information
-#
-# Table name: languages
-#
-#  created_at :datetime         not null
-#  id         :integer          not null, primary key
-#  name       :text
-#  parent_id  :integer
-#  slug       :text
-#  updated_at :datetime         not null
-#
-# Indexes
-#
-#  index_languages_on_slug  (slug) UNIQUE
-#
-
 class Language < ActiveRecord::Base
   # Constants
   Main = %w(web mobile)
@@ -37,17 +21,15 @@ class Language < ActiveRecord::Base
 
   # Categories
   has_many :categories,
+    -> { order('draft ASC, categories.score DESC').uniq },
     through: :language_classifications,
     source: :classifier,
-    source_type: 'Category',
-    uniq: true,
-    order: 'draft ASC, categories.score DESC'
+    source_type: 'Category'
 
   # Repos
   has_many :repos,
+    -> { order('repos.score DESC').uniq },
     through: :language_classifications,
     source: :classifier,
-    source_type: 'Repo',
-    uniq: true,
-    order: 'repos.score DESC'
+    source_type: 'Repo'
 end

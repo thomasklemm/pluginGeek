@@ -1,28 +1,3 @@
-# == Schema Information
-#
-# Table name: repos
-#
-#  created_at         :datetime         not null
-#  description        :text
-#  full_name          :text             not null
-#  github_description :text
-#  github_updated_at  :datetime
-#  homepage_url       :text
-#  id                 :integer          not null, primary key
-#  name               :text
-#  owner              :text
-#  score              :integer          default(0)
-#  staff_pick         :boolean          default(FALSE)
-#  stars              :integer          default(0)
-#  update_success     :boolean          default(FALSE)
-#  updated_at         :datetime         not null
-#
-# Indexes
-#
-#  index_repos_on_full_name  (full_name) UNIQUE
-#  index_repos_on_score      (score)
-#
-
 class Repo < ActiveRecord::Base
   # Friendly ID
   extend FriendlyId
@@ -87,8 +62,8 @@ class Repo < ActiveRecord::Base
   has_many :categorizations,
     dependent: :destroy
   has_many :categories,
-    through: :categorizations,
-    order: 'categories.score DESC'
+    -> { order(score: :desc) },
+    through: :categorizations
 
   # Languages
   has_many :language_classifications,
@@ -102,8 +77,8 @@ class Repo < ActiveRecord::Base
     as: :linkable,
     dependent: :destroy
   has_many :links,
-    through: :link_relationships,
-    uniq: true
+    -> { uniq },
+    through: :link_relationships
 
  # Lists for tag inputs
   def child_list

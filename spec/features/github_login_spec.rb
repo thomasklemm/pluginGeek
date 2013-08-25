@@ -14,6 +14,7 @@ describe "Github login" do
       click_on "Login with Github"
       expect(current_path).to eq(root_path)
       expect(page).to have_content(/Thomas Klemm/)
+      expect(page).to have_content(/Logout/)
     end
   end
 
@@ -26,7 +27,7 @@ describe "Github login" do
 
       expect(current_path).to eq(root_path)
       expect(page).to have_content(/Authenticating with Github failed/)
-      expect(page).to have_no_content(/Thomas Klemm/)
+      expect(page).to have_content(/Login/)
     end
   end
 end

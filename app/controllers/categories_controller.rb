@@ -5,7 +5,8 @@ class CategoriesController < ApplicationController
 
   # GET '/:language'
   def index
-    @language = Language.find(params[:language]).decorate
+    # TODO: Use friendly_id's find method
+    @language = Language.friendly.find(params[:language]).decorate
     @categories = @language.categories.sort_by(&:full_name)
   end
 
@@ -55,7 +56,7 @@ class CategoriesController < ApplicationController
   end
 
   def load_category_and_repos
-    @category = Category.find(params[:id]).decorate
+    @category = Category.friendly.find(params[:id]).decorate
     @repos = @category.repos
   end
 

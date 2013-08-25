@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: links
-#
-#  author       :text
-#  author_url   :text
-#  created_at   :datetime         not null
-#  id           :integer          not null, primary key
-#  published_at :date             not null
-#  submitter_id :integer
-#  title        :text             not null
-#  updated_at   :datetime         not null
-#  url          :text             not null
-#
-
 class Link < ActiveRecord::Base
   # Validations
   validates :url, :title, :published_at, presence: true
@@ -26,16 +11,16 @@ class Link < ActiveRecord::Base
     dependent: :destroy
 
   has_many :categories,
+    -> { uniq },
     through: :link_relationships,
     source: :linkable,
-    source_type: 'Category',
-    uniq: true
+    source_type: 'Category'
 
   has_many :repos,
+    -> { uniq },
     through: :link_relationships,
     source: :linkable,
-    source_type: 'Repo',
-    uniq: true
+    source_type: 'Repo'
 
   def extended_categories
     categories | categories_of_repos

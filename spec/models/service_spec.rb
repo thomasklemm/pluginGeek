@@ -1,20 +1,7 @@
-# == Schema Information
-#
-# Table name: services
-#
-#  created_at  :datetime         not null
-#  description :text
-#  display_url :text
-#  id          :integer          not null, primary key
-#  name        :text
-#  target_url  :text
-#  updated_at  :datetime         not null
-#
-
 require 'spec_helper'
 
 describe Service do
-  subject { Fabricate.build(:service) }
+  subject(:service) { Fabricate.build(:service) }
   it { should be_valid }
 
   it { should validate_presence_of(:name) }
@@ -40,10 +27,11 @@ describe Service do
   end
 
   describe ".for_category(category)" do
-    let(:category) { Fabricate(:category) }
+    let!(:category) { Fabricate(:category) }
+    let!(:service) { service = Fabricate(:service); service.categories |= [category]; service }
 
     it "returns the category's services" do
-      service = Fabricate(:service, categories: [category])
+      # Other service
       Fabricate(:service)
 
       services = Service.for_category(category)
@@ -51,10 +39,9 @@ describe Service do
     end
 
     it "randomizes the services' order" do
-      5.times { Fabricate(:service, categories: [category]) }
+      5.times { service = Fabricate(:service); service.categories |= [category]; service }
 
-      services_one = Service.for_category(category)
-      services_two = Service.for_category(category)
+      services_one, services_two = Service.for_category(category), Service.for_category(category)
       expect(services_one).to_not eq(services_two)
     end
   end

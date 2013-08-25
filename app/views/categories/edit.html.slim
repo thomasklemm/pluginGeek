@@ -5,7 +5,7 @@
 .space-half
 / destroy button
 - if policy(@category).destroy?
-  = link_to 'Destroy category', category_path(@category), method: :delete, confirm: 'Are you sure?', class: 'danger button'
+  = link_to 'Destroy category', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'danger button'
 
 .space-one
 / descriptions of associated repos, as a guide for writing

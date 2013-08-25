@@ -11,7 +11,7 @@
       '  |
       = link_to icon_tag(:check, 'Edit'), edit_service_path(service)
       / '  |
-      / = link_to 'Remove', service_path(service), method: :delete, confirm: 'Are your sure?'
+      / = link_to 'Remove', service_path(service), method: :delete, data: { confirm: 'Are your sure?' }
 
     .categories
       - if service.categories.any?

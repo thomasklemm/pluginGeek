@@ -14,18 +14,30 @@ end
 
 shared_context "repo features" do
   let!(:language) { Fabricate(:language, name: "Ruby") }
-  let!(:category) { Fabricate(:category, languages: [language], repos: [repo]) }
+  let!(:category) { Fabricate(:category) }
   let!(:repo)     { Fabricate(:repo, full_name: 'rails/rails', stars: 42) }
 
   let(:user)  { Fabricate(:user) }
   let(:staff) { Fabricate(:user, staff: true) }
+
+  before do
+    category.languages |= [language]
+    category.repos |= [repo]
+    category.save
+  end
 end
 
 describe Repo, "show repo" do
   include_context "repo features"
-  let!(:parent)   { Fabricate(:repo, children: [repo]) }
-  let!(:child)    { Fabricate(:repo, parents: [repo]) }
-  let!(:link)     { Fabricate(:link, repos: [repo]) }
+  let!(:parent)   { Fabricate(:repo) }
+  let!(:child)    { Fabricate(:repo) }
+  let!(:link)     { Fabricate(:link) }
+
+  before do
+    parent.children |= [repo]
+    child.parents |= [repo]
+    link.repos |= [repo]
+  end
 
   it "shows the repo" do
     path = repo_path(repo)
