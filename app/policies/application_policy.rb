@@ -6,17 +6,23 @@ class ApplicationPolicy
     @record = record
   end
 
-  def staff
-    user && user.staff?
-  end
+  ##
+  # Permission levels
 
-  def guest
+  def permit_guest
     true
   end
 
-  def staff_action?
-    staff
+  def permit_user
+    user
   end
+
+  def permit_staff
+    user && user.staff
+  end
+
+  ##
+  # Defaults
 
   def index?
     false
@@ -26,20 +32,20 @@ class ApplicationPolicy
     false
   end
 
-  def create?
-    false
-  end
-
   def new?
     create?
   end
 
-  def update?
+  def create?
     false
   end
 
   def edit?
     update?
+  end
+
+  def update?
+    false
   end
 
   def destroy?

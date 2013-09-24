@@ -1,17 +1,14 @@
 class CategoryPolicy < ApplicationPolicy
-  def index?
-    guest
-  end
+  alias_method :show?,    :permit_guest
+  alias_method :create?,  :permit_user
+  alias_method :update?,  :permit_user
+  alias_method :destroy?, :permit_staff
 
-  def show?
-    guest
-  end
-
-  def update?
-    user
-  end
-
-  def destroy?
-    staff
+  def permitted_attributes
+    if user.staff?
+      [:full_name, :description, :draft, :featured, { related_category_ids: [] }]
+    else
+      [:description]
+    end
   end
 end

@@ -1,21 +1,6 @@
 class RepoPolicy < ApplicationPolicy
-  def index?
-    guest
-  end
-
-  def show?
-    guest
-  end
-
-  def create?
-    user
-  end
-
-  def update?
-    user
-  end
-
-  def destroy?
-    staff
-  end
+  alias_method :show?,    :permit_guest
+  alias_method :create?,  :permit_user
+  alias_method :update?,  :permit_user
+  alias_method :destroy?, :permit_staff
 end

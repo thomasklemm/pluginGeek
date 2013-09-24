@@ -1,9 +1,6 @@
 class ServicePolicy < ApplicationPolicy
-  alias_method :index?,   :guest
-  alias_method :show?,    :staff
-  alias_method :new?,     :staff
-  alias_method :create?,  :staff
-  alias_method :edit?,    :staff
-  alias_method :update?,  :staff
-  alias_method :destroy?, :staff
+  alias_method :show?,    :permit_staff
+  alias_method :create?,  :permit_staff
+  alias_method :update?,  :permit_staff
+  alias_method :destroy?, :permit_staff
 end
