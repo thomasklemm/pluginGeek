@@ -1,8 +1,4 @@
 class Repo < ActiveRecord::Base
-  # Friendly ID
-  extend FriendlyId
-  friendly_id :full_name
-
   # Validations
   validates :full_name, presence: true, uniqueness: true
   validates :description, length: {maximum: 360}
@@ -24,6 +20,10 @@ class Repo < ActiveRecord::Base
   def self.ids_and_full_names_without(repo)
     where('id != ?', repo.id).
       ids_and_full_names
+  end
+
+  def to_param
+    full_name
   end
 
   # Defaults

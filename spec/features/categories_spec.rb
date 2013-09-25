@@ -31,8 +31,8 @@ describe Category, "list categories" do
   include_context "category features"
 
   it "lists categories" do
-    visit categories_path(language.slug)
-    expect(current_path).to eq("/#{ language.slug }")
+    visit categories_path(language.to_param)
+    expect(current_path).to eq("/#{ language.to_param }")
 
     expect(page).to have_content(category.full_name)
     expect(page).to have_content(repo.name)

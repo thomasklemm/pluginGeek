@@ -1,7 +1,7 @@
 # An authenticated controller action
 #
 # Actions that are protected by Devise's
-# before_filter :authenticate_user!
+# before_action :authenticate_user!
 #
 shared_examples_for "an authenticated controller action" do
   it { should redirect_to(login_path) }

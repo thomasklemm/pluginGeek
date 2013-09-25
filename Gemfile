@@ -27,14 +27,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # jQuery Rails (jQuery adapter for Rails)
 gem 'jquery-rails'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks'
-
 # Slim (Templating)
 gem 'slim-rails'
-
-# Friendly Id (Human-Readable IDs for ActiveRecord Models)
-gem 'friendly_id', github: 'norman/friendly_id'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
@@ -52,9 +46,6 @@ gem 'sidekiq'
 # Sinatra (for Sidekiq web interface)
 gem 'sinatra'
 
-# Cache Digests (Russian-Doll caching)
-# gem 'cache_digests'
-
 # Figaro (Managing credentials)
 gem 'figaro'
 
@@ -70,20 +61,11 @@ gem 'rack-timeout'
 # Draper (Presenters / Decorators)
 gem 'draper'
 
-# Strong parameters (Form parameter filtering)
-# gem 'strong_parameters'
-
 # Pundit (Authorization)
 gem 'pundit'
 
 # Redcarpet (Markdown parser)
 gem 'redcarpet'
-
-# Peek (Stats and insights into a Rails app)
-gem 'peek'
-gem 'peek-pg'
-gem 'peek-performance_bar'
-gem 'peek-dalli'
 
 # Bourbon (SASS Mixins)
 # Neat (Semantic Grids)
@@ -93,15 +75,14 @@ gem 'neat'
 # Use debugger
 gem 'debugger', group: [:development, :test]
 
+# MiniProfiler
+gem 'rack-mini-profiler'
+
 # Pry Console
 gem 'pry'
 gem 'pry-rails', group: :development
 
 group :development do
-  # Annotate Models (Adds schema info for models to matching files)
-  #  Note: master is currently 2.6.0.beta1; gem has not received updates in a while
-  # gem 'annotate', github: 'ctran/annotate_models'
-
   # Letter Opener (Previews ActionMailer emails in development)
   gem 'letter_opener'
 
@@ -118,9 +99,6 @@ group :development do
 
   # RailsPanel
   gem 'meta_request'
-
-  # Optimize database queries
-  # gem 'bullet'
 end
 
 group :development, :test do
@@ -132,7 +110,6 @@ group :test do
   gem 'fabrication'
   gem 'database_cleaner'
   gem 'mocha'
-  # gem 'bourne', require: false
   gem 'timecop'
   gem 'simplecov', require: false
   gem 'coveralls', require: false
@@ -143,7 +120,6 @@ group :test do
 end
 
 group :staging, :production do
-  # Heroku 12factor gem
   gem 'rails_12factor'
 
   # Memcached using Memcachier on Heroku
@@ -158,7 +134,4 @@ group :staging, :production do
 
   # Lograge (Logging)
   gem 'lograge'
-
-  # Rack Timeout
-  # gem 'rack-timeout'
 end

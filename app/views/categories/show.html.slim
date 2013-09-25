@@ -4,7 +4,7 @@
   .services-wrapper
     = render partial: 'services/service', collection: @services
 
-- cache [@category, 'show', staff?] do
+- cache [@category, 'show', staff_member?] do
   / Category details header
   = render 'categories/category_details'
 

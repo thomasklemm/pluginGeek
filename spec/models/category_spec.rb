@@ -26,22 +26,9 @@ describe Category do
   it { should have_many(:services).through(:service_categorizations) }
 
   it "has a friendly id using the full_name" do
-    category.save
-    expect(category.to_param).to eq(category.full_name.parameterize)
-  end
-
-  it "preserves a history of slugs" do
-    category.full_name = "Old name (Ruby)"
-    category.save
-    old_slug = category.slug
-
-    category.full_name = "New name (Ruby)"
-    category.save
-    new_slug = category.slug
-
-    expect(new_slug).to_not eq(old_slug)
-    expect(Category.find(old_slug)).to eq(category)
-    expect(Category.find(new_slug)).to eq(category)
+    category.id, category.name = 42, 'Answer to life'
+    slug = "42-answer-to-life"
+    expect(category.to_param).to eq(slug)
   end
 
   describe "named scopes" do

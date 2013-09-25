@@ -6,8 +6,4 @@ class LanguageClassification < ActiveRecord::Base
   belongs_to :classifier,
     polymorphic: true,
     touch: true
-
-  validates :language,
-            :classifier,
-            presence: true
 end

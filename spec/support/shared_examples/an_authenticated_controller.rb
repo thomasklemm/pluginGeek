@@ -1,5 +1,5 @@
 # An authenticated controller
-# tests invocation of the Devise before_filter :authenticate_user!
+# tests invocation of the Devise before_action :authenticate_user!
 #
 # it_should_behave_like "an authenticated controller", {
 #   index: [:get],

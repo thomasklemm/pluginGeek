@@ -1,8 +1,4 @@
 class Category < ActiveRecord::Base
-  # Friendly Id using history module (redirecting to new slug if slug changed)
-  extend FriendlyId
-  friendly_id :full_name, use: [:slugged, :history]
-
   # Validations
   validates :full_name, presence: true
   validates :description, length: {maximum: 360}
@@ -102,6 +98,10 @@ class Category < ActiveRecord::Base
 
   def self.expire_all
     update_all(updated_at: Time.current)
+  end
+
+  def to_param
+    "#{id}-#{full_name.parameterize}"
   end
 
   # Assign aggregate stars of repos as category stars

@@ -8,10 +8,7 @@ class User < ActiveRecord::Base
   # Authentication through Github
   has_many :authentications, dependent: :destroy
 
-  # Defaults
-  def staff
-    self[:staff] || false
-  end
+  alias_attribute :staff_member, :staff
 
   # Find or create user from Github omniauth
   def self.find_or_create_user_from_github(omniauth)

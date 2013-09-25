@@ -6,7 +6,4 @@ describe Categorization do
 
   it { should belong_to(:repo) }
   it { should belong_to(:category) }
-
-  it { should validate_presence_of(:repo) }
-  it { should validate_presence_of(:category) }
 end

@@ -5,8 +5,5 @@ describe ServiceCategorization do
   it { should be_valid }
 
   it { should belong_to(:service) }
-  it { should validate_presence_of(:service) }
-
   it { should belong_to(:category) }
-  it { should validate_presence_of(:category) }
 end

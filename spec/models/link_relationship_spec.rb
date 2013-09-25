@@ -6,7 +6,4 @@ describe LinkRelationship do
 
   it { should belong_to(:link) }
   it { should belong_to(:linkable) }
-
-  it { should validate_presence_of(:link) }
-  it { should validate_presence_of(:linkable) }
 end

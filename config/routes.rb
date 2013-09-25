@@ -13,23 +13,21 @@ Plugingeek::Application.routes.draw do
   get 'login', to: 'devise/sessions#new', as: :login
   delete 'logout', to: 'devise/sessions#destroy', as: :logout
 
+  # Languages
+  resources :languages, only: :show
+
   # Categories
   resources :categories, only: [:show, :edit, :update, :destroy] do
-    post 'refresh', on: :member
+    post :refresh, on: :member
   end
 
-  get ':language' => 'categories#index', as: :categories,
-    constraints: { language: /#{ Language::All.join('|') }/i }
-
-  # Language shortcut redirection
-  get 'js' => redirect('/javascript')
+  # TODO: Unify repo routes
 
   # Repos
   # split into routes for generating urls and matching requests
   # to allow for ':owner/:name' path segments.
-
-  # Routes for matching the incoming requests and routing them
-  scope :repos, path: 'repos' do
+  namespace :repos do
+    # Allow for .js etc in repo names
     constraints(owner: /[^\/]+/, name: /[^\/]+/) do
       get ':owner/:name'            => 'repos#show'
       get ':owner/:name/edit'       => 'repos#edit'
@@ -39,17 +37,17 @@ Plugingeek::Application.routes.draw do
     end
   end
 
-  # Routes for generating urls with friendly_id
+  # Routes for generating urls with friendly ids
   # plus new and create paths on repos resource
   resources :repos, only: [:show, :new, :create, :edit] do
     put 'refresh', on: :member
   end
 
-  # Services
-  resources :services
-
   # Links
   resources :links, except: :show
+
+  # Services
+  resources :services
 
   # Submissions
   get 'submit' => 'submissions#submit', as: :submit
@@ -64,12 +62,8 @@ Plugingeek::Application.routes.draw do
   # Authorize loader.io load testing
   get 'loaderio-ca7d285a7cea4be8e79cecd78013aee6' => 'application#authorize_loader_io' # loader.io heroku addon
 
-  # Peek
-  mount Peek::Railtie => '/peek'
-
   # Static pages
   get ':id', to: 'high_voltage/pages#show', as: :static
 
-  # Root
-  root to: 'categories#index'
+  root 'languages#index'
 end

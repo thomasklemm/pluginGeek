@@ -1,14 +1,17 @@
 class SubmissionsController < ApplicationController
   # Handle submission of links and repos
-  # GET /submit?url=...&title=...
+  # GET /submit?url=https://www.github.com/...&title=Github%20Repo
   def submit
     # Redirect if :url is missing
-    url_provided? or return redirect_to_root_path
+    url.present? or return redirect_to root_url,
+      alert: "Please provide a URL on your submission request ('?url=...' missing)."
 
-    # Is a github repo being submitted?
     if github_repo?
-      # Is the repo already listed?
-      existing_repo? ? (return redirect_to_existing_repo) : (return redirect_to_new_repo)
+      if repo.present?
+        return redirect_to repo
+      else
+        return redirect_to new_repo_path(owner: repo_owner, name: repo_name)
+      end
     end
 
     # Otherwise create a new link
@@ -17,25 +20,28 @@ class SubmissionsController < ApplicationController
 
   private
 
-  # Is the :url param present?
-  def url_provided?
-    @url = params[:url]
-    @url.present? && @url.strip
+  def url
+    @url ||= params[:url].try(:strip)
   end
 
-  def redirect_to_root_path
-    flash.alert = "Please provide a URL on your submission request ('?url=...' missing)."
-    redirect_to root_url
-  end
-
-  # Does this URL belong to a Github repo?
   def github_repo?
-    @url.scan('https://github.com/').present?
+    url.scan('https://github.com/').present?
   end
 
-  # Extract the repo's full_name from the provided URL
+  def repo
+    @repo ||= Repo.find_by(full_name: full_name)
+  end
+
   def repo_elements
-    elements = @url.gsub('https://github.com/', '').split('/').compact.map(&:strip)
+    @repo_elements ||= begin
+      # Remove query string
+      u = url.gsub('https://github.com/', '').gsub(/\?.*/, '')
+      u.split('/').map(&:strip)
+    end
+  end
+
+  def repo_full_name
+    "#{ repo_owner }/#{ repo_name }"
   end
 
   def repo_owner
@@ -44,23 +50,5 @@ class SubmissionsController < ApplicationController
 
   def repo_name
     repo_elements[1]
-  end
-
-  def repo_full_name
-    "#{ repo_owner }/#{ repo_name }"
-  end
-
-  # Is the repo already listed?
-  def existing_repo?
-    @repo = Repo.where(full_name: repo_full_name).first
-    @repo.present?
-  end
-
-  def redirect_to_existing_repo
-    redirect_to @repo
-  end
-
-  def redirect_to_new_repo
-    redirect_to new_repo_path(owner: repo_owner, name: repo_name)
   end
 end

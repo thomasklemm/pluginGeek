@@ -1,15 +1,13 @@
 class LinksController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_link, only: [:edit, :update, :destroy]
-  after_filter :verify_authorized, except: :index
+  before_action :authenticate_user!
+  before_action :load_link, only: [:edit, :update, :destroy]
 
   def index
-    # TODO: Create a better interface it nescessary
-    @links = Link.order('published_at DESC').limit(100)
+    @links = Link.order(published_at: :desc)
   end
 
   def new
-    @link = Link.where(url: params[:url]).first_or_initialize
+    @link = Link.find_or_initialize_by(url: params[:url])
 
     # Redirect to edit path if link is already known
     @link.persisted? and redirect_to edit_link_path(@link)
@@ -38,7 +36,7 @@ class LinksController < ApplicationController
   def update
     authorize @link
 
-    if @link.update_attributes(link_params)
+    if @link.update(link_params)
       redirect_to edit_link_path(@link), notice: 'Link has been updated.'
     else
       render :edit
@@ -55,7 +53,7 @@ class LinksController < ApplicationController
   private
 
   def load_link
-    @link = Link.find(params[:id]).decorate
+    @link = Link.find(params[:id])
   end
 
   def link_params

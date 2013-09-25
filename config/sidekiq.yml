@@ -1,8 +1,0 @@
-# Sample configuration file for Sidekiq.
-# Options here can still be overridden by cmd line args.
----
-:verbose: false
-:namespace: sidekiq
-:concurrency: 25
-:queues:
-  - [default, 5]

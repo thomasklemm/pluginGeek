@@ -3,13 +3,13 @@
   = render 'shared/error_messages', target: @repo
 
   / full_name
-  - if staff?
+  - if staff_member?
     .field
       = f.label :full_name, "Owner and name (full_name, for staff)"
       = f.text_field :full_name, autocomplete: 'off'
 
   / staff pick
-  - if staff?
+  - if staff_member?
     .field
       = f.check_box :staff_pick
       = f.label :staff_pick, "Staff pick (staff, of course ;-D)"

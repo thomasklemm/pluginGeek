@@ -5,9 +5,9 @@ class Language < ActiveRecord::Base
   Mobile = %w(ios android)
   All = (Main + Web + Mobile).uniq
 
-  # FriendlyId
-  extend FriendlyId
-  friendly_id :name, use: :slugged
+  def to_param
+    name
+  end
 
   # Validations
   validates :name, presence: true
@@ -21,14 +21,14 @@ class Language < ActiveRecord::Base
 
   # Categories
   has_many :categories,
-    -> { order('draft ASC, categories.score DESC').uniq },
+    -> { order(full_name: :desc) },
     through: :language_classifications,
     source: :classifier,
     source_type: 'Category'
 
   # Repos
   has_many :repos,
-    -> { order('repos.score DESC').uniq },
+    -> { order(full_name: :desc) },
     through: :language_classifications,
     source: :classifier,
     source_type: 'Repo'

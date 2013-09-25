@@ -7,9 +7,6 @@
 #= require jquery.autosize
 #= require readme
 #= require select2
-#= require peek
-#= require peek/views/performance_bar
-#= require peek/views/dalli
 
 # Plugingeek
 $ ->

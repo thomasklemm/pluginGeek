@@ -1,18 +1,14 @@
 class ReposController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :refresh]
-  before_filter :load_repo,          only: [:edit, :update, :destroy, :refresh]
-  after_filter :verify_authorized,   only: [:edit, :update, :destroy, :refresh]
+  before_action :authenticate_user!, except: :show
+  before_action :load_and_authorize_repo, except: [:new, :create]
 
   # GET /repos/:owner/:name
   def show
-    @repo = Repo.where(full_name: full_name).first!.decorate
-  rescue ActiveRecord::RecordNotFound
-    redirect_to new_repo_path(full_name: full_name)
   end
 
   # GET /repos/new?owner=thomasklemm&name=Plugingeek
   def new
-    @repo = Repo.new(full_name: full_name).decorate
+    @repo = Repo.new(full_name: full_name)
     authorize @repo
   end
 
@@ -24,20 +20,16 @@ class ReposController < ApplicationController
       redirect_to repo_path(@repo), notice: 'Repo has been added.'
     else
       flash.alert = 'Repo could not be found on Github.
-        This might be a temporary error only, please try again later.'
+        This might be a temporary error, please try again later.'
       redirect_to root_path
     end
   end
 
   def edit
-    authorize @repo
   end
 
   def update
-    authorize @repo
-
-    # TODO: Add specs for full_name_changed case
-    if @repo.update_attributes(repo_params)
+    if @repo.update(repo_params)
       @repo.retrieve_from_github if @repo.full_name_changed?
       redirect_to repo_path(@repo), notice: 'Repo has been updated.'
     else
@@ -46,22 +38,23 @@ class ReposController < ApplicationController
   end
 
   def destroy
-    authorize @repo
-
     @repo.destroy
     redirect_to root_path, notice: 'Repo has been destroyed.'
   end
 
   def refresh
-    authorize @repo, :staff_action?
-
-    @repo.retrieve_from_github
-    @repo.touch
-
+    @repo.retrieve_from_github and @repo.touch
     redirect_to repo_path(@repo), notice: 'Repo has been refreshed.'
   end
 
   private
+
+  def load_repo
+    @repo ||= Repo.find_by!(full_name: full_name)
+    authorize @repo
+  rescue ActiveRecord::RecordNotFound
+    redirect_to new_repo_path(full_name: full_name)
+  end
 
   # GET /repos/:owner/:name
   def full_name
@@ -78,19 +71,7 @@ class ReposController < ApplicationController
     (owner && name) ? "#{ owner }/#{ name }" : nil
   end
 
-  def load_repo
-    @repo = Repo.where(full_name: full_name).first!.decorate
-  end
-
   def repo_params
-    current_user.staff? ? staff_repo_params : user_repo_params
-  end
-
-  def staff_repo_params
-    params.require(:repo).permit(:full_name, :description, :category_list, :staff_pick, {parent_ids: []})
-  end
-
-  def user_repo_params
-    params.require(:repo).permit(:description, :category_list, {parent_ids: []})
+    params.require(:repo).permit(policy(@repo).permitted_attributes)
   end
 end

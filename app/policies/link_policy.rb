@@ -5,7 +5,7 @@ class LinkPolicy < ApplicationPolicy
   alias_method :update?, :permit_user
 
   def destroy?
-    permit_submitter || permit_staff
+    permit_submitter || permit_staff_member
   end
 
   private

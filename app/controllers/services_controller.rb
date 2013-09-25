@@ -1,48 +1,41 @@
 class ServicesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_service, only: [:show, :edit, :update, :destroy]
-  after_filter :verify_authorized
+  before_action :authenticate_user!
+  before_action :ensure_staff_member!
+  before_action :load_service, except: [:index, :new, :create]
 
   def index
-    @services = Service.order('created_at DESC')
-    authorize @services.first if @services.any?
+    @services = Service.order(created_at: :desc)
   end
 
   def show
-    authorize @service
   end
 
   def new
     @service = Service.new
-    authorize @service
   end
 
   def create
     @service = Service.new(service_params)
-    authorize @service
 
     if @service.save
-      redirect_to service_path(@service), notice: 'Service has been created.'
+      redirect_to @service, notice: 'Service has been created.'
     else
       render :new
     end
   end
 
   def edit
-    authorize @service
   end
 
   def update
-    authorize @service
-    if @service.update_attributes(service_params)
-      redirect_to service_path(@service), notice: 'Service has been updated.'
+    if @service.update(service_params)
+      redirect_to @service, notice: 'Service has been updated.'
     else
       render :edit
     end
   end
 
   def destroy
-    authorize @service
     @service.destroy
     redirect_to services_path, notice: 'Service has been destroyed.'
   end

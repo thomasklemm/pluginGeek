@@ -7,8 +7,8 @@ describe Language do
   it { should validate_presence_of(:name) }
 
   it "has a friendly id using the name" do
-    language.save
-    expect(language.to_param).to eq(language.name.parameterize)
+    language.name = 'web design'
+    expect(language.to_param).to eq('web design')
   end
 
   it "allows a tree structure" do

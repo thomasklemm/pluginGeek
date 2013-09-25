@@ -17,8 +17,8 @@ class ApplicationPolicy
     user
   end
 
-  def permit_staff
-    user && user.staff
+  def permit_staff_member
+    user && user.staff_member?
   end
 
   ##
