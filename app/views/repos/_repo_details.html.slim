@@ -24,7 +24,7 @@
     - if staff_member?
       span.refresh-link = link_to icon_tag(:leaf, "Refresh"), refresh_repo_path(@repo), method: :post
 
-  / custom description or Github description
+  / Github description
   span.description = @repo.description
 
   / link to homepage or github

@@ -7,9 +7,9 @@ class RepoPolicy < ApplicationPolicy
 
   def permitted_attributes
     if user.staff_member?
-      [:full_name, :description, :category_list, :staff_pick, { parent_ids: [] }]
+      [:full_name, :category_list, :staff_pick, { parent_ids: [] }]
     else
-      [:description, :category_list, { parent_ids: [] }]
+      [:category_list, { parent_ids: [] }]
     end
   end
 end

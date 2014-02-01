@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130924071539) do
+ActiveRecord::Schema.define(version: 20140201110022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,19 +127,18 @@ ActiveRecord::Schema.define(version: 20130924071539) do
   add_index "repo_relationships", ["parent_id"], name: "index_repo_relationships_on_parent_id", using: :btree
 
   create_table "repos", force: true do |t|
-    t.text     "full_name",                          null: false
+    t.text     "full_name",                         null: false
     t.text     "owner"
     t.text     "name"
-    t.integer  "stars",              default: 0
-    t.text     "github_description"
-    t.text     "homepage_url"
-    t.integer  "score",              default: 0
-    t.datetime "github_updated_at"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.boolean  "update_success",     default: false
+    t.integer  "stars",             default: 0
     t.text     "description"
-    t.boolean  "staff_pick",         default: false
+    t.text     "homepage_url"
+    t.integer  "score",             default: 0
+    t.datetime "github_updated_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "update_success",    default: false
+    t.boolean  "staff_pick",        default: false
   end
 
   add_index "repos", ["full_name"], name: "index_repos_on_full_name", unique: true, using: :btree

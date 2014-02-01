@@ -27,17 +27,10 @@
     = f.collection_select :parent_ids, Repo.ids_and_full_names_without(@repo), :id, :full_name, {}, { multiple: true }
     .hint Is #{ @repo.full_name } based further open-source projects?
 
-  / github_description
+  / description
   .field
-    = label_tag :github_description, 'Description on Github'
-    .github-description: em = @repo.github_description
-    .hint This will be the primary description of this project unless you override it with a custom description below.
-
-  / description (will be prefered over the github_description)
-  .field
-    = f.label :description, 'Custom description'
-    = f.text_area :description
-    .hint See the Github description above. Want to improve it?
+    = label_tag :description, 'Description from Github'
+    .description: em = @repo.description
 
   / submit button
   .actions

@@ -54,21 +54,8 @@ describe RepoDecorator do
       expect(repo.description).to eq("description")
     end
 
-    it "returns the github_description when missing" do
-      repo.github_description = "description on github"
-      repo.description = ""
-      expect(repo.description).to eq("description on github")
-    end
-  end
-
-  describe "#github_description" do
-    it "returns the github_description when given" do
-      repo.github_description = "Description on Github"
-      expect(repo.github_description).to eq("Description on Github")
-    end
-
     it "returns a default description when repo has no description on Github" do
-      expect(repo.github_description).to match(/add a description/i)
+      expect(repo.description).to match(/add a description/i)
     end
   end
 

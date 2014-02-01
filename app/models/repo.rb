@@ -1,7 +1,6 @@
 class Repo < ActiveRecord::Base
   # Validations
   validates :full_name, presence: true, uniqueness: true
-  validates :description, length: {maximum: 360}
 
   # Named scopes
   def self.order_by_score
@@ -183,12 +182,12 @@ class Repo < ActiveRecord::Base
   end
 
   def assign_fields_from_github(github)
-    self.name                = github['name']
-    self.owner               = github['owner']['login']
-    self.github_description  = github['description']
-    self.stars               = github['watchers']
-    self.homepage_url        = github['homepage']
-    self.github_updated_at   = github['pushed_at']
+    self.name              = github['name']
+    self.owner             = github['owner']['login']
+    self.description       = github['description']
+    self.stars             = github['watchers']
+    self.homepage_url      = github['homepage']
+    self.github_updated_at = github['pushed_at']
   end
 
   # NOTE: Select2 sends strings separated by ',' in some versions by default

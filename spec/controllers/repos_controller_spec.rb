@@ -215,7 +215,7 @@ describe ReposController, "POST #create" do
       it { should set_the_flash.to('Repo has been added.') }
 
       it "retrieves the repo's fields from Github" do
-        expect(assigns(:repo).github_description).to be_present
+        expect(assigns(:repo).description).to be_present
         expect(assigns(:repo).stars).to_not be_zero
         expect(assigns(:repo)).to be_update_success
       end
