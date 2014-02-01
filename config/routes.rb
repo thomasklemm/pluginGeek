@@ -9,7 +9,7 @@ Plugingeek::Application.routes.draw do
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  # Shorthand named login and logout paths
+  # Shorthands
   get 'login', to: 'devise/sessions#new', as: :login
   delete 'logout', to: 'devise/sessions#destroy', as: :logout
 
@@ -21,13 +21,13 @@ Plugingeek::Application.routes.draw do
     post :refresh, on: :member
   end
 
-  # TODO: Unify repo routes
-
   # Repos
   # split into routes for generating urls and matching requests
-  # to allow for ':owner/:name' path segments.
+  # to allow for ':owner/:name' path segments
+  #
+  # Match incoming requests
   namespace :repos do
-    # Allow for .js etc in repo names
+    # Allow for .js and more in repo names
     constraints(owner: /[^\/]+/, name: /[^\/]+/) do
       get ':owner/:name'            => 'repos#show'
       get ':owner/:name/edit'       => 'repos#edit'
@@ -37,11 +37,8 @@ Plugingeek::Application.routes.draw do
     end
   end
 
-  # Routes for generating urls with friendly ids
-  # plus new and create paths on repos resource
-  resources :repos, only: [:show, :new, :create, :edit] do
-    put 'refresh', on: :member
-  end
+  # Generate repo paths
+  resources :repos, only: [:show, :new, :create, :edit]
 
   # Links
   resources :links, except: :show
