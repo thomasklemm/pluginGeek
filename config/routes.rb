@@ -17,9 +17,7 @@ Plugingeek::Application.routes.draw do
   resources :languages, only: :show
 
   # Categories
-  resources :categories, only: [:show, :edit, :update, :destroy] do
-    post :refresh, on: :member
-  end
+  resources :categories, only: [:show, :edit, :update, :destroy]
 
   # Repos
   # split into routes for generating urls and matching requests
@@ -33,7 +31,6 @@ Plugingeek::Application.routes.draw do
       get ':owner/:name/edit'       => 'repos#edit'
       patch  ':owner/:name'         => 'repos#update'
       delete ':owner/:name'         => 'repos#destroy'
-      post   ':owner/:name/refresh' => 'repos#refresh'
     end
   end
 

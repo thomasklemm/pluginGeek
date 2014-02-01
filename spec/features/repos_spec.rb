@@ -81,22 +81,6 @@ describe Repo, "edit and update repo" do
   end
 end
 
-describe Repo, "refresh repo" do
-  include_context "repo features"
-
-  it "refreshes the repo" do
-    VCR.use_cassette('features/repos/refresh', record: :new_episodes) do
-      sign_in staff
-
-      visit repo_path(repo)
-      click_on "Refresh"
-
-      expect(current_path).to eq(repo_path(repo))
-      expect(page).to have_content(/Repo has been refreshed/)
-    end
-  end
-end
-
 describe Repo, "destroy repo" do
   include_context "repo features"
 

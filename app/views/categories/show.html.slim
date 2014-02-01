@@ -4,40 +4,39 @@
   .services-wrapper
     = render partial: 'services/service', collection: @services
 
-- cache [@category, 'show', staff_member?] do
-  / Category details header
-  = render 'categories/category_details'
+/ Category details header
+= render 'categories/category_details'
 
-  / Repos in a list.js list
-  #js-repos-list
-    - if @repos.any?
-      .repos-wrapper.list
-        = render partial: 'repos/repo', collection: @repos
-    - else
-      .section-header
-        span.primary Repos
-      .none-yet No repos yet, just add one :-D
+/ Repos in a list.js list
+#js-repos-list
+  - if @repos.any?
+    .repos-wrapper.list
+      = render partial: 'repos/repo', collection: @repos
+  - else
+    .section-header
+      span.primary Repos
+    .none-yet No repos yet, just add one :-D
+
+.space-one-and-a-half
+
+/ similar categories
+- if @category.similar_categories.any?
+  .section-header
+    span.primary Related categories
+
+  .categories-wrapper
+    = render partial: 'categories/category', collection: @category.similar_categories
 
   .space-one-and-a-half
 
-  / similar categories
-  - if @category.similar_categories.any?
-    .section-header
-      span.primary Related categories
+/ extended links
+/ including the links associated with one of the category's repos
+.section-header
+  span.primary Around the web
+  span = link_to icon_tag(:plus, 'Add'), 'javascript:;'
 
-    .categories-wrapper
-      = render partial: 'categories/category', collection: @category.similar_categories
-
-    .space-one-and-a-half
-
-  / extended links
-  / including the links associated with one of the category's repos
-  .section-header
-    span.primary Around the web
-    span = link_to icon_tag(:plus, 'Add'), 'javascript:;'
-
-  - if @category.extended_links.any?
-    .links-wrapper
-      = render partial: 'links/link', collection: @category.extended_links
-  - else
-    .none-yet No links yet, just add one :-D
+- if @category.extended_links.any?
+  .links-wrapper
+    = render partial: 'links/link', collection: @category.extended_links
+- else
+  .none-yet No links yet, just add one :-D

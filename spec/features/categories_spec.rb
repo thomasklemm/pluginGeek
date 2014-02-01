@@ -87,20 +87,6 @@ describe Category, "edit and update category" do
   end
 end
 
-describe Category, "refresh category" do
-  include_context "category features"
-
-  it "refreshes the category" do
-    sign_in staff
-
-    visit category_path(category)
-    click_on "Refresh"
-
-    expect(current_path).to eq(category_path(category))
-    expect(page).to have_content(/Category has been refreshed/)
-  end
-end
-
 describe Category, "destroy category" do
   include_context "category features"
 

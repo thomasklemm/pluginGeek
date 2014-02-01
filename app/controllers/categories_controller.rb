@@ -21,11 +21,6 @@ class CategoriesController < ApplicationController
     redirect_to root_path, notice: 'Category has been destroyed.'
   end
 
-  def refresh
-    @category.save and @category.touch
-    redirect_to @category, notice: 'Category has been refreshed.'
-  end
-
   private
 
   def load_and_authorize_category

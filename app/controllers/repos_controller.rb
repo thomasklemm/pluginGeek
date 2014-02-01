@@ -42,11 +42,6 @@ class ReposController < ApplicationController
     redirect_to root_path, notice: 'Repo has been destroyed.'
   end
 
-  def refresh
-    @repo.retrieve_from_github and @repo.touch
-    redirect_to repo_path(@repo), notice: 'Repo has been refreshed.'
-  end
-
   private
 
   def load_repo

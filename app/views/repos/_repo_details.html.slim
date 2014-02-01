@@ -20,10 +20,6 @@
     / edit repo
     span.edit-link = link_to icon_tag(:check, "Edit"), edit_repo_path(@repo)
 
-    / refresh repos
-    - if staff_member?
-      span.refresh-link = link_to icon_tag(:leaf, "Refresh"), refresh_repo_path(@repo), method: :post
-
   / Github description
   span.description = @repo.description
 
