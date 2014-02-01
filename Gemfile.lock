@@ -88,6 +88,7 @@ GEM
       thor
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
+    daemon_controller (1.1.8)
     dalli (2.6.4)
     database_cleaner (1.1.1)
     debug_inspector (0.0.2)
@@ -199,6 +200,10 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
+    passenger (4.0.37)
+      daemon_controller (>= 1.1.0)
+      rack
+      rake (>= 0.8.1)
     pg (0.17.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
@@ -207,8 +212,6 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
-    puma (2.6.0)
-      rack (>= 1.1, < 2.0)
     pundit (0.2.1)
       activesupport (>= 3.0.0)
     quiet_assets (1.0.2)
@@ -367,10 +370,10 @@ DEPENDENCIES
   newrelic_rpm
   omniauth
   omniauth-github
+  passenger
   pg
   pry
   pry-rails
-  puma
   pundit
   quiet_assets
   rack-livereload

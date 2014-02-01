@@ -3,14 +3,14 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby '2.0.0'
 
-# Puma (App server)
-gem 'puma'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
 # Postgres Database Connector
 gem 'pg'
+
+# Phusion Passenger (App server)
+gem 'passenger'
 
 # High Voltage (Static Pages)
 gem 'high_voltage'

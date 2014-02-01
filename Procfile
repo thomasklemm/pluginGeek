@@ -1,1 +1,1 @@
-web: bundle exec puma -p $PORT -e $RACK_ENV -t 1:20
+web: bundle exec passenger start -p $PORT --max-pool-size 3
