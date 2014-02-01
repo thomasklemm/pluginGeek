@@ -18,7 +18,7 @@ class Category < ActiveRecord::Base
   end
 
   def self.ids_and_full_names_without(repo)
-    where('id != ?', repo.id).
+    where.not(id: repo.id).
       ids_and_full_names
   end
 
@@ -73,6 +73,11 @@ class Category < ActiveRecord::Base
   has_many :services,
     through: :service_categorizations
 
+  # Callbacks
+  before_save :assign_stars
+  before_save :assign_score
+  before_save :assign_repos_count
+
   # Defaults
   def stars
     self[:stars] || 0
@@ -88,120 +93,41 @@ class Category < ActiveRecord::Base
   end
 
   def similar_categories
-    sc = (related_categories | reverse_related_categories).uniq
-    sc.sort_by(&:stars).reverse
+    @similar_categories ||= (related_categories | reverse_related_categories).
+      uniq.
+      sort_by(&:stars).
+      reverse
   end
 
+  # Extended links include the links associated with repos of this category
+  # in addition to the ones associated with the category itself,
+  # all sorted by reverse published_at date
   def extended_links
-    @extended_links ||= extended_links!
-  end
-
-  def self.expire_all
-    update_all(updated_at: Time.current)
+    @extended_links ||= (links | links_of_repos).
+      uniq.
+      sort_by(&:published_at).
+      reverse
   end
 
   def to_param
     "#{id}-#{full_name.parameterize}"
   end
 
-  # Assign aggregate stars of repos as category stars
-  before_save :assign_stars
-
-  # Assign aggregate scores of repos as category score
-  before_save :assign_score
-
-  # Assign languages from full_name
-  before_save :assign_languages
-
-  # Cache repo and language list
-  before_save :cache_repos_count
-  before_save :cache_repo_list
-  before_save :cache_language_list
-
-  after_commit :expire_repos
-  after_commit :expire_languages
-
   private
-
-  # Extended links include the links associated with repos of this category
-  # in addition to the ones associated with the category itself,
-  # all sorted by reverse published_at date
-  def extended_links!
-    l = (links | links_of_repos).uniq
-    l.sort_by(&:published_at).reverse
-  end
 
   def links_of_repos
     repos.includes(:links).flat_map(&:links)
   end
 
-  # Assign aggregate stars of repos as category stars
   def assign_stars
     self.stars = repos.map(&:stars).reduce(:+) || 0
   end
 
-  # Assign aggregate scores of repos as category score
   def assign_score
     self.score = repos.map(&:score).reduce(:+) || 0
   end
 
-  # Assign languages from full_name
-  def assign_languages
-    return unless full_name_changed?
-
-    # Extract languages from full_name string
-    match_data = full_name.match %r{\((?<languages>.*)\)}
-    return unless match_data.present?
-
-    langs = match_data[:languages].downcase.split('/').map(&:strip)
-    return unless langs.present?
-
-    # Reset languages
-    self.languages = []
-
-    # Set provided languages if they are known
-    langs.each { |lang| assign_single_language(lang) }
-
-    # Assign sublanguages if appropriate
-    assign_web_languages if langs.include?('web')
-    assign_mobile_languages if langs.include?('mobile')
-  end
-
-  def assign_web_languages
-    Language::Web.each { |lang| assign_single_language(lang) }
-  end
-
-  def assign_mobile_languages
-    Language::Mobile.each { |lang| assign_single_language(lang) }
-  end
-
-  def assign_single_language(lang)
-    language = Language.find_by_slug(lang)
-    self.languages << language if language
-  end
-
-  def cache_repo_list
-    self.repo_list = repos.map(&:name).join(', ')
-  end
-
-  def cache_repos_count
+  def assign_repos_count
     self.repos_count = repos.size
-  end
-
-  # Cache only Web and Mobile if those main languages are present, don't display any sublanguages then
-  def cache_language_list
-    langs = languages.map(&:name)
-    langs.include? 'Web'    and langs.delete_if {|lang| Language::Web.include?(lang.downcase)}
-    langs.include? 'Mobile' and langs.delete_if {|lang| Language::Mobile.include?(lang.downcase)}
-    self.language_list = langs.join(', ')
-  end
-
-  # Expire repos and languages
-  def expire_repos
-    repos.update_all(updated_at: Time.current)
-  end
-
-  def expire_languages
-    languages.update_all(updated_at: Time.current)
   end
 end

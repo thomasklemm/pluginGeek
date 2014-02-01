@@ -26,27 +26,9 @@ class Link < ActiveRecord::Base
     categories | categories_of_repos
   end
 
-  # Expire caches of all associated repos,
-  # categories, and categories of repos
-  after_commit :expire_repos
-  after_commit :expire_categories
-  after_commit :expire_categories_of_repos
-
   private
 
   def categories_of_repos
     repos.flat_map(&:categories).uniq
-  end
-
-  def expire_repos
-    repos.update_all(updated_at: Time.current)
-  end
-
-  def expire_categories
-    categories.update_all(updated_at: Time.current)
-  end
-
-  def expire_categories_of_repos
-    categories_of_repos.each { |category| category.update_column(:updated_at, Time.current) }
   end
 end

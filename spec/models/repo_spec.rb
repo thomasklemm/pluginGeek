@@ -280,22 +280,13 @@ describe Repo do
     end
   end
 
-  describe "#expire_categories" do
-    it "expires associated categories" do
-      Timecop.freeze
-      repo.categories.expects(:update_all).with(updated_at: Time.current)
-      repo.send(:expire_categories)
-      Timecop.return
-    end
-  end
-
-  describe "#update_and_expire_categories" do
+  describe "#update_categories" do
     let(:category) { Fabricate(:category) }
 
-    it "updates and expires associated categories" do
+    it "updates associated categories" do
       repo.categories << category
       category.expects(:save)
-      repo.send(:update_and_expire_categories)
+      repo.send(:update_categories)
     end
   end
 end

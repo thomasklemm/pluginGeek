@@ -112,8 +112,6 @@ describe RepoUpdater do
       updater.expects(:update).with("rails/rails")
       updater.expects(:update).with("twitter/bootstrap")
 
-      Category.expects(:expire_all)
-
       updater.update_all
     end
   end

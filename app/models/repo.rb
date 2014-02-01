@@ -97,12 +97,8 @@ class Repo < ActiveRecord::Base
     # Return early if category assignments don't change
     return if new_list == category_list
 
-    expire_categories # expire old categories
-
     full_category_names = prepare_category_list(new_list)
     assign_categories(full_category_names)
-
-    expire_categories # expire new categories
   end
 
   # Times
@@ -165,7 +161,7 @@ class Repo < ActiveRecord::Base
   before_save :assign_score
 
   # Update category caches and more
-  after_commit :update_and_expire_categories
+  after_commit :update_categories
 
   private
 
@@ -208,12 +204,7 @@ class Repo < ActiveRecord::Base
     staff_pick? ? 1.25 : 1
   end
 
-  def expire_categories
-    categories.update_all(updated_at: Time.current)
-  end
-
-  # Update categories' caches
-  def update_and_expire_categories
+  def update_categories
     categories.each(&:save)
   end
 end

@@ -38,8 +38,6 @@ class RepoUpdater
     repo_names.each do |full_name|
       update(full_name)
     end
-
-    Category.expire_all
   end
 
 private

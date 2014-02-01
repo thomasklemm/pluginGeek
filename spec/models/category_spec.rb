@@ -188,32 +188,4 @@ describe Category do
       expect(category.languages.map(&:name)).to include('iOS')
     end
   end
-
-  describe ".expire_all" do
-    it "expires all categories" do
-      Timecop.freeze
-      category = Fabricate(:category, created_at: 1.day.ago, updated_at: 1.day.ago)
-      Category.expire_all
-      expect(category.reload.updated_at).to eq(Time.current)
-      Timecop.return
-    end
-  end
-
-  describe "#expire_repos" do
-    it "expires associated repos" do
-      Timecop.freeze
-      category.repos.expects(:update_all).with(updated_at: Time.current)
-      category.send(:expire_repos)
-      Timecop.return
-    end
-  end
-
-  describe "#expire_languages" do
-    it "expires associated languages" do
-      Timecop.freeze
-      category.languages.expects(:update_all).with(updated_at: Time.current)
-      category.send(:expire_languages)
-      Timecop.return
-    end
-  end
 end
