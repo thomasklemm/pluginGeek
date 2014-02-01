@@ -57,4 +57,13 @@ class RepoDecorator < Draper::Decorator
       'low'
     end
   end
+
+  def last_updated
+    Time.current - github_updated_at
+  end
+
+  def github_updated_at
+    time = self[:github_updated_at].present? ? self[:github_updated_at] : 2.years.ago
+    time.utc
+  end
 end

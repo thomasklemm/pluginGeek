@@ -13,17 +13,17 @@ Plugingeek::Application.routes.draw do
   get 'login', to: 'devise/sessions#new', as: :login
   delete 'logout', to: 'devise/sessions#destroy', as: :logout
 
-  # Languages
-  resources :languages, only: :show
+  # Platforms
+  resources :platforms, only: :show
 
   # Categories
-  resources :categories, only: [:show, :edit, :update, :destroy]
+  resources :categories
 
   # Repos
   # split into routes for generating urls and matching requests
   # to allow for ':owner/:name' path segments
   #
-  # Match incoming requests
+  # Match repo paths
   namespace :repos do
     # Allow for .js and more in repo names
     constraints(owner: /[^\/]+/, name: /[^\/]+/) do
@@ -59,5 +59,6 @@ Plugingeek::Application.routes.draw do
   # Static pages
   get ':id', to: 'high_voltage/pages#show', as: :static
 
-  root 'languages#index'
+  # Note: Make sure there's a platform with id=1
+  root 'platforms#show', id: 1
 end

@@ -116,26 +116,6 @@ describe Repo do
   it { should have_many(:link_relationships).dependent(:destroy) }
   it { should have_many(:links).through(:link_relationships) }
 
-  describe "#child_list" do
-    before { repo.children = [first_child, second_child] }
-
-    it "returns a list of children" do
-      expect(repo.child_list).to be_present
-      expect(repo.child_list).to be_a String
-      expect(repo.child_list.split(", ")).to match_array([first_child.full_name, second_child.full_name])
-    end
-  end
-
-  describe "#language_list" do
-    before { repo.languages = [first_language, second_language] }
-
-    it "returns a list of languages" do
-      expect(repo.language_list).to be_present
-      expect(repo.language_list).to be_a String
-      expect(repo.language_list.split(", ")).to match_array([first_language.name, second_language.name])
-    end
-  end
-
   describe "#category_list" do
     before { repo.categories = [first_category, second_category] }
 

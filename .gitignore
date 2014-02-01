@@ -32,3 +32,6 @@
 # Coveralls coverage
 .coveralls.yml
 /coverage
+
+# Notes
+next_up.md

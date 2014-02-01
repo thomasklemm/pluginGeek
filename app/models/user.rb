@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
-  # Selected Devise modules
-  devise :rememberable, :trackable, :omniauthable
+  devise :rememberable,
+    :trackable,
+    :omniauthable
 
-  # Validations
-  validates :login, presence: true, uniqueness: true
+  validates :login,
+    presence: true,
+      uniqueness: true
 
   # Authentication through Github
   has_many :authentications, dependent: :destroy

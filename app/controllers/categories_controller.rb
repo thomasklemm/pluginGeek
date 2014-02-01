@@ -5,6 +5,14 @@ class CategoriesController < ApplicationController
   def show
   end
 
+  def new
+    raise NotImplementedError
+  end
+
+  def create
+    raise NotImplementedError
+  end
+
   def edit
   end
 

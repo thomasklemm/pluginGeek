@@ -1,31 +1,47 @@
 class Repo < ActiveRecord::Base
-  # Validations
-  validates :full_name, presence: true, uniqueness: true
+  validates :full_name,
+    presence: true,
+    uniqueness: true
 
-  # Named scopes
-  def self.order_by_score
-    order('repos.score DESC')
+  scope :order_by_name,  -> { order(full_name: :asc) }
+  scope :order_by_score, -> { order(score: :desc) }
+
+  scope :ids_and_full_names, -> { select([:id, :full_name]).order_by_score }
+  scope :ids_and_full_names_without, ->(repo) { ids_and_full_names.where.not(id: repo.id) }
+
+  has_many :categories,
+    -> { order(score: :desc) },
+    through: :categorizations
+  has_many :categorizations,
+    dependent: :destroy
+
+  has_many :parents,
+    through:      :parent_child_relationships,
+    source:       :parent
+  has_many :parent_child_relationships,
+    class_name:   'RepoRelationship',
+    foreign_key:  :child_id,
+    dependent:    :destroy
+
+  has_many :children,
+    through:      :child_parent_relationships,
+    source:       :child
+  has_many :child_parent_relationships,
+    class_name:   'RepoRelationship',
+    foreign_key:  :parent_id,
+    dependent:    :destroy
+
+  def parents_and_children
+    parents | children
   end
 
-  def self.order_by_name
-    order('repos.full_name ASC')
-  end
+  has_many :links,
+    -> { uniq },
+    through: :link_relationships
+  has_many :link_relationships,
+    as: :linkable,
+    dependent: :destroy
 
-  def self.ids_and_full_names
-    select([:id, :full_name]).
-      order_by_score
-  end
-
-  def self.ids_and_full_names_without(repo)
-    where('id != ?', repo.id).
-      ids_and_full_names
-  end
-
-  def to_param
-    full_name
-  end
-
-  # Defaults
   def stars
     self[:stars] || 0
   end
@@ -34,177 +50,7 @@ class Repo < ActiveRecord::Base
     self[:score] || 0
   end
 
-  # Parents
-  has_many :parent_child_relationships,
-    class_name:   'RepoRelationship',
-    foreign_key:  :child_id,
-    dependent:    :destroy
-  has_many :parents,
-    through:      :parent_child_relationships,
-    source:       :parent
-
-  # Children
-  has_many :child_parent_relationships,
-    class_name:   'RepoRelationship',
-    foreign_key:  :parent_id,
-    dependent:    :destroy
-  has_many :children,
-    through:      :child_parent_relationships,
-    source:       :child
-
-  def parents_and_children
-    parents | children
-  end
-
-  # Categories
-  # FIXME: Console shows this setup leaves orphan join records behind. Why? What's better to do?
-  has_many :categorizations,
-    dependent: :destroy
-  has_many :categories,
-    -> { order(score: :desc) },
-    through: :categorizations
-
-  # Languages
-  has_many :language_classifications,
-    as: :classifier,
-    dependent: :destroy
-  has_many :languages,
-    through: :language_classifications
-
-  # Links
-  has_many :link_relationships,
-    as: :linkable,
-    dependent: :destroy
-  has_many :links,
-    -> { uniq },
-    through: :link_relationships
-
- # Lists for tag inputs
-  def child_list
-    children.map(&:full_name).join(', ')
-  end
-
-  def language_list
-    languages.map(&:name).join(', ')
-  end
-
-  def category_list
-    categories.map(&:full_name).join(', ')
-  end
-
-  # Handle tag input changes
-  def category_list=(new_list)
-    # Return early if category assignments don't change
-    return if new_list == category_list
-
-    full_category_names = prepare_category_list(new_list)
-    assign_categories(full_category_names)
-  end
-
-  # Times
-  def last_updated
-    Time.current - github_updated_at
-  end
-
-  def github_updated_at
-    time = self[:github_updated_at].present? ? self[:github_updated_at] : 2.years.ago
-    time.utc
-  end
-
-  # Assign updated fields from Git
-  def update_repo_from_github(github)
-    assign_fields_from_github(github)
-    self.update_success = true
-    self.save
-  end
-
-  # Flag repo as successfully retrieved
-  def update_succeeded!
-    update_success? or self.update_column(:update_success, true)
-    puts "Repo #{ full_name } has been updated successfully."
-    true
-  end
-
-  # Flag repo as failing to update
-  def update_failed!(opts = {})
-    if persisted?
-      update_success? and self.update_column(:update_success, false)
-    else
-      update_success? and self.update_success = false
-    end
-
-    message = case opts[:reason]
-      when :not_found_on_github
-        "Repo #{ full_name } could not be found on Github."
-      when :not_saved
-        "Repo #{ full_name } could not be saved while updating from Github."
-      else
-        "Repo #{ full_name } could not be updated."
-      end
-
-    puts message
-    false
-  end
-
-  # Update this very record from Github, live and in color
-  def retrieve_from_github
-    updater = RepoUpdater.new
-    updater.update(full_name)
-  end
-
-  # Callbacks
-  # Assign a repo's languages from its' categories' languages
-  # on every save
-  before_save :assign_languages
-
-  # Calculate a repo's score on each save
-  before_save :assign_score
-
-  # Update category caches and more
-  after_commit :update_categories
-
-  private
-
-  # Assign categories from a list of category names
-  def assign_categories(full_category_names)
-    self.categories = full_category_names.map do |full_name|
-      Category.where(full_name: full_name).first_or_create!
-    end
-  end
-
-  # Deduce languages from categories' languages
-  def assign_languages
-    self.languages = categories.flat_map(&:languages).uniq
-  end
-
-  def assign_fields_from_github(github)
-    self.name              = github['name']
-    self.owner             = github['owner']['login']
-    self.description       = github['description']
-    self.stars             = github['watchers']
-    self.homepage_url      = github['homepage']
-    self.github_updated_at = github['pushed_at']
-  end
-
-  # NOTE: Select2 sends strings separated by ',' in some versions by default
-  def prepare_category_list(list)
-    list.gsub(', ', ',').split(',').select(&:present?).map(&:strip)
-  end
-
-  def assign_score
-    self.score = ((stars + 1) * activity_bonus * staff_pick_bonus).ceil
-    self.score = 0 if score < 0
-  end
-
-  def activity_bonus
-    2.0 - (last_updated / 12.months)
-  end
-
-  def staff_pick_bonus
-    staff_pick? ? 1.25 : 1
-  end
-
-  def update_categories
-    categories.each(&:save)
+  def to_param
+    full_name
   end
 end
