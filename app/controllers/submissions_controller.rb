@@ -2,20 +2,20 @@ class SubmissionsController < ApplicationController
   # Handle submission of links and repos
   # GET /submit?url=https://www.github.com/...&title=Github%20Repo
   def submit
-    # Redirect if :url is missing
     url.present? or return redirect_to root_url,
-      alert: "Please provide a URL on your submission request ('?url=...' missing)."
+      alert: "Please provide a URL on your submission request ('?url=...' is missing)."
 
-    if github_repo?
-      if repo.present?
-        return redirect_to repo
-      else
-        return redirect_to new_repo_path(owner: repo_owner, name: repo_name)
-      end
+    # A link is being submitted
+    unless is_github_repo?
+      return redirect_to new_link_url(params: params.slice(:url, :title))
     end
 
-    # Otherwise create a new link
-    redirect_to new_link_url(params: params.slice(:url, :title))
+    # A repo is being submitted
+    if repo.present?
+      return redirect_to repo
+    else
+      return redirect_to new_repo_path(owner: repo_owner, name: repo_name)
+    end
   end
 
   private
@@ -24,31 +24,29 @@ class SubmissionsController < ApplicationController
     @url ||= params[:url].try(:strip)
   end
 
-  def github_repo?
-    url.scan('https://github.com/').present?
+  def is_github_repo?
+    url.index('https://github.com/').present?
   end
 
   def repo
-    @repo ||= Repo.find_by(full_name: full_name)
+    @repo ||= Repo.find_by(full_name: repo_full_name)
   end
 
-  def repo_elements
-    @repo_elements ||= begin
-      # Remove query string
-      u = url.gsub('https://github.com/', '').gsub(/\?.*/, '')
-      u.split('/').map(&:strip)
-    end
+  def repo_parts
+    @parts ||= url.gsub('https://github.com/', '').
+      gsub(/\?.*$/, ''). # Remove trailing query string
+      strip.split('/')[0,2]
   end
 
   def repo_full_name
-    "#{ repo_owner }/#{ repo_name }"
+    repo_parts.join('/')
   end
 
   def repo_owner
-    repo_elements[0]
+    repo_parts[0]
   end
 
   def repo_name
-    repo_elements[1]
+    repo_parts[1]
   end
 end
