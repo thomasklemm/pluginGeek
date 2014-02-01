@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201110022) do
+ActiveRecord::Schema.define(version: 20140201220055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,22 +27,19 @@ ActiveRecord::Schema.define(version: 20140201110022) do
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
-    t.text     "slug",                          null: false
-    t.integer  "score",         default: 0
+    t.integer  "score",       default: 0
     t.text     "description"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.text     "full_name",                     null: false
-    t.integer  "stars",         default: 0
-    t.boolean  "draft",         default: true
-    t.text     "repo_list"
-    t.text     "language_list"
-    t.integer  "repos_count",   default: 0
-    t.boolean  "featured",      default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.text     "full_name",                   null: false
+    t.integer  "stars",       default: 0
+    t.boolean  "draft",       default: true
+    t.integer  "repos_count", default: 0
+    t.boolean  "featured",    default: false
+    t.text     "name"
   end
 
   add_index "categories", ["score"], name: "index_categories_on_score", using: :btree
-  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
   create_table "categorizations", force: true do |t|
     t.integer "repo_id",     null: false
@@ -62,36 +59,6 @@ ActiveRecord::Schema.define(version: 20140201110022) do
 
   add_index "category_relationships", ["category_id"], name: "index_category_relationships_on_category_id", using: :btree
   add_index "category_relationships", ["other_category_id"], name: "index_category_relationships_on_other_category_id", using: :btree
-
-  create_table "language_classifications", force: true do |t|
-    t.integer  "language_id",     null: false
-    t.integer  "classifier_id",   null: false
-    t.text     "classifier_type", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "language_classifications", ["classifier_id", "classifier_type"], name: "index_language_classifications_on_classifier", using: :btree
-  add_index "language_classifications", ["language_id"], name: "index_language_classifications_on_language_id", using: :btree
-
-  create_table "language_hierarchies", id: false, force: true do |t|
-    t.integer "ancestor_id",   null: false
-    t.integer "descendant_id", null: false
-    t.integer "generations",   null: false
-  end
-
-  add_index "language_hierarchies", ["ancestor_id", "descendant_id"], name: "index_language_hierarchies_on_ancestor_id_and_descendant_id", unique: true, using: :btree
-  add_index "language_hierarchies", ["descendant_id"], name: "index_language_hierarchies_on_descendant_id", using: :btree
-
-  create_table "languages", force: true do |t|
-    t.text     "name"
-    t.text     "slug"
-    t.integer  "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "languages", ["slug"], name: "index_languages_on_slug", unique: true, using: :btree
 
   create_table "link_relationships", force: true do |t|
     t.integer  "link_id",       null: false
