@@ -4,7 +4,6 @@
 
   / Category partial in lists
   .category class="#{ 'non-draft' unless category.draft? }"
-    / A category's full_name includes 'name (languages)'
     span.full-name = link_to category do
       span.name.js-name = category.name
 

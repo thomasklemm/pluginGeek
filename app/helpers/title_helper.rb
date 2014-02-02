@@ -25,7 +25,7 @@ module TitleHelper
   end
 
   def category_title
-    @category.present? and "#{ @category.full_name }" + " on pluginGeek".html_safe
+    @category.present? and "#{ @category.name }" + " on pluginGeek".html_safe
   end
 
   def repo_title

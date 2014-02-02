@@ -1,7 +1,7 @@
 class UserDecorator < Draper::Decorator
   delegate_all
 
-  # Grey avatar
+  # Grey Github octocat
   DEFAULT_AVATAR_URL =
     "https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png"
 

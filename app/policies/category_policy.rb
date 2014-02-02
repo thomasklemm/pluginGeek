@@ -6,7 +6,7 @@ class CategoryPolicy < ApplicationPolicy
 
   def permitted_attributes
     if user.staff_member?
-      [:full_name, :description, :draft, :featured, { related_category_ids: [] }]
+      [:name, :description, :draft, :featured, { related_category_ids: [] }]
     else
       [:description]
     end

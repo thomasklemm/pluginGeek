@@ -5,8 +5,8 @@ class Category < ActiveRecord::Base
   scope :order_by_name,  -> { order(name: :asc) }
   scope :order_by_score, -> { order(score: :desc) }
 
-  scope :ids_and_full_names, -> { select([:id, :full_name]).order_by_score }
-  scope :ids_and_full_names_without, ->(category) { ids_and_full_names.where.not(id: category.id) }
+  scope :ids_and_names, -> { select([:id, :name]).order_by_score }
+  scope :ids_and_names_without, ->(category) { ids_and_names.where.not(id: category.id) }
 
   scope :featured, ->(count=1) { where(featured: true).sample(count).shuffle }
 
@@ -80,18 +80,7 @@ class Category < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-#{full_name.parameterize}"
-  end
-
-  # Temporary
-  def name
-    self[:name] || name_from_full_name
-  end
-
-  # Temporary
-  def name_from_full_name
-    match = full_name.match %r{(?<name>.*)[[:space:]]\(}
-    match.present? ? match[:name].strip : full_name
+    "#{id}-#{name.parameterize}"
   end
 
   private
@@ -99,6 +88,5 @@ class Category < ActiveRecord::Base
   def assign_counters
     self.stars = repos.map(&:stars).reduce(:+) rescue 0 || 0
     self.score = repos.map(&:score).reduce(:+) rescue 0 || 0
-    self.repos_count = repos.size
   end
 end

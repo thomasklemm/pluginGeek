@@ -2,12 +2,12 @@
 = form_for @category do |f|
   = render 'shared/error_messages', target: @category
 
-  / full_name (including languages, e.g. "ActiveRecord Tagging (Ruby/Javascript)"")
+  / name (e.g. "ActiveRecord Tagging")
   - if staff_member?
     .field
-      = f.label :full_name, "Name and languages (staff)"
-      = f.text_field :full_name, autocomplete: 'off'
-      .hint ActiveRecord: Nested Records (Ruby), Website Analytics (Javascript/Ruby). Beware of commas.
+      = f.label :name, "Name (staff)"
+      = f.text_field :name, autocomplete: 'off'
+      .hint ActiveRecord: Nested Records, Website Analytics. Beware of commas.
 
   / description for category, rendered in overviews and details views and is being searched
   .field
@@ -19,7 +19,7 @@
   - if staff_member?
     .field
       = f.label :related_category_ids, "Related categories (staff)"
-      = f.collection_select :related_category_ids, Category.ids_and_full_names_without(@category), :id, :full_name, {}, { multiple: true }
+      = f.collection_select :related_category_ids, Category.ids_and_names_without(@category), :id, :name, {}, { multiple: true }
       .hint Are there any related categories? If an existing relationship does not show here, please check on the other side of the relationship.
 
   / draft vs. published status

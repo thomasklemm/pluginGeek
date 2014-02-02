@@ -5,12 +5,10 @@ class User < ActiveRecord::Base
 
   validates :login,
     presence: true,
-      uniqueness: true
+    uniqueness: true
 
-  # Authentication through Github
-  has_many :authentications, dependent: :destroy
-
-  alias_attribute :staff_member, :staff
+  has_many :authentications,
+    dependent: :destroy
 
   # Find or create user from Github omniauth
   def self.find_or_create_user_from_github(omniauth)

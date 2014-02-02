@@ -1,13 +1,16 @@
 class Repo < ActiveRecord::Base
-  validates :full_name,
+  validates :owner_and_name,
     presence: true,
-    uniqueness: true
+    uniqueness: { case_sensitive: false }
 
-  scope :order_by_name,  -> { order(full_name: :asc) }
+  scope :order_by_name,  -> { order(owner_and_name: :asc) }
   scope :order_by_score, -> { order(score: :desc) }
 
-  scope :ids_and_full_names, -> { select([:id, :full_name]).order_by_score }
-  scope :ids_and_full_names_without, ->(repo) { ids_and_full_names.where.not(id: repo.id) }
+  scope :ids_and_owner_and_names, -> { select([:id, :owner_and_name]).order_by_score }
+  scope :ids_and_owner_and_names_without, ->(repo) { ids_and_owner_and_names.where.not(id: repo.id) }
+
+  # Case-insensitive search
+  scope :find_by_owner_and_name, ->(query) { where("lower(owner_and_name) = ?", query.downcase).first }
 
   has_many :categories,
     -> { order(score: :desc) },
@@ -51,6 +54,6 @@ class Repo < ActiveRecord::Base
   end
 
   def to_param
-    full_name
+    owner_and_name
   end
 end

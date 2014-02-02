@@ -60,5 +60,5 @@ Plugingeek::Application.routes.draw do
   get ':id', to: 'high_voltage/pages#show', as: :static
 
   # Note: Make sure there's a platform with id=1
-  root 'platforms#show', id: 1
+  root 'platforms#show', id: 1 # Platform.default_id
 end

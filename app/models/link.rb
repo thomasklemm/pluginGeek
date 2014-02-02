@@ -1,26 +1,25 @@
 class Link < ActiveRecord::Base
-  # Validations
-  validates :url, :title, :published_at, presence: true
+  validates :url,
+    :title,
+    :published_at,
+    :submitter,
+    presence: true
 
-  # Maker, the person who submits the link
-  belongs_to :submitter, class_name: 'User'
-  validates :submitter, presence: true
-
-  # Repos and categories
-  has_many :link_relationships,
-    dependent: :destroy
+  belongs_to :submitter,
+    class_name: 'User'
 
   has_many :categories,
     -> { uniq },
     through: :link_relationships,
     source: :linkable,
     source_type: 'Category'
-
   has_many :repos,
     -> { uniq },
     through: :link_relationships,
     source: :linkable,
     source_type: 'Repo'
+  has_many :link_relationships,
+    dependent: :destroy
 
   def extended_categories
     categories | categories_of_repos

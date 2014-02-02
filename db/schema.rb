@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201220055) do
+ActiveRecord::Schema.define(version: 20140202095547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,10 @@ ActiveRecord::Schema.define(version: 20140201220055) do
     t.text     "description"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.text     "full_name",                   null: false
+    t.text     "name",                        null: false
     t.integer  "stars",       default: 0
     t.boolean  "draft",       default: true
-    t.integer  "repos_count", default: 0
     t.boolean  "featured",    default: false
-    t.text     "name"
   end
 
   add_index "categories", ["score"], name: "index_categories_on_score", using: :btree
@@ -47,7 +45,6 @@ ActiveRecord::Schema.define(version: 20140201220055) do
   end
 
   add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
-  add_index "categorizations", ["repo_id", "category_id"], name: "index_categorizations_on_repo_id_and_category_id", using: :btree
   add_index "categorizations", ["repo_id"], name: "index_categorizations_on_repo_id", using: :btree
 
   create_table "category_relationships", force: true do |t|
@@ -82,6 +79,29 @@ ActiveRecord::Schema.define(version: 20140201220055) do
     t.integer  "submitter_id"
   end
 
+  create_table "platform_categories", force: true do |t|
+    t.integer  "platform_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "platform_categories", ["category_id"], name: "index_platform_categories_on_category_id", using: :btree
+  add_index "platform_categories", ["platform_id", "category_id"], name: "index_platform_categories_on_platform_id_and_category_id", unique: true, using: :btree
+  add_index "platform_categories", ["platform_id"], name: "index_platform_categories_on_platform_id", using: :btree
+
+  create_table "platforms", force: true do |t|
+    t.text     "name",                       null: false
+    t.text     "slug",                       null: false
+    t.integer  "position",                   null: false
+    t.text     "image_url"
+    t.boolean  "default",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "platforms", ["slug"], name: "index_platforms_on_slug", unique: true, using: :btree
+
   create_table "repo_relationships", force: true do |t|
     t.integer  "parent_id",  null: false
     t.integer  "child_id",   null: false
@@ -90,13 +110,10 @@ ActiveRecord::Schema.define(version: 20140201220055) do
   end
 
   add_index "repo_relationships", ["child_id"], name: "index_repo_relationships_on_child_id", using: :btree
-  add_index "repo_relationships", ["parent_id", "child_id"], name: "index_repo_relationships_on_parent_id_and_child_id", unique: true, using: :btree
   add_index "repo_relationships", ["parent_id"], name: "index_repo_relationships_on_parent_id", using: :btree
 
   create_table "repos", force: true do |t|
-    t.text     "full_name",                         null: false
-    t.text     "owner"
-    t.text     "name"
+    t.text     "owner_and_name",                    null: false
     t.integer  "stars",             default: 0
     t.text     "description"
     t.text     "homepage_url"
@@ -108,8 +125,9 @@ ActiveRecord::Schema.define(version: 20140201220055) do
     t.boolean  "staff_pick",        default: false
   end
 
-  add_index "repos", ["full_name"], name: "index_repos_on_full_name", unique: true, using: :btree
+  add_index "repos", ["owner_and_name"], name: "index_repos_on_owner_and_name", unique: true, using: :btree
   add_index "repos", ["score"], name: "index_repos_on_score", using: :btree
+  add_index "repos", ["stars"], name: "index_repos_on_stars", using: :btree
 
   create_table "service_categorizations", force: true do |t|
     t.integer  "service_id"
@@ -147,7 +165,7 @@ ActiveRecord::Schema.define(version: 20140201220055) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.boolean  "staff",               default: false
+    t.boolean  "moderator",           default: false
   end
 
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
