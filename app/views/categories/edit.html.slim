@@ -1,4 +1,5 @@
 / categories/edit
+- @category = @category.decorate
 = render 'categories/category_details'
 = render 'form'
 
@@ -17,7 +18,7 @@
       th Name
       th Score
       th Description
-    - for repo in @category.repos
+    - for repo in @category.repos.decorate
       tr.repo
         td.name = repo.name
         td.score = repo.score

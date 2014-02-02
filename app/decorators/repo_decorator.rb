@@ -22,8 +22,8 @@ class RepoDecorator < Draper::Decorator
   end
 
   def homepage_url
-    url = (model.homepage_url || github_url)
-    "http://#{ url }" unless url.start_with?('http')
+    url = (model.homepage_url.presence || github_url)
+    url.start_with?('http') ? url : "http://#{ url }"
   end
 
   def github_updated_at
