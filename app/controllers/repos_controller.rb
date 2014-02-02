@@ -1,26 +1,18 @@
 class ReposController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :load_and_authorize_repo, except: [:new, :create]
+  before_action :load_repo, except: :create
+  before_action :build_repo, only: :create
 
-  # GET /repos/:owner/:name
   def show
-  end
-
-  # GET /repos/new?owner=thomasklemm&name=Plugingeek
-  def new
-    @repo = Repo.new(full_name: full_name)
-    authorize @repo
+    render :new if @repo.new_record?
   end
 
   def create
-    @repo = Repo.new(full_name: full_name)
-    authorize @repo
-
     if @repo.retrieve_from_github
-      redirect_to repo_path(@repo), notice: 'Repo has been added.'
+      redirect_to @repo, notice: 'Repo has been listed.'
     else
-      flash.alert = 'Repo could not be found on Github.
-        This might be a temporary error, please try again later.'
+      flash.alert = 'Repo has not been listed. Please retry later,
+        as the Github API might be down.'
       redirect_to root_path
     end
   end
@@ -30,7 +22,7 @@ class ReposController < ApplicationController
 
   def update
     if @repo.update(repo_params)
-      @repo.retrieve_from_github if @repo.full_name_changed?
+      @repo.retrieve_from_github if @repo.owner_and_name_changed?
       redirect_to repo_path(@repo), notice: 'Repo has been updated.'
     else
       render :edit
@@ -45,28 +37,33 @@ class ReposController < ApplicationController
   private
 
   def load_repo
-    @repo ||= Repo.find_by!(full_name: full_name)
+    @repo = Repo.find_by_owner_and_name!(owner_and_name)
     authorize @repo
   rescue ActiveRecord::RecordNotFound
-    redirect_to new_repo_path(full_name: full_name)
+    if request.fullpath != repo_path(owner_and_name)
+      redirect_to repo_path(owner_and_name)
+    end
+    build_repo
   end
 
-  # GET /repos/:owner/:name
-  def full_name
-    owner_and_name_from_params || full_name_from_params
+  def build_repo
+    @repo = Repo.new(owner_and_name: owner_and_name)
+    authorize @repo, :create?
   end
 
-  def full_name_from_params
-    params[:full_name] || (params[:repo] && params[:repo][:full_name])
-  end
-
-  def owner_and_name_from_params
-    owner = params[:owner] || (params[:repo] && params[:repo][:owner])
-    name  = params[:name]  || (params[:repo] && params[:repo][:name])
-    (owner && name) ? "#{ owner }/#{ name }" : nil
+  def owner_and_name
+    params[:id] ||
+    params[:owner_and_name] ||
+    (params[:owner] && params[:name]) and
+      "#{params[:owner]}/#{params[:name]}" ||
+    params[:repo] and params[:repo][:owner_and_name] ||
+    (params[:repo] && params[:repo][:owner] && params[:repo][:name]) and
+      "#{params[:repo][:owner]}/#{params[:repo][:name]}"
   end
 
   def repo_params
-    params.require(:repo).permit(policy(@repo).permitted_attributes)
+    params.
+      require(:repo).
+      permit(policy(@repo).permitted_attributes)
   end
 end

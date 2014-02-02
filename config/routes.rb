@@ -20,22 +20,7 @@ Plugingeek::Application.routes.draw do
   resources :categories
 
   # Repos
-  # split into routes for generating urls and matching requests
-  # to allow for ':owner/:name' path segments
-  #
-  # Match repo paths
-  namespace :repos do
-    # Allow for .js and more in repo names
-    constraints(owner: /[^\/]+/, name: /[^\/]+/) do
-      get ':owner/:name'            => 'repos#show'
-      get ':owner/:name/edit'       => 'repos#edit'
-      patch  ':owner/:name'         => 'repos#update'
-      delete ':owner/:name'         => 'repos#destroy'
-    end
-  end
-
-  # Generate repo paths
-  resources :repos, only: [:show, :new, :create, :edit]
+  resources :repos, constraints: { id: %r{[^\/]+[\/][^\/]+} }, except: [:index, :new]
 
   # Links
   resources :links, except: :show

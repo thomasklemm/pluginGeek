@@ -10,7 +10,8 @@ class Repo < ActiveRecord::Base
   scope :ids_and_owner_and_names_without, ->(repo) { ids_and_owner_and_names.where.not(id: repo.id) }
 
   # Case-insensitive search
-  scope :find_by_owner_and_name, ->(query) { where("lower(owner_and_name) = ?", query.downcase).first }
+  scope :find_by_owner_and_name,  ->(query) { where("lower(owner_and_name) = ?", query.downcase).first }
+  scope :find_by_owner_and_name!, ->(query) { where("lower(owner_and_name) = ?", query.downcase).first! }
 
   has_many :categories,
     -> { order(score: :desc) },
