@@ -21,18 +21,18 @@ module TitleHelper
   end
 
   def categories_title
-    @categories.present? and @language.present? and "#{ @language.name } on pluginGeek".html_safe
+    @categories.present? and @platform.present? and "#{ @platform.name } on pluginGeek".html_safe
   end
 
   def category_title
-    @category.present? and "#{ @category.name }" + " on pluginGeek".html_safe
+    @category.present? and "#{ @category.name } on pluginGeek".html_safe
   end
 
   def repo_title
-    @repo.present? and "#{ @repo.full_name }" + " on pluginGeek"
+    @repo.present? and "#{ @repo.full_name } on pluginGeek"
   end
 
   def default_title
-    "pluginGeek &middot; Supercharge your web development success".html_safe
+    "pluginGeek &middot; Find great Github repos".html_safe
   end
 end
