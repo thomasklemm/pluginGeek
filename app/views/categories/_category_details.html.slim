@@ -8,9 +8,6 @@
     - if @category.draft?
       span.draft = icon_tag(:pencil, "Draft")
 
-    / Languages, seperated by a comma
-    span.language-list = @category.language_list
-
     / Cummulative stars of all associated Github repos
     span.stars = @category.stars
 

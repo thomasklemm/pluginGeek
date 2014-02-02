@@ -7,10 +7,10 @@
 #
 module TitleHelper
   def page_title
-    custom_title.presence ||
-      categories_title.presence  ||
-      category_title.presence ||
-      repo_title.presence ||
+    custom_title ||
+      platform_title  ||
+      category_title ||
+      repo_title ||
       default_title
   end
 
@@ -20,16 +20,16 @@ module TitleHelper
     content_for(:page_title)
   end
 
-  def categories_title
-    @categories.present? and @platform.present? and "#{ @platform.name } on pluginGeek".html_safe
+  def platform_title
+    @platform && "#{ @platform.name } on pluginGeek".html_safe
   end
 
   def category_title
-    @category.present? and "#{ @category.name } on pluginGeek".html_safe
+    @category &&  "#{ @category.name } on pluginGeek".html_safe
   end
 
   def repo_title
-    @repo.present? and "#{ @repo.full_name } on pluginGeek"
+    @repo && "#{ @repo.name } on pluginGeek"
   end
 
   def default_title

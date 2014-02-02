@@ -1,8 +1,0 @@
-/ categories/_featured_categories
-- cache 'featured_categories', expires_in: 15.minutes do
-  - featured_categories = Category.featured(3)
-  - featured_categories &&= CategoryDecorator.decorate_collection(featured_categories)
-
-  .featured-categories-wrapper
-    h3 Featured categories
-    = render partial: 'categories/category', collection: featured_categories

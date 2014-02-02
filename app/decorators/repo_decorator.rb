@@ -1,44 +1,36 @@
 class RepoDecorator < Draper::Decorator
   delegate_all
 
-  decorates_association :categories
-  decorates_association :parents_and_children
-
   def owner
-    model.owner.presence || full_name.split('/')[0]
+    model.owner_and_name.split('/')[0]
   end
 
   def name
-    model.name.presence || full_name.split('/')[1]
-  end
-
-  def stars
-    text = h.number_with_delimiter(model.stars)
-    h.icon_tag(:star, text)
+    model.owner_and_name.split('/')[1]
   end
 
   def description
-    model.description.presence || default_description
+    model.description.presence || 'Please add a description on Github.'
   end
 
-  def default_description
-    "<em>Please add a description on Github.</em>".html_safe
-  end
-
-  # Returns either homepage url as an absolute path if only a relative one is given
-  # or the github_url
-  def homepage_url
-    url = model.homepage_url
-
-    url.present? or return github_url
-    url.start_with?('http') ? url : "http://#{ url }"
+  def stars
+    h.icon_tag(:star, h.number_with_delimiter(model.stars))
   end
 
   def github_url
-    "https://github.com/#{ full_name }"
+    "https://github.com/#{ owner_and_name }"
   end
 
-  # jQuery timeago compatible timestamp
+  def homepage_url
+    url = (model.homepage_url || github_url)
+    "http://#{ url }" unless url.start_with?('http')
+  end
+
+  def github_updated_at
+    (model.github_updated_at || 2.years.ago).utc
+  end
+
+  # jQuery timeago format
   def timestamp
     github_updated_at.iso8601
   end
@@ -47,23 +39,11 @@ class RepoDecorator < Draper::Decorator
     github_updated_at.to_s(:long)
   end
 
-  # CSS classes marking activity
   def activity_class
-    if last_updated < 4.months
-      'high'
-    elsif last_updated < 12.months
-      'medium'
-    else
-      'low'
+    case
+    when github_updated_at > 4.months.ago  then 'high'
+    when github_updated_at > 12.months.ago then 'medium'
+    else                                        'low'
     end
-  end
-
-  def last_updated
-    Time.current - github_updated_at
-  end
-
-  def github_updated_at
-    time = self[:github_updated_at].present? ? self[:github_updated_at] : 2.years.ago
-    time.utc
   end
 end

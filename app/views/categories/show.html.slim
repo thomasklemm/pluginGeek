@@ -1,4 +1,5 @@
 / categories/show
+- @category = @category.decorate
 .sidenotes
   - @services = Service.for_category(@category)
   .services-wrapper
@@ -9,9 +10,9 @@
 
 / Repos in a list.js list
 #js-repos-list
-  - if @repos.any?
+  - if @category.repos.any?
     .repos-wrapper.list
-      = render partial: 'repos/repo', collection: @repos
+      = render partial: 'repos/repo', collection: @category.repos
   - else
     .section-header
       span.primary Repos

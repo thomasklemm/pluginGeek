@@ -3,7 +3,7 @@
   = render 'shared/error_messages', target: @category
 
   / name (e.g. "ActiveRecord Tagging")
-  - if staff_member?
+  - if moderator?
     .field
       = f.label :name, "Name (staff)"
       = f.text_field :name, autocomplete: 'off'
@@ -16,23 +16,17 @@
     .hint Short and concise is the key :-D
 
   / related categories
-  - if staff_member?
+  - if moderator?
     .field
       = f.label :related_category_ids, "Related categories (staff)"
       = f.collection_select :related_category_ids, Category.ids_and_names_without(@category), :id, :name, {}, { multiple: true }
       .hint Are there any related categories? If an existing relationship does not show here, please check on the other side of the relationship.
 
   / draft vs. published status
-  - if staff_member?
+  - if moderator?
     .field
       = f.check_box :draft
       = f.label :draft, "Draft mode (staff)"
-
-  / featured
-  - if staff_member?
-    .field
-      = f.check_box :featured
-      = f.label :featured, "Featured category"
 
   / submit button
   .actions

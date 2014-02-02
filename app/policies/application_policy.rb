@@ -17,8 +17,8 @@ class ApplicationPolicy
     user
   end
 
-  def permit_staff_member
-    user && user.staff_member?
+  def permit_moderator
+    moderator?
   end
 
   ##
@@ -50,6 +50,12 @@ class ApplicationPolicy
 
   def destroy?
     false
+  end
+
+  private
+
+  def moderator?
+    user && user.moderator?
   end
 end
 

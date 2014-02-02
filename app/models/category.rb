@@ -8,8 +8,6 @@ class Category < ActiveRecord::Base
   scope :ids_and_names, -> { select([:id, :name]).order_by_score }
   scope :ids_and_names_without, ->(category) { ids_and_names.where.not(id: category.id) }
 
-  scope :featured, ->(count=1) { where(featured: true).sample(count).shuffle }
-
   has_many :platforms,
     through: :platform_categories
   has_many :platform_categories,

@@ -2,49 +2,41 @@
 = form_for @repo do |f|
   = render 'shared/error_messages', target: @repo
 
-  / full_name
-  - if staff_member?
+  / owner_and_name
+  - if moderator?
     .field
-      = f.label :full_name, "Owner and name (full_name, for staff)"
-      = f.text_field :full_name, autocomplete: 'off'
+      = f.label :owner_and_name, "Owner and name (moderator)"
+      = f.text_field :owner_and_name, autocomplete: 'off'
 
   / staff pick
-  - if staff_member?
+  - if moderator?
     .field
       = f.check_box :staff_pick
-      = f.label :staff_pick, "Staff pick (staff, of course ;-D)"
+      = f.label :staff_pick, "Staff pick (moderator)"
 
-  / category list
+  / categories
   .field
-    = f.label :category_list, 'Categories'
-    = f.text_field :category_list, placeholder: 'Categories'
-    .hint e.g. Tagging (Ruby). Add new categories at will, please give them a concise description afterwards. Include the category language in braces, e.g. "(Ruby/iOS)".
+    = f.label :category_ids, 'Categories'
+    = f.collection_select :category_ids, Category.all, :id, :name, {}, { multiple: true }
+    .hint Select one or more categories
 
   / parents
-  / to input parent/child relationships
   .field
     = f.label :parent_ids, 'Parents'
-    = f.collection_select :parent_ids, Repo.ids_and_full_names_without(@repo), :id, :full_name, {}, { multiple: true }
-    .hint Is #{ @repo.full_name } based further open-source projects?
-
-  / description
-  .field
-    = label_tag :description, 'Description from Github'
-    .description: em = @repo.description
+    = f.collection_select :parent_ids, Repo.ids_and_owner_and_names_without(@repo), :id, :owner_and_name, {}, { multiple: true }
+    .hint Is #{ @repo.owner_and_name } based further open-source projects?
 
   / submit button
   .actions
     = f.submit "Update repo", class: 'button'
 
-
-/ Autocomplete the category names input
-- category_full_names = Category.ids_and_full_names.map(&:full_name).to_json.html_safe
+/ multiple select on categories list
 javascript:
-  $('#repo_category_list').select2({
-    tags: #{ category_full_names }
+  $('#repo_category_ids').select2({
+    placeholder: "Categories"
   });
 
-/ Multiple select on the parents_list
+/ multiple select on parents list
 javascript:
   $('#repo_parent_ids').select2({
     placeholder: "Parents"
