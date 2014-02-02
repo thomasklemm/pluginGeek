@@ -3,14 +3,14 @@ source 'https://rubygems.org'
 # Ruby Version on Heroku
 ruby '2.0.0'
 
+# Phusion Passenger (App server)
+gem 'passenger'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.0.2'
 
 # Postgres Database Connector
 gem 'pg'
-
-# Phusion Passenger (App server)
-gem 'passenger'
 
 # High Voltage (Static Pages)
 gem 'high_voltage'
@@ -49,15 +49,6 @@ gem 'sinatra'
 # Figaro (Managing credentials)
 gem 'figaro'
 
-# Closure Tree (Nesting Structures)
-gem 'closure_tree'
-
-# Intercom (Communicating with users)
-gem 'intercom-rails', '~> 0.2.17'
-
-# Rack Timeout
-gem 'rack-timeout'
-
 # Draper (Presenters / Decorators)
 gem 'draper'
 
@@ -67,38 +58,28 @@ gem 'pundit'
 # Redcarpet (Markdown parser)
 gem 'redcarpet'
 
-# Bourbon (SASS Mixins)
-# Neat (Semantic Grids)
-gem 'bourbon'
-gem 'neat'
-
-# Use debugger
-gem 'debugger', group: [:development, :test]
+# Memcached
+gem 'dalli'
 
 # MiniProfiler
 gem 'rack-mini-profiler'
+
+# Use debugger
+gem 'debugger', group: [:development, :test]
 
 # Pry Console
 gem 'pry'
 gem 'pry-rails', group: :development
 
 group :development do
-  # Letter Opener (Previews ActionMailer emails in development)
   gem 'letter_opener'
-
-  # Quiet Assets (Mutes asset pipeline logs in development)
   gem 'quiet_assets'
 
-  # Better Errors (Debug pages in development)
   gem 'better_errors'
   gem 'binding_of_caller'
 
-  # LiveReload
   gem 'guard-livereload'
   gem 'rack-livereload'
-
-  # RailsPanel
-  gem 'meta_request'
 end
 
 group :development, :test do
@@ -106,32 +87,28 @@ group :development, :test do
 end
 
 group :test do
-  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'dp-rails-four'
-  gem 'fabrication'
   gem 'database_cleaner'
+
+  gem 'fabrication'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'dp-rails-four'
+
   gem 'mocha'
   gem 'timecop'
+
   gem 'simplecov', require: false
   gem 'coveralls', require: false
+
   gem 'capybara-webkit'
   gem 'launchy'
+
   gem 'webmock'
   gem 'vcr'
 end
 
 group :staging, :production do
   gem 'rails_12factor'
-
-  # Memcached using Memcachier on Heroku
   gem 'memcachier'
-  gem 'dalli'
-
-  # New Relic (Server monitoring)
   gem 'newrelic_rpm'
-
-  # Sentry (Error notifications)
   gem 'sentry-raven', github: 'getsentry/raven-ruby'
-
-  # Lograge (Logging)
   gem 'lograge'
 end

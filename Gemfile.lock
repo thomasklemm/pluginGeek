@@ -51,11 +51,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bourbon (3.1.8)
-      sass (>= 3.2.0)
-      thor
     builder (3.1.4)
-    callsite (0.0.11)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -67,9 +63,6 @@ GEM
       json
     celluloid (0.15.2)
       timers (~> 1.1.0)
-    closure_tree (4.3.0)
-      activerecord (>= 3.0.0)
-      with_advisory_lock (>= 0.0.9)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -86,8 +79,8 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
-    crack (0.4.1)
-      safe_yaml (~> 0.9.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     daemon_controller (1.1.8)
     dalli (2.7.0)
     database_cleaner (1.2.0)
@@ -141,8 +134,6 @@ GEM
     http_parser.rb (0.5.3)
     httpclient (2.3.4.1)
     i18n (0.6.9)
-    intercom-rails (0.2.24)
-      activesupport (> 3.0)
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -166,10 +157,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     memcachier (0.0.2)
-    meta_request (0.2.8)
-      callsite
-      rack-contrib
-      railties
     metaclass (0.0.2)
     method_source (0.8.2)
     mime-types (1.25.1)
@@ -180,9 +167,6 @@ GEM
     multi_json (1.8.4)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    neat (1.5.0)
-      bourbon (>= 2.1)
-      sass (>= 3.2)
     newrelic_rpm (3.7.1.188)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -221,8 +205,6 @@ GEM
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
-    rack-contrib (1.1.0)
-      rack (>= 0.9.1)
     rack-livereload (0.3.15)
       rack
     rack-mini-profiler (0.9.0)
@@ -231,7 +213,6 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rack-timeout (0.0.4)
     rails (4.0.2)
       actionmailer (= 4.0.2)
       actionpack (= 4.0.2)
@@ -262,9 +243,9 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec-core (2.14.7)
-    rspec-expectations (2.14.4)
+    rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.4)
+    rspec-mocks (2.14.5)
     rspec-rails (2.14.1)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -273,13 +254,13 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    safe_yaml (0.9.7)
+    safe_yaml (1.0.1)
     sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
-    sidekiq (2.17.3)
+    sidekiq (2.17.4)
       celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
       json
@@ -321,7 +302,7 @@ GEM
     tilt (1.4.1)
     timecop (0.7.1)
     timers (1.1.0)
-    tins (0.13.1)
+    tins (0.13.2)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -333,11 +314,9 @@ GEM
     vcr (2.8.0)
     warden (1.2.3)
       rack (>= 1.0)
-    webmock (1.17.1)
+    webmock (1.17.2)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
-    with_advisory_lock (1.0.0)
-      activerecord (>= 3.0.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -347,9 +326,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bourbon
   capybara-webkit
-  closure_tree
   coffee-rails
   coveralls
   dalli
@@ -362,15 +339,12 @@ DEPENDENCIES
   guard-livereload
   high_voltage
   httpclient
-  intercom-rails (~> 0.2.17)
   jquery-rails
   launchy
   letter_opener
   lograge
   memcachier
-  meta_request
   mocha
-  neat
   newrelic_rpm
   omniauth
   omniauth-github
@@ -382,7 +356,6 @@ DEPENDENCIES
   quiet_assets
   rack-livereload
   rack-mini-profiler
-  rack-timeout
   rails (~> 4.0.2)
   rails_12factor
   redcarpet
