@@ -14,10 +14,12 @@ Plugingeek::Application.routes.draw do
   delete 'logout', to: 'devise/sessions#destroy', as: :logout
 
   # Platforms
-  resources :platforms, only: :show
+  resources :platforms, only: :show do
+    resources :categories, only: :index
+  end
 
   # Categories
-  resources :categories
+  resources :categories, except: :index
 
   # Repos
   resources :repos, constraints: { id: %r{[^\/]+[\/][^\/]+} }, except: [:index, :new]
@@ -44,6 +46,6 @@ Plugingeek::Application.routes.draw do
   # Static pages
   get ':id', to: 'high_voltage/pages#show', as: :static
 
-  # Note: Make sure there's a platform with id=1
-  root 'platforms#show', id: 1 # Platform.default_id
+  # Note: Make sure there's a platform with slug=ruby
+  root 'platforms#show', id: Platform.default_slug
 end

@@ -52,12 +52,12 @@ class ReposController < ApplicationController
   end
 
   def owner_and_name
-    params[:id] ||
-    params[:owner_and_name] ||
-    (params[:owner] && params[:name]) and
-      "#{params[:owner]}/#{params[:name]}" ||
-    params[:repo] and params[:repo][:owner_and_name] ||
-    (params[:repo] && params[:repo][:owner] && params[:repo][:name]) and
+    params[:id] or
+    params[:owner_and_name] or
+    (params[:owner] && params[:name]) &&
+      "#{params[:owner]}/#{params[:name]}" or
+    params[:repo] && params[:repo][:owner_and_name] or
+    (params[:repo] && params[:repo][:owner] && params[:repo][:name]) &&
       "#{params[:repo][:owner]}/#{params[:repo][:name]}"
   end
 

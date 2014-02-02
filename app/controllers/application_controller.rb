@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # Enable miniprofiler for staff members in production
+  # Enables miniprofiler in production for moderators only
   before_action :miniprofiler
 
   # Authorize load testing tools
@@ -33,19 +33,18 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: "Record could not be found."
   end
 
-  # Enables miniprofiler for staff members in production
   def miniprofiler
-    Rack::MiniProfiler.authorize_request if staff_member?
+    Rack::MiniProfiler.authorize_request if moderator?
   end
 
-  # Before action in subcontrollers
-  def ensure_staff_member!
-    raise Pundit::NotAuthorizedError unless staff_member?
+  # To be used as a before action in some controllers
+  def ensure_moderator!
+    raise Pundit::NotAuthorizedError unless moderator?
   end
 
-  # For customizing forms for users and staff members among others
-  helper_method :staff_member?
-  def staff_member?
-    !!(current_user && current_user.staff_member?)
+  # Used to show or hide links and customize forms
+  helper_method :moderator?
+  def moderator?
+    !!(current_user && current_user.moderator?)
   end
 end

@@ -14,7 +14,7 @@ class SubmissionsController < ApplicationController
     if repo.present?
       return redirect_to repo
     else
-      return redirect_to new_repo_path(owner: repo_owner, name: repo_name)
+      return redirect_to repo_path(repo_owner_and_name)
     end
   end
 
@@ -29,24 +29,15 @@ class SubmissionsController < ApplicationController
   end
 
   def repo
-    @repo ||= Repo.find_by(full_name: repo_full_name)
+    @repo ||= Repo.find_by_owner_and_name(repo_owner_and_name)
   end
 
-  def repo_parts
-    @parts ||= url.gsub('https://github.com/', '').
+  def repo_owner_and_name
+    @repo_owner_and_name = url.
+      gsub('https://github.com/', '').
       gsub(/\?.*$/, ''). # Remove trailing query string
-      strip.split('/')[0,2]
-  end
-
-  def repo_full_name
-    repo_parts.join('/')
-  end
-
-  def repo_owner
-    repo_parts[0]
-  end
-
-  def repo_name
-    repo_parts[1]
+      strip.
+      split('/')[0,2]. # Review: Use regex from routes?
+      join('/')
   end
 end

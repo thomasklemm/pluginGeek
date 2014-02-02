@@ -1,31 +1,27 @@
 / categories/_category
-/ Category Partial
-- cache [category, 'partial'] do
+- category = category.decorate
 
-  / Category partial in lists
-  .category class="#{ 'non-draft' unless category.draft? }"
-    span.full-name = link_to category do
-      span.name.js-name = category.name
+/ Category partial in lists
+.category class="#{ 'non-draft' unless category.draft? }"
+  span.full-name = link_to category do
+    span.name.js-name = category.name
 
-      / Cummulative stars count from Github of all associated repos
-      span.stars = category.stars
+    / Cummulative stars count from Github of all associated repos
+    span.stars = category.stars
 
-      / Languages
-      span.language-list = category.language_list
+    / Draft notice
+    - if category.draft?
+      span.draft = icon_tag(:pencil, 'Draft')
 
-      / Draft notice
-      - if category.draft?
-        span.draft = icon_tag(:pencil, 'Draft')
+  / Up to three of the most popular repos
+  span.popular-repos = link_to category do
+    span.repos.js-repos = category.popular_repo_names
+    / Additional link text, i.e. ">>" or " and 5 more repos >>"
+    span.show-repos = category.show_repos_link_text
 
-    / Up to three of the most popular repos
-    span.popular-repos = link_to category do
-      span.repos.js-repos = category.popular_repo_names
-      / Additional link text, i.e. ">>" or " and 5 more repos >>"
-      span.show-repos = category.show_repos_link_text
+  / Description, either a custom one, or the one from Github
+  span.description.js-description = category.description
 
-    / Description, either a custom one, or the one from Github
-    span.description.js-description = category.description
-
-    / Hidden statistics that can be searched and sorted with list.js nonetheless
-    span.js-further-repos style='display: none' = category.further_repo_names
-    span.js-score style='display: none' = category.score
+  / Hidden statistics that can be searched and sorted with list.js nonetheless
+  span.js-further-repos style='display: none' = category.further_repo_names
+  span.js-score style='display: none' = category.score

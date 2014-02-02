@@ -3,7 +3,6 @@ class CategoryDecorator < Draper::Decorator
 
   decorates_association :repos
   decorates_association :similar_categories
-  decorates_association :extended_links
 
   def description
     description = model.description.presence || ""
@@ -16,8 +15,7 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def repo_names
-    list = model.repo_list
-    (list.presence && list.split(", ")) || []
+    repos.map(&:owner_and_name)
   end
 
   def popular_repo_names
@@ -31,8 +29,8 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def show_repos_link_text
-    if repos_count > 2
-      " and #{ repos_count - 2 } more &raquo;".html_safe
+    if repos.size > 2
+      " and #{ repos.size - 2 } more &raquo;".html_safe
     else
       " &raquo;".html_safe
     end

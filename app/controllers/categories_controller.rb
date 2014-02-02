@@ -1,16 +1,29 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, except: :show
-  before_action :load_and_authorize_category
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :load_category, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @platform = Platform.find_by!(slug: params[:platform_id])
+    @categories = @platform.categories
+  end
 
   def show
   end
 
   def new
-    raise NotImplementedError
+    @category = Category.new
+    authorize @category
   end
 
   def create
-    raise NotImplementedError
+    @category = Category.new(category_params)
+    authorize @category
+
+    if @category.save
+      redirect_to @category, notice: 'Category has been created.'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -31,14 +44,14 @@ class CategoriesController < ApplicationController
 
   private
 
-  def load_and_authorize_category
+  def load_category
     @category = Category.find(params[:id])
     authorize @category
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, notice: "Category '#{params[:id]}' could not be found."
   end
 
   def category_params
-    params.require(:category).permit(policy(@category).permitted_attributes)
+    params.
+      require(:category).
+      permit(policy(@category).permitted_attributes)
   end
 end
