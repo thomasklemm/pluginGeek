@@ -40,7 +40,7 @@
             styles =  $this.data('styles') || settings.styles;
 
         // Loading Message
-        var load_message = "Loading Readme for <b>" + owner + "/" + repo + "</b>..."
+        var load_message = 'Loading Readme for <b>' + owner + '/' + repo + '</b> ...'
         $this.html(load_message)
 
         // Request & Render Readme
@@ -63,10 +63,10 @@
           error: function(data) {
             if ( data.status === 404 ) {
               // Repo not found
-              $this.html('The requested README could not be found on Github. This repo just might not have a README.')
+              $this.html('The Readme for <b>' + owner + '/' + repo '</b> could not be found.')
             } else {
               console.log(data)
-              $this.html("Aw! There was an error while retrieving the README.")
+              $this.html('There was an error while retrieving the Readme for <b>' + owner + '/' + repo '</b>.')
             }
           }
         });
