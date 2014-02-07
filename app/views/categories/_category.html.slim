@@ -1,26 +1,15 @@
 / categories/_category
 - category = category.decorate
 
-/ Category partial in lists
-.category class="#{ 'non-draft' unless category.draft? }"
-  span.full-name = link_to category do
-    span.name.js-name = category.name
-
-    / Cummulative stars count from Github of all associated repos
+.category-partial
+  = link_to category do
+    span.name = category.name
     span.stars = category.stars
-
-    / Draft notice
     - if category.draft?
-      span.draft = icon_tag(:pencil, 'Draft')
+      span.draft-mode = icon_tag(:pencil, 'Draft mode')
 
-  / Up to three of the most popular repos
-  span.popular-repos = link_to category do
-    span.repos.js-repos => category.popular_repo_names
-    span.show-repos ... &raquo;
+  .repo-links = category.repo_links
 
-  / Description, either a custom one, or the one from Github
-  span.description.js-description = category.description
+  .description = category.description
 
-  / Hidden statistics that can be searched and sorted with list.js nonetheless
-  span.js-further-repos style='display: none' = category.further_repo_names
-  span.js-score style='display: none' = category.score
+

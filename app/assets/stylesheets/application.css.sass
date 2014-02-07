@@ -10,6 +10,28 @@
 // @import 'select2-bootstrap-original'
 
 // app
+i
+  margin-right: 2px
+.pre-wrap
+  white-space: pre-line
+.select2-container
+  display: block
+
+// form styles
+form
+  .field
+    @extend .form-group
+  input[type=text], textarea, select, input[type=email], input[type=search], input[type=password]
+    @extend .form-control
+  label
+    @extend .control-label
+
+  .field .field_with_errors
+    @extend .has-error
+
+  input[type=submit]
+    @extend .btn
+    @extend .btn-default
 
 // navbar
 .navbar
@@ -41,3 +63,36 @@
       // friendly greeting
       .happy-day
       .login
+
+// category header
+.category-header
+  .name
+    font:
+      size: 1.5em
+  .stars
+    @extend .gray
+    margin-left: 8px
+  .draft-mode
+    @extend .gray
+    margin-left: 8px
+  .edit-link
+    @extend .gray
+    margin-left: 8px
+  .description
+    @extend .pre-wrap
+
+// category partial
+.category-partial
+  margin-bottom: 12px
+  .name
+    font:
+      size: 1.2em
+  .stars
+    @extend .gray
+    margin-left: 8px
+  .draft-mode
+    @extend .gray
+    margin-left: 8px
+  .repo-links
+  .description
+    @extend .pre-wrap

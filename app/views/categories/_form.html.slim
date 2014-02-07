@@ -5,32 +5,43 @@
   / name
   - if moderator?
     .field
-      = f.label :name, "Name (moderator)"
+      = f.label :name, "Category name (mod)"
       = f.text_field :name, autocomplete: 'off'
-      .hint E.g. ActiveRecord: Tagging
 
   / draft vs. published status
   - if moderator?
-    .field
+    .checkbox
       = f.check_box :draft
-      = f.label :draft, "Still a draft? (moderator)"
+      = f.label :draft, "Is this category still in draft mode? (mod)"
 
   / description
   .field
-    = f.label :description, "How would you describe these repos?"
+    = f.label :description, "Category description"
     = f.text_area :description, placeholder: "What do these repos help people with?"
-    .hint Short and concise is key :) See repo descriptions below for inspiration.
+    .help-block Short and concise is key :) Consult the repos' descriptions below for inspiration.
+
+  / related descriptions
+  table.repos-table class='table table-striped'
+    tr
+      th Repo
+      th Description
+    - @category.repos.each do |repo|
+      tr
+        td
+          span.name => repo.owner_and_name
+          span.stars.gray == '(' + icon_tag(:star, repo.score) + ')'
+        td.description = repo.description
 
   / related categories
   - if moderator?
     .field
-      = f.label :related_category_ids, "Related categories (moderator)"
+      = f.label :related_category_ids, "Related categories (mod)"
       = f.collection_select :related_category_ids, Category.ids_and_names_without(@category), :id, :name, {}, { multiple: true }
-      .hint Are there any related categories? If an existing relationship does not show here, please check on the other side of the relationship.
+      .help-block A related category may be defined on both sides.
 
   / submit button
   .actions
-    = f.submit "Update category", class: 'button'
+    = f.submit
 
 / multiple select for related categories
 javascript:

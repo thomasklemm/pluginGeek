@@ -1,0 +1,9 @@
+/ categories/_category_header
+
+.category-header
+  span.name = @category.name
+  span.stars = @category.stars
+  - if @category.draft?
+    span.draft-mode = icon_tag(:pencil, 'Draft mode')
+  = link_to icon_tag(:edit, 'Edit'), [:edit, @category], class: 'edit-link'
+  .description = @category.description

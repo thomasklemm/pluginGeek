@@ -1,25 +1,3 @@
 / categories/edit
-- @category = @category.decorate
-= render 'categories/category_details'
+= render 'category_header'
 = render 'form'
-
-.space-half
-/ destroy button
-- if policy(@category).destroy?
-  = link_to 'Destroy category', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'danger button'
-
-.space-one
-/ descriptions of associated repos, as a guide for writing
-.descriptions-of-repos
-  p Some inspiration for the description of use? Here are the repos' descriptions.
-
-  table
-    tr
-      th Name
-      th Score
-      th Description
-    - for repo in @category.repos.decorate
-      tr.repo
-        td.name = repo.name
-        td.score = repo.score
-        td.description = repo.description
