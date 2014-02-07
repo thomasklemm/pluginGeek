@@ -63,10 +63,10 @@
           error: function(data) {
             if ( data.status === 404 ) {
               // Repo not found
-              $this.html('The Readme for <b>' + owner + '/' + repo '</b> could not be found.')
+              $this.html('The Readme for <b>' + owner + '/' + repo + '</b> could not be found.')
             } else {
               console.log(data)
-              $this.html('There was an error while retrieving the Readme for <b>' + owner + '/' + repo '</b>.')
+              $this.html('There was an error while retrieving the Readme for <b>' + owner + '/' + repo + '</b>.')
             }
           }
         });

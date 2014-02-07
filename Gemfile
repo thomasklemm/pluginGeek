@@ -15,20 +15,16 @@ gem 'pg'
 # High Voltage (Static Pages)
 gem 'high_voltage'
 
-# Use SASS for stylesheets
-gem 'sass-rails'
-
-# Use Uglifier as compressor for JavaScript assets
+gem 'coffee-rails'
+gem 'jquery-rails'
 gem 'uglifier', '>= 1.3.0'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
-
-# jQuery Rails (jQuery adapter for Rails)
-gem 'jquery-rails'
-
-# Slim (Templating)
+# Slim templating language
 gem 'slim-rails'
+
+# Use SASS for stylesheets
+gem 'sass-rails'
+gem 'bootstrap-sass', '~> 3.1.0'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'

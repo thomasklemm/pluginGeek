@@ -1,0 +1,47 @@
+/ application/_navbar
+div class='navbar navbar-default' role='navigation'
+  div class='container-fluid'
+
+    / Brand and toggle get grouped for better mobile display
+    div class='navbar-header'
+      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        span class="sr-only" Toggle navigation
+        span class="icon-bar"
+        span class="icon-bar"
+        span class="icon-bar"
+      = link_to 'pluginGeek', root_path, class: 'navbar-brand'
+
+    / Collect the nav links, forms, and other content for toggling
+    div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
+
+      / Platforms
+      / TODO: Highlight active link
+      ul class="nav navbar-nav"
+        - Platform.order_by_position.each do |platform|
+          li = link_to platform.name, platform
+
+      / User
+      ul class="user-details nav navbar-nav navbar-right"
+        - if user_signed_in?
+          li = link_to 'Logout', logout_path, method: :delete, class: 'logout'
+
+        - else
+          li = link_to 'Login', login_path
+
+  / span.happy-day
+  /   /! This greeting is inspired by 37signals. You guys are amazing, your work rocks! Thanks for Rails and sharing your way of doing business!
+  /   coffee:
+  /     days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+  /     today = new Date()
+  /     document.write('Happy ' + days[today.getDay()] + '.')
+
+  / span.user-details
+  /   - if user_signed_in?
+  /     span.user-signed-in
+  /       = image_tag(current_user.avatar_url, class: 'avatar', width: '32px', height: '32px')
+  /       span.name = current_user.login
+  /       = link_to 'Logout', logout_path, method: :delete, class: 'logout'
+
+  /   - else
+  /     span.user-signed-out
+  /       = link_to 'Login', login_path, class: 'login'

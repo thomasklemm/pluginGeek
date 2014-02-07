@@ -1,17 +1,5 @@
 / inline javascripts in head
 
-/ fonts from typekit
-/ TODO: Extract env vars
-script type="text/javascript" src="//use.typekit.net/ugc8yyw.js"
-javascript:
-  try{Typekit.load();}catch(e){}
-
-/ initialize timeago as soon as document is ready
-javascript:
-  jQuery(document).ready(function() {
-    $('abbr.timeago').timeago();
-  });
-
 / google analytics in production
 / TODO: Extract env vars
 - if Rails.env.production?

@@ -6,6 +6,7 @@
 #= require jquery.autosize
 #= require readme
 #= require select2
+#= require bootstrap
 
 # Plugingeek
 $ ->

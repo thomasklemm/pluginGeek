@@ -1,6 +1,0 @@
-/ navigation
-.primary-navigation
-  ul
-    - Platform.order_by_position.each do |platform|
-      = link_to platform do
-        li = platform.name

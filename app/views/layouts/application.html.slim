@@ -5,4 +5,7 @@ html lang='en'
     = render 'layouts/head'
 
   body
-    = render 'layouts/body'
+    = render 'navbar'
+    = render 'flash_messages'
+    = yield
+    = render 'footer'

@@ -1,7 +1,42 @@
 // application.css.sass
 
 // libraries
+@import 'colors'
+// TODO: Define bootstrap color variables here
+@import 'bootstrap'
 @import 'github-markdown'
 @import 'select2'
 @import 'select2-bootstrap'
 // @import 'select2-bootstrap-original'
+
+// app
+
+// topbar
+.topbar
+  // brand link on upper left
+  .brand
+    float: left
+    font-weight: 600
+    text-rendering: optimizeLegibility
+  // friendly greeting
+  .happy-day
+
+  // logged in or logged out user
+  .user-details
+    float: right
+    .login, .logout
+      padding: 1rem
+      margin-right: -1rem
+    .user-signed-in
+      .avatar
+        $avatar-size: 32px
+        width: $avatar-size
+        height: $avatar-size
+
+        vertical-align: middle
+        border-radius: 4px
+      .name
+        margin-left: 0.5rem
+      .logout
+    .user-signed-out
+      .login

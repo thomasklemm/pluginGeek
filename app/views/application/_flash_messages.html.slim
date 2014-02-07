@@ -1,10 +1,8 @@
 / application/_flash_messages
+- unless response_publicly_cached?
+  - flash.present? && flash.each do |type, message|
 
-/ flash messages
-- if flash.present? and not response_publicly_cached?
-  .flash-messages
-    - flash.each do |type, message|
-      div class="flash-message"
-        span = message
-        / close message
-        = link_to '&times'.html_safe, 'javascript:;', class: 'close'
+    / dismissable bootstrap alert
+    .alert class='alert-info alert-dismissable'
+      button type='button' class='close' data-dismiss='alert' aria-hidden='true' &times;
+      = message
