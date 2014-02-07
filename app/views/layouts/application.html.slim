@@ -6,6 +6,8 @@ html lang='en'
 
   body
     = render 'navbar'
-    = render 'flash_messages'
-    = yield
-    = render 'footer'
+
+    div class='container'
+      = render 'flash_messages'
+      = yield
+      = render 'footer'
