@@ -1,34 +1,14 @@
 / repos/_repo
 - repo = repo.decorate
+.repo-partial
+  = link_to repo.owner_and_name, repo, class: 'owner-and-name'
 
-.repo
-  / full_name and more
-  .full-name = link_to repo do
-    span.name.js-name = repo.name
-    span.owner.js-owner   by #{ repo.owner }
+  - if repo.staff_pick?
+    span.staff-pick = icon_tag(:star, 'Staff pick')
 
-    / Is the repo a staff pick?
-    - if repo.staff_pick?
-      span.staff-pick = icon_tag(:star, 'Staff pick')
+  span.stars = icon_tag(:star, repo.stars)
 
-  .stats = link_to repo do
-    / Github star count to help evaluate awesomeness quickly
-    span.stars = repo.stars
+  .description = repo.description
 
-    / Most recent activity timestamp on the repo
-    / .js-timestamp for list.js is rendered seperately below
-    span.activity class=repo.activity_class
-      = icon_tag(:leaf)
-      abbr.timeago title=repo.timestamp = repo.written_timestamp
-
-  / Description from Github
-  span.description.js-description = repo.description
-
-  / Url to the homepage or to Github repo
-  span.homepage-link.js-homepage-link = link_to repo.homepage_url, repo.homepage_url
-  / DNS Prefetch for quicker subsequent browsing
   = dns_prefetch_tag repo.homepage_url
-
-  / Hidden stats for searching and sorting
-  span.js-score style='display: none' = repo.score
-  span.js-timestamp style='display: none' = repo.timestamp
+  = link_to repo.homepage_url, repo.homepage_url, class: 'homepage-url'

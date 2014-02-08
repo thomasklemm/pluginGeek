@@ -14,7 +14,7 @@ class RepoDecorator < Draper::Decorator
   end
 
   def stars
-    h.icon_tag(:star, h.number_with_delimiter(model.stars))
+    h.number_with_delimiter(model.stars)
   end
 
   def github_url

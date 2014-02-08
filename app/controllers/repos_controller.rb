@@ -8,7 +8,7 @@ class ReposController < ApplicationController
   end
 
   def create
-    if @repo.retrieve_from_github
+    if RepoService.new(@repo).fetch_and_create_or_update
       redirect_to @repo, notice: 'Repo has been listed.'
     else
       flash.alert = 'Repo has not been listed. Please retry later,

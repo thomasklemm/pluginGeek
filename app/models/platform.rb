@@ -14,6 +14,11 @@ class Platform < ActiveRecord::Base
   scope :default, -> { where(default: true).first }
   def self.default_slug
     default.try(:slug).presence || :ruby
+  rescue
+    # When the platforms relation doesn't exist in the database,
+    # the app would not start up as Platform.default_slug is used
+    # in config/routes.rb
+    :ruby
   end
 
   def to_param

@@ -36,10 +36,7 @@ $ ->
     $(this).hide()
 
   ##
-  # Flash messages
+  # Alerts / Flash messages
   # Close on click
-  $('.flash-message .close').click ->
-    $(this).parent().fadeOut()
-
-  $('.flash-message').click ->
-    $(this).fadeOut()
+  $('.alert').click ->
+    $(this).hide()

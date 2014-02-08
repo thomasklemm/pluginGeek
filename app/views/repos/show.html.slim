@@ -1,47 +1,31 @@
 / repos/show
 - @repo = @repo.decorate
-= render 'repos/repo_details'
+.repo-header
+  = link_to @repo.github_url, class: 'owner-and-name' do
+    = icon_tag('github-alt', @repo.owner_and_name)
 
-.space-half
+  - if @repo.staff_pick?
+    span.staff-pick = icon_tag(:star, 'Staff pick')
 
-/ categories
-.section-header
-  span.primary Categories
-  span = link_to icon_tag(:plus, 'Add'), edit_repo_path(@repo)
+  span.stars = icon_tag(:star, @repo.stars)
 
-- if @repo.categories.any?
-  .categories-wrapper
-    = render partial: 'categories/category', collection: @repo.categories
-- else
-  .none-yet No categories yet. Just add one :-D
+  = link_to icon_tag(:edit, 'Edit'), [:edit, @repo], class: 'edit-link'
 
-.space-one-and-a-half
+  .description = @repo.description
 
-/ Readme from Github, requested live in the browser
+  = dns_prefetch_tag @repo.homepage_url
+  = link_to @repo.homepage_url, @repo.homepage_url, class: 'homepage-url'
+
+.categories-wrapper
+  = render @repo.categories
+
 .readme-container
   .readme-target.max-height
     .readme-js data-owner=@repo.owner data-repo=@repo.name
-    .toggle-readme: span.button Open readme
+    .toggle-readme: span.button More
 
-.space-two
+.links-wrapper
+  = render @repo.links
 
-/ links
-.section-header
-  span.primary Around the web
-  span = link_to icon_tag(:plus, 'Add'), 'javascript:;'
-
-- if @repo.links.any?
-  .links-wrapper
-    = render partial: 'links/link', collection: @repo.links
-- else
-  .none-yet No links yet, just add one :-D
-
-.space-one-and-a-half
-
-/ parent/child associations between repos
-- if @repo.parents_and_children.present?
-  .section-header
-    span.primary Parents and children
-
-  .repos-wrapper
-    = render partial: 'repos/repo', collection: @repo.parents_and_children
+.repos-wrapper.parents-and-children
+  = render @repo.parents_and_children

@@ -36,12 +36,6 @@ gem 'devise', '>= 3.0.0'
 gem 'omniauth'
 gem 'omniauth-github'
 
-# Sidekiq (Background jobs)
-gem 'sidekiq'
-
-# Sinatra (for Sidekiq web interface)
-gem 'sinatra'
-
 # Figaro (Managing credentials)
 gem 'figaro'
 
