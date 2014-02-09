@@ -58,5 +58,8 @@ module Plugingeek
       g.view_specs false
       g.assets false # Rails 4
     end
+
+    # Skip deprecation warning, might not be nescessary with Rails 4.1+
+    I18n.config.enforce_available_locales = true
   end
 end

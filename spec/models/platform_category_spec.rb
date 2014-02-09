@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe PlatformCategory do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject(:platform_category) { Fabricate.build(:platform_category) }
+  it { should be_valid }
+
+  it { should belong_to(:platform) }
+  it { should belong_to(:category) }
 end

@@ -47,6 +47,29 @@ describe CategoryDecorator do
     end
   end
 
+  describe "#stars" do
+    it "returns the stars count" do
+      category.stars = 100
+      expect(category.stars).to eq(100)
+    end
+
+    it "returns 0 when missing" do
+      expect(category.stars).to eq(0)
+    end
+  end
+
+  describe "#score" do
+    it "returns the score" do
+      category.score = 100
+      expect(category.score).to eq(100)
+    end
+
+    it "returns 0 when missing" do
+      expect(category.score).to eq(0)
+    end
+  end
+
+
   describe "cached repo list accessors" do
     describe "#repo_names" do
       it "returns an array of all the repos' names" do

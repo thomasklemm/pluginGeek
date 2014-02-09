@@ -1,6 +1,5 @@
 Fabricator(:platform) do
-  name      "MyText"
-  slug      "MyText"
+  name      "Ruby"
+  slug      "ruby"
   position  1
-  image_url "MyText"
 end
