@@ -55,7 +55,7 @@ gem 'dalli'
 gem 'rack-mini-profiler'
 
 # Use debugger
-gem 'debugger', group: [:development, :test]
+# gem 'debugger', group: [:development, :test]
 
 # Pry Console
 gem 'pry'
@@ -85,8 +85,8 @@ group :test do
   gem 'mocha'
   gem 'timecop'
 
-  gem 'simplecov', require: false
-  gem 'coveralls', require: false
+  # gem 'simplecov', require: false
+  # gem 'coveralls', require: false
 
   gem 'capybara-webkit'
   gem 'launchy'
