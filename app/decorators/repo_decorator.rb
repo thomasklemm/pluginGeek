@@ -1,5 +1,6 @@
 class RepoDecorator < Draper::Decorator
   delegate_all
+  decorates_associations :categories, :parents_and_children, :links
 
   def owner
     model.owner_and_name.split('/')[0]
@@ -27,23 +28,6 @@ class RepoDecorator < Draper::Decorator
   end
 
   def github_updated_at
-    (model.github_updated_at || 2.years.ago).utc
-  end
-
-  # jQuery timeago format
-  def timestamp
-    github_updated_at.iso8601
-  end
-
-  def written_timestamp
-    github_updated_at.to_s(:long)
-  end
-
-  def activity_class
-    case
-    when github_updated_at > 4.months.ago  then 'high'
-    when github_updated_at > 12.months.ago then 'medium'
-    else                                        'low'
-    end
+    (model.github_updated_at || 36.months.ago).utc
   end
 end

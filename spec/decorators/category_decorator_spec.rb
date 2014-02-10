@@ -6,105 +6,57 @@ describe CategoryDecorator do
     category.decorate
   end
 
-  it "decorates associated repos" do
-    expect(category.repos).to be_decorated
-  end
-
-  it "decorates associated similar_categories" do
-    expect(category.similar_categories).to be_decorated
-  end
-
-  it "decorates associated extended_links" do
-    expect(category.extended_links).to be_decorated
-  end
-
   describe "#description" do
-    it "returns the category's description when given" do
-      category.description = "description"
-      expect(category.description).to eq("description")
+    it "returns the category's description if present" do
+      category.description = 'category description'
+      expect(category.description).to eq('category description')
     end
 
-    it "returns an empty string if missing" do
-      expect(category.description).to eq("")
+    it "falls back to first repo's description if present" do
+      repo = Fabricate.build(:repo, description: 'repo description')
+      category.repos = [repo]
+      expect(category.description).to eq('repo description')
+    end
+
+    it "else returns an empty string" do
+      expect(category.description).to eq('')
     end
   end
 
   describe "#stars" do
     it "returns the category's stars with a delimiter" do
       category.stars = 1000
-      expect(category.stars).to match(/1,000/)
+      expect(category.stars).to eq('1,000')
+    end
+
+    it "returns 0 if missing" do
+      expect(category.stars).to eq('0')
     end
   end
 
   describe "#score" do
-    it "returns the category's score when given" do
-      category.score = 100
-      expect(category.score).to eq(100)
+    it "returns the category's score if present" do
+      category.score = 1000
+      expect(category.score).to eq(1000)
     end
 
-    it "returns zero if missing" do
+    it "returns 0 if missing" do
       expect(category.score).to eq(0)
     end
   end
 
-  describe "#stars" do
-    it "returns the stars count" do
-      category.stars = 100
-      expect(category.stars).to eq(100)
-    end
+  describe "#repo_links" do
+    before { category.save }
 
-    it "returns 0 when missing" do
-      expect(category.stars).to eq(0)
-    end
-  end
+    it "returns links to the first three repos" do
+      r1, r2, r3, r4 = 4.times.map { Fabricate(:repo) }
+      category.repos = [r1, r2, r3, r4]
 
-  describe "#score" do
-    it "returns the score" do
-      category.score = 100
-      expect(category.score).to eq(100)
-    end
-
-    it "returns 0 when missing" do
-      expect(category.score).to eq(0)
-    end
-  end
-
-
-  describe "cached repo list accessors" do
-    describe "#repo_names" do
-      it "returns an array of all the repos' names" do
-        category.repo_list = "rails/rails, sinatra/sinatra"
-        expect(category.repo_names).to eq(%w(rails/rails sinatra/sinatra))
+      [r1, r2, r3].each do |repo|
+        expect(category.repo_links).to include(helper.repo_path(repo))
       end
 
-      it "returns an empty array when cached repo_list is empty" do
-        category.repo_list = ""
-        expect(category.repo_names).to eq([])
-      end
-    end
-
-    describe "#popular_repo_names" do
-      it "returns a string with the two highest scoring repos' names" do
-        category.repo_list = "rails/rails, sinatra/sinatra, espresso/espresso"
-        expect(category.popular_repo_names).to eq("rails/rails, sinatra/sinatra")
-      end
-
-      it "returns an empty string when cached repo_list is empty" do
-        category.repo_list = ""
-        expect(category.popular_repo_names).to eq("")
-      end
-    end
-
-    describe "#further_repo_names" do
-      it "returns a string with the all except the two highest scoring repos' names" do
-        category.repo_list = "rails/rails, sinatra/sinatra, espresso/espresso, twitter/bootstrap"
-        expect(category.further_repo_names).to eq("espresso/espresso, twitter/bootstrap")
-      end
-
-      it "returns an empty string when cached repo_list is empty" do
-        category.repo_list = ""
-        expect(category.further_repo_names).to eq("")
-      end
+      expect(category.repo_links).not_to include(helper.repo_path(r4))
     end
   end
 end

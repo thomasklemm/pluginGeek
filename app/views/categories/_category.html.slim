@@ -4,7 +4,7 @@
 .category-partial
   = link_to category do
     span.name = category.name
-    span.stars = category.stars
+    span.stars = icon_tag(:star, category.stars)
     - if category.draft?
       span.draft-mode = icon_tag(:pencil, 'Draft mode')
 
