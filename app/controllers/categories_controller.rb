@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   def index
     @platform = Platform.find_by!(slug: params[:platform_id])
-    @categories = @platform.categories
+    @categories = @platform.categories.includes(:repos)
   end
 
   def show

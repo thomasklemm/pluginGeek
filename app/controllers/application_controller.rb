@@ -21,9 +21,11 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  # Redirect user back to previous url after successful login
+  before_filter :store_location
+
   private
 
-  # Handle user access violations
   def user_not_authorized
     flash[:error] = "You are not authorized to perform this action."
     redirect_to request.headers["Referer"] || root_url
@@ -46,5 +48,28 @@ class ApplicationController < ActionController::Base
   helper_method :moderator?
   def moderator?
     !!(current_user && current_user.moderator?)
+  end
+
+  def store_location
+    # store last url - this is needed for post-login redirect to whatever the user last visited.
+    if request.fullpath != "/login" &&
+        request.fullpath != "/logout" &&
+        request.fullpath != "/users/sign_up" &&
+        request.fullpath != "/users/sign_in" &&
+        request.fullpath != "/users/sign_out" &&
+        request.fullpath != "/users/password" &&
+        !request.xhr? && # don't store ajax calls
+        request.get? # only store get requests, when performing another request (e.g. post)
+                     # a user will be redirected to the page the request originated from
+        session[:previous_url_2] = request.fullpath
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url_2] || root_path
+  end
+
+  def after_sign_out_path_for(resource)
+    session[:previous_url_2] || root_path
   end
 end

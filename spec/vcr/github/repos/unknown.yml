@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/unknown/unknown?client_id=<GITHUB_API_KEY>&client_secret=<GITHUB_API_SECRET>
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.3.4.1, ruby 2.0.0 (2013-06-27))
+      Accept:
+      - '*/*'
+      Date:
+      - Mon, 10 Feb 2014 14:48:41 GMT
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Mon, 10 Feb 2014 14:48:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Status:
+      - 404 Not Found
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4995'
+      X-Ratelimit-Reset:
+      - '1392046049'
+      X-Github-Media-Type:
+      - github.beta
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '76'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+        X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - '*'
+      X-Github-Request-Id:
+      - 5B0D5EB9:088E:6215215:52F8E6C9
+    body:
+      encoding: UTF-8
+      string: '{"message":"Not Found","documentation_url":"http://developer.github.com/v3"}'
+    http_version: 
+  recorded_at: Mon, 10 Feb 2014 14:48:41 GMT
+recorded_with: VCR 2.8.0
