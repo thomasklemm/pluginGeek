@@ -126,4 +126,31 @@ describe RepoDecorator do
       expect(repo.activity_class).to eq('low')
     end
   end
+
+
+  describe "#last_updated" do
+    it "returns the time span that has passed since the current github_updated_at" do
+      Timecop.freeze
+      repo.github_updated_at = 1.day.ago
+      expect(repo.last_updated).to eq(1.day)
+      Timecop.return
+    end
+  end
+
+  describe "#github_updated_at" do
+    it "returns the last time the repo was updated on Github" do
+      Timecop.freeze
+      repo.github_updated_at = 1.day.ago
+      expect(repo.github_updated_at).to eq(1.day.ago.utc)
+      expect(repo.github_updated_at).to be_utc
+      Timecop.return
+    end
+
+    it "returns a default fallback of a few years ago" do
+      Timecop.freeze
+      expect(repo.github_updated_at).to eq(2.years.ago.utc)
+      expect(repo.github_updated_at).to be_utc
+      Timecop.return
+    end
+  end
 end
