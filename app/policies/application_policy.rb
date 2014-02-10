@@ -1,11 +1,4 @@
-class ApplicationPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+ApplicationPolicy = Struct.new(:user, :record) do
   ##
   # Permission levels
 
@@ -58,4 +51,3 @@ class ApplicationPolicy
     user && user.moderator?
   end
 end
-
