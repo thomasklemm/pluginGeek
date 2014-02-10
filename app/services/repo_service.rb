@@ -1,16 +1,21 @@
-# This class currently just holds all the stuff extracted from Repo
-# that does not feel like it belongs into Repo.
-# Find a proper usage and name for it.
+# RepoService
+# This service object knows how to fetch and create or update
+# repos from Github. Just pass in a repo and send `repo.fetch_and_create_or_update`
+# to it
 #
 RepoService = Struct.new(:repo) do
   def github_repo
     @github_repo ||= fetch_github_repo
   end
 
+  # Returns the repo on successful creation or update
+  # or false if Github responded other than 200
   def fetch_and_create_or_update
     assign_fields(github_repo)
     assign_score
-    repo.save!
+    repo.save && repo
+  rescue Exceptions::Github::RepoNotFoundError
+    false
   end
 
   private
@@ -26,7 +31,7 @@ RepoService = Struct.new(:repo) do
 
   def fetch_github_repo
     res = HTTPClient.get(github_api_repo_url, github_authentication_hash)
-    raise 'Repo could not be found on Github' unless res.status == 200
+    raise Exceptions::Github::RepoNotFoundError unless res.status == 200
     JSON.parse(res.content)
   end
 
