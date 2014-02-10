@@ -9,14 +9,16 @@ describe User do
 
   it { should have_many(:authentications).dependent(:destroy) }
 
-  describe "#staff" do
-    it "returns true for staff members" do
-      user.staff = true
-      expect(user.staff).to be_true
+  describe "#moderator and #moderator?" do
+    it "returns true for moderators" do
+      user.moderator = true
+      expect(user.moderator).to be_true
+      expect(user.moderator?).to be_true
     end
 
     it "returns false by default" do
-      expect(user.staff).to be_false
+      expect(user.moderator).to be_false
+      expect(user.moderator?).to be_false
     end
   end
 

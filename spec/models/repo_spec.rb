@@ -42,9 +42,7 @@ describe Repo do
       repo.parents, repo.children = [parent], [child]
     end
 
-    it "return parents and children" do
-      expect(repo.parents_and_children).to be_an Array
-      expect(repo.parents_and_children).to have(2).items
+    it "returns an array with both parents and children" do
       expect(repo.parents_and_children).to match_array([parent, child])
     end
   end
