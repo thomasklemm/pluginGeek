@@ -61,6 +61,9 @@ gem 'rack-mini-profiler'
 gem 'pry'
 gem 'pry-rails', group: :development
 
+# Searching with ElasticSearch
+gem 'searchkick'
+
 group :development do
   gem 'letter_opener'
   gem 'quiet_assets'
