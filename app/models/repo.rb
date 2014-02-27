@@ -13,6 +13,8 @@ class Repo < ActiveRecord::Base
   scope :find_by_owner_and_name,  ->(query) { where("lower(owner_and_name) = ?", query.downcase).first }
   scope :find_by_owner_and_name!, ->(query) { where("lower(owner_and_name) = ?", query.downcase).first! }
 
+  searchkick boost: 'score'
+
   has_many :categories,
     -> { order(score: :desc) },
     through: :categorizations

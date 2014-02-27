@@ -30,6 +30,9 @@ Plugingeek::Application.routes.draw do
   # Services
   resources :services
 
+  # Search
+  get 'search' => 'searches#search', as: :search
+
   # Submissions
   get 'submit' => 'submissions#submit', as: :submit
 
@@ -47,5 +50,5 @@ Plugingeek::Application.routes.draw do
   get ':id', to: 'high_voltage/pages#show', as: :static
 
   # Note: Make sure there's a platform with slug=ruby
-  root 'platforms#show', id: Platform.default_slug
+  root to: 'platforms#show', id: Platform.default_slug
 end
