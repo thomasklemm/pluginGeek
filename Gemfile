@@ -54,15 +54,9 @@ gem 'dalli'
 # MiniProfiler
 gem 'rack-mini-profiler'
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
 # Pry Console
 gem 'pry'
 gem 'pry-rails', group: :development
-
-# Searching with ElasticSearch
-gem 'searchkick'
 
 group :development do
   gem 'letter_opener'
@@ -77,13 +71,14 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'debugger'
 end
 
 group :test do
   gem 'database_cleaner'
 
   gem 'fabrication'
-  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'dp-rails-four'
+  gem 'shoulda-matchers'
 
   gem 'mocha'
   gem 'timecop'
