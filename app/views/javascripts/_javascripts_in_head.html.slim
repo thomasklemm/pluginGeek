@@ -1,7 +1,8 @@
 / inline javascripts in head
 
 / google analytics in production
-/ TODO: Extract env vars
+/ TODO: Extract env vars, or inject plugin in another way
+/ TODO: Shouldn't this be at the end of the page
 - if Rails.env.production?
   javascript:
     var _gaq = _gaq || [];
