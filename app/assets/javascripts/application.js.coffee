@@ -1,23 +1,11 @@
 # application.js.coffee
 #
-# Load jQuery from CDN beforehand
+#= require jquery
 #= require jquery_ujs
 #= require readme
 
 # Plugingeek
 $ ->
-  ##
-  # Autosize
-  $('textarea').autosize()
-
-  ##
-  # Timeago
-  # Update relative timestamps
-  update_timestamps = () ->
-    $timestamps = $('abbr.timeago')
-    $timestamps.timeago()
-  update_timestamps()
-
   ##
   # Readme.js
   #
