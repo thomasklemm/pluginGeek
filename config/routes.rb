@@ -30,9 +30,6 @@ Plugingeek::Application.routes.draw do
   # Services
   resources :services
 
-  # Search
-  get 'search' => 'searches#search', as: :search
-
   # Submissions
   get 'submit' => 'submissions#submit', as: :submit
 

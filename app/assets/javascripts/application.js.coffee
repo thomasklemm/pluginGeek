@@ -2,11 +2,7 @@
 #
 # Load jQuery from CDN beforehand
 #= require jquery_ujs
-#= require jquery.timeago
-#= require jquery.autosize
 #= require readme
-#= require select2
-#= require bootstrap
 
 # Plugingeek
 $ ->

@@ -1,5 +1,0 @@
-/ application/search_box
-- @search ||= Search.new
-= form_for @search, url: search_path, method: :get do |f|
-  = f.text_field :q, name: 'q', autofocus: true, autocomplete: 'off'
-  = button_tag icon_tag(:search, 'Search'), name: nil
