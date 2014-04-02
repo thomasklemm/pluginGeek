@@ -105,4 +105,12 @@ Plugingeek::Application.configure do
 
   # Enable Lograge logging
   config.lograge.enabled = true
+
+  # Send an email for each caught exception
+  Whatever::Application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[plugingeek] ",
+    :sender_address => %{"Plugingeek" <notifier@plugingeek.com>},
+    :exception_recipients => %w{thomas@plugingeek.com}
+  }
 end
