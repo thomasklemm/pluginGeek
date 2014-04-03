@@ -1,167 +1,171 @@
 // application.css.sass
 
-// libraries
-@import 'colors/colors'
-// @import 'github-markdown'
+// vendor stylesheets
+@import 'github-markdown'
+
+// application stylesheets
+@import 'colors'
+@import 'theme'
+@import 'blocks'
 
 // app
-i
-  margin-right: 2px
-.pre-wrap
-  white-space: pre-line
-.select2-container
-  display: block
-.alert
-  cursor: pointer
+// i
+//   margin-right: 2px
+// .pre-wrap
+//   white-space: pre-line
+// .select2-container
+//   display: block
+// .alert
+//   cursor: pointer
 
-// form styles
-form
-  .field
-    @extend .form-group
-  input[type=text], textarea, select, input[type=email], input[type=search], input[type=password]
-    @extend .form-control
-  label
-    @extend .control-label
+// // form styles
+// form
+//   .field
+//     @extend .form-group
+//   input[type=text], textarea, select, input[type=email], input[type=search], input[type=password]
+//     @extend .form-control
+//   label
+//     @extend .control-label
 
-  .field .field_with_errors
-    @extend .has-error
+//   .field .field_with_errors
+//     @extend .has-error
 
-  input[type=submit]
-    @extend .btn
-    @extend .btn-default
+//   input[type=submit]
+//     @extend .btn
+//     @extend .btn-default
 
-// navbar
-.navbar
-  .platforms
-    .platform-icon
-      position: relative
-      top: -2px
-      margin-right: 6px
+// // navbar
+// .navbar
+//   .platforms
+//     .platform-icon
+//       position: relative
+//       top: -2px
+//       margin-right: 6px
 
-      $avatar-size: 24px
-      width: $avatar-size
-      height: $avatar-size
-  .user-details
-    .user-signed-in
-      .user-avatar
-        position: relative
-        top: -2px
-        margin-right: 4px
+//       $avatar-size: 24px
+//       width: $avatar-size
+//       height: $avatar-size
+//   .user-details
+//     .user-signed-in
+//       .user-avatar
+//         position: relative
+//         top: -2px
+//         margin-right: 4px
 
-        $avatar-size: 24px
-        width: $avatar-size
-        height: $avatar-size
+//         $avatar-size: 24px
+//         width: $avatar-size
+//         height: $avatar-size
 
-        vertical-align: middle
-        border-radius: 3px
-      .name
-      .logout
-    .user-signed-out
-      // friendly greeting
-      .happy-day
-      .login
+//         vertical-align: middle
+//         border-radius: 3px
+//       .name
+//       .logout
+//     .user-signed-out
+//       // friendly greeting
+//       .happy-day
+//       .login
 
-// wrappers
-.categories-wrapper
-.repos-wrapper
-.links-wrapper
+// // wrappers
+// .categories-wrapper
+// .repos-wrapper
+// .links-wrapper
 
-// category header
-.category-header
-  .name
-    font:
-      size: 1.5em
-  .stars
-    @extend .gray
-    margin-left: 8px
-  .draft-mode
-    @extend .gray
-    margin-left: 8px
-  .edit-link
-    @extend .gray
-    margin-left: 8px
-  .description
-    @extend .pre-wrap
+// // category header
+// .category-header
+//   .name
+//     font:
+//       size: 1.5em
+//   .stars
+//     @extend .gray
+//     margin-left: 8px
+//   .draft-mode
+//     @extend .gray
+//     margin-left: 8px
+//   .edit-link
+//     @extend .gray
+//     margin-left: 8px
+//   .description
+//     @extend .pre-wrap
 
-// category partial
-.category-partial
-  margin-top: 8px
-  margin-bottom: 8px
-  .name
-    font:
-      size: 1.2em
-  .stars
-    @extend .gray
-    margin-left: 8px
-  .draft-mode
-    @extend .gray
-    margin-left: 8px
-  .repo-links
-  .description
-    @extend .pre-wrap
+// // category partial
+// .category-partial
+//   margin-top: 8px
+//   margin-bottom: 8px
+//   .name
+//     font:
+//       size: 1.2em
+//   .stars
+//     @extend .gray
+//     margin-left: 8px
+//   .draft-mode
+//     @extend .gray
+//     margin-left: 8px
+//   .repo-links
+//   .description
+//     @extend .pre-wrap
 
-// repo header
-.repo-header
-  .owner-and-name
-    font:
-      size: 1.5em
-    i
-      margin-right: 5px
-  .staff-pick
-    @extend .gray
-    margin-left: 8px
-  .stars
-    @extend .gray
-    margin-left: 8px
-  .edit-link
-    @extend .gray
-    margin-left: 8px
+// // repo header
+// .repo-header
+//   .owner-and-name
+//     font:
+//       size: 1.5em
+//     i
+//       margin-right: 5px
+//   .staff-pick
+//     @extend .gray
+//     margin-left: 8px
+//   .stars
+//     @extend .gray
+//     margin-left: 8px
+//   .edit-link
+//     @extend .gray
+//     margin-left: 8px
 
-// repo partial
-.repo-partial
-  margin-top: 8px
-  margin-bottom: 8px
-  .owner-and-name
-    font:
-      size: 1.2em
-  .staff-pick
-    @extend .gray
-    margin-left: 8px
-  .stars
-    @extend .gray
-    margin-left: 8px
-  .description
-    @extend .pre-wrap
-  .homepage-url
+// // repo partial
+// .repo-partial
+//   margin-top: 8px
+//   margin-bottom: 8px
+//   .owner-and-name
+//     font:
+//       size: 1.2em
+//   .staff-pick
+//     @extend .gray
+//     margin-left: 8px
+//   .stars
+//     @extend .gray
+//     margin-left: 8px
+//   .description
+//     @extend .pre-wrap
+//   .homepage-url
 
-  // readme-js
-  // outer box
-  // .readme-container
-  //   background: #fff
-  //   padding: 1rem
-  //   border: 2px solid #ddd
-  //   border-radius: 4px
+//   // readme-js
+//   // outer box
+//   // .readme-container
+//   //   background: #fff
+//   //   padding: 1rem
+//   //   border: 2px solid #ddd
+//   //   border-radius: 4px
 
-  // // readme insertion place
-  // .readme-target
-  //   position: relative
-  //   overflow: hidden
+//   // // readme insertion place
+//   // .readme-target
+//   //   position: relative
+//   //   overflow: hidden
 
-  //   // height classes set via js
-  //   &.max-height
-  //     height: 425px
-  //   &.auto-height
-  //     height: auto
+//   //   // height classes set via js
+//   //   &.max-height
+//   //     height: 425px
+//   //   &.auto-height
+//   //     height: auto
 
-  //   // toggle readme
-  //   .toggle-readme
-  //     position: absolute
-  //     bottom: -12px // to offset parents padding-bottom
-  //     left: 0
-  //     width: 100%
-  //     text-align: center
-  //     margin: 0
-  //     padding: 80px 0 20px
+//   //   // toggle readme
+//   //   .toggle-readme
+//   //     position: absolute
+//   //     bottom: -12px // to offset parents padding-bottom
+//   //     left: 0
+//   //     width: 100%
+//   //     text-align: center
+//   //     margin: 0
+//   //     padding: 80px 0 20px
 
-  //     // fadeout effect
-  //     // @include background-image(linear-gradient(white(0) 0%, white(1) 80%, white(1) 100%))
+//   //     // fadeout effect
+//   //     // @include background-image(linear-gradient(white(0) 0%, white(1) 80%, white(1) 100%))
