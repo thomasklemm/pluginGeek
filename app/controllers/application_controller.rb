@@ -8,15 +8,6 @@ class ApplicationController < ActionController::Base
   # Enables miniprofiler in production for moderators only
   before_action :miniprofiler
 
-  # Authorize load testing tools
-  def authorize_blitz_io
-    render text: '42'
-  end
-
-  def authorize_loader_io
-    render text: 'loaderio-ca7d285a7cea4be8e79cecd78013aee6'
-  end
-
   # Redirect user back on detected access violation
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found

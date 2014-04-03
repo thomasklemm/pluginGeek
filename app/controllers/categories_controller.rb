@@ -1,13 +1,12 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @platform = Platform.find_by!(slug: params[:platform_id])
-    @categories = @platform.categories.includes(:repos)
+    load_categories
   end
 
   def show
+    load_category
   end
 
   def new
@@ -27,9 +26,12 @@ class CategoriesController < ApplicationController
   end
 
   def edit
+    load_category
   end
 
   def update
+    load_category
+
     if @category.update(category_params)
       redirect_to @category, notice: 'Category has been updated.'
     else
@@ -38,16 +40,39 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    load_category
     @category.destroy
     redirect_to root_path, notice: 'Category has been destroyed.'
   end
 
   private
 
+  def load_categories
+    @categories ||= categories_scope.to_a
+  end
+
+  def categories_scope
+    scope = Category
+    scope = scope.includes(:repos)
+    scope = scope.for_platform(platform_slug) if platform_slug.present?
+    scope = scope.order(draft: :asc, score: :desc)
+    scope
+  end
+
   def load_category
-    @category = Category.find(params[:id])
+    @category ||= Category.find(params[:id]).decorate
     authorize @category
-    @category = @category.decorate
+  end
+
+  # Transforms aliases into known platform slugs
+  def platform_slug
+    slug = params[:platform_slug].to_s
+    slug = slug.strip.downcase
+
+    slug = nil if slug.blank? || slug == 'all'
+    slug = 'javascript' if slug == 'js'
+
+    slug
   end
 
   def category_params

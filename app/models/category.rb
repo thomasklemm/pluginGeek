@@ -2,11 +2,20 @@ class Category < ActiveRecord::Base
   validates :name, presence: true
   validates :description, length: {maximum: 360} # Review: Should be more concise?
 
-  scope :order_by_name,  -> { order(name: :asc) }
-  scope :order_by_score, -> { order(score: :desc) }
+  # scope :order_by_name,  -> { order(name: :asc) }
+  # scope :order_by_score, -> { order(score: :desc) }
 
-  scope :ids_and_names, -> { select([:id, :name]).order_by_score }
-  scope :ids_and_names_without, ->(category) { ids_and_names.where.not(id: category.id) }
+  # scope :ids_and_names, -> { select([:id, :name]).order_by_score }
+  # scope :ids_and_names_without, ->(category) { ids_and_names.where.not(id: category.id) }
+
+  def self.for_platform(platform_slug)
+    if platform_slug.present?
+      platform = Platform.find_by(slug: platform_slug)
+      platform.categories
+    else
+      Category
+    end
+  end
 
   has_many :platforms,
     through: :platform_categories
