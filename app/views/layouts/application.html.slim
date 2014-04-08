@@ -5,9 +5,12 @@ html lang='en'
     = render 'layouts/head'
 
   body.page_body
-  
+    = render 'page_nav'
+
     .page
-      = render 'navbar'
       = render 'flash_messages'
+
+      / main content
       = yield
+
       = render 'footer'

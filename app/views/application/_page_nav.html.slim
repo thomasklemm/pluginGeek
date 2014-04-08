@@ -1,0 +1,10 @@
+.page_nav
+  / All platforms
+  = link_to root_path, class: "page_nav_tab is_all_platforms #{ active_on_path(root_path) }" do
+    span.page_nav_tab__text All platforms
+
+  / Each platform, in order of appearance
+  - platforms = Platform.order_by_position
+  - platforms.each do |platform|
+    = link_to platform, class: "page_nav_tab is_#{ platform.slug } #{ active_on_path(platform_path(platform)) }" do
+      = platform.name

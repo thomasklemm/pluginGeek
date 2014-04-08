@@ -1,2 +1,9 @@
 / categories/index
-= render @categories
+
+/ branding
+= link_to root_path do
+  = image_tag 'brand/logo.png', class: 'brand_logo'
+  = image_tag 'brand/wordmark.png', class: 'brand_wordmark'
+
+.categories
+  = render @categories

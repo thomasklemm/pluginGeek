@@ -1,39 +1,39 @@
-/ application/_navbar
-div class='navbar navbar-default' role='navigation'
-  div class='container'
+/ / application/_navbar
+/ div class='navbar navbar-default' role='navigation'
+/   div class='container'
 
-    / Brand and toggle get grouped for better mobile display
-    div class='navbar-header'
-      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-        span class="sr-only" Toggle navigation
-        span class="icon-bar"
-        span class="icon-bar"
-        span class="icon-bar"
-      = link_to 'Plugingeek', root_path, class: 'navbar-brand'
+/     / Brand and toggle get grouped for better mobile display
+/     div class='navbar-header'
+/       button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+/         span class="sr-only" Toggle navigation
+/         span class="icon-bar"
+/         span class="icon-bar"
+/         span class="icon-bar"
+/       = link_to 'Plugingeek', root_path, class: 'navbar-brand'
 
-    / Collect the nav links, forms, and other content for toggling
-    div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
+/     / Collect the nav links, forms, and other content for toggling
+/     div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
 
-      / Platforms
-      ul.platforms class="nav navbar-nav"
-        - Platform.order_by_position.each do |platform|
-          li = link_to platform do
-            = image_tag(platform.icon_path, class: 'platform-icon')
-            = platform.name
+/       / Platforms
+/       ul.platforms class="nav navbar-nav"
+/         - Platform.order_by_position.each do |platform|
+/           li = link_to platform do
+/             = image_tag(platform.icon_path, class: 'platform-icon')
+/             = platform.name
 
-      / User
-      ul.user-details class="nav navbar-nav navbar-right"
-        - if user_signed_in?
-          li.user-signed-in class="navbar-text"
-            = image_tag(current_user.avatar_url, class: 'user-avatar')
-            = current_user.login
-          li = button_to 'Logout', logout_path, method: :delete, class: 'btn btn-default navbar-btn'
+/       / User
+/       ul.user-details class="nav navbar-nav navbar-right"
+/         - if user_signed_in?
+/           li.user-signed-in class="navbar-text"
+/             = image_tag(current_user.avatar_url, class: 'user-avatar')
+/             = current_user.login
+/           li = button_to 'Logout', logout_path, method: :delete, class: 'btn btn-default navbar-btn'
 
-        - else
-          li.happy-day class="navbar-text"
-            /! This greeting is inspired by 37signals. You guys are amazing, your work rocks! Thanks for Rails and sharing your way of doing business!
-            coffee:
-              days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
-              today = new Date()
-              document.write('Happy ' + days[today.getDay()] + '.')
-          li = button_to 'Login', user_omniauth_authorize_path(:github), data: { disable_with: 'Connecting to Github...' }, class: 'btn btn-default navbar-btn'
+/         - else
+/           li.happy-day class="navbar-text"
+/             /! This greeting is inspired by 37signals. You guys are amazing, your work rocks! Thanks for Rails and sharing your way of doing business!
+/             coffee:
+/               days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+/               today = new Date()
+/               document.write('Happy ' + days[today.getDay()] + '.')
+/           li = button_to 'Login', user_omniauth_authorize_path(:github), data: { disable_with: 'Connecting to Github...' }, class: 'btn btn-default navbar-btn'

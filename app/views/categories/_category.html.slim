@@ -1,15 +1,11 @@
 / categories/_category
 - category = category.decorate
 
-.category-partial
+div.category class=('is_draft' if category.draft?)
   = link_to category do
-    span.name = category.name
-    span.stars = icon_tag(:star, category.stars)
-    - if category.draft?
-      span.draft-mode = icon_tag(:pencil, 'Draft mode')
+    .category__name = category.name
+    .category__stars = icon(:github_stars, category.stars, title: 'Stars on Github')
 
-  .repo-links = category.repo_links
-
-  .description = category.description
+  .category__description = category.description
 
 
