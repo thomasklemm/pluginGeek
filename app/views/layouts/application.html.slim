@@ -4,10 +4,10 @@ html lang='en'
   head
     = render 'layouts/head'
 
-  body
-    = render 'navbar'
-
-    div class='container'
+  body.page_body
+  
+    .page
+      = render 'navbar'
       = render 'flash_messages'
       = yield
       = render 'footer'
