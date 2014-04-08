@@ -28,7 +28,7 @@ module IconHelper
     klasses << 'fa-spin' if options[:spin]
     klasses << options[:class] if options[:class]
     
-    content_tag(:i, nil, class: klasses.join(' '), title: options[:title]) + text
+    content_tag(:i, nil, class: klasses.join(' '), title: options[:title]) + text.to_s
   end
 
 end

@@ -5,6 +5,7 @@ div.category class=('is_draft' if category.draft?)
   = link_to category do
     .category__name = category.name
     .category__stars = icon(:github_stars, category.stars, title: 'Stars on Github')
+    .category__repos_count = icon(:github_repo, category.repos_count, title: 'Tools in this category')
 
   .category__description = category.description
 

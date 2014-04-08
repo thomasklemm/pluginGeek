@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210123356) do
+ActiveRecord::Schema.define(version: 20140408212707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,8 +34,10 @@ ActiveRecord::Schema.define(version: 20140210123356) do
     t.text     "name",                       null: false
     t.integer  "stars",       default: 0
     t.boolean  "draft",       default: true
+    t.integer  "repos_count", default: 0
   end
 
+  add_index "categories", ["repos_count"], name: "index_categories_on_repos_count", using: :btree
   add_index "categories", ["score"], name: "index_categories_on_score", using: :btree
 
   create_table "categorizations", force: true do |t|

@@ -1,4 +1,4 @@
 class Categorization < ActiveRecord::Base
   belongs_to :repo
-  belongs_to :category
+  belongs_to :category, counter_cache: :repos_count
 end
