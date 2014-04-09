@@ -33,6 +33,10 @@ class Category < ActiveRecord::Base
   has_many :categorizations,
     dependent: :destroy
 
+  def main_repo
+    repos.first
+  end
+
   has_many :links,
     through: :link_relationships
   has_many :link_relationships,

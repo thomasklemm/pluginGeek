@@ -61,6 +61,9 @@ gem 'high_voltage'
 # Guarded method invocation
 gem 'andand'
 
+# Pagination
+gem 'kaminari'
+
 group :development do
   # Opens emails in a new tab
   gem 'letter_opener'

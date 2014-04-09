@@ -3,7 +3,7 @@ class CategoryDecorator < Draper::Decorator
 
   def description
     model.description.presence || 
-    model.repos.first.andand.description.presence || 
+    model.main_repo.andand.description.presence || 
     h.nbsp
   end
 
