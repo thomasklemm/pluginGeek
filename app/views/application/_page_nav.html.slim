@@ -7,4 +7,5 @@
   - platforms = Platform.order_by_position
   - platforms.each do |platform|
     = link_to platform, class: "page_nav_tab is_#{ platform.slug } #{ active_on_path(platform_path(platform)) }" do
+      = image_tag(platform.icon_path, class: 'platform_icon')
       = platform.name
