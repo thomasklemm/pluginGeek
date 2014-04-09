@@ -3,7 +3,10 @@
 
 div.category class=('is_draft' if category.draft?)
   = link_to category do
-    .category__name = category.name
+    .category__name
+      - if category.platforms.any?
+        = image_tag(category.platforms.first.icon_path, class: 'category__platform_icon')
+      = category.name
     .category__stars = icon(:github_stars, category.stars, title: 'Stars on Github')
     .category__repos_count = icon(:github_repo, category.repos_count, title: 'Tools in this category')
 

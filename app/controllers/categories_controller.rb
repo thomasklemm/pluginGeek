@@ -53,7 +53,7 @@ class CategoriesController < ApplicationController
 
   def categories_scope
     scope = Category
-    scope = scope.includes(:repos)
+    scope = scope.includes(:repos, :platforms)
     scope = scope.for_platform(platform_slug) if platform_slug.present?
     scope = scope.order(draft: :asc, score: :desc)
     scope
