@@ -48,13 +48,14 @@ class CategoriesController < ApplicationController
   private
 
   def load_categories
-    @categories ||= categories_scope.to_a
+    @categories ||= categories_scope
   end
 
   def categories_scope
     scope = Category.for_platform(platform_slug)
     scope = scope.includes(:platforms, :repos)
     scope = scope.order(draft: :asc, score: :desc)
+    scope = scope.page(params[:page])
     scope
   end
 
