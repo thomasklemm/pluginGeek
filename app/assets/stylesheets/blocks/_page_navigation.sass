@@ -2,41 +2,51 @@
   width: 960px
   margin: 0 auto
   box-shadow: 0px 0px 2px #777
+  background: #333
+  overflow: visible
+  height: 55px
+  line-height: 55px
+  position: relative
+  margin-bottom: 0
 
-.page_nav_tab
+a.page_nav_tab
   text-align: center
   display: inline-block
   width: 25%
-  padding: 16px
-  background: #f9f9f9
-  font-weight: 300
+  // background: #f9f9f9
+  // font-weight: 300
+  color: $white
 
   &:hover
-    text-decoration: underline
+    background: #222
 
   &.is_active
     font-weight: 600
+    background: #008CBA
 
-  &.is_all_platforms
-    background-color: $all-platforms
-    color: $white
     &:hover
-      background-color: darken($all-platforms, 5%)
+      background: #007ba0
 
-  &.is_ruby
-    background-color: $ruby
-    color: $white
-    &:hover
-      background-color: darken($ruby, 5%)
+  // &.is_all_platforms
+  //   background-color: $all-platforms
+  //   color: $white
+  //   &:hover
+  //     background-color: darken($all-platforms, 5%)
 
-  &.is_javascript
-    background-color: $javascript
-    color: $white
-    &:hover
-      background-color: lighten($javascript, 5%)
+  // &.is_ruby
+  //   background-color: $ruby
+  //   color: $white
+  //   &:hover
+  //     background-color: darken($ruby, 5%)
 
-  &.is_html-css
-    background-color: $html-css
-    color: $white
-    &:hover
-      background-color: darken($html-css, 5%)
+  // &.is_javascript
+  //   background-color: $javascript
+  //   color: $white
+  //   &:hover
+  //     background-color: lighten($javascript, 5%)
+
+  // &.is_html-css
+  //   background-color: $html-css
+  //   color: $white
+  //   &:hover
+  //     background-color: darken($html-css, 5%)
