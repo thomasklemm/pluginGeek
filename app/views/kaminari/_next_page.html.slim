@@ -1,0 +1,6 @@
+- link_text = raw 'Next page &raquo;'
+
+- if current_page.last?
+  span class='pagination_link is_disabled' = link_text
+- else
+  = link_to link_text, url, remote: remote
