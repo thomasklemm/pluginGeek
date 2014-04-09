@@ -18,12 +18,17 @@ class Category < ActiveRecord::Base
   end
 
   has_many :platforms,
+    -> { order_by_position },
     through: :platform_categories
   has_many :platform_categories,
     dependent: :destroy
 
+  def main_platform
+    platforms.first
+  end
+
   has_many :repos,
-    -> { order(score: :desc) },
+    -> { order_by_score },
     through: :categorizations
   has_many :categorizations,
     dependent: :destroy

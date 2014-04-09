@@ -58,6 +58,9 @@ gem 'pry-rails', group: :development
 # Static pages
 gem 'high_voltage'
 
+# Guarded method invocation
+gem 'andand'
+
 group :development do
   # Opens emails in a new tab
   gem 'letter_opener'

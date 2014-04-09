@@ -1,6 +1,5 @@
 class RepoDecorator < Draper::Decorator
   delegate_all
-  decorates_associations :categories, :parents_and_children, :links
 
   def owner
     model.owner_and_name.split('/')[0]

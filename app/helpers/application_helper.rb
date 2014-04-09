@@ -25,4 +25,8 @@ module ApplicationHelper
   def response_publicly_cached?
     !!(response.cache_control[:public])
   end
+
+  def nbsp
+    ' '
+  end
 end
