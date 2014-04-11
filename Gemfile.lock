@@ -133,6 +133,8 @@ GEM
       celluloid-io (>= 0.15.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    local_time (0.3.0)
+      coffee-rails
     lograge (0.3.0)
       actionpack (>= 3)
       activesupport (>= 3)
@@ -306,6 +308,7 @@ DEPENDENCIES
   kaminari
   launchy
   letter_opener
+  local_time
   lograge
   memcachier
   mocha

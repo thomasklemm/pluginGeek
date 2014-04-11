@@ -1,14 +1,22 @@
 / repos/_repo
 - repo = repo.decorate
-.repo-partial
-  = link_to repo.owner_and_name, repo, class: 'owner-and-name'
+
+.r
+  = link_to icon(:github), repo.github_url, class: 'r__github_link' 
+
+  .r__owner_and_name = link_to repo.owner_and_name, repo
+  .r__stars = icon(:github_stars, repo.stars)
 
   - if repo.staff_pick?
-    span.staff-pick = icon_tag(:star, 'Staff pick')
+    .r__staff_pick = icon(:staff_pick, 'Staff pick')
 
-  span.stars = icon_tag(:star, repo.stars)
+  div
+    = dns_prefetch_tag repo.homepage_url
+    = link_to repo.homepage_url, repo.homepage_url, class: 'r__homepage_link'
 
-  .description = repo.description
+  .r__description = repo.description
 
-  = dns_prefetch_tag repo.homepage_url
-  = link_to repo.homepage_url, repo.homepage_url, class: 'homepage-url'
+  .r__last_updated
+    = icon(:updated)
+    '  Last updated
+    = local_time_ago(repo.github_updated_at)

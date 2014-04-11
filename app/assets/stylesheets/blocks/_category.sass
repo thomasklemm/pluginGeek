@@ -1,24 +1,50 @@
-.category
+// partial
+.c
   &:not(:last-of-type)
     margin-bottom: 12px
 
   &.is_draft
 
-.category__name
+.c__name
   display: inline
   font-weight: bold
   margin-right: 12px
 
-.category__platform_icon
+.c__platform_icon
   height: 12px
   margin-right: 6px
 
-.category__stars,
-.category__repos_count
+.c__stars,
+.c__repos_count
   display: inline
   font-size: 14px
   margin-right: 12px
 
-.category__description
+.c__description
   display: block
   color: #444
+
+// details
+.category
+
+.category__header
+  line-height: 42px
+  vertical-align: baseline
+
+.category__platform_icon
+  height: 18px
+  margin-right: 8px
+.category__name
+  font-size: 24px
+  font-weight: 700
+.category__stars,
+.category__repos_count
+  margin-left: 8px
+
+.category__edit_link
+  margin-left: 8px
+  .label
+    font-weight: 600
+
+.category__description
+  padding-bottom: 16px

@@ -1,10 +1,14 @@
 module IconHelper
   ICONS = {
+    :edit => 'fa-heart',
+    :github => 'fa-github-alt',
     :github_repo => 'fa-book',
-    :github_stars => 'fa-star',
-    :'html-css' => 'icon-css',
-    :javascript => 'icon-javascript',
-    :ruby => 'icon-ruby'
+    :github_stars => 'fa-star', 
+    :staff_pick => 'fa-thumbs-up',
+    :updated => 'fa-leaf'
+    # :'html-css' => 'icon-css',
+    # :javascript => 'icon-javascript',
+    # :ruby => 'icon-ruby'
   }
 
   def icon_font_class(icon)

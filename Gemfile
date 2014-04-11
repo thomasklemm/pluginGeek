@@ -64,6 +64,9 @@ gem 'andand'
 # Pagination
 gem 'kaminari'
 
+# Relative timestamps
+gem 'local_time'
+
 group :development do
   # Opens emails in a new tab
   gem 'letter_opener'

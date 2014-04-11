@@ -11,7 +11,9 @@ h2 style='margin-bottom: 0'
 
 hr style='margin: 16px 0'
 
-= paginate @categories
+/ pagination on page 2+
+- if params[:page] && params[:page].to_i > 1
+  = paginate @categories
 
 .categories
   = render @categories
