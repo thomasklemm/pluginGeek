@@ -1,6 +1,6 @@
-- link_text = raw 'Next page &raquo;'
+- link_text = raw 'Next page ' + icon(:next_page)
 
 - if current_page.last?
   span class='pagination_link is_disabled' = link_text
 - else
-  = link_to link_text, url, remote: remote
+  = link_to link_text, url, remote: remote, class: 'pagination_link'

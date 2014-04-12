@@ -3,7 +3,9 @@ module IconHelper
     :edit => 'fa-heart',
     :github => 'fa-github-alt',
     :github_repo => 'fa-book',
-    :github_stars => 'fa-star', 
+    :github_stars => 'fa-star',
+    :next_page => 'fa-angle-right',
+    :previous_page => 'fa-angle-left', 
     :staff_pick => 'fa-thumbs-up',
     :updated => 'fa-leaf'
     # :'html-css' => 'icon-css',

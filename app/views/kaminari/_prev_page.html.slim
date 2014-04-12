@@ -1,6 +1,6 @@
-- link_text = raw '&laquo; Previous page'
+- link_text = raw icon(:previous_page) + ' Previous page'
 
 - if current_page.first?
   span class='pagination_link is_disabled' = link_text
 - else
-  = link_to link_text, url, remote: remote
+  = link_to link_text, url, remote: remote, class: 'pagination_link'
