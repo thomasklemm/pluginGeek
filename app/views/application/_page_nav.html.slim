@@ -1,12 +1,18 @@
 .page_nav
-  / All platforms
-  = link_to root_path, class: "page_nav_tab is_all_platforms #{ active_on_path(root_path) }" do
-    = image_tag('brand/logo_variants/logo-white.png', class: 'platform_icon')
-    ' All platforms
+  - navigation.items.each do |item|
 
-  / Each platform, in order of appearance
-  - platforms = Platform.order_by_position
-  - platforms.each do |platform|
-    = link_to platform, class: "page_nav_tab is_#{ platform.slug } #{ active_on_path(platform_path(platform)) }" do
-      = image_tag(platform.icon_path, class: 'platform_icon')
-      = platform.name
+    = link_to item.path, class: item.css_classes do
+      = image_tag item.icon_path, class: 'platform_icon'
+      = item.name   
+
+  / / All platforms
+  / = link_to root_path, class: "page_nav_tab is_all_platforms #{ active_on_path(root_path) }" do
+  /   = image_tag('brand/logo_variants/logo-white.png', class: 'platform_icon')
+  /   ' All platforms
+
+  / / Each platform, in order of appearance
+  / - platforms = Platform.order_by_position
+  / - platforms.each do |platform|
+  /   = link_to platform, class: "page_nav_tab is_#{ platform.slug } #{ active_on_path(platform_path(platform)) }" do
+  /     = image_tag(platform.icon_path, class: 'platform_icon')
+  /     = platform.name

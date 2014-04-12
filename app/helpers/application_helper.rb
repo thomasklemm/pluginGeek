@@ -29,4 +29,8 @@ module ApplicationHelper
   def nbsp
     ' '
   end
+
+  def navigation
+    Navigation.new(request.path)
+  end
 end
