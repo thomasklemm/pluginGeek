@@ -27,8 +27,5 @@ meta name='keywords' content='ruby, rails, javascript, jquery, find, search'
 / csrf meta tags
 = csrf_meta_tags unless response_publicly_cached?
 
-/ TODO: favicon
-/ IE uses favicon.ico in root
-/ Browsers use favicon.png
-/ iOS and Android look for filenames
-/ link rel='icon' href=image_path('favicon/favicon.png') type='image/png'
+/ favicons
+= render 'favicons'

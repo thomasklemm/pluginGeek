@@ -1,7 +1,8 @@
 .page_nav
   / All platforms
   = link_to root_path, class: "page_nav_tab is_all_platforms #{ active_on_path(root_path) }" do
-    span.page_nav_tab__text All platforms
+    = image_tag('brand/logo_variants/logo-white.png', class: 'platform_icon')
+    ' All platforms
 
   / Each platform, in order of appearance
   - platforms = Platform.order_by_position
