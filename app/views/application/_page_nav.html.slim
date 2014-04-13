@@ -1,18 +1,17 @@
+ruby:
+  all_platforms = { slug: '', name: 'All platforms', path: root_path, icon_path: image_path('brand/logo_variants/logo-white.png') }
+  ruby =  { slug: 'ruby', name: 'Ruby', path: platform_path(:ruby), icon_path: image_path('platforms/ruby.png') }
+  javascript = { slug: 'javascript', name: 'JavaScript', path: platform_path(:javascript), icon_path: image_path('platforms/javascript.png') }
+  html_css = { slug: 'html-css', name: 'HTML/CSS', path: platform_path(:'html-css'), icon_path: image_path('platforms/html-css.png') }
+
+  nav_items = [all_platforms, ruby, javascript, html_css]
+
+  nav_item_paths = nav_items.map { |item| item.fetch(:path) }
+  active_nav_item_path = nav_item_paths.detect { |path| path == current_path } || root_path
+
 .page_nav
-  - navigation.items.each do |item|
+  - nav_items.each do |item|
 
-    = link_to item.path, class: item.css_classes do
-      = image_tag item.icon_path, class: 'platform_icon'
-      = item.name   
-
-  / / All platforms
-  / = link_to root_path, class: "page_nav_tab is_all_platforms #{ active_on_path(root_path) }" do
-  /   = image_tag('brand/logo_variants/logo-white.png', class: 'platform_icon')
-  /   ' All platforms
-
-  / / Each platform, in order of appearance
-  / - platforms = Platform.order_by_position
-  / - platforms.each do |platform|
-  /   = link_to platform, class: "page_nav_tab is_#{ platform.slug } #{ active_on_path(platform_path(platform)) }" do
-  /     = image_tag(platform.icon_path, class: 'platform_icon')
-  /     = platform.name
+    = link_to item.fetch(:path), class: "page_nav_tab #{ 'is_active' if item.fetch(:path) == active_nav_item_path }" do
+      = image_tag item.fetch(:icon_path), class: 'platform_icon'
+      = item.fetch(:name)

@@ -1,5 +1,7 @@
 module NavigationHelper
-  def active_on_path(path)
-    'is_active' if path == request.path
+
+  def current_path
+    request.path
   end
+
 end
