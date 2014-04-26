@@ -22,7 +22,7 @@ module ApplicationHelper
   # Don't render sensitive content (like user info)
   # when the response headers indicate that the response
   # is to be cached in public caches (such as e.g. Rack::Cache)
-  def response_publicly_cached?
+  def publicly_cached?
     !!(response.cache_control[:public])
   end
 

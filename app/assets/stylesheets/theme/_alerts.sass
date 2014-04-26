@@ -1,0 +1,21 @@
+.alert
+  border-radius: 3px
+  color: $white
+  cursor: pointer
+  margin-bottom: 6px
+  padding: 12px 16px
+
+  &.is_notice
+    background-color: rgba($green, 0.85)
+    &:hover
+      background-color: $green
+
+  &.is_alert,
+  &.is_warning,  
+  &.is_error
+    background-color: rgba($red, 0.85)
+    &:hover
+      background-color: $red
+
+  .close
+    float: right

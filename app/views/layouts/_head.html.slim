@@ -25,7 +25,7 @@ meta name='keywords' content='ruby, rails, javascript, jquery, find, search'
 = javascript_include_tag 'application'
 
 / csrf meta tags
-= csrf_meta_tags unless response_publicly_cached?
+= csrf_meta_tags unless publicly_cached?
 
 / favicons
 = render 'favicons'
