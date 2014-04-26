@@ -1,7 +1,7 @@
 / categories/_category
 - category = category.decorate
 
-div.c class=('is_draft' if category.draft?)
+div.c class=('is_published' if category.published?)
   = link_to category do
     .c__name
       - if category.main_platform

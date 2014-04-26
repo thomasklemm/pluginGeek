@@ -10,8 +10,10 @@
     = f.label :description
     = f.text_area :description, placeholder: 'Describe the category', rows: 4
     
-    - if edit_action?
-      .help-block Short and concise is key :) Consult the repos' descriptions below for inspiration.
+    .help-block 
+      ' Short and concise is key :) 
+      - if edit_action?
+        ' Consult the repos below for inspiration.
 
   .field
     = f.label :platform_ids
