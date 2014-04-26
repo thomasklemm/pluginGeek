@@ -6,7 +6,9 @@
   span.category__stars = icon(:github_stars, @category.stars)
   span.category__repos_count = icon(:github_repo, @category.repos_count)
   - if policy(@category).edit?
-    = link_to icon(:edit, 'Improve'), [:edit, @category], class: 'category__edit_link'
+    = link_to icon(:edit, 'Edit'), [:edit, @category], class: 'category__edit_link'
+  - else
+    = mail_to support_email, icon(:mail, 'Improve')
 
 .category__description = @category.description
 

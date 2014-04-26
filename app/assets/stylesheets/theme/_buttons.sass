@@ -1,0 +1,38 @@
+// buttons
+.button
+  background-color: $gray
+  border: 1px solid transparent
+  border-radius: 2px
+  box-shadow: 2px 2px 5px $silver
+  color: $white
+  cursor: pointer
+  display: inline-block
+  font-size: 15px
+  margin-bottom: 0
+  padding: 6px 10px
+  text-align: center
+  vertical-align: middle
+
+  &:hover
+    background-color: darken($gray, 15%)
+
+  &:hover,
+  &:focus
+    text-decoration: none
+
+  &:active,
+  &.is_active
+    box-shadow: inset 0px -1px 10px rgba($black, 0.5)
+    background-image: none
+    outline: none
+
+  &.is_primary
+    background-color: $green
+    &:hover
+      background-color: darken($green, 8%)
+
+  &.is_link
+    @extend a
+    border-radius: 0
+    cursor: pointer
+    font-weight: normal

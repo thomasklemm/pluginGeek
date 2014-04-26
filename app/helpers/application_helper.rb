@@ -33,4 +33,16 @@ module ApplicationHelper
   def navigation
     Navigation.new(request.path)
   end
+
+  def support_email
+    'hi@plugingeek.com'
+  end
+
+  def new_action?
+    params[:action] == 'new'
+  end
+
+  def edit_action?
+    params[:action] == 'edit'
+  end
 end

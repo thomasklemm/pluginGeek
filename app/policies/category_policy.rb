@@ -6,7 +6,7 @@ class CategoryPolicy < ApplicationPolicy
 
   def permitted_attributes
     if moderator?
-      [:name, :description, :draft, { related_category_ids: [] }]
+      [:name, :description, :published, { platform_ids: [] }, { related_category_ids: [] }]
     else
       []
     end

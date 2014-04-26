@@ -1,3 +1,17 @@
 / categories/edit
-= render 'category_header'
+.category__header
+  = image_tag(@category.main_platform.icon_path, class: 'category__platform_icon')
+  span.category__name = @category.name
+  span.category__stars = icon(:github_stars, @category.stars)
+  span.category__repos_count = icon(:github_repo, @category.repos_count)
+
 = render 'form'
+br
+
+p 
+  b Repos
+  br
+  small This category currently lists the following repos. Their descriptions <br /> might help with finding a good one for the category.
+
+.repos
+  = render @category.repos
