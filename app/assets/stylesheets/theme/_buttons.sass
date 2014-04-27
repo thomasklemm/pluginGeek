@@ -1,5 +1,5 @@
 // buttons
-.button
+.button, a.button
   background-color: $gray
   border: 1px solid transparent
   border-radius: 2px
@@ -36,3 +36,9 @@
     border-radius: 0
     cursor: pointer
     font-weight: normal
+
+  &:disabled,
+  &.is_disabled
+    background-color: $gray
+    color: $white
+    cursor: default

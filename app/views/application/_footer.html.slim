@@ -1,9 +1,16 @@
 / application/_footer
 .page_footer
-  ' <b>Want to help out?</b> <br /> Email me at
-  = mail_to 'thomas@plugingeek.com', icon(:mail, 'thomas@plugingeek.com'), subject: 'Suggestions for Plugingeek', body: "Suggestions for '#{request.fullpath}'"
-  ', <br /> or tweet at
-  = link_to icon(:twitter, 'thomasjklemm'), 'https://twitter.com/thomasjklemm'
-  '. <br /> Source on
-  = link_to icon(:github, 'Github'), 'https://github.com/thomasklemm/pluginGeek'
-  '.
+  - if user_signed_in?
+    ' Hi, #{current_user.login}.
+    = link_to icon(:logout, 'Logout'), logout_path, method: :delete
+  - else
+    = link_to icon(:login, 'Login with Github'), login_path
+
+  p
+    ' <b>Want to help out?</b> <br /> Email me at
+    = mail_to 'thomas@plugingeek.com', icon(:mail, 'thomas@plugingeek.com'), subject: 'Suggestions for Plugingeek', body: "Suggestions for '#{request.fullpath}'"
+    ', <br /> or tweet at
+    = link_to icon(:twitter, 'thomasjklemm'), 'https://twitter.com/thomasjklemm'
+    '. <br /> Source on
+    = link_to icon(:github, 'Github'), 'https://github.com/thomasklemm/pluginGeek'
+    '.

@@ -1,14 +1,11 @@
 / devise/sessions/new
-h2 Login with Github
 
-.space-half
-.pre-wrap
-  markdown:
-    **pluginGeek** is a wiki, and you can make it awesome
-    by contributing your know-how. The only thing you need
-    to do beforehand is **signing in with Github**. <br />
-    We'll only ask for your public profile infos during
-    this process, and never have access to any repos,
-    especially none of your private repos.
+h2 Login
 
-= link_to 'Login with Github', user_omniauth_authorize_path(:github), class: 'btn btn-default', data: { disable_with: 'Connecting to Github...' }
+p style='font-size: 14px; width: 500px; text-align: justify'
+  ' Plugingeek is a community-driven wiki of great open-source plugins.
+  ' We list multiple platforms relevant to everyday web development.
+  ' In order to contribute, you need to sign in with your Github account.
+  ' Don't worry, we'll not ask for any permissions, not even for reading your email.
+
+= link_to 'Login with Github', user_omniauth_authorize_path(:github), class: 'button is_primary', data: { disable_with: 'Connecting to Github...' }
