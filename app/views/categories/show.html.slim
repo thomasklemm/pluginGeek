@@ -8,7 +8,7 @@
   - if policy(@category).edit?
     = link_to icon(:edit, 'Edit'), [:edit, @category], class: 'category__edit_link'
   - else
-    = mail_to support_email, icon(:mail, 'Improve')
+    = mail_to support_email, icon(:mail, 'Suggest an edit'), class: 'category__suggest_edit_link', subject: "#{@category.name} (#{@category.main_platform.name})"
 
 .category__description = @category.description
 

@@ -1,12 +1,9 @@
 / application/_footer
-.footer
-  span
-    ' Still looking? Ask
-    = link_to '@plugingeek', 'https://twitter.com/plugingeek'
-    ' ,
-    => link_to '@thomasjklemm', 'https://twitter.com/thomasjklemm'
-    ' or
-    = mail_to 'thomas@plugingeek.com'
-    ' .
-
-    = link_to 'Github', 'https://github.com/thomasklemm/pluginGeek'
+.page_footer
+  ' <b>Want to help out?</b> <br /> Email me at
+  = mail_to 'thomas@plugingeek.com', icon(:mail, 'thomas@plugingeek.com'), subject: 'Suggestions for Plugingeek', body: "Suggestions for '#{request.fullpath}'"
+  ', <br /> or tweet at
+  = link_to icon(:twitter, 'thomasjklemm'), 'https://twitter.com/thomasjklemm'
+  '. <br /> Source on
+  = link_to icon(:github, 'Github'), 'https://github.com/thomasklemm/pluginGeek'
+  '.

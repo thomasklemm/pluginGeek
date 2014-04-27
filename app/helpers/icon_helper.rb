@@ -4,9 +4,11 @@ module IconHelper
     :github => 'fa-github-alt',
     :github_repo => 'fa-book',
     :github_stars => 'fa-star',
+    :mail => 'fa-envelope-o',
     :next_page => 'fa-angle-right',
-    :previous_page => 'fa-angle-left', 
+    :previous_page => 'fa-angle-left',
     :staff_pick => 'fa-thumbs-up',
+    :twitter => 'fa-twitter',
     :updated => 'fa-leaf'
     # :'html-css' => 'icon-css',
     # :javascript => 'icon-javascript',
@@ -61,14 +63,14 @@ end
 #   #
 #   def icon(kind, text=nil, options={})
 #     type = ICON_MAPPINGS.fetch(kind) { raise "No mapping for icon '#{kind}' found" }
-    
+
 #     klasses = %w(icon fa)
 #     klasses << "fa-#{type}"
 #     klasses << 'fa-fw' if options[:fixed_width]
 #     klasses << 'fa-li' if options[:list_item]
 #     klasses << 'fa-spin' if options[:spin]
 #     klasses << options[:class] if options[:class]
-    
+
 #     content_tag(:i, nil, class: klasses.join(' '), title: options[:title]) + text.to_s
 #   end
 

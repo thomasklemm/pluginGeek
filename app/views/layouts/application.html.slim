@@ -4,13 +4,14 @@ html lang='en'
   head
     = render 'layouts/head'
 
-  body.page_body
-
-    .page_content
+  body
+    .page_container
       = render 'page_nav'
-      = render 'flash_messages'
 
-      / main content
-      = yield
+      .page_content
+        = render 'flash_messages'
+
+        / main content
+        = yield
 
       = render 'footer'
