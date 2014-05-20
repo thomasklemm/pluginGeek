@@ -18,7 +18,7 @@
 /       ul.platforms class="nav navbar-nav"
 /         - Platform.order_by_position.each do |platform|
 /           li = link_to platform do
-/             = image_tag(platform.icon_path, class: 'platform-icon')
+/             = platform.icon
 /             = platform.name
 
 /       / User

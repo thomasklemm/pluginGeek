@@ -36,10 +36,15 @@ class ApplicationController < ActionController::Base
   end
 
   # Used to show or hide links and customize forms
-  helper_method :moderator?
   def moderator?
     !!(current_user && current_user.moderator?)
   end
+  helper_method :moderator?
+
+  def current_platform
+    @current_platform ||= Platform.current(params[:platform_slug])
+  end
+  helper_method :current_platform
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.

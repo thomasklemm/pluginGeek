@@ -43,8 +43,6 @@ class Platform < ActiveRecord::Base
     all_platforms? ? Category.all : super
   end
 
-  private
-
   def all_platforms?
     slug == 'all_platforms'
   end

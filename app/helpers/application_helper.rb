@@ -46,8 +46,4 @@ module ApplicationHelper
     params[:action] == 'edit'
   end
 
-  def current_platform
-    @current_platform ||= Platform.current(params[:platform_slug])
-  end
-  
 end
