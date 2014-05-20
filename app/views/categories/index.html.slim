@@ -5,11 +5,11 @@
   = image_tag 'brand/logo.png', class: 'brand_logo'
   = image_tag 'brand/wordmark.png', class: 'brand_wordmark'
 
-h2 style='margin-bottom: 0' 
-  ' #hackrtools for #ruby
-  span style='float: right; margin-top: 10px; color: #777; font-size: 16px' 100 categories, 500 tools
-
-hr style='margin: 16px 0'
+div
+  - if policy(Category).create?
+    = link_to icon(:new, 'New category'), new_category_path, class: 'button', style: 'float: right'
+  h2 = "##{ current_platform.name }"
+  = "#{ current_platform.categories_count } categories"
 
 / pagination on page 2+
 - if params[:page] && params[:page].to_i > 1

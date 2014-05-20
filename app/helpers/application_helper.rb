@@ -3,10 +3,6 @@ module ApplicationHelper
     "<link rel='dns-prefetch' href='#{ url }'>".html_safe
   end
 
-  def icon_tag(type, text=nil)
-    content_tag :i, text, class: "fa fa-#{ type }"
-  end
-
   def markdown(text)
     options = {
       autolink: true,
@@ -30,6 +26,10 @@ module ApplicationHelper
     ' '
   end
 
+  def ndash
+    raise NotImplementedError
+  end
+
   def navigation
     Navigation.new(request.path)
   end
@@ -45,4 +45,9 @@ module ApplicationHelper
   def edit_action?
     params[:action] == 'edit'
   end
+
+  def current_platform
+    @current_platform ||= Platform.current(params[:platform_slug])
+  end
+  
 end

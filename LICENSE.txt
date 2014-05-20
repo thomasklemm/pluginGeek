@@ -1,4 +1,4 @@
-Copyright (c) 2013 Thomas Klemm
+Copyright (c) 2013-2014 Thomas Klemm
 
 MIT License
 

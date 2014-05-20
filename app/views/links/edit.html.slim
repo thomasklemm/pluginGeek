@@ -39,4 +39,4 @@
 
   / Delete link
   - if policy(@link).destroy?
-    = link_to icon_tag('remove-circle', 'Destroy this link'), @link, method: :delete, data: { confirm: 'Are you sure?' }
+    = link_to icon(:destroy, 'Destroy this link'), @link, method: :delete, data: { confirm: 'Are you sure?' }

@@ -16,8 +16,8 @@ Plugingeek::Application.routes.draw do
   # Categories list / Platforms
   get '/', to: 'categories#index', as: :all_platforms
 
-  PLATFORM_SLUGS = %w(ruby javascript js html-css)
-  get '/:platform_slug', to: 'categories#index', constraints: { platform_slug: /(#{PLATFORM_SLUGS.join('|')})/i }, as: :platform
+  get '/:platform_slug', to: 'categories#index', as: :platform,
+    constraints: { platform_slug: /(#{Platform::SLUGS.join('|')})/i }
 
   # Categories
   resources :categories, except: :index

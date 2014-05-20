@@ -1,6 +1,6 @@
 h1 #{ @services.length } awesome services for developers
 
-= link_to icon_tag(:plus, 'New service'), new_service_path
+= link_to icon(:plus, 'New service'), new_service_path
 br
 br
 
@@ -8,4 +8,4 @@ br
   .services-wrapper
     = render partial: 'services/detailed_service', collection: @services, as: :service
 
-= link_to icon_tag(:plus, 'New service'), new_service_path
+= link_to icon(:plus, 'New service'), new_service_path

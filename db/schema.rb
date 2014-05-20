@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426094526) do
+ActiveRecord::Schema.define(version: 20140520205159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,15 +92,15 @@ ActiveRecord::Schema.define(version: 20140426094526) do
   add_index "platform_categories", ["platform_id"], name: "index_platform_categories_on_platform_id", using: :btree
 
   create_table "platforms", force: true do |t|
-    t.text     "name",                       null: false
-    t.text     "slug",                       null: false
-    t.integer  "position",                   null: false
-    t.text     "icon_path"
-    t.boolean  "default",    default: false
+    t.text     "name",                         null: false
+    t.text     "slug",                         null: false
+    t.integer  "position",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "categories_count", default: 0
   end
 
+  add_index "platforms", ["categories_count"], name: "index_platforms_on_categories_count", using: :btree
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", unique: true, using: :btree
 
   create_table "repo_relationships", force: true do |t|

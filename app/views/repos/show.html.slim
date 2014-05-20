@@ -2,14 +2,14 @@
 - @repo = @repo.decorate
 .repo-header
   = link_to @repo.github_url, class: 'owner-and-name' do
-    = icon_tag('github-alt', @repo.owner_and_name)
+    = icon :github_repo, @repo.owner_and_name
 
   - if @repo.staff_pick?
-    span.staff-pick = icon_tag(:star, 'Staff pick')
+    span.staff-pick = icon :staff_pick, 'Staff pick'
 
-  span.stars = icon_tag(:star, @repo.stars)
+  span.stars = icon :github_stars, @repo.stars
 
-  = link_to icon_tag(:edit, 'Edit'), [:edit, @repo], class: 'edit-link'
+  = link_to icon(:edit, 'Edit'), [:edit, @repo], class: 'edit-link'
 
   .description = @repo.description
 

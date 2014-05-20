@@ -1,12 +1,22 @@
+# IconHelper
+#
+# Usage
+#  icon(:github)
+#  icon(:github, 'Github')
+#  icon(:github, 'Github', class: 'first second')
+#  icon(:spinner, spin: true)
+#
 module IconHelper
   ICONS = {
     :edit => 'fa-heart',
+    :external_url => 'fa-external-link',
     :github => 'fa-github-alt',
     :github_repo => 'fa-book',
     :github_stars => 'fa-star',
     :login => 'fa-sign-in',
     :logout => 'fa-sign-out',
     :mail => 'fa-envelope',
+    :new => 'fa-plus',
     :next_page => 'fa-angle-right',
     :previous_page => 'fa-angle-left',
     :staff_pick => 'fa-thumbs-up',
@@ -34,12 +44,12 @@ module IconHelper
     classes << 'fa-fw' if options.delete(:fixed_width)
     classes << 'fa-li' if options.delete(:list_item)
     classes << 'fa-spin' if options.delete(:spin)
-    classes = classes.compact
+    classes = classes.compact.join(' ')
 
-    if label.present?
-      label = content_tag(:span, label, class: 'label')
-    end
-    content_tag(:span, label, options.merge(class: classes.join(' ')))
+    icon = content_tag :i, nil, class: classes
+    label = content_tag :span, label
+
+    icon + nbsp + label
   end
 end
 

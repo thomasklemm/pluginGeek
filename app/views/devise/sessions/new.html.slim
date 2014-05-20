@@ -1,11 +1,9 @@
-/ devise/sessions/new
-
-h2 Login
+h2 = icon :login, 'Login'
 
 p style='font-size: 14px; width: 500px; text-align: justify'
   ' Plugingeek is a community-driven wiki of great open-source plugins.
   ' We list multiple platforms relevant to everyday web development.
-  ' In order to contribute, you need to sign in with your Github account.
-  ' Don't worry, we'll not ask for any permissions, not even for reading your email.
+  ' In order to contribute, you need to sign in with your GitHub account.
+  ' We don't ask for any permissions, not even for reading your email.
 
-= link_to 'Login with Github', user_omniauth_authorize_path(:github), class: 'button is_primary', data: { disable_with: 'Connecting to Github...' }
+= link_to icon(:login, 'Login with GitHub'), user_omniauth_authorize_path(:github), class: 'button is_primary', data: { disable_with: 'Connecting...' }
