@@ -8,34 +8,17 @@ class Category < ActiveRecord::Base
   # scope :ids_and_names, -> { select([:id, :name]).order_by_score }
   # scope :ids_and_names_without, ->(category) { ids_and_names.where.not(id: category.id) }
 
-  def self.for_platform(platform_slug)
-    if platform_slug.present?
-      platform = Platform.find_by(slug: platform_slug)
-      platform.categories
-    else
-      Category
-    end
-  end
-
   has_many :platforms,
     -> { order_by_position },
     through: :platform_categories
   has_many :platform_categories,
     dependent: :destroy
 
-  def main_platform
-    platforms.first
-  end
-
   has_many :repos,
     -> { order_by_score },
     through: :categorizations
   has_many :categorizations,
     dependent: :destroy
-
-  def main_repo
-    repos.first
-  end
 
   has_many :links,
     through: :link_relationships

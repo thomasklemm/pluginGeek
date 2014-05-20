@@ -17,7 +17,7 @@
 
   .field
     = f.label :platform_ids
-    = f.collection_check_boxes :platform_ids, Platform.all, :id, :name do |b|
+    = f.collection_check_boxes :platform_ids, Platform.order_by_position.reject { |p| p.all_platforms? }, :id, :name do |b|
       .checkbox.is_inline
         = b.check_box
         = b.label

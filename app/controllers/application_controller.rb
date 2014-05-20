@@ -37,12 +37,12 @@ class ApplicationController < ActionController::Base
 
   # Used to show or hide links and customize forms
   def moderator?
-    !!(current_user && current_user.moderator?)
+    !!current_user.andand.moderator?
   end
   helper_method :moderator?
 
   def current_platform
-    @current_platform ||= Platform.current(params[:platform_slug])
+    @current_platform ||= Platform.current(params[:platform_slug]).decorate
   end
   helper_method :current_platform
 

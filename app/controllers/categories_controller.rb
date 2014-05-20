@@ -46,21 +46,21 @@ class CategoriesController < ApplicationController
   private
 
   def load_categories
-    @categories ||= categories_scope
+    @categories ||= categories_scope.decorate
   end
 
   def load_category
-    @category ||= Category.find(params[:id])
+    @category ||= Category.find(params[:id]).decorate
     authorize @category
   end
 
   def build_category
-    @category = Category.new(category_params)
+    @category = Category.new(category_params).decorate
     authorize @category
   end
 
   def categories_scope
-    scope = Category.for_platform(platform_slug)
+    scope = current_platform.categories
     scope = scope.includes(:platforms, :repos)
     scope = scope.order(published: :desc, score: :desc)
     scope.page params[:page]

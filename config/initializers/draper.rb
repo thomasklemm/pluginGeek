@@ -1,0 +1,3 @@
+Draper::CollectionDecorator.class_eval do
+  delegate :current_page, :total_pages, :limit_value, :total_count
+end

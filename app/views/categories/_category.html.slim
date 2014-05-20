@@ -4,11 +4,8 @@
 div.c class=('is_published' if category.published?)
   = link_to category do
     .c__name
-      - if category.main_platform
-        = image_tag(category.main_platform.decorate.platform_icon_path, class: 'c__platform_icon is_platform')
-        / # = icon(main_platform.slug)
-      - else
-        = image_tag('brand/logo_variants/logo-gray.png', class: 'c__platform_icon')
+      / Icon for the main platform
+      = image_tag(category.main_platform.platform_icon_path, class: 'c__platform_icon is_platform')
       = category.name
     .c__stars = icon(:github_stars, category.stars, title: 'Stars on Github')
     .c__repos_count = icon(:github_repo, category.repos_count, title: 'Tools in this category')
