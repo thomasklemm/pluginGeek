@@ -3,7 +3,7 @@
   / Icon for the main platform
   = image_tag(@category.main_platform.platform_icon_path, class: 'category__platform_icon')
   span.category__name = @category.name
-  span.category__stars = icon(:github_stars, @category.stars)
+  span.category__stars = icon(:star, @category.stars)
   span.category__repos_count = icon(:github_repo, @category.repos_count)
 
 = render 'form'

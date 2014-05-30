@@ -11,14 +11,14 @@ module IconHelper
     :edit => 'fa-heart',
     :external_url => 'fa-external-link',
     :github => 'fa-github-alt',
-    :github_repo => 'fa-book',
-    :github_stars => 'fa-star',
     :login => 'fa-sign-in',
     :logout => 'fa-sign-out',
     :mail => 'fa-envelope',
     :new => 'fa-plus',
     :next_page => 'fa-angle-right',
     :previous_page => 'fa-angle-left',
+    :repo => 'fa-github-alt',
+    :star => 'fa-star',
     :staff_pick => 'fa-thumbs-up',
     :twitter => 'fa-twitter',
     :updated => 'fa-leaf'
@@ -53,12 +53,7 @@ module IconHelper
   end
 end
 
-# nHelper
-
-#   ICON_MAPPINGS = {
-#     :github_repo => 'book',
-#     :github_stars => 'star'
-#   }
+# IconHelper
 
 #   # Usage:
 #   #

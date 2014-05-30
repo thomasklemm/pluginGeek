@@ -1,14 +1,15 @@
 / categories/_category
-- category = category.decorate
+ruby:
+  category = category.decorate
 
-div.c class=('is_published' if category.published?)
+.c class=('is_published' if category.published?)
   = link_to category do
     .c__name
       / Icon for the main platform
       = image_tag(category.main_platform.platform_icon_path, class: 'c__platform_icon is_platform')
       = category.name
-    .c__stars = icon(:github_stars, category.stars, title: 'Stars on Github')
-    .c__repos_count = icon(:github_repo, category.repos_count, title: 'Tools in this category')
+    .c__stars = icon :star, category.stars, title: 'Stars on GitHub'
+    .c__repos_count = icon :repo, category.repos_count, title: 'Tools in this category'
 
   .c__description = category.description
 

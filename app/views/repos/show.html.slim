@@ -1,22 +1,30 @@
 / repos/show
-- @repo = @repo.decorate
-.repo-header
-  = link_to @repo.github_url, class: 'owner-and-name' do
-    = icon :github_repo, @repo.owner_and_name
+ruby:
+  @repo = @repo.decorate
+
+.repo__details style='margin-bottom: 16px'
+  .repo__owner_and_name
+    = link_to icon(:github, @repo.owner_and_name), @repo.github_url
+
+  .repo__stars = icon :star, @repo.stars
 
   - if @repo.staff_pick?
-    span.staff-pick = icon :staff_pick, 'Staff pick'
+    .repo__staff_pick = icon :staff_pick, 'Staff pick'
 
-  span.stars = icon :github_stars, @repo.stars
+  - if policy(@repo).edit?
+    .repo__link_to_edit_repo = link_to icon(:edit, 'Edit'), [:edit, @repo]
 
-  = link_to icon(:edit, 'Edit'), [:edit, @repo], class: 'edit-link'
+  .repo__link_to_homepage
+    = dns_prefetch_tag @repo.homepage_url
+    = link_to @repo.homepage_url, @repo.homepage_url
 
-  .description = @repo.description
+  .repo__description = @repo.description
 
-  = dns_prefetch_tag @repo.homepage_url
-  = link_to @repo.homepage_url, @repo.homepage_url, class: 'homepage-url'
+  .repo__last_updated
+    => icon :updated, 'Last updated'
+    = local_time_ago(@repo.github_updated_at)
 
-.categories-wrapper
+.categories_wrapper style='margin-bottom: 16px'
   = render @repo.categories
 
 .readme-container
