@@ -17,6 +17,7 @@ module IconHelper
     :new => 'fa-plus',
     :next_page => 'fa-angle-right',
     :previous_page => 'fa-angle-left',
+    :readme => 'fa-book',
     :repo => 'fa-github-alt',
     :star => 'fa-star',
     :staff_pick => 'fa-thumbs-up',
@@ -49,7 +50,7 @@ module IconHelper
     icon = content_tag :i, nil, class: classes
     label = content_tag :span, label
 
-    icon + nbsp + label
+    icon + label
   end
 end
 

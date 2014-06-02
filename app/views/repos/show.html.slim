@@ -2,9 +2,10 @@
 ruby:
   @repo = @repo.decorate
 
-.repo__details style='margin-bottom: 16px'
-  .repo__owner_and_name
-    = link_to icon(:github, @repo.owner_and_name), @repo.github_url
+.repo__details.has_space_below
+  .repo__link_to_github = link_to @repo.github_url do
+    = icon :github
+    .repo__owner_and_name = @repo.owner_and_name
 
   .repo__stars = icon :star, @repo.stars
 
@@ -24,16 +25,16 @@ ruby:
     => icon :updated, 'Last updated'
     = local_time_ago(@repo.github_updated_at)
 
-.categories_wrapper style='margin-bottom: 16px'
+.repo__categories.has_space_below.is_highlighted
   = render @repo.categories
 
-.readme-container
-  .readme-target.max-height
+.readme__outer_container.has_space_below
+  .readme__inner_container class='is_closed'
     .readme-js data-owner=@repo.owner data-repo=@repo.name
-    .toggle-readme: span.button More
+  .readme__expander class='button is_primary' = icon :readme, 'Expand README'
 
-.links-wrapper
+.repo__links.has_space_below
   = render @repo.links
 
-.repos-wrapper.parents-and-children
+.repo__related_repos
   = render @repo.parents_and_children

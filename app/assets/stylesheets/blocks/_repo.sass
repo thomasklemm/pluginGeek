@@ -1,76 +1,51 @@
-// partial
-.r
-  &:not(:last-of-type)
-    margin-bottom: 14px
+// partial and details
 
-.r__owner_and_name
-  display: inline
-  margin: 0 12px 0 6px
-  font-weight: 700
+// spacing in list
+.r:not(:last-of-type)
+  margin-bottom: 14px
 
-.r__stars
-  display: inline
-  font-size: 14px
-
-.r__staff_pick
-  margin: 0 12px
-  @extend .inline_label
-
-.r__description
-  color: #444
-
-.r__link_to_homepage
-  font-size: 15px
-
-.r__last_updated
-  font-size: 12px
-  color: #555
-
-// details
-.repo__owner_and_name
-  display: inline
-  font-size: 18px
-  font-weight: 700
-  margin-right: 6px
-
-  +icon
-    margin-right: 3px
-
-.repo__stars
-  display: inline
-  margin: 0 6px
-  font-size: 14px
-
-.repo__staff_pick
-  margin: 0 6px
-  @extend .inline_label
-
-.repo__link_to_edit_repo
-  margin: 0 6px
-  display: inline
-  font-size: 14px
-
+.r__description,
 .repo__description
   color: #444
 
-.repo__link_to_homepage
-  font-size: 15px
-
+.r__last_updated,
 .repo__last_updated
   font-size: 12px
   color: #555
 
-
-//  inline label (move)
-.inline_label
+.repo__link_to_edit_repo
   display: inline
-  font-size: 11px
-  font-weight: 800
-  color: $olive
-  background: $silver
-  padding: 2px 5px
-  border-radius: 3px
-  text-transform: uppercase
+  font-size: 14px
+  margin: 0 6px
 
-  .label
-    font-weight: 800
+.r__link_to_github
+  display: inline
+
+.repo__link_to_github
+  display: inline
+  font-size: 22px
+
+.r__link_to_homepage
+  font-size: 15px
+
+.r__owner_and_name
+  display: inline
+  font-weight: 700
+  margin: 0 6px
+
+.repo__owner_and_name
+  display: inline
+  font-weight: 700
+  margin: 0 6px
+  font-size: 24px
+
+.r__stars,
+.repo__stars
+  display: inline
+  font-size: 14px
+  margin: 0 6px
+
+.r__staff_pick,
+.repo__staff_pick
+  @extend .inline_label
+  margin: 0 6px
