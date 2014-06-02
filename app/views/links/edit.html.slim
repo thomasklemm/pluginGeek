@@ -1,7 +1,7 @@
 .new-link-wrapper
   .page-title Edit link
 
-  p.left-line
+  p.is_highlighted
     | Submit noteworthy blog posts, screencasts and more to pluginGeek <br />
     | and associate them with matching projects and categories. <br />
     | Thanks a lot for your help to make pluginGeek great for everybody!
@@ -37,6 +37,6 @@
 
   .space-one
 
-  / Delete link
-  - if policy(@link).destroy?
-    = link_to icon(:destroy, 'Destroy this link'), @link, method: :delete, data: { confirm: 'Are you sure?' }
+  // Delete link
+  /- if policy(@link).destroy?
+  /  = link_to icon(:destroy, 'Destroy this link'), @link, method: :delete, data: { confirm: 'Are you sure?' }

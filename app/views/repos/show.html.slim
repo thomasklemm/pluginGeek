@@ -12,8 +12,12 @@ ruby:
   - if @repo.staff_pick?
     .repo__staff_pick = icon :staff_pick, 'Staff pick'
 
-  - if policy(@repo).edit?
-    .repo__link_to_edit_repo = link_to icon(:edit, 'Edit'), [:edit, @repo]
+  .repo__link_to_edit_repo
+    - if policy(@repo).edit?
+      = link_to icon(:edit, 'Edit'), [:edit, @repo]
+    - else
+      = suggest_repo_update_by_email(@repo)
+
 
   .repo__link_to_homepage
     = dns_prefetch_tag @repo.homepage_url
@@ -33,8 +37,12 @@ ruby:
     .readme-js data-owner=@repo.owner data-repo=@repo.name
   .readme__expander class='button is_primary' = icon :readme, 'Expand README'
 
-.repo__links.has_space_below
-  = render @repo.links
+- if @repo.links.any?
+  .repo__links.has_space_below
+    h4.has_small_margin Links
+    = render @repo.links
 
-.repo__related_repos
-  = render @repo.parents_and_children
+- if @repo.parents_and_children.any?
+  .repo__parents_and_children
+    h4.has_small_margin Parents and children
+    = render @repo.parents_and_children

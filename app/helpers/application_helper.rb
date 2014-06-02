@@ -46,4 +46,8 @@ module ApplicationHelper
     params[:action] == 'edit'
   end
 
+  def required_field
+    content_tag :span, '*', title: 'Required field', class: 'required_field'
+  end
+
 end

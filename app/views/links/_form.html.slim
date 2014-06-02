@@ -4,37 +4,31 @@
 
   / title
   .field
-    = f.label :title, "Link's title"
+    = f.label :title
+    = required_field
+
     = f.text_field :title, autocomplete: 'off'
 
   / url
   .field
-    = f.label :url, "Link's url"
+    = f.label :url
+    = required_field
+
     = f.text_field :url
 
-  / published_at
-  .field
-    = f.label :published_at, "Publication date"
-    div = f.date_select :published_at, start_year: Date.current.year, end_year: Date.current.year - 15, discard_day: true, prompt: true
-    .hint We sort links by publication date, therefore this field is required.
-    .hint
-      ' You could
-      = link_to 'open the link in a new tab', @link.url, target: :blank
-      '  to find out.
-
   / repos
-  .field
-    = f.label :repo_ids, "Associated projects"
-    - repo_select_options = options_from_collection_for_select(Repo.ids_and_full_names, :id, :full_name, @link.repo_ids)
-    = f.select(:repo_ids, repo_select_options, {}, { include_blank: true, multiple: true })
-    .hint The link will automatically be associated with each repo's categories. Save to see results below.
-
-  / categories
-  .field
-    = f.label :category_ids, "Associated categories"
-    - category_select_options = options_from_collection_for_select(Category.ids_and_full_names, :id, :full_name, @link.category_ids)
-    = f.select(:category_ids, category_select_options, {}, { multiple: true })
-    .hint See hint above. :-D
+  /.field
+  /  = f.label :repo_ids, "Associated projects"
+  /  - repo_select_options = options_from_collection_for_select(Repo.ids_and_full_names, :id, :full_name, @link.repo_ids)
+  /  = f.select(:repo_ids, repo_select_options, {}, { include_blank: true, multiple: true })
+  /  .hint The link will automatically be associated with each repo's categories. Save to see results below.
+  /
+  // categories
+  /.field
+  /  = f.label :category_ids, "Associated categories"
+  /  - category_select_options = options_from_collection_for_select(Category.ids_and_full_names, :id, :full_name, @link.category_ids)
+  /  = f.select(:category_ids, category_select_options, {}, { multiple: true })
+  /  .hint See hint above. :-D
 
   / submit button
   .actions

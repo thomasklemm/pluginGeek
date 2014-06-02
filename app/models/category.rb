@@ -28,10 +28,7 @@ class Category < ActiveRecord::Base
 
   # Links associated with either the category or one of its referenced repos
   def extended_links
-    @extended_links ||= (links | links_of_repos).
-      uniq.
-      sort_by(&:published_at).
-      reverse
+    @extended_links ||= (links | links_of_repos).uniq
   end
 
   # Review: There might be a nicer query?
