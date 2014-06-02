@@ -14,10 +14,9 @@ ruby:
 
   .repo__link_to_edit_repo
     - if policy(@repo).edit?
-      = link_to icon(:edit, 'Edit'), [:edit, @repo]
+      = link_to icon(:edit, 'Update'), [:edit, @repo]
     - else
       = suggest_repo_update_by_email(@repo)
-
 
   .repo__link_to_homepage
     = dns_prefetch_tag @repo.homepage_url
@@ -30,7 +29,11 @@ ruby:
     = local_time_ago(@repo.github_updated_at)
 
 .repo__categories.has_space_below.is_highlighted
-  = render @repo.categories
+  h4.has_small_margin Categories
+  - if @repo.categories.any?
+    = render @repo.categories
+  - else
+    = none_yet
 
 .readme__outer_container.has_space_below
   .readme__inner_container class='is_closed'
@@ -38,11 +41,11 @@ ruby:
   .readme__expander class='button is_primary' = icon :readme, 'Expand README'
 
 - if @repo.links.any?
-  .repo__links.has_space_below
+  .repo__links.has_space_below.is_highlighted
     h4.has_small_margin Links
     = render @repo.links
 
 - if @repo.parents_and_children.any?
-  .repo__parents_and_children
+  .repo__parents_and_children.is_highlighted
     h4.has_small_margin Parents and children
     = render @repo.parents_and_children

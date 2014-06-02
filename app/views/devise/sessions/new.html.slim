@@ -6,4 +6,6 @@ p style='font-size: 14px; width: 500px; text-align: justify'
   ' In order to contribute, you need to sign in with your GitHub account.
   ' We don't ask for any permissions, not even for reading your email.
 
-= link_to icon(:login, 'Login with GitHub'), user_omniauth_authorize_path(:github), class: 'button is_primary', data: { disable_with: 'Connecting...' }
+.button.is_primary
+  = link_to user_omniauth_authorize_path(:github), data: { disable_with: 'Connecting to GitHub...' } do
+    = icon :login, 'Login with GitHub'

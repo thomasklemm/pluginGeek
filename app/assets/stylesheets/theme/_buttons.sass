@@ -4,7 +4,6 @@
   border: 1px solid transparent
   border-radius: 2px
   box-shadow: 2px 2px 5px $silver
-  color: $white
   cursor: pointer
   display: inline-block
   font-size: 15px
@@ -12,6 +11,10 @@
   padding: 6px 12px
   text-align: center
   vertical-align: middle
+  font-weight: normal
+
+  .icon, .icon_label
+    color: white
 
   &:hover
     background-color: darken($gray, 15%)
@@ -28,6 +31,7 @@
 
   &.is_primary
     background-color: $green
+    color: white
     &:hover
       background-color: darken($green, 8%)
 

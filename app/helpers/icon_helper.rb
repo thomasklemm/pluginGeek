@@ -48,7 +48,7 @@ module IconHelper
     classes = classes.compact.join(' ')
 
     icon = content_tag :i, nil, class: classes
-    label = content_tag :span, label
+    label = content_tag :span, label, class: 'icon_label'
 
     icon + label
   end

@@ -10,7 +10,7 @@ ruby:
   span.category__repos_count = icon :repo, @category.repos_count
   span.category__edit_link
     - if policy(@category).edit?
-      = link_to icon(:edit, 'Edit'), [:edit, @category]
+      = link_to icon(:edit, 'Update'), [:edit, @category]
     - else
       = suggest_category_update_by_email(@category)
 

@@ -76,7 +76,14 @@ class Category < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-#{name.parameterize}"
+    slug
+  end
+
+  def slug
+    elements = []
+    elements += [id, name.parameterize]
+    elements += platforms.map { |platform| platform.name.parameterize } if platforms.any?
+    elements.join('-')
   end
 
   private

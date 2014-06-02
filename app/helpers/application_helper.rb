@@ -50,4 +50,9 @@ module ApplicationHelper
     content_tag :span, '*', title: 'Required field', class: 'required_field'
   end
 
+  def none_yet
+    content_tag :div, 'None yet.', class: 'none_yet'
+  end
+
+
 end

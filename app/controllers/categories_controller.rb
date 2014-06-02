@@ -7,6 +7,7 @@ class CategoriesController < ApplicationController
 
   def show
     load_category
+    redirect_to_updated_category_path
   end
 
   def new
@@ -80,5 +81,11 @@ class CategoriesController < ApplicationController
     slug = 'javascript' if slug == 'js'
 
     slug
+  end
+
+  def redirect_to_updated_category_path
+    if request.fullpath != category_path(@category)
+      redirect_to @category
+    end
   end
 end
