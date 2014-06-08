@@ -4,6 +4,7 @@ module ReposHelper
     mail_to support_email,
       icon(:mail, 'Update'),
       subject: "[Plugingeek] Update for #{ repo.owner_and_name }",
+      title: 'Suggest an update by mail',
       body: <<-BODY.strip_heredoc.html_safe
         Hi,
 
