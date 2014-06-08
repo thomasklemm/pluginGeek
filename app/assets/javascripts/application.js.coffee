@@ -4,6 +4,7 @@
 #= require jquery_ujs
 #= require local_time
 #= require readme
+#= require selectize
 #= require theme
 
 $ ->
