@@ -67,6 +67,9 @@ gem 'kaminari'
 # Relative timestamps
 gem 'local_time'
 
+# Enhance select boxes
+gem 'selectize-rails'
+
 group :development do
   # Opens emails in a new tab
   gem 'letter_opener'

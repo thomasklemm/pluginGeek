@@ -237,6 +237,7 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
+    selectize-rails (0.9.1)
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
     slim (2.0.2)
@@ -323,6 +324,7 @@ DEPENDENCIES
   redcarpet
   rspec-rails
   sass-rails (~> 4.0.2)
+  selectize-rails
   shoulda-matchers
   slim-rails
   timecop
