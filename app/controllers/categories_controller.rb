@@ -45,7 +45,7 @@ class CategoriesController < ApplicationController
   end
 
   def autocomplete
-    @categories = Category.search(query_param)
+    @categories = Category.includes(:platforms, :repos).order_by_score
   end
 
   private

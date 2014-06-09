@@ -5,56 +5,30 @@
   / owner_and_name
   - if moderator?
     .field
-      = f.label :owner_and_name, "Owner and name (moderator)"
+      = f.label :owner_and_name, 'Owner/Name'
       = f.text_field :owner_and_name, autocomplete: 'off'
-
-  / staff pick
-  - if moderator?
-    .field
-      = f.check_box :staff_pick
-      = f.label :staff_pick, "Staff pick (moderator)"
 
   / categories
   .field
     = f.label :category_ids, 'Categories'
-    = f.collection_select :category_ids, Category.none, :id, :name, {}, { multiple: true }
+    = f.select :category_ids, Category.none, { class: 'category_picker' }, { multiple: true }
+
+  / staff pick
+  - if moderator?
+    .checkbox
+      = f.check_box :staff_pick
+      = f.label :staff_pick, 'Staff pick'
 
   / parents
-  .field
-    = f.label :parent_ids, 'Parents'
-    = f.collection_select :parent_ids, Repo.ids_and_owner_and_names_without(@repo), :id, :owner_and_name, {}, { multiple: true }
-    .hint Is #{ @repo.owner_and_name } based further open-source projects?
+  /.field
+  /  = f.label :parent_ids, 'Parents'
+  /  = f.collection_select :parent_ids, Repo.ids_and_owner_and_names_without(@repo), :id, :owner_and_name, {}, { multiple: true }
+  /  .hint Is #{ @repo.owner_and_name } based further open-source projects?
 
   / submit button
   .actions
-    = f.submit "Update repo", class: 'button'
+    = f.submit class: 'button is_primary'
 
-
-
-/ multiple select on categories list
 coffee:
   $ ->
-    $('#repo_category_ids').selectize
-      valueField: 'id'
-      labelField: 'name'
-      searchField: 'name'
-      sortField: 'stars'
-      create: false
-      render:
-        option: (item, escape) ->
-          '<div>' +
-          '<span class="name">' + escape(item.name) + '</span>' +
-          '</div>'
-      load: (query, callback) ->
-        if (query?.length)
-          $.ajax
-            url: '/categories/autocomplete.json'
-            type: 'GET'
-            data:
-              q: query
-            error: ->
-              callback()
-            success: (response) ->
-              callback(response.categories)
-        else
-          callback()
+    RepoForm.init();

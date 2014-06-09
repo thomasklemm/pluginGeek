@@ -20,13 +20,10 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def platform_names
-    platforms.order_by_position.map(&:name).to_sentence
+    @platform_names ||= platforms.sort_by(&:position).map(&:name).join('/')
   end
 
   def repo_names
-    names = repos.order_by_score.map(&:owner_and_name)
-    repo_names = names.shift(2).join(', ')
-    repo_names << " and #{ names.size } more..." if names.size >= 1
-    repo_names
+    @repo_names ||= repos.sort_by(&:score).reverse.map(&:decorate).map(&:name).to_sentence
   end
 end

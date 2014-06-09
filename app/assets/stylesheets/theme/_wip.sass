@@ -2,3 +2,37 @@
   color: $teal
   font-size: 14px
   font-style: italic
+
+.spacer
+
+  &.is_small
+    height: 6px
+
+  &.is_medium
+    height: 12px
+
+  &.is_tall
+    height: 18px
+
+  &.is_extra_tall
+    height: 24px
+
+
+.box
+
+  padding: 10px 14px
+  border-radius: 3px
+
+  &.is_danger
+    background: rgba($red, 0.8)
+    color: $white
+    a
+      color: $silver
+      &:hover
+        color: $white
+
+  .title
+    font-weight: bold
+
+
+

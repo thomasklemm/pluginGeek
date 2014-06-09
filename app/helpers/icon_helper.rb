@@ -8,6 +8,7 @@
 #
 module IconHelper
   ICONS = {
+    :destroy => 'fa-times-circle',
     :edit => 'fa-heart',
     :external_url => 'fa-external-link',
     :github => 'fa-github-alt',

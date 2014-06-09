@@ -1,9 +1,18 @@
 / repos/edit
-- @repo = @repo.decorate
-= render 'repos/repo_details'
+ruby:
+  @repo = @repo.decorate
+
+= render @repo
+
+.spacer.is_small
+
 = render 'form'
 
-/ destroy button
+.spacer.is_extra_tall
+
 - if policy(@repo).destroy?
-  = link_to 'Destroy repo', repo_path(@repo), method: :delete, data: { confirm: 'Are you sure?' }, class: 'danger button'
+  .box.is_danger
+    .title Danger Zone
+    = link_to @repo, method: :delete, data: { confirm: 'Are you sure?' } do
+      = icon :destroy, 'Remove Repo from Plugingeek'
 
