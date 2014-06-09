@@ -17,8 +17,7 @@
   / categories
   .field
     = f.label :category_ids, 'Categories'
-    = f.collection_select :category_ids, Category.all, :id, :name, {}, { multiple: true }
-    .hint Select one or more categories
+    = f.collection_select :category_ids, Category.none, :id, :name, {}, { multiple: true }
 
   / parents
   .field
@@ -30,14 +29,32 @@
   .actions
     = f.submit "Update repo", class: 'button'
 
-/ multiple select on categories list
-javascript:
-  $('#repo_category_ids').select2({
-    placeholder: "Categories"
-  });
 
-/ multiple select on parents list
-javascript:
-  $('#repo_parent_ids').select2({
-    placeholder: "Parents"
-  });
+
+/ multiple select on categories list
+coffee:
+  $ ->
+    $('#repo_category_ids').selectize
+      valueField: 'id'
+      labelField: 'name'
+      searchField: 'name'
+      sortField: 'stars'
+      create: false
+      render:
+        option: (item, escape) ->
+          '<div>' +
+          '<span class="name">' + escape(item.name) + '</span>' +
+          '</div>'
+      load: (query, callback) ->
+        if (query?.length)
+          $.ajax
+            url: '/categories/autocomplete.json'
+            type: 'GET'
+            data:
+              q: query
+            error: ->
+              callback()
+            success: (response) ->
+              callback(response.categories)
+        else
+          callback()

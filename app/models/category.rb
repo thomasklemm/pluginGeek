@@ -86,6 +86,11 @@ class Category < ActiveRecord::Base
     elements.join('-')
   end
 
+  def self.search(query = '')
+    where('LOWER(name) LIKE ?', "%#{ query.downcase }%").
+      order(score: :desc).limit(25)
+  end
+
   private
 
   def assign_counters

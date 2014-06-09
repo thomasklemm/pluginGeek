@@ -44,6 +44,10 @@ class CategoriesController < ApplicationController
     redirect_to root_path, notice: 'Category has been destroyed.'
   end
 
+  def autocomplete
+    @categories = Category.search(query_param)
+  end
+
   private
 
   def load_categories
@@ -81,6 +85,10 @@ class CategoriesController < ApplicationController
     slug = 'javascript' if slug == 'js'
 
     slug
+  end
+
+  def query_param
+    params[:q]
   end
 
   def redirect_to_updated_category_path

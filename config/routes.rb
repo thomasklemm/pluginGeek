@@ -20,7 +20,9 @@ Plugingeek::Application.routes.draw do
     constraints: { platform_slug: /(#{Platform::SLUGS.join('|')})/i }
 
   # Categories
-  resources :categories, except: :index
+  resources :categories, except: :index do
+    get :autocomplete, on: :collection
+  end
 
   # Repos
   resources :repos, constraints: { id: %r{[^\/]+[\/][^\/]+} }, except: [:index, :new]

@@ -70,6 +70,9 @@ gem 'local_time'
 # Enhance select boxes
 gem 'selectize-rails'
 
+# JSON building
+gem 'jbuilder'
+
 group :development do
   # Opens emails in a new tab
   gem 'letter_opener'
