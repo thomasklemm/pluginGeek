@@ -7,6 +7,7 @@
 #= require selectize
 #= require theme
 #= require category_picker
+#= require repo_picker
 #= require repo_form
 
 $ ->

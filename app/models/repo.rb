@@ -6,6 +6,9 @@ class Repo < ActiveRecord::Base
   scope :order_by_name,  -> { order(owner_and_name: :asc) }
   scope :order_by_score, -> { order(score: :desc) }
 
+  scope :for_picker, -> { select([:id, :owner_and_name]).order_by_score }
+  scope :without, -> (repo) { where.not(id: repo.id) }
+
   scope :ids_and_owner_and_names, -> { select([:id, :owner_and_name]).order_by_score }
   scope :ids_and_owner_and_names_without, ->(repo) { ids_and_owner_and_names.where.not(id: repo.id) }
 

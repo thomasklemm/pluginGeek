@@ -20,7 +20,11 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def platform_names
-    @platform_names ||= platforms.sort_by(&:position).map(&:name).join('/')
+    @platform_names ||= platforms.sort_by(&:position).map(&:name)
+  end
+
+  def formatted_platform_names
+    platform_names.join(' & ')
   end
 
   def sorted_repos
@@ -35,29 +39,28 @@ class CategoryDecorator < Draper::Decorator
     @repo_owner_and_names ||= sorted_repos.map(&:owner_and_name)
   end
 
-  def short_formatted_repo_names
-    if repo_names.size <= 3
-      repo_names.to_sentence
-    else
-      [*repo_names.first(2), "#{ repo_names.size - 2 } more plugins..."].to_sentence
-    end
-  end
+  def formatted_repo_names(options = {})
+    count = 3
+    shorten = options.fetch :shorten, false
 
-  def formatted_repo_names
-    repo_names.to_sentence
+    if shorten && repo_names.size > (count + 1)
+      [*repo_names.first(count), "#{repo_names.size - count} more plugins..."].to_sentence
+    else
+      repo_names.to_sentence
+    end
   end
 
   def to_selectize_option
     {
       id: id,
       name: name,
-      platform_names: platform_names,
       repos_count: repos_count,
       score: model.score,
       stars: model.stars,
       formatted_stars: stars,
-      repo_names: formatted_repo_names,
-      short_formatted_repo_names: short_formatted_repo_names
+      formatted_platform_names: formatted_platform_names,
+      formatted_repo_names: formatted_repo_names,
+      short_repo_names: formatted_repo_names(shorten: true)
     }.to_json
   end
 end
