@@ -1,28 +1,29 @@
 / repos/_form
+ruby:
+  category_picker_options =
+    options_for_select(Category.for_picker.decorate.map do |category|
+      [ category.name, category.id, { data: { data: category.to_selectize_option } } ]
+    end, @repo.category_ids)
+
 = form_for @repo do |f|
   = render 'shared/error_messages', target: @repo
 
-  / owner_and_name
   - if moderator?
     .field
       = f.label :owner_and_name, 'Owner/Name'
       = f.text_field :owner_and_name, autocomplete: 'off'
 
-  / categories
   .field
     = f.label :category_ids, 'Categories'
-    /= f.select :category_ids, Category.none, :id, :name, { }, { class: 'category_picker', multiple: true, data: { data: Category.for_picker } }
-    = f.select :category_ids, options_for_select(Category.for_picker.map { |c| [c.name, c.id, { data: { data: c.decorate.to_selectize_option } }] }, @repo.category_ids), {}, { multiple: true, class: 'category_picker' }
+    = f.select :category_ids, category_picker_options, {}, { multiple: true, class: 'category_picker' }
 
-  / staff pick
   - if moderator?
     .checkbox
       = f.check_box :staff_pick
       = f.label :staff_pick, 'Staff pick'
 
-  / parents
-  /.field
-  /  = f.label :parent_ids, 'Parents'
+  .field
+    = f.label :parent_ids, 'Parents'
   /  = f.collection_select :parent_ids, Repo.ids_and_owner_and_names_without(@repo), :id, :owner_and_name, {}, { multiple: true }
   /  .hint Is #{ @repo.owner_and_name } based further open-source projects?
 
