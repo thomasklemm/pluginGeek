@@ -22,6 +22,10 @@ class Repo < ActiveRecord::Base
   has_many :categorizations,
     dependent: :destroy
 
+  def assignable_categories
+    Category.for_picker
+  end
+
   has_many :parents,
     through:      :parent_child_relationships,
     source:       :parent

@@ -1,10 +1,4 @@
 / repos/_form
-ruby:
-  category_picker_options =
-    options_for_select(Category.for_picker.decorate.map do |category|
-      [ category.name, category.id, { data: { data: category.to_selectize_option } } ]
-    end, @repo.category_ids)
-
 = form_for @repo do |f|
   = render 'shared/error_messages', target: @repo
 
@@ -15,7 +9,7 @@ ruby:
 
   .field
     = f.label :category_ids, 'Categories'
-    = f.select :category_ids, category_picker_options, {}, { multiple: true, class: 'category_picker' }
+    = f.category_picker :category_ids
 
   - if moderator?
     .checkbox
