@@ -26,6 +26,10 @@ class Repo < ActiveRecord::Base
     Category.for_picker
   end
 
+  def assignable_parents
+    Repo.for_picker.without(self)
+  end
+
   has_many :parents,
     through:      :parent_child_relationships,
     source:       :parent

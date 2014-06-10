@@ -29,4 +29,10 @@ class RepoDecorator < Draper::Decorator
   def github_updated_at
     (model.github_updated_at || 36.months.ago).utc
   end
+
+  def to_selectize_option
+    {
+      
+    }
+  end
 end

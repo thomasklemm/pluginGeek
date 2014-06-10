@@ -9,7 +9,7 @@
 
   .field
     = f.label :category_ids, 'Categories'
-    = f.category_picker :category_ids
+    = f.category_picker :category_ids, @repo.assignable_categories
 
   - if moderator?
     .checkbox
@@ -19,9 +19,7 @@
   .field
     = f.label :parent_ids, 'Parents'
     .help-block Is "#{ @repo.owner_and_name }" based further open-source projects?
-
-    = f.collection_select :parent_ids, Repo.for_picker.without(@repo), :id, :owner_and_name, {},
-      { multiple: true, class: 'repo_picker' }
+    = f.repo_picker :parent_ids, @repo.assignable_parents
 
   .actions
     = f.submit class: 'button is_primary'
