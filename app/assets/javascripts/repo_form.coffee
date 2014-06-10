@@ -3,4 +3,5 @@
     @initCategoryPicker()
 
   initCategoryPicker: ->
-    new CategoryPicker('#repo_category_ids')
+    $('.category_picker').each (index, element) ->
+      new CategoryPicker(element)

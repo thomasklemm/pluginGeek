@@ -11,7 +11,8 @@
   / categories
   .field
     = f.label :category_ids, 'Categories'
-    = f.select :category_ids, Category.none, { class: 'category_picker' }, { multiple: true }
+    /= f.select :category_ids, Category.none, :id, :name, { }, { class: 'category_picker', multiple: true, data: { data: Category.for_picker } }
+    = f.select :category_ids, options_for_select(Category.for_picker.map { |c| [c.name, c.id, { data: { data: c.decorate.to_selectize_option } }] }, @repo.category_ids), {}, { multiple: true, class: 'category_picker' }
 
   / staff pick
   - if moderator?

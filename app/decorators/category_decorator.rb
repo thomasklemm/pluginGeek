@@ -46,4 +46,18 @@ class CategoryDecorator < Draper::Decorator
   def formatted_repo_names
     repo_names.to_sentence
   end
+
+  def to_selectize_option
+    {
+      id: id,
+      name: name,
+      platform_names: platform_names,
+      repos_count: repos_count,
+      score: model.score,
+      stars: model.stars,
+      formatted_stars: stars,
+      repo_names: formatted_repo_names,
+      short_formatted_repo_names: short_formatted_repo_names
+    }.to_json
+  end
 end

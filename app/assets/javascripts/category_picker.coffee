@@ -2,7 +2,7 @@ class window.CategoryPicker
   constructor: (@selector) ->
     @selectize = null
     @initialize()
-    @loadOptions()
+#    @loadOptions()
 
   initialize: ->
     $select = $(@selector).selectize @selectizeOptions()
@@ -29,17 +29,17 @@ class window.CategoryPicker
         '<div class="meta">' +
         '<span class="stars">' + '<i class="icon fa fa-star"></i>' + escape(item.formatted_stars) + '</span>' +
         '<span class="repos_count">' + '<i class="icon fa fa-github-alt"></i>' + escape(item.repos_count) + '</span>' +
-        '<span class="repo_names">' + 'Includes ' + escape(item.short_formatted_repo_names) + '</span>' +
         '</div>' +
+        '<span class="repo_names">' + 'Includes ' + escape(item.short_formatted_repo_names) + '</span>' +
         '</div>'
 
-  loadOptions: ->
-    categories_path = '/categories/autocomplete.json'
-
-    $.getJSON categories_path, (data) =>
-      categories = data.categories
-
-      @selectize.load (callback) ->
-        callback(categories)
-
-      @selectize.refreshOptions(false)
+#  loadOptions: ->
+#    categories_path = '/categories/autocomplete.json'
+#
+#    $.getJSON categories_path, (data) =>
+#      categories = data.categories
+#
+#      @selectize.load (callback) ->
+#        callback(categories)
+#
+#      @selectize.refreshOptions(false)
