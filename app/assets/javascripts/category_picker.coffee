@@ -17,9 +17,20 @@ class window.CategoryPicker
       direction: 'desc'
     create: false
     render:
-      option: (item, escape) ->
-        '<div>' +
+      item: (item, escape) ->
+        '<div class="category">' +
         '<span class="name">' + escape(item.name) + '</span>' +
+        '<span class="platform_names">' + '(' + escape(item.platform_names) + ')' + '</span>' +
+        '</div>'
+      option: (item, escape) ->
+        '<div class="category">' +
+        '<span class="name">' + escape(item.name) + '</span>' +
+        '<span class="platform_names">' + '(' + escape(item.platform_names) + ')' + '</span>' +
+        '<div class="meta">' +
+        '<span class="stars">' + '<i class="icon fa fa-star"></i>' + escape(item.formatted_stars) + '</span>' +
+        '<span class="repos_count">' + '<i class="icon fa fa-github-alt"></i>' + escape(item.repos_count) + '</span>' +
+        '<span class="repo_names">' + 'Includes ' + escape(item.short_formatted_repo_names) + '</span>' +
+        '</div>' +
         '</div>'
 
   loadOptions: ->
