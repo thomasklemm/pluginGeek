@@ -32,7 +32,7 @@ class RepoDecorator < Draper::Decorator
 
   def to_selectize_option
     {
-      
+
     }
   end
 end

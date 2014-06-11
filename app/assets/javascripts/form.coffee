@@ -1,12 +1,12 @@
-@RepoForm =
+@Form =
   init: ->
-    @initCategoryPicker()
-    @initRepoPicker()
+    @initCategoryPickers()
+    @initRepoPickers()
 
-  initCategoryPicker: ->
+  initCategoryPickers: ->
     $('.category_picker').each (index, element) ->
       new CategoryPicker(element)
 
-  initRepoPicker: ->
+  initRepoPickers: ->
     $('.repo_picker').each (index, element) ->
       new RepoPicker(element)
