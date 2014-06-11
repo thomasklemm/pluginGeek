@@ -27,16 +27,16 @@ class CategoryDecorator < Draper::Decorator
     platform_names.join(' & ')
   end
 
-  def sorted_repos
-    @sorted_repos ||= repos.sort_by(&:score).reverse.map(&:decorate)
+  def repos
+    @repos ||= model.repos.sort_by(&:score).reverse.map(&:decorate)
   end
 
   def repo_names
-    @repo_owner_and_names ||= sorted_repos.map(&:name)
+    @repo_owner_and_names ||= repos.map(&:name)
   end
 
   def repo_owner_and_names
-    @repo_owner_and_names ||= sorted_repos.map(&:owner_and_name)
+    @repo_owner_and_names ||= repos.map(&:owner_and_name)
   end
 
   def formatted_repo_names(options = {})

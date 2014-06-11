@@ -2,6 +2,7 @@ class Category < ActiveRecord::Base
   validates :name, presence: true
   validates :description, length: {maximum: 360}
 
+  scope :default_order, -> { order_by_score }
   scope :for_picker, -> { includes(:platforms, :repos).order_by_score  }
   scope :order_by_name,  -> { order(name: :asc) }
   scope :order_by_score, -> { order(score: :desc) }

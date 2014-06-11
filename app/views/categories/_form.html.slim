@@ -21,10 +21,10 @@
         = b.check_box
         = b.label
 
-  .field
-    = f.label :related_category_ids, 'Related categories'
-    = help "An existing relationship might be defined there, too. So best check the other category, too."
-    = f.category_picker :related_category_ids, @category.assignable_related_categories
+  /.field
+  /  = f.label :related_category_ids, 'Related categories'
+  /  = help "An existing relationship might be defined there, too. So best check the other category, too."
+  /  = f.category_picker :related_category_ids, @category.assignable_related_categories
 
   .field
     = f.label 'Visibility'

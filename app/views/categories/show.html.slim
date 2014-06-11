@@ -2,26 +2,30 @@
 ruby:
   @category = @category.decorate
 
-.category__header
-  / Icon for the main platform
-  = image_tag(@category.main_platform.platform_icon_path, class: 'category__platform_icon')
-  span.category__name = @category.name
-  span.category__stars = icon :star, @category.stars
-  span.category__repos_count = icon :repo, @category.repos_count
-  span.category__edit_link
-    - if policy(@category).edit?
-      = link_to icon(:edit, 'Update'), [:edit, @category]
-    - else
-      = suggest_category_update_by_email(@category)
+section.has_no_space
+  .category__header
+    / Icon for the main platform
+    = image_tag(@category.main_platform.platform_icon_path, class: 'category__platform_icon')
 
-.category__description = @category.description
+    span.category__name = @category.name
+    span.category__stars = icon :star, @category.stars
+    span.category__repos_count = icon :repo, @category.repos_count
 
+    span.category__edit_link
+      - if policy(@category).edit?
+        = link_to icon(:edit, 'Update'), [:edit, @category]
+      - else
+        = suggest_category_update_by_email(@category)
 
-.repos
+  .category__description = @category.description
+
+section.has_space_below
   = render @category.repos
 
-.categories-wrapper
-  = render @category.similar_categories
-
-.links-wrapper
+section.has_space.links
+  .section_title Links
   = render @category.extended_links
+
+/section.has_space
+/  .section_title Related categories
+/  = render @category.similar_categories
