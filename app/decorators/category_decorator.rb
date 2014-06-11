@@ -1,42 +1,55 @@
 class CategoryDecorator < Draper::Decorator
   delegate_all
 
-  def main_platform
-    @main_platform ||= (platforms.first || Platform.all_platforms).decorate
-  end
+  ##
+  # Attributes
 
-  def main_repo
-    @main_repo ||= repos.first.andand.decorate
+  def description
+    model.description.presence ||
+      main_repo.description.presence if main_repo ||
+      h.nbsp
   end
 
   def stars
     h.number_with_delimiter(model.stars)
   end
 
-  def description
-    model.description.presence || 
-    main_repo.andand.description.presence ||
-    h.nbsp
+  ##
+  # Platforms
+
+  def main_platform
+    @main_platform ||= begin
+      platform = platforms.sort_by(&:position).first || Platform.all_platforms
+      platform.decorate
+    end
   end
 
   def platform_names
-    @platform_names ||= platforms.sort_by(&:position).map(&:name)
+    @platform_names ||= begin
+      platforms.sort_by(&:position).map(&:name)
+    end
   end
 
   def formatted_platform_names
     platform_names.join(' & ')
   end
 
+  ##
+  # Repos
+
   def repos
     @repos ||= model.repos.sort_by(&:score).reverse.map(&:decorate)
   end
 
-  def repo_names
-    @repo_owner_and_names ||= repos.map(&:name)
+  def main_repo
+    @main_repo ||= begin
+      repo = model.repos.order_by_score.first
+      repo.decorate if repo
+    end
   end
 
-  def repo_owner_and_names
-    @repo_owner_and_names ||= repos.map(&:owner_and_name)
+  def repo_names
+    @repo_names ||= repos.map(&:name)
   end
 
   def formatted_repo_names(options = {})
@@ -46,9 +59,12 @@ class CategoryDecorator < Draper::Decorator
     if shorten && repo_names.size > (count + 1)
       [*repo_names.first(count), "#{repo_names.size - count} more plugins..."].to_sentence
     else
-      repo_names.to_sentence
+      repo_names.join(', ')
     end
   end
+
+  ##
+  # Selectize option
 
   def to_selectize_option
     {

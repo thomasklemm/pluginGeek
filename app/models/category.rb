@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
   validates :name, presence: true
   validates :description, length: {maximum: 360}
+  validates :platform_ids, length: {minimum: 1, message: '^Please select at least one platform'}
 
   scope :default_order, -> { order_by_score }
   scope :for_picker, -> { includes(:platforms, :repos).order_by_score  }

@@ -1,14 +1,17 @@
 / categories/_form
 = form_for @category do |f|
-  = render 'shared/error_messages', target: @category
 
   .field
     = f.label :name
     = required_field
+
+    = f.error_message_on :name
     = f.text_field :name, placeholder: 'Name the category', autocomplete: 'off', autofocus: @category.new_record?
 
   .field
     = f.label :description
+
+    = f.error_message_on :description
     = f.text_area :description, placeholder: 'Describe the category', rows: 4
     
     = help "Short and concise is key :) Consult the repos below for inspiration."
@@ -16,6 +19,8 @@
   .field
     = f.label :platform_ids
     = required_field
+
+    = f.error_message_on :platform_ids
     = f.collection_check_boxes :platform_ids, Platform.order_by_position.reject { |p| p.all_platforms? }, :id, :name do |b|
       .checkbox.is_inline
         = b.check_box
