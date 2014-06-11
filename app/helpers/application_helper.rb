@@ -51,7 +51,11 @@ module ApplicationHelper
   end
 
   def none_yet
-    content_tag :div, 'None yet.', class: 'none_yet'
+    content_tag :div, 'Add some :-)', class: 'none_yet'
+  end
+
+  def maybe_empty(&block)
+    capture(&block).presence || none_yet
   end
 
 

@@ -28,7 +28,8 @@ ruby:
 
 .category_links
   .section_title Links
-  = render @category.extended_links
+  = maybe_empty do
+    = render @category.extended_links
 
 /.related_categories
 /  .section_title Related categories

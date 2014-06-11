@@ -2,7 +2,7 @@
 ruby:
   @repo = @repo.decorate
 
-.repo__details.has_space_below
+.repo_details
   .repo__link_to_github = link_to @repo.github_url do
     = icon :github
     .repo__owner_and_name = @repo.owner_and_name
@@ -28,24 +28,31 @@ ruby:
     => icon :updated, 'Last updated'
     = local_time_ago(@repo.github_updated_at)
 
-.repo__categories.has_space_below.is_highlighted
-  h4.has_small_margin Categories
-  - if @repo.categories.any?
-    = render @repo.categories
-  - else
-    = none_yet
+.spacer.is_sm
 
-.readme__outer_container.has_space_below
+.repo_categories.is_highlighted
+  .section_title Categories
+  = maybe_empty do
+    = render @repo.categories
+
+.spacer.is_md
+
+.readme__outer_container
   .readme__inner_container class='is_closed'
     .readme-js data-owner=@repo.owner data-repo=@repo.name
-  .readme__expander class='button is_primary' = icon :readme, 'Expand README'
+  .readme__expander class='button is_primary'
+    = icon :readme, 'Expand README'
 
-- if @repo.links.any?
-  .repo__links.has_space_below.is_highlighted
-    h4.has_small_margin Links
+.spacer.is_md
+
+.repo_links
+  .section_title Links
+  = maybe_empty do
     = render @repo.links
 
 - if @repo.parents_and_children.any?
-  .repo__parents_and_children.is_highlighted
-    h4.has_small_margin Parents and children
+  .spacer.is_md
+
+  .repo_related_repos
+    .section_title Related repos
     = render @repo.parents_and_children

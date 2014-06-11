@@ -7,12 +7,20 @@
   span.category__repos_count = icon :repo, @category.repos_count
 
 = render 'form'
-br
 
-p 
-  b Repos
-  br
+.spacer.is_md
+
+p
+  .section_title Repos
   small This category currently lists the following repos. Their descriptions <br /> might help with finding a good one for the category.
 
-.repos
+.category_repos
   = render @category.repos
+
+.spacer.is_lg
+
+- if policy(@category).destroy?
+  .box.is_danger
+    .title Danger Zone
+    = link_to @category, method: :delete, data: { confirm: 'Are you sure?' } do
+      = icon :destroy, 'Remove Category from Plugingeek'
