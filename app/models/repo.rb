@@ -6,6 +6,7 @@ class Repo < ActiveRecord::Base
   # Case-insensitive search
   scope :find_by_owner_and_name,  ->(query) { where("lower(owner_and_name) = ?", query.downcase).first }
   scope :find_by_owner_and_name!, ->(query) { where("lower(owner_and_name) = ?", query.downcase).first! }
+  
   scope :for_picker, -> { order_by_score }
   scope :order_by_name,  -> { order(owner_and_name: :asc) }
   scope :order_by_score, -> { order(score: :desc) }
@@ -14,10 +15,6 @@ class Repo < ActiveRecord::Base
     through: :categorizations
   has_many :categorizations,
     dependent: :destroy
-
-  def assignable_categories
-    Category.for_picker
-  end
 
   has_many :parents,
     through:      :parent_child_relationships,
@@ -35,14 +32,6 @@ class Repo < ActiveRecord::Base
     foreign_key:  :parent_id,
     dependent:    :destroy
 
-  def parents_and_children
-    parents | children
-  end
-
-  def assignable_parents
-    Repo.for_picker.without(self)
-  end
-
   has_many :links,
     -> { uniq },
     through: :link_relationships
@@ -50,12 +39,24 @@ class Repo < ActiveRecord::Base
     as: :linkable,
     dependent: :destroy
 
-  def stars
-    self[:stars] || 0
+  def assignable_categories
+    Category.for_picker
+  end
+
+  def assignable_parents
+    Repo.for_picker.without(self)
+  end
+
+  def parents_and_children
+    parents | children
   end
 
   def score
     self[:score] || 0
+  end
+
+  def stars
+    self[:stars] || 0
   end
 
   def to_param
