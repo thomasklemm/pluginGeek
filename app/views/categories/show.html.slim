@@ -2,7 +2,7 @@
 ruby:
   @category = @category.decorate
 
-section.has_no_space
+.category
   .category__header
     / Icon for the main platform
     = image_tag(@category.main_platform.platform_icon_path, class: 'category__platform_icon')
@@ -19,13 +19,15 @@ section.has_no_space
 
   .category__description = @category.description
 
-section.has_space_below
+.category_repos
   = render @category.repos
 
-section.has_space.links
+.spacer.is_lg
+
+.category_links
   .section_title Links
   = render @category.extended_links
 
-/section.has_space
+/.related_categories
 /  .section_title Related categories
 /  = render @category.similar_categories
