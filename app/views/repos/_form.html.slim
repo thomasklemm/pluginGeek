@@ -2,23 +2,22 @@
 = form_for @repo do |f|
   = render 'shared/error_messages', target: @repo
 
-  - if moderator?
-    .field
-      = f.label :owner_and_name, 'Owner/Name'
-      = f.text_field :owner_and_name, autocomplete: 'off'
+  .field
+    = f.label :owner_and_name, 'Owner/Name'
+    = required_field
+    = f.text_field :owner_and_name, autocomplete: 'off'
 
   .field
     = f.label :category_ids, 'Categories'
     = f.category_picker :category_ids, @repo.assignable_categories
 
-  - if moderator?
-    .checkbox
-      = f.check_box :staff_pick
-      = f.label :staff_pick, 'Staff pick'
+  .checkbox
+    = f.check_box :staff_pick
+    = f.label :staff_pick, 'Staff pick'
 
   .field
     = f.label :parent_ids, 'Parents'
-    .help-block Is "#{ @repo.owner_and_name }" based further open-source projects?
+    = help "Is \"#{ @repo.owner_and_name }\" based further open-source projects?"
     = f.repo_picker :parent_ids, @repo.assignable_parents
 
   .actions
@@ -26,4 +25,4 @@
 
 coffee:
   $ ->
-    Form.init();
+    Form.init()

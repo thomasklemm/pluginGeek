@@ -11,6 +11,11 @@ module ActiveRecordExtension
     def random
       order("RANDOM()").first
     end
+
+    def without(model)
+      where.not(id: model.id)
+    end
+
   end
 end
 

@@ -3,31 +3,20 @@ class Repo < ActiveRecord::Base
     presence: true,
     uniqueness: { case_sensitive: false }
 
-  scope :order_by_name,  -> { order(owner_and_name: :asc) }
-  scope :order_by_score, -> { order(score: :desc) }
-
-  scope :for_picker, -> { select([:id, :owner_and_name]).order_by_score }
-  scope :without, -> (repo) { where.not(id: repo.id) }
-
-  scope :ids_and_owner_and_names, -> { select([:id, :owner_and_name]).order_by_score }
-  scope :ids_and_owner_and_names_without, ->(repo) { ids_and_owner_and_names.where.not(id: repo.id) }
-
   # Case-insensitive search
   scope :find_by_owner_and_name,  ->(query) { where("lower(owner_and_name) = ?", query.downcase).first }
   scope :find_by_owner_and_name!, ->(query) { where("lower(owner_and_name) = ?", query.downcase).first! }
+  scope :for_picker, -> { order_by_score }
+  scope :order_by_name,  -> { order(owner_and_name: :asc) }
+  scope :order_by_score, -> { order(score: :desc) }
 
   has_many :categories,
-    -> { order(score: :desc) },
     through: :categorizations
   has_many :categorizations,
     dependent: :destroy
 
   def assignable_categories
     Category.for_picker
-  end
-
-  def assignable_parents
-    Repo.for_picker.without(self)
   end
 
   has_many :parents,
@@ -48,6 +37,10 @@ class Repo < ActiveRecord::Base
 
   def parents_and_children
     parents | children
+  end
+
+  def assignable_parents
+    Repo.for_picker.without(self)
   end
 
   has_many :links,

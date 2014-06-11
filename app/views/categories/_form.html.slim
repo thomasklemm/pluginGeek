@@ -4,23 +4,27 @@
 
   .field
     = f.label :name
-    = f.text_field :name, placeholder: 'Name the category', autocomplete: 'off', autofocus: new_action?
+    = required_field
+    = f.text_field :name, placeholder: 'Name the category', autocomplete: 'off', autofocus: @category.new_record?
 
   .field
     = f.label :description
     = f.text_area :description, placeholder: 'Describe the category', rows: 4
     
-    .help-block 
-      ' Short and concise is key :) 
-      - if edit_action?
-        ' Consult the repos below for inspiration.
+    = help "Short and concise is key :) Consult the repos below for inspiration."
 
   .field
     = f.label :platform_ids
+    = required_field
     = f.collection_check_boxes :platform_ids, Platform.order_by_position.reject { |p| p.all_platforms? }, :id, :name do |b|
       .checkbox.is_inline
         = b.check_box
         = b.label
+
+  .field
+    = f.label :related_category_ids, 'Related categories'
+    = help "An existing relationship might be defined there, too. So best check the other category, too."
+    = f.category_picker :related_category_ids, @category.assignable_related_categories
 
   .field
     = f.label 'Visibility'
@@ -29,9 +33,8 @@
       = f.label :published, 'Visible to the public'
 
   .actions
-    = f.submit new_action? ? 'Create category' : 'Save category', class: 'button is_primary'
+    = f.submit class: 'button is_primary'
 
-  /   .field
-  /     = f.label :related_category_ids, "Related categories (mod)"
-  /     = f.collection_select :related_category_ids, Category.ids_and_names_without(@category), :id, :name, {}, { multiple: true }
-  /     .help-block A related category may be defined on both sides.
+coffee:
+  $ ->
+    Form.init()

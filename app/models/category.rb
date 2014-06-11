@@ -6,9 +6,6 @@ class Category < ActiveRecord::Base
   scope :order_by_name,  -> { order(name: :asc) }
   scope :order_by_score, -> { order(score: :desc) }
 
-  # scope :ids_and_names, -> { select([:id, :name]).order_by_score }
-  # scope :ids_and_names_without, ->(category) { ids_and_names.where.not(id: category.id) }
-
   has_many :platforms,
     -> { order_by_position },
     through: :platform_categories
@@ -16,28 +13,9 @@ class Category < ActiveRecord::Base
     dependent: :destroy
 
   has_many :repos,
-    -> { order_by_score },
     through: :categorizations
   has_many :categorizations,
     dependent: :destroy
-
-  has_many :links,
-    through: :link_relationships
-  has_many :link_relationships,
-    as: :linkable,
-    dependent: :destroy
-
-  # Links associated with either the category or one of its referenced repos
-  def extended_links
-    @extended_links ||= (links | links_of_repos).uniq
-  end
-
-  # Review: There might be a nicer query?
-  def links_of_repos
-    @links_of_repos ||= repos.
-      includes(:links).
-      flat_map(&:links)
-  end
 
   has_many :related_categories,
     through: :category_relationships,
@@ -54,12 +32,11 @@ class Category < ActiveRecord::Base
     foreign_key: :category_id,
     dependent: :destroy
 
-  def similar_categories
-    @similar_categories ||= (related_categories | reverse_related_categories).
-      uniq.
-      sort_by(&:stars).
-      reverse
-  end
+  has_many :links,
+    through: :link_relationships
+  has_many :link_relationships,
+    as: :linkable,
+    dependent: :destroy
 
   has_many :services,
     through: :service_categorizations
@@ -68,28 +45,36 @@ class Category < ActiveRecord::Base
 
   before_save :assign_counters
 
-  def stars
-    self[:stars] || 0
+  def assignable_related_categories
+    Category.for_picker.without(self)
+  end
+
+  def extended_links
+    @extended_links ||= (links | links_of_repos).uniq
+  end
+
+  def links_of_repos
+    @links_of_repos ||= repos.includes(:links).flat_map(&:links)
   end
 
   def score
     self[:score] || 0
   end
 
-  def to_param
-    slug
+  def similar_categories
+    @similar_categories ||= (related_categories | reverse_related_categories).uniq.sort_by(&:stars).reverse
   end
 
   def slug
-    elements = []
-    elements += [id, name.parameterize]
-    elements += platforms.map { |platform| platform.name.parameterize } if platforms.any?
-    elements.join('-')
+    @slug ||= generate_slug
   end
 
-  def self.search(query = '')
-    where('LOWER(name) LIKE ?', "%#{ query.downcase }%").
-      order(score: :desc).limit(25)
+  def stars
+    self[:stars] || 0
+  end
+
+  def to_param
+    slug
   end
 
   private
@@ -97,5 +82,12 @@ class Category < ActiveRecord::Base
   def assign_counters
     self.stars = repos.map(&:stars).reduce(:+) rescue 0 || 0
     self.score = repos.map(&:score).reduce(:+) rescue 0 || 0
+  end
+
+  def generate_slug
+    elements = []
+    elements += [id, name.parameterize]
+    elements += platforms.map { |platform| platform.name.parameterize } if platforms.any?
+    elements.join('-')
   end
 end
