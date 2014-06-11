@@ -1,10 +1,13 @@
 # RepoUpdater
-# makes fetching and creating or updating repos from Github
-# easy as cake
 #
-# Use:
-# - RepoUpdater.update('owner/name') => Single repo
-# - RepoUpdater.update_all => All repos
+# Makes fetching and creating or updating repos from Github easy as cake
+#
+# Usage:
+#   a) Single repo:
+#     RepoUpdater.update('owner/name') => Single repo
+#
+#   b ) All repos:
+#     RepoUpdater.update_all => All repos
 #
 class RepoUpdater
   def self.update(owner_and_name)

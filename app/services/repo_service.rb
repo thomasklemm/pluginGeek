@@ -1,7 +1,11 @@
 # RepoService
+#
 # This service object knows how to fetch and create or update
-# repos from Github. Just pass in a repo and send `repo.fetch_and_create_or_update`
-# to it
+# repos from Github.
+#
+# Usage:
+#   repo = Repo.new(owner_and_name: 'rails/rails')
+#   RepoService.new(repo).fetch_and_create_or_update
 #
 RepoService = Struct.new(:repo) do
   def github_repo
@@ -30,9 +34,9 @@ RepoService = Struct.new(:repo) do
   end
 
   def fetch_github_repo
-    res = HTTPClient.get(github_api_repo_url, github_authentication_hash)
-    raise Exceptions::Github::RepoNotFoundError unless res.status == 200
-    JSON.parse(res.content)
+    response = HTTPClient.get(github_api_repo_url, github_authentication_hash)
+    raise Exceptions::Github::RepoNotFoundError unless response.status == 200
+    JSON.parse(response.content)
   end
 
   def assign_fields(github_repo)
