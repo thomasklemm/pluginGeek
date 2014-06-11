@@ -1,10 +1,10 @@
 / application/_flash_messages
 ruby:
   render_flashes = !flash.empty? && !publicly_cached?
-  flash_hash = flash.to_hash
+  flashes = flash.to_hash.slice(:notice, :alert, :warning, :error)
 
 - if render_flashes
-  - flash_hash.slice(:notice, :alert, :warning, :error).each do |klass, message|
+  - flashes.each do |klass, message|
 
     / dismissable alert
     .alert class="is_#{klass}"
