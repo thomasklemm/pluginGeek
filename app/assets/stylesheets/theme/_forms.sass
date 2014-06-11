@@ -49,18 +49,25 @@ input[type="color"]
   width: 100%
   padding: 4px 6px
   font-size: 14px
-  border: 1px solid #ccc
-  border-radius: 3px
+  border: 2px solid #ccc
+  border-radius: 2px
+  outline: none
+
+  &:focus, &:active
+    border-color: $blue
+
+  .field_with_errors &
+    border-color: $red
+
+
+.field_with_errors
+  display: inline
+  color: $red
 
 .required_field
   color: $red
   cursor: default
   margin-left: 3px
-
-.field_with_errors
-  display: inline
-  color: $red
-  outline-color: $red
 
 .error_message
   color: $red
