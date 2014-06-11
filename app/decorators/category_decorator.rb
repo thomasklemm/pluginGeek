@@ -64,6 +64,20 @@ class CategoryDecorator < Draper::Decorator
   end
 
   ##
+  # Links
+
+  def links
+    @links ||= (model.links | links_of_repos).uniq
+  end
+
+  ##
+  # Related categories
+
+  def related_categories
+    @related_categories ||= (model.related_categories | reverse_related_categories).uniq.sort_by(&:stars).reverse
+  end
+
+  ##
   # Selectize option
 
   def to_selectize_option
@@ -78,5 +92,11 @@ class CategoryDecorator < Draper::Decorator
       formatted_repo_names: formatted_repo_names,
       short_repo_names: formatted_repo_names(shorten: true)
     }.to_json
+  end
+
+  private
+
+  def links_of_repos
+    @links_of_repos ||= repos.includes(:links).flat_map(&:links)
   end
 end

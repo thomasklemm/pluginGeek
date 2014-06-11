@@ -49,10 +49,6 @@ class Repo < ActiveRecord::Base
     Repo.for_picker.without(self)
   end
 
-  def parents_and_children
-    parents | children
-  end
-
   def score
     self[:score] || 0
   end

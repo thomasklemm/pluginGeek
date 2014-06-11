@@ -15,10 +15,6 @@ class Platform < ActiveRecord::Base
 
   scope :order_by_position, -> { order(position: :asc) }
 
-  def to_param
-    slug.parameterize
-  end
-
   def self.find_by_slug(slug)
     find_by(slug: slug.underscore) if slug.present?
   end
@@ -40,11 +36,15 @@ class Platform < ActiveRecord::Base
   end
 
   def categories
-    all_platforms? ? Category.all : super
+    all_platforms? ? Category.order_by_name : super
   end
 
   def all_platforms?
     slug == 'all_platforms'
+  end
+
+  def to_param
+    slug.parameterize
   end
 
 end

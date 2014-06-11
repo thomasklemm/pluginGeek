@@ -5,11 +5,12 @@
   = image_tag 'brand/logo.png', class: 'brand_logo'
   = image_tag 'brand/wordmark.png', class: 'brand_wordmark'
 
-div
+
+p
+  span style='font-weight: bold; font-size: 24px; line-height: 32px' ##{ current_platform.name }
+  span style='margin: 0 8px' = "#{ current_platform.categories_count } categories"
   - if policy(Category).create?
-    = link_to icon(:new, 'New category'), new_category_path, class: 'button', style: 'float: right'
-  h2 = "##{ current_platform.name }"
-  = "#{ current_platform.categories_count } categories"
+    = link_to icon(:new, 'New Category'), new_category_path, style: 'float: right'
 
 / pagination on page 2+
 - if params[:page] && params[:page].to_i > 1

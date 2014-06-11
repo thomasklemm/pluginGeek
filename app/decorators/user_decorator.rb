@@ -5,8 +5,8 @@ class UserDecorator < Draper::Decorator
   DEFAULT_AVATAR_URL =
     'https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png'
 
-  def name
-    model.name.presence || login
+  def avatar_url
+    model.avatar_url.presence || DEFAULT_AVATAR_URL
   end
 
   def email
@@ -17,19 +17,19 @@ class UserDecorator < Draper::Decorator
     model.company.presence || ''
   end
 
-  def location
-    model.location.presence || ''
-  end
-
   def followers
     model.followers.presence || 0
   end
 
-  def avatar_url
-    model.avatar_url.presence || DEFAULT_AVATAR_URL
-  end
-
   def github_url
     "https://github.com/#{ login }"
+  end
+
+  def location
+    model.location.presence || ''
+  end
+
+  def name
+    model.name.presence || login
   end
 end

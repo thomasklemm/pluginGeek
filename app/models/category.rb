@@ -45,26 +45,14 @@ class Category < ActiveRecord::Base
   has_many :service_categorizations,
     dependent: :destroy
 
-  before_save :assign_counters
+  before_save :set_stars_and_score
 
   def assignable_related_categories
     Category.for_picker.without(self)
   end
 
-  def extended_links
-    @extended_links ||= (links | links_of_repos).uniq
-  end
-
-  def links_of_repos
-    @links_of_repos ||= repos.includes(:links).flat_map(&:links)
-  end
-
   def score
     self[:score] || 0
-  end
-
-  def similar_categories
-    @similar_categories ||= (related_categories | reverse_related_categories).uniq.sort_by(&:stars).reverse
   end
 
   def slug
@@ -81,7 +69,7 @@ class Category < ActiveRecord::Base
 
   private
 
-  def assign_counters
+  def set_stars_and_score
     self.stars = repos.map(&:stars).reduce(:+) rescue 0 || 0
     self.score = repos.map(&:score).reduce(:+) rescue 0 || 0
   end

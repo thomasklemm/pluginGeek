@@ -1,7 +1,6 @@
 class Link < ActiveRecord::Base
   validates :url,
     :title,
-    :published_at,
     :submitter,
     presence: true
 
@@ -20,14 +19,4 @@ class Link < ActiveRecord::Base
     source_type: 'Repo'
   has_many :link_relationships,
     dependent: :destroy
-
-  def extended_categories
-    categories | categories_of_repos
-  end
-
-  private
-
-  def categories_of_repos
-    repos.flat_map(&:categories).uniq
-  end
 end
