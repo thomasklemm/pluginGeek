@@ -5,6 +5,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'webmock/rspec'
+require 'capybara/rails'
 
 # Requires namespaced models and controllers
 Dir[Rails.root.join("app/controllers/**/*.rb")].each {|f| require f}
@@ -26,6 +27,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
+  config.include Rails.application.routes.url_helpers
   config.include Features, type: :feature
   config.include Formulaic::Dsl, type: :feature
 

@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-describe "Github login" do
-  # Create a language to circumvent inifite redirect error
-  before { Fabricate(:language, name: 'Ruby') }
-
+feature "Github login" do
   context "github user authorizes app" do
     it "creates and logs in the user" do
       visit root_path
@@ -11,7 +8,7 @@ describe "Github login" do
       click_on "Login"
       expect(current_path).to eq(login_path)
 
-      click_on "Login with Github"
+      click_on "Login with GitHub"
       expect(current_path).to eq(root_path)
       expect(page).to have_content(/Thomas Klemm/)
       expect(page).to have_content(/Logout/)
@@ -23,7 +20,7 @@ describe "Github login" do
       OmniAuth.config.mock_auth[:github] = :access_denied
 
       visit login_path
-      click_on "Login with Github"
+      click_on "Login with GitHub"
 
       expect(current_path).to eq(root_path)
       expect(page).to have_content(/Authenticating with Github failed/)
