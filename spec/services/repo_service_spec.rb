@@ -32,7 +32,7 @@ describe RepoService do
       before { repo.owner_and_name = 'unknown/unknown' }
       it "returns false" do
         VCR.use_cassette('github/repos/unknown/unknown') do
-          expect(service.fetch_and_create_or_update).to be_false
+          expect(service.fetch_and_create_or_update).to be false
         end
       end
     end
