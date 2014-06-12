@@ -97,6 +97,6 @@ class CategoryDecorator < Draper::Decorator
   private
 
   def links_of_repos
-    @links_of_repos ||= repos.includes(:links).flat_map(&:links)
+    @links_of_repos ||= model.repos.includes(:links).flat_map(&:links)
   end
 end

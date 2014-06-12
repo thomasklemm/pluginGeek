@@ -23,6 +23,10 @@ class Platform < ActiveRecord::Base
     find_by_slug(slug) or raise ActiveRecord::RecordNotFound
   end
 
+  def self.for_picker
+    order_by_position.reject { |platform| platform.all_platforms? }
+  end
+
   # Defines class level finders
   # to retrieve each platform by its slug
   SLUGS.each do |slug|

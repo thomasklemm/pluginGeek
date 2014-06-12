@@ -3,6 +3,19 @@
 
 en:
   activerecord:
+    models:
+      category: Category
+      link: Link
+      platform: Platform
+      repo: Repo
+      user: User
     attributes:
       category:
-        platform_ids: 'Platforms'
+        description: Description
+        name: Name
+        platform_ids: Platforms
+      repo:
+        category_ids: Categories
+        owner_and_name: Owner/Name
+        parent_ids: Parents
+        staff_pick: Staff Pick

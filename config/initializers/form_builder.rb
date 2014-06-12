@@ -19,9 +19,7 @@ class ActionView::Helpers::FormBuilder
     repo_picker_options =
       options_for_select(assignable_repos.map do |repo|
         repo = repo.decorate
-        [ repo.owner_and_name, repo.id,
-          { data: { data: repo.to_selectize_option }
-        }]
+        [ repo.owner_and_name, repo.id ]
       end, @object.send(attribute))
 
     select @object_name, attribute, repo_picker_options, {},
