@@ -1,5 +1,6 @@
-/ links
-.links.container
-  .section-header
-    span.primary Links
-  .links-wrapper.container = render partial: 'links/link', collection: @links
+/ links/index
+p
+  .section_title Links
+  = link_to icon(:new, 'New link'), new_link_path
+
+= render @links

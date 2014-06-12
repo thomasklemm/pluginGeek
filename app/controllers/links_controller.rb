@@ -1,26 +1,25 @@
 class LinksController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_link, only: [:edit, :update, :destroy]
 
   def index
-    @links = Link.order(published_at: :desc)
+    authorize Link, :index?
+    load_links
   end
 
   def new
-    @link = Link.find_or_initialize_by(url: params[:url])
+    @link = Link.find_or_initialize_by url: params[:url]
 
     # Redirect to edit path if link is already known
-    @link.persisted? and redirect_to edit_link_path(@link)
+    redirect_to edit_link_path(@link) if @link.persisted?
 
-    # Set title and default published_at
-    @link.title, @link.published_at = params[:title], Date.current
+    # Set link title from params
+    @link.title = params[:title]
+    @link.submitter ||= current_user
     authorize @link
   end
 
   def create
-    @link = Link.new(link_params)
-    @link.submitter = current_user
-    authorize @link
+    build_link
 
     if @link.save
       redirect_to edit_link_path(@link), notice: 'Link has been created.'
@@ -30,11 +29,11 @@ class LinksController < ApplicationController
   end
 
   def edit
-    authorize @link
+    load_link
   end
 
   def update
-    authorize @link
+    load_link
 
     if @link.update(link_params)
       redirect_to edit_link_path(@link), notice: 'Link has been updated.'
@@ -44,7 +43,7 @@ class LinksController < ApplicationController
   end
 
   def destroy
-    authorize @link
+    load_link
 
     @link.destroy
     redirect_to root_url, notice: 'Link has been destroyed.'
@@ -52,11 +51,22 @@ class LinksController < ApplicationController
 
   private
 
+  def load_links
+    @links = Link.order(created_at: :desc)
+  end
+
   def load_link
-    @link = Link.find(params[:id])
+    @link = Link.find params[:id]
+    authorize @link
+  end
+
+  def build_link
+    @link = Link.new(link_params)
+    @link.submitter ||= current_user
+    authorize @link
   end
 
   def link_params
-    params.require(:link).permit(:title, :url, :published_at, { repo_ids: [] }, { category_ids: [] })
+    params.require(:link).permit *policy(Link).permitted_attributes
   end
 end

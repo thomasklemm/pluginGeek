@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140602205407) do
+ActiveRecord::Schema.define(version: 20140612085026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20140602205407) do
   add_index "categories", ["score"], name: "index_categories_on_score", using: :btree
 
   create_table "categorizations", force: true do |t|
-    t.integer "repo_id",     null: false
-    t.integer "category_id", null: false
+    t.integer "repo_id"
+    t.integer "category_id"
   end
 
   add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
@@ -59,9 +59,9 @@ ActiveRecord::Schema.define(version: 20140602205407) do
   add_index "category_relationships", ["other_category_id"], name: "index_category_relationships_on_other_category_id", using: :btree
 
   create_table "link_relationships", force: true do |t|
-    t.integer  "link_id",       null: false
-    t.integer  "linkable_id",   null: false
-    t.text     "linkable_type", null: false
+    t.integer  "link_id"
+    t.integer  "linkable_id"
+    t.text     "linkable_type"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20140602205407) do
 
   create_table "links", force: true do |t|
     t.text     "url",          null: false
-    t.text     "title",        null: false
+    t.text     "title"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "submitter_id"
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 20140602205407) do
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", unique: true, using: :btree
 
   create_table "repo_relationships", force: true do |t|
-    t.integer  "parent_id",  null: false
-    t.integer  "child_id",   null: false
+    t.integer  "parent_id"
+    t.integer  "child_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
