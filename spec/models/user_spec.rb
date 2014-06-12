@@ -4,11 +4,10 @@ describe User do
   subject(:user) { Fabricate.build(:user) }
   it { should be_valid }
 
-  it { should validate_presence_of(:login) }
-
-  it 'ensures a unique login' do
-    user.save
-    expect(user).to validate_uniqueness_of(:login)
+  describe 'validations' do
+    before { user.save }
+    it { should validate_presence_of(:login) }
+    it { should validate_uniqueness_of(:login) }
   end
 
   it { should have_many(:authentications).dependent(:destroy) }

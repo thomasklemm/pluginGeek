@@ -63,19 +63,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    columnize (0.8.9)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     daemon_controller (1.2.0)
     dalli (2.7.2)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
-    debugger (1.6.8)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.3.5)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.3.5)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -262,6 +255,9 @@ GEM
       railties (>= 3.0, < 4.2)
       slim (~> 2.0)
     slop (3.5.0)
+    spring (1.1.2)
+    spring-commands-rspec (1.0.2)
+      spring (>= 0.9.1)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -304,7 +300,6 @@ DEPENDENCIES
   coffee-rails
   dalli
   database_cleaner
-  debugger
   devise (>= 3.0.0)
   draper!
   exception_notification
@@ -341,6 +336,8 @@ DEPENDENCIES
   selectize-rails
   shoulda-matchers
   slim-rails
+  spring
+  spring-commands-rspec
   timecop
   uglifier
   vcr

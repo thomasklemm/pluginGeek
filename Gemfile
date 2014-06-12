@@ -92,7 +92,9 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'debugger'
+
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
