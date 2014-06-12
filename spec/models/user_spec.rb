@@ -5,20 +5,22 @@ describe User do
   it { should be_valid }
 
   it { should validate_presence_of(:login) }
-  it { should validate_uniqueness_of(:login) }
+
+  it 'ensures a unique login' do
+    user.save
+    expect(user).to validate_uniqueness_of(:login)
+  end
 
   it { should have_many(:authentications).dependent(:destroy) }
 
   describe "#moderator and #moderator?" do
     it "returns true for moderators" do
       user.moderator = true
-      expect(user.moderator).to be_true
-      expect(user.moderator?).to be_true
+      expect(user).to be_moderator
     end
 
     it "returns false by default" do
-      expect(user.moderator).to be_false
-      expect(user.moderator?).to be_false
+      expect(user).not_to be_moderator
     end
   end
 

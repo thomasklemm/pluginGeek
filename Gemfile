@@ -7,7 +7,7 @@ ruby '2.0.0'
 gem 'passenger'
 
 # The latest and greatest Rails (or has the world been progressing?)
-gem 'rails', '~> 4.0.4'
+gem 'rails', '~> 4.1.0'
 
 # Postgres database
 gem 'pg'
@@ -18,7 +18,7 @@ gem 'jquery-rails'
 gem 'uglifier'
 
 # Sass stylesheets
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails', '~> 4.0.3'
 
 # Threadsafe HTTP requests
 gem 'httpclient'
@@ -40,7 +40,7 @@ gem 'figaro'
 gem 'slim-rails'
 
 # Decorate records for the view layer
-gem 'draper'
+gem 'draper', github: 'drapergem/draper'
 
 # Renders markdown
 gem 'redcarpet'
@@ -103,17 +103,11 @@ group :test do
   #  Great also for generating seed data
   gem 'fabrication'
 
-  # Cool rspec matchers
-  gem 'shoulda-matchers'
-
-  # Mock objects
-  gem 'mocha'
+  # Useful RSpec matchers
+  gem 'shoulda-matchers', require: false
 
   # Time travelling
   gem 'timecop'
-
-  # Headless javascript driver
-  gem 'capybara-webkit'
 
   # Opens the website in your favorite browser
   # in case of a red feature
@@ -122,6 +116,9 @@ group :test do
   # Stub http requests
   gem 'webmock'
   gem 'vcr'
+
+  # Form filling with Capybara
+  gem 'formulaic'
 end
 
 group :production do
