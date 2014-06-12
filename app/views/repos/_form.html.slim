@@ -20,7 +20,7 @@
   = form_field do
     = f.label :parent_ids
     = f.error_message_on :parent_ids
-    = help "Is \"#{ @repo.owner_and_name }\" based further open-source projects?"
+    = form_help "Is \"#{ @repo.owner_and_name }\" based further open-source projects?"
     = f.repo_picker :parent_ids, @repo.assignable_parents
 
   = form_actions do

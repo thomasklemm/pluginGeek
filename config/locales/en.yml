@@ -14,6 +14,11 @@ en:
         description: Description
         name: Name
         platform_ids: Platforms
+      link:
+        category_ids: Categories
+        title: Title
+        repo_ids: Repos
+        url: URL
       repo:
         category_ids: Categories
         owner_and_name: Owner/Name

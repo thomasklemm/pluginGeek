@@ -1,47 +1,32 @@
 / links/_form
 = form_for @link do |f|
-  = render 'shared/error_messages', target: @link
 
-  / title
-  .field
+  = form_field do
     = f.label :title
     = required_field
-
+    = f.error_message_on :title
     = f.text_field :title, autocomplete: 'off'
 
-  / url
-  .field
+  = form_field do
     = f.label :url
     = required_field
-
+    = f.error_message_on :url
     = f.text_field :url
 
-  / repos
-  /.field
-  /  = f.label :repo_ids, "Associated projects"
-  /  - repo_select_options = options_from_collection_for_select(Repo.ids_and_full_names, :id, :full_name, @link.repo_ids)
-  /  = f.select(:repo_ids, repo_select_options, {}, { include_blank: true, multiple: true })
-  /  .hint The link will automatically be associated with each repo's categories. Save to see results below.
-  /
-  // categories
-  /.field
-  /  = f.label :category_ids, "Associated categories"
-  /  - category_select_options = options_from_collection_for_select(Category.ids_and_full_names, :id, :full_name, @link.category_ids)
-  /  = f.select(:category_ids, category_select_options, {}, { multiple: true })
-  /  .hint See hint above. :-D
+  = form_field do
+    = f.label :repo_ids
+    = f.error_message_on :repo_ids
+    = form_help "When associated with a repo, the link will automatically be displayed in the repo's categories, too."
+    = f.repo_picker :repo_ids, @link.assignable_repos
 
-  / submit button
-  .actions
-    = f.submit class: 'button'
+  = form_field do
+    = f.label :category_ids
+    = f.error_message_on :category_ids
+    = f.category_picker :category_ids, @link.assignable_categories
 
-/ Repos and categories associations
-/ improved by select2
-javascript:
-  $('#link_repo_ids').select2({
-    placeholder: 'Repos'
-  });
+  = form_actions do
+    = f.submit class: 'button is_primary'
 
-javascript:
-  $('#link_category_ids').select2({
-    placeholder: 'Categories'
-  });
+coffee:
+  $ ->
+    Form.init()

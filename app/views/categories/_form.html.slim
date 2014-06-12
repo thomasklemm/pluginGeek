@@ -10,7 +10,7 @@
   = form_field do
     = f.label :description
     = f.error_message_on :description
-    = help "Short and concise is key :) Consult the repos below for inspiration."
+    = form_help "Short and concise is key :) Consult the repos below for inspiration."
     = f.text_area :description, placeholder: 'Describe the category', rows: 4
 
   = form_field do
@@ -26,7 +26,7 @@
   = form_field do
     = f.label 'Visibility'
     = f.error_message_on :published
-    
+
     = form_checkbox(:inline) do
       = f.check_box :published
       = f.label :published, 'Visible to the public'

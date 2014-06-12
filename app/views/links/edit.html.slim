@@ -1,42 +1,29 @@
-.new-link-wrapper
-  .page-title Edit link
+ruby:
+  @decorated_link = @link.decorate
 
-  p.is_highlighted
-    | Submit noteworthy blog posts, screencasts and more to pluginGeek <br />
-    | and associate them with matching projects and categories. <br />
-    | Thanks a lot for your help to make pluginGeek great for everybody!
+h3 Edit link
 
-  / Form
-  .container
-    .eight.columns
-      = render 'form'
+= render 'form'
 
-  .space-two
+.spacer.is_md
 
-  / Associated categories
-  .categories-wrapper.container
-    .section-header
-      span.primary Associated categories
-    .container
-      - if @link.extended_categories.present?
-        = render partial: 'categories/category', collection: @link.extended_categories
-      - else
-        .none-yet None yet.
+.link_repos.is_highlighted
+  .section_title Repos
+  = maybe_empty do
+    = render @decorated_link.repos
 
-  .space-one
+.spacer.is_md
 
-  / Associated repos
-  .repos-wrapper.container
-    .section-header
-      span.primary Associated repos
-    .container
-      - if @link.repos.any?
-        = render partial: 'repos/repo', collection: @link.repos
-      - else
-        .none-yet None yet.
+.link_categories.is_highlighted
+  .section_title Categories
+  = form_help 'Includes the categories of the repos above'
+  = maybe_empty do
+    = render @decorated_link.categories
 
-  .space-one
+.spacer.is_lg
 
-  // Delete link
-  /- if policy(@link).destroy?
-  /  = link_to icon(:destroy, 'Destroy this link'), @link, method: :delete, data: { confirm: 'Are you sure?' }
+- if policy(@link).destroy?
+  .box.is_danger
+    .title Danger Zone
+    = link_to @link, method: :delete, data: { confirm: 'Are you sure?' } do
+      = icon :destroy, 'Remove Link from Plugingeek'

@@ -14,7 +14,7 @@ module FormHelper
     content_tag :div, capture(&block), class: 'field'
   end
 
-  def help(text = nil, &block)
+  def form_help(text = nil, &block)
     text ||= capture(&block)
     content_tag(:div, text, class: 'help')
   end

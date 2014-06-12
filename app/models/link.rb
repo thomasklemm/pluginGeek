@@ -19,4 +19,12 @@ class Link < ActiveRecord::Base
     source_type: 'Repo'
   has_many :link_relationships,
     dependent: :destroy
+
+  def assignable_categories
+    Category.for_picker
+  end
+
+  def assignable_repos
+    Repo.for_picker
+  end
 end
