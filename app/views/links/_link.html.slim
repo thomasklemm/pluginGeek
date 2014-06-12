@@ -4,3 +4,6 @@
 
   .link__title = link_to link.url do
     = icon :external_url, link.title
+
+    - if policy(link).edit?
+      = link_to icon(:edit_link), [:edit, link], class: 'link__link_to_edit_link'

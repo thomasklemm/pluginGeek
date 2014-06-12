@@ -10,17 +10,21 @@ class LinkPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
+    user_attributes
+  end
+
+  private
+
+  def permit_submitter
+    link.submitter_id == user.id
+  end
+
+  def user_attributes
     [
       :title,
       :url,
       :category_ids => [],
       :repo_ids => []
     ]
-  end
-
-  private
-
-  def permit_submitter
-    (link && link.submitter) == user
   end
 end

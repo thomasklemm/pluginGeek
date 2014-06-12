@@ -44,10 +44,6 @@ class CategoriesController < ApplicationController
     redirect_to root_path, notice: 'Category has been destroyed.'
   end
 
-  def autocomplete
-    @categories = Category.for_picker
-  end
-
   private
 
   def load_categories
@@ -64,16 +60,16 @@ class CategoriesController < ApplicationController
     authorize @category
   end
 
-  def categories_scope
-    scope = current_platform.categories
-    scope = scope.includes(:platforms, :repos)
-    scope = scope.order(published: :desc, score: :desc)
-    scope.page params[:page]
-  end
-
   def category_params
     category_params = params.fetch :category, {}
     category_params.permit policy(Category).permitted_attributes
+  end
+
+  def categories_scope
+    scope = current_platform.categories
+    scope = scope.includes(:platforms, :repos)
+    scope = scope.order_by_name
+    scope.page params[:page]
   end
 
   # Transforms aliases into known platform slugs
@@ -85,10 +81,6 @@ class CategoriesController < ApplicationController
     slug = 'javascript' if slug == 'js'
 
     slug
-  end
-
-  def query_param
-    params[:q]
   end
 
   def redirect_to_updated_category_path

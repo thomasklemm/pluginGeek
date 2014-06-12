@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   # Redirect user back on detected access violation
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   # Redirect user back to previous url after successful login
   before_filter :store_location

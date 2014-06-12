@@ -67,6 +67,7 @@ class LinksController < ApplicationController
   end
 
   def link_params
-    params.require(:link).permit *policy(Link).permitted_attributes
+    link_params = params.fetch :link, {}
+    link_params.permit policy(Link).permitted_attributes
   end
 end

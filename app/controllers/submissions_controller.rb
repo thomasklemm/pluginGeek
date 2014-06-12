@@ -1,43 +1,52 @@
 class SubmissionsController < ApplicationController
-  # Handle submission of links and repos
-  # GET /submit?url=https://www.github.com/...&title=Github%20Repo
+
+  # Handle submission of repos and links
+  # GET /submit?url=https://github.com/rails/rails
+  # GET /submit?url=http://blog.com/posts/1&title=Blog%20Post
   def submit
-    url.present? or return redirect_to root_url,
-      alert: "Please provide a URL on your submission request ('?url=...' is missing)."
+    ensure_presence_of_url
 
-    # A link is being submitted
-    unless is_github_repo?
-      return redirect_to new_link_url(params: params.slice(:url, :title))
-    end
-
-    # A repo is being submitted
-    if repo.present?
-      return redirect_to repo
+    if url_points_to_github_repo?
+      redirect_to new_repo_path(params: repo_params)
     else
-      return redirect_to repo_path(repo_owner_and_name)
+      redirect_to new_link_path(params: link_params)
     end
   end
 
   private
 
-  def url
-    @url ||= params[:url].try(:strip)
+  def ensure_presence_of_url
+    url.present? or redirect_to root_url,
+      alert: "Please provide a URL on your submission request ('?url=...' is missing)."
   end
 
-  def is_github_repo?
-    url.index('https://github.com/').present?
+  def link_params
+    params.slice(:url, :title)
   end
 
-  def repo
-    @repo ||= Repo.find_by_owner_and_name(repo_owner_and_name)
+  def repo_params
+    { owner_and_name: repo_owner_and_name }
   end
 
   def repo_owner_and_name
-    @repo_owner_and_name = url.
-      gsub('https://github.com/', '').
-      gsub(/\?.*$/, ''). # Remove trailing query string
-      strip.
-      split('/')[0,2]. # Review: Use regex from routes?
-      join('/')
+    match_data = github_url_regex.match(url)
+
+    if match_data
+      match_data[:owner_and_name]
+    else
+      false
+    end
+  end
+
+  def url
+    @url ||= params[:url].andand.strip
+  end
+
+  def url_points_to_github_repo?
+    repo_owner_and_name
+  end
+
+  def github_url_regex
+    %r{https:\/\/github.com\/(?<owner_and_name>[\w|.]+\/[\w|.]+)}
   end
 end

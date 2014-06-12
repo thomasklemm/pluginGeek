@@ -5,13 +5,19 @@ class Repo < ActiveRecord::Base
     uniqueness: { case_sensitive: false }
 
   # Case-insensitive search
-  scope :find_by_owner_and_name,  ->(query) { where("lower(owner_and_name) = ?", query.downcase).first }
-  scope :find_by_owner_and_name!, ->(query) { where("lower(owner_and_name) = ?", query.downcase).first! }
+  def self.find_by_owner_and_name(owner_and_name)
+    search(owner_and_name).first
+  end
+
+  def self.find_by_owner_and_name!(owner_and_name)
+    search(owner_and_name).first!
+  end
 
   scope :default_order, -> { order_by_score }
   scope :for_picker, -> { order_by_score }
   scope :order_by_name,  -> { order(owner_and_name: :asc) }
   scope :order_by_score, -> { order(score: :desc) }
+  scope :search, -> (owner_and_name) { where("lower(owner_and_name) = ?", owner_and_name.downcase) }
 
   has_many :categories,
     through: :categorizations

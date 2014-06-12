@@ -45,6 +45,14 @@ ApplicationPolicy = Struct.new(:user, :record) do
     false
   end
 
+  def permitted_attributes
+    if moderator?
+      moderator_attributes
+    else
+      user_attributes
+    end
+  end
+
   private
 
   def moderator?

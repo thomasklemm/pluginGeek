@@ -25,7 +25,7 @@ Plugingeek::Application.routes.draw do
   end
 
   # Repos
-  resources :repos, constraints: { id: %r{[^\/]+[\/][^\/]+} }, except: [:index, :new]
+  resources :repos, constraints: { id: %r{[^\/]+[\/][^\/]+} }, except: :index
 
   # Links
   resources :links, except: :show

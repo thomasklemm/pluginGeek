@@ -1,10 +1,9 @@
 / application/_flash_messages
 ruby:
-  render_flashes = !flash.empty? && !publicly_cached?
-  flashes = flash.to_hash.slice(:notice, :alert, :warning, :error)
+  render_flashes = flash.present? && !publicly_cached?
 
 - if render_flashes
-  - flashes.each do |klass, message|
+  - flash.each do |klass, message|
 
     / dismissable alert
     .alert class="is_#{klass}"

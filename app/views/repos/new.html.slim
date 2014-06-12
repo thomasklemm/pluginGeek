@@ -2,8 +2,6 @@
 ruby:
   @repo = @repo.decorate
 
-=> link_to @repo.owner_and_name, @repo.github_url
-' is not yet listed on Plugingeek yet. Do you want to create it on Plugingeek?
+h3 Add this repo to Plugingeek
 
-= button_to repos_path(owner_and_name: @repo.owner_and_name), class: 'btn btn-primary' do
-  span = "Create #{@repo.owner_and_name} on Plugingeek"
+= render 'form'
