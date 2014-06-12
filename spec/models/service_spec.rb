@@ -14,7 +14,7 @@ describe Service do
 
   describe ".for_category" do
     let!(:category) { Fabricate(:category) }
-    let!(:service) { service = Fabricate(:service); service.categories |= [category]; service }
+    let!(:service) { Fabricate(:service, categories: [category]) }
 
     it "returns the category's services" do
       # Other service

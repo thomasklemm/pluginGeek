@@ -64,3 +64,18 @@ describe RepoDecorator do
     end
   end
 end
+
+
+# describe "#parents_and_children" do
+#   let(:parent)  { Fabricate.build(:repo) }
+#   let(:child)  { Fabricate.build(:repo) }
+#
+#   before do
+#     repo.save
+#     repo.parents, repo.children = [parent], [child]
+#   end
+#
+#   it "returns an array with both parents and children" do
+#     expect(repo.parents_and_children).to match_array([parent, child])
+#   end
+# end

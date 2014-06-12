@@ -60,3 +60,18 @@ describe CategoryDecorator do
     end
   end
 end
+
+
+# describe "#similar_categories" do
+#   let(:related_category) { Fabricate(:category) }
+#   let(:reverse_related_category) { Fabricate(:category) }
+#
+#   before do
+#     category.related_categories << related_category
+#     category.reverse_related_categories << reverse_related_category
+#   end
+#
+#   it "returns all similar categories, regardless of direction of association" do
+#     expect(category.similar_categories).to match_array([related_category, reverse_related_category])
+#   end
+# end
