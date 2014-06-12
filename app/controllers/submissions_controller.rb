@@ -29,7 +29,7 @@ class SubmissionsController < ApplicationController
   end
 
   def repo_owner_and_name
-    match_data = github_url_regex.match(url)
+    match_data = GITHUB_URL_REGEXP.match(url)
 
     if match_data
       match_data[:owner_and_name]
@@ -44,9 +44,5 @@ class SubmissionsController < ApplicationController
 
   def url_points_to_github_repo?
     repo_owner_and_name
-  end
-
-  def github_url_regex
-    %r{https:\/\/github.com\/(?<owner_and_name>[\w|.]+\/[\w|.]+)}
   end
 end

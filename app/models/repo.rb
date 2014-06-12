@@ -1,7 +1,7 @@
 class Repo < ActiveRecord::Base
   validates :owner_and_name,
     presence: true,
-    format: { with: VALID_REPO_OWNER_AND_NAME },
+    format: { with: REPO_OWNER_AND_NAME_REGEXP },
     uniqueness: { case_sensitive: false }
 
   # Case-insensitive search

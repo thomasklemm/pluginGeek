@@ -13,11 +13,11 @@ Plugingeek::Application.routes.draw do
   get 'login', to: 'devise/sessions#new', as: :login
   delete 'logout', to: 'devise/sessions#destroy', as: :logout
 
-  # Categories list / Platforms
+  # Platform categories
   get '/', to: 'categories#index', as: :all_platforms
 
   get '/:platform_slug', to: 'categories#index', as: :platform,
-    constraints: { platform_slug: /(#{Platform::SLUGS.join('|')})/i }
+    constraints: { platform_slug: PLATFORM_SLUGS_REGEXP }
 
   # Categories
   resources :categories, except: :index do
@@ -25,7 +25,7 @@ Plugingeek::Application.routes.draw do
   end
 
   # Repos
-  resources :repos, constraints: { id: %r{[^\/]+[\/][^\/]+} }, except: :index
+  resources :repos, constraints: { id: REPO_OWNER_AND_NAME_REGEXP }, except: :index
 
   # Links
   resources :links, except: :show
