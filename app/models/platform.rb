@@ -25,7 +25,7 @@ class Platform < ActiveRecord::Base
   end
 
   def self.all_platforms
-    Platform.new(id: 0, slug: 'all_platforms', name: 'All platforms', position: 0)
+    Platform.new(slug: 'all_platforms', name: 'All platforms', position: 0)
   end
 
   # Defines class level finders

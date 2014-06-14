@@ -121,6 +121,9 @@ group :test do
 
   # Form filling with Capybara
   gem 'formulaic'
+
+  # Formerly in RSpec core
+  gem 'rspec-collection_matchers'
 end
 
 group :production do

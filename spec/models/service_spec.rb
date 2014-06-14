@@ -4,13 +4,17 @@ describe Service do
   subject(:service) { Fabricate.build(:service) }
   it { should be_valid }
 
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:display_url) }
-  it { should validate_presence_of(:target_url) }
-  it { should validate_presence_of(:description) }
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:display_url) }
+    it { should validate_presence_of(:target_url) }
+    it { should validate_presence_of(:description) }
+  end
 
-  it { should have_many(:service_categorizations).dependent(:destroy) }
-  it { should have_many(:categories).through(:service_categorizations) }
+  describe 'associations' do
+    it { should have_many(:categories).through(:service_categorizations) }
+    it { should have_many(:service_categorizations).dependent(:destroy) }
+  end
 
   describe ".for_category" do
     let!(:category) { Fabricate(:category) }

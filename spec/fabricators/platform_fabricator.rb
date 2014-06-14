@@ -1,5 +1,5 @@
 Fabricator(:platform) do
-  name      "Ruby"
-  slug      "ruby"
-  position  1
+  name      { sequence(:name) { |i| "Platform #{i}" } }
+  slug      { sequence(:slug) { |i| "platform_#{i}" } }
+  position  { sequence(:position) }
 end

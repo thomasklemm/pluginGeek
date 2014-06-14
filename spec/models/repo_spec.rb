@@ -10,17 +10,19 @@ describe Repo do
     it { should validate_uniqueness_of(:owner_and_name) }
   end
 
-  it { should have_many(:categories).through(:categorizations) }
-  it { should have_many(:categorizations).dependent(:destroy) }
+  describe 'associations' do
+    it { should have_many(:categories).through(:categorizations) }
+    it { should have_many(:categorizations).dependent(:destroy) }
 
-  it { should have_many(:parents).through(:parent_child_relationships) }
-  it { should have_many(:parent_child_relationships).class_name('RepoRelationship').dependent(:destroy) }
+    it { should have_many(:parents).through(:parent_child_relationships) }
+    it { should have_many(:parent_child_relationships).class_name('RepoRelationship').dependent(:destroy) }
 
-  it { should have_many(:children).through(:child_parent_relationships) }
-  it { should have_many(:child_parent_relationships).class_name('RepoRelationship').dependent(:destroy) }
+    it { should have_many(:children).through(:child_parent_relationships) }
+    it { should have_many(:child_parent_relationships).class_name('RepoRelationship').dependent(:destroy) }
 
-  it { should have_many(:links).through(:link_relationships) }
-  it { should have_many(:link_relationships).dependent(:destroy) }
+    it { should have_many(:links).through(:link_relationships) }
+    it { should have_many(:link_relationships).dependent(:destroy) }
+  end
 
   describe ".find_by_owner_and_name" do
     it "finds repos by case-insensitive owner_and_name" do

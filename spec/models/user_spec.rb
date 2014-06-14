@@ -10,7 +10,9 @@ describe User do
     it { should validate_uniqueness_of(:login) }
   end
 
-  it { should have_many(:authentications).dependent(:destroy) }
+  describe 'associations' do
+    it { should have_many(:authentications).dependent(:destroy) }
+  end
 
   describe "#moderator and #moderator?" do
     it "returns true for moderators" do
