@@ -8,4 +8,10 @@ class PlatformDecorator < Draper::Decorator
   def platform_icon_path
     h.image_path("platforms/#{ slug }.png")
   end
+
+  private
+
+  def all_platforms?
+    model.send(:all_platforms?)
+  end
 end
