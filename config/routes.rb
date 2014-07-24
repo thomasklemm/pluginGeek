@@ -17,7 +17,7 @@ Plugingeek::Application.routes.draw do
   get '/', to: 'categories#index', as: :all_platforms
 
   get '/:platform_slug', to: 'categories#index', as: :platform,
-    constraints: { platform_slug: PLATFORM_SLUGS_REGEXP }
+    constraints: { platform_slug: PLATFORM_IDS_REGEXP }
 
   # Categories
   resources :categories, except: :index do
