@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Platform do
   let(:ruby) { platform_for(:ruby) }
   let(:javascript) { platform_for(:javascript) }
+  let(:global) { Platform::Global.instance }
 
   def platform_for(platform_id)
     described_class.new(platform_attributes_for(platform_id))
@@ -12,7 +13,7 @@ describe Platform do
     PLATFORMS.detect { |platform| platform[:id].to_s == platform_id.to_s }
   end
 
-  describe 'class methods' do
+  describe 'platform finders' do
     subject { described_class }
 
     describe '.ruby' do
@@ -33,15 +34,15 @@ describe Platform do
       end
     end
 
-    describe '.find' do
-      it 'returns the platform, given a symbol' do
-        expect(described_class.find(:ruby)).to eq ruby
-      end
-
-      it 'returns the platform, given a string' do
-        expect(described_class.find('ruby')).to eq ruby
+    describe '.global' do
+      it 'returns the global platform' do
+        expect(described_class.global).to eq global
       end
     end
+  end
+
+  describe 'class methods' do
+    subject { described_class }
 
     describe '.all' do
       it 'returns all platforms in the given order' do
@@ -52,6 +53,26 @@ describe Platform do
         ]
       end
     end
+
+    describe '.find' do
+      it 'returns the platform, given a symbol' do
+        expect(described_class.find(:ruby)).to eq ruby
+      end
+
+      it 'returns the platform, given a string' do
+        expect(described_class.find('ruby')).to eq ruby
+      end
+    end
+
+    describe '.current' do
+      it 'returns the current platform, given a platform id' do
+        expect(described_class.current(:ruby)).to eq ruby
+      end
+      it 'returns the global platform, when the global platform id' do
+        expect(described_class.current(:global)).to eq global
+      end
+    end
+
   end
 
   describe 'instance methods' do

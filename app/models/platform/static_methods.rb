@@ -21,11 +21,11 @@ class Platform
       end
 
       def current(id)
-        find(id) || global
+        Platform::Global.global_id?(id) ? global : find(id)
       end
 
       def global
-        GlobalPlatform.new
+        Platform::Global.instance
       end
     end
   end
