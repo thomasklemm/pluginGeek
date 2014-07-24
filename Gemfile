@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-# Ruby version on Heroku
-ruby '2.0.0'
+# Ruby version
+ruby '2.1.2'
 
 # App server
 gem 'passenger'
 
-# The latest and greatest Rails (or has the world been progressing?)
-gem 'rails', '~> 4.1.0'
+# The latest and greatest Ruby on Rails
+gem 'rails', '~> 4.1.4'
 
 # Postgres database
 gem 'pg'
@@ -24,7 +24,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'httpclient'
 
 # User authentication
-gem 'devise', '>= 3.0.0'
+gem 'devise'
 
 # User authentication with oAuth
 gem 'omniauth'
@@ -40,7 +40,7 @@ gem 'figaro'
 gem 'slim-rails'
 
 # Decorate records for the view layer
-gem 'draper', github: 'drapergem/draper'
+gem 'draper'
 
 # Renders markdown
 gem 'redcarpet'
@@ -91,9 +91,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  # The RSpec testing framework
+  gem 'rspec-rails', '~> 3.0'
 
-  gem 'spring'
+  # Faster spec startup times
+  #  Run: spring rspec
+  #       spring rspec spec/models/repo_spec.rb
   gem 'spring-commands-rspec'
 end
 
@@ -127,7 +130,7 @@ group :test do
 end
 
 group :production do
-  # Heroku gem
+  # Heroku logging
   gem 'rails_12factor'
 
   # Memcached provider
@@ -139,6 +142,6 @@ group :production do
   # Shorten logs
   gem 'lograge'
 
-  # Email in case of exception
+  # Exception emails
   gem 'exception_notification'
 end
