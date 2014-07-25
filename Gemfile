@@ -91,6 +91,12 @@ group :development do
 end
 
 group :development, :test do
+  # Print Ruby objects
+  gem 'awesome_print'
+
+  # Test objects
+  gem 'factory_girl_rails'
+
   # The RSpec testing framework
   gem 'rspec-rails', '~> 3.0'
 
@@ -106,7 +112,7 @@ group :test do
 
   # Fabricate objects instead of using fixtures
   #  Great also for generating seed data
-  gem 'fabrication'
+  # gem 'fabrication'
 
   # Useful RSpec matchers
   gem 'shoulda-matchers', require: false

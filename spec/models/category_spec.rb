@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Category do
   subject(:category) { Fabricate.build(:category) }
-  it { should be_valid }
 
   describe 'validations' do
     it { should validate_presence_of(:name) }

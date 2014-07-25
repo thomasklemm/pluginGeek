@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Authentication do
   subject { Fabricate.build(:authentication) }
-  it { should be_valid }
 
   describe 'validations' do
     it { should validate_presence_of(:user) }

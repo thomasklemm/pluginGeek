@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Repo do
   subject(:repo) { Fabricate.build(:repo) }
-  it { should be_valid }
 
   describe 'validations' do
     before { repo.save }

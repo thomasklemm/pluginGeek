@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe User do
   subject(:user) { Fabricate.build(:user) }
-  it { should be_valid }
 
   describe 'validations' do
     before { user.save }

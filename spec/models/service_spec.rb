@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Service do
   subject(:service) { Fabricate.build(:service) }
-  it { should be_valid }
 
   describe 'validations' do
     it { should validate_presence_of(:name) }
