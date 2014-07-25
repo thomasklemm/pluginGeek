@@ -2,6 +2,8 @@ PLATFORMS = [
   { id: :ruby, name: 'Ruby' },
   { id: :javascript, name: 'JavaScript' },
   { id: :html_css, name: 'HTML/CSS'},
+  { id: :ios, name: 'iOS' },
+  { id: :android, name: 'Android' }
 ]
 PLATFORM_IDS = PLATFORMS.map { |platform| platform[:id] }
 PLATFORM_IDS_REGEXP = /(#{ PLATFORM_IDS.join('|') })/i

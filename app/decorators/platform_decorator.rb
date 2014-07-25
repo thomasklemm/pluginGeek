@@ -3,7 +3,7 @@ class PlatformDecorator < Draper::Decorator
 
   def platform_path
     global? ?
-      h.root_path :
+      h.global_platform_path :
       h.platform_path(id)
   end
 

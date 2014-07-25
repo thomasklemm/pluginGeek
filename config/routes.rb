@@ -14,7 +14,7 @@ Plugingeek::Application.routes.draw do
   delete 'logout', to: 'devise/sessions#destroy', as: :logout
 
   # Platform categories
-  get '/', to: 'categories#index', as: :all_platforms
+  get '/', to: 'categories#index', as: :global_platform
 
   get '/:platform_id', to: 'categories#index', as: :platform,
     constraints: { platform_id: PLATFORM_IDS_REGEXP }
@@ -25,7 +25,8 @@ Plugingeek::Application.routes.draw do
   end
 
   # Repos
-  resources :repos, constraints: { id: REPO_OWNER_AND_NAME_REGEXP }, except: :index
+  resources :repos, except: :index,
+    constraints: { id: REPO_OWNER_AND_NAME_REGEXP }
 
   # Links
   resources :links, except: :show

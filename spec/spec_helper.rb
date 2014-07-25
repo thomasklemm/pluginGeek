@@ -27,6 +27,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
+  # config.include Rails.application.routes.url_helpers
   config.include Features, type: :feature
   config.include Formulaic::Dsl, type: :feature
   config.include Devise::TestHelpers, type: :controller
@@ -35,6 +36,7 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.order = 'random'
   config.use_transactional_fixtures = false
+  config.infer_spec_type_from_file_location!
 end
 
 ActiveRecord::Migration.maintain_test_schema!

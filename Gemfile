@@ -98,7 +98,7 @@ group :development, :test do
   gem 'factory_girl_rails'
 
   # The RSpec testing framework
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '~> 2.14'
 
   # Faster spec startup times
   #  Run: - spring rspec
@@ -128,7 +128,7 @@ group :test do
   gem 'formulaic'
 
   # Formerly in RSpec core
-  gem 'rspec-collection_matchers'
+  # gem 'rspec-collection_matchers'
 end
 
 group :production do
