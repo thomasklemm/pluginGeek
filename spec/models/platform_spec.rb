@@ -5,14 +5,6 @@ describe Platform do
   let(:javascript) { platform_for(:javascript) }
   let(:global) { Platform::Global.instance }
 
-  def platform_for(platform_id)
-    described_class.new(platform_attributes_for(platform_id))
-  end
-
-  def platform_attributes_for(platform_id)
-    PLATFORMS.detect { |platform| platform[:id].to_s == platform_id.to_s }
-  end
-
   describe 'platform finders' do
     subject { described_class }
 
@@ -92,6 +84,13 @@ describe Platform do
       it 'returns a URL-friendly id' do
         platform.id = 'my-platform id'
         expect(platform.to_param).to eq 'my-platform_id'
+      end
+    end
+
+    describe '#to_s' do
+      it 'returns the id' do
+        platform.id = 'my_platform'
+        expect(platform.to_s).to eq 'my_platform'
       end
     end
 

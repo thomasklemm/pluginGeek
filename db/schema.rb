@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612085026) do
+ActiveRecord::Schema.define(version: 20140725162506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 20140612085026) do
   add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
   add_index "categorizations", ["repo_id"], name: "index_categorizations_on_repo_id", using: :btree
 
+  create_table "category_platforms", force: true do |t|
+    t.string  "platform_id"
+    t.integer "category_id"
+  end
+
+  add_index "category_platforms", ["category_id"], name: "index_category_platforms_on_category_id", using: :btree
+  add_index "category_platforms", ["platform_id", "category_id"], name: "index_category_platforms_on_platform_id_and_category_id", using: :btree
+  add_index "category_platforms", ["platform_id"], name: "index_category_platforms_on_platform_id", using: :btree
+
   create_table "category_relationships", force: true do |t|
     t.integer  "category_id"
     t.integer  "other_category_id"
@@ -76,17 +85,6 @@ ActiveRecord::Schema.define(version: 20140612085026) do
     t.datetime "updated_at",   null: false
     t.integer  "submitter_id"
   end
-
-  create_table "platform_categories", force: true do |t|
-    t.integer  "platform_id"
-    t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "platform_categories", ["category_id"], name: "index_platform_categories_on_category_id", using: :btree
-  add_index "platform_categories", ["platform_id", "category_id"], name: "index_platform_categories_on_platform_id_and_category_id", unique: true, using: :btree
-  add_index "platform_categories", ["platform_id"], name: "index_platform_categories_on_platform_id", using: :btree
 
   create_table "platforms", force: true do |t|
     t.text     "name",                         null: false

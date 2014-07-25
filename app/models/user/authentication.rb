@@ -1,4 +1,4 @@
-class Authentication < ActiveRecord::Base
+class User::Authentication < ActiveRecord::Base
   belongs_to :user
 
   validates :user,

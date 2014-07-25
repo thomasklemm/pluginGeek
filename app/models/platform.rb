@@ -1,17 +1,9 @@
 class Platform
   include ActiveModel::Model
+  include Platform::IdMethods
   include Platform::StaticMethods
 
-  attr_accessor :id, :name
-
-  def id
-    @id.to_s.parameterize('_')
-  end
-  alias_method :to_param, :id
-
-  def == other
-    id == other.id
-  end
+  attr_accessor :name
 
   def categories
     @categories ||= categories_scope

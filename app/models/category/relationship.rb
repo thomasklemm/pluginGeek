@@ -1,4 +1,4 @@
-class CategoryRelationship < ActiveRecord::Base
+class Category::Relationship < ActiveRecord::Base
   belongs_to :category
   belongs_to :other_category, class_name: 'Category'
 end
