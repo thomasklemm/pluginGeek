@@ -35,10 +35,6 @@ RSpec.configure do |config|
   config.order = 'random'
   config.use_transactional_fixtures = false
 
-  # Focus on specs with focus: true and :focus metadata
-  config.filter_run focus: true
-  config.run_all_when_everything_filtered = true
-
   # Devise test helpers in controllers
   config.include Devise::TestHelpers, type: :controller
 end

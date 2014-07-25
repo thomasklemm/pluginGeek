@@ -9,7 +9,6 @@ class Category < ActiveRecord::Base
   scope :order_by_score, -> { order(score: :desc) }
 
   has_many :platforms,
-    -> { order_by_position },
     through: :platform_categories
   has_many :platform_categories,
     dependent: :destroy

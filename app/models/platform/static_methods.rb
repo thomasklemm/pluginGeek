@@ -6,6 +6,8 @@ class Platform
       # Defines:
       #  Platform.ruby # => Ruby platform
       #  Platform.javascript # => JavaScript platform
+      #  ... and a few more class level accessors
+      #      to the specified platforms
       PLATFORMS.each do |platform_attributes|
         define_method platform_attributes[:id] do
           new(platform_attributes)
