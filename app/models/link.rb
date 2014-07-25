@@ -18,6 +18,7 @@ class Link < ActiveRecord::Base
     source: :linkable,
     source_type: 'Repo'
   has_many :link_relationships,
+    class_name: 'Link::Relationship',
     dependent: :destroy
 
   def assignable_categories

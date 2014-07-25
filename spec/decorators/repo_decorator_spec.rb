@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RepoDecorator do
   subject(:repo) do
-    repo = Fabricate.build(:repo)
+    repo = build(:repo)
     repo.decorate
   end
 
@@ -67,8 +67,8 @@ end
 
 
 # describe "#parents_and_children" do
-#   let(:parent)  { Fabricate.build(:repo) }
-#   let(:child)  { Fabricate.build(:repo) }
+#   let(:parent)  { build(:repo) }
+#   let(:child)  { build(:repo) }
 #
 #   before do
 #     repo.save

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CategoryDecorator do
   subject(:category) do
-    category = Fabricate.build(:category)
+    category = build(:category)
     category.decorate
   end
 
@@ -13,7 +13,7 @@ describe CategoryDecorator do
     end
 
     it "falls back to first repo's description if present" do
-      repo = Fabricate.build(:repo, description: 'repo description')
+      repo = build(:repo, description: 'repo description')
       category.repos = [repo]
       expect(category.description).to eq('repo description')
     end

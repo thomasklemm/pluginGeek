@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UserDecorator do
   subject(:user) do
-    user = Fabricate.build(:user)
+    user = build(:user)
     user.decorate
   end
 

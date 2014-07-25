@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  subject(:user) { Fabricate.build(:user) }
+  subject(:user) { build(:user) }
 
   describe 'validations' do
     before { user.save }
@@ -28,8 +28,14 @@ describe User do
     let(:omniauth) { OmniAuth.config.mock_auth[:github] }
 
     context "with an already existing user" do
-      let!(:existing_user)  { Fabricate(:user) }
-      let!(:authentication) { Fabricate(:authentication, user: existing_user, provider: :github, uid: 1100176) }
+      let!(:existing_user) { create(:user) }
+      let!(:authentication) do
+        create(:user_authentication, {
+          user: existing_user,
+          provider: :github,
+          uid: 1100176
+        })
+      end
       let(:user) { User.find_or_create_user_from_github(omniauth) }
 
       it "finds the user by the authentication" do
@@ -93,7 +99,7 @@ describe User do
       end
 
       it "creates the authentication" do
-        expect { user }.to change { Authentication.count }.by(1)
+        expect { user }.to change { User::Authentication.count }.by(1)
         expect(user.authentications).to be_present
         expect(user.authentications.first).to be_persisted
       end

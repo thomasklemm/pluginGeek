@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Repo do
-  subject(:repo) { Fabricate.build(:repo) }
+  subject(:repo) { build(:repo) }
 
   describe 'validations' do
     before { repo.save }
@@ -14,10 +14,10 @@ describe Repo do
     it { should have_many(:categorizations).dependent(:destroy) }
 
     it { should have_many(:parents).through(:parent_child_relationships) }
-    it { should have_many(:parent_child_relationships).class_name('RepoRelationship').dependent(:destroy) }
+    it { should have_many(:parent_child_relationships).dependent(:destroy) }
 
     it { should have_many(:children).through(:child_parent_relationships) }
-    it { should have_many(:child_parent_relationships).class_name('RepoRelationship').dependent(:destroy) }
+    it { should have_many(:child_parent_relationships).dependent(:destroy) }
 
     it { should have_many(:links).through(:link_relationships) }
     it { should have_many(:link_relationships).dependent(:destroy) }
@@ -25,18 +25,25 @@ describe Repo do
 
   describe ".find_by_owner_and_name" do
     it "finds repos by case-insensitive owner_and_name" do
-      rails = Fabricate(:repo, owner_and_name: 'rails/rails')
-      expect(Repo.find_by_owner_and_name('rails/rails')).to eq(rails)
+      rails = create(:repo, owner_and_name: 'rails/rails')
+
+      expect(
+        Repo.find_by_owner_and_name('rails/rails')
+      ).to eq(rails)
     end
 
     it "returns nil if no record is found" do
-      expect(Repo.find_by_owner_and_name('rails/rails')).to be_nil
+      expect(
+        Repo.find_by_owner_and_name('rails/rails')
+      ).to be_nil
     end
   end
 
   describe ".find_by_owner_and_name!" do
     it "raises an error if no record is found" do
-      expect{ Repo.find_by_owner_and_name!('rails/rails') }.to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        Repo.find_by_owner_and_name!('rails/rails')
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -67,7 +74,7 @@ describe Repo do
   describe "#to_param" do
     it "returns the owner_and_name" do
       repo.owner_and_name = 'thomasklemm/rails'
-      expect(repo.to_param).to eq('thomasklemm/rails')
+      expect(repo.to_param).to eq 'thomasklemm/rails'
     end
   end
 end

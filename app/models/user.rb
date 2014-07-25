@@ -12,7 +12,10 @@ class User < ActiveRecord::Base
 
   # Find or create user from Github omniauth
   def self.find_or_create_user_from_github(omniauth)
-    authentication = Authentication.find_by_provider_and_uid(omniauth.provider, omniauth.uid)
+    authentication = Authentication.find_by(
+      provider:omniauth.provider,
+      uid: omniauth.uid
+    )
 
     # See is user can be found through an existing authentication,
     # return the user instance if there is a match

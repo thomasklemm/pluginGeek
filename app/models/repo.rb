@@ -22,28 +22,30 @@ class Repo < ActiveRecord::Base
   has_many :categories,
     through: :categorizations
   has_many :categorizations,
+    class_name: 'Repo::Categorization',
     dependent: :destroy
 
   has_many :parents,
-    through:      :parent_child_relationships,
-    source:       :parent
+    through: :parent_child_relationships,
+    source: :parent
   has_many :parent_child_relationships,
-    class_name:   'RepoRelationship',
-    foreign_key:  :child_id,
-    dependent:    :destroy
+    class_name: 'Repo::Relationship',
+    foreign_key: :child_id,
+    dependent: :destroy
 
   has_many :children,
-    through:      :child_parent_relationships,
-    source:       :child
+    through: :child_parent_relationships,
+    source: :child
   has_many :child_parent_relationships,
-    class_name:   'RepoRelationship',
-    foreign_key:  :parent_id,
-    dependent:    :destroy
+    class_name: 'Repo::Relationship',
+    foreign_key: :parent_id,
+    dependent: :destroy
 
   has_many :links,
     -> { uniq },
     through: :link_relationships
   has_many :link_relationships,
+    class_name: 'Link::Relationship',
     as: :linkable,
     dependent: :destroy
 

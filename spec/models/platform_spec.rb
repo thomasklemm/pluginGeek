@@ -134,11 +134,15 @@ describe Platform do
 
     describe '#categories' do
       it 'returns the associated categories' do
-        match_a = create(:category, platform: ruby)
-        match_b = create(:category, platform: ruby)
-        no_match = create(:category, platform: javascript)
+        match_a = create(:category, platforms: [ruby])
+        match_b = create(:category, platforms: [ruby, javascript])
+        no_match = create(:category, platforms: [javascript])
 
         expect(ruby.categories).to match_array [match_a, match_b]
+      end
+
+      it 'returns an empty array when no categories are associated' do
+        expect(ruby.categories).to eq []
       end
     end
   end

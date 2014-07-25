@@ -204,7 +204,7 @@ describe ReposController, "POST #create" do
     context "with valid repo full_name" do
       before do
         VCR.use_cassette('github/repos/rails', record: :new_episodes) do
-          repo = Fabricate.build(:repo, full_name: 'rails/rails')
+          repo = build(:repo, full_name: 'rails/rails')
           Repo.expects(:new).returns(repo).twice
 
           post :create, owner: 'rails', name: 'rails'

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe RepoService do
-  let(:repo) { Fabricate.build(:repo) }
+  let(:repo) { build(:repo) }
   subject(:service) { RepoService.new(repo) }
 
   describe "#fetch_and_create_or_update" do

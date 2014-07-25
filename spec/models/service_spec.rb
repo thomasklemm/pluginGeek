@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Service do
-  subject(:service) { Fabricate.build(:service) }
+  subject(:service) { build(:service) }
 
   describe 'validations' do
+    before { service.save }
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:display_url) }
     it { should validate_presence_of(:target_url) }
@@ -16,12 +17,12 @@ describe Service do
   end
 
   describe ".for_category" do
-    let!(:category) { Fabricate(:category) }
-    let!(:service) { Fabricate(:service, categories: [category]) }
+    let!(:category) { create(:category) }
+    let!(:service) { create(:service, categories: [category]) }
 
     it "returns the category's services" do
       # Other service
-      Fabricate(:service)
+      create(:service)
 
       services = Service.for_category(category)
       expect(services).to eq([service])

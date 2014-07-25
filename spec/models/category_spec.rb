@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Category do
-  subject(:category) { Fabricate.build(:category) }
+  subject(:category) { build(:category) }
 
   describe 'validations' do
+    before { category.save }
     it { should validate_presence_of(:name) }
     it { should ensure_length_of(:description).is_at_most(240) }
   end

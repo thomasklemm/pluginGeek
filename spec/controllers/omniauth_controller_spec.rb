@@ -52,7 +52,7 @@ describe OmniauthController, "#github" do
 
   context "user creation fails" do
     before do
-      user = Fabricate.build(:user)
+      user = build(:user)
       User.expects(:find_or_create_user_from_github).returns(user)
 
       get :github
