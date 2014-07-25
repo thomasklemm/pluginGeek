@@ -67,20 +67,9 @@ class CategoriesController < ApplicationController
 
   def categories_scope
     scope = current_platform.categories
-    scope = scope.includes(:platforms, :repos)
+    scope = scope.includes(:repos)
     scope = scope.order_by_name
     scope.page params[:page]
-  end
-
-  # Transforms aliases into known platform slugs
-  def platform_slug
-    slug = params[:platform_slug].to_s
-    slug = slug.strip.downcase
-
-    slug = nil if slug.blank? || slug == 'all'
-    slug = 'javascript' if slug == 'js'
-
-    slug
   end
 
   def redirect_to_updated_category_path

@@ -42,9 +42,19 @@ class ApplicationController < ActionController::Base
   helper_method :moderator?
 
   def current_platform
-    @current_platform ||= Platform.current(params[:platform_slug]).decorate
+    @current_platform ||= Platform.current(platform_id)
   end
   helper_method :current_platform
+
+  def platform_id
+    platform_id = params[:platform_id].to_s
+    platform_id = platform_id.strip.downcase
+
+    platform_id = 'javascript' if platform_id == 'js'
+    platform_id = 'global' if platform_id.blank?
+
+    platform_id
+  end
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.

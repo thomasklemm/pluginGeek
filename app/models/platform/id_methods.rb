@@ -1,4 +1,5 @@
 class Platform
+  class MissingIdError < StandardError; end
 
   module IdMethods
 

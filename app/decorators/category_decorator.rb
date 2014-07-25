@@ -18,16 +18,11 @@ class CategoryDecorator < Draper::Decorator
   # Platforms
 
   def main_platform
-    @main_platform ||= begin
-      platform = platforms.sort_by(&:position).first || Platform.all_platforms
-      platform.decorate
-    end
+    @main_platform ||= (platforms.first || Platform.global).decorate
   end
 
   def platform_names
-    @platform_names ||= begin
-      platforms.sort_by(&:position).map(&:name)
-    end
+    @platform_names ||= platforms.map(&:name)
   end
 
   def formatted_platform_names

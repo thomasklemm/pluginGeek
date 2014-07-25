@@ -19,6 +19,7 @@ class Platform
       end
 
       def find(id)
+        raise MissingIdError unless id
         send(id)
       end
 
