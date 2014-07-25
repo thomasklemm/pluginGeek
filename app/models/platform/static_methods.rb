@@ -22,6 +22,10 @@ class Platform
         send(id)
       end
 
+      def find_all(*ids)
+        ids.flatten.map(&method(:find))
+      end
+
       def current(id)
         Platform::Global.global_id?(id) ? global : find(id)
       end

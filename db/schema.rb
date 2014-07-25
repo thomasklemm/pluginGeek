@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725162506) do
+ActiveRecord::Schema.define(version: 20140725183131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,16 +27,18 @@ ActiveRecord::Schema.define(version: 20140725162506) do
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
-    t.integer  "score",       default: 0
+    t.integer  "score",        default: 0
     t.text     "description"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.text     "name",                        null: false
-    t.integer  "stars",       default: 0
-    t.boolean  "published",   default: false
-    t.integer  "repos_count", default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "name",                         null: false
+    t.integer  "stars",        default: 0
+    t.boolean  "published",    default: false
+    t.integer  "repos_count",  default: 0
+    t.string   "platform_ids", default: [],                 array: true
   end
 
+  add_index "categories", ["platform_ids"], name: "index_categories_on_platform_ids", using: :gin
   add_index "categories", ["repos_count"], name: "index_categories_on_repos_count", using: :btree
   add_index "categories", ["score"], name: "index_categories_on_score", using: :btree
 

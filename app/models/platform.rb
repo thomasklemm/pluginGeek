@@ -16,6 +16,6 @@ class Platform
   private
 
   def categories_scope
-    @categories_scope ||= Category.where(platform_id: id.to_s)
+    @categories_scope ||= Category.where("? = ANY(platform_ids)", id)
   end
 end

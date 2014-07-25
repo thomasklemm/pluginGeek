@@ -6,23 +6,10 @@ describe Category do
 
   describe 'validations' do
     it { should validate_presence_of(:name) }
-    it { should ensure_length_of(:description).is_at_most(360) }
-
-    it 'should ensure that at least one platform is associated' do
-      category.platforms = Array(Fabricate(:platform))
-      category.platforms.clear
-
-      expect(category.save).to be false
-
-      expect(category).to have(1).error_on(:platform_ids)
-      expect(category.errors.get(:platform_ids)).to eq ['^Please select at least one platform']
-    end
+    it { should ensure_length_of(:description).is_at_most(240) }
   end
 
   describe 'associations' do
-    it { should have_many(:platforms).through(:platform_categories) }
-    it { should have_many(:platform_categories).dependent(:destroy) }
-
     it { should have_many(:repos).through(:categorizations) }
     it { should have_many(:categorizations).dependent(:destroy) }
 
@@ -37,5 +24,37 @@ describe Category do
 
     it { should have_many(:services).through(:service_categorizations) }
     it { should have_many(:service_categorizations).dependent(:destroy) }
+  end
+
+  describe 'platform associations' do
+    let(:ruby) { platform_for(:ruby) }
+    let(:javascript) { platform_for(:javascript) }
+
+    describe '#platforms' do
+      it 'returns the associated platforms' do
+        category.platform_ids = ['ruby', 'javascript']
+        expect(category.platforms).to eq [ruby, javascript]
+      end
+    end
+
+    describe '#platforms=' do
+      it 'sets the given platforms' do
+        category.platforms = [ruby]
+        expect(category.platforms).to eq [ruby]
+
+        category.platforms = [ruby, javascript]
+        expect(category.platforms).to eq [ruby, javascript]
+      end
+    end
+
+    describe '#platform_ids=' do
+      it 'set the given platform_ids and platforms' do
+        category.platform_ids = ['ruby']
+        expect(category.platforms).to eq [ruby]
+
+        category.platform_ids = ['ruby', 'javascript']
+        expect(category.platforms).to eq [ruby, javascript]
+      end
+    end
   end
 end

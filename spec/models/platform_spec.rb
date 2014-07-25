@@ -56,6 +56,26 @@ describe Platform do
       end
     end
 
+    describe '.find_all' do
+      it 'returns the platforms, given multiple platform ids' do
+        expect(
+          described_class.find_all(:javascript, 'ruby')
+        ).to eq [javascript, ruby]
+      end
+
+      it 'returns the platforms, given an array of platform ids' do
+        expect(
+          described_class.find_all([:javascript, 'ruby'])
+        ).to eq [javascript, ruby]
+      end
+
+      it 'returns the platform, given a single platform id' do
+        expect(
+          described_class.find_all('ruby')
+        ).to eq [ruby]
+      end
+    end
+
     describe '.current' do
       it 'returns the current platform, given a platform id' do
         expect(described_class.current(:ruby)).to eq ruby
