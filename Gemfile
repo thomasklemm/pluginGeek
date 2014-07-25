@@ -101,18 +101,14 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 
   # Faster spec startup times
-  #  Run: spring rspec
-  #       spring rspec spec/models/repo_spec.rb
+  #  Run: - spring rspec
+  #       - spring rspec spec/models/repo_spec.rb
   gem 'spring-commands-rspec'
 end
 
 group :test do
   # Cleans your test database
   gem 'database_cleaner'
-
-  # Fabricate objects instead of using fixtures
-  #  Great also for generating seed data
-  # gem 'fabrication'
 
   # Useful RSpec matchers
   gem 'shoulda-matchers', require: false
