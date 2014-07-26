@@ -26,6 +26,18 @@ describe Platform do
       end
     end
 
+    describe '.ios' do
+      it 'returns the HTML/CSS platform' do
+        expect(described_class.ios).to eq platform_for(:ios)
+      end
+    end
+
+    describe '.android' do
+      it 'returns the HTML/CSS platform' do
+        expect(described_class.android).to eq platform_for(:android)
+      end
+    end
+
     describe '.global' do
       it 'returns the global platform' do
         expect(described_class.global).to eq global
@@ -41,7 +53,9 @@ describe Platform do
         expect(described_class.all).to eq [
           platform_for(:ruby),
           platform_for(:javascript),
-          platform_for(:html_css)
+          platform_for(:html_css),
+          platform_for(:ios),
+          platform_for(:android)
         ]
       end
     end

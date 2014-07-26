@@ -5,5 +5,6 @@ FactoryGirl.define do
 
   factory :category do
     name { generate(:category_name) }
+    platform_ids ['ruby']
   end
 end
