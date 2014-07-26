@@ -9,20 +9,21 @@ class OmniauthController < Devise::OmniauthCallbacksController
     if @user.persisted?
       # Authentication succeeded
       @user.remember_me!
-      flash.notice = "Login successful. Hi, #{@user.login}."
+      flash.notice = "Hi, #{@user.login}. How are you?"
       sign_in_and_redirect @user
     else
       # Authentication failed
-      flash.alert = "Github login failed. Please try again."
+      flash.alert = 'Authenticating with Github failed. ' \
+        'Will you try again? '
       redirect_to root_url
     end
   end
 
   # User clicked deny on authorization screen with Github
   def failure
-    flash.alert = "That didn't work. Will you try again?
-                   We only require you to identify yourself,
-                   no special permissions (not even for reading your email) asked."
+    flash.alert = 'Authenticating with Github failed. ' \
+      'Will you try again? ' \
+      'For you to contribute, we need to know who you are. '
     redirect_to root_path
   end
 
