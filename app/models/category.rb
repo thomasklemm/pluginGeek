@@ -1,5 +1,9 @@
 class Category < ActiveRecord::Base
   validates :name, presence: true
+  validates :platform_ids, length: {
+    minimum: 1,
+    message: '^Please select at least one platform'
+  }
   validates :description, length: { maximum: 240 }
 
   scope :default_order, -> { order_by_score }
@@ -17,8 +21,8 @@ class Category < ActiveRecord::Base
   end
 
   def platform_ids=(new_ids)
-    super
     @platforms = Platform.find_all(new_ids)
+    super
   end
 
   has_many :repos,
@@ -66,17 +70,14 @@ class Category < ActiveRecord::Base
     self[:score] || 0
   end
 
-  def slug
-    @slug ||= generate_slug
-  end
-
   def stars
     self[:stars] || 0
   end
 
-  def to_param
-    slug
+  def slug
+    @slug ||= generate_slug
   end
+  alias_method :to_param, :slug
 
   private
 

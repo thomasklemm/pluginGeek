@@ -7,6 +7,18 @@ describe Category do
     before { category.save }
     it { should validate_presence_of(:name) }
     it { should ensure_length_of(:description).is_at_most(240) }
+
+    it 'requires a platform to be set' do
+      category.platform_ids = []
+      expect(category).not_to be_valid
+
+      error_message = category.errors[:platform_ids].first
+      expect(error_message).to be_present
+      expect(error_message).to match /Please select at least one platform/
+
+      category.platform_ids = ['ruby']
+      expect(category).to be_valid
+    end
   end
 
   describe 'associations' do

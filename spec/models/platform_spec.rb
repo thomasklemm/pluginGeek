@@ -98,7 +98,6 @@ describe Platform do
         expect(described_class.current(:global)).to eq global
       end
     end
-
   end
 
   describe 'instance methods' do

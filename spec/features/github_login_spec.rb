@@ -27,4 +27,6 @@ feature 'Github login' do
       expect(page).not_to have_content(/Logout/)
     end
   end
+
+  it 'redirects a user to the last stored location'
 end

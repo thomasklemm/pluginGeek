@@ -1,12 +1,10 @@
 class CategoryDecorator < Draper::Decorator
   delegate_all
 
-  ##
   # Attributes
-
   def description
     model.description.presence ||
-      main_repo.description.presence if main_repo ||
+      main_repo.andand.description.presence ||
       h.nbsp
   end
 
@@ -14,24 +12,22 @@ class CategoryDecorator < Draper::Decorator
     h.number_with_delimiter(model.stars)
   end
 
-  ##
   # Platforms
-
-  def main_platform
-    @main_platform ||= (platforms.first || Platform.global).decorate
-  end
-
   def platform_names
     @platform_names ||= platforms.map(&:name)
   end
 
   def formatted_platform_names
-    platform_names.join(' & ')
+    platform_names.to_sentence
   end
 
-  ##
-  # Repos
+  # Main platform
+  def main_platform
+    return unless platform_ids.present?
+    @main_platform ||= Platform.find(platform_ids.first).decorate
+  end
 
+  # Repos
   def repos
     @repos ||= model.repos.sort_by(&:score).reverse.map(&:decorate)
   end
