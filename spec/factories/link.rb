@@ -6,5 +6,6 @@ FactoryGirl.define do
   factory :link do
     title "A post"
     url { generate(:link_url) }
+    association :submitter, factory: :user
   end
 end
