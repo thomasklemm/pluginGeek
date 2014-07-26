@@ -6,7 +6,9 @@ ruby:
   = link_to category do
     .c__name
       / Icon for the main platform
-      = image_tag(category.main_platform.platform_icon_path, class: 'c__platform_icon is_platform')
+      /= image_tag(category.main_platform.platform_icon_path, class: 'c__platform_icon is_platform')
+
+      span class="c__platform_icon devicons devicons-#{category.main_platform.icon_class}"
       = category.name
     .c__stars = icon :star, category.stars, title: 'Stars on GitHub'
     .c__repos_count = icon :repo, category.repos_count, title: 'Tools in this category'

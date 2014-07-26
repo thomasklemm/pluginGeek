@@ -11,7 +11,7 @@ class Platform::Global
   end
 
   def name
-    'Global'
+    'All'
   end
 
   def global?

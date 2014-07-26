@@ -1,0 +1,12 @@
+ruby:
+  nav_items = Platform.for_navigation.map(&:decorate)
+  nav_item_paths = nav_items.map(&:platform_path)
+  active_nav_item_path = nav_item_paths.detect { |path| path == current_path } || root_path
+
+.page_nav
+  - nav_items.each do |item|
+
+    = link_to item.platform_path, class: "page_nav_tab #{item.id} #{ 'is_active' if item.platform_path == active_nav_item_path }" do
+      /= image_tag item.platform_icon_path, class: 'platform_icon'
+      span class="platform_icon devicons devicons-#{item.icon_class}"
+      span.platform_name = item.name

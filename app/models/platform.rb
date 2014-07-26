@@ -4,7 +4,7 @@ class Platform
   include Platform::StaticMethods
   include Platform::Decoratable
 
-  attr_accessor :name
+  attr_accessor :name, :icon_class
 
   def categories
     @categories ||= categories_scope

@@ -1,36 +1,60 @@
 .page_nav
-  width: 960px
-  background: #333
-  overflow: visible
-  height: 50px
-  line-height: 50px
-  position: absolute
-  top: 0
-  margin-bottom: 0
 
-a.page_nav_tab
-  text-align: center
-  display: inline-block
-  width: 25%
-  color: $white
-  position: relative
-  &:not(:last-of-type)
-    border-right: 1px solid #444
-
-  &:hover
-    background: #222
+.page_nav_tab
+  display: block
+  line-height: 32px
 
   &.is_active
-    font-weight: 600
-    background: #008CBA
+    .platform_name
+      font-weight: bold
 
-    &:hover
-      background: #007ba0
+.platform_name
 
-  .platform_icon
-    height: 22px
-    margin: auto 0
-    position: absolute
-    top: 0
-    bottom: 0
-    left: 24px
+
+.platform_icon
+  font-size: 21px
+  margin-right: 3px
+  vertical-align: middle
+  position: relative
+  top: -2px
+
+  &.devicons-apple
+    top: -3px
+
+
+//.page_nav
+//  width: 960px
+//  background: #333
+//  overflow: visible
+//  height: 50px
+//  line-height: 50px
+//  position: absolute
+//  top: 0
+//  margin-bottom: 0
+//
+//a.page_nav_tab
+//  text-align: center
+//  display: inline-block
+//  width: 25%
+//  color: $white
+//  position: relative
+//  &:not(:last-of-type)
+//    border-right: 1px solid #444
+//
+//  &:hover
+//    background: #222
+//
+//  &.is_active
+//    font-weight: 600
+//    background: #008CBA
+//
+//    &:hover
+//      background: #007ba0
+//
+//  .platform_icon
+//    height: 22px
+//    margin: auto 0
+//    position: absolute
+//    top: 0
+//    bottom: 0
+//    left: 24px
