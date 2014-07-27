@@ -27,11 +27,8 @@ module Plugingeek
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    # TODO: Some paths can be removed here
-    config.autoload_paths += Dir["#{config.root}/app/models/**/",
-                                 "#{config.root}/app/decorators/",
-                                 "#{config.root}/lib",
-                                 "#{config.root}/lib/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/**/*/",
+                                 "#{config.root}/lib/**/*"]
 
     # Default timezone
     config.active_record.default_timezone = :utc
@@ -58,8 +55,5 @@ module Plugingeek
       g.view_specs false
       g.assets false # Rails 4
     end
-
-    # Skip deprecation warning, might not be nescessary with Rails 4.1+
-    I18n.config.enforce_available_locales = true
   end
 end
