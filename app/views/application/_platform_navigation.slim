@@ -3,6 +3,9 @@ ruby:
   nav_item_paths = nav_items.map(&:platform_path)
   active_nav_item_path = nav_item_paths.detect { |path| path == current_path } || root_path
 
+= link_to root_path do
+  = brand_wordmark
+
 .page_nav
   - nav_items.each do |item|
 
@@ -10,3 +13,7 @@ ruby:
       /= image_tag item.platform_icon_path, class: 'platform_icon'
       span class="platform_icon devicons devicons-#{item.icon_class}"
       span.platform_name = item.name
+
+p style='width: 140px; font-size: 13px; background: #eee; padding: 12px 15px; border-radius: 4px; margin-top: 18px; color: #444'
+  ' <b>#hackrtools</b> is a curated list
+  ' of awesome <b>web development tools</b>.

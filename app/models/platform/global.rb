@@ -11,7 +11,7 @@ class Platform::Global
   end
 
   def name
-    'All'
+    'All Platforms'
   end
 
   def global?
