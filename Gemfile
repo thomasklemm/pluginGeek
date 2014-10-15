@@ -34,7 +34,7 @@ gem 'jquery-rails'
 gem 'slim-rails'
 
 # Friendly Id (Human-Readable IDs for ActiveRecord Models)
-gem 'friendly_id', github: 'norman/friendly_id'
+gem 'friendly_id'
 
 # HTTPClient (MT-Safe HTTP Client)
 gem 'httpclient'
@@ -90,8 +90,8 @@ gem 'peek-dalli'
 gem 'bourbon'
 gem 'neat'
 
-# Use debugger
-gem 'debugger', group: [:development, :test]
+# Useful debugger
+gem 'byebug', group: [:development, :test]
 
 # Pry Console
 gem 'pry'
@@ -128,14 +128,14 @@ group :development, :test do
 end
 
 group :test do
-  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'dp-rails-four'
+  gem 'shoulda-matchers'
   gem 'fabrication'
   gem 'database_cleaner'
   gem 'mocha'
   # gem 'bourne', require: false
   gem 'timecop'
-  gem 'simplecov', require: false
-  gem 'coveralls', require: false
+  # gem 'simplecov', require: false
+  # gem 'coveralls', require: false
   gem 'capybara-webkit'
   gem 'launchy'
   gem 'webmock'
